@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "module": "CommonJS",
+        "target": "ES2022",
+        "moduleResolution": "Node10",
+        "esModuleInterop": true,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "resolveJsonModule": true,
+        "outDir": "tmp",
+        "baseUrl": ".",
+        "paths": {
+            "@spt-aki/*": ["./types/*"]
+        }
+    },
+    "include": [
+        "src/*",
+        "src/**/*"
+    ]
+}

@@ -1,0 +1,86 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/no-unused-vars": 1,
+        "@typescript-eslint/no-empty-interface": 0,
+        "@typescript-eslint/no-namespace": 0,
+        "@typescript-eslint/comma-dangle": 1,
+        "@typescript-eslint/func-call-spacing": 2,
+        "@typescript-eslint/quotes": 1,
+        "@typescript-eslint/brace-style": [
+            "warn",
+            "1tbs"
+        ],
+        "@typescript-eslint/naming-convention": [
+            "warn",
+            {
+                "selector": "default",
+                "format": ["camelCase"],
+                "leadingUnderscore": "allow"
+            },
+            {
+                "selector": "typeLike",
+                "format": ["PascalCase"]
+            },
+            {
+                "selector": "objectLiteralProperty",
+                "format": ["PascalCase", "camelCase"],
+                "leadingUnderscore": "allow"
+            },
+            {
+                "selector": "typeProperty",
+                "format": ["PascalCase", "camelCase"],
+                "leadingUnderscore": "allow"
+            },
+            {
+                "selector": "enumMember",
+                "format": ["UPPER_CASE"]
+            }
+        ],
+        "@typescript-eslint/indent": [
+            "warn",
+            4
+        ],
+        "@typescript-eslint/no-unused-expressions": [
+            "warn",
+            {
+                "allowShortCircuit": false,
+                "allowTernary": false
+            }
+        ],
+        "@typescript-eslint/keyword-spacing": [
+            "warn",
+            {
+                "before": true,
+                "after": true
+            }
+        ],
+        "@typescript-eslint/explicit-module-boundary-types": [
+            "warn",
+            {
+                "allowArgumentsExplicitlyTypedAsAny": true
+            }
+        ]
+    },
+    "overrides": [
+        {
+            "files": [
+                "*.mjs",
+                "*.ts"
+            ],
+            "env": {
+                "node": true
+            }
+        }
+    ]
+}
