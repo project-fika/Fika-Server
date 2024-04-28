@@ -4,7 +4,9 @@
 			"path": "."
 		}
 	],
-	"settings": {},
+	"settings": {
+		"window.title": "Fika Server"
+	},
 	"extensions": {
 		"recommendations": [
 			"dbaeumer.vscode-eslint"
