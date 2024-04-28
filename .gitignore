@@ -3,3 +3,8 @@ tmp/
 dist/
 package-lock.json
 pnpm-lock.yaml
+/.idea
+/.vscode
+/node_modules
+/package-lock.json
+/dist
