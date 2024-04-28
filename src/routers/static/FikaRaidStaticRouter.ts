@@ -17,31 +17,31 @@ export class FikaRaidStaticRouter extends StaticRouter {
         super([
             new RouteAction(
                 "/fika/raid/create",
-                (url: string, info: IFikaRaidCreateRequestData, sessionID: string, output: string): string => {
+                async (url: string, info: IFikaRaidCreateRequestData, sessionID: string, output: string): Promise<string> => {
                     return this.fikaRaidCallbacks.handleRaidCreate(url, info, sessionID);
                 }
             ),
             new RouteAction(
                 "/fika/raid/join",
-                (url: string, info: IFikaRaidJoinRequestData, sessionID: string, output: string): string => {
+                async (url: string, info: IFikaRaidJoinRequestData, sessionID: string, output: string): Promise<string> => {
                     return this.fikaRaidCallbacks.handleRaidJoin(url, info, sessionID);
                 }
             ),
             new RouteAction(
                 "/fika/raid/leave",
-                (url: string, info: IFikaRaidLeaveRequestData, sessionID: string, output: string): INullResponseData => {
+                async (url: string, info: IFikaRaidLeaveRequestData, sessionID: string, output: string): Promise<INullResponseData> => {
                     return this.fikaRaidCallbacks.handleRaidLeave(url, info, sessionID);
                 }
             ),
             new RouteAction(
                 "/fika/raid/gethost",
-                (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, output: string): string => {
+                async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, output: string): Promise<string> => {
                     return this.fikaRaidCallbacks.handleRaidGethost(url, info, sessionID);
                 }
             ),
             new RouteAction(
                 "/fika/raid/spawnpoint",
-                (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, output: string): string => {
+                async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, output: string): Promise<string> => {
                     return this.fikaRaidCallbacks.handleRaidSpawnpoint(url, info, sessionID);
                 }
             )

@@ -13,7 +13,7 @@ export class FikaLocationStaticRouter extends StaticRouter {
         super([
             new RouteAction(
                 "/fika/location/raids",
-                (url: string, info: IGetRaidConfigurationRequestData, sessionID: string, output: string): string => {
+                async (url: string, info: IGetRaidConfigurationRequestData, sessionID: string, output: string): Promise<string> => {
                     return this.fikaLocationCallbacks.handleGetRaids(url, info, sessionID);
                 }
             )

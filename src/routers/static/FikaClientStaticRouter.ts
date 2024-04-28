@@ -13,7 +13,7 @@ export class FikaClientStaticRouter extends StaticRouter {
         super([
             new RouteAction(
                 "/fika/client/config",
-                (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, output: string): string => {
+                async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, output: string): Promise<string> => {
                     return this.fikaClientCallbacks.handleClientConfig(url, info, sessionID);
                 }
             )

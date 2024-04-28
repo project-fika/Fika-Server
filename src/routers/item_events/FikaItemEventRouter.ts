@@ -20,7 +20,7 @@ export class FikaItemEventRouter extends ItemEventRouterDefinition {
         ];
     }
 
-    public handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string): IItemEventRouterResponse {
+    public override async handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string): Promise<IItemEventRouterResponse> {
         switch (url) {
             case "SendToPlayer":
                 return this.fikaSendItemCallbacks.handleSendItem(pmcData, body, sessionID);

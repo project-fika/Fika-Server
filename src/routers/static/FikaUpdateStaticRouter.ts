@@ -18,32 +18,32 @@ export class FikaUpdateStaticRouter extends StaticRouter {
         super([
             new RouteAction(
                 "/fika/update/ping",
-                (url: string, info: IFikaUpdatePingRequestData, sessionID: string, output: string): INullResponseData => {
+                async (url: string, info: IFikaUpdatePingRequestData, sessionID: string, output: string): Promise<INullResponseData> => {
                     return this.fikaUpdateCallbacks.handlePing(url, info, sessionID);
                 }
             ),
             new RouteAction(
                 "/fika/update/spawnpoint",
-                (url: string, info: IFikaUpdateSpawnpointRequestData, sessionID: string, output: string): INullResponseData => {
+                async (url: string, info: IFikaUpdateSpawnpointRequestData, sessionID: string, output: string): Promise<INullResponseData> => {
                     return this.fikaUpdateCallbacks.handleSpawnpoint(url, info, sessionID);
                 }
             ),
             new RouteAction(
                 "/fika/update/playerspawn",
-                (url: string, info: IFikaUpdatePlayerspawnRequestData, sessionID: string, output: string): INullResponseData => {
+                async (url: string, info: IFikaUpdatePlayerspawnRequestData, sessionID: string, output: string): Promise<INullResponseData> => {
                     return this.fikaUpdateCallbacks.handlePlayerspawn(url, info, sessionID);
                 }
             ),
             new RouteAction(
                 "/fika/update/sethost",
-                (url: string, info: IFikaUpdateSethostRequestData, sessionID: string, output: string): INullResponseData => {
+                async (url: string, info: IFikaUpdateSethostRequestData, sessionID: string, output: string): Promise<INullResponseData> => {
                     return this.fikaUpdateCallbacks.handleSethost(url, info, sessionID);
                 }
             )
             ,
             new RouteAction(
                 "/fika/update/setstatus",
-                (url: string, info: IFikaUpdateSetStatusRequestData, sessionID: string, output: string): INullResponseData => {
+                async (url: string, info: IFikaUpdateSetStatusRequestData, sessionID: string, output: string): Promise<INullResponseData> => {
                     return this.fikaUpdateCallbacks.handleSetStatus(url, info, sessionID);
                 }
             )

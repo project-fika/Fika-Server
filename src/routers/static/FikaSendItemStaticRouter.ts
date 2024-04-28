@@ -13,7 +13,7 @@ export class FikaSendItemStaticRouter extends StaticRouter {
         super([
             new RouteAction(
                 "/fika/senditem/availablereceivers",
-                (url: string, info: IFikaSenditemAvailablereceiversRequestData, sessionID: string, output: string): string => {
+                async (url: string, info: IFikaSenditemAvailablereceiversRequestData, sessionID: string, output: string): Promise<string> => {
                     return this.fikaSendItemCallbacks.handleAvailableReceivers(url, info, sessionID);
                 }
             )
