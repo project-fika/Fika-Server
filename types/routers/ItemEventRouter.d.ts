@@ -19,5 +19,5 @@ export declare class ItemEventRouter {
      * @param sessionID Session id
      * @returns Item response
      */
-    handleEvents(info: IItemEventRouterRequest, sessionID: string): IItemEventRouterResponse;
+    handleEvents(info: IItemEventRouterRequest, sessionID: string): Promise<IItemEventRouterResponse>;
 }

@@ -109,6 +109,9 @@ export interface GenerationWeightingItems {
     grenades: GenerationData;
     healing: GenerationData;
     drugs: GenerationData;
+    food: GenerationData;
+    drink: GenerationData;
+    currency: GenerationData;
     stims: GenerationData;
     backpackLoot: GenerationData;
     pocketLoot: GenerationData;

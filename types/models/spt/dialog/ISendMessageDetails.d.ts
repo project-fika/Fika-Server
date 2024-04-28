@@ -30,7 +30,15 @@ export interface ISendMessageDetails {
 }
 export interface IProfileChangeEvent {
     _id: string;
-    Type: "TraderSalesSum" | "TraderStanding" | "ProfileLevel" | "SkillPoints" | "ExamineAllItems" | "UnlockTrader";
+    Type: ProfileChangeEventType;
     value: number;
     entity?: string;
+}
+export declare enum ProfileChangeEventType {
+    TRADER_SALES_SUM = "TraderSalesSum",
+    TRADER_STANDING = "TraderStanding",
+    PROFILE_LEVEL = "ProfileLevel",
+    SKILL_POINTS = "SkillPoints",
+    EXAMINE_ALL_ITEMS = "ExamineAllItems",
+    UNLOCK_TRADER = "UnlockTrader"
 }

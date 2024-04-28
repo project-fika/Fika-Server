@@ -60,7 +60,7 @@ export declare class PaymentService {
      */
     addPaymentToOutput(pmcData: IPmcData, currencyTpl: string, amountToPay: number, sessionID: string, output: IItemEventRouterResponse): void;
     /**
-     * Get all money stacks in inventory and prioritse items in stash
+     * Get all money stacks in inventory and prioritise items in stash
      * @param pmcData
      * @param currencyTpl
      * @param playerStashId Players stash id

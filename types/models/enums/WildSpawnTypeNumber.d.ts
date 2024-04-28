@@ -45,6 +45,10 @@ export declare enum WildSpawnTypeNumber {
     FOLLOWERKOLONTAYASSAULT = 44,
     FOLLOWERKOLONTAYSECURITY = 45,
     SHOOTERBTR = 46,
-    SPTUSEC = 47,
-    SPTBEAR = 48
+    SPIRITWINTER = 47,
+    SPIRITSPRING = 48,
+    PMCBEAR = 49,
+    PMCUSEC = 50,
+    SPTUSEC = 51,
+    SPTBEAR = 52
 }

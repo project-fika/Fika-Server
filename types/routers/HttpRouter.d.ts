@@ -6,8 +6,8 @@ export declare class HttpRouter {
     protected dynamicRoutes: DynamicRouter[];
     constructor(staticRouters: StaticRouter[], dynamicRoutes: DynamicRouter[]);
     protected groupBy<T>(list: T[], keyGetter: (t: T) => string): Map<string, T[]>;
-    getResponse(req: IncomingMessage, info: any, sessionID: string): string;
-    protected handleRoute(url: string, info: any, sessionID: string, wrapper: ResponseWrapper, routers: Router[], dynamic: boolean): boolean;
+    getResponse(req: IncomingMessage, info: any, sessionID: string): Promise<string>;
+    protected handleRoute(url: string, info: any, sessionID: string, wrapper: ResponseWrapper, routers: Router[], dynamic: boolean): Promise<boolean>;
 }
 declare class ResponseWrapper {
     output: string;

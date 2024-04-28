@@ -2,6 +2,7 @@ import { BotHelper } from "@spt-aki/helpers/BotHelper";
 import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
 import { IConfig } from "@spt-aki/models/eft/common/IGlobals";
 import { Inventory } from "@spt-aki/models/eft/common/tables/IBotType";
+import { Season } from "@spt-aki/models/enums/Season";
 import { SeasonalEventType } from "@spt-aki/models/enums/SeasonalEventType";
 import { IHttpConfig } from "@spt-aki/models/spt/config/IHttpConfig";
 import { IQuestConfig } from "@spt-aki/models/spt/config/IQuestConfig";
@@ -102,6 +103,7 @@ export declare class SeasonalEventService {
      */
     enableSeasonalEvents(sessionId: string): void;
     protected cacheActiveEvents(): void;
+    getActiveWeatherSeason(): Season;
     /**
      * Iterate through bots inventory and loot to find and remove christmas items (as defined in SeasonalEventService)
      * @param botInventory Bots inventory to iterate over

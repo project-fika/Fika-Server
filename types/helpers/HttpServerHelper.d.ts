@@ -17,7 +17,7 @@ export declare class HttpServerHelper {
     constructor(configServer: ConfigServer);
     getMimeText(key: string): string;
     /**
-     * Combine ip and port into url
+     * Combine ip and port into address
      * @returns url
      */
     buildUrl(): string;

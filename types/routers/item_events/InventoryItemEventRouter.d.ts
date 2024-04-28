@@ -8,5 +8,5 @@ export declare class InventoryItemEventRouter extends ItemEventRouterDefinition 
     protected hideoutCallbacks: HideoutCallbacks;
     constructor(inventoryCallbacks: InventoryCallbacks, hideoutCallbacks: HideoutCallbacks);
     getHandledRoutes(): HandledRoute[];
-    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string, output: IItemEventRouterResponse): IItemEventRouterResponse;
+    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string, output: IItemEventRouterResponse): Promise<IItemEventRouterResponse>;
 }

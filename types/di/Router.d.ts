@@ -11,17 +11,17 @@ export declare class Router {
 export declare class StaticRouter extends Router {
     private routes;
     constructor(routes: RouteAction[]);
-    handleStatic(url: string, info: any, sessionID: string, output: string): any;
+    handleStatic(url: string, info: any, sessionID: string, output: string): Promise<any>;
     getHandledRoutes(): HandledRoute[];
 }
 export declare class DynamicRouter extends Router {
     private routes;
     constructor(routes: RouteAction[]);
-    handleDynamic(url: string, info: any, sessionID: string, output: string): any;
+    handleDynamic(url: string, info: any, sessionID: string, output: string): Promise<any>;
     getHandledRoutes(): HandledRoute[];
 }
 export declare class ItemEventRouterDefinition extends Router {
-    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string, output: IItemEventRouterResponse): void;
+    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string, output: IItemEventRouterResponse): Promise<any>;
 }
 export declare class SaveLoadRouter extends Router {
     handleLoad(profile: IAkiProfile): IAkiProfile;
@@ -33,6 +33,6 @@ export declare class HandledRoute {
 }
 export declare class RouteAction {
     url: string;
-    action: (url: string, info: any, sessionID: string, output: string) => any;
-    constructor(url: string, action: (url: string, info: any, sessionID: string, output: string) => any);
+    action: (url: string, info: any, sessionID: string, output: string) => Promise<any>;
+    constructor(url: string, action: (url: string, info: any, sessionID: string, output: string) => Promise<any>);
 }

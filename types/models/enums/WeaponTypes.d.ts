@@ -1,5 +1,6 @@
 export declare enum Weapons127x55 {
-    ASH_12 = "5cadfbf7ae92152ac412eeef"
+    ASH_12 = "5cadfbf7ae92152ac412eeef",
+    RSH_12 = "633ec7c2a6918cb895019c6c"
 }
 export declare enum Weapons86x70 {
     MK_18 = "5fc22d7c187fea44d52eda44",
@@ -7,14 +8,20 @@ export declare enum Weapons86x70 {
 }
 export declare enum Weapons9x39 {
     AS_VAL = "57c44b372459772d2b39b8ce",
-    VSS_VINTOREZ = "57838ad32459774a17445cd2"
+    VSS_VINTOREZ = "57838ad32459774a17445cd2",
+    KBP_9A_91 = "644674a13d52156624001fbc",
+    VSK_94 = "645e0c6b3b381ede770e1cc9"
 }
 export declare enum Weapons762x54R {
     SVDS = "5c46fbd72e2216398b5a8c9c",
     MP_18 = "61f7c9e189e6fb1a5e3ea78d",
     MOSIN_INFANTRY = "5bfd297f0db834001a669119",
     MOSIN_SNIPER = "5ae08f0a5acfc408fb1398a1",
-    SV_98 = "55801eed4bdc2d89578b4588"
+    SV_98 = "55801eed4bdc2d89578b4588",
+    AVT_40 = "6410733d5dd49d77bd07847e",
+    SVT_40 = "643ea5b23db6f9f57107d9fd",
+    PKM = "64637076203536ad5600c990",
+    PKP = "64ca3d3954fc657e230529cc"
 }
 export declare enum Weapons762x51 {
     VPO_101 = "5c501a4d2e221602b412b540",
@@ -46,7 +53,9 @@ export declare enum Weapons762x39 {
     AKMSN = "5abcbc27d8ce8700182eceeb",
     MK47_MUTANT = "606587252535c57a13424cfd",
     RD_704 = "628a60ae6b1d481ff772e9c8",
-    VPO_136 = "59e6152586f77473dc057aa1"
+    VPO_136 = "59e6152586f77473dc057aa1",
+    RPD = "6513ef33e06849f06c0957ca",
+    RPDN = "65268d8ecb944ff1e90ea385"
 }
 export declare enum Weapons762x35 {
     MCX = "5fbcc1d9016cce60e8341ab3"
@@ -61,7 +70,9 @@ export declare enum Weapons556x45 {
     M4A1 = "5447a9cd4bdc2dbd208b4567",
     SCARL_BLACK = "6184055050224f204c1da540",
     SCARL_FDE = "618428466ef05c2ce828f218",
-    TX15_DML = "5d43021ca4b9362eab4b5e25"
+    TX15_DML = "5d43021ca4b9362eab4b5e25",
+    AUG_A1 = "62e7c4fba689e8c9c50dfc38",
+    AUG_A3 = "63171672192e68c5460cebc5"
 }
 export declare enum Weapons545x39 {
     AK_105 = "5ac66d9b5acfc4001633997a",
@@ -75,7 +86,8 @@ export declare enum Weapons545x39 {
     AKS_74UN = "583990e32459771419544dd2",
     SAG_AK = "628b5638ad252a16da6dd245",
     SAG_AK_SHORT = "628b9c37a733087d0d7fe84b",
-    RPK_16 = "5beed0f50db834001c062b12"
+    RPK_16 = "5beed0f50db834001c062b12",
+    AK_12 = "6499849fc93611967b034949"
 }
 export declare enum Weapons57x28FN {
     FN_57_BLACK = "5d3eb3b0a4b93615055e84d2",
@@ -97,7 +109,8 @@ export declare enum Weapons9x33R {
     CR_50DS = "61a4c8884f95bc3b2c5dc96f"
 }
 export declare enum Weapons9x21 {
-    SR_1MP = "59f98b4986f7746f546d2cef"
+    SR_1MP = "59f98b4986f7746f546d2cef",
+    SR_2M = "62e14904c2699c0ec93adc47"
 }
 export declare enum Weapons9x19 {
     GLOCK_17 = "5a7ae0c351dfba0017554310",
@@ -115,7 +128,8 @@ export declare enum Weapons9x19 {
     PP_19_01 = "59984ab886f7743e98271174",
     SAIGA_9 = "59f9cabd86f7743a10721f46",
     STM_9 = "60339954d62c9b14ed777c06",
-    VECTOR_9MM = "5fc3f2d5900b1d5091531e57"
+    VECTOR_9MM = "5fc3f2d5900b1d5091531e57",
+    GLOCK_19X = "63088377b5cd696784087147"
 }
 export declare enum Weapons9x18 {
     APB = "5abccb7dd8ce87001773e277",
@@ -148,4 +162,11 @@ export declare enum Weapons20Gauge {
 }
 export declare enum Weapons23x75 {
     KS_23M = "5e848cc2988a8701445df1e8"
+}
+export declare enum Weapons68x51 {
+    MCX_SPEAR = "65290f395ae2ae97b80fdf2d"
+}
+export declare enum Weapons40x46 {
+    M32A1 = "6275303a9f372d6ea97f9ec7",
+    FN40GL = "5e81ebcd8e146c7080625e15"
 }

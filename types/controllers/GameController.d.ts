@@ -9,12 +9,14 @@ import { ICheckVersionResponse } from "@spt-aki/models/eft/game/ICheckVersionRes
 import { ICurrentGroupResponse } from "@spt-aki/models/eft/game/ICurrentGroupResponse";
 import { IGameConfigResponse } from "@spt-aki/models/eft/game/IGameConfigResponse";
 import { IGameKeepAliveResponse } from "@spt-aki/models/eft/game/IGameKeepAliveResponse";
+import { IGameModeRequestData } from "@spt-aki/models/eft/game/IGameModeRequestData";
 import { IGetRaidTimeRequest } from "@spt-aki/models/eft/game/IGetRaidTimeRequest";
 import { IGetRaidTimeResponse } from "@spt-aki/models/eft/game/IGetRaidTimeResponse";
 import { IServerDetails } from "@spt-aki/models/eft/game/IServerDetails";
 import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
 import { IBotConfig } from "@spt-aki/models/spt/config/IBotConfig";
 import { ICoreConfig } from "@spt-aki/models/spt/config/ICoreConfig";
+import { IHideoutConfig } from "@spt-aki/models/spt/config/IHideoutConfig";
 import { IHttpConfig } from "@spt-aki/models/spt/config/IHttpConfig";
 import { ILocationConfig } from "@spt-aki/models/spt/config/ILocationConfig";
 import { ILootConfig } from "@spt-aki/models/spt/config/ILootConfig";
@@ -28,6 +30,7 @@ import { GiftService } from "@spt-aki/services/GiftService";
 import { ItemBaseClassService } from "@spt-aki/services/ItemBaseClassService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { OpenZoneService } from "@spt-aki/services/OpenZoneService";
+import { ProfileActivityService } from "@spt-aki/services/ProfileActivityService";
 import { ProfileFixerService } from "@spt-aki/services/ProfileFixerService";
 import { RaidTimeAdjustmentService } from "@spt-aki/services/RaidTimeAdjustmentService";
 import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
@@ -54,21 +57,25 @@ export declare class GameController {
     protected itemBaseClassService: ItemBaseClassService;
     protected giftService: GiftService;
     protected raidTimeAdjustmentService: RaidTimeAdjustmentService;
+    protected profileActivityService: ProfileActivityService;
     protected applicationContext: ApplicationContext;
     protected configServer: ConfigServer;
     protected httpConfig: IHttpConfig;
     protected coreConfig: ICoreConfig;
     protected locationConfig: ILocationConfig;
     protected ragfairConfig: IRagfairConfig;
+    protected hideoutConfig: IHideoutConfig;
     protected pmcConfig: IPmcConfig;
     protected lootConfig: ILootConfig;
     protected botConfig: IBotConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, jsonUtil: JsonUtil, timeUtil: TimeUtil, hashUtil: HashUtil, preAkiModLoader: PreAkiModLoader, httpServerHelper: HttpServerHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, applicationContext: ApplicationContext, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseServer: DatabaseServer, jsonUtil: JsonUtil, timeUtil: TimeUtil, hashUtil: HashUtil, preAkiModLoader: PreAkiModLoader, httpServerHelper: HttpServerHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, profileActivityService: ProfileActivityService, applicationContext: ApplicationContext, configServer: ConfigServer);
     load(): void;
     /**
      * Handle client/game/start
      */
     gameStart(_url: string, _info: IEmptyRequestData, sessionID: string, startTimeStampMS: number): void;
+    protected adjustHideoutCraftTimes(): void;
+    protected adjustHideoutBuildTimes(): void;
     protected adjustLocationBotValues(): void;
     /**
      * Out of date/incorrectly made trader mods forget this data
@@ -82,6 +89,10 @@ export declare class GameController {
      * Handle client/game/config
      */
     getGameConfig(sessionID: string): IGameConfigResponse;
+    /**
+     * Handle client/game/mode
+     */
+    getGameMode(sessionID: string, info: IGameModeRequestData): any;
     /**
      * Handle client/server/list
      */

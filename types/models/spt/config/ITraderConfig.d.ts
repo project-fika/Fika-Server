@@ -9,8 +9,6 @@ export interface ITraderConfig extends IBaseConfig {
     tradersResetFromServerStart: boolean;
     updateTimeDefault: number;
     traderPriceMultipler: number;
-    /** Keep track of purchased trader-limited items beyond server restarts to prevent server-restart item scumming */
-    persistPurchaseDataInProfile: boolean;
     fence: FenceConfig;
 }
 export interface UpdateTime {
@@ -42,6 +40,8 @@ export interface FenceConfig {
     presetSlotsToRemoveChancePercent: Record<string, number>;
     /** Block seasonal items from appearing when season is inactive */
     blacklistSeasonalItems: boolean;
+    /** Max pen value allowed to be listed on flea - affects ammo + ammo boxes */
+    ammoMaxPenLimit: number;
     blacklist: string[];
     coopExtractGift: CoopExtractReward;
     btrDeliveryExpireHours: number;

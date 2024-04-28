@@ -216,3 +216,7 @@ export declare enum Ammo26x75 {
     WHITE_FLARE = "62389bc9423ed1685422dc57",
     YELLOW_FLARE = "62389be94d5d474bf712e709"
 }
+export declare enum Ammo68x51 {
+    SIG_FMJ = "6529302b8c26af6326029fb7",
+    SIG_HYBRID = "6529243824cbe3c74a05e5c1"
+}

@@ -1,5 +1,5 @@
 import { MinMax } from "@spt-aki/models/common/MinMax";
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { IBaseConfig, IRunIntervalValues } from "@spt-aki/models/spt/config/IBaseConfig";
 export interface IRagfairConfig extends IBaseConfig {
     kind: "aki-ragfair";
     /** How many seconds should pass before expired offers and procesed + player offers checked if sold */
@@ -11,10 +11,6 @@ export interface IRagfairConfig extends IBaseConfig {
     /** Trader ids + should their assorts be listed on flea*/
     traders: Record<string, boolean>;
     dynamic: Dynamic;
-}
-export interface IRunIntervalValues {
-    inRaid: number;
-    outOfRaid: number;
 }
 export interface Sell {
     /** Should a fee be deducted from player when liting an item for sale */

@@ -1,11 +1,10 @@
 import { ContainerHelper } from "@spt-aki/helpers/ContainerHelper";
 import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
 import { PresetHelper } from "@spt-aki/helpers/PresetHelper";
-import { IContainerMinMax, IStaticContainer } from "@spt-aki/models/eft/common/ILocation";
+import { IContainerMinMax, IStaticAmmoDetails, IStaticContainer, IStaticContainerData, IStaticForcedProps, IStaticLootDetails } from "@spt-aki/models/eft/common/ILocation";
 import { ILocationBase } from "@spt-aki/models/eft/common/ILocationBase";
 import { ILooseLoot, Spawnpoint, SpawnpointTemplate, SpawnpointsForced } from "@spt-aki/models/eft/common/ILooseLoot";
 import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { IStaticAmmoDetails, IStaticContainerData, IStaticForcedProps, IStaticLootDetails } from "@spt-aki/models/eft/common/tables/ILootBase";
 import { ILocationConfig } from "@spt-aki/models/spt/config/ILocationConfig";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";

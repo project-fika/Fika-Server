@@ -75,10 +75,11 @@ export declare class MatchController {
     protected sendCoopTakenFenceMessage(sessionId: string): void;
     /**
      * Handle when a player extracts using a coop extract - add rep to fence
+     * @param sessionId Session/player id
      * @param pmcData Profile
      * @param extractName Name of extract taken
      */
-    protected handleCoopExtract(pmcData: IPmcData, extractName: string): void;
+    protected handleCoopExtract(sessionId: string, pmcData: IPmcData, extractName: string): void;
     /**
      * Was extract by car
      * @param extractName name of extract

@@ -3,11 +3,12 @@ import { BotGenerator } from "@spt-aki/generators/BotGenerator";
 import { BotDifficultyHelper } from "@spt-aki/helpers/BotDifficultyHelper";
 import { BotHelper } from "@spt-aki/helpers/BotHelper";
 import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { IGenerateBotsRequestData } from "@spt-aki/models/eft/bot/IGenerateBotsRequestData";
+import { Condition, IGenerateBotsRequestData } from "@spt-aki/models/eft/bot/IGenerateBotsRequestData";
 import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
 import { IBotBase } from "@spt-aki/models/eft/common/tables/IBotBase";
 import { IBotCore } from "@spt-aki/models/eft/common/tables/IBotCore";
 import { Difficulty } from "@spt-aki/models/eft/common/tables/IBotType";
+import { BotGenerationDetails } from "@spt-aki/models/spt/bots/BotGenerationDetails";
 import { IBotConfig } from "@spt-aki/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt-aki/models/spt/config/IPmcConfig";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
@@ -51,19 +52,21 @@ export declare class BotController {
     getBotCoreDifficulty(): IBotCore;
     /**
      * Get bot difficulty settings
-     * adjust PMC settings to ensure they engage the correct bot types
+     * Adjust PMC settings to ensure they engage the correct bot types
      * @param type what bot the server is requesting settings for
      * @param diffLevel difficulty level server requested settings for
+     * @param ignoreRaidSettings should raid settings chosen pre-raid be ignored
      * @returns Difficulty object
      */
-    getBotDifficulty(type: string, diffLevel: string): Difficulty;
+    getBotDifficulty(type: string, diffLevel: string, ignoreRaidSettings?: boolean): Difficulty;
+    getAllBotDifficulties(): Record<string, any>;
     /**
      * Generate bot profiles and store in cache
      * @param sessionId Session id
      * @param info bot generation request info
      * @returns IBotBase array
      */
-    generate(sessionId: string, info: IGenerateBotsRequestData): IBotBase[];
+    generate(sessionId: string, info: IGenerateBotsRequestData): Promise<IBotBase[]>;
     /**
      * On first bot generation bots are generated and stored inside a cache, ready to be used later
      * @param request Bot generation request object
@@ -71,14 +74,30 @@ export declare class BotController {
      * @param sessionId Session id
      * @returns
      */
-    protected generateBotsFirstTime(request: IGenerateBotsRequestData, pmcProfile: IPmcData, sessionId: string): IBotBase[];
+    protected generateBotsFirstTime(request: IGenerateBotsRequestData, pmcProfile: IPmcData, sessionId: string): Promise<IBotBase[]>;
+    /**
+     * Generate many bots and store then on the cache
+     * @param condition the condition details to generate the bots with
+     * @param botGenerationDetails the bot details to generate the bot with
+     * @param sessionId Session id
+     * @returns A promise for the bots to be done generating
+     */
+    protected generateWithBotDetails(condition: Condition, botGenerationDetails: BotGenerationDetails, sessionId: string): Promise<void>;
+    /**
+     * Generate a single bot and store it in the cache
+     * @param botGenerationDetails the bot details to generate the bot with
+     * @param sessionId Session id
+     * @param cacheKey the cache key to store the bot with
+     * @returns A promise for the bot to be stored
+     */
+    protected generateSingleBotAndStoreInCache(botGenerationDetails: BotGenerationDetails, sessionId: string, cacheKey: string): Promise<void>;
     /**
      * Pull a single bot out of cache and return, if cache is empty add bots to it and then return
      * @param sessionId Session id
      * @param request Bot generation request object
      * @returns Single IBotBase object
      */
-    protected returnSingleBotFromCache(sessionId: string, request: IGenerateBotsRequestData): IBotBase[];
+    protected returnSingleBotFromCache(sessionId: string, request: IGenerateBotsRequestData): Promise<IBotBase[]>;
     /**
      * Get the difficulty passed in, if its not "asonline", get selected difficulty from config
      * @param requestedDifficulty
