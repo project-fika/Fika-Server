@@ -4,5 +4,33 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "npm: install",
+				"type": "shell",
+				"command": "npm install",
+			},
+			{
+				"label": "npm: build",
+				"type": "shell",
+				"command": "npm run build",
+				"dependsOrder": "sequence",
+				"dependsOn": "npm: install",
+				"group": {
+					"kind": "build",
+					"isDefault": true
+				}
+			}
+		]
+	},
+	"settings": {
+		"window.title": "Fika Server"
+	},
+	"extensions": {
+		"recommendations": [
+			"dbaeumer.vscode-eslint"
+		]
+	}
 }
