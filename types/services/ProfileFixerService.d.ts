@@ -6,8 +6,9 @@ import { TraderHelper } from "@spt-aki/helpers/TraderHelper";
 import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
 import { Bonus, HideoutSlot } from "@spt-aki/models/eft/common/tables/IBotBase";
 import { IPmcDataRepeatableQuest, IRepeatableQuest } from "@spt-aki/models/eft/common/tables/IRepeatableQuests";
+import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
 import { StageBonus } from "@spt-aki/models/eft/hideout/IHideoutArea";
-import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
+import { IAkiProfile, IEquipmentBuild, IMagazineBuild, IWeaponBuild } from "@spt-aki/models/eft/profile/IAkiProfile";
 import { HideoutAreas } from "@spt-aki/models/enums/HideoutAreas";
 import { ICoreConfig } from "@spt-aki/models/spt/config/ICoreConfig";
 import { IRagfairConfig } from "@spt-aki/models/spt/config/IRagfairConfig";
@@ -120,6 +121,19 @@ export declare class ProfileFixerService {
      */
     checkForOrphanedModdedItems(sessionId: string, fullProfile: IAkiProfile): void;
     /**
+     * @param buildType The type of build, used for logging only
+     * @param build The build to check for invalid items
+     * @param itemsDb The items database to use for item lookup
+     * @returns True if the build should be removed from the build list, false otherwise
+     */
+    protected shouldRemoveWeaponEquipmentBuild(buildType: string, build: IWeaponBuild | IEquipmentBuild, itemsDb: Record<string, ITemplateItem>): boolean;
+    /**
+     * @param magazineBuild The magazine build to check for validity
+     * @param itemsDb The items database to use for item lookup
+     * @returns True if the build should be removed from the build list, false otherwise
+     */
+    protected shouldRemoveMagazineBuild(magazineBuild: IMagazineBuild, itemsDb: Record<string, ITemplateItem>): boolean;
+    /**
      * Attempt to fix common item issues that corrupt profiles
      * @param pmcProfile Profile to check items of
      */
@@ -156,6 +170,10 @@ export declare class ProfileFixerService {
      */
     addMissingIdsToBonuses(pmcProfile: IPmcData): void;
     /**
+     * 3.8.0 utilized the wrong ProductionTime for bitcoin, fix it if it's found
+     */
+    fixBitcoinProductionTime(pmcProfile: IPmcData): void;
+    /**
      * At some point the property name was changed,migrate data across to new name
      * @param pmcProfile Profile to migrate improvements in
      */
@@ -165,4 +183,9 @@ export declare class ProfileFixerService {
      * @param pmcProfile Profile to remove dead quests from
      */
     protected removeOrphanedQuests(pmcProfile: IPmcData): void;
+    /**
+     * If someone has run a mod from pre-3.8.0, it results in an invalid `nextResupply` value
+     * Resolve this by setting the nextResupply to 0 if it's null
+     */
+    protected fixNullTraderNextResupply(pmcProfile: IPmcData): void;
 }

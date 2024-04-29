@@ -363,10 +363,11 @@ export declare class ItemHelper {
      * Chose a randomly weighted cartridge that fits
      * @param caliber Desired caliber
      * @param staticAmmoDist Cartridges and thier weights
+     * @param fallbackCartridgeTpl If a cartridge cannot be found in the above staticAmmoDist param, use this instead
      * @param cartridgeWhitelist OPTIONAL whitelist for cartridges
      * @returns Tpl of cartridge
      */
-    protected drawAmmoTpl(caliber: string, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, cartridgeWhitelist?: string[]): string;
+    protected drawAmmoTpl(caliber: string, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, fallbackCartridgeTpl: string, cartridgeWhitelist?: string[]): string;
     /**
      * Create a basic cartrige object
      * @param parentId container cartridges will be placed in
@@ -401,7 +402,7 @@ export declare class ItemHelper {
     addChildSlotItems(itemToAdd: Item[], itemToAddTemplate: ITemplateItem, modSpawnChanceDict?: Record<string, number>, requiredOnly?: boolean): Item[];
     /**
      * Get a compatible tpl from the array provided where it is not found in the provided incompatible mod tpls parameter
-     * @param possibleTpls Tpls to randomply choose from
+     * @param possibleTpls Tpls to randomly choose from
      * @param incompatibleModTpls Incompatible tpls to not allow
      * @returns Chosen tpl or null
      */

@@ -44,6 +44,11 @@ export declare class LauncherController {
     protected formatID(timeStamp: number, counter: number): string;
     changeUsername(info: IChangeRequestData): string;
     changePassword(info: IChangeRequestData): string;
+    /**
+     * Handle launcher requesting profile be wiped
+     * @param info IRegisterData
+     * @returns Session id
+     */
     wipe(info: IRegisterData): string;
     getCompatibleTarkovVersion(): string;
     /**

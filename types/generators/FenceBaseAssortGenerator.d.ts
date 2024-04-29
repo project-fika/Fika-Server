@@ -28,6 +28,18 @@ export declare class FenceBaseAssortGenerator {
      * Create base fence assorts dynamically and store in memory
      */
     generateFenceBaseAssorts(): void;
+    /**
+     * Check ammo in boxes + loose ammos has a penetration value above the configured value in trader.json / ammoMaxPenLimit
+     * @param rootItemDb Ammo box or ammo item from items.db
+     * @returns True if penetration value is above limit set in config
+     */
+    protected isAmmoAbovePenetrationLimit(rootItemDb: ITemplateItem): boolean;
+    /**
+     * Get the penetration power value of an ammo, works with ammo boxes and raw ammos
+     * @param rootItemDb Ammo box or ammo item from items.db
+     * @returns Penetration power of passed in item, null if it doesnt have a power
+     */
+    protected getAmmoPenetrationPower(rootItemDb: ITemplateItem): number;
     protected getItemPrice(itemTpl: string, items: Item[]): number;
     protected getAmmoBoxPrice(items: Item[]): number;
     /**

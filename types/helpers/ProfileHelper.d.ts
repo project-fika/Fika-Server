@@ -167,7 +167,7 @@ export declare class ProfileHelper {
     /**
      * Get a speciic common skill from supplied profile
      * @param pmcData Player profile
-     * @param skill Skill get get
+     * @param skill Skill to look up and return value from
      * @returns Common skill object from desired profile
      */
     getSkillFromProfile(pmcData: IPmcData, skill: SkillTypes): Common;

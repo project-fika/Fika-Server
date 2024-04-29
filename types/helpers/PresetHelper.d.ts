@@ -1,4 +1,5 @@
 import { IPreset } from "@spt-aki/models/eft/common/IGlobals";
+import { BaseClasses } from "@spt-aki/models/enums/BaseClasses";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { ItemHelper } from "./ItemHelper";
@@ -27,6 +28,13 @@ export declare class PresetHelper {
      */
     getDefaultEquipmentPresets(): Record<string, IPreset>;
     isPreset(id: string): boolean;
+    /**
+     * Checks to see if the preset is of the given base class.
+     * @param id The id of the preset
+     * @param baseClass The BaseClasses enum to check against
+     * @returns True if the preset is of the given base class, false otherwise
+     */
+    isPresetBaseClass(id: string, baseClass: BaseClasses): boolean;
     hasPreset(templateId: string): boolean;
     getPreset(id: string): IPreset;
     getAllPresets(): IPreset[];

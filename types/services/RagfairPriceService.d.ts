@@ -45,7 +45,7 @@ export declare class RagfairPriceService implements OnLoad {
     /**
      * Create a dictionary and store prices from prices.json in it
      */
-    protected generateDynamicPrices(): void;
+    generateDynamicPrices(): void;
     /**
      * Get the dynamic price for an item. If value doesn't exist, use static (handbook) value.
      * if no static value, return 1
@@ -99,6 +99,15 @@ export declare class RagfairPriceService implements OnLoad {
      * @returns cost of item in desired currency
      */
     getDynamicOfferPriceForOffer(offerItems: Item[], desiredCurrency: string, isPackOffer: boolean): number;
+    /**
+     * @param itemTemplateId
+     * @param desiredCurrency
+     * @param item
+     * @param offerItems
+     * @param isPackOffer
+     * @returns
+     */
+    getDynamicItemPrice(itemTemplateId: string, desiredCurrency: string, item?: Item, offerItems?: Item[], isPackOffer?: boolean): number;
     /**
      * using data from config, adjust an items price to be relative to its handbook price
      * @param handbookPrices Prices of items in handbook

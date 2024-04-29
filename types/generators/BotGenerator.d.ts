@@ -4,7 +4,7 @@ import { BotDifficultyHelper } from "@spt-aki/helpers/BotDifficultyHelper";
 import { BotHelper } from "@spt-aki/helpers/BotHelper";
 import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
 import { WeightedRandomHelper } from "@spt-aki/helpers/WeightedRandomHelper";
-import { Health as PmcHealth, IBaseJsonSkills, IBaseSkill, IBotBase, Info, Skills as botSkills } from "@spt-aki/models/eft/common/tables/IBotBase";
+import { IBaseJsonSkills, IBaseSkill, IBotBase, Info, Health as PmcHealth, Skills as botSkills } from "@spt-aki/models/eft/common/tables/IBotBase";
 import { Appearance, Health, IBotType } from "@spt-aki/models/eft/common/tables/IBotType";
 import { BotGenerationDetails } from "@spt-aki/models/spt/bots/BotGenerationDetails";
 import { IBotConfig } from "@spt-aki/models/spt/config/IBotConfig";
@@ -80,9 +80,10 @@ export declare class BotGenerator {
      * @param botJsonTemplate x.json from database
      * @param botGenerationDetails
      * @param botRole role of bot e.g. assault
+     * @param sessionId profile session id
      * @returns Nickname for bot
      */
-    protected generateBotNickname(botJsonTemplate: IBotType, botGenerationDetails: BotGenerationDetails, botRole: string, sessionId: string): string;
+    protected generateBotNickname(botJsonTemplate: IBotType, botGenerationDetails: BotGenerationDetails, botRole: string, sessionId?: string): string;
     /**
      * Log the number of PMCs generated to the debug console
      * @param output Generated bot array, ready to send to client

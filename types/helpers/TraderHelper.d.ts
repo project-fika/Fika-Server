@@ -121,7 +121,7 @@ export declare class TraderHelper {
             count: number;
         }[];
         traderId: string;
-    }): void;
+    }, itemPurchased: Item): void;
     /**
      * Get the highest rouble price for an item from traders
      * UNUSED

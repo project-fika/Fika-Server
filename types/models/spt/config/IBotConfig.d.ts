@@ -167,11 +167,8 @@ export interface IAdjustmentDetails {
     add: Record<string, Record<string, number>>;
     edit: Record<string, Record<string, number>>;
 }
-export interface IArmorPlateWeights {
+export interface IArmorPlateWeights extends Record<string, any> {
     levelRange: MinMax;
-    frontPlateWeights: Record<string, number>;
-    backPlateWeights: Record<string, number>;
-    sidePlateWeights: Record<string, number>;
 }
 export interface IRandomisedResourceDetails {
     food: IRandomisedResourceValues;

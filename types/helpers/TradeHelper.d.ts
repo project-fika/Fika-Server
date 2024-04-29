@@ -57,13 +57,6 @@ export declare class TradeHelper {
      */
     sellItem(profileWithItemsToSell: IPmcData, profileToReceiveMoney: IPmcData, sellRequest: IProcessSellTradeRequestData, sessionID: string, output: IItemEventRouterResponse): void;
     /**
-     * Increment the assorts buy count by number of items purchased
-     * Show error on screen if player attempts to buy more than what the buy max allows
-     * @param assortBeingPurchased assort being bought
-     * @param itemsPurchasedCount number of items being bought
-     */
-    protected incrementAssortBuyCount(assortBeingPurchased: Item, itemsPurchasedCount: number): void;
-    /**
      * Traders allow a limited number of purchases per refresh cycle (default 60 mins)
      * @param sessionId Session id
      * @param traderId Trader assort is purchased from

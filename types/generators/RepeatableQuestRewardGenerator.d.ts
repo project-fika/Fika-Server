@@ -58,7 +58,7 @@ export declare class RepeatableQuestRewardGenerator {
      * @param minPrice The minimum priced item to include
      * @returns True if any items remain in `rewardItems`, false otherwise
      */
-    protected filterRewardPoolWithinBudget(rewardItems: ITemplateItem[], roublesBudget: number, minPrice: number): boolean;
+    protected filterRewardPoolWithinBudget(rewardItems: ITemplateItem[], roublesBudget: number, minPrice: number): ITemplateItem[];
     /**
      * Get a randomised number a reward items stack size should be based on its handbook price
      * @param item Reward item to get stack size for

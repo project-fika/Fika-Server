@@ -82,7 +82,7 @@ export declare class BotLootGenerator {
      * @param totalValueLimitRub Total value of loot allowed in roubles
      * @param isPmc Is bot being generated for a pmc
      */
-    protected addLootFromPool(pool: Record<string, number>, equipmentSlots: string[], totalItemCount: number, inventoryToAddItemsTo: PmcInventory, botRole: string, itemSpawnLimits?: IItemSpawnLimitSettings, totalValueLimitRub?: number, isPmc?: boolean): void;
+    protected addLootFromPool(pool: Record<string, number>, equipmentSlots: string[], totalItemCount: number, inventoryToAddItemsTo: PmcInventory, botRole: string, itemSpawnLimits?: IItemSpawnLimitSettings, totalValueLimitRub?: number, isPmc?: boolean, containersIdFull?: Set<string>): void;
     protected createWalletLoot(walletId: string): Item[][];
     /**
      * Some items need child items to function, add them to the itemToAddChildrenTo array
@@ -101,7 +101,7 @@ export declare class BotLootGenerator {
      * @param botRole bots role .e.g. pmcBot
      * @param isPmc are we generating for a pmc
      */
-    protected addLooseWeaponsToInventorySlot(sessionId: string, botInventory: PmcInventory, equipmentSlot: string, templateInventory: Inventory, modChances: ModsChances, botRole: string, isPmc: boolean, botLevel: number): void;
+    protected addLooseWeaponsToInventorySlot(sessionId: string, botInventory: PmcInventory, equipmentSlot: string, templateInventory: Inventory, modChances: ModsChances, botRole: string, isPmc: boolean, botLevel: number, containersIdFull?: Set<string>): void;
     /**
      * Hydrate item limit array to contain items that have a limit for a specific bot type
      * All values are set to 0

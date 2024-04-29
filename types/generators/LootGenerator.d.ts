@@ -41,10 +41,10 @@ export declare class LootGenerator {
      */
     createRandomLoot(options: LootRequest): LootItem[];
     /**
-     * Filter armor items by their main plates protection level
-     * @param armor Armor preset
-     * @param options Loot request options
-     * @returns True item passes checks
+     * Filter armor items by their front plates protection level - top if its a helmet
+     * @param armor Armor preset to check
+     * @param options Loot request options - armor level etc
+     * @returns True if item has desired armor level
      */
     protected armorIsDesiredProtectionLevel(armor: IPreset, options: LootRequest): boolean;
     /**
@@ -74,13 +74,13 @@ export declare class LootGenerator {
     protected getRandomisedStackCount(item: ITemplateItem, options: LootRequest): number;
     /**
      * Find a random item in items.json and add to result array
-     * @param globalDefaultPresets presets to choose from
-     * @param itemTypeCounts item limit counts
-     * @param itemBlacklist items to skip
-     * @param result array to add found preset to
+     * @param presetPool Presets to choose from
+     * @param itemTypeCounts Item limit counts
+     * @param itemBlacklist Items to skip
+     * @param result Array to add chosen preset to
      * @returns true if preset was valid and added to pool
      */
-    protected findAndAddRandomPresetToLoot(globalDefaultPresets: IPreset[], itemTypeCounts: Record<string, {
+    protected findAndAddRandomPresetToLoot(presetPool: IPreset[], itemTypeCounts: Record<string, {
         current: number;
         max: number;
     }>, itemBlacklist: string[], result: LootItem[]): boolean;
