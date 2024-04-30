@@ -48,6 +48,7 @@ export declare abstract class AbstractWinstonLogger implements ILogger {
     protected abstract isLogExceptions(): boolean;
     protected abstract getFilePath(): string;
     protected abstract getFileName(): string;
+    protected getLogFrequency(): string;
     protected getLogMaxSize(): string;
     protected getLogMaxFiles(): string;
     writeToLogFile(data: string | Daum): Promise<void>;

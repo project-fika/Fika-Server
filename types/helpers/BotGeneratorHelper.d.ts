@@ -92,7 +92,7 @@ export declare class BotGeneratorHelper {
      * @param inventory Inventory to add item+children into
      * @returns ItemAddedResult result object
      */
-    addItemWithChildrenToEquipmentSlot(equipmentSlots: string[], rootItemId: string, rootItemTplId: string, itemWithChildren: Item[], inventory: Inventory): ItemAddedResult;
+    addItemWithChildrenToEquipmentSlot(equipmentSlots: string[], rootItemId: string, rootItemTplId: string, itemWithChildren: Item[], inventory: Inventory, containersIdFull?: Set<string>): ItemAddedResult;
     /**
      * Is the provided item allowed inside a container
      * @param slotGrid Items sub-grid we want to place item inside

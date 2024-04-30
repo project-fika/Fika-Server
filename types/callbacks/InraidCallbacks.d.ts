@@ -40,11 +40,6 @@ export declare class InraidCallbacks {
      */
     getRaidMenuSettings(): string;
     /**
-     * Handle singleplayer/settings/weapon/durability
-     * @returns
-     */
-    getWeaponDurability(): string;
-    /**
      * Handle singleplayer/airdrop/config
      * @returns JSON as string
      */

@@ -28,7 +28,7 @@ export declare class BuildController {
     saveEquipmentBuild(sessionID: string, request: IPresetBuildActionRequestData): void;
     /** Handle client/builds/delete*/
     removeBuild(sessionID: string, request: IRemoveBuildRequestData): void;
-    protected removePlayerBuild(id: string, sessionID: string): void;
+    protected removePlayerBuild(idToRemove: string, sessionID: string): void;
     /**
      * Handle client/builds/magazine/save
      */

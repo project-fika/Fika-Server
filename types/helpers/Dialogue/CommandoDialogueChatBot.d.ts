@@ -1,15 +1,10 @@
-import { ICommandoCommand } from "@spt-aki/helpers/Dialogue/Commando/ICommandoCommand";
-import { IDialogueChatBot } from "@spt-aki/helpers/Dialogue/IDialogueChatBot";
-import { ISendMessageRequest } from "@spt-aki/models/eft/dialog/ISendMessageRequest";
+import { AbstractDialogueChatBot } from "@spt-aki/helpers/Dialogue/AbstractDialogueChatBot";
+import { IChatCommand } from "@spt-aki/helpers/Dialogue/Commando/IChatCommand";
 import { IUserDialogInfo } from "@spt-aki/models/eft/profile/IAkiProfile";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { MailSendService } from "@spt-aki/services/MailSendService";
-export declare class CommandoDialogueChatBot implements IDialogueChatBot {
-    protected logger: ILogger;
-    protected mailSendService: MailSendService;
-    protected commandoCommands: ICommandoCommand[];
-    constructor(logger: ILogger, mailSendService: MailSendService, commandoCommands: ICommandoCommand[]);
-    registerCommandoCommand(commandoCommand: ICommandoCommand): void;
+export declare class CommandoDialogueChatBot extends AbstractDialogueChatBot {
+    constructor(logger: ILogger, mailSendService: MailSendService, chatCommands: IChatCommand[]);
     getChatBot(): IUserDialogInfo;
-    handleMessage(sessionId: string, request: ISendMessageRequest): string;
+    protected getUnrecognizedCommandMessage(): string;
 }

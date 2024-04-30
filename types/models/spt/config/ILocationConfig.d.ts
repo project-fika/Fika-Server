@@ -34,8 +34,10 @@ export interface ILocationConfig extends IBaseConfig {
     /** How full must a random static magazine be %*/
     minFillStaticMagazinePercent: number;
     allowDuplicateItemsInStaticContainers: boolean;
-    /** Chance loose/static magazines have ammo in them */
+    /** Chance loose magazines have ammo in them TODO - rename to dynamicMagazineLootHasAmmoChancePercent */
     magazineLootHasAmmoChancePercent: number;
+    /** Chance static magazines have ammo in them */
+    staticMagazineLootHasAmmoChancePercent: number;
     /** Key: map, value: loose loot ids to ignore */
     looseLootBlacklist: Record<string, string[]>;
     /** Key: map, value: settings to control how long scav raids are*/

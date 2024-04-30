@@ -13,6 +13,7 @@ import { ISaveProgressRequestData } from "@spt-aki/models/eft/inRaid/ISaveProgre
 import { PlayerRaidEndState } from "@spt-aki/models/enums/PlayerRaidEndState";
 import { IAirdropConfig } from "@spt-aki/models/spt/config/IAirdropConfig";
 import { IBTRConfig } from "@spt-aki/models/spt/config/IBTRConfig";
+import { IHideoutConfig } from "@spt-aki/models/spt/config/IHideoutConfig";
 import { IInRaidConfig } from "@spt-aki/models/spt/config/IInRaidConfig";
 import { ILocationConfig } from "@spt-aki/models/spt/config/ILocationConfig";
 import { IRagfairConfig } from "@spt-aki/models/spt/config/IRagfairConfig";
@@ -60,6 +61,7 @@ export declare class InraidController {
     protected traderConfig: ITraderConfig;
     protected locationConfig: ILocationConfig;
     protected ragfairConfig: IRagfairConfig;
+    protected hideoutConfig: IHideoutConfig;
     constructor(logger: ILogger, saveServer: SaveServer, jsonUtil: JsonUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, pmcChatResponseService: PmcChatResponseService, matchBotDetailsCacheService: MatchBotDetailsCacheService, questHelper: QuestHelper, itemHelper: ItemHelper, profileHelper: ProfileHelper, playerScavGenerator: PlayerScavGenerator, healthHelper: HealthHelper, traderHelper: TraderHelper, traderServicesService: TraderServicesService, insuranceService: InsuranceService, inRaidHelper: InRaidHelper, applicationContext: ApplicationContext, configServer: ConfigServer, mailSendService: MailSendService, randomUtil: RandomUtil);
     /**
      * Save locationId to active profiles inraid object AND app context

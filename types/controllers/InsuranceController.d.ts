@@ -18,6 +18,7 @@ import { SaveServer } from "@spt-aki/servers/SaveServer";
 import { InsuranceService } from "@spt-aki/services/InsuranceService";
 import { MailSendService } from "@spt-aki/services/MailSendService";
 import { PaymentService } from "@spt-aki/services/PaymentService";
+import { RagfairPriceService } from "@spt-aki/services/RagfairPriceService";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
 import { MathUtil } from "@spt-aki/utils/MathUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
@@ -38,10 +39,11 @@ export declare class InsuranceController {
     protected paymentService: PaymentService;
     protected insuranceService: InsuranceService;
     protected mailSendService: MailSendService;
+    protected ragfairPriceService: RagfairPriceService;
     protected configServer: ConfigServer;
     protected insuranceConfig: IInsuranceConfig;
     protected roubleTpl: string;
-    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, itemHelper: ItemHelper, profileHelper: ProfileHelper, dialogueHelper: DialogueHelper, traderHelper: TraderHelper, paymentService: PaymentService, insuranceService: InsuranceService, mailSendService: MailSendService, configServer: ConfigServer);
+    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, itemHelper: ItemHelper, profileHelper: ProfileHelper, dialogueHelper: DialogueHelper, traderHelper: TraderHelper, paymentService: PaymentService, insuranceService: InsuranceService, mailSendService: MailSendService, ragfairPriceService: RagfairPriceService, configServer: ConfigServer);
     /**
      * Process insurance items of all profiles prior to being given back to the player through the mail service.
      *
@@ -145,7 +147,7 @@ export declare class InsuranceController {
      */
     protected processAttachmentByParent(attachments: Item[], traderId: string, toDelete: Set<string>): void;
     /**
-     * Sorts the attachment items by their max price in descending order.
+     * Sorts the attachment items by their dynamic price in descending order.
      *
      * @param attachments The array of attachments items.
      * @returns An array of items enriched with their max price and common locale-name.
@@ -220,6 +222,6 @@ export declare class InsuranceController {
 }
 interface EnrichedItem extends Item {
     name: string;
-    maxPrice: number;
+    dynamicPrice: number;
 }
 export {};

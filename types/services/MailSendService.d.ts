@@ -7,7 +7,7 @@ import { Item } from "@spt-aki/models/eft/common/tables/IItem";
 import { Dialogue, IUserDialogInfo, Message, MessageItems } from "@spt-aki/models/eft/profile/IAkiProfile";
 import { MessageType } from "@spt-aki/models/enums/MessageType";
 import { Traders } from "@spt-aki/models/enums/Traders";
-import { ISendMessageDetails } from "@spt-aki/models/spt/dialog/ISendMessageDetails";
+import { IProfileChangeEvent, ISendMessageDetails } from "@spt-aki/models/spt/dialog/ISendMessageDetails";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { SaveServer } from "@spt-aki/servers/SaveServer";
@@ -55,7 +55,7 @@ export declare class MailSendService {
      * @param items Optional items to send to player
      * @param maxStorageTimeSeconds Optional time to collect items before they expire
      */
-    sendSystemMessageToPlayer(sessionId: string, message: string, items?: Item[], maxStorageTimeSeconds?: any): void;
+    sendSystemMessageToPlayer(sessionId: string, message: string, items?: Item[], maxStorageTimeSeconds?: number, profileChangeEvents?: IProfileChangeEvent[]): void;
     /**
      * Send a message from SYSTEM to the player with or without items with localised text
      * @param sessionId The session ID to send the message to
@@ -63,7 +63,7 @@ export declare class MailSendService {
      * @param items Optional items to send to player
      * @param maxStorageTimeSeconds Optional time to collect items before they expire
      */
-    sendLocalisedSystemMessageToPlayer(sessionId: string, messageLocaleId: string, items?: Item[], profileChangeEvents?: any[], maxStorageTimeSeconds?: any): void;
+    sendLocalisedSystemMessageToPlayer(sessionId: string, messageLocaleId: string, items?: Item[], profileChangeEvents?: IProfileChangeEvent[], maxStorageTimeSeconds?: number): void;
     /**
      * Send a USER message to a player with or without items
      * @param sessionId The session ID to send the message to

@@ -187,12 +187,12 @@ export declare class BotEquipmentModGenerator {
      */
     protected getRandomModTplFromItemDb(modTpl: string, parentSlot: Slot, modSlot: string, items: Item[]): string;
     /**
-     * Log errors if mod is not compatible with slot
-     * @param modToAdd template of mod to check
-     * @param slotAddedToTemplate slot the item will be placed in
-     * @param modSlot slot the mod will fill
-     * @param parentTemplate template of the mods being added
-     * @param botRole
+     * Check if mod exists in db + is for a required slot
+     * @param modToAdd Db template of mod to check
+     * @param slotAddedToTemplate Slot object the item will be placed as child into
+     * @param modSlot Slot the mod will fill
+     * @param parentTemplate Db template of the mods being added
+     * @param botRole Bots wildspawntype (assault/pmcBot etc)
      * @returns true if valid
      */
     protected isModValidForSlot(modToAdd: [boolean, ITemplateItem], slotAddedToTemplate: Slot, modSlot: string, parentTemplate: ITemplateItem, botRole: string): boolean;

@@ -69,6 +69,9 @@ export declare class BotLootCacheService {
      * @returns
      */
     protected isGrenade(props: Props): boolean;
+    protected isFood(tpl: string): boolean;
+    protected isDrink(tpl: string): boolean;
+    protected isCurrency(tpl: string): boolean;
     /**
      * Check if a bot type exists inside the loot cache
      * @param botRole role to check for
