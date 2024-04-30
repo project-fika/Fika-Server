@@ -1,0 +1,43 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.7.1/schema.json",
+    "organizeImports": {
+        "enabled": true
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 320
+    },
+    "javascript": {
+        "parser": {
+            "unsafeParameterDecoratorsEnabled": true
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": false,
+            "complexity": {
+                "noStaticOnlyClass": "off"
+            },
+            "correctness": {
+                "noUndeclaredVariables": "error",
+                "noUnusedVariables": "error"
+            },
+            "performance": {
+                "noDelete": "warn"
+            },
+            "style": {
+                "useImportType": "off",
+                "noNamespace": "error"
+            },
+            "suspicious": {
+                "noEmptyBlockStatements": "error"
+            }
+        }
+    },
+    "files": {
+        "ignore": ["**/node_modules", "dist", "types", "build.mjs", "**/package-lock.json"]
+    }
+}

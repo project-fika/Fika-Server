@@ -9,11 +9,9 @@
         "buildinfo": "node ./build.mjs --verbose"
     },
     "devDependencies": {
+        "@biomejs/biome": "^1.7.1",
         "@types/node": "~20.11",
-        "@typescript-eslint/eslint-plugin": "~7.2",
-        "@typescript-eslint/parser": "~7.2",
         "archiver": "^6.0",
-        "eslint": "~8.57",
         "fs-extra": "~11.2",
         "ignore": "^5.2",
         "tsyringe": "4.8.0",

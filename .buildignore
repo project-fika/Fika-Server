@@ -1,8 +1,7 @@
 /.buildignore
 /.DS_Store
 /.editorconfig
-/.eslintignore
-/.eslintrc.json
+/biome.json
 /.git
 /.github
 /.gitattributes
@@ -14,7 +13,7 @@
 /build.mjs
 /dist
 /images
-/mod.code-workspace
+/*.code-workspace
 /node_modules
 /package-lock.json
 /pnpm-lock.yaml
