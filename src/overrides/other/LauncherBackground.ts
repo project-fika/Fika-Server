@@ -10,12 +10,12 @@ import { FikaConfig } from "../../utils/FikaConfig";
 export class LauncherBackgroundOverride extends Override {
     constructor(
         @inject("ImageRouter") protected imageRouter: ImageRouter,
-        @inject("FikaConfig") protected fikaConfig: FikaConfig
+        @inject("FikaConfig") protected fikaConfig: FikaConfig,
     ) {
         super();
     }
 
-    public execute(container: DependencyContainer): void {
+    public execute(_container: DependencyContainer): void {
         this.imageRouter.addRoute("/files/launcher/bg", path.join(this.fikaConfig.getModPath(), "db/launcher_bg.png"));
     }
 }

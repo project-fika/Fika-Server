@@ -1,4 +1,4 @@
 export enum FikaTime {
     CURR = 0,
-    PAST = 1
+    PAST = 1,
 }
