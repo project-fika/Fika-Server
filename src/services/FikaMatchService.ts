@@ -44,7 +44,7 @@ export class FikaMatchService {
                 if (match.timeout >= 5) {
                     this.endMatch(matchId, FikaMatchEndSessionMessage.PING_TIMEOUT_MESSAGE);
                 }
-            }, 30 * 1000),
+            }, 60 * 1000),
         );
     }
 
@@ -225,7 +225,7 @@ export class FikaMatchService {
      * @param reason
      */
     public endMatch(matchId: string, reason: FikaMatchEndSessionMessage): void {
-        this.logger.info(`COOP SESSION ${matchId} HAS BEEN ENDED: ${reason}`);
+        this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
 
         this.deleteMatch(matchId);
     }
