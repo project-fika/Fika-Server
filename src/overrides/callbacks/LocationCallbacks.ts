@@ -13,14 +13,14 @@ export class LocationCallbacksOverride extends Override {
     constructor(
         @inject("LocationController") protected locationController: LocationController,
         @inject("HttpResponseUtil") protected httpResponseUtil: HttpResponseUtil,
-        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService
+        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
     ) {
         super();
     }
 
     public execute(container: DependencyContainer): void {
         container.afterResolution("LocationCallbacks", (_t, result: LocationCallbacks) => {
-            result.getLocation = (url: string, info: IGetLocationRequestData, sessionId: string) => {
+            result.getLocation = (_url: string, info: IGetLocationRequestData, sessionId: string) => {
                 const matchId = this.fikaMatchService.getMatchIdByProfile(sessionId);
 
                 if (matchId === undefined) {
@@ -31,7 +31,7 @@ export class LocationCallbacksOverride extends Override {
                 // player is in a Fika match, use match location loot
                 const match = this.fikaMatchService.getMatch(matchId);
                 return this.httpResponseUtil.getBody(match.locationData);
-            }
+            };
         });
     }
 }

@@ -9,13 +9,13 @@ import { FikaLocationController } from "../controllers/FikaLocationController";
 export class FikaLocationCallbacks {
     constructor(
         @inject("HttpResponseUtil") protected httpResponseUtil: HttpResponseUtil,
-        @inject("FikaLocationController") protected fikaLocationController: FikaLocationController
+        @inject("FikaLocationController") protected fikaLocationController: FikaLocationController,
     ) {
         // empty
     }
 
     /** Handle /fika/location/raids */
-    public handleGetRaids(url: string, info: IGetRaidConfigurationRequestData, sessionID: string): string {
+    public handleGetRaids(_url: string, info: IGetRaidConfigurationRequestData, _sessionID: string): string {
         return this.httpResponseUtil.noBody(this.fikaLocationController.handleGetRaids(info));
     }
 }

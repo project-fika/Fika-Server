@@ -1,15 +1,15 @@
 import { inject, injectable } from "tsyringe";
 
-import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
+import { InventoryHelper } from "@spt-aki/helpers/InventoryHelper";
+import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
 import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
+import { Item } from "@spt-aki/models/eft/common/tables/IItem";
 import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
+import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
-import { MailSendService } from "@spt-aki/services/MailSendService";
-import { InventoryHelper } from "@spt-aki/helpers/InventoryHelper";
 import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
+import { MailSendService } from "@spt-aki/services/MailSendService";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
 
 import { IFikaSendItemRequestData } from "../models/fika/routes/senditem/IFikaSendItemRequestData";
@@ -26,12 +26,12 @@ export class FikaSendItemController {
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("ItemHelper") protected itemHelper: ItemHelper,
         @inject("HttpResponseUtil") protected httpResponse: HttpResponseUtil,
-        @inject("FikaConfig") protected fikaConfig: FikaConfig
+        @inject("FikaConfig") protected fikaConfig: FikaConfig,
     ) {
         // empty
     }
 
-    public sendItem(pmcData: IPmcData, body: IFikaSendItemRequestData, sessionID: string): IItemEventRouterResponse {
+    public sendItem(_pmcData: IPmcData, body: IFikaSendItemRequestData, sessionID: string): IItemEventRouterResponse {
         const fikaConfig = this.fikaConfig.getConfig();
         const output = this.eventOutputHolder.getOutput(sessionID);
 
@@ -83,11 +83,11 @@ export class FikaSendItemController {
                     Nickname: senderProfile.info.username,
                     Side: senderProfile.characters.pmc.Info.Side,
                     Level: senderProfile.characters.pmc.Info.Level,
-                    MemberCategory: senderProfile.characters.pmc.Info.MemberCategory
-                }
+                    MemberCategory: senderProfile.characters.pmc.Info.MemberCategory,
+                },
             },
             `You have received a gift from ${senderProfile.info.username}`,
-            itemsToSend
+            itemsToSend,
         );
 
         this.inventoryHelper.removeItem(senderProfile.characters.pmc, body.id, sessionID, output);
@@ -97,8 +97,8 @@ export class FikaSendItemController {
 
     /**
      * Get available receivers for sending an item
-     * @param sessionID 
-     * @returns 
+     * @param sessionID
+     * @returns
      */
     public handleAvailableReceivers(sessionID: string): IFikaSenditemAvailablereceiversResponse {
         const sender: IAkiProfile = this.saveServer.getProfile(sessionID);

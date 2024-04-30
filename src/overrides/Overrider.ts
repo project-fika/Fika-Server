@@ -4,9 +4,7 @@ import { Override } from "../di/Override";
 
 @injectable()
 export class Overrider {
-    constructor(
-        @injectAll("Overrides") protected overrides: Override[]
-    ) {
+    constructor(@injectAll("Overrides") protected overrides: Override[]) {
         // empty
     }
 

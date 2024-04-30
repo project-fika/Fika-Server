@@ -8,7 +8,7 @@ import { Overrider } from "./overrides/Overrider";
 export class Fika {
     constructor(
         @inject("DatabaseServer") protected databaseServer: DatabaseServer,
-        @inject("Overrider") protected overrider: Overrider
+        @inject("Overrider") protected overrider: Overrider,
     ) {
         // empty
     }

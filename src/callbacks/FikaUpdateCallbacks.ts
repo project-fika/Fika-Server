@@ -3,53 +3,53 @@ import { inject, injectable } from "tsyringe";
 import { INullResponseData } from "@spt-aki/models/eft/httpResponse/INullResponseData";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
 
+import { FikaUpdateController } from "../controllers/FikaUpdateController";
 import { IFikaUpdatePingRequestData } from "../models/fika/routes/update/IFikaUpdatePingRequestData";
 import { IFikaUpdatePlayerspawnRequestData } from "../models/fika/routes/update/IFikaUpdatePlayerspawnRequestData";
+import { IFikaUpdateSetStatusRequestData } from "../models/fika/routes/update/IFikaUpdateSetStatusRequestData";
 import { IFikaUpdateSethostRequestData } from "../models/fika/routes/update/IFikaUpdateSethostRequestData";
 import { IFikaUpdateSpawnpointRequestData } from "../models/fika/routes/update/IFikaUpdateSpawnpointRequestData";
-import { IFikaUpdateSetStatusRequestData } from "../models/fika/routes/update/IFikaUpdateSetStatusRequestData";
-import { FikaUpdateController } from "../controllers/FikaUpdateController";
 
 @injectable()
 export class FikaUpdateCallbacks {
     constructor(
         @inject("HttpResponseUtil") protected httpResponseUtil: HttpResponseUtil,
-        @inject("FikaUpdateController") protected fikaUpdateController: FikaUpdateController
+        @inject("FikaUpdateController") protected fikaUpdateController: FikaUpdateController,
     ) {
         // empty
     }
 
     /** Handle /fika/update/ping */
-    public handlePing(url: string, info: IFikaUpdatePingRequestData, sessionID: string): INullResponseData {
+    public handlePing(_url: string, info: IFikaUpdatePingRequestData, _sessionID: string): INullResponseData {
         this.fikaUpdateController.handlePing(info);
 
         return this.httpResponseUtil.nullResponse();
     }
 
     /** Handle /fika/update/spawnpoint */
-    public handleSpawnpoint(url: string, info: IFikaUpdateSpawnpointRequestData, sessionID: string): INullResponseData {
+    public handleSpawnpoint(_url: string, info: IFikaUpdateSpawnpointRequestData, _sessionID: string): INullResponseData {
         this.fikaUpdateController.handleSpawnpoint(info);
 
         return this.httpResponseUtil.nullResponse();
     }
 
     /** Handle /fika/update/playerspawn */
-    public handlePlayerspawn(url: string, info: IFikaUpdatePlayerspawnRequestData, sessionID: string): INullResponseData {
-        this.fikaUpdateController.handlePlayerspawn(info)
+    public handlePlayerspawn(_url: string, info: IFikaUpdatePlayerspawnRequestData, _sessionID: string): INullResponseData {
+        this.fikaUpdateController.handlePlayerspawn(info);
 
         return this.httpResponseUtil.nullResponse();
     }
 
     /** Handle /fika/update/sethost */
-    public handleSethost(url: string, info: IFikaUpdateSethostRequestData, sessionID: string): INullResponseData {
-        this.fikaUpdateController.handleSethost(info)
+    public handleSethost(_url: string, info: IFikaUpdateSethostRequestData, _sessionID: string): INullResponseData {
+        this.fikaUpdateController.handleSethost(info);
 
         return this.httpResponseUtil.nullResponse();
     }
 
     /** Handle /fika/update/setstatus */
-    public handleSetStatus(url: string, info: IFikaUpdateSetStatusRequestData, sessionID: string): INullResponseData {
-        this.fikaUpdateController.handleSetStatus(info)
+    public handleSetStatus(_url: string, info: IFikaUpdateSetStatusRequestData, _sessionID: string): INullResponseData {
+        this.fikaUpdateController.handleSetStatus(info);
 
         return this.httpResponseUtil.nullResponse();
     }
