@@ -88,14 +88,8 @@ export class TradeHelperOverride extends Override {
         root.parentId = "hideout";
 
         //Add stack count to the root item
-        if ( !root.upd )
-        {
-            root.upd = {};
-        }
-        if ( !root.upd.StackObjectsCount )
-        {
-            root.upd.StackObjectsCount =  1;
-        }
+        root.upd ??= {};
+        root.upd.StackObjectsCount ??= 1;
 
         // Clean up the items
         delete root.location;
