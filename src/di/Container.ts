@@ -5,7 +5,6 @@ import { FikaConfig } from "../utils/FikaConfig";
 import { Overrider } from "../overrides/Overrider";
 import { LocationCallbacksOverride } from "../overrides/callbacks/LocationCallbacks";
 import { ProfileCallbacksOverride } from "../overrides/callbacks/ProfileCallbacks";
-import { TradeHelperOverride } from "../overrides/helpers/TradeHelper";
 import { LauncherBackgroundOverride } from "../overrides/other/LauncherBackground";
 import { LocalesOverride } from "../overrides/other/Locales";
 import { HttpRouterOverride } from "../overrides/routers/HttpRouter";
@@ -57,7 +56,6 @@ export class Container {
         container.registerType("Overrides", "ProfileCallbacksOverride");
         container.registerType("Overrides", "LocationCallbacksOverride");
         container.registerType("Overrides", "HttpRouterOverride");
-        container.registerType("Overrides", "TradeHelperOverride");
         container.registerType("Overrides", "LauncherBackgroundOverride");
         container.registerType("Overrides", "LocalesOverride");
 
@@ -78,7 +76,6 @@ export class Container {
         container.register<ProfileCallbacksOverride>("ProfileCallbacksOverride", ProfileCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocationCallbacksOverride>("LocationCallbacksOverride", LocationCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<HttpRouterOverride>("HttpRouterOverride", HttpRouterOverride, { lifecycle: Lifecycle.Singleton });
-        container.register<TradeHelperOverride>("TradeHelperOverride", TradeHelperOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LauncherBackgroundOverride>("LauncherBackgroundOverride", LauncherBackgroundOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocalesOverride>("LocalesOverride", LocalesOverride, { lifecycle: Lifecycle.Singleton });
         container.register<Overrider>("Overrider", Overrider, { lifecycle: Lifecycle.Singleton });
