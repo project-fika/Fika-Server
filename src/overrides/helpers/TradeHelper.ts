@@ -1,22 +1,22 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { HandbookHelper } from "@spt-aki/helpers/HandbookHelper";
+import { InventoryHelper } from "@spt-aki/helpers/InventoryHelper";
+import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
 import { TradeHelper } from "@spt-aki/helpers/TradeHelper";
 import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { IProcessSellTradeRequestData } from "@spt-aki/models/eft/trade/IProcessSellTradeRequestData";
-import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { InventoryHelper } from "@spt-aki/helpers/InventoryHelper";
 import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { FenceService } from "@spt-aki/services/FenceService";
-import { PaymentService } from "@spt-aki/services/PaymentService";
-import { HandbookHelper } from "@spt-aki/helpers/HandbookHelper";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { ITraderConfig } from "@spt-aki/models/spt/config/ITraderConfig";
+import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
+import { IProcessSellTradeRequestData } from "@spt-aki/models/eft/trade/IProcessSellTradeRequestData";
+import { ConfigTypes } from "@spt-aki/models/enums/ConfigTypes";
 import { Money } from "@spt-aki/models/enums/Money";
 import { Traders } from "@spt-aki/models/enums/Traders";
-import { ConfigTypes } from "@spt-aki/models/enums/ConfigTypes";
+import { ITraderConfig } from "@spt-aki/models/spt/config/ITraderConfig";
+import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt-aki/servers/ConfigServer";
+import { FenceService } from "@spt-aki/services/FenceService";
+import { PaymentService } from "@spt-aki/services/PaymentService";
+import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
 
 import { Override } from "../../di/Override";
 
@@ -30,7 +30,7 @@ export class TradeHelperOverride extends Override {
         @inject("HandbookHelper") protected handbookHelper: HandbookHelper,
         @inject("FenceService") protected fenceService: FenceService,
         @inject("PaymentService") protected paymentService: PaymentService,
-        @inject("ConfigServer") protected configServer: ConfigServer
+        @inject("ConfigServer") protected configServer: ConfigServer,
     ) {
         super();
     }
@@ -38,13 +38,7 @@ export class TradeHelperOverride extends Override {
     public execute(container: DependencyContainer): void {
         container.afterResolution("TradeHelper", (_t, result: TradeHelper) => {
             // Support fence holding player-sold items in assort
-            result.sellItem = (
-                profileWithItemsToSell: IPmcData,
-                profileToReceiveMoney: IPmcData,
-                sellRequest: IProcessSellTradeRequestData,
-                sessionID: string,
-                output: IItemEventRouterResponse,
-            ) => {
+            result.sellItem = (profileWithItemsToSell: IPmcData, profileToReceiveMoney: IPmcData, sellRequest: IProcessSellTradeRequestData, sessionID: string, output: IItemEventRouterResponse) => {
                 // Find item in inventory and remove it
                 for (const itemToBeRemoved of sellRequest.items) {
                     // Strip out whitespace
@@ -74,7 +68,7 @@ export class TradeHelperOverride extends Override {
 
                 // Give player money for sold item(s)
                 this.paymentService.giveProfileMoney(profileToReceiveMoney, sellRequest.price, sellRequest, output, sessionID);
-            }
+            };
         });
     }
 
@@ -93,6 +87,10 @@ export class TradeHelperOverride extends Override {
         items = this.itemHelper.reparentItemAndChildren(root, items);
         root.parentId = "hideout";
 
+        //Add stack count to the root item
+        root.upd ??= {};
+        root.upd.StackObjectsCount ??= 1;
+
         // Clean up the items
         delete root.location;
 
@@ -102,9 +100,9 @@ export class TradeHelperOverride extends Override {
             [
                 {
                     count: cost,
-                    _tpl: Money.ROUBLES
-                }
-            ]
+                    _tpl: Money.ROUBLES,
+                },
+            ],
         ];
         assort.loyal_level_items[root._id] = 1;
     }

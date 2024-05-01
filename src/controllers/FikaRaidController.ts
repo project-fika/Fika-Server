@@ -1,37 +1,35 @@
 import { inject, injectable } from "tsyringe";
 
-import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
-import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
-import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
-import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
-import { IFikaRaidCreateResponse } from "../models/fika/routes/raid/create/IFikaRaidCreateResponse";
-import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaidJoinResponse";
-import { IFikaRaidGethostResponse } from "../models/fika/routes/raid/gethost/IFikaRaidGethostResponse";
-import { IFikaRaidSpawnpointResponse } from "../models/fika/routes/raid/spawnpoint/IFikaRaidSpawnpointResponse";
 import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
+import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
+import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
+import { IFikaRaidCreateResponse } from "../models/fika/routes/raid/create/IFikaRaidCreateResponse";
+import { IFikaRaidGethostResponse } from "../models/fika/routes/raid/gethost/IFikaRaidGethostResponse";
+import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
+import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaidJoinResponse";
+import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
+import { IFikaRaidSpawnpointResponse } from "../models/fika/routes/raid/spawnpoint/IFikaRaidSpawnpointResponse";
 import { FikaMatchService } from "../services/FikaMatchService";
 
 @injectable()
 export class FikaRaidController {
-    constructor(
-        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService
-    ) {
+    constructor(@inject("FikaMatchService") protected fikaMatchService: FikaMatchService) {
         // empty
     }
 
     /**
      * Handle /fika/raid/create
-     * @param request 
+     * @param request
      */
     public handleRaidCreate(request: IFikaRaidCreateRequestData): IFikaRaidCreateResponse {
         return {
-            success: this.fikaMatchService.createMatch(request)
+            success: this.fikaMatchService.createMatch(request),
         };
     }
 
     /**
      * Handle /fika/raid/join
-     * @param request 
+     * @param request
      */
     public handleRaidJoin(request: IFikaRaidJoinRequestData): IFikaRaidJoinResponse {
         this.fikaMatchService.addPlayerToMatch(request.serverId, request.profileId, { groupId: null, isDead: false });
@@ -43,13 +41,13 @@ export class FikaRaidController {
             timestamp: match.timestamp,
             expectedNumberOfPlayers: match.expectedNumberOfPlayers,
             gameVersion: match.gameVersion,
-            fikaVersion: match.fikaVersion
+            fikaVersion: match.fikaVersion,
         };
     }
 
     /**
      * Handle /fika/raid/leave
-     * @param request 
+     * @param request
      */
     public handleRaidLeave(request: IFikaRaidLeaveRequestData): void {
         if (request.serverId === request.profileId) {
@@ -62,7 +60,7 @@ export class FikaRaidController {
 
     /**
      * Handle /fika/raid/gethost
-     * @param request 
+     * @param request
      */
     public handleRaidGethost(request: IFikaRaidServerIdRequestData): IFikaRaidGethostResponse {
         const match = this.fikaMatchService.getMatch(request.serverId);
@@ -72,13 +70,13 @@ export class FikaRaidController {
 
         return {
             ip: match.ip,
-            port: match.port
+            port: match.port,
         };
     }
 
     /**
      * Handle /fika/raid/spawnpoint
-     * @param request 
+     * @param request
      */
     public handleRaidSpawnpoint(request: IFikaRaidServerIdRequestData): IFikaRaidSpawnpointResponse {
         const match = this.fikaMatchService.getMatch(request.serverId);
@@ -87,7 +85,7 @@ export class FikaRaidController {
         }
 
         return {
-            spawnpoint: match.spawnPoint
+            spawnpoint: match.spawnPoint,
         };
     }
 }

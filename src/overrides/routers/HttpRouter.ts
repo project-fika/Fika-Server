@@ -1,8 +1,8 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
 import { IncomingMessage } from "node:http";
-import { HttpRouter } from "@spt-aki/routers/HttpRouter";
 import { HttpServerHelper } from "@spt-aki/helpers/HttpServerHelper";
+import { HttpRouter } from "@spt-aki/routers/HttpRouter";
 
 import { Override } from "../../di/Override";
 
@@ -10,9 +10,7 @@ import { Override } from "../../di/Override";
 
 @injectable()
 export class HttpRouterOverride extends Override {
-    constructor(
-        @inject("HttpServerHelper") protected httpServerHelper: HttpServerHelper
-    ) {
+    constructor(@inject("HttpServerHelper") protected httpServerHelper: HttpServerHelper) {
         super();
     }
 

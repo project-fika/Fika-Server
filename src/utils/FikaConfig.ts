@@ -2,8 +2,8 @@ import path from "node:path";
 import { inject, injectable } from "tsyringe";
 
 import { PreAkiModLoader } from "@spt-aki/loaders/PreAkiModLoader";
-import { VFS } from "@spt-aki/utils/VFS";
 import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { VFS } from "@spt-aki/utils/VFS";
 
 import { IFikaConfig } from "../models/fika/config/IFikaConfig";
 
@@ -19,7 +19,7 @@ export class FikaConfig {
     constructor(
         @inject("PreAkiModLoader") protected preAkiModLoader: PreAkiModLoader,
         @inject("VFS") protected vfs: VFS,
-        @inject("JsonUtil") protected jsonUtil: JsonUtil
+        @inject("JsonUtil") protected jsonUtil: JsonUtil,
     ) {
         this.modAuthor = packageJson.author.replace(/\W/g, "").toLowerCase();
         this.modName = packageJson.name.replace(/\W/g, "").toLowerCase();

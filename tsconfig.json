@@ -15,8 +15,5 @@
             "@spt-aki/*": ["./types/*"]
         }
     },
-    "include": [
-        "src/*",
-        "src/**/*"
-    ]
+    "include": ["src/*", "src/**/*"]
 }

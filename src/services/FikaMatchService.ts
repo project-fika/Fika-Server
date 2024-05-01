@@ -1,14 +1,14 @@
 import { inject, injectable } from "tsyringe";
 
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { LocationController } from "@spt-aki/controllers/LocationController";
+import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { SaveServer } from "@spt-aki/servers/SaveServer";
 
-import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
+import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
+import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
 import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
-import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
-import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
+import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 
 @injectable()
 export class FikaMatchService {
@@ -26,29 +26,32 @@ export class FikaMatchService {
 
     /**
      * Adds a timeout interval for the given match
-     * @param matchId 
+     * @param matchId
      */
     private addTimeoutInterval(matchId: string): void {
         if (this.timeoutIntervals.has(matchId)) {
             this.removeTimeoutInterval(matchId);
         }
 
-        this.timeoutIntervals.set(matchId, setInterval(() => {
-            const match = this.getMatch(matchId);
+        this.timeoutIntervals.set(
+            matchId,
+            setInterval(() => {
+                const match = this.getMatch(matchId);
 
-            match.timeout++;
+                match.timeout++;
 
-            // if it timed out 5 times or more, end the match
-            if (match.timeout >= 5) {
-                this.endMatch(matchId, FikaMatchEndSessionMessage.PING_TIMEOUT_MESSAGE);
-            }
-        }, 30 * 1000));
+                // if it timed out 5 times or more, end the match
+                if (match.timeout >= 5) {
+                    this.endMatch(matchId, FikaMatchEndSessionMessage.PING_TIMEOUT_MESSAGE);
+                }
+            }, 60 * 1000),
+        );
     }
 
     /**
      * Removes the timeout interval for the given match
-     * @param matchId 
-     * @returns 
+     * @param matchId
+     * @returns
      */
     private removeTimeoutInterval(matchId: string): void {
         if (!this.timeoutIntervals.has(matchId)) {
@@ -62,8 +65,8 @@ export class FikaMatchService {
 
     /**
      * Returns the match with the given id, undefined if match does not exist
-     * @param matchId 
-     * @returns 
+     * @param matchId
+     * @returns
      */
     public getMatch(matchId: string): IFikaMatch {
         if (!this.matches.has(matchId)) {
@@ -75,7 +78,7 @@ export class FikaMatchService {
 
     /**
      * Returns all matches
-     * @returns 
+     * @returns
      */
     public getAllMatches(): Map<string, IFikaMatch> {
         return this.matches;
@@ -83,7 +86,7 @@ export class FikaMatchService {
 
     /**
      * Returns all match ids
-     * @returns 
+     * @returns
      */
     public getAllMatchIds(): string[] {
         return Array.from(this.matches.keys());
@@ -92,8 +95,8 @@ export class FikaMatchService {
     /**
      * Returns the player with the given id in the given match, undefined if either match or player does not exist
      * @param matchId
-     * @param playerId 
-     * @returns 
+     * @param playerId
+     * @returns
      */
     public getPlayerInMatch(matchId: string, playerId: string): IFikaPlayer {
         if (!this.matches.has(matchId)) {
@@ -109,11 +112,11 @@ export class FikaMatchService {
 
     /**
      * Returns an array with all playerIds in the given match, undefined if match does not exist
-     * 
+     *
      * Note:
      * - host player is the one where playerId is equal to matchId
-     * @param matchId 
-     * @returns 
+     * @param matchId
+     * @returns
      */
     public getPlayersIdsByMatch(matchId: string): string[] {
         if (!this.matches.has(matchId)) {
@@ -125,9 +128,9 @@ export class FikaMatchService {
 
     /**
      * Returns the match id that has a player with the given player id, undefined if the player isn't in a match
-     * 
-     * @param playerId 
-     * @returns 
+     *
+     * @param playerId
+     * @returns
      */
     public getMatchIdByPlayer(playerId: string): string {
         for (const [key, value] of this.matches.entries()) {
@@ -141,11 +144,11 @@ export class FikaMatchService {
 
     /**
      * Returns the match id that has a player with the given session id, undefined if the player isn't in a match
-     * 
+     *
      * Note:
      * - First tries to find pmc, then scav
      * @param sessionId
-     * @returns 
+     * @returns
      */
     public getMatchIdByProfile(sessionId: string): string {
         const profile = this.saveServer.getProfile(sessionId);
@@ -163,8 +166,8 @@ export class FikaMatchService {
 
     /**
      * Creates a new coop match
-     * @param data 
-     * @returns 
+     * @param data
+     * @returns
      */
     public createMatch(data: IFikaRaidCreateRequestData): boolean {
         if (this.matches.has(data.serverId)) {
@@ -172,10 +175,10 @@ export class FikaMatchService {
         }
 
         const locationData = this.locationController.get(data.serverId, {
-            crc: 0, /* unused */
+            crc: 0 /* unused */,
             locationId: data.settings.location,
-            variantId: 0 /* unused */
-        })
+            variantId: 0 /* unused */,
+        });
 
         this.matches.set(data.serverId, {
             ip: null,
@@ -192,7 +195,7 @@ export class FikaMatchService {
             gameVersion: data.gameVersion,
             fikaVersion: data.fikaVersion,
             side: data.side,
-            time: data.time
+            time: data.time,
         });
 
         this.addTimeoutInterval(data.serverId);
@@ -204,7 +207,7 @@ export class FikaMatchService {
 
     /**
      * Deletes a coop match and removes the timeout interval
-     * @param matchId 
+     * @param matchId
      */
     public deleteMatch(matchId: string): void {
         if (!this.matches.has(matchId)) {
@@ -218,19 +221,19 @@ export class FikaMatchService {
 
     /**
      * Ends the given match, logs a reason and removes the timeout interval
-     * @param matchId 
-     * @param reason 
+     * @param matchId
+     * @param reason
      */
     public endMatch(matchId: string, reason: FikaMatchEndSessionMessage): void {
-        this.logger.info(`COOP SESSION ${matchId} HAS BEEN ENDED: ${reason}`);
+        this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
 
         this.deleteMatch(matchId);
     }
 
     /**
      * Updates the status of the given match
-     * @param matchId 
-     * @param status 
+     * @param matchId
+     * @param status
      */
     public setMatchStatus(matchId: string, status: FikaMatchStatus): void {
         if (!this.matches.has(matchId)) {
@@ -242,8 +245,8 @@ export class FikaMatchService {
 
     /**
      * Sets the spawn point of the given match
-     * @param matchId 
-     * @param spawnPoint 
+     * @param matchId
+     * @param spawnPoint
      */
     public setMatchSpawnPoint(matchId: string, spawnPoint: string): void {
         if (!this.matches.has(matchId)) {
@@ -255,9 +258,9 @@ export class FikaMatchService {
 
     /**
      * Sets the ip and port for the given match
-     * @param matchId 
-     * @param ip 
-     * @param port 
+     * @param matchId
+     * @param ip
+     * @param port
      */
     public setMatchHost(matchId: string, ip: string, port: number): void {
         if (!this.matches.has(matchId)) {
@@ -272,7 +275,7 @@ export class FikaMatchService {
 
     /**
      * Resets the timeout of the given match
-     * @param matchId 
+     * @param matchId
      */
     public resetTimeout(matchId: string): void {
         if (!this.matches.has(matchId)) {
@@ -285,8 +288,8 @@ export class FikaMatchService {
     /**
      * Adds a player to a match
      * @param matchId
-     * @param playerId 
-     * @param data 
+     * @param playerId
+     * @param data
      */
     public addPlayerToMatch(matchId: string, playerId: string, data: IFikaPlayer): void {
         if (!this.matches.has(matchId)) {
@@ -298,9 +301,9 @@ export class FikaMatchService {
 
     /**
      * Sets the groupId for a player
-     * @param matchId 
-     * @param playerId 
-     * @param groupId 
+     * @param matchId
+     * @param playerId
+     * @param groupId
      */
     public setPlayerGroup(matchId: string, playerId: string, groupId: string): void {
         if (!this.matches.has(matchId)) {
@@ -317,7 +320,7 @@ export class FikaMatchService {
     /**
      * Removes a player from a match
      * @param matchId
-     * @param playerId 
+     * @param playerId
      */
     public removePlayerFromMatch(matchId: string, playerId: string): void {
         this.matches.get(matchId).players.delete(playerId);

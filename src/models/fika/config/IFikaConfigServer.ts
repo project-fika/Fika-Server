@@ -1,3 +1,3 @@
 export interface IFikaConfigServer {
-    giftedItemsLoseFIR: boolean;    
+    giftedItemsLoseFIR: boolean;
 }

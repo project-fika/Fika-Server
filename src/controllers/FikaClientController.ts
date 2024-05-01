@@ -6,9 +6,7 @@ import { FikaConfig } from "../utils/FikaConfig";
 
 @injectable()
 export class FikaClientController {
-    constructor(
-        @inject("FikaConfig") protected fikaConfig: FikaConfig
-    ) {
+    constructor(@inject("FikaConfig") protected fikaConfig: FikaConfig) {
         // empty
     }
 

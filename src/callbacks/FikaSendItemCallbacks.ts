@@ -4,15 +4,15 @@ import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
 import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
 
+import { FikaSendItemController } from "../controllers/FikaSendItemController";
 import { IFikaSendItemRequestData } from "../models/fika/routes/senditem/IFikaSendItemRequestData";
 import { IFikaSenditemAvailablereceiversRequestData } from "../models/fika/routes/senditem/availablereceivers/IFikaSenditemAvailablereceiversRequestData";
-import { FikaSendItemController } from "../controllers/FikaSendItemController";
 
 @injectable()
 export class FikaSendItemCallbacks {
     constructor(
         @inject("HttpResponseUtil") protected httpResponseUtil: HttpResponseUtil,
-        @inject("FikaSendItemController") protected fikaSendItemController: FikaSendItemController
+        @inject("FikaSendItemController") protected fikaSendItemController: FikaSendItemController,
     ) {
         // empty
     }
@@ -22,7 +22,7 @@ export class FikaSendItemCallbacks {
     }
 
     /** Handle /fika/senditem/availablereceivers */
-    public handleAvailableReceivers(url: string, info: IFikaSenditemAvailablereceiversRequestData, sessionID: string): string {
+    public handleAvailableReceivers(_url: string, _info: IFikaSenditemAvailablereceiversRequestData, sessionID: string): string {
         return this.httpResponseUtil.noBody(this.fikaSendItemController.handleAvailableReceivers(sessionID));
     }
 }

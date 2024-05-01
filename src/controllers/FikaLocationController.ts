@@ -7,21 +7,19 @@ import { FikaMatchService } from "../services/FikaMatchService";
 
 @injectable()
 export class FikaLocationController {
-    constructor(
-        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService
-    ) {
+    constructor(@inject("FikaMatchService") protected fikaMatchService: FikaMatchService) {
         // empty
     }
 
     /**
      * Handle /fika/location/raids
-     * @param request 
-     * @returns 
+     * @param request
+     * @returns
      */
-    public handleGetRaids(request: IGetRaidConfigurationRequestData): IFikaRaidsResponse {
+    public handleGetRaids(_request: IGetRaidConfigurationRequestData): IFikaRaidsResponse {
         const matches: IFikaRaidsResponse = [];
 
-        for (const [ matchId, match ] of this.fikaMatchService.getAllMatches()) {
+        for (const [matchId, match] of this.fikaMatchService.getAllMatches()) {
             matches.push({
                 serverId: matchId,
                 hostUsername: match.hostUsername,
@@ -29,7 +27,7 @@ export class FikaLocationController {
                 status: match.status,
                 location: match.raidConfig.location,
                 side: match.side,
-                time: match.time
+                time: match.time,
             });
         }
 

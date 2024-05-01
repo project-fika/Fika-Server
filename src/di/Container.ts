@@ -2,13 +2,13 @@ import { DependencyContainer, Lifecycle } from "tsyringe";
 
 import { FikaConfig } from "../utils/FikaConfig";
 
-import { ProfileCallbacksOverride } from "../overrides/callbacks/ProfileCallbacks";
+import { Overrider } from "../overrides/Overrider";
 import { LocationCallbacksOverride } from "../overrides/callbacks/LocationCallbacks";
-import { HttpRouterOverride } from "../overrides/routers/HttpRouter";
+import { ProfileCallbacksOverride } from "../overrides/callbacks/ProfileCallbacks";
 import { TradeHelperOverride } from "../overrides/helpers/TradeHelper";
 import { LauncherBackgroundOverride } from "../overrides/other/LauncherBackground";
 import { LocalesOverride } from "../overrides/other/Locales";
-import { Overrider } from "../overrides/Overrider";
+import { HttpRouterOverride } from "../overrides/routers/HttpRouter";
 
 import { FikaMatchService } from "../services/FikaMatchService";
 
@@ -36,19 +36,19 @@ import { Fika } from "../Fika";
 
 export class Container {
     public static register(container: DependencyContainer): void {
-        this.registerUtils(container);
+        Container.registerUtils(container);
 
-        this.registerOverrides(container);
+        Container.registerOverrides(container);
 
-        this.registerServices(container);
+        Container.registerServices(container);
 
-        this.registerControllers(container);
+        Container.registerControllers(container);
 
-        this.registerCallbacks(container);
+        Container.registerCallbacks(container);
 
-        this.registerRouters(container);
+        Container.registerRouters(container);
 
-        this.registerListTypes(container);
+        Container.registerListTypes(container);
 
         container.register<Fika>("Fika", Fika, { lifecycle: Lifecycle.Singleton });
     }

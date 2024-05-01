@@ -2,8 +2,8 @@ import { DependencyContainer } from "tsyringe";
 
 import { IPreAkiLoadModAsync } from "@spt-aki/models/external/IPreAkiLoadModAsync";
 
-import { Container } from "./di/Container";
 import { Fika } from "./Fika";
+import { Container } from "./di/Container";
 
 class Mod implements IPreAkiLoadModAsync {
     public async preAkiLoadAsync(container: DependencyContainer): Promise<void> {
