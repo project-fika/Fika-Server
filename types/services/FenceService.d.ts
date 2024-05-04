@@ -40,6 +40,7 @@ export declare class FenceService {
     protected fenceDiscountAssort: ITraderAssort;
     /** Desired baseline counts - Hydrated on initial assort generation as part of generateFenceAssorts() */
     protected desiredAssortCounts: IFenceAssortGenerationValues;
+    protected fenceItemUpdCompareProperties: Set<string>;
     constructor(logger: ILogger, jsonUtil: JsonUtil, timeUtil: TimeUtil, randomUtil: RandomUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer);
     /**
      * Replace main fence assort with new assort
@@ -73,6 +74,26 @@ export declare class FenceService {
      * @returns ITraderAssort
      */
     getFenceAssorts(pmcProfile: IPmcData): ITraderAssort;
+    /**
+     * Adds to fence assort a single item (with its children)
+     * @param items the items to add with all its childrens
+     * @param mainItem the most parent item of the array
+     */
+    addItemsToFenceAssort(items: Item[], mainItem: Item): void;
+    /**
+     * Calculates the overall price for an item (with all its children)
+     * @param itemTpl the item tpl to calculate the fence price for
+     * @param items the items (with its children) to calculate fence price for
+     * @returns the fence price of the item
+     */
+    getItemPrice(itemTpl: string, items: Item[]): number;
+    /**
+     * Calculate the overall price for an ammo box, where only one item is
+     * the ammo box itself and every other items are the bullets in that box
+     * @param items the ammo box (and all its children ammo items)
+     * @returns the price of the ammo box
+     */
+    protected getAmmoBoxPrice(items: Item[]): number;
     /**
      * Adjust all items contained inside an assort by a multiplier
      * @param assort (clone)Assort that contains items with prices to adjust

@@ -1,9 +1,12 @@
+import { RagfairServerHelper } from "@spt-aki/helpers/RagfairServerHelper";
 import { IRagfairOffer } from "@spt-aki/models/eft/ragfair/IRagfairOffer";
 export declare class RagfairOfferHolder {
+    protected maxOffersPerTemplate: number;
+    protected ragfairServerHelper: RagfairServerHelper;
     protected offersById: Map<string, IRagfairOffer>;
     protected offersByTemplate: Map<string, Map<string, IRagfairOffer>>;
     protected offersByTrader: Map<string, Map<string, IRagfairOffer>>;
-    constructor();
+    constructor(maxOffersPerTemplate: number, ragfairServerHelper: RagfairServerHelper);
     getOfferById(id: string): IRagfairOffer;
     getOffersByTemplate(templateId: string): Array<IRagfairOffer>;
     getOffersByTrader(traderId: string): Array<IRagfairOffer>;

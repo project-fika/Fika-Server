@@ -1,7 +1,7 @@
 import { DialogueController } from "@spt-aki/controllers/DialogueController";
 import { OnUpdate } from "@spt-aki/di/OnUpdate";
 import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
-import { IAcceptFriendRequestData, ICancelFriendRequestData } from "@spt-aki/models/eft/dialog/IAcceptFriendRequestData";
+import { IAcceptFriendRequestData, ICancelFriendRequestData, IDeclineFriendRequestData } from "@spt-aki/models/eft/dialog/IAcceptFriendRequestData";
 import { IChatServer } from "@spt-aki/models/eft/dialog/IChatServer";
 import { IClearMailMessageRequest } from "@spt-aki/models/eft/dialog/IClearMailMessageRequest";
 import { IDeleteFriendRequest } from "@spt-aki/models/eft/dialog/IDeleteFriendRequest";
@@ -74,9 +74,17 @@ export declare class DialogueCallbacks implements OnUpdate {
      */
     sendFriendRequest(url: string, request: IFriendRequestData, sessionID: string): IGetBodyResponseData<IFriendRequestSendResponse>;
     /**
+     * Handle client/friend/request/accept-all
+     */
+    acceptAllFriendRequests(url: string, request: IEmptyRequestData, sessionID: string): INullResponseData;
+    /**
      * Handle client/friend/request/accept
      */
     acceptFriendRequest(url: string, request: IAcceptFriendRequestData, sessionID: string): IGetBodyResponseData<boolean>;
+    /**
+     * Handle client/friend/request/decline
+     */
+    declineFriendRequest(url: string, request: IDeclineFriendRequestData, sessionID: string): IGetBodyResponseData<boolean>;
     /**
      * Handle client/friend/request/cancel
      */

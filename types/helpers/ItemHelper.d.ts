@@ -1,7 +1,7 @@
 import { HandbookHelper } from "@spt-aki/helpers/HandbookHelper";
 import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
 import { InsuredItem } from "@spt-aki/models/eft/common/tables/IBotBase";
-import { Item, Repairable } from "@spt-aki/models/eft/common/tables/IItem";
+import { Item, Repairable, Upd } from "@spt-aki/models/eft/common/tables/IItem";
 import { IStaticAmmoDetails } from "@spt-aki/models/eft/common/tables/ILootBase";
 import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
@@ -10,6 +10,7 @@ import { ItemBaseClassService } from "@spt-aki/services/ItemBaseClassService";
 import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
 import { LocaleService } from "@spt-aki/services/LocaleService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
+import { CompareUtil } from "@spt-aki/utils/CompareUtil";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
 import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { MathUtil } from "@spt-aki/utils/MathUtil";
@@ -28,8 +29,33 @@ export declare class ItemHelper {
     protected itemFilterService: ItemFilterService;
     protected localisationService: LocalisationService;
     protected localeService: LocaleService;
+    protected compareUtil: CompareUtil;
     protected readonly defaultInvalidBaseTypes: string[];
-    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, randomUtil: RandomUtil, objectId: ObjectId, mathUtil: MathUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemBaseClassService: ItemBaseClassService, itemFilterService: ItemFilterService, localisationService: LocalisationService, localeService: LocaleService);
+    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, randomUtil: RandomUtil, objectId: ObjectId, mathUtil: MathUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemBaseClassService: ItemBaseClassService, itemFilterService: ItemFilterService, localisationService: LocalisationService, localeService: LocaleService, compareUtil: CompareUtil);
+    /**
+     * This method will compare two items (with all its children) and see if the are equivalent.
+     * This method will NOT compare IDs on the items
+     * @param item1 first item with all its children to compare
+     * @param item2 second item with all its children to compare
+     * @param compareUpdProperties Upd properties to compare between the items
+     * @returns true if they are the same, false if they arent
+     */
+    isSameItems(item1: Item[], item2: Item[], compareUpdProperties?: Set<string>): boolean;
+    /**
+     * This method will compare two items and see if the are equivalent.
+     * This method will NOT compare IDs on the items
+     * @param item1 first item to compare
+     * @param item2 second item to compare
+     * @param compareUpdProperties Upd properties to compare between the items
+     * @returns true if they are the same, false if they arent
+     */
+    isSameItem(item1: Item, item2: Item, compareUpdProperties?: Set<string>): boolean;
+    /**
+     * Helper method to generate a Upd based on a template
+     * @param itemTemplate the item template to generate a Upd for
+     * @returns A Upd with all the default properties set
+     */
+    generateUpdForItem(itemTemplate: ITemplateItem): Upd;
     /**
      * Checks if an id is a valid item. Valid meaning that it's an item that be stored in stash
      * @param    {string}  tpl  the template id / tpl

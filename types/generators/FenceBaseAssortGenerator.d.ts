@@ -7,6 +7,7 @@ import { ITraderConfig } from "@spt-aki/models/spt/config/ITraderConfig";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
+import { FenceService } from "@spt-aki/services/FenceService";
 import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
 import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
@@ -22,8 +23,9 @@ export declare class FenceBaseAssortGenerator {
     protected itemFilterService: ItemFilterService;
     protected seasonalEventService: SeasonalEventService;
     protected configServer: ConfigServer;
+    protected fenceService: FenceService;
     protected traderConfig: ITraderConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer);
+    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer, fenceService: FenceService);
     /**
      * Create base fence assorts dynamically and store in memory
      */
@@ -40,8 +42,6 @@ export declare class FenceBaseAssortGenerator {
      * @returns Penetration power of passed in item, null if it doesnt have a power
      */
     protected getAmmoPenetrationPower(rootItemDb: ITemplateItem): number;
-    protected getItemPrice(itemTpl: string, items: Item[]): number;
-    protected getAmmoBoxPrice(items: Item[]): number;
     /**
      * Add soft inserts + armor plates to an armor
      * @param armor Armor item array to add mods into
