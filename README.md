@@ -1,13 +1,8 @@
 # Fika - Aki.Server Mod
 
+<img src="https://img.shields.io/discord/1202292159366037545?style=for-the-badge&logo=discord&label=Fika%20Discord"> <img alt="GitHub Downloads (all assets, latest release)" src="https://img.shields.io/github/downloads/project-fika/Fika-Server/latest/total?style=for-the-badge&logo=github"> <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/project-fika/Fika-Server?style=for-the-badge&logo=github"> <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/project-fika/Fika-Server?style=for-the-badge&logo=github">
+
 Server-side changes to make multiplayer work.
-
-## /!\ **NOTICE** /!\
-
-If you somehow ended up here while you just want to play a stable release,
-please download the release from the discord [here](https://discord.com/channels/1202292159366037545/1224454502531469373).
-
-If you're interested to contribute, then you're at the right place!
 
 ## Requirements
 
