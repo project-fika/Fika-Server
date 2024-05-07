@@ -34,4 +34,11 @@ export declare class WeightedRandomHelper {
         item: any;
         index: number;
     };
+    /**
+     * Find the greated common divisor of all weights and use it on the passed in dictionary
+     * @param weightedDict values to reduce
+     */
+    reduceWeightValues(weightedDict: Record<string, number>): void;
+    protected commonDivisor(numbers: number[]): number;
+    protected gcd(a: number, b: number): number;
 }

@@ -2,6 +2,7 @@ import { DialogueHelper } from "@spt-aki/helpers/DialogueHelper";
 import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
 import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
 import { TraderHelper } from "@spt-aki/helpers/TraderHelper";
+import { WeightedRandomHelper } from "@spt-aki/helpers/WeightedRandomHelper";
 import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
 import { Item } from "@spt-aki/models/eft/common/tables/IItem";
 import { IGetInsuranceCostRequestData } from "@spt-aki/models/eft/insurance/IGetInsuranceCostRequestData";
@@ -20,6 +21,7 @@ import { MailSendService } from "@spt-aki/services/MailSendService";
 import { PaymentService } from "@spt-aki/services/PaymentService";
 import { RagfairPriceService } from "@spt-aki/services/RagfairPriceService";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
+import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { MathUtil } from "@spt-aki/utils/MathUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
@@ -27,6 +29,7 @@ export declare class InsuranceController {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
     protected mathUtil: MathUtil;
+    protected jsonUtil: JsonUtil;
     protected hashUtil: HashUtil;
     protected eventOutputHolder: EventOutputHolder;
     protected timeUtil: TimeUtil;
@@ -35,6 +38,7 @@ export declare class InsuranceController {
     protected itemHelper: ItemHelper;
     protected profileHelper: ProfileHelper;
     protected dialogueHelper: DialogueHelper;
+    protected weightedRandomHelper: WeightedRandomHelper;
     protected traderHelper: TraderHelper;
     protected paymentService: PaymentService;
     protected insuranceService: InsuranceService;
@@ -43,7 +47,7 @@ export declare class InsuranceController {
     protected configServer: ConfigServer;
     protected insuranceConfig: IInsuranceConfig;
     protected roubleTpl: string;
-    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, itemHelper: ItemHelper, profileHelper: ProfileHelper, dialogueHelper: DialogueHelper, traderHelper: TraderHelper, paymentService: PaymentService, insuranceService: InsuranceService, mailSendService: MailSendService, ragfairPriceService: RagfairPriceService, configServer: ConfigServer);
+    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, jsonUtil: JsonUtil, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, itemHelper: ItemHelper, profileHelper: ProfileHelper, dialogueHelper: DialogueHelper, weightedRandomHelper: WeightedRandomHelper, traderHelper: TraderHelper, paymentService: PaymentService, insuranceService: InsuranceService, mailSendService: MailSendService, ragfairPriceService: RagfairPriceService, configServer: ConfigServer);
     /**
      * Process insurance items of all profiles prior to being given back to the player through the mail service.
      *
@@ -146,35 +150,15 @@ export declare class InsuranceController {
      * @returns void
      */
     protected processAttachmentByParent(attachments: Item[], traderId: string, toDelete: Set<string>): void;
+    protected logAttachmentsBeingRemoved(attachmentIdsToRemove: string[], attachments: Item[], attachmentPrices: Record<string, number>): void;
+    protected weightAttachmentsByPrice(attachments: Item[]): Record<string, number>;
     /**
-     * Sorts the attachment items by their dynamic price in descending order.
-     *
-     * @param attachments The array of attachments items.
-     * @returns An array of items enriched with their max price and common locale-name.
+     * Get count of items to remove from weapon (take into account trader + price of attachment)
+     * @param weightedAttachmentByPrice Dict of item Tpls and thier rouble price
+     * @param traderId Trader attachment insured against
+     * @returns Attachment count to remove
      */
-    protected sortAttachmentsByPrice(attachments: Item[]): EnrichedItem[];
-    /**
-     * Logs the details of each attachment item.
-     *
-     * @param attachments The array of attachment items.
-     */
-    protected logAttachmentsDetails(attachments: EnrichedItem[]): void;
-    /**
-     * Counts the number of successful rolls for the attachment items.
-     *
-     * @param attachments The array of attachment items.
-     * @param traderId The ID of the trader that has insured these attachments.
-     * @returns The number of successful rolls.
-     */
-    protected countSuccessfulRolls(attachments: Item[], traderId: string): number;
-    /**
-     * Marks the most valuable attachments for deletion based on the number of successful rolls made.
-     *
-     * @param attachments The array of attachment items.
-     * @param successfulRolls The number of successful rolls.
-     * @param toDelete The array that accumulates the IDs of the items to be deleted.
-     */
-    protected attachmentDeletionByValue(attachments: EnrichedItem[], successfulRolls: number, toDelete: Set<string>): void;
+    protected getAttachmentCountToRemove(weightedAttachmentByPrice: Record<string, number>, traderId: string): number;
     /**
      * Remove items from the insured items that should not be returned to the player.
      *
@@ -192,7 +176,7 @@ export declare class InsuranceController {
      */
     protected sendMail(sessionID: string, insurance: Insurance): void;
     /**
-     * Determines whether a insured item should be removed from the player's inventory based on a random roll and
+     * Determines whether an insured item should be removed from the player's inventory based on a random roll and
      * trader-specific return chance.
      *
      * @param traderId The ID of the trader who insured the item.
@@ -220,8 +204,3 @@ export declare class InsuranceController {
      */
     cost(request: IGetInsuranceCostRequestData, sessionID: string): IGetInsuranceCostResponseData;
 }
-interface EnrichedItem extends Item {
-    name: string;
-    dynamicPrice: number;
-}
-export {};
