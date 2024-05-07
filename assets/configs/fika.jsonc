@@ -7,6 +7,7 @@
         "allowItemSending": true
     },
     "server": {
-        "giftedItemsLoseFIR": true
+        "giftedItemsLoseFIR": true,
+        "launcherListAllProfiles": false
     }
 }
