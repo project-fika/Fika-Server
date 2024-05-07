@@ -125,4 +125,12 @@ export class FikaDialogueController {
     public deleteFriend(fromId: string, friendId: string): void {
         this.fikaPlayerRelationsHelper.removeFriend(fromId, friendId);
     }
+
+    public ignoreFriend(fromId: string, friendId: string): void {
+        this.fikaPlayerRelationsHelper.addToIgnoreList(fromId, friendId);
+    }
+
+    public unIgnoreFriend(fromId: string, friendId: string): void {
+        this.fikaPlayerRelationsHelper.removeFromIgnoreList(fromId, friendId);
+    }
 }

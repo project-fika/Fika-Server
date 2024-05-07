@@ -2,14 +2,15 @@ import { DependencyContainer, inject, injectable } from "tsyringe";
 
 import { DialogueCallbacks } from "@spt-aki/callbacks/DialogueCallbacks";
 import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
+import { IUIDRequestData } from "@spt-aki/models/eft/common/request/IUIDRequestData";
 import { IAcceptFriendRequestData, ICancelFriendRequestData, IDeclineFriendRequestData } from "@spt-aki/models/eft/dialog/IAcceptFriendRequestData";
+import { IDeleteFriendRequest } from "@spt-aki/models/eft/dialog/IDeleteFriendRequest";
 import { IFriendRequestData } from "@spt-aki/models/eft/dialog/IFriendRequestData";
 import { IFriendRequestSendResponse } from "@spt-aki/models/eft/dialog/IFriendRequestSendResponse";
 import { IGetBodyResponseData } from "@spt-aki/models/eft/httpResponse/IGetBodyResponseData";
 import { INullResponseData } from "@spt-aki/models/eft/httpResponse/INullResponseData";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
 
-import { IDeleteFriendRequest } from "@spt-aki/models/eft/dialog/IDeleteFriendRequest";
 import { FikaDialogueController } from "../../controllers/FikaDialogueController";
 import { Override } from "../../di/Override";
 
@@ -64,6 +65,18 @@ export class DialogueCallbacksOverride extends Override {
 
                 result.deleteFriend = (_url: string, info: IDeleteFriendRequest, sessionID: string): INullResponseData => {
                     this.fikaDialogueController.deleteFriend(sessionID, info.friend_id);
+
+                    return this.httpResponseUtil.nullResponse();
+                };
+
+                result.ignoreFriend = (_url: string, info: IUIDRequestData, sessionID: string): INullResponseData => {
+                    this.fikaDialogueController.ignoreFriend(sessionID, info.uid);
+
+                    return this.httpResponseUtil.nullResponse();
+                };
+
+                result.unIgnoreFriend = (_url: string, info: IUIDRequestData, sessionID: string): INullResponseData => {
+                    this.fikaDialogueController.unIgnoreFriend(sessionID, info.uid);
 
                     return this.httpResponseUtil.nullResponse();
                 };
