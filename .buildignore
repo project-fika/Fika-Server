@@ -6,6 +6,7 @@
 /.github
 /.gitattributes
 /.gitignore
+**/.gitkeep
 /.gitlab
 /.nvmrc
 /.prettierrc
