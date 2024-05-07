@@ -19,19 +19,23 @@ export class LocationCallbacksOverride extends Override {
     }
 
     public execute(container: DependencyContainer): void {
-        container.afterResolution("LocationCallbacks", (_t, result: LocationCallbacks) => {
-            result.getLocation = (_url: string, info: IGetLocationRequestData, sessionId: string) => {
-                const matchId = this.fikaMatchService.getMatchIdByProfile(sessionId);
+        container.afterResolution(
+            "LocationCallbacks",
+            (_t, result: LocationCallbacks) => {
+                result.getLocation = (_url: string, info: IGetLocationRequestData, sessionId: string) => {
+                    const matchId = this.fikaMatchService.getMatchIdByProfile(sessionId);
 
-                if (matchId === undefined) {
-                    // player isn't in a Fika match, generate new loot
-                    return this.httpResponseUtil.getBody(this.locationController.get(sessionId, info));
-                }
+                    if (matchId === undefined) {
+                        // player isn't in a Fika match, generate new loot
+                        return this.httpResponseUtil.getBody(this.locationController.get(sessionId, info));
+                    }
 
-                // player is in a Fika match, use match location loot
-                const match = this.fikaMatchService.getMatch(matchId);
-                return this.httpResponseUtil.getBody(match.locationData);
-            };
-        });
+                    // player is in a Fika match, use match location loot
+                    const match = this.fikaMatchService.getMatch(matchId);
+                    return this.httpResponseUtil.getBody(match.locationData);
+                };
+            },
+            { frequency: "Always" },
+        );
     }
 }
