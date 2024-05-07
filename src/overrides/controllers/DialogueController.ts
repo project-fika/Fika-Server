@@ -1,4 +1,4 @@
-import { DependencyContainer, inject, injectAll, injectable } from "tsyringe";
+import { DependencyContainer, inject, injectable } from "tsyringe";
 
 import { DialogueController } from "@spt-aki/controllers/DialogueController";
 import { IGetFriendListDataResponse } from "@spt-aki/models/eft/dialog/IGetFriendListDataResponse";

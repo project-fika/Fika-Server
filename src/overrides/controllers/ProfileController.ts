@@ -9,20 +9,28 @@ import { ISearchFriendRequestData } from "@spt-aki/models/eft/profile/ISearchFri
 import { ISearchFriendResponse } from "@spt-aki/models/eft/profile/ISearchFriendResponse";
 
 import { Override } from "../../di/Override";
+import { FikaConfig } from "../../utils/FikaConfig";
 
 @injectable()
 export class ProfileControllerOverride extends Override {
-    constructor(@inject("ProfileHelper") protected profileHelper: ProfileHelper) {
+    constructor(
+        @inject("ProfileHelper") protected profileHelper: ProfileHelper,
+        @inject("FikaConfig") protected fikaConfig: FikaConfig,
+    ) {
         super();
     }
 
     public execute(container: DependencyContainer): void {
+        const fikaConfig = this.fikaConfig.getConfig();
+
         container.afterResolution(
             "ProfileController",
             (_t, result: ProfileController) => {
-                result.getMiniProfiles = (): IMiniProfile[] => {
-                    return [];
-                };
+                if (!fikaConfig.server.launcherListAllProfiles) {
+                    result.getMiniProfiles = (): IMiniProfile[] => {
+                        return [];
+                    };
+                }
 
                 result.getFriends = (info: ISearchFriendRequestData, _sessionID: string): ISearchFriendResponse[] => {
                     const searchNicknameLowerCase = info.nickname.toLowerCase();

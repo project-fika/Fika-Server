@@ -100,9 +100,9 @@ export declare class RagfairPriceService implements OnLoad {
      */
     getDynamicOfferPriceForOffer(offerItems: Item[], desiredCurrency: string, isPackOffer: boolean): number;
     /**
-     * @param itemTemplateId
-     * @param desiredCurrency
-     * @param item
+     * @param itemTemplateId items tpl value
+     * @param desiredCurrency Currency to return result in
+     * @param item Item object (used for weapon presets)
      * @param offerItems
      * @param isPackOffer
      * @returns

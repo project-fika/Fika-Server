@@ -1,4 +1,5 @@
 import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
+import { WeightedRandomHelper } from "@spt-aki/helpers/WeightedRandomHelper";
 import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
 import { IPmcConfig } from "@spt-aki/models/spt/config/IPmcConfig";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
@@ -17,11 +18,13 @@ export declare class PMCLootGenerator {
     protected itemFilterService: ItemFilterService;
     protected ragfairPriceService: RagfairPriceService;
     protected seasonalEventService: SeasonalEventService;
+    protected weightedRandomHelper: WeightedRandomHelper;
     protected pocketLootPool: Record<string, number>;
     protected vestLootPool: Record<string, number>;
     protected backpackLootPool: Record<string, number>;
     protected pmcConfig: IPmcConfig;
-    constructor(itemHelper: ItemHelper, databaseServer: DatabaseServer, configServer: ConfigServer, itemFilterService: ItemFilterService, ragfairPriceService: RagfairPriceService, seasonalEventService: SeasonalEventService);
+    protected roubleTpl: string;
+    constructor(itemHelper: ItemHelper, databaseServer: DatabaseServer, configServer: ConfigServer, itemFilterService: ItemFilterService, ragfairPriceService: RagfairPriceService, seasonalEventService: SeasonalEventService, weightedRandomHelper: WeightedRandomHelper);
     /**
      * Create an array of loot items a PMC can have in their pockets
      * @returns string array of tpls
@@ -44,11 +47,4 @@ export declare class PMCLootGenerator {
      * @returns string array of tpls
      */
     generatePMCBackpackLootPool(botRole: string): Record<string, number>;
-    /**
-     * Find the greated common divisor of all weights and use it on the passed in dictionary
-     * @param weightedDict
-     */
-    protected reduceWeightValues(weightedDict: Record<string, number>): void;
-    protected commonDivisor(numbers: number[]): number;
-    protected gcd(a: number, b: number): number;
 }
