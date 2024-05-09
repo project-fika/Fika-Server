@@ -1,6 +1,6 @@
 {
     "name": "server",
-    "version": "2.0.2",
+    "version": "2.2.0",
     "akiVersion": "3.9.0",
     "main": "src/mod.js",
     "scripts": {
