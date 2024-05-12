@@ -151,7 +151,7 @@ export declare class BotEquipmentModGenerator {
      * Get default preset for weapon, get specific weapon presets for edge cases (mp5/silenced dvl)
      * @param weaponTemplate
      * @param parentItemTpl
-     * @returns
+     * @returns Default preset found
      */
     protected getMatchingPreset(weaponTemplate: ITemplateItem, parentItemTpl: string): IPreset;
     /**

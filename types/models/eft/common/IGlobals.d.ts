@@ -922,7 +922,7 @@ export interface IBtrMapConfig {
     mapID: string;
     pathsConfigurations: IBtrMapConfig[];
 }
-export interface IBtrMapConfig {
+export interface IBtrPathConfig {
     id: string;
     enterPoint: string;
     exitPoint: string;

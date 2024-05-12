@@ -6,8 +6,8 @@ import { IHttpConfig } from "@spt-aki/models/spt/config/IHttpConfig";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { WebSocketServer } from "@spt-aki/servers/WebSocketServer";
 import { IHttpListener } from "@spt-aki/servers/http/IHttpListener";
+import { WebSocketServer } from "@spt-aki/servers/WebSocketServer";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 export declare class HttpServer {
     protected logger: ILogger;

@@ -63,7 +63,7 @@ export declare class RepeatableQuestController {
      * @param   {string}    _info       Request from client
      * @param   {string}    sessionID   Player's session id
      *
-     * @returns  {array}                Array of "repeatableQuestObjects" as descibed above
+     * @returns  {array}                Array of "repeatableQuestObjects" as described above
      */
     getClientRepeatableQuests(_info: IEmptyRequestData, sessionID: string): IPmcDataRepeatableQuest[];
     /**

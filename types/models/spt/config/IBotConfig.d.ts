@@ -175,7 +175,7 @@ export interface IRandomisedResourceDetails {
     meds: IRandomisedResourceValues;
 }
 export interface IRandomisedResourceValues {
-    /** Minimum percent of item to randomized between min and max resource*/
+    /** Minimum percent of item to randomized between min and max resource */
     resourcePercent: number;
     /** Chance for randomization to not occur */
     chanceMaxResourcePercent: number;

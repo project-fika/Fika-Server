@@ -21,17 +21,17 @@ export interface ILocationConfig extends IBaseConfig {
     fitLootIntoContainerAttempts: number;
     /** Add all possible zones to each maps `OpenZones` property */
     addOpenZonesToAllMaps: boolean;
-    /** Allow addition of custom bot waves designed by SPT to be added to maps - defined in  configs/location.json.customWaves*/
+    /** Allow addition of custom bot waves designed by SPT to be added to maps - defined in  configs/location.json.customWaves */
     addCustomBotWavesToMaps: boolean;
     /** Should the limits defined inside botTypeLimits to appled to locations on game start */
     enableBotTypeLimits: boolean;
-    /** Add limits to a locations base.MinMaxBots array if enableBotTypeLimits is true*/
+    /** Add limits to a locations base.MinMaxBots array if enableBotTypeLimits is true */
     botTypeLimits: Record<string, IBotTypeLimit[]>;
     /** container randomisation settings */
     containerRandomisationSettings: IContainerRandomistionSettings;
-    /** How full must a random loose magazine be %*/
+    /** How full must a random loose magazine be % */
     minFillLooseMagazinePercent: number;
-    /** How full must a random static magazine be %*/
+    /** How full must a random static magazine be % */
     minFillStaticMagazinePercent: number;
     allowDuplicateItemsInStaticContainers: boolean;
     /** Chance loose magazines have ammo in them TODO - rename to dynamicMagazineLootHasAmmoChancePercent */
@@ -40,11 +40,11 @@ export interface ILocationConfig extends IBaseConfig {
     staticMagazineLootHasAmmoChancePercent: number;
     /** Key: map, value: loose loot ids to ignore */
     looseLootBlacklist: Record<string, string[]>;
-    /** Key: map, value: settings to control how long scav raids are*/
+    /** Key: map, value: settings to control how long scav raids are */
     scavRaidTimeSettings: IScavRaidTimeSettings;
     /** Settings to adjust mods for lootable equipment in raid */
     equipmentLootSettings: IEquipmentLootSettings;
-    /** Sets the max Patrol Value of the Boxzone on the map Ground Zero*/
+    /** Sets the max Patrol Value of the Boxzone on the map Ground Zero */
     sandboxMaxPatrolvalue: number;
 }
 export interface IEquipmentLootSettings {
