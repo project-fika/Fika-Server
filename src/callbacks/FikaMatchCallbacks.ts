@@ -1,14 +1,15 @@
 import { inject, injectable } from "tsyringe";
 
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { IProfileStatusRequest } from "src/models/eft/match/IProfileStatusRequest";
-import { FikaMatchController } from "src/controllers/FikaMatchController";
+
+import { FikaMatchController } from "../controllers/FikaMatchController";
+import { IProfileStatusRequest } from "../models/eft/match/IProfileStatusRequest";
 
 @injectable()
 export class FikaMatchCallbacks {
     constructor(
         @inject("FikaMatchController") protected fikaMatchController: FikaMatchController,
-        @inject("HttpResponseUtil") protected httpResponseUtil: HttpResponseUtil
+        @inject("HttpResponseUtil") protected httpResponseUtil: HttpResponseUtil,
     ) {
         // empty
     }

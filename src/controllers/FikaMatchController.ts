@@ -1,16 +1,16 @@
 import { inject, injectable } from "tsyringe";
 
-import { IRequestIdRequest } from "src/models/eft/match/IRequestIdRequest";
-import { IGroupCharacter } from "src/models/eft/match/IGroupCharacter";
-import { IMatchGroupCurrentResponse } from "src/models/eft/match/IMatchGroupCurrentResponse";
-import { IProfileStatusResponse } from "src/models/eft/match/IProfileStatusResponse";
-import { IProfileStatusRequest } from "src/models/eft/match/IProfileStatusRequest";
-import { IMatchGroupTransferRequest } from "src/models/eft/match/IMatchGroupTransferRequest";
-import { IMatchGroupPlayerRemoveRequest } from "src/models/eft/match/IMatchGroupPlayerRemoveRequest";
-import { IMatchGroupStartGameRequest } from "src/models/eft/match/IMatchGroupStartGameRequest";
-import { IMatchGroupInviteSendRequest } from "src/models/eft/match/IMatchGroupInviteSendRequest";
-import { IMatchGroupStatusRequest } from "src/models/eft/match/IMatchGroupStatusRequest";
-import { IMatchGroupStatusResponse } from "src/models/eft/match/IMatchGroupStatusResponse";
+import { IGroupCharacter } from "../models/eft/match/IGroupCharacter";
+import { IMatchGroupCurrentResponse } from "../models/eft/match/IMatchGroupCurrentResponse";
+import { IMatchGroupInviteSendRequest } from "../models/eft/match/IMatchGroupInviteSendRequest";
+import { IMatchGroupPlayerRemoveRequest } from "../models/eft/match/IMatchGroupPlayerRemoveRequest";
+import { IMatchGroupStartGameRequest } from "../models/eft/match/IMatchGroupStartGameRequest";
+import { IMatchGroupStatusRequest } from "../models/eft/match/IMatchGroupStatusRequest";
+import { IMatchGroupStatusResponse } from "../models/eft/match/IMatchGroupStatusResponse";
+import { IMatchGroupTransferRequest } from "../models/eft/match/IMatchGroupTransferRequest";
+import { IProfileStatusRequest } from "../models/eft/match/IProfileStatusRequest";
+import { IProfileStatusResponse } from "../models/eft/match/IProfileStatusResponse";
+import { IRequestIdRequest } from "../models/eft/match/IRequestIdRequest";
 import { FikaMatchService } from "../services/FikaMatchService";
 
 @injectable()
@@ -27,7 +27,7 @@ export class FikaMatchController {
     /** Handle /client/match/group/current */
     public handleMatchGroupCurrent(sessionID: string): IMatchGroupCurrentResponse {
         return {
-            squad: []
+            squad: [],
         };
     }
 
@@ -94,7 +94,7 @@ export class FikaMatchController {
             maxPveCountExceeded: false,
             profiles: [
                 // of all active characters in the group
-            ]
+            ],
         };
     }
 
@@ -102,7 +102,7 @@ export class FikaMatchController {
     public handleMatchGroupStatus(info: IMatchGroupStatusRequest, sessionID: string): IMatchGroupStatusResponse {
         return {
             players: [],
-            maxPveCountExceeded: false
+            maxPveCountExceeded: false,
         };
     }
 
@@ -129,7 +129,7 @@ export class FikaMatchController {
                 // requesting player's
                 // - scav
                 // - pmc
-            ]
+            ],
         };
     }
 }
