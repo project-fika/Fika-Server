@@ -1,16 +1,18 @@
 import { inject, injectable } from "tsyringe";
 
-import { IGroupCharacter } from "../models/eft/match/IGroupCharacter";
-import { IMatchGroupCurrentResponse } from "../models/eft/match/IMatchGroupCurrentResponse";
-import { IMatchGroupInviteSendRequest } from "../models/eft/match/IMatchGroupInviteSendRequest";
-import { IMatchGroupPlayerRemoveRequest } from "../models/eft/match/IMatchGroupPlayerRemoveRequest";
-import { IMatchGroupStartGameRequest } from "../models/eft/match/IMatchGroupStartGameRequest";
-import { IMatchGroupStatusRequest } from "../models/eft/match/IMatchGroupStatusRequest";
-import { IMatchGroupStatusResponse } from "../models/eft/match/IMatchGroupStatusResponse";
-import { IMatchGroupTransferRequest } from "../models/eft/match/IMatchGroupTransferRequest";
-import { IProfileStatusRequest } from "../models/eft/match/IProfileStatusRequest";
-import { IProfileStatusResponse } from "../models/eft/match/IProfileStatusResponse";
-import { IRequestIdRequest } from "../models/eft/match/IRequestIdRequest";
+import { IGroupCharacter } from "@spt-aki/models/eft/match/IGroupCharacter";
+
+import { IMatchGroupCurrentResponse } from "@spt-aki/models/eft/match/IMatchGroupCurrentResponse";
+import { IMatchGroupInviteSendRequest } from "@spt-aki/models/eft/match/IMatchGroupInviteSendRequest";
+import { IMatchGroupPlayerRemoveRequest } from "@spt-aki/models/eft/match/IMatchGroupPlayerRemoveRequest";
+import { IMatchGroupStartGameRequest } from "@spt-aki/models/eft/match/IMatchGroupStartGameRequest";
+import { IMatchGroupStatusRequest } from "@spt-aki/models/eft/match/IMatchGroupStatusRequest";
+import { IMatchGroupStatusResponse } from "@spt-aki/models/eft/match/IMatchGroupStatusResponse";
+import { IMatchGroupTransferRequest } from "@spt-aki/models/eft/match/IMatchGroupTransferRequest";
+import { IProfileStatusRequest } from "@spt-aki/models/eft/match/IProfileStatusRequest";
+import { IProfileStatusResponse } from "@spt-aki/models/eft/match/IProfileStatusResponse";
+import { IRequestIdRequest } from "@spt-aki/models/eft/match/IRequestIdRequest";
+
 import { FikaMatchService } from "../services/FikaMatchService";
 
 @injectable()
