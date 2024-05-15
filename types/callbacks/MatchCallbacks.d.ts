@@ -2,25 +2,23 @@ import { MatchController } from "@spt-aki/controllers/MatchController";
 import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
 import { IGetBodyResponseData } from "@spt-aki/models/eft/httpResponse/IGetBodyResponseData";
 import { INullResponseData } from "@spt-aki/models/eft/httpResponse/INullResponseData";
-import { IAcceptGroupInviteRequest } from "@spt-aki/models/eft/match/IAcceptGroupInviteRequest";
-import { IAcceptGroupInviteResponse } from "@spt-aki/models/eft/match/IAcceptGroupInviteResponse";
-import { ICancelGroupInviteRequest } from "@spt-aki/models/eft/match/ICancelGroupInviteRequest";
-import { IDeclineGroupInviteRequest } from "@spt-aki/models/eft/match/IDeclineGroupInviteRequest";
 import { IEndOfflineRaidRequestData } from "@spt-aki/models/eft/match/IEndOfflineRaidRequestData";
-import { IGetGroupStatusRequestData } from "@spt-aki/models/eft/match/IGetGroupStatusRequestData";
-import { IGetGroupStatusResponse } from "@spt-aki/models/eft/match/IGetGroupStatusResponse";
 import { IGetRaidConfigurationRequestData } from "@spt-aki/models/eft/match/IGetRaidConfigurationRequestData";
-import { IJoinMatchRequestData } from "@spt-aki/models/eft/match/IJoinMatchRequestData";
-import { IJoinMatchResult } from "@spt-aki/models/eft/match/IJoinMatchResult";
+import { IGroupCharacter } from "@spt-aki/models/eft/match/IGroupCharacter";
+import { IMatchGroupCurrentResponse } from "@spt-aki/models/eft/match/IMatchGroupCurrentResponse";
+import { IMatchGroupInviteSendRequest } from "@spt-aki/models/eft/match/IMatchGroupInviteSendRequest";
+import { IMatchGroupPlayerRemoveRequest } from "@spt-aki/models/eft/match/IMatchGroupPlayerRemoveRequest";
+import { IMatchGroupStartGameRequest } from "@spt-aki/models/eft/match/IMatchGroupStartGameRequest";
+import { IMatchGroupStatusRequest } from "@spt-aki/models/eft/match/IMatchGroupStatusRequest";
+import { IMatchGroupStatusResponse } from "@spt-aki/models/eft/match/IMatchGroupStatusResponse";
+import { IMatchGroupTransferRequest } from "@spt-aki/models/eft/match/IMatchGroupTransferRequest";
+import { IProfileStatusResponse } from "@spt-aki/models/eft/match/IProfileStatusResponse";
 import { IPutMetricsRequestData } from "@spt-aki/models/eft/match/IPutMetricsRequestData";
-import { IRemovePlayerFromGroupRequest } from "@spt-aki/models/eft/match/IRemovePlayerFromGroupRequest";
-import { ISendGroupInviteRequest } from "@spt-aki/models/eft/match/ISendGroupInviteRequest";
-import { ITransferGroupRequest } from "@spt-aki/models/eft/match/ITransferGroupRequest";
+import { IRequestIdRequest } from "@spt-aki/models/eft/match/IRequestIdRequest";
 import { IUpdatePingRequestData } from "@spt-aki/models/eft/match/IUpdatePingRequestData";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
 import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { IGroupCurrentResponse } from "@spt-aki/models/eft/match/IGroupCurrentResponse";
 export declare class MatchCallbacks {
     protected httpResponse: HttpResponseUtil;
     protected jsonUtil: JsonUtil;
@@ -32,26 +30,26 @@ export declare class MatchCallbacks {
     exitMatch(url: string, info: IEmptyRequestData, sessionID: string): INullResponseData;
     /** Handle client/match/group/exit_from_menu */
     exitToMenu(url: string, info: IEmptyRequestData, sessionID: string): INullResponseData;
-    groupCurrent(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IGroupCurrentResponse>;
+    groupCurrent(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IMatchGroupCurrentResponse>;
     startGroupSearch(url: string, info: IEmptyRequestData, sessionID: string): INullResponseData;
     stopGroupSearch(url: string, info: IEmptyRequestData, sessionID: string): INullResponseData;
     /** Handle client/match/group/invite/send */
-    sendGroupInvite(url: string, info: ISendGroupInviteRequest, sessionID: string): IGetBodyResponseData<string>;
+    sendGroupInvite(url: string, info: IMatchGroupInviteSendRequest, sessionID: string): IGetBodyResponseData<string>;
     /** Handle client/match/group/invite/accept */
-    acceptGroupInvite(url: string, info: IAcceptGroupInviteRequest, sessionId: string): IGetBodyResponseData<IAcceptGroupInviteResponse[]>;
+    acceptGroupInvite(url: string, info: IRequestIdRequest, sessionId: string): IGetBodyResponseData<IGroupCharacter[]>;
     /** Handle client/match/group/invite/decline */
-    declineGroupInvite(url: string, info: IDeclineGroupInviteRequest, sessionId: string): IGetBodyResponseData<boolean>;
+    declineGroupInvite(url: string, info: IRequestIdRequest, sessionId: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/group/invite/cancel */
-    cancelGroupInvite(url: string, info: ICancelGroupInviteRequest, sessionID: string): IGetBodyResponseData<boolean>;
+    cancelGroupInvite(url: string, info: IRequestIdRequest, sessionID: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/group/transfer */
-    transferGroup(url: string, info: ITransferGroupRequest, sessionId: string): IGetBodyResponseData<boolean>;
+    transferGroup(url: string, info: IMatchGroupTransferRequest, sessionId: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/group/invite/cancel-all */
     cancelAllGroupInvite(url: string, info: IEmptyRequestData, sessionId: string): IGetBodyResponseData<boolean>;
     /** @deprecated - not called on raid start/end or game start/exit */
     putMetrics(url: string, info: IPutMetricsRequestData, sessionId: string): INullResponseData;
     serverAvailable(url: string, info: IEmptyRequestData, sessionId: string): IGetBodyResponseData<boolean>;
     /** Handle match/group/start_game */
-    joinMatch(url: string, info: IJoinMatchRequestData, sessionID: string): IGetBodyResponseData<IJoinMatchResult>;
+    joinMatch(url: string, info: IMatchGroupStartGameRequest, sessionID: string): IGetBodyResponseData<IProfileStatusResponse>;
     /** Handle client/getMetricsConfig */
     getMetrics(url: string, info: any, sessionID: string): IGetBodyResponseData<string>;
     /**
@@ -59,12 +57,12 @@ export declare class MatchCallbacks {
      * Handle client/match/group/status
      * @returns
      */
-    getGroupStatus(url: string, info: IGetGroupStatusRequestData, sessionID: string): IGetBodyResponseData<IGetGroupStatusResponse>;
+    getGroupStatus(url: string, info: IMatchGroupStatusRequest, sessionID: string): IGetBodyResponseData<IMatchGroupStatusResponse>;
     /** Handle client/match/group/delete */
-    deleteGroup(url: string, info: any, sessionID: string): IGetBodyResponseData<boolean>;
+    deleteGroup(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<boolean>;
     leaveGroup(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/group/player/remove */
-    removePlayerFromGroup(url: string, info: IRemovePlayerFromGroupRequest, sessionID: string): IGetBodyResponseData<boolean>;
+    removePlayerFromGroup(url: string, info: IMatchGroupPlayerRemoveRequest, sessionID: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/offline/end */
     endOfflineRaid(url: string, info: IEndOfflineRaidRequestData, sessionID: string): INullResponseData;
     /** Handle client/raid/configuration */

@@ -4,11 +4,11 @@ import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
 import { TraderHelper } from "@spt-aki/helpers/TraderHelper";
 import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
 import { IEndOfflineRaidRequestData } from "@spt-aki/models/eft/match/IEndOfflineRaidRequestData";
-import { IGetGroupStatusRequestData } from "@spt-aki/models/eft/match/IGetGroupStatusRequestData";
-import { IGetGroupStatusResponse } from "@spt-aki/models/eft/match/IGetGroupStatusResponse";
 import { IGetRaidConfigurationRequestData } from "@spt-aki/models/eft/match/IGetRaidConfigurationRequestData";
-import { IJoinMatchRequestData } from "@spt-aki/models/eft/match/IJoinMatchRequestData";
-import { IJoinMatchResult } from "@spt-aki/models/eft/match/IJoinMatchResult";
+import { IMatchGroupStartGameRequest } from "@spt-aki/models/eft/match/IMatchGroupStartGameRequest";
+import { IMatchGroupStatusRequest } from "@spt-aki/models/eft/match/IMatchGroupStatusRequest";
+import { IMatchGroupStatusResponse } from "@spt-aki/models/eft/match/IMatchGroupStatusResponse";
+import { IProfileStatusResponse } from "@spt-aki/models/eft/match/IProfileStatusResponse";
 import { IInRaidConfig } from "@spt-aki/models/spt/config/IInRaidConfig";
 import { IMatchConfig } from "@spt-aki/models/spt/config/IMatchConfig";
 import { IPmcConfig } from "@spt-aki/models/spt/config/IPmcConfig";
@@ -49,9 +49,9 @@ export declare class MatchController {
     /** Handle client/match/group/delete */
     deleteGroup(info: any): void;
     /** Handle match/group/start_game */
-    joinMatch(info: IJoinMatchRequestData, sessionId: string): IJoinMatchResult;
+    joinMatch(info: IMatchGroupStartGameRequest, sessionId: string): IProfileStatusResponse;
     /** Handle client/match/group/status */
-    getGroupStatus(info: IGetGroupStatusRequestData): IGetGroupStatusResponse;
+    getGroupStatus(info: IMatchGroupStatusRequest): IMatchGroupStatusResponse;
     /**
      * Handle /client/raid/configuration
      * @param request Raid config request
