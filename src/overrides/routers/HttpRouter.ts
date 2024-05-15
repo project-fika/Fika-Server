@@ -1,6 +1,6 @@
+import { IncomingMessage } from "node:http";
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { IncomingMessage } from "node:http";
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
 import { HttpRouter } from "@spt/routers/HttpRouter";
 
