@@ -115,7 +115,7 @@ export class FikaMatchCallbacks {
         const data: IProfileStatusResponse = {
             maxPveCountExceeded: false,
             profiles: [
-                // not sure which profiles, I think active character only?
+                // of all active characters in the group
             ]
         };
 
