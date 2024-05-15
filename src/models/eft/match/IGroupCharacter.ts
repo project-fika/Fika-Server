@@ -1,3 +1,4 @@
+import { Item } from "@spt-aki/models/eft/common/tables/IItem";
 import { MemberCategory } from "@spt-aki/models/enums/MemberCategory";
 
 export interface IGroupCharacter {
@@ -15,9 +16,17 @@ export interface IGroupCharacter {
             Level: number,
             Nickname: string,
             MemberCategory: MemberCategory;
-        },
-        Equipment: any,
-        Customization: any
+        }
+        Customization: {
+            Head: string;
+            Body: string;
+            Feet: string;
+            Hands: string;
+        }
+        Equipment: {
+            Id: string;
+            Items: Item[];
+        }
     }
     isLeader: boolean;
     region: string,
