@@ -21,12 +21,14 @@ import { FikaPlayerRelationsHelper } from "../helpers/FikaPlayerRelationsHelper"
 import { FikaClientController } from "../controllers/FikaClientController";
 import { FikaDialogueController } from "../controllers/FikaDialogueController";
 import { FikaLocationController } from "../controllers/FikaLocationController";
+import { FikaMatchController } from "../controllers/FikaMatchController";
 import { FikaRaidController } from "../controllers/FikaRaidController";
 import { FikaSendItemController } from "../controllers/FikaSendItemController";
 import { FikaUpdateController } from "../controllers/FikaUpdateController";
 
 import { FikaClientCallbacks } from "../callbacks/FikaClientCallbacks";
 import { FikaLocationCallbacks } from "../callbacks/FikaLocationCallbacks";
+import { FikaMatchCallbacks } from "../callbacks/FikaMatchCallbacks";
 import { FikaRaidCallbacks } from "../callbacks/FikaRaidCallbacks";
 import { FikaSendItemCallbacks } from "../callbacks/FikaSendItemCallbacks";
 import { FikaUpdateCallbacks } from "../callbacks/FikaUpdateCallbacks";
@@ -110,6 +112,7 @@ export class Container {
         container.register<FikaClientController>("FikaClientController", { useClass: FikaClientController });
         container.register<FikaDialogueController>("FikaDialogueController", { useClass: FikaDialogueController });
         container.register<FikaLocationController>("FikaLocationController", { useClass: FikaLocationController });
+        container.register<FikaMatchController>("FikaMatchController", { useClass: FikaMatchController });
         container.register<FikaRaidController>("FikaRaidController", { useClass: FikaRaidController });
         container.register<FikaSendItemController>("FikaSendItemController", { useClass: FikaSendItemController });
         container.register<FikaUpdateController>("FikaUpdateController", { useClass: FikaUpdateController });
@@ -118,6 +121,7 @@ export class Container {
     private static registerCallbacks(container: DependencyContainer): void {
         container.register<FikaClientCallbacks>("FikaClientCallbacks", { useClass: FikaClientCallbacks });
         container.register<FikaLocationCallbacks>("FikaLocationCallbacks", { useClass: FikaLocationCallbacks });
+        container.register<FikaMatchCallbacks>("FikaMatchCallbacks", { useClass: FikaMatchCallbacks });
         container.register<FikaRaidCallbacks>("FikaRaidCallbacks", { useClass: FikaRaidCallbacks });
         container.register<FikaSendItemCallbacks>("FikaSendItemCallbacks", { useClass: FikaSendItemCallbacks });
         container.register<FikaUpdateCallbacks>("FikaUpdateCallbacks", { useClass: FikaUpdateCallbacks });
