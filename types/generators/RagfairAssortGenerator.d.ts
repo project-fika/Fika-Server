@@ -7,9 +7,7 @@ import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 export declare class RagfairAssortGenerator {
-    protected jsonUtil: JsonUtil;
     protected hashUtil: HashUtil;
     protected itemHelper: ItemHelper;
     protected presetHelper: PresetHelper;
@@ -19,7 +17,7 @@ export declare class RagfairAssortGenerator {
     protected generatedAssortItems: Item[][];
     protected ragfairConfig: IRagfairConfig;
     protected ragfairItemInvalidBaseTypes: string[];
-    constructor(jsonUtil: JsonUtil, hashUtil: HashUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, databaseServer: DatabaseServer, seasonalEventService: SeasonalEventService, configServer: ConfigServer);
+    constructor(hashUtil: HashUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, databaseServer: DatabaseServer, seasonalEventService: SeasonalEventService, configServer: ConfigServer);
     /**
      * Get an array of arrays that can be sold on the flea
      * Each sub array contains item + children (if any)

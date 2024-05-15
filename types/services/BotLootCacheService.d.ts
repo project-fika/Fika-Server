@@ -7,17 +7,17 @@ import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { RagfairPriceService } from "@spt-aki/services/RagfairPriceService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 export declare class BotLootCacheService {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected itemHelper: ItemHelper;
     protected databaseServer: DatabaseServer;
     protected pmcLootGenerator: PMCLootGenerator;
     protected localisationService: LocalisationService;
     protected ragfairPriceService: RagfairPriceService;
+    protected cloner: ICloner;
     protected lootCache: Record<string, IBotLootCache>;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, itemHelper: ItemHelper, databaseServer: DatabaseServer, pmcLootGenerator: PMCLootGenerator, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService);
+    constructor(logger: ILogger, itemHelper: ItemHelper, databaseServer: DatabaseServer, pmcLootGenerator: PMCLootGenerator, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, cloner: ICloner);
     /**
      * Remove cached bot loot data
      */

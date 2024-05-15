@@ -10,10 +10,9 @@ import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { RagfairLinkedItemService } from "@spt-aki/services/RagfairLinkedItemService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 export declare class RagfairHelper {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected traderAssortHelper: TraderAssortHelper;
     protected databaseServer: DatabaseServer;
     protected handbookHelper: HandbookHelper;
@@ -21,8 +20,9 @@ export declare class RagfairHelper {
     protected ragfairLinkedItemService: RagfairLinkedItemService;
     protected utilityHelper: UtilityHelper;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected ragfairConfig: IRagfairConfig;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, traderAssortHelper: TraderAssortHelper, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, ragfairLinkedItemService: RagfairLinkedItemService, utilityHelper: UtilityHelper, configServer: ConfigServer);
+    constructor(logger: ILogger, traderAssortHelper: TraderAssortHelper, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, ragfairLinkedItemService: RagfairLinkedItemService, utilityHelper: UtilityHelper, configServer: ConfigServer, cloner: ICloner);
     /**
      * Gets currency TAG from TPL
      * @param {string} currency

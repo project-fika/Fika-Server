@@ -18,8 +18,8 @@ import { SaveServer } from "@spt-aki/servers/SaveServer";
 import { LocaleService } from "@spt-aki/services/LocaleService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { MailSendService } from "@spt-aki/services/MailSendService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class InsuranceService {
@@ -29,7 +29,6 @@ export declare class InsuranceService {
     protected randomUtil: RandomUtil;
     protected itemHelper: ItemHelper;
     protected hashUtil: HashUtil;
-    protected jsonUtil: JsonUtil;
     protected timeUtil: TimeUtil;
     protected saveServer: SaveServer;
     protected traderHelper: TraderHelper;
@@ -39,10 +38,11 @@ export declare class InsuranceService {
     protected localeService: LocaleService;
     protected mailSendService: MailSendService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected insured: Record<string, Record<string, Item[]>>;
     protected insuranceConfig: IInsuranceConfig;
     protected lostOnDeathConfig: ILostOnDeathConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, secureContainerHelper: SecureContainerHelper, randomUtil: RandomUtil, itemHelper: ItemHelper, hashUtil: HashUtil, jsonUtil: JsonUtil, timeUtil: TimeUtil, saveServer: SaveServer, traderHelper: TraderHelper, dialogueHelper: DialogueHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, localeService: LocaleService, mailSendService: MailSendService, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseServer: DatabaseServer, secureContainerHelper: SecureContainerHelper, randomUtil: RandomUtil, itemHelper: ItemHelper, hashUtil: HashUtil, timeUtil: TimeUtil, saveServer: SaveServer, traderHelper: TraderHelper, dialogueHelper: DialogueHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, localeService: LocaleService, mailSendService: MailSendService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Does player have insurance array
      * @param sessionId Player id

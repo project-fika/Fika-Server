@@ -1,6 +1,7 @@
 import { GameController } from "@spt-aki/controllers/GameController";
 import { OnLoad } from "@spt-aki/di/OnLoad";
 import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
+import { IUIDRequestData } from "@spt-aki/models/eft/common/request/IUIDRequestData";
 import { ICheckVersionResponse } from "@spt-aki/models/eft/game/ICheckVersionResponse";
 import { ICurrentGroupResponse } from "@spt-aki/models/eft/game/ICurrentGroupResponse";
 import { IGameConfigResponse } from "@spt-aki/models/eft/game/IGameConfigResponse";
@@ -12,7 +13,6 @@ import { IGameModeResponse } from "@spt-aki/models/eft/game/IGameModeResponse";
 import { IGameStartResponse } from "@spt-aki/models/eft/game/IGameStartResponse";
 import { IGetRaidTimeRequest } from "@spt-aki/models/eft/game/IGetRaidTimeRequest";
 import { IGetRaidTimeResponse } from "@spt-aki/models/eft/game/IGetRaidTimeResponse";
-import { IReportNicknameRequestData } from "@spt-aki/models/eft/game/IReportNicknameRequestData";
 import { IServerDetails } from "@spt-aki/models/eft/game/IServerDetails";
 import { IVersionValidateRequestData } from "@spt-aki/models/eft/game/IVersionValidateRequestData";
 import { IGetBodyResponseData } from "@spt-aki/models/eft/httpResponse/IGetBodyResponseData";
@@ -76,7 +76,7 @@ export declare class GameCallbacks implements OnLoad {
      * @returns string
      */
     getVersion(url: string, info: IEmptyRequestData, sessionID: string): string;
-    reportNickname(url: string, info: IReportNicknameRequestData, sessionID: string): INullResponseData;
+    reportNickname(url: string, info: IUIDRequestData, sessionID: string): INullResponseData;
     /**
      * Handle singleplayer/settings/getRaidTime
      * @returns string

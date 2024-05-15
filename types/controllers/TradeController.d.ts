@@ -23,7 +23,6 @@ import { MailSendService } from "@spt-aki/services/MailSendService";
 import { RagfairPriceService } from "@spt-aki/services/RagfairPriceService";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class TradeController {
@@ -37,7 +36,6 @@ export declare class TradeController {
     protected itemHelper: ItemHelper;
     protected profileHelper: ProfileHelper;
     protected traderHelper: TraderHelper;
-    protected jsonUtil: JsonUtil;
     protected ragfairServer: RagfairServer;
     protected httpResponse: HttpResponseUtil;
     protected localisationService: LocalisationService;
@@ -47,7 +45,7 @@ export declare class TradeController {
     protected roubleTpl: string;
     protected ragfairConfig: IRagfairConfig;
     protected traderConfig: ITraderConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, eventOutputHolder: EventOutputHolder, tradeHelper: TradeHelper, timeUtil: TimeUtil, randomUtil: RandomUtil, hashUtil: HashUtil, itemHelper: ItemHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, jsonUtil: JsonUtil, ragfairServer: RagfairServer, httpResponse: HttpResponseUtil, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, mailSendService: MailSendService, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseServer: DatabaseServer, eventOutputHolder: EventOutputHolder, tradeHelper: TradeHelper, timeUtil: TimeUtil, randomUtil: RandomUtil, hashUtil: HashUtil, itemHelper: ItemHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, ragfairServer: RagfairServer, httpResponse: HttpResponseUtil, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, mailSendService: MailSendService, configServer: ConfigServer);
     /** Handle TradingConfirm event */
     confirmTrading(pmcData: IPmcData, request: IProcessBaseTradeRequestData, sessionID: string): IItemEventRouterResponse;
     /** Handle RagFairBuyOffer event */

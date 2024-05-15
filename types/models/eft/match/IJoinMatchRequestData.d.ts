@@ -1,5 +1,5 @@
 export interface IJoinMatchRequestData {
-    groupid: string;
+    groupId: string;
     servers: Server[];
 }
 export interface Server {

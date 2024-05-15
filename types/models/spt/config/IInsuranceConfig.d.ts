@@ -13,4 +13,6 @@ export interface IInsuranceConfig extends IBaseConfig {
     returnTimeOverrideSeconds: number;
     /** How often server should process insurance in seconds */
     runIntervalSeconds: number;
+    minAttachmentRoublePriceToBeTaken: number;
+    chanceNoAttachmentsTakenPercent: number;
 }

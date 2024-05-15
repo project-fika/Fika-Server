@@ -8,25 +8,25 @@ import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { SaveServer } from "@spt-aki/servers/SaveServer";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 export declare class BuildController {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
     protected eventOutputHolder: EventOutputHolder;
-    protected jsonUtil: JsonUtil;
     protected databaseServer: DatabaseServer;
     protected profileHelper: ProfileHelper;
     protected itemHelper: ItemHelper;
     protected saveServer: SaveServer;
-    constructor(logger: ILogger, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, jsonUtil: JsonUtil, databaseServer: DatabaseServer, profileHelper: ProfileHelper, itemHelper: ItemHelper, saveServer: SaveServer);
+    protected cloner: ICloner;
+    constructor(logger: ILogger, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, databaseServer: DatabaseServer, profileHelper: ProfileHelper, itemHelper: ItemHelper, saveServer: SaveServer, cloner: ICloner);
     /** Handle client/handbook/builds/my/list */
     getUserBuilds(sessionID: string): IUserBuilds;
     /** Handle client/builds/weapon/save */
     saveWeaponBuild(sessionId: string, body: IPresetBuildActionRequestData): void;
     /** Handle client/builds/equipment/save event */
     saveEquipmentBuild(sessionID: string, request: IPresetBuildActionRequestData): void;
-    /** Handle client/builds/delete*/
+    /** Handle client/builds/delete */
     removeBuild(sessionID: string, request: IRemoveBuildRequestData): void;
     protected removePlayerBuild(idToRemove: string, sessionID: string): void;
     /**

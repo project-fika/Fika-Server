@@ -6,18 +6,16 @@ import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 export declare class BotHelper {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected databaseServer: DatabaseServer;
     protected randomUtil: RandomUtil;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, databaseServer: DatabaseServer, randomUtil: RandomUtil, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseServer: DatabaseServer, randomUtil: RandomUtil, localisationService: LocalisationService, configServer: ConfigServer);
     /**
      * Get a template object for the specified botRole from bots.types db
      * @param role botRole to get template for

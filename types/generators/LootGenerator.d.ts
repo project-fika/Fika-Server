@@ -14,7 +14,6 @@ import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { RagfairLinkedItemService } from "@spt-aki/services/RagfairLinkedItemService";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 type ItemLimit = {
     current: number;
@@ -25,7 +24,6 @@ export declare class LootGenerator {
     protected hashUtil: HashUtil;
     protected databaseServer: DatabaseServer;
     protected randomUtil: RandomUtil;
-    protected jsonUtil: JsonUtil;
     protected itemHelper: ItemHelper;
     protected presetHelper: PresetHelper;
     protected inventoryHelper: InventoryHelper;
@@ -33,7 +31,7 @@ export declare class LootGenerator {
     protected localisationService: LocalisationService;
     protected ragfairLinkedItemService: RagfairLinkedItemService;
     protected itemFilterService: ItemFilterService;
-    constructor(logger: ILogger, hashUtil: HashUtil, databaseServer: DatabaseServer, randomUtil: RandomUtil, jsonUtil: JsonUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, inventoryHelper: InventoryHelper, weightedRandomHelper: WeightedRandomHelper, localisationService: LocalisationService, ragfairLinkedItemService: RagfairLinkedItemService, itemFilterService: ItemFilterService);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseServer: DatabaseServer, randomUtil: RandomUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, inventoryHelper: InventoryHelper, weightedRandomHelper: WeightedRandomHelper, localisationService: LocalisationService, ragfairLinkedItemService: RagfairLinkedItemService, itemFilterService: ItemFilterService);
     /**
      * Generate a list of items based on configuration options parameter
      * @param options parameters to adjust how loot is generated

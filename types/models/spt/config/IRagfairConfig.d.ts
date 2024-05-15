@@ -8,7 +8,7 @@ export interface IRagfairConfig extends IBaseConfig {
     runIntervalValues: IRunIntervalValues;
     /** Player listing settings */
     sell: Sell;
-    /** Trader ids + should their assorts be listed on flea*/
+    /** Trader ids + should their assorts be listed on flea */
     traders: Record<string, boolean>;
     dynamic: Dynamic;
 }
@@ -19,7 +19,7 @@ export interface Sell {
     chance: Chance;
     /** Settings to control how long it takes for a player offer to sell */
     time: MinMax;
-    /**Seconds from clicking remove to remove offer from market */
+    /** Seconds from clicking remove to remove offer from market */
     expireSeconds: number;
 }
 export interface Chance {

@@ -5,15 +5,15 @@ import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEve
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 export declare class ItemEventRouter {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected profileHelper: ProfileHelper;
     protected itemEventRouters: ItemEventRouterDefinition[];
     protected localisationService: LocalisationService;
     protected eventOutputHolder: EventOutputHolder;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, profileHelper: ProfileHelper, itemEventRouters: ItemEventRouterDefinition[], localisationService: LocalisationService, eventOutputHolder: EventOutputHolder);
+    protected cloner: ICloner;
+    constructor(logger: ILogger, profileHelper: ProfileHelper, itemEventRouters: ItemEventRouterDefinition[], localisationService: LocalisationService, eventOutputHolder: EventOutputHolder, cloner: ICloner);
     /**
      * @param info Event request
      * @param sessionID Session id

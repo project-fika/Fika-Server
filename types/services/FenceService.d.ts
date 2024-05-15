@@ -13,7 +13,7 @@ import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 /**
@@ -22,7 +22,6 @@ import { TimeUtil } from "@spt-aki/utils/TimeUtil";
  */
 export declare class FenceService {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected timeUtil: TimeUtil;
     protected randomUtil: RandomUtil;
     protected databaseServer: DatabaseServer;
@@ -31,6 +30,7 @@ export declare class FenceService {
     protected presetHelper: PresetHelper;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected traderConfig: ITraderConfig;
     /** Time when some items in assort will be replaced  */
     protected nextPartialRefreshTimestamp: number;
@@ -40,7 +40,8 @@ export declare class FenceService {
     protected fenceDiscountAssort: ITraderAssort;
     /** Desired baseline counts - Hydrated on initial assort generation as part of generateFenceAssorts() */
     protected desiredAssortCounts: IFenceAssortGenerationValues;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, timeUtil: TimeUtil, randomUtil: RandomUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer);
+    protected fenceItemUpdCompareProperties: Set<string>;
+    constructor(logger: ILogger, timeUtil: TimeUtil, randomUtil: RandomUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Replace main fence assort with new assort
      * @param assort New assorts to replace old with
@@ -73,6 +74,26 @@ export declare class FenceService {
      * @returns ITraderAssort
      */
     getFenceAssorts(pmcProfile: IPmcData): ITraderAssort;
+    /**
+     * Adds to fence assort a single item (with its children)
+     * @param items the items to add with all its childrens
+     * @param mainItem the most parent item of the array
+     */
+    addItemsToFenceAssort(items: Item[], mainItem: Item): void;
+    /**
+     * Calculates the overall price for an item (with all its children)
+     * @param itemTpl the item tpl to calculate the fence price for
+     * @param items the items (with its children) to calculate fence price for
+     * @returns the fence price of the item
+     */
+    getItemPrice(itemTpl: string, items: Item[]): number;
+    /**
+     * Calculate the overall price for an ammo box, where only one item is
+     * the ammo box itself and every other items are the bullets in that box
+     * @param items the ammo box (and all its children ammo items)
+     * @returns the price of the ammo box
+     */
+    protected getAmmoBoxPrice(items: Item[]): number;
     /**
      * Adjust all items contained inside an assort by a multiplier
      * @param assort (clone)Assort that contains items with prices to adjust

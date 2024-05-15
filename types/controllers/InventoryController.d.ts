@@ -35,14 +35,13 @@ import { FenceService } from "@spt-aki/services/FenceService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { PlayerService } from "@spt-aki/services/PlayerService";
 import { RagfairOfferService } from "@spt-aki/services/RagfairOfferService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 export declare class InventoryController {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
-    protected jsonUtil: JsonUtil;
     protected itemHelper: ItemHelper;
     protected randomUtil: RandomUtil;
     protected databaseServer: DatabaseServer;
@@ -59,7 +58,8 @@ export declare class InventoryController {
     protected lootGenerator: LootGenerator;
     protected eventOutputHolder: EventOutputHolder;
     protected httpResponseUtil: HttpResponseUtil;
-    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, itemHelper: ItemHelper, randomUtil: RandomUtil, databaseServer: DatabaseServer, fenceService: FenceService, presetHelper: PresetHelper, inventoryHelper: InventoryHelper, questHelper: QuestHelper, hideoutHelper: HideoutHelper, ragfairOfferService: RagfairOfferService, profileHelper: ProfileHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, playerService: PlayerService, lootGenerator: LootGenerator, eventOutputHolder: EventOutputHolder, httpResponseUtil: HttpResponseUtil);
+    protected cloner: ICloner;
+    constructor(logger: ILogger, hashUtil: HashUtil, itemHelper: ItemHelper, randomUtil: RandomUtil, databaseServer: DatabaseServer, fenceService: FenceService, presetHelper: PresetHelper, inventoryHelper: InventoryHelper, questHelper: QuestHelper, hideoutHelper: HideoutHelper, ragfairOfferService: RagfairOfferService, profileHelper: ProfileHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, playerService: PlayerService, lootGenerator: LootGenerator, eventOutputHolder: EventOutputHolder, httpResponseUtil: HttpResponseUtil, cloner: ICloner);
     /**
      * Move Item
      * change location of item with parentId and slotId

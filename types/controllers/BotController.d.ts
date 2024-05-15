@@ -18,8 +18,9 @@ import { BotGenerationCacheService } from "@spt-aki/services/BotGenerationCacheS
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { MatchBotDetailsCacheService } from "@spt-aki/services/MatchBotDetailsCacheService";
 import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
+import { MinMax } from "@spt-aki/models/common/MinMax";
 export declare class BotController {
     protected logger: ILogger;
     protected databaseServer: DatabaseServer;
@@ -34,10 +35,10 @@ export declare class BotController {
     protected configServer: ConfigServer;
     protected applicationContext: ApplicationContext;
     protected randomUtil: RandomUtil;
-    protected jsonUtil: JsonUtil;
+    protected cloner: ICloner;
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, botGenerator: BotGenerator, botHelper: BotHelper, botDifficultyHelper: BotDifficultyHelper, botGenerationCacheService: BotGenerationCacheService, matchBotDetailsCacheService: MatchBotDetailsCacheService, localisationService: LocalisationService, seasonalEventService: SeasonalEventService, profileHelper: ProfileHelper, configServer: ConfigServer, applicationContext: ApplicationContext, randomUtil: RandomUtil, jsonUtil: JsonUtil);
+    constructor(logger: ILogger, databaseServer: DatabaseServer, botGenerator: BotGenerator, botHelper: BotHelper, botDifficultyHelper: BotDifficultyHelper, botGenerationCacheService: BotGenerationCacheService, matchBotDetailsCacheService: MatchBotDetailsCacheService, localisationService: LocalisationService, seasonalEventService: SeasonalEventService, profileHelper: ProfileHelper, configServer: ConfigServer, applicationContext: ApplicationContext, randomUtil: RandomUtil, cloner: ICloner);
     /**
      * Return the number of bot load-out varieties to be generated
      * @param type bot Type we want the load-out gen count for
@@ -75,6 +76,23 @@ export declare class BotController {
      * @returns
      */
     protected generateBotsFirstTime(request: IGenerateBotsRequestData, pmcProfile: IPmcData, sessionId: string): Promise<IBotBase[]>;
+    /**
+     * Create a BotGenerationDetails for the bot generator to use
+     * @param condition Client data defining bot type and difficulty
+     * @param pmcProfile Player who is generating bots
+     * @param allPmcsHaveSameNameAsPlayer Should all PMCs have same name as player
+     * @param pmcLevelRangeForMap Min/max levels for PMCs to generate within
+     * @param botCountToGenerate How many bots to generate
+     * @param generateAsPmc Force bot being generated a PMC
+     * @returns BotGenerationDetails
+     */
+    protected getBotGenerationDetailsForWave(condition: Condition, pmcProfile: IPmcData, allPmcsHaveSameNameAsPlayer: boolean, pmcLevelRangeForMap: MinMax, botCountToGenerate: number, generateAsPmc: boolean): BotGenerationDetails;
+    /**
+     * Get players profile level
+     * @param pmcProfile Profile to get level from
+     * @returns Level as number
+     */
+    protected getPlayerLevelFromProfile(pmcProfile: IPmcData): number;
     /**
      * Generate many bots and store then on the cache
      * @param condition the condition details to generate the bots with

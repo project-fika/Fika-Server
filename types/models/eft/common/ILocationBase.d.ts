@@ -74,6 +74,7 @@ export interface ILocationBase {
     doors: any[];
     EscapeTimeLimit: number;
     EscapeTimeLimitCoop: number;
+    EscapeTimeLimitPVE: number;
     exit_access_time: number;
     exit_count: number;
     exit_time: number;

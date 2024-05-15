@@ -1,5 +1,5 @@
 import { OverallCounters, Skills } from "@spt-aki/models/eft/common/tables/IBotBase";
-import { Item } from "../common/tables/IItem";
+import { Item } from "@spt-aki/models/eft/common/tables/IItem";
 export interface IGetOtherProfileResponse {
     id: string;
     aid: number;

@@ -16,12 +16,11 @@ import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { RaidTimeAdjustmentService } from "@spt-aki/services/RaidTimeAdjustmentService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class LocationController {
-    protected jsonUtil: JsonUtil;
     protected hashUtil: HashUtil;
     protected randomUtil: RandomUtil;
     protected weightedRandomHelper: WeightedRandomHelper;
@@ -35,9 +34,10 @@ export declare class LocationController {
     protected timeUtil: TimeUtil;
     protected configServer: ConfigServer;
     protected applicationContext: ApplicationContext;
+    protected cloner: ICloner;
     protected airdropConfig: IAirdropConfig;
     protected locationConfig: ILocationConfig;
-    constructor(jsonUtil: JsonUtil, hashUtil: HashUtil, randomUtil: RandomUtil, weightedRandomHelper: WeightedRandomHelper, logger: ILogger, locationGenerator: LocationGenerator, localisationService: LocalisationService, raidTimeAdjustmentService: RaidTimeAdjustmentService, itemFilterService: ItemFilterService, lootGenerator: LootGenerator, databaseServer: DatabaseServer, timeUtil: TimeUtil, configServer: ConfigServer, applicationContext: ApplicationContext);
+    constructor(hashUtil: HashUtil, randomUtil: RandomUtil, weightedRandomHelper: WeightedRandomHelper, logger: ILogger, locationGenerator: LocationGenerator, localisationService: LocalisationService, raidTimeAdjustmentService: RaidTimeAdjustmentService, itemFilterService: ItemFilterService, lootGenerator: LootGenerator, databaseServer: DatabaseServer, timeUtil: TimeUtil, configServer: ConfigServer, applicationContext: ApplicationContext, cloner: ICloner);
     /**
      * Handle client/location/getLocalloot
      * Get a location (map) with generated loot data

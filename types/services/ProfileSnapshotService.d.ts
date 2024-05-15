@@ -1,9 +1,9 @@
 import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 export declare class ProfileSnapshotService {
-    protected jsonUtil: JsonUtil;
+    protected cloner: ICloner;
     protected storedProfileSnapshots: Record<string, IAkiProfile>;
-    constructor(jsonUtil: JsonUtil);
+    constructor(cloner: ICloner);
     /**
      * Store a profile into an in-memory object
      * @param sessionID session id - acts as the key

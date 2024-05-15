@@ -17,11 +17,10 @@ import { FenceService } from "@spt-aki/services/FenceService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { PaymentService } from "@spt-aki/services/PaymentService";
 import { TraderPurchasePersisterService } from "@spt-aki/services/TraderPurchasePersisterService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 export declare class TradeHelper {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected eventOutputHolder: EventOutputHolder;
     protected traderHelper: TraderHelper;
     protected itemHelper: ItemHelper;
@@ -34,9 +33,10 @@ export declare class TradeHelper {
     protected traderAssortHelper: TraderAssortHelper;
     protected traderPurchasePersisterService: TraderPurchasePersisterService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected traderConfig: ITraderConfig;
     protected inventoryConfig: IInventoryConfig;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, eventOutputHolder: EventOutputHolder, traderHelper: TraderHelper, itemHelper: ItemHelper, paymentService: PaymentService, fenceService: FenceService, localisationService: LocalisationService, httpResponse: HttpResponseUtil, inventoryHelper: InventoryHelper, ragfairServer: RagfairServer, traderAssortHelper: TraderAssortHelper, traderPurchasePersisterService: TraderPurchasePersisterService, configServer: ConfigServer);
+    constructor(logger: ILogger, eventOutputHolder: EventOutputHolder, traderHelper: TraderHelper, itemHelper: ItemHelper, paymentService: PaymentService, fenceService: FenceService, localisationService: LocalisationService, httpResponse: HttpResponseUtil, inventoryHelper: InventoryHelper, ragfairServer: RagfairServer, traderAssortHelper: TraderAssortHelper, traderPurchasePersisterService: TraderPurchasePersisterService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Buy item from flea or trader
      * @param pmcData Player profile

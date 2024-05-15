@@ -24,13 +24,12 @@ import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { MailSendService } from "@spt-aki/services/MailSendService";
 import { PlayerService } from "@spt-aki/services/PlayerService";
 import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class QuestController {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;
-    protected jsonUtil: JsonUtil;
     protected httpResponseUtil: HttpResponseUtil;
     protected eventOutputHolder: EventOutputHolder;
     protected databaseServer: DatabaseServer;
@@ -46,8 +45,9 @@ export declare class QuestController {
     protected seasonalEventService: SeasonalEventService;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, jsonUtil: JsonUtil, httpResponseUtil: HttpResponseUtil, eventOutputHolder: EventOutputHolder, databaseServer: DatabaseServer, itemHelper: ItemHelper, dialogueHelper: DialogueHelper, mailSendService: MailSendService, profileHelper: ProfileHelper, traderHelper: TraderHelper, questHelper: QuestHelper, questConditionHelper: QuestConditionHelper, playerService: PlayerService, localeService: LocaleService, seasonalEventService: SeasonalEventService, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, timeUtil: TimeUtil, httpResponseUtil: HttpResponseUtil, eventOutputHolder: EventOutputHolder, databaseServer: DatabaseServer, itemHelper: ItemHelper, dialogueHelper: DialogueHelper, mailSendService: MailSendService, profileHelper: ProfileHelper, traderHelper: TraderHelper, questHelper: QuestHelper, questConditionHelper: QuestConditionHelper, playerService: PlayerService, localeService: LocaleService, seasonalEventService: SeasonalEventService, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Handle client/quest/list
      * Get all quests visible to player

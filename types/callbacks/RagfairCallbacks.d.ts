@@ -22,19 +22,17 @@ import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { RagfairServer } from "@spt-aki/servers/RagfairServer";
 import { RagfairTaxService } from "@spt-aki/services/RagfairTaxService";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 /**
  * Handle ragfair related callback events
  */
 export declare class RagfairCallbacks implements OnLoad, OnUpdate {
     protected httpResponse: HttpResponseUtil;
-    protected jsonUtil: JsonUtil;
     protected ragfairServer: RagfairServer;
     protected ragfairController: RagfairController;
     protected ragfairTaxService: RagfairTaxService;
     protected configServer: ConfigServer;
     protected ragfairConfig: IRagfairConfig;
-    constructor(httpResponse: HttpResponseUtil, jsonUtil: JsonUtil, ragfairServer: RagfairServer, ragfairController: RagfairController, ragfairTaxService: RagfairTaxService, configServer: ConfigServer);
+    constructor(httpResponse: HttpResponseUtil, ragfairServer: RagfairServer, ragfairController: RagfairController, ragfairTaxService: RagfairTaxService, configServer: ConfigServer);
     onLoad(): Promise<void>;
     getRoute(): string;
     onUpdate(timeSinceLastRun: number): Promise<boolean>;

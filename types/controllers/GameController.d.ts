@@ -34,14 +34,13 @@ import { ProfileActivityService } from "@spt-aki/services/ProfileActivityService
 import { ProfileFixerService } from "@spt-aki/services/ProfileFixerService";
 import { RaidTimeAdjustmentService } from "@spt-aki/services/RaidTimeAdjustmentService";
 import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class GameController {
     protected logger: ILogger;
     protected databaseServer: DatabaseServer;
-    protected jsonUtil: JsonUtil;
     protected timeUtil: TimeUtil;
     protected hashUtil: HashUtil;
     protected preAkiModLoader: PreAkiModLoader;
@@ -60,6 +59,7 @@ export declare class GameController {
     protected profileActivityService: ProfileActivityService;
     protected applicationContext: ApplicationContext;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected httpConfig: IHttpConfig;
     protected coreConfig: ICoreConfig;
     protected locationConfig: ILocationConfig;
@@ -68,7 +68,7 @@ export declare class GameController {
     protected pmcConfig: IPmcConfig;
     protected lootConfig: ILootConfig;
     protected botConfig: IBotConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, jsonUtil: JsonUtil, timeUtil: TimeUtil, hashUtil: HashUtil, preAkiModLoader: PreAkiModLoader, httpServerHelper: HttpServerHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, profileActivityService: ProfileActivityService, applicationContext: ApplicationContext, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseServer: DatabaseServer, timeUtil: TimeUtil, hashUtil: HashUtil, preAkiModLoader: PreAkiModLoader, httpServerHelper: HttpServerHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, profileActivityService: ProfileActivityService, applicationContext: ApplicationContext, configServer: ConfigServer, cloner: ICloner);
     load(): void;
     /**
      * Handle client/game/start

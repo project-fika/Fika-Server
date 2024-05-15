@@ -51,7 +51,7 @@ export interface IRelease {
 export interface IGameFixes {
     /** Shotguns use a different value than normal guns causing huge pellet dispersion  */
     fixShotgunDispersion: boolean;
-    /** Remove items added by mods when the mod no longer exists - can fix dead profiles stuck at game load*/
+    /** Remove items added by mods when the mod no longer exists - can fix dead profiles stuck at game load */
     removeModItemsFromProfile: boolean;
     /** Fix issues that cause the game to not start due to inventory item issues */
     fixProfileBreakingInventoryItemIssues: boolean;

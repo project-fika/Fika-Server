@@ -14,8 +14,8 @@ import { SaveServer } from "@spt-aki/servers/SaveServer";
 import { BotLootCacheService } from "@spt-aki/services/BotLootCacheService";
 import { FenceService } from "@spt-aki/services/FenceService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 export declare class PlayerScavGenerator {
     protected logger: ILogger;
@@ -27,14 +27,14 @@ export declare class PlayerScavGenerator {
     protected saveServer: SaveServer;
     protected profileHelper: ProfileHelper;
     protected botHelper: BotHelper;
-    protected jsonUtil: JsonUtil;
     protected fenceService: FenceService;
     protected botLootCacheService: BotLootCacheService;
     protected localisationService: LocalisationService;
     protected botGenerator: BotGenerator;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected playerScavConfig: IPlayerScavConfig;
-    constructor(logger: ILogger, randomUtil: RandomUtil, databaseServer: DatabaseServer, hashUtil: HashUtil, itemHelper: ItemHelper, botGeneratorHelper: BotGeneratorHelper, saveServer: SaveServer, profileHelper: ProfileHelper, botHelper: BotHelper, jsonUtil: JsonUtil, fenceService: FenceService, botLootCacheService: BotLootCacheService, localisationService: LocalisationService, botGenerator: BotGenerator, configServer: ConfigServer);
+    constructor(logger: ILogger, randomUtil: RandomUtil, databaseServer: DatabaseServer, hashUtil: HashUtil, itemHelper: ItemHelper, botGeneratorHelper: BotGeneratorHelper, saveServer: SaveServer, profileHelper: ProfileHelper, botHelper: BotHelper, fenceService: FenceService, botLootCacheService: BotLootCacheService, localisationService: LocalisationService, botGenerator: BotGenerator, configServer: ConfigServer, cloner: ICloner);
     /**
      * Update a player profile to include a new player scav profile
      * @param sessionID session id to specify what profile is updated

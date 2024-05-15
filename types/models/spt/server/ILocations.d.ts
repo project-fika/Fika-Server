@@ -18,6 +18,7 @@ export interface ILocations {
     town?: ILocation;
     woods?: ILocation;
     sandbox?: ILocation;
+    sandbox_high?: ILocation;
     /** Holds a mapping of the linkages between locations on the UI */
     base?: ILocationsBase;
 }

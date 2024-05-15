@@ -11,7 +11,7 @@ import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { MathUtil } from "@spt-aki/utils/MathUtil";
 import { ObjectId } from "@spt-aki/utils/ObjectId";
 import { ProbabilityObjectArray, RandomUtil } from "@spt-aki/utils/RandomUtil";
@@ -29,7 +29,6 @@ export interface IContainerGroupCount {
 export declare class LocationGenerator {
     protected logger: ILogger;
     protected databaseServer: DatabaseServer;
-    protected jsonUtil: JsonUtil;
     protected objectId: ObjectId;
     protected randomUtil: RandomUtil;
     protected itemHelper: ItemHelper;
@@ -39,8 +38,9 @@ export declare class LocationGenerator {
     protected presetHelper: PresetHelper;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected locationConfig: ILocationConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, jsonUtil: JsonUtil, objectId: ObjectId, randomUtil: RandomUtil, itemHelper: ItemHelper, mathUtil: MathUtil, seasonalEventService: SeasonalEventService, containerHelper: ContainerHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseServer: DatabaseServer, objectId: ObjectId, randomUtil: RandomUtil, itemHelper: ItemHelper, mathUtil: MathUtil, seasonalEventService: SeasonalEventService, containerHelper: ContainerHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Create an array of container objects with randomised loot
      * @param locationBase Map base to generate containers for

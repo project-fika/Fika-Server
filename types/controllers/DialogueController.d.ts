@@ -12,6 +12,8 @@ import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { SaveServer } from "@spt-aki/servers/SaveServer";
 import { MailSendService } from "@spt-aki/services/MailSendService";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { IFriendRequestData } from "@spt-aki/models/eft/dialog/IFriendRequestData";
+import { IFriendRequestSendResponse } from "@spt-aki/models/eft/dialog/IFriendRequestSendResponse";
 export declare class DialogueController {
     protected logger: ILogger;
     protected saveServer: SaveServer;
@@ -145,4 +147,6 @@ export declare class DialogueController {
      * @returns true or false
      */
     protected messageHasExpired(message: Message): boolean;
+    /** Handle client/friend/request/send  */
+    sendFriendRequest(sessionID: string, request: IFriendRequestData): IFriendRequestSendResponse;
 }

@@ -307,6 +307,9 @@ export interface Productive {
     ProductionTime?: number;
     GivenItemsInStart?: string[];
     Interrupted?: boolean;
+    Code?: string;
+    Decoded?: boolean;
+    AvailableForFinish?: boolean;
     /** Used in hideout production.json */
     needFuelForAllProductionTime?: boolean;
     /** Used when sending data to client */
@@ -373,7 +376,7 @@ export interface IQuestStatus {
     startTime: number;
     status: QuestStatus;
     statusTimers?: Record<string, number>;
-    /** Property does not exist in live profile data, but is used by ProfileChanges.questsStatus when sent to client*/
+    /** Property does not exist in live profile data, but is used by ProfileChanges.questsStatus when sent to client */
     completedConditions?: string[];
     availableAfter?: number;
 }

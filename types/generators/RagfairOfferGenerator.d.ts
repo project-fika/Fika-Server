@@ -17,13 +17,12 @@ import { FenceService } from "@spt-aki/services/FenceService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { RagfairOfferService } from "@spt-aki/services/RagfairOfferService";
 import { RagfairPriceService } from "@spt-aki/services/RagfairPriceService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class RagfairOfferGenerator {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected hashUtil: HashUtil;
     protected randomUtil: RandomUtil;
     protected timeUtil: TimeUtil;
@@ -40,6 +39,7 @@ export declare class RagfairOfferGenerator {
     protected fenceService: FenceService;
     protected itemHelper: ItemHelper;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected ragfairConfig: IRagfairConfig;
     protected allowedFleaPriceItemsForBarter: {
         tpl: string;
@@ -47,7 +47,7 @@ export declare class RagfairOfferGenerator {
     }[];
     /** Internal counter to ensure each offer created has a unique value for its intId property */
     protected offerCounter: number;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, hashUtil: HashUtil, randomUtil: RandomUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, ragfairServerHelper: RagfairServerHelper, handbookHelper: HandbookHelper, saveServer: SaveServer, presetHelper: PresetHelper, ragfairAssortGenerator: RagfairAssortGenerator, ragfairOfferService: RagfairOfferService, ragfairPriceService: RagfairPriceService, localisationService: LocalisationService, paymentHelper: PaymentHelper, fenceService: FenceService, itemHelper: ItemHelper, configServer: ConfigServer);
+    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, ragfairServerHelper: RagfairServerHelper, handbookHelper: HandbookHelper, saveServer: SaveServer, presetHelper: PresetHelper, ragfairAssortGenerator: RagfairAssortGenerator, ragfairOfferService: RagfairOfferService, ragfairPriceService: RagfairPriceService, localisationService: LocalisationService, paymentHelper: PaymentHelper, fenceService: FenceService, itemHelper: ItemHelper, configServer: ConfigServer, cloner: ICloner);
     /**
      * Create a flea offer and store it in the Ragfair server offers array
      * @param userID Owner of the offer

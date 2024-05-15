@@ -18,9 +18,9 @@ import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { PlayerService } from "@spt-aki/services/PlayerService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class HideoutHelper {
     protected logger: ILogger;
@@ -35,7 +35,7 @@ export declare class HideoutHelper {
     protected localisationService: LocalisationService;
     protected itemHelper: ItemHelper;
     protected configServer: ConfigServer;
-    protected jsonUtil: JsonUtil;
+    protected cloner: ICloner;
     static bitcoinFarm: string;
     static bitcoinProductionId: string;
     static waterCollector: string;
@@ -43,7 +43,7 @@ export declare class HideoutHelper {
     static expeditionaryFuelTank: string;
     static maxSkillPoint: number;
     protected hideoutConfig: IHideoutConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, eventOutputHolder: EventOutputHolder, httpResponse: HttpResponseUtil, profileHelper: ProfileHelper, inventoryHelper: InventoryHelper, playerService: PlayerService, localisationService: LocalisationService, itemHelper: ItemHelper, configServer: ConfigServer, jsonUtil: JsonUtil);
+    constructor(logger: ILogger, hashUtil: HashUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, eventOutputHolder: EventOutputHolder, httpResponse: HttpResponseUtil, profileHelper: ProfileHelper, inventoryHelper: InventoryHelper, playerService: PlayerService, localisationService: LocalisationService, itemHelper: ItemHelper, configServer: ConfigServer, cloner: ICloner);
     /**
      * Add production to profiles' Hideout.Production array
      * @param pmcData Profile to add production to
