@@ -2,20 +2,18 @@ import { inject, injectable } from "tsyringe";
 
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
 import { IRequestIdRequest } from "src/models/eft/match/IRequestIdRequest";
-import { IGroupCharacter } from "src/models/eft/match/IGroupCharacter";
-import { IMatchGroupCurrentResponse } from "src/models/eft/match/IMatchGroupCurrentResponse";
-import { IProfileStatusResponse } from "src/models/eft/match/IProfileStatusResponse";
 import { IProfileStatusRequest } from "src/models/eft/match/IProfileStatusRequest";
 import { IMatchGroupTransferRequest } from "src/models/eft/match/IMatchGroupTransferRequest";
 import { IMatchGroupPlayerRemoveRequest } from "src/models/eft/match/IMatchGroupPlayerRemoveRequest";
 import { IMatchGroupStartGameRequest } from "src/models/eft/match/IMatchGroupStartGameRequest";
 import { IMatchGroupInviteSendRequest } from "src/models/eft/match/IMatchGroupInviteSendRequest";
 import { IMatchGroupStatusRequest } from "src/models/eft/match/IMatchGroupStatusRequest";
-import { IMatchGroupStatusResponse } from "src/models/eft/match/IMatchGroupStatusResponse";
+import { FikaMatchController } from "src/controllers/FikaMatchController";
 
 @injectable()
 export class FikaMatchCallbacks {
     constructor(
+        @inject("FikaMatchController") protected fikaMatchController: FikaMatchController,
         @inject("HttpResponseUtil") protected httpResponseUtil: HttpResponseUtil
     ) {
         // empty
@@ -23,144 +21,117 @@ export class FikaMatchCallbacks {
 
     /** Handle /client/match/exit */
     // TODO: override AKI's to handle groups
-    public handleMatchExit(_url: string, _info: any, _sessionID: string): string {
+    public handleMatchExit(url: string, info: any, sessionID: string): string {
+        this.fikaMatchController.handleMatchExit(sessionID);
         return this.httpResponseUtil.getUnclearedBody(null);
     }
 
     /** Handle /client/match/group/current */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupCurrent(_url: string, _info: any, _sessionID: string): string {
-        const data: IMatchGroupCurrentResponse = {
-            squad: []
-        };
-
-        return this.httpResponseUtil.getUnclearedBody(data);
+    public handleMatchGroupCurrent(url: string, info: any, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupCurrent(sessionID));
     }
 
     /** Handle /client/match/group/delete */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupDelete(_url: string, _info: any, _sessionID: string): string {
-        return this.httpResponseUtil.getUnclearedBody(true);
+    public handleMatchGroupDelete(url: string, info: any, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupDelete(sessionID));
     }
 
     /** Handle /client/match/group/exit_from_menu */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupExitFromMenu(_url: string, _info: any, _sessionID: string): string {
+    public handleMatchGroupExitFromMenu(url: string, info: any, sessionID: string): string {
+        this.fikaMatchController.handleMatchGroupExitFromMenu(sessionID);
         return this.httpResponseUtil.noBody(null);
     }
 
     /** Handle /client/match/group/invite/accept */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupInviteAccept(_url: string, _info: IRequestIdRequest, _sessionID: string): string {
-        const data: IGroupCharacter[] = [];
-
-        return this.httpResponseUtil.noBody(data);
+    public handleMatchGroupInviteAccept(url: string, info: IRequestIdRequest, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupInviteAccept(info, sessionID));
     }
 
     /** Handle /client/match/group/invite/cancel */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupInviteCancel(_url: string, _info: IRequestIdRequest, _sessionID: string): string {
-        return this.httpResponseUtil.getUnclearedBody(true);
+    public handleMatchGroupInviteCancel(url: string, info: IRequestIdRequest, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupInviteCancel(info, sessionID));
     }
 
     /** Handle /client/match/group/invite/cancel-all */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupInviteCancelAll(_url: string, _info: any, _sessionID: string): string {
-        return this.httpResponseUtil.getUnclearedBody(true);
+    public handleMatchGroupInviteCancelAll(url: string, info: any, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupInviteCancelAll(sessionID));
     }
 
     /** Handle /client/match/group/invite/decline */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupInviteDecline(_url: string, _info: IRequestIdRequest, _sessionID: string): string {
-        return this.httpResponseUtil.getUnclearedBody(true);
+    public handleMatchGroupInviteDecline(url: string, info: IRequestIdRequest, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupInviteDecline(info, sessionID));
     }
 
     /** Handle /client/match/group/invite/send */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupInviteSend(_url: string, _info: IMatchGroupInviteSendRequest, _sessionID: string): string {
-        // TODO: proper groupId
-        const groupId = "000000000000000000000000";
-
-        return this.httpResponseUtil.getUnclearedBody(groupId);
+    public handleMatchGroupInviteSend(url: string, info: IMatchGroupInviteSendRequest, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupInviteSend(info, sessionID));
     }
 
     /** Handle /client/match/group/leave */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupLeave(_url: string, _info: any, _sessionID: string): string {
-        return this.httpResponseUtil.getUnclearedBody(true);
+    public handleMatchGroupLeave(url: string, info: any, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupLeave(sessionID));
     }
 
     /** Handle /client/match/group/looking/start */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupLookingStart(_url: string, _info: any, _sessionID: string): string {
+    public handleMatchGroupLookingStart(url: string, info: any, sessionID: string): string {
+        this.fikaMatchController.handleMatchGroupLookingStart(sessionID);
         return this.httpResponseUtil.noBody(null);
     }
 
     /** Handle /client/match/group/looking/stop */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupLookingStop(_url: string, _info: any, _sessionID: string): string {
+    public handleMatchGroupLookingStop(url: string, info: any, sessionID: string): string {
+        this.fikaMatchController.handleMatchGroupLookingStop(sessionID);
         return this.httpResponseUtil.noBody(null);
     }
 
     /** Handle /client/match/group/player/remove */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupPlayerRemove(_url: string, _info: IMatchGroupPlayerRemoveRequest, _sessionID: string): string {
-        return this.httpResponseUtil.getUnclearedBody(true);
+    public handleMatchGroupPlayerRemove(url: string, info: IMatchGroupPlayerRemoveRequest, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupPlayerRemove(info, sessionID));
     }
 
     /** Handle /client/match/group/start_game */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupStartGame(_url: string, _info: IMatchGroupStartGameRequest, _sessionID: string): string {
-        // NOTE: not entirely clear when `ip`, `port`, `sid`, `shortId` are set
-        const data: IProfileStatusResponse = {
-            maxPveCountExceeded: false,
-            profiles: [
-                // of all active characters in the group
-            ]
-        };
-
-        return this.httpResponseUtil.getUnclearedBody(data);
+    public handleMatchGroupStartGame(url: string, info: IMatchGroupStartGameRequest, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupStartGame(info, sessionID));
     }
 
     /** Handle /client/match/group/status */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupStatus(_url: string, _info: IMatchGroupStatusRequest, _sessionID: string): string {
-        const data: IMatchGroupStatusResponse = {
-            players: [],
-            maxPveCountExceeded: false
-        };
-
-        return this.httpResponseUtil.getUnclearedBody(data);
+    public handleMatchGroupStatus(url: string, info: IMatchGroupStatusRequest, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupStatus(info, sessionID));
     }
 
     /** Handle /client/match/group/transfer */
     // TODO: override AKI's to handle groups
-    public handleMatchGroupTransfer(_url: string, _info: IMatchGroupTransferRequest, _sessionID: string): string {
-        return this.httpResponseUtil.getUnclearedBody(true);
+    public handleMatchGroupTransfer(url: string, info: IMatchGroupTransferRequest, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupTransfer(info, sessionID));
     }
 
     /** Handle /client/match/group/raid/not-ready */
-    public handleMatchGroupRaidNotReady(_url: string, _info: any, _sessionID: string): string {
-        return this.httpResponseUtil.getUnclearedBody(true);
+    public handleMatchGroupRaidNotReady(url: string, info: any, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupRaidNotReady(sessionID));
     }
 
     /** Handle /client/match/group/raid/ready */
-    public handleMatchGroupRaidReady(_url: string, _info: any, _sessionID: string): string {
-        return this.httpResponseUtil.getUnclearedBody(true);
+    public handleMatchGroupRaidReady(url: string, info: any, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupRaidReady(sessionID));
     }
 
     /** Handle /client/profile/status */
     // TODO: override AKI's to handle groups
-    public handleProfileStatus(_url: string, _info: IProfileStatusRequest, _sessionID: string): string {
-        const data: IProfileStatusResponse = {
-            maxPveCountExceeded: false,
-            profiles: [
-                // requesting player's
-                // - scav
-                // - pmc
-            ]
-        };
-
-        return this.httpResponseUtil.noBody(null);
+    public handleProfileStatus(url: string, info: IProfileStatusRequest, sessionID: string): string {
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleProfileStatus(info, sessionID));
     }
 }
