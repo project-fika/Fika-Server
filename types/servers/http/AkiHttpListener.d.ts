@@ -19,7 +19,7 @@ export declare class AkiHttpListener implements IHttpListener {
     constructor(httpRouter: HttpRouter, // TODO: delay required
     serializers: Serializer[], logger: ILogger, requestsLogger: ILogger, jsonUtil: JsonUtil, httpResponse: HttpResponseUtil, localisationService: LocalisationService);
     canHandle(_: string, req: IncomingMessage): boolean;
-    handle(sessionId: string, req: IncomingMessage, resp: ServerResponse): void;
+    handle(sessionId: string, req: IncomingMessage, resp: ServerResponse): Promise<void>;
     /**
      * Send http response to the client
      * @param sessionID Player id
@@ -29,7 +29,7 @@ export declare class AkiHttpListener implements IHttpListener {
      * @param output Server generated response data
      */
     sendResponse(sessionID: string, req: IncomingMessage, resp: ServerResponse, body: Buffer, output: string): void;
-    getResponse(sessionID: string, req: IncomingMessage, body: Buffer): string;
+    getResponse(sessionID: string, req: IncomingMessage, body: Buffer): Promise<string>;
     protected getBodyInfo(body: Buffer, requestUrl?: any): any;
     sendJson(resp: ServerResponse, output: string, sessionID: string): void;
     sendZlibJson(resp: ServerResponse, output: string, sessionID: string): void;

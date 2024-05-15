@@ -11,11 +11,9 @@ import { FenceService } from "@spt-aki/services/FenceService";
 import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
 import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 export declare class FenceBaseAssortGenerator {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
-    protected jsonUtil: JsonUtil;
     protected databaseServer: DatabaseServer;
     protected handbookHelper: HandbookHelper;
     protected itemHelper: ItemHelper;
@@ -25,7 +23,7 @@ export declare class FenceBaseAssortGenerator {
     protected configServer: ConfigServer;
     protected fenceService: FenceService;
     protected traderConfig: ITraderConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer, fenceService: FenceService);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer, fenceService: FenceService);
     /**
      * Create base fence assorts dynamically and store in memory
      */

@@ -46,6 +46,7 @@ export interface IPmcConfig extends IBaseConfig {
     /** Force a number of healing items into PMCs secure container to ensure they can heal */
     forceHealingItemsIntoSecure: boolean;
     allPMCsHavePlayerNameWithRandomPrefixChance: number;
+    locationSpecificPmcLevelOverride: Record<string, MinMax>;
     /** Should secure container loot from usec.json/bear.json be added to pmc bots secure */
     addSecureContainerLootFromBotConfig: boolean;
 }

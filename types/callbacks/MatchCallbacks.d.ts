@@ -20,6 +20,7 @@ import { IUpdatePingRequestData } from "@spt-aki/models/eft/match/IUpdatePingReq
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
 import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { IGroupCurrentResponse } from "@spt-aki/models/eft/match/IGroupCurrentResponse";
 export declare class MatchCallbacks {
     protected httpResponse: HttpResponseUtil;
     protected jsonUtil: JsonUtil;
@@ -31,23 +32,24 @@ export declare class MatchCallbacks {
     exitMatch(url: string, info: IEmptyRequestData, sessionID: string): INullResponseData;
     /** Handle client/match/group/exit_from_menu */
     exitToMenu(url: string, info: IEmptyRequestData, sessionID: string): INullResponseData;
+    groupCurrent(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IGroupCurrentResponse>;
     startGroupSearch(url: string, info: IEmptyRequestData, sessionID: string): INullResponseData;
     stopGroupSearch(url: string, info: IEmptyRequestData, sessionID: string): INullResponseData;
     /** Handle client/match/group/invite/send */
     sendGroupInvite(url: string, info: ISendGroupInviteRequest, sessionID: string): IGetBodyResponseData<string>;
     /** Handle client/match/group/invite/accept */
-    acceptGroupInvite(url: string, info: IAcceptGroupInviteRequest, sessionID: string): IGetBodyResponseData<IAcceptGroupInviteResponse[]>;
+    acceptGroupInvite(url: string, info: IAcceptGroupInviteRequest, sessionId: string): IGetBodyResponseData<IAcceptGroupInviteResponse[]>;
     /** Handle client/match/group/invite/decline */
-    declineGroupInvite(url: string, info: IDeclineGroupInviteRequest, sessionID: string): IGetBodyResponseData<any>;
+    declineGroupInvite(url: string, info: IDeclineGroupInviteRequest, sessionId: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/group/invite/cancel */
     cancelGroupInvite(url: string, info: ICancelGroupInviteRequest, sessionID: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/group/transfer */
-    transferGroup(url: string, info: ITransferGroupRequest, sessionID: string): IGetBodyResponseData<boolean>;
+    transferGroup(url: string, info: ITransferGroupRequest, sessionId: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/group/invite/cancel-all */
-    cancelAllGroupInvite(url: string, info: IEmptyRequestData, sessionID: string): INullResponseData;
+    cancelAllGroupInvite(url: string, info: IEmptyRequestData, sessionId: string): IGetBodyResponseData<boolean>;
     /** @deprecated - not called on raid start/end or game start/exit */
-    putMetrics(url: string, info: IPutMetricsRequestData, sessionID: string): INullResponseData;
-    serverAvailable(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<boolean>;
+    putMetrics(url: string, info: IPutMetricsRequestData, sessionId: string): INullResponseData;
+    serverAvailable(url: string, info: IEmptyRequestData, sessionId: string): IGetBodyResponseData<boolean>;
     /** Handle match/group/start_game */
     joinMatch(url: string, info: IJoinMatchRequestData, sessionID: string): IGetBodyResponseData<IJoinMatchResult>;
     /** Handle client/getMetricsConfig */
@@ -59,14 +61,18 @@ export declare class MatchCallbacks {
      */
     getGroupStatus(url: string, info: IGetGroupStatusRequestData, sessionID: string): IGetBodyResponseData<IGetGroupStatusResponse>;
     /** Handle client/match/group/delete */
-    deleteGroup(url: string, info: any, sessionID: string): INullResponseData;
+    deleteGroup(url: string, info: any, sessionID: string): IGetBodyResponseData<boolean>;
     leaveGroup(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/group/player/remove */
-    removePlayerFromGroup(url: string, info: IRemovePlayerFromGroupRequest, sessionID: string): INullResponseData;
+    removePlayerFromGroup(url: string, info: IRemovePlayerFromGroupRequest, sessionID: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/offline/end */
     endOfflineRaid(url: string, info: IEndOfflineRaidRequestData, sessionID: string): INullResponseData;
     /** Handle client/raid/configuration */
     getRaidConfiguration(url: string, info: IGetRaidConfigurationRequestData, sessionID: string): INullResponseData;
     /** Handle client/raid/configuration-by-profile */
     getConfigurationByProfile(url: string, info: IGetRaidConfigurationRequestData, sessionID: string): INullResponseData;
+    /** Handle client/match/group/raid/ready */
+    raidReady(url: string, info: IEmptyRequestData, sessionId: string): IGetBodyResponseData<boolean>;
+    /** Handle client/match/group/raid/not-ready */
+    notRaidReady(url: string, info: IEmptyRequestData, sessionId: string): IGetBodyResponseData<boolean>;
 }

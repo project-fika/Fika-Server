@@ -10,18 +10,18 @@ import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
 import { LocaleService } from "@spt-aki/services/LocaleService";
 import { MailSendService } from "@spt-aki/services/MailSendService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 export declare class GiveSptCommand implements ISptCommand {
     protected logger: ILogger;
     protected itemHelper: ItemHelper;
     protected hashUtil: HashUtil;
-    protected jsonUtil: JsonUtil;
     protected presetHelper: PresetHelper;
     protected mailSendService: MailSendService;
     protected localeService: LocaleService;
     protected databaseServer: DatabaseServer;
     protected itemFilterService: ItemFilterService;
+    protected cloner: ICloner;
     /**
      * Regex to account for all these cases:
      * spt give "item name" 5
@@ -32,8 +32,9 @@ export declare class GiveSptCommand implements ISptCommand {
      */
     private static commandRegex;
     private static acceptableConfidence;
+    private static excludedPresetItems;
     protected savedCommand: Map<string, SavedCommand>;
-    constructor(logger: ILogger, itemHelper: ItemHelper, hashUtil: HashUtil, jsonUtil: JsonUtil, presetHelper: PresetHelper, mailSendService: MailSendService, localeService: LocaleService, databaseServer: DatabaseServer, itemFilterService: ItemFilterService);
+    constructor(logger: ILogger, itemHelper: ItemHelper, hashUtil: HashUtil, presetHelper: PresetHelper, mailSendService: MailSendService, localeService: LocaleService, databaseServer: DatabaseServer, itemFilterService: ItemFilterService, cloner: ICloner);
     getCommand(): string;
     getCommandHelp(): string;
     performAction(commandHandler: IUserDialogInfo, sessionId: string, request: ISendMessageRequest): string;

@@ -24,9 +24,9 @@ import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { FenceService } from "@spt-aki/services/FenceService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 export interface IOwnerInventoryItems {
     /** Inventory items from source */
     from: Item[];
@@ -37,7 +37,6 @@ export interface IOwnerInventoryItems {
 }
 export declare class InventoryHelper {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected hashUtil: HashUtil;
     protected httpResponse: HttpResponseUtil;
     protected fenceService: FenceService;
@@ -51,8 +50,9 @@ export declare class InventoryHelper {
     protected presetHelper: PresetHelper;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected inventoryConfig: IInventoryConfig;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, hashUtil: HashUtil, httpResponse: HttpResponseUtil, fenceService: FenceService, databaseServer: DatabaseServer, paymentHelper: PaymentHelper, traderAssortHelper: TraderAssortHelper, dialogueHelper: DialogueHelper, itemHelper: ItemHelper, containerHelper: ContainerHelper, profileHelper: ProfileHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, hashUtil: HashUtil, httpResponse: HttpResponseUtil, fenceService: FenceService, databaseServer: DatabaseServer, paymentHelper: PaymentHelper, traderAssortHelper: TraderAssortHelper, dialogueHelper: DialogueHelper, itemHelper: ItemHelper, containerHelper: ContainerHelper, profileHelper: ProfileHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Add multiple items to player stash (assuming they all fit)
      * @param sessionId Session id

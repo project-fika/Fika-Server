@@ -14,7 +14,7 @@ import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { SaveServer } from "@spt-aki/servers/SaveServer";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { ProfileFixerService } from "@spt-aki/services/ProfileFixerService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 import { ProfileHelper } from "./ProfileHelper";
@@ -22,7 +22,6 @@ export declare class InRaidHelper {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;
     protected saveServer: SaveServer;
-    protected jsonUtil: JsonUtil;
     protected itemHelper: ItemHelper;
     protected databaseServer: DatabaseServer;
     protected inventoryHelper: InventoryHelper;
@@ -33,9 +32,10 @@ export declare class InRaidHelper {
     protected profileFixerService: ProfileFixerService;
     protected configServer: ConfigServer;
     protected randomUtil: RandomUtil;
+    protected cloner: ICloner;
     protected lostOnDeathConfig: ILostOnDeathConfig;
     protected inRaidConfig: IInRaidConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, saveServer: SaveServer, jsonUtil: JsonUtil, itemHelper: ItemHelper, databaseServer: DatabaseServer, inventoryHelper: InventoryHelper, profileHelper: ProfileHelper, questHelper: QuestHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, profileFixerService: ProfileFixerService, configServer: ConfigServer, randomUtil: RandomUtil);
+    constructor(logger: ILogger, timeUtil: TimeUtil, saveServer: SaveServer, itemHelper: ItemHelper, databaseServer: DatabaseServer, inventoryHelper: InventoryHelper, profileHelper: ProfileHelper, questHelper: QuestHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, profileFixerService: ProfileFixerService, configServer: ConfigServer, randomUtil: RandomUtil, cloner: ICloner);
     /**
      * Lookup quest item loss from lostOnDeath config
      * @returns True if items should be removed from inventory

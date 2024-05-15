@@ -6,5 +6,5 @@ export declare class InsuranceItemEventRouter extends ItemEventRouterDefinition 
     protected insuranceCallbacks: InsuranceCallbacks;
     constructor(insuranceCallbacks: InsuranceCallbacks);
     getHandledRoutes(): HandledRoute[];
-    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string): IItemEventRouterResponse;
+    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string): Promise<IItemEventRouterResponse>;
 }

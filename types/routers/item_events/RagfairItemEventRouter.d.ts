@@ -6,5 +6,5 @@ export declare class RagfairItemEventRouter extends ItemEventRouterDefinition {
     protected ragfairCallbacks: RagfairCallbacks;
     constructor(ragfairCallbacks: RagfairCallbacks);
     getHandledRoutes(): HandledRoute[];
-    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string): IItemEventRouterResponse;
+    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string): Promise<IItemEventRouterResponse>;
 }

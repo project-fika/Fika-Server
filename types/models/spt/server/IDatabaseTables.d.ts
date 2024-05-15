@@ -5,7 +5,6 @@ import { IBotCore } from "@spt-aki/models/eft/common/tables/IBotCore";
 import { IBotType } from "@spt-aki/models/eft/common/tables/IBotType";
 import { ICustomizationItem } from "@spt-aki/models/eft/common/tables/ICustomizationItem";
 import { IHandbookBase } from "@spt-aki/models/eft/common/tables/IHandbookBase";
-import { ILootBase } from "@spt-aki/models/eft/common/tables/ILootBase";
 import { IMatch } from "@spt-aki/models/eft/common/tables/IMatch";
 import { IProfileTemplates } from "@spt-aki/models/eft/common/tables/IProfileTemplate";
 import { IQuest } from "@spt-aki/models/eft/common/tables/IQuest";
@@ -37,7 +36,6 @@ export interface IDatabaseTables {
     };
     locales?: ILocaleBase;
     locations?: ILocations;
-    loot?: ILootBase;
     match?: IMatch;
     templates?: {
         character: string[];

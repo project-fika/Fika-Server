@@ -22,12 +22,11 @@ import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { LocaleService } from "@spt-aki/services/LocaleService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { MailSendService } from "@spt-aki/services/MailSendService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class QuestHelper {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected timeUtil: TimeUtil;
     protected hashUtil: HashUtil;
     protected itemHelper: ItemHelper;
@@ -44,8 +43,9 @@ export declare class QuestHelper {
     protected presetHelper: PresetHelper;
     protected mailSendService: MailSendService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, timeUtil: TimeUtil, hashUtil: HashUtil, itemHelper: ItemHelper, questConditionHelper: QuestConditionHelper, eventOutputHolder: EventOutputHolder, databaseServer: DatabaseServer, localeService: LocaleService, ragfairServerHelper: RagfairServerHelper, dialogueHelper: DialogueHelper, profileHelper: ProfileHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, traderHelper: TraderHelper, presetHelper: PresetHelper, mailSendService: MailSendService, configServer: ConfigServer);
+    constructor(logger: ILogger, timeUtil: TimeUtil, hashUtil: HashUtil, itemHelper: ItemHelper, questConditionHelper: QuestConditionHelper, eventOutputHolder: EventOutputHolder, databaseServer: DatabaseServer, localeService: LocaleService, ragfairServerHelper: RagfairServerHelper, dialogueHelper: DialogueHelper, profileHelper: ProfileHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, traderHelper: TraderHelper, presetHelper: PresetHelper, mailSendService: MailSendService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Get status of a quest in player profile by its id
      * @param pmcData Profile to search

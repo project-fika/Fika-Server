@@ -16,8 +16,8 @@ import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { PaymentService } from "@spt-aki/services/PaymentService";
 import { ProfileFixerService } from "@spt-aki/services/ProfileFixerService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { ObjectId } from "@spt-aki/utils/ObjectId";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
@@ -27,7 +27,6 @@ export declare class RepeatableQuestController {
     protected timeUtil: TimeUtil;
     protected randomUtil: RandomUtil;
     protected httpResponse: HttpResponseUtil;
-    protected jsonUtil: JsonUtil;
     protected profileHelper: ProfileHelper;
     protected profileFixerService: ProfileFixerService;
     protected eventOutputHolder: EventOutputHolder;
@@ -37,8 +36,9 @@ export declare class RepeatableQuestController {
     protected repeatableQuestHelper: RepeatableQuestHelper;
     protected questHelper: QuestHelper;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, timeUtil: TimeUtil, randomUtil: RandomUtil, httpResponse: HttpResponseUtil, jsonUtil: JsonUtil, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, eventOutputHolder: EventOutputHolder, paymentService: PaymentService, objectId: ObjectId, repeatableQuestGenerator: RepeatableQuestGenerator, repeatableQuestHelper: RepeatableQuestHelper, questHelper: QuestHelper, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseServer: DatabaseServer, timeUtil: TimeUtil, randomUtil: RandomUtil, httpResponse: HttpResponseUtil, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, eventOutputHolder: EventOutputHolder, paymentService: PaymentService, objectId: ObjectId, repeatableQuestGenerator: RepeatableQuestGenerator, repeatableQuestHelper: RepeatableQuestHelper, questHelper: QuestHelper, configServer: ConfigServer, cloner: ICloner);
     /**
      * Handle client/repeatalbeQuests/activityPeriods
      * Returns an array of objects in the format of repeatable quests to the client.

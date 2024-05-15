@@ -14,8 +14,8 @@ import { SaveServer } from "@spt-aki/servers/SaveServer";
 import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
 import { LocaleService } from "@spt-aki/services/LocaleService";
 import { MailSendService } from "@spt-aki/services/MailSendService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 /**
@@ -33,14 +33,14 @@ export declare class RagfairServerHelper {
     protected localeService: LocaleService;
     protected dialogueHelper: DialogueHelper;
     protected traderHelper: TraderHelper;
-    protected jsonUtil: JsonUtil;
     protected mailSendService: MailSendService;
     protected itemFilterService: ItemFilterService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected ragfairConfig: IRagfairConfig;
     protected questConfig: IQuestConfig;
     protected static goodsReturnedTemplate: string;
-    constructor(logger: ILogger, randomUtil: RandomUtil, hashUtil: HashUtil, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, profileHelper: ProfileHelper, itemHelper: ItemHelper, localeService: LocaleService, dialogueHelper: DialogueHelper, traderHelper: TraderHelper, jsonUtil: JsonUtil, mailSendService: MailSendService, itemFilterService: ItemFilterService, configServer: ConfigServer);
+    constructor(logger: ILogger, randomUtil: RandomUtil, hashUtil: HashUtil, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, profileHelper: ProfileHelper, itemHelper: ItemHelper, localeService: LocaleService, dialogueHelper: DialogueHelper, traderHelper: TraderHelper, mailSendService: MailSendService, itemFilterService: ItemFilterService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Is item valid / on blacklist / quest item
      * @param itemDetails

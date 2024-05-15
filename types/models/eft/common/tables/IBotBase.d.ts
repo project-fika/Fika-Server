@@ -307,6 +307,9 @@ export interface Productive {
     ProductionTime?: number;
     GivenItemsInStart?: string[];
     Interrupted?: boolean;
+    Code?: string;
+    Decoded?: boolean;
+    AvailableForFinish?: boolean;
     /** Used in hideout production.json */
     needFuelForAllProductionTime?: boolean;
     /** Used when sending data to client */

@@ -4,16 +4,16 @@ import { IRepairConfig } from "@spt-aki/models/spt/config/IRepairConfig";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 export declare class RepairHelper {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected randomUtil: RandomUtil;
     protected databaseServer: DatabaseServer;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected repairConfig: IRepairConfig;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, randomUtil: RandomUtil, databaseServer: DatabaseServer, configServer: ConfigServer);
+    constructor(logger: ILogger, randomUtil: RandomUtil, databaseServer: DatabaseServer, configServer: ConfigServer, cloner: ICloner);
     /**
      * Alter an items durability after a repair by trader/repair kit
      * @param itemToRepair item to update durability details

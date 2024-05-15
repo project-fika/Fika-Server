@@ -1,5 +1,5 @@
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { MathUtil } from "@spt-aki/utils/MathUtil";
 /**
  * Array of ProbabilityObjectArray which allow to randomly draw of the contained objects
@@ -18,8 +18,8 @@ import { MathUtil } from "@spt-aki/utils/MathUtil";
  */
 export declare class ProbabilityObjectArray<K, V = undefined> extends Array<ProbabilityObject<K, V>> {
     private mathUtil;
-    private jsonUtil;
-    constructor(mathUtil: MathUtil, jsonUtil: JsonUtil, ...items: ProbabilityObject<K, V>[]);
+    private cloner;
+    constructor(mathUtil: MathUtil, cloner: ICloner, ...items: ProbabilityObject<K, V>[]);
     filter(callbackfn: (value: ProbabilityObject<K, V>, index: number, array: ProbabilityObject<K, V>[]) => any): ProbabilityObjectArray<K, V>;
     /**
      * Calculates the normalized cumulative probability of the ProbabilityObjectArray's elements normalized to 1
@@ -103,9 +103,9 @@ export declare class ProbabilityObject<K, V = undefined> {
     constructor(key: K, relativeProbability: number, data?: V);
 }
 export declare class RandomUtil {
-    protected jsonUtil: JsonUtil;
+    protected cloner: ICloner;
     protected logger: ILogger;
-    constructor(jsonUtil: JsonUtil, logger: ILogger);
+    constructor(cloner: ICloner, logger: ILogger);
     getInt(min: number, max: number): number;
     getIntEx(max: number): number;
     getFloat(min: number, max: number): number;

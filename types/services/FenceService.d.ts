@@ -13,7 +13,7 @@ import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 /**
@@ -22,7 +22,6 @@ import { TimeUtil } from "@spt-aki/utils/TimeUtil";
  */
 export declare class FenceService {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected timeUtil: TimeUtil;
     protected randomUtil: RandomUtil;
     protected databaseServer: DatabaseServer;
@@ -31,6 +30,7 @@ export declare class FenceService {
     protected presetHelper: PresetHelper;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected traderConfig: ITraderConfig;
     /** Time when some items in assort will be replaced  */
     protected nextPartialRefreshTimestamp: number;
@@ -41,7 +41,7 @@ export declare class FenceService {
     /** Desired baseline counts - Hydrated on initial assort generation as part of generateFenceAssorts() */
     protected desiredAssortCounts: IFenceAssortGenerationValues;
     protected fenceItemUpdCompareProperties: Set<string>;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, timeUtil: TimeUtil, randomUtil: RandomUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, timeUtil: TimeUtil, randomUtil: RandomUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Replace main fence assort with new assort
      * @param assort New assorts to replace old with

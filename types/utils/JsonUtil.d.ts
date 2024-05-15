@@ -72,6 +72,7 @@ export declare class JsonUtil {
      * Convert into string and back into object to clone object
      * @param objectToClone Item to clone
      * @returns Cloned parameter
+     * @deprecated Use ICloner implementations, such as RecursiveCloner or StructuredCloner
      */
     clone<T>(objectToClone: T): T;
 }

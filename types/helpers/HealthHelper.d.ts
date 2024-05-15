@@ -5,16 +5,16 @@ import { IHealthConfig } from "@spt-aki/models/spt/config/IHealthConfig";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class HealthHelper {
-    protected jsonUtil: JsonUtil;
     protected logger: ILogger;
     protected timeUtil: TimeUtil;
     protected saveServer: SaveServer;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected healthConfig: IHealthConfig;
-    constructor(jsonUtil: JsonUtil, logger: ILogger, timeUtil: TimeUtil, saveServer: SaveServer, configServer: ConfigServer);
+    constructor(logger: ILogger, timeUtil: TimeUtil, saveServer: SaveServer, configServer: ConfigServer, cloner: ICloner);
     /**
      * Resets the profiles vitality/health and vitality/effects properties to their defaults
      * @param sessionID Session Id

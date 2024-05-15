@@ -8,7 +8,7 @@ export declare class ItemEventCallbacks {
     protected httpResponse: HttpResponseUtil;
     protected itemEventRouter: ItemEventRouter;
     constructor(httpResponse: HttpResponseUtil, itemEventRouter: ItemEventRouter);
-    handleEvents(url: string, info: IItemEventRouterRequest, sessionID: string): IGetBodyResponseData<IItemEventRouterResponse>;
+    handleEvents(url: string, info: IItemEventRouterRequest, sessionID: string): Promise<IGetBodyResponseData<IItemEventRouterResponse>>;
     /**
      * Return true if the passed in list of warnings contains critical issues
      * @param warnings The list of warnings to check for critical errors

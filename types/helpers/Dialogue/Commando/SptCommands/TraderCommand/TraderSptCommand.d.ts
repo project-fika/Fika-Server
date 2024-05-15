@@ -9,12 +9,10 @@ import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { LocaleService } from "@spt-aki/services/LocaleService";
 import { MailSendService } from "@spt-aki/services/MailSendService";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 export declare class TraderSptCommand implements ISptCommand {
     protected logger: ILogger;
     protected itemHelper: ItemHelper;
     protected hashUtil: HashUtil;
-    protected jsonUtil: JsonUtil;
     protected presetHelper: PresetHelper;
     protected mailSendService: MailSendService;
     protected localeService: LocaleService;
@@ -26,7 +24,7 @@ export declare class TraderSptCommand implements ISptCommand {
      */
     private static commandRegex;
     protected savedCommand: SavedCommand;
-    constructor(logger: ILogger, itemHelper: ItemHelper, hashUtil: HashUtil, jsonUtil: JsonUtil, presetHelper: PresetHelper, mailSendService: MailSendService, localeService: LocaleService, databaseServer: DatabaseServer);
+    constructor(logger: ILogger, itemHelper: ItemHelper, hashUtil: HashUtil, presetHelper: PresetHelper, mailSendService: MailSendService, localeService: LocaleService, databaseServer: DatabaseServer);
     getCommand(): string;
     getCommandHelp(): string;
     performAction(commandHandler: IUserDialogInfo, sessionId: string, request: ISendMessageRequest): string;

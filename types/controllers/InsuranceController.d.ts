@@ -20,8 +20,8 @@ import { InsuranceService } from "@spt-aki/services/InsuranceService";
 import { MailSendService } from "@spt-aki/services/MailSendService";
 import { PaymentService } from "@spt-aki/services/PaymentService";
 import { RagfairPriceService } from "@spt-aki/services/RagfairPriceService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { MathUtil } from "@spt-aki/utils/MathUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
@@ -29,7 +29,6 @@ export declare class InsuranceController {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
     protected mathUtil: MathUtil;
-    protected jsonUtil: JsonUtil;
     protected hashUtil: HashUtil;
     protected eventOutputHolder: EventOutputHolder;
     protected timeUtil: TimeUtil;
@@ -45,9 +44,10 @@ export declare class InsuranceController {
     protected mailSendService: MailSendService;
     protected ragfairPriceService: RagfairPriceService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected insuranceConfig: IInsuranceConfig;
     protected roubleTpl: string;
-    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, jsonUtil: JsonUtil, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, itemHelper: ItemHelper, profileHelper: ProfileHelper, dialogueHelper: DialogueHelper, weightedRandomHelper: WeightedRandomHelper, traderHelper: TraderHelper, paymentService: PaymentService, insuranceService: InsuranceService, mailSendService: MailSendService, ragfairPriceService: RagfairPriceService, configServer: ConfigServer);
+    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, itemHelper: ItemHelper, profileHelper: ProfileHelper, dialogueHelper: DialogueHelper, weightedRandomHelper: WeightedRandomHelper, traderHelper: TraderHelper, paymentService: PaymentService, insuranceService: InsuranceService, mailSendService: MailSendService, ragfairPriceService: RagfairPriceService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Process insurance items of all profiles prior to being given back to the player through the mail service.
      *

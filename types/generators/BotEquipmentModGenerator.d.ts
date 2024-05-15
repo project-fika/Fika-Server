@@ -21,14 +21,13 @@ import { BotEquipmentModPoolService } from "@spt-aki/services/BotEquipmentModPoo
 import { BotModLimits, BotWeaponModLimitService } from "@spt-aki/services/BotWeaponModLimitService";
 import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { IGenerateEquipmentProperties } from "./BotInventoryGenerator";
 import { IFilterPlateModsForSlotByLevelResult } from "./IFilterPlateModsForSlotByLevelResult";
 export declare class BotEquipmentModGenerator {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected hashUtil: HashUtil;
     protected randomUtil: RandomUtil;
     protected probabilityHelper: ProbabilityHelper;
@@ -46,8 +45,9 @@ export declare class BotEquipmentModGenerator {
     protected localisationService: LocalisationService;
     protected botEquipmentModPoolService: BotEquipmentModPoolService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected botConfig: IBotConfig;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, hashUtil: HashUtil, randomUtil: RandomUtil, probabilityHelper: ProbabilityHelper, databaseServer: DatabaseServer, itemHelper: ItemHelper, botEquipmentFilterService: BotEquipmentFilterService, itemFilterService: ItemFilterService, profileHelper: ProfileHelper, botWeaponModLimitService: BotWeaponModLimitService, botHelper: BotHelper, botGeneratorHelper: BotGeneratorHelper, botWeaponGeneratorHelper: BotWeaponGeneratorHelper, weightedRandomHelper: WeightedRandomHelper, presetHelper: PresetHelper, localisationService: LocalisationService, botEquipmentModPoolService: BotEquipmentModPoolService, configServer: ConfigServer);
+    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, probabilityHelper: ProbabilityHelper, databaseServer: DatabaseServer, itemHelper: ItemHelper, botEquipmentFilterService: BotEquipmentFilterService, itemFilterService: ItemFilterService, profileHelper: ProfileHelper, botWeaponModLimitService: BotWeaponModLimitService, botHelper: BotHelper, botGeneratorHelper: BotGeneratorHelper, botWeaponGeneratorHelper: BotWeaponGeneratorHelper, weightedRandomHelper: WeightedRandomHelper, presetHelper: PresetHelper, localisationService: LocalisationService, botEquipmentModPoolService: BotEquipmentModPoolService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Check mods are compatible and add to array
      * @param equipment Equipment item to add mods to

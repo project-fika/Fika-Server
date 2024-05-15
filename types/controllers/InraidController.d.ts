@@ -28,7 +28,6 @@ import { MailSendService } from "@spt-aki/services/MailSendService";
 import { MatchBotDetailsCacheService } from "@spt-aki/services/MatchBotDetailsCacheService";
 import { PmcChatResponseService } from "@spt-aki/services/PmcChatResponseService";
 import { TraderServicesService } from "@spt-aki/services/TraderServicesService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 /**
@@ -37,7 +36,6 @@ import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class InraidController {
     protected logger: ILogger;
     protected saveServer: SaveServer;
-    protected jsonUtil: JsonUtil;
     protected timeUtil: TimeUtil;
     protected databaseServer: DatabaseServer;
     protected pmcChatResponseService: PmcChatResponseService;
@@ -62,7 +60,7 @@ export declare class InraidController {
     protected locationConfig: ILocationConfig;
     protected ragfairConfig: IRagfairConfig;
     protected hideoutConfig: IHideoutConfig;
-    constructor(logger: ILogger, saveServer: SaveServer, jsonUtil: JsonUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, pmcChatResponseService: PmcChatResponseService, matchBotDetailsCacheService: MatchBotDetailsCacheService, questHelper: QuestHelper, itemHelper: ItemHelper, profileHelper: ProfileHelper, playerScavGenerator: PlayerScavGenerator, healthHelper: HealthHelper, traderHelper: TraderHelper, traderServicesService: TraderServicesService, insuranceService: InsuranceService, inRaidHelper: InRaidHelper, applicationContext: ApplicationContext, configServer: ConfigServer, mailSendService: MailSendService, randomUtil: RandomUtil);
+    constructor(logger: ILogger, saveServer: SaveServer, timeUtil: TimeUtil, databaseServer: DatabaseServer, pmcChatResponseService: PmcChatResponseService, matchBotDetailsCacheService: MatchBotDetailsCacheService, questHelper: QuestHelper, itemHelper: ItemHelper, profileHelper: ProfileHelper, playerScavGenerator: PlayerScavGenerator, healthHelper: HealthHelper, traderHelper: TraderHelper, traderServicesService: TraderServicesService, insuranceService: InsuranceService, inRaidHelper: InRaidHelper, applicationContext: ApplicationContext, configServer: ConfigServer, mailSendService: MailSendService, randomUtil: RandomUtil);
     /**
      * Save locationId to active profiles inraid object AND app context
      * @param sessionID Session id

@@ -3,7 +3,7 @@ import { Item } from "@spt-aki/models/eft/common/tables/IItem";
 import { IItemConfig } from "@spt-aki/models/spt/config/IItemConfig";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 declare class LookupItem<T, I> {
     readonly byId: Map<string, T>;
     readonly byParent: Map<string, I[]>;
@@ -16,12 +16,12 @@ export declare class LookupCollection {
 }
 export declare class HandbookHelper {
     protected databaseServer: DatabaseServer;
-    protected jsonUtil: JsonUtil;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected itemConfig: IItemConfig;
     protected lookupCacheGenerated: boolean;
     protected handbookPriceCache: LookupCollection;
-    constructor(databaseServer: DatabaseServer, jsonUtil: JsonUtil, configServer: ConfigServer);
+    constructor(databaseServer: DatabaseServer, configServer: ConfigServer, cloner: ICloner);
     /**
      * Create an in-memory cache of all items with associated handbook price in handbookPriceCache class
      */

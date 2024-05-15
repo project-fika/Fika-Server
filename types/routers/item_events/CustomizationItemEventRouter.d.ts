@@ -6,5 +6,5 @@ export declare class CustomizationItemEventRouter extends ItemEventRouterDefinit
     protected customizationCallbacks: CustomizationCallbacks;
     constructor(customizationCallbacks: CustomizationCallbacks);
     getHandledRoutes(): HandledRoute[];
-    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string): IItemEventRouterResponse;
+    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string): Promise<IItemEventRouterResponse>;
 }

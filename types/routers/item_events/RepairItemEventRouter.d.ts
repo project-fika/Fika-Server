@@ -6,5 +6,5 @@ export declare class RepairItemEventRouter extends ItemEventRouterDefinition {
     protected repairCallbacks: RepairCallbacks;
     constructor(repairCallbacks: RepairCallbacks);
     getHandledRoutes(): HandledRoute[];
-    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string): IItemEventRouterResponse;
+    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string): Promise<IItemEventRouterResponse>;
 }

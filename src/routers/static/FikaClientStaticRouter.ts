@@ -9,7 +9,7 @@ import { IFikaRaidServerIdRequestData } from "../../models/fika/routes/raid/IFik
 export class FikaClientStaticRouter extends StaticRouter {
     constructor(@inject("FikaClientCallbacks") protected fikaClientCallbacks: FikaClientCallbacks) {
         super([
-            new RouteAction("/fika/client/config", (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): string => {
+            new RouteAction("/fika/client/config", async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaClientCallbacks.handleClientConfig(url, info, sessionID);
             }),
         ]);

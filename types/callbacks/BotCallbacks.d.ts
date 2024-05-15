@@ -29,7 +29,7 @@ export declare class BotCallbacks {
      * Handle client/game/bot/generate
      * @returns IGetBodyResponseData
      */
-    generateBots(url: string, info: IGenerateBotsRequestData, sessionID: string): IGetBodyResponseData<IBotBase[]>;
+    generateBots(url: string, info: IGenerateBotsRequestData, sessionID: string): Promise<IGetBodyResponseData<IBotBase[]>>;
     /**
      * Handle singleplayer/settings/bot/maxCap
      * @returns string

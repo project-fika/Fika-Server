@@ -1,14 +1,14 @@
 import { IEliminationConfig, IQuestConfig, IRepeatableQuestConfig } from "@spt-aki/models/spt/config/IQuestConfig";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { MathUtil } from "@spt-aki/utils/MathUtil";
 import { ProbabilityObject, ProbabilityObjectArray } from "@spt-aki/utils/RandomUtil";
 export declare class RepeatableQuestHelper {
     protected mathUtil: MathUtil;
-    protected jsonUtil: JsonUtil;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(mathUtil: MathUtil, jsonUtil: JsonUtil, configServer: ConfigServer);
+    constructor(mathUtil: MathUtil, configServer: ConfigServer, cloner: ICloner);
     /**
      * Get the relevant elimination config based on the current players PMC level
      * @param pmcLevel Level of PMC character

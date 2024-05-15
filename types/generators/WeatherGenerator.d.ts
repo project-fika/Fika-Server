@@ -5,6 +5,7 @@ import { WindDirection } from "@spt-aki/models/enums/WindDirection";
 import { IWeatherConfig } from "@spt-aki/models/spt/config/IWeatherConfig";
 import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
+import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class WeatherGenerator {
@@ -12,11 +13,12 @@ export declare class WeatherGenerator {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
     protected timeUtil: TimeUtil;
+    protected seasonalEventService: SeasonalEventService;
     protected applicationContext: ApplicationContext;
     protected configServer: ConfigServer;
     protected weatherConfig: IWeatherConfig;
     private serverStartTimestampMS;
-    constructor(weightedRandomHelper: WeightedRandomHelper, logger: ILogger, randomUtil: RandomUtil, timeUtil: TimeUtil, applicationContext: ApplicationContext, configServer: ConfigServer);
+    constructor(weightedRandomHelper: WeightedRandomHelper, logger: ILogger, randomUtil: RandomUtil, timeUtil: TimeUtil, seasonalEventService: SeasonalEventService, applicationContext: ApplicationContext, configServer: ConfigServer);
     /**
      * Get current + raid datetime and format into correct BSG format and return
      * @param data Weather data

@@ -11,13 +11,12 @@ import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { SaveServer } from "@spt-aki/servers/SaveServer";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { ProfileSnapshotService } from "@spt-aki/services/ProfileSnapshotService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 import { Watermark } from "@spt-aki/utils/Watermark";
 export declare class ProfileHelper {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected hashUtil: HashUtil;
     protected watermark: Watermark;
     protected timeUtil: TimeUtil;
@@ -27,8 +26,9 @@ export declare class ProfileHelper {
     protected profileSnapshotService: ProfileSnapshotService;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected inventoryConfig: IInventoryConfig;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, hashUtil: HashUtil, watermark: Watermark, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, itemHelper: ItemHelper, profileSnapshotService: ProfileSnapshotService, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, hashUtil: HashUtil, watermark: Watermark, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, itemHelper: ItemHelper, profileSnapshotService: ProfileSnapshotService, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Remove/reset a completed quest condtion from players profile quest data
      * @param sessionID Session id

@@ -14,12 +14,11 @@ import { FenceService } from "@spt-aki/services/FenceService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { TraderAssortService } from "@spt-aki/services/TraderAssortService";
 import { TraderPurchasePersisterService } from "@spt-aki/services/TraderPurchasePersisterService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { MathUtil } from "@spt-aki/utils/MathUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class TraderAssortHelper {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected mathUtil: MathUtil;
     protected timeUtil: TimeUtil;
     protected databaseServer: DatabaseServer;
@@ -34,10 +33,11 @@ export declare class TraderAssortHelper {
     protected traderHelper: TraderHelper;
     protected fenceService: FenceService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected traderConfig: ITraderConfig;
     protected mergedQuestAssorts: Record<string, Record<string, string>>;
     protected createdMergedQuestAssorts: boolean;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, mathUtil: MathUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, profileHelper: ProfileHelper, assortHelper: AssortHelper, paymentHelper: PaymentHelper, ragfairAssortGenerator: RagfairAssortGenerator, ragfairOfferGenerator: RagfairOfferGenerator, traderAssortService: TraderAssortService, localisationService: LocalisationService, traderPurchasePersisterService: TraderPurchasePersisterService, traderHelper: TraderHelper, fenceService: FenceService, configServer: ConfigServer);
+    constructor(logger: ILogger, mathUtil: MathUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, profileHelper: ProfileHelper, assortHelper: AssortHelper, paymentHelper: PaymentHelper, ragfairAssortGenerator: RagfairAssortGenerator, ragfairOfferGenerator: RagfairOfferGenerator, traderAssortService: TraderAssortService, localisationService: LocalisationService, traderPurchasePersisterService: TraderPurchasePersisterService, traderHelper: TraderHelper, fenceService: FenceService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Get a traders assorts
      * Can be used for returning ragfair / fence assorts

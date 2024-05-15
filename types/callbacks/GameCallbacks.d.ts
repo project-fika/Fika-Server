@@ -8,6 +8,8 @@ import { IGameConfigResponse } from "@spt-aki/models/eft/game/IGameConfigRespons
 import { IGameEmptyCrcRequestData } from "@spt-aki/models/eft/game/IGameEmptyCrcRequestData";
 import { IGameKeepAliveResponse } from "@spt-aki/models/eft/game/IGameKeepAliveResponse";
 import { IGameLogoutResponseData } from "@spt-aki/models/eft/game/IGameLogoutResponseData";
+import { IGameModeRequestData } from "@spt-aki/models/eft/game/IGameModeRequestData";
+import { IGameModeResponse } from "@spt-aki/models/eft/game/IGameModeResponse";
 import { IGameStartResponse } from "@spt-aki/models/eft/game/IGameStartResponse";
 import { IGetRaidTimeRequest } from "@spt-aki/models/eft/game/IGetRaidTimeRequest";
 import { IGetRaidTimeResponse } from "@spt-aki/models/eft/game/IGetRaidTimeResponse";
@@ -47,6 +49,11 @@ export declare class GameCallbacks implements OnLoad {
      * @returns IGameConfigResponse
      */
     getGameConfig(url: string, info: IGameEmptyCrcRequestData, sessionID: string): IGetBodyResponseData<IGameConfigResponse>;
+    /**
+     * Handle client/game/mode
+     * @returns IGameModeResponse
+     */
+    getGameMode(url: string, info: IGameModeRequestData, sessionID: string): IGetBodyResponseData<IGameModeResponse>;
     /**
      * Handle client/server/list
      */

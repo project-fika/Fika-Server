@@ -12,11 +12,10 @@ import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { PaymentService } from "@spt-aki/services/PaymentService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 export declare class HealthController {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected eventOutputHolder: EventOutputHolder;
     protected itemHelper: ItemHelper;
     protected paymentService: PaymentService;
@@ -24,7 +23,8 @@ export declare class HealthController {
     protected localisationService: LocalisationService;
     protected httpResponse: HttpResponseUtil;
     protected healthHelper: HealthHelper;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, eventOutputHolder: EventOutputHolder, itemHelper: ItemHelper, paymentService: PaymentService, inventoryHelper: InventoryHelper, localisationService: LocalisationService, httpResponse: HttpResponseUtil, healthHelper: HealthHelper);
+    protected cloner: ICloner;
+    constructor(logger: ILogger, eventOutputHolder: EventOutputHolder, itemHelper: ItemHelper, paymentService: PaymentService, inventoryHelper: InventoryHelper, localisationService: LocalisationService, httpResponse: HttpResponseUtil, healthHelper: HealthHelper, cloner: ICloner);
     /**
      * stores in-raid player health
      * @param pmcData Player profile

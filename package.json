@@ -1,7 +1,7 @@
 {
     "name": "server",
-    "version": "2.1.0",
-    "akiVersion": "3.8.2",
+    "version": "2.2.0",
+    "akiVersion": "3.9.0",
     "main": "src/mod.js",
     "scripts": {
         "setup": "npm i",

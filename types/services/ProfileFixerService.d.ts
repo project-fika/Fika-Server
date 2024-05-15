@@ -16,6 +16,7 @@ import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
 import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
@@ -34,9 +35,10 @@ export declare class ProfileFixerService {
     protected hashUtil: HashUtil;
     protected databaseServer: DatabaseServer;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected coreConfig: ICoreConfig;
     protected ragfairConfig: IRagfairConfig;
-    constructor(logger: ILogger, watermark: Watermark, hideoutHelper: HideoutHelper, inventoryHelper: InventoryHelper, traderHelper: TraderHelper, profileHelper: ProfileHelper, itemHelper: ItemHelper, localisationService: LocalisationService, timeUtil: TimeUtil, jsonUtil: JsonUtil, hashUtil: HashUtil, databaseServer: DatabaseServer, configServer: ConfigServer);
+    constructor(logger: ILogger, watermark: Watermark, hideoutHelper: HideoutHelper, inventoryHelper: InventoryHelper, traderHelper: TraderHelper, profileHelper: ProfileHelper, itemHelper: ItemHelper, localisationService: LocalisationService, timeUtil: TimeUtil, jsonUtil: JsonUtil, hashUtil: HashUtil, databaseServer: DatabaseServer, configServer: ConfigServer, cloner: ICloner);
     /**
      * Find issues in the pmc profile data that may cause issues and fix them
      * @param pmcProfile profile to check and fix

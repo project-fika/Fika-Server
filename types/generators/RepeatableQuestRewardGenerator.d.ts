@@ -11,7 +11,7 @@ import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { MathUtil } from "@spt-aki/utils/MathUtil";
 import { ObjectId } from "@spt-aki/utils/ObjectId";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
@@ -19,7 +19,6 @@ export declare class RepeatableQuestRewardGenerator {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
     protected mathUtil: MathUtil;
-    protected jsonUtil: JsonUtil;
     protected databaseServer: DatabaseServer;
     protected itemHelper: ItemHelper;
     protected presetHelper: PresetHelper;
@@ -29,8 +28,9 @@ export declare class RepeatableQuestRewardGenerator {
     protected itemFilterService: ItemFilterService;
     protected seasonalEventService: SeasonalEventService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, jsonUtil: JsonUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper, presetHelper: PresetHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, objectId: ObjectId, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer);
+    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper, presetHelper: PresetHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, objectId: ObjectId, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Generate the reward for a mission. A reward can consist of
      * - Experience

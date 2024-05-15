@@ -27,6 +27,10 @@ import { DialogueInfo } from "@spt-aki/models/eft/profile/IAkiProfile";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { ICreateGroupMailRequest } from "@spt-aki/models/eft/dialog/ICreateGroupMailRequest";
+import { IChangeGroupMailOwnerRequest } from "@spt-aki/models/eft/dialog/IChangeGroupMailOwnerRequest";
+import { IAddUserGroupMailRequest } from "@spt-aki/models/eft/dialog/IAddUserGroupMailRequest";
+import { IRemoveUserGroupMailRequest } from "@spt-aki/models/eft/dialog/IRemoveUserGroupMailRequest";
 export declare class DialogueCallbacks implements OnUpdate {
     protected hashUtil: HashUtil;
     protected timeUtil: TimeUtil;
@@ -98,6 +102,10 @@ export declare class DialogueCallbacks implements OnUpdate {
     unIgnoreFriend(url: string, request: IUIDRequestData, sessionID: string): INullResponseData;
     clearMail(url: string, request: IClearMailMessageRequest, sessionID: string): IGetBodyResponseData<any[]>;
     removeMail(url: string, request: IRemoveMailMessageRequest, sessionID: string): IGetBodyResponseData<any[]>;
+    createGroupMail(url: string, info: ICreateGroupMailRequest, sessionID: string): IGetBodyResponseData<any[]>;
+    changeMailGroupOwner(url: string, info: IChangeGroupMailOwnerRequest, sessionID: string): IGetBodyResponseData<any[]>;
+    addUserToMail(url: string, info: IAddUserGroupMailRequest, sessionID: string): IGetBodyResponseData<any[]>;
+    removeUserFromMail(url: string, info: IRemoveUserGroupMailRequest, sessionID: string): IGetBodyResponseData<any[]>;
     onUpdate(timeSinceLastRun: number): Promise<boolean>;
     getRoute(): string;
 }

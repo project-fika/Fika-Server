@@ -7,5 +7,5 @@ export declare class NoteItemEventRouter extends ItemEventRouterDefinition {
     protected noteCallbacks: NoteCallbacks;
     constructor(noteCallbacks: NoteCallbacks);
     getHandledRoutes(): HandledRoute[];
-    handleItemEvent(url: string, pmcData: IPmcData, body: INoteActionData, sessionID: string): IItemEventRouterResponse;
+    handleItemEvent(url: string, pmcData: IPmcData, body: INoteActionData, sessionID: string): Promise<IItemEventRouterResponse>;
 }

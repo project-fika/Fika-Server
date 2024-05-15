@@ -15,8 +15,8 @@ import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { BotEquipmentFilterService } from "@spt-aki/services/BotEquipmentFilterService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
 import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 import { TimeUtil } from "@spt-aki/utils/TimeUtil";
 export declare class BotGenerator {
@@ -24,7 +24,6 @@ export declare class BotGenerator {
     protected hashUtil: HashUtil;
     protected randomUtil: RandomUtil;
     protected timeUtil: TimeUtil;
-    protected jsonUtil: JsonUtil;
     protected profileHelper: ProfileHelper;
     protected databaseServer: DatabaseServer;
     protected botInventoryGenerator: BotInventoryGenerator;
@@ -36,9 +35,10 @@ export declare class BotGenerator {
     protected seasonalEventService: SeasonalEventService;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, timeUtil: TimeUtil, jsonUtil: JsonUtil, profileHelper: ProfileHelper, databaseServer: DatabaseServer, botInventoryGenerator: BotInventoryGenerator, botLevelGenerator: BotLevelGenerator, botEquipmentFilterService: BotEquipmentFilterService, weightedRandomHelper: WeightedRandomHelper, botHelper: BotHelper, botDifficultyHelper: BotDifficultyHelper, seasonalEventService: SeasonalEventService, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, timeUtil: TimeUtil, profileHelper: ProfileHelper, databaseServer: DatabaseServer, botInventoryGenerator: BotInventoryGenerator, botLevelGenerator: BotLevelGenerator, botEquipmentFilterService: BotEquipmentFilterService, weightedRandomHelper: WeightedRandomHelper, botHelper: BotHelper, botDifficultyHelper: BotDifficultyHelper, seasonalEventService: SeasonalEventService, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Generate a player scav bot object
      * @param role e.g. assault / pmcbot

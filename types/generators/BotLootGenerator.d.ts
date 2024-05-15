@@ -18,15 +18,14 @@ import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { BotLootCacheService } from "@spt-aki/services/BotLootCacheService";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
 import { RandomUtil } from "@spt-aki/utils/RandomUtil";
 export declare class BotLootGenerator {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
     protected randomUtil: RandomUtil;
     protected itemHelper: ItemHelper;
-    protected jsonUtil: JsonUtil;
     protected inventoryHelper: InventoryHelper;
     protected databaseServer: DatabaseServer;
     protected handbookHelper: HandbookHelper;
@@ -37,9 +36,10 @@ export declare class BotLootGenerator {
     protected botLootCacheService: BotLootCacheService;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, itemHelper: ItemHelper, jsonUtil: JsonUtil, inventoryHelper: InventoryHelper, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, botGeneratorHelper: BotGeneratorHelper, botWeaponGenerator: BotWeaponGenerator, weightedRandomHelper: WeightedRandomHelper, botHelper: BotHelper, botLootCacheService: BotLootCacheService, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, itemHelper: ItemHelper, inventoryHelper: InventoryHelper, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, botGeneratorHelper: BotGeneratorHelper, botWeaponGenerator: BotWeaponGenerator, weightedRandomHelper: WeightedRandomHelper, botHelper: BotHelper, botLootCacheService: BotLootCacheService, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     protected getItemSpawnLimitsForBot(botRole: string): IItemSpawnLimitSettings;
     /**
      * Add loot to bots containers

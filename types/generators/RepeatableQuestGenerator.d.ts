@@ -11,7 +11,7 @@ import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt-aki/servers/ConfigServer";
 import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
 import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ICloner } from "@spt-aki/utils/cloners/ICloner";
 import { MathUtil } from "@spt-aki/utils/MathUtil";
 import { ObjectId } from "@spt-aki/utils/ObjectId";
 import { ProbabilityObjectArray, RandomUtil } from "@spt-aki/utils/RandomUtil";
@@ -19,7 +19,6 @@ export declare class RepeatableQuestGenerator {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
     protected mathUtil: MathUtil;
-    protected jsonUtil: JsonUtil;
     protected databaseServer: DatabaseServer;
     protected itemHelper: ItemHelper;
     protected localisationService: LocalisationService;
@@ -27,8 +26,9 @@ export declare class RepeatableQuestGenerator {
     protected repeatableQuestHelper: RepeatableQuestHelper;
     protected repeatableQuestRewardGenerator: RepeatableQuestRewardGenerator;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, jsonUtil: JsonUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper, localisationService: LocalisationService, objectId: ObjectId, repeatableQuestHelper: RepeatableQuestHelper, repeatableQuestRewardGenerator: RepeatableQuestRewardGenerator, configServer: ConfigServer);
+    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper, localisationService: LocalisationService, objectId: ObjectId, repeatableQuestHelper: RepeatableQuestHelper, repeatableQuestRewardGenerator: RepeatableQuestRewardGenerator, configServer: ConfigServer, cloner: ICloner);
     /**
      * This method is called by /GetClientRepeatableQuests/ and creates one element of quest type format (see assets/database/templates/repeatableQuests.json).
      * It randomly draws a quest type (currently Elimination, Completion or Exploration) as well as a trader who is providing the quest
