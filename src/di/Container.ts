@@ -5,6 +5,7 @@ import { FikaConfig } from "../utils/FikaConfig";
 import { Overrider } from "../overrides/Overrider";
 import { DialogueCallbacksOverride } from "../overrides/callbacks/DialogueCallbacks";
 import { LocationCallbacksOverride } from "../overrides/callbacks/LocationCallbacks";
+import { MatchCallbacksOverride } from "../overrides/callbacks/MatchCallbacks";
 import { DialogueControllerOverride } from "../overrides/controllers/DialogueController";
 import { ProfileControllerOverride } from "../overrides/controllers/ProfileController";
 import { LauncherBackgroundOverride } from "../overrides/other/LauncherBackground";
@@ -39,6 +40,7 @@ import { FikaUpdateCallbacks } from "../callbacks/FikaUpdateCallbacks";
 
 import { FikaClientStaticRouter } from "../routers/static/FikaClientStaticRouter";
 import { FikaLocationStaticRouter } from "../routers/static/FikaLocationStaticRouter";
+import { FikaMatchStaticRouter } from "../routers/static/FikaMatchStaticRouter";
 import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
@@ -97,6 +99,7 @@ export class Container {
     private static registerOverrides(container: DependencyContainer): void {
         container.register<DialogueCallbacksOverride>("DialogueCallbacksOverride", DialogueCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocationCallbacksOverride>("LocationCallbacksOverride", LocationCallbacksOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<MatchCallbacksOverride>("MatchCallbacksOverride", MatchCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DialogueControllerOverride>("DialogueControllerOverride", DialogueControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<ProfileControllerOverride>("ProfileControllerOverride", ProfileControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<HttpRouterOverride>("HttpRouterOverride", HttpRouterOverride, { lifecycle: Lifecycle.Singleton });
@@ -142,6 +145,7 @@ export class Container {
     private static registerRouters(container: DependencyContainer): void {
         container.register<FikaClientStaticRouter>("FikaClientStaticRouter", { useClass: FikaClientStaticRouter });
         container.register<FikaLocationStaticRouter>("FikaLocationStaticRouter", { useClass: FikaLocationStaticRouter });
+        container.register<FikaMatchStaticRouter>("FikaMatchStaticRouter", { useClass: FikaMatchStaticRouter });
         container.register<FikaRaidStaticRouter>("FikaRaidStaticRouter", { useClass: FikaRaidStaticRouter });
         container.register<FikaSendItemStaticRouter>("FikaSendItemStaticRouter", { useClass: FikaSendItemStaticRouter });
         container.register<FikaUpdateStaticRouter>("FikaUpdateStaticRouter", { useClass: FikaUpdateStaticRouter });
