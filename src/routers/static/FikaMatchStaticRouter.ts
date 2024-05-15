@@ -8,12 +8,12 @@ import { FikaMatchCallbacks } from "../../callbacks/FikaMatchCallbacks";
 export class FikaMatchStaticRouter extends StaticRouter {
     constructor(@inject("FikaMatchCallbacks") protected fikaMatchCallbacks: FikaMatchCallbacks) {
         super([
-            new RouteAction("/client/match/group/raid/not-ready", (url: string, info: any, sessionID: string, _output: string): string => {
+            new RouteAction("/client/match/group/raid/not-ready", async (url: string, info: any, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaMatchCallbacks.handleMatchGroupRaidNotReady(url, info, sessionID);
             }),
-            new RouteAction("/client/match/group/raid/ready", (url: string, info: any, sessionID: string, _output: string): string => {
+            new RouteAction("/client/match/group/raid/ready", async (url: string, info: any, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaMatchCallbacks.handleMatchGroupRaidReady(url, info, sessionID);
-            })
+            }),
         ]);
     }
 }
