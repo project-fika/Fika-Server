@@ -1,5 +1,5 @@
-import { IGroupMember } from "./IGroupMember";
+import { IGroupCharacter } from "./IGroupCharacter";
 
 export interface IMatchGroupCurrentResponse {
-    squad: IGroupMember[];
+    squad: IGroupCharacter[];
 }

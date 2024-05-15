@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
 import { IRequestIdRequest } from "src/models/eft/match/IRequestIdRequest";
-import { IGroupMember } from "src/models/eft/match/IGroupMember";
+import { IGroupCharacter } from "src/models/eft/match/IGroupCharacter";
 import { IMatchGroupCurrentResponse } from "src/models/eft/match/IMatchGroupCurrentResponse";
 import { IProfileStatusResponse } from "src/models/eft/match/IProfileStatusResponse";
 import { IProfileStatusRequest } from "src/models/eft/match/IProfileStatusRequest";
@@ -52,7 +52,7 @@ export class FikaMatchCallbacks {
     /** Handle /client/match/group/invite/accept */
     // TODO: override AKI's to handle groups
     public handleMatchGroupInviteAccept(_url: string, _info: IRequestIdRequest, _sessionID: string): string {
-        const data: IGroupMember[] = [];
+        const data: IGroupCharacter[] = [];
 
         return this.httpResponseUtil.noBody(data);
     }
