@@ -3,14 +3,13 @@ import { DependencyContainer, inject, injectable } from "tsyringe";
 import { MatchCallbacks } from "@spt-aki/callbacks/MatchCallbacks";
 import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
 import { INullResponseData } from "@spt-aki/models/eft/httpResponse/INullResponseData";
-import { ITransferGroupRequest } from "@spt-aki/models/eft/match/ITransferGroupRequest";
+import { IMatchGroupInviteSendRequest } from "@spt-aki/models/eft/match/IMatchGroupInviteSendRequest";
+import { IMatchGroupPlayerRemoveRequest } from "@spt-aki/models/eft/match/IMatchGroupPlayerRemoveRequest";
+import { IMatchGroupStartGameRequest } from "@spt-aki/models/eft/match/IMatchGroupStartGameRequest";
+import { IMatchGroupStatusRequest } from "@spt-aki/models/eft/match/IMatchGroupStatusRequest";
+import { IMatchGroupTransferRequest } from "@spt-aki/models/eft/match/IMatchGroupTransferRequest";
+import { IRequestIdRequest } from "@spt-aki/models/eft/match/IRequestIdRequest";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-
-import { IMatchGroupInviteSendRequest } from "../../models/eft/match/IMatchGroupInviteSendRequest";
-import { IMatchGroupPlayerRemoveRequest } from "../../models/eft/match/IMatchGroupPlayerRemoveRequest";
-import { IMatchGroupStartGameRequest } from "../../models/eft/match/IMatchGroupStartGameRequest";
-import { IMatchGroupStatusRequest } from "../../models/eft/match/IMatchGroupStatusRequest";
-import { IRequestIdRequest } from "../../models/eft/match/IRequestIdRequest";
 
 import { FikaMatchController } from "../../controllers/FikaMatchController";
 import { Override } from "../../di/Override";
@@ -93,7 +92,7 @@ export class MatchCallbacksOverride extends Override {
                 };
 
                 /** Handle /client/match/group/transfer */
-                result.transferGroup = (_url: string, info: ITransferGroupRequest, sessionID: string) => {
+                result.transferGroup = (_url: string, info: IMatchGroupTransferRequest, sessionID: string) => {
                     return this.httpResponseUtil.getBody(this.fikaMatchController.handleMatchGroupTransfer(info, sessionID));
                 };
 

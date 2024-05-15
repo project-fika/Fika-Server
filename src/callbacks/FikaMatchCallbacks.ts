@@ -1,9 +1,9 @@
 import { inject, injectable } from "tsyringe";
 
+import { IProfileStatusRequest } from "@spt-aki/models/eft/match/IProfileStatusRequest";
 import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
 
 import { FikaMatchController } from "../controllers/FikaMatchController";
-import { IProfileStatusRequest } from "../models/eft/match/IProfileStatusRequest";
 
 @injectable()
 export class FikaMatchCallbacks {
@@ -17,24 +17,24 @@ export class FikaMatchCallbacks {
     /** Handle /client/match/group/current */
     // GameCallbacks
     // TODO: override AKI's to handle groups
-    public handleMatchGroupCurrent(url: string, info: any, sessionID: string): string {
+    public handleMatchGroupCurrent(_url: string, _info: any, sessionID: string): string {
         return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupCurrent(sessionID));
     }
 
     /** Handle /client/match/group/raid/not-ready */
-    public handleMatchGroupRaidNotReady(url: string, info: any, sessionID: string): string {
+    public handleMatchGroupRaidNotReady(_url: string, _info: any, sessionID: string): string {
         return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupRaidNotReady(sessionID));
     }
 
     /** Handle /client/match/group/raid/ready */
-    public handleMatchGroupRaidReady(url: string, info: any, sessionID: string): string {
+    public handleMatchGroupRaidReady(_url: string, _info: any, sessionID: string): string {
         return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupRaidReady(sessionID));
     }
 
     /** Handle /client/profile/status */
     // ProfileCallbacks
     // TODO: override AKI's to handle groups
-    public handleProfileStatus(url: string, info: IProfileStatusRequest, sessionID: string): string {
+    public handleProfileStatus(_url: string, info: IProfileStatusRequest, sessionID: string): string {
         return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleProfileStatus(info, sessionID));
     }
 }
