@@ -44,4 +44,9 @@ export class FikaRaidCallbacks {
     public handleRaidSpawnpoint(_url: string, info: IFikaRaidServerIdRequestData, _sessionID: string): string {
         return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidSpawnpoint(info));
     }
+
+    /** Handle /fika/raid/getsettings */
+    public handleRaidGetSettings(_url: string, info: IFikaRaidServerIdRequestData, _sessionID: string): string {
+        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidGetSettings(info));
+    }
 }

@@ -28,6 +28,9 @@ export class FikaRaidStaticRouter extends StaticRouter {
             new RouteAction("/fika/raid/spawnpoint", (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): string => {
                 return this.fikaRaidCallbacks.handleRaidSpawnpoint(url, info, sessionID);
             }),
+            new RouteAction("/fika/raid/getsettings", (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): string => {
+                return this.fikaRaidCallbacks.handleRaidGetSettings(url, info, sessionID);
+            }),
         ]);
     }
 }
