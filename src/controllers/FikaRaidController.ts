@@ -9,7 +9,7 @@ import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaR
 import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaidJoinResponse";
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 import { IFikaRaidSpawnpointResponse } from "../models/fika/routes/raid/spawnpoint/IFikaRaidSpawnpointResponse";
-import { IFikaRaidSettingsResponse } from "src/models/fika/routes/raid/getsettings/IFikaRaidSettingsResponse";
+import { IFikaRaidSettingsResponse } from "../models/fika/routes/raid/getsettings/IFikaRaidSettingsResponse";
 import { FikaMatchService } from "../services/FikaMatchService";
 
 @injectable()
