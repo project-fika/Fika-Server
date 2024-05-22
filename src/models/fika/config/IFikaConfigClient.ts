@@ -4,4 +4,5 @@ export interface IFikaConfigClient {
     dynamicVExfils: boolean;
     allowFreeCam: boolean;
     allowItemSending: boolean;
+    forceSaveOnDeath: boolean;
 }
