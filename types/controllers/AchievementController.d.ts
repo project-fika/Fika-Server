@@ -1,7 +1,7 @@
-import { ICompletedAchievementsResponse } from "@spt-aki/models/eft/profile/ICompletedAchievementsResponse";
-import { IGetAchievementsResponse } from "@spt-aki/models/eft/profile/IGetAchievementsResponse";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
+import { ICompletedAchievementsResponse } from "@spt/models/eft/profile/ICompletedAchievementsResponse";
+import { IGetAchievementsResponse } from "@spt/models/eft/profile/IGetAchievementsResponse";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
 /**
  * Logic for handling In Raid callbacks
  */

@@ -1,32 +1,32 @@
-import { PlayerScavGenerator } from "@spt-aki/generators/PlayerScavGenerator";
-import { DialogueHelper } from "@spt-aki/helpers/DialogueHelper";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { QuestHelper } from "@spt-aki/helpers/QuestHelper";
-import { TraderHelper } from "@spt-aki/helpers/TraderHelper";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
-import { IMiniProfile } from "@spt-aki/models/eft/launcher/IMiniProfile";
-import { GetProfileStatusResponseData } from "@spt-aki/models/eft/profile/GetProfileStatusResponseData";
-import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { IGetOtherProfileRequest } from "@spt-aki/models/eft/profile/IGetOtherProfileRequest";
-import { IGetOtherProfileResponse } from "@spt-aki/models/eft/profile/IGetOtherProfileResponse";
-import { IProfileChangeNicknameRequestData } from "@spt-aki/models/eft/profile/IProfileChangeNicknameRequestData";
-import { IProfileChangeVoiceRequestData } from "@spt-aki/models/eft/profile/IProfileChangeVoiceRequestData";
-import { IProfileCreateRequestData } from "@spt-aki/models/eft/profile/IProfileCreateRequestData";
-import { ISearchFriendRequestData } from "@spt-aki/models/eft/profile/ISearchFriendRequestData";
-import { ISearchFriendResponse } from "@spt-aki/models/eft/profile/ISearchFriendResponse";
-import { IValidateNicknameRequestData } from "@spt-aki/models/eft/profile/IValidateNicknameRequestData";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { MailSendService } from "@spt-aki/services/MailSendService";
-import { ProfileFixerService } from "@spt-aki/services/ProfileFixerService";
-import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { PlayerScavGenerator } from "@spt/generators/PlayerScavGenerator";
+import { DialogueHelper } from "@spt/helpers/DialogueHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { QuestHelper } from "@spt/helpers/QuestHelper";
+import { TraderHelper } from "@spt/helpers/TraderHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { IMiniProfile } from "@spt/models/eft/launcher/IMiniProfile";
+import { GetProfileStatusResponseData } from "@spt/models/eft/profile/GetProfileStatusResponseData";
+import { IGetOtherProfileRequest } from "@spt/models/eft/profile/IGetOtherProfileRequest";
+import { IGetOtherProfileResponse } from "@spt/models/eft/profile/IGetOtherProfileResponse";
+import { IProfileChangeNicknameRequestData } from "@spt/models/eft/profile/IProfileChangeNicknameRequestData";
+import { IProfileChangeVoiceRequestData } from "@spt/models/eft/profile/IProfileChangeVoiceRequestData";
+import { IProfileCreateRequestData } from "@spt/models/eft/profile/IProfileCreateRequestData";
+import { ISearchFriendRequestData } from "@spt/models/eft/profile/ISearchFriendRequestData";
+import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { IValidateNicknameRequestData } from "@spt/models/eft/profile/IValidateNicknameRequestData";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { MailSendService } from "@spt/services/MailSendService";
+import { ProfileFixerService } from "@spt/services/ProfileFixerService";
+import { SeasonalEventService } from "@spt/services/SeasonalEventService";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class ProfileController {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -81,7 +81,7 @@ export declare class ProfileController {
      * @param sessionID Session id
      * @param response Event router response
      */
-    protected givePlayerStartingQuestRewards(profileDetails: IAkiProfile, sessionID: string, response: IItemEventRouterResponse): void;
+    protected givePlayerStartingQuestRewards(profileDetails: ISptProfile, sessionID: string, response: IItemEventRouterResponse): void;
     /**
      * For each trader reset their state to what a level 1 player would see
      * @param sessionID Session id of profile to reset

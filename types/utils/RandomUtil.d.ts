@@ -1,6 +1,6 @@
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
-import { MathUtil } from "@spt-aki/utils/MathUtil";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { MathUtil } from "@spt/utils/MathUtil";
 /**
  * Array of ProbabilityObjectArray which allow to randomly draw of the contained objects
  * based on the relative probability of each of its elements.

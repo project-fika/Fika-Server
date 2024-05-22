@@ -1,8 +1,8 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
 import { IncomingMessage } from "node:http";
-import { HttpServerHelper } from "@spt-aki/helpers/HttpServerHelper";
-import { HttpRouter } from "@spt-aki/routers/HttpRouter";
+import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
+import { HttpRouter } from "@spt/routers/HttpRouter";
 
 import { Override } from "../../di/Override";
 
@@ -21,8 +21,8 @@ export class HttpRouterOverride extends Override {
             (_, result: HttpRouter) => {
                 const originalGetResponse = result.getResponse;
 
-                result.getResponse = (req: IncomingMessage, info: any, sessionID: string): string => {
-                    let response = originalGetResponse.apply(result, [req, info, sessionID]);
+                result.getResponse = async (req: IncomingMessage, info: any, sessionID: string): Promise<string> => {
+                    let response = await originalGetResponse.apply(result, [req, info, sessionID]);
 
                     // if the response contains host, replace host with ours
                     if (req.headers?.host) {

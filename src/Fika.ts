@@ -1,6 +1,6 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
 
 import { Overrider } from "./overrides/Overrider";
 
@@ -13,7 +13,7 @@ export class Fika {
         // empty
     }
 
-    public async preAkiLoad(container: DependencyContainer): Promise<void> {
+    public async preSptLoad(container: DependencyContainer): Promise<void> {
         await this.overrider.override(container);
     }
 }

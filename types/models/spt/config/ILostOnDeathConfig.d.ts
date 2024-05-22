@@ -1,6 +1,6 @@
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface ILostOnDeathConfig extends IBaseConfig {
-    kind: "aki-lostondeath";
+    kind: "spt-lostondeath";
     /** What equipment in each slot should be lost on death */
     equipment: Equipment;
     /** Should special slot items be removed from quest inventory on death e.g. wifi camera/markers */

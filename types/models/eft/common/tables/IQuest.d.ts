@@ -1,7 +1,7 @@
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { QuestRewardType } from "@spt-aki/models/enums/QuestRewardType";
-import { QuestStatus } from "@spt-aki/models/enums/QuestStatus";
-import { QuestTypeEnum } from "@spt-aki/models/enums/QuestTypeEnum";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { QuestRewardType } from "@spt/models/enums/QuestRewardType";
+import { QuestStatus } from "@spt/models/enums/QuestStatus";
+import { QuestTypeEnum } from "@spt/models/enums/QuestTypeEnum";
 export interface IQuest {
     /** SPT addition - human readable quest name */
     QuestName?: string;

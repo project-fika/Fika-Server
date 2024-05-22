@@ -1,29 +1,31 @@
-import { BotGeneratorHelper } from "@spt-aki/helpers/BotGeneratorHelper";
-import { BotHelper } from "@spt-aki/helpers/BotHelper";
-import { BotWeaponGeneratorHelper } from "@spt-aki/helpers/BotWeaponGeneratorHelper";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { PresetHelper } from "@spt-aki/helpers/PresetHelper";
-import { ProbabilityHelper } from "@spt-aki/helpers/ProbabilityHelper";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { WeightedRandomHelper } from "@spt-aki/helpers/WeightedRandomHelper";
-import { IPreset } from "@spt-aki/models/eft/common/IGlobals";
-import { Mods, ModsChances } from "@spt-aki/models/eft/common/tables/IBotType";
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { ITemplateItem, Slot } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { ModSpawn } from "@spt-aki/models/enums/ModSpawn";
-import { IChooseRandomCompatibleModResult } from "@spt-aki/models/spt/bots/IChooseRandomCompatibleModResult";
-import { EquipmentFilterDetails, EquipmentFilters, IBotConfig } from "@spt-aki/models/spt/config/IBotConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { BotEquipmentFilterService } from "@spt-aki/services/BotEquipmentFilterService";
-import { BotEquipmentModPoolService } from "@spt-aki/services/BotEquipmentModPoolService";
-import { BotModLimits, BotWeaponModLimitService } from "@spt-aki/services/BotWeaponModLimitService";
-import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
+import { BotGeneratorHelper } from "@spt/helpers/BotGeneratorHelper";
+import { BotHelper } from "@spt/helpers/BotHelper";
+import { BotWeaponGeneratorHelper } from "@spt/helpers/BotWeaponGeneratorHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { PresetHelper } from "@spt/helpers/PresetHelper";
+import { ProbabilityHelper } from "@spt/helpers/ProbabilityHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
+import { IPreset } from "@spt/models/eft/common/IGlobals";
+import { Mods, ModsChances } from "@spt/models/eft/common/tables/IBotType";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { ITemplateItem, Slot } from "@spt/models/eft/common/tables/ITemplateItem";
+import { ModSpawn } from "@spt/models/enums/ModSpawn";
+import { IChooseRandomCompatibleModResult } from "@spt/models/spt/bots/IChooseRandomCompatibleModResult";
+import { IGenerateWeaponRequest } from "@spt/models/spt/bots/IGenerateWeaponRequest";
+import { IModToSpawnRequest } from "@spt/models/spt/bots/IModToSpawnRequest";
+import { EquipmentFilterDetails, EquipmentFilters, IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { BotEquipmentFilterService } from "@spt/services/BotEquipmentFilterService";
+import { BotEquipmentModPoolService } from "@spt/services/BotEquipmentModPoolService";
+import { BotWeaponModLimitService } from "@spt/services/BotWeaponModLimitService";
+import { ItemFilterService } from "@spt/services/ItemFilterService";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { RandomUtil } from "@spt/utils/RandomUtil";
 import { IGenerateEquipmentProperties } from "./BotInventoryGenerator";
 import { IFilterPlateModsForSlotByLevelResult } from "./IFilterPlateModsForSlotByLevelResult";
 export declare class BotEquipmentModGenerator {
@@ -69,20 +71,11 @@ export declare class BotEquipmentModGenerator {
     protected filterPlateModsForSlotByLevel(settings: IGenerateEquipmentProperties, modSlot: string, existingPlateTplPool: string[], armorItem: ITemplateItem): IFilterPlateModsForSlotByLevelResult;
     /**
      * Add mods to a weapon using the provided mod pool
-     * @param sessionId session id
-     * @param weapon Weapon to add mods to
-     * @param modPool Pool of compatible mods to attach to weapon
-     * @param weaponId parentId of weapon
-     * @param parentTemplate Weapon which mods will be generated on
-     * @param modSpawnChances Mod spawn chances
-     * @param ammoTpl Ammo tpl to use when generating magazines/cartridges
-     * @param botRole Role of bot weapon is generated for
-     * @param botLevel Level of the bot weapon is being generated for
-     * @param modLimits limits placed on certain mod types per gun
-     * @param botEquipmentRole role of bot when accessing bot.json equipment config settings
+     * @param sessionId Session id
+     * @param request Data used to generate the weapon
      * @returns Weapon + mods array
      */
-    generateModsForWeapon(sessionId: string, weapon: Item[], modPool: Mods, weaponId: string, parentTemplate: ITemplateItem, modSpawnChances: ModsChances, ammoTpl: string, botRole: string, botLevel: number, modLimits: BotModLimits, botEquipmentRole: string): Item[];
+    generateModsForWeapon(sessionId: string, request: IGenerateWeaponRequest): Item[];
     /**
      * Is this modslot a front or rear sight
      * @param modSlot Slot to check
@@ -120,17 +113,11 @@ export declare class BotEquipmentModGenerator {
      */
     protected shouldModBeSpawned(itemSlot: Slot, modSlot: string, modSpawnChances: ModsChances, botEquipConfig: EquipmentFilters): ModSpawn;
     /**
-     * @param modSlot Slot mod will fit into
-     * @param isRandomisableSlot Will generate a randomised mod pool if true
-     * @param modsParent Parent slot the item will be a part of
-     * @param botEquipBlacklist Blacklist to prevent mods from being picked
-     * @param itemModPool Pool of items to pick from
-     * @param weapon array with only weapon tpl in it, ready for mods to be added
-     * @param ammoTpl ammo tpl to use if slot requires a cartridge to be added (e.g. mod_magazine)
-     * @param parentTemplate Parent item the mod will go into
+     * Choose a mod to fit into the desired slot
+     * @param request Data used to choose an appropriate mod with
      * @returns itemHelper.getItem() result
      */
-    protected chooseModToPutIntoSlot(modSlot: string, isRandomisableSlot: boolean, botWeaponSightWhitelist: Record<string, string[]>, botEquipBlacklist: EquipmentFilterDetails, itemModPool: Record<string, string[]>, weapon: Item[], ammoTpl: string, parentTemplate: ITemplateItem, modSpawnResult: ModSpawn): [boolean, ITemplateItem];
+    protected chooseModToPutIntoSlot(request: IModToSpawnRequest): [boolean, ITemplateItem];
     protected pickWeaponModTplForSlotFromPool(modPool: string[], parentSlot: Slot, modSpawnResult: ModSpawn, weapon: Item[], modSlotname: string): IChooseRandomCompatibleModResult;
     /**
      * Filter mod pool down based on various criteria:

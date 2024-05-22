@@ -1,5 +1,5 @@
-import { IAsyncQueue } from "@spt-aki/models/spt/utils/IAsyncQueue";
-import { AbstractWinstonLogger } from "@spt-aki/utils/logging/AbstractWinstonLogger";
+import { IAsyncQueue } from "@spt/models/spt/utils/IAsyncQueue";
+import { AbstractWinstonLogger } from "@spt/utils/logging/AbstractWinstonLogger";
 export declare class WinstonMainLogger extends AbstractWinstonLogger {
     protected asyncQueue: IAsyncQueue;
     constructor(asyncQueue: IAsyncQueue);

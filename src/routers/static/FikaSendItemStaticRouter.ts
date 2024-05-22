@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { RouteAction, StaticRouter } from "@spt-aki/di/Router";
+import { RouteAction, StaticRouter } from "@spt/di/Router";
 
 import { FikaSendItemCallbacks } from "../../callbacks/FikaSendItemCallbacks";
 import { IFikaSenditemAvailablereceiversRequestData } from "../../models/fika/routes/senditem/availablereceivers/IFikaSenditemAvailablereceiversRequestData";

@@ -1,6 +1,6 @@
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IItemConfig extends IBaseConfig {
-    kind: "aki-item";
+    kind: "spt-item";
     /** Items that should be globally blacklisted */
     blacklist: string[];
     /** items that should not be given as rewards */

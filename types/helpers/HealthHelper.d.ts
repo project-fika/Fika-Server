@@ -1,12 +1,12 @@
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { ISyncHealthRequestData } from "@spt-aki/models/eft/health/ISyncHealthRequestData";
-import { Effects, IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { IHealthConfig } from "@spt-aki/models/spt/config/IHealthConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { ISyncHealthRequestData } from "@spt/models/eft/health/ISyncHealthRequestData";
+import { Effects, ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { IHealthConfig } from "@spt/models/spt/config/IHealthConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class HealthHelper {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;
@@ -20,7 +20,7 @@ export declare class HealthHelper {
      * @param sessionID Session Id
      * @returns updated profile
      */
-    resetVitality(sessionID: string): IAkiProfile;
+    resetVitality(sessionID: string): ISptProfile;
     /**
      * Update player profile with changes from request object
      * @param pmcData Player profile

@@ -1,7 +1,7 @@
-import ts from "typescript";
-import type { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ModHashCacheService } from "@spt-aki/services/cache/ModHashCacheService";
-import { VFS } from "@spt-aki/utils/VFS";
+import { CompilerOptions } from "typescript";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ModHashCacheService } from "@spt/services/cache/ModHashCacheService";
+import { VFS } from "@spt/utils/VFS";
 export declare class ModCompilerService {
     protected logger: ILogger;
     protected modHashCacheService: ModHashCacheService;
@@ -21,7 +21,7 @@ export declare class ModCompilerService {
      * @param fileNames Paths to TS files
      * @param options Compiler options
      */
-    protected compile(fileNames: string[], options: ts.CompilerOptions): Promise<void>;
+    protected compile(fileNames: string[], options: CompilerOptions): Promise<void>;
     /**
      * Do the files at the provided paths exist
      * @param fileNames

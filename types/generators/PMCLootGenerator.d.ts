@@ -1,12 +1,12 @@
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { WeightedRandomHelper } from "@spt-aki/helpers/WeightedRandomHelper";
-import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { IPmcConfig } from "@spt-aki/models/spt/config/IPmcConfig";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
-import { RagfairPriceService } from "@spt-aki/services/RagfairPriceService";
-import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ItemFilterService } from "@spt/services/ItemFilterService";
+import { RagfairPriceService } from "@spt/services/RagfairPriceService";
+import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 /**
  * Handle the generation of dynamic PMC loot in pockets and backpacks
  * and the removal of blacklisted items

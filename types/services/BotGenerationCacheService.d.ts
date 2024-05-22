@@ -1,8 +1,8 @@
-import { BotHelper } from "@spt-aki/helpers/BotHelper";
-import { IBotBase } from "@spt-aki/models/eft/common/tables/IBotBase";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
+import { BotHelper } from "@spt/helpers/BotHelper";
+import { IBotBase } from "@spt/models/eft/common/tables/IBotBase";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class BotGenerationCacheService {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;

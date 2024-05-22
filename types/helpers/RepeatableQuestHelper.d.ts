@@ -1,8 +1,8 @@
-import { IEliminationConfig, IQuestConfig, IRepeatableQuestConfig } from "@spt-aki/models/spt/config/IQuestConfig";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
-import { MathUtil } from "@spt-aki/utils/MathUtil";
-import { ProbabilityObject, ProbabilityObjectArray } from "@spt-aki/utils/RandomUtil";
+import { IEliminationConfig, IQuestConfig, IRepeatableQuestConfig } from "@spt/models/spt/config/IQuestConfig";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { MathUtil } from "@spt/utils/MathUtil";
+import { ProbabilityObject, ProbabilityObjectArray } from "@spt/utils/RandomUtil";
 export declare class RepeatableQuestHelper {
     protected mathUtil: MathUtil;
     protected configServer: ConfigServer;

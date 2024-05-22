@@ -1,7 +1,7 @@
-import { MinMax } from "@spt-aki/models/common/MinMax";
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { MinMax } from "@spt/models/common/MinMax";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IScavCaseConfig extends IBaseConfig {
-    kind: "aki-scavcase";
+    kind: "spt-scavcase";
     rewardItemValueRangeRub: Record<string, MinMax>;
     moneyRewards: MoneyRewards;
     ammoRewards: AmmoRewards;

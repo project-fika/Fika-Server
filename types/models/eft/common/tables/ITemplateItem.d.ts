@@ -1,4 +1,4 @@
-import { Ixyz } from "@spt-aki/models/eft/common/Ixyz";
+import { Ixyz } from "@spt/models/eft/common/Ixyz";
 export interface ITemplateItem {
     _id: string;
     _name: string;
@@ -354,7 +354,7 @@ export interface Props {
     casingSounds?: string;
     ProjectileCount?: number;
     PenetrationChanceObstacle?: number;
-    PenetrationDamageMod: number;
+    PenetrationDamageMod?: number;
     RicochetChance?: number;
     FragmentationChance?: number;
     Deterioration?: number;

@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { VFS } from "@spt-aki/utils/VFS";
+import { JsonUtil } from "@spt/utils/JsonUtil";
+import { VFS } from "@spt/utils/VFS";
 
 import { IFikaFriendRequests } from "../../models/fika/IFikaFriendRequests";
 import { FikaConfig } from "../../utils/FikaConfig";

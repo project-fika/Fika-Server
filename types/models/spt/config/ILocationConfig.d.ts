@@ -1,8 +1,8 @@
-import { MinMax } from "@spt-aki/models/common/MinMax";
-import { BossLocationSpawn, Wave } from "@spt-aki/models/eft/common/ILocationBase";
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { MinMax } from "@spt/models/common/MinMax";
+import { BossLocationSpawn, Wave } from "@spt/models/eft/common/ILocationBase";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface ILocationConfig extends IBaseConfig {
-    kind: "aki-location";
+    kind: "spt-location";
     /** Waves with a min/max of the same value don't spawn any bots, bsg only spawn the difference between min and max */
     fixEmptyBotWavesSettings: IFixEmptyBotWavesSettings;
     /** Rogues are classified as bosses and spawn immediatly, this can result in no scavs spawning, delay rogues spawning to allow scavs to spawn first */

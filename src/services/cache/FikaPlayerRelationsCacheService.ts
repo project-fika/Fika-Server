@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { VFS } from "@spt-aki/utils/VFS";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { JsonUtil } from "@spt/utils/JsonUtil";
+import { VFS } from "@spt/utils/VFS";
 
 import { IFikaPlayerRelations } from "../../models/fika/IFikaPlayerRelations";
 import { FikaConfig } from "../../utils/FikaConfig";

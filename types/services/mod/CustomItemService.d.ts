@@ -1,12 +1,12 @@
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { ITemplateItem, Props } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { CreateItemResult, LocaleDetails, NewItemDetails, NewItemFromCloneDetails } from "@spt-aki/models/spt/mod/NewItemDetails";
-import { IDatabaseTables } from "@spt-aki/models/spt/server/IDatabaseTables";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { ItemBaseClassService } from "@spt-aki/services/ItemBaseClassService";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ITemplateItem, Props } from "@spt/models/eft/common/tables/ITemplateItem";
+import { CreateItemResult, LocaleDetails, NewItemDetails, NewItemFromCloneDetails } from "@spt/models/spt/mod/NewItemDetails";
+import { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { HashUtil } from "@spt/utils/HashUtil";
 export declare class CustomItemService {
     protected logger: ILogger;
     protected hashUtil: HashUtil;

@@ -1,8 +1,8 @@
-import { HttpServerHelper } from "@spt-aki/helpers/HttpServerHelper";
-import { BundleHashCacheService } from "@spt-aki/services/cache/BundleHashCacheService";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { VFS } from "@spt-aki/utils/VFS";
+import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
+import { BundleHashCacheService } from "@spt/services/cache/BundleHashCacheService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { JsonUtil } from "@spt/utils/JsonUtil";
+import { VFS } from "@spt/utils/VFS";
 export declare class BundleInfo {
     modpath: string;
     filename: string;

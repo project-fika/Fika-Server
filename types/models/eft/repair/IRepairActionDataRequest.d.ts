@@ -1,4 +1,4 @@
-import { IBaseRepairActionDataRequest } from "@spt-aki/models/eft/repair/IBaseRepairActionDataRequest";
+import { IBaseRepairActionDataRequest } from "@spt/models/eft/repair/IBaseRepairActionDataRequest";
 export interface IRepairActionDataRequest extends IBaseRepairActionDataRequest {
     Action: "Repair";
     repairKitsInfo: RepairKitsInfo[];

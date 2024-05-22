@@ -1,18 +1,18 @@
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { PresetHelper } from "@spt-aki/helpers/PresetHelper";
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { IHideoutScavCase } from "@spt-aki/models/eft/hideout/IHideoutScavCase";
-import { IScavCaseConfig } from "@spt-aki/models/spt/config/IScavCaseConfig";
-import { RewardCountAndPriceDetails, ScavCaseRewardCountsAndPrices } from "@spt-aki/models/spt/hideout/ScavCaseRewardCountsAndPrices";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
-import { RagfairPriceService } from "@spt-aki/services/RagfairPriceService";
-import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { PresetHelper } from "@spt/helpers/PresetHelper";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IHideoutScavCase } from "@spt/models/eft/hideout/IHideoutScavCase";
+import { IScavCaseConfig } from "@spt/models/spt/config/IScavCaseConfig";
+import { RewardCountAndPriceDetails, ScavCaseRewardCountsAndPrices } from "@spt/models/spt/hideout/ScavCaseRewardCountsAndPrices";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ItemFilterService } from "@spt/services/ItemFilterService";
+import { RagfairPriceService } from "@spt/services/RagfairPriceService";
+import { SeasonalEventService } from "@spt/services/SeasonalEventService";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { RandomUtil } from "@spt/utils/RandomUtil";
 /**
  * Handle the creation of randomised scav case rewards
  */

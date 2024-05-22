@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { IGetRaidConfigurationRequestData } from "@spt-aki/models/eft/match/IGetRaidConfigurationRequestData";
+import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
 
 import { IFikaRaidsResponse } from "../models/fika/routes/location/IFikaRaidsResponse";
 import { FikaMatchService } from "../services/FikaMatchService";

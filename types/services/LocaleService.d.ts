@@ -1,8 +1,7 @@
-import { ILocaleConfig } from "@spt-aki/models/spt/config/ILocaleConfig";
-import { ILocaleBase } from "@spt-aki/models/spt/server/ILocaleBase";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
+import { ILocaleConfig } from "@spt/models/spt/config/ILocaleConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
 /**
  * Handles getting locales from config or users machine
  */
@@ -11,7 +10,6 @@ export declare class LocaleService {
     protected databaseServer: DatabaseServer;
     protected configServer: ConfigServer;
     protected localeConfig: ILocaleConfig;
-    protected localesTable: ILocaleBase;
     constructor(logger: ILogger, databaseServer: DatabaseServer, configServer: ConfigServer);
     /**
      * Get the eft globals db file based on the configured locale in config/locale.json, if not found, fall back to 'en'

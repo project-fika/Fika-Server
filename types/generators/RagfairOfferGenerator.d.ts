@@ -1,26 +1,28 @@
-import { RagfairAssortGenerator } from "@spt-aki/generators/RagfairAssortGenerator";
-import { HandbookHelper } from "@spt-aki/helpers/HandbookHelper";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { PaymentHelper } from "@spt-aki/helpers/PaymentHelper";
-import { PresetHelper } from "@spt-aki/helpers/PresetHelper";
-import { RagfairServerHelper } from "@spt-aki/helpers/RagfairServerHelper";
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { IBarterScheme } from "@spt-aki/models/eft/common/tables/ITrader";
-import { IRagfairOffer, OfferRequirement } from "@spt-aki/models/eft/ragfair/IRagfairOffer";
-import { Dynamic, IArmorPlateBlacklistSettings, IRagfairConfig } from "@spt-aki/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { FenceService } from "@spt-aki/services/FenceService";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { RagfairOfferService } from "@spt-aki/services/RagfairOfferService";
-import { RagfairPriceService } from "@spt-aki/services/RagfairPriceService";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { RagfairAssortGenerator } from "@spt/generators/RagfairAssortGenerator";
+import { BotHelper } from "@spt/helpers/BotHelper";
+import { HandbookHelper } from "@spt/helpers/HandbookHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { PaymentHelper } from "@spt/helpers/PaymentHelper";
+import { PresetHelper } from "@spt/helpers/PresetHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IBarterScheme } from "@spt/models/eft/common/tables/ITrader";
+import { IRagfairOffer, IRagfairOfferUser, OfferRequirement } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { Dynamic, IArmorPlateBlacklistSettings, IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { FenceService } from "@spt/services/FenceService";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { RagfairOfferService } from "@spt/services/RagfairOfferService";
+import { RagfairPriceService } from "@spt/services/RagfairPriceService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { RandomUtil } from "@spt/utils/RandomUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class RagfairOfferGenerator {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -28,7 +30,9 @@ export declare class RagfairOfferGenerator {
     protected timeUtil: TimeUtil;
     protected databaseServer: DatabaseServer;
     protected ragfairServerHelper: RagfairServerHelper;
+    protected profileHelper: ProfileHelper;
     protected handbookHelper: HandbookHelper;
+    protected botHelper: BotHelper;
     protected saveServer: SaveServer;
     protected presetHelper: PresetHelper;
     protected ragfairAssortGenerator: RagfairAssortGenerator;
@@ -47,7 +51,7 @@ export declare class RagfairOfferGenerator {
     }[];
     /** Internal counter to ensure each offer created has a unique value for its intId property */
     protected offerCounter: number;
-    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, ragfairServerHelper: RagfairServerHelper, handbookHelper: HandbookHelper, saveServer: SaveServer, presetHelper: PresetHelper, ragfairAssortGenerator: RagfairAssortGenerator, ragfairOfferService: RagfairOfferService, ragfairPriceService: RagfairPriceService, localisationService: LocalisationService, paymentHelper: PaymentHelper, fenceService: FenceService, itemHelper: ItemHelper, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, ragfairServerHelper: RagfairServerHelper, profileHelper: ProfileHelper, handbookHelper: HandbookHelper, botHelper: BotHelper, saveServer: SaveServer, presetHelper: PresetHelper, ragfairAssortGenerator: RagfairAssortGenerator, ragfairOfferService: RagfairOfferService, ragfairPriceService: RagfairPriceService, localisationService: LocalisationService, paymentHelper: PaymentHelper, fenceService: FenceService, itemHelper: ItemHelper, configServer: ConfigServer, cloner: ICloner);
     /**
      * Create a flea offer and store it in the Ragfair server offers array
      * @param userID Owner of the offer
@@ -56,9 +60,9 @@ export declare class RagfairOfferGenerator {
      * @param barterScheme Cost of item (currency or barter)
      * @param loyalLevel Loyalty level needed to buy item
      * @param sellInOnePiece Flags sellInOnePiece to be true
-     * @returns IRagfairOffer
+     * @returns Created flea offer
      */
-    createFleaOffer(userID: string, time: number, items: Item[], barterScheme: IBarterScheme[], loyalLevel: number, sellInOnePiece?: boolean): IRagfairOffer;
+    createAndAddFleaOffer(userID: string, time: number, items: Item[], barterScheme: IBarterScheme[], loyalLevel: number, sellInOnePiece?: boolean): IRagfairOffer;
     /**
      * Create an offer object ready to send to ragfairOfferService.addOffer()
      * @param userID Owner of the offer
@@ -70,6 +74,13 @@ export declare class RagfairOfferGenerator {
      * @returns IRagfairOffer
      */
     protected createOffer(userID: string, time: number, items: Item[], barterScheme: IBarterScheme[], loyalLevel: number, sellInOnePiece?: boolean): IRagfairOffer;
+    /**
+     * Create the user object stored inside each flea offer object
+     * @param userID user creating the offer
+     * @param isTrader Is the user creating the offer a trader
+     * @returns IRagfairOfferUser
+     */
+    createUserDataForFleaOffer(userID: string, isTrader: boolean): IRagfairOfferUser;
     /**
      * Calculate the offer price that's listed on the flea listing
      * @param offerRequirements barter requirements for offer

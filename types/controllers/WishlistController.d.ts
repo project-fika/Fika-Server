@@ -1,7 +1,7 @@
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
-import { IWishlistActionData } from "@spt-aki/models/eft/wishlist/IWishlistActionData";
-import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { IWishlistActionData } from "@spt/models/eft/wishlist/IWishlistActionData";
+import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 export declare class WishlistController {
     protected eventOutputHolder: EventOutputHolder;
     constructor(eventOutputHolder: EventOutputHolder);

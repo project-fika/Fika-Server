@@ -1,12 +1,12 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { ProfileController } from "@spt-aki/controllers/ProfileController";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { IMiniProfile } from "@spt-aki/models/eft/launcher/IMiniProfile";
-import { IGetOtherProfileRequest } from "@spt-aki/models/eft/profile/IGetOtherProfileRequest";
-import { IGetOtherProfileResponse } from "@spt-aki/models/eft/profile/IGetOtherProfileResponse";
-import { ISearchFriendRequestData } from "@spt-aki/models/eft/profile/ISearchFriendRequestData";
-import { ISearchFriendResponse } from "@spt-aki/models/eft/profile/ISearchFriendResponse";
+import { ProfileController } from "@spt/controllers/ProfileController";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { IMiniProfile } from "@spt/models/eft/launcher/IMiniProfile";
+import { IGetOtherProfileRequest } from "@spt/models/eft/profile/IGetOtherProfileRequest";
+import { IGetOtherProfileResponse } from "@spt/models/eft/profile/IGetOtherProfileResponse";
+import { ISearchFriendRequestData } from "@spt/models/eft/profile/ISearchFriendRequestData";
+import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
 
 import { Override } from "../../di/Override";
 import { FikaConfig } from "../../utils/FikaConfig";

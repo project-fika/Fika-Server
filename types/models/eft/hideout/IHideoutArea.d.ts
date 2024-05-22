@@ -1,5 +1,5 @@
-import { BonusSkillType } from "@spt-aki/models/enums/BonusSkillType";
-import { BonusType } from "@spt-aki/models/enums/BonusType";
+import { BonusSkillType } from "@spt/models/enums/BonusSkillType";
+import { BonusType } from "@spt/models/enums/BonusType";
 export interface IHideoutArea {
     _id: string;
     type: number;

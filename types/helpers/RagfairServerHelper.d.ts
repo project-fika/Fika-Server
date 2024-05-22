@@ -1,37 +1,30 @@
-import { DialogueHelper } from "@spt-aki/helpers/DialogueHelper";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { TraderHelper } from "@spt-aki/helpers/TraderHelper";
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { MemberCategory } from "@spt-aki/models/enums/MemberCategory";
-import { IQuestConfig } from "@spt-aki/models/spt/config/IQuestConfig";
-import { IRagfairConfig } from "@spt-aki/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
-import { LocaleService } from "@spt-aki/services/LocaleService";
-import { MailSendService } from "@spt-aki/services/MailSendService";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { TraderHelper } from "@spt/helpers/TraderHelper";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
+import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { ItemFilterService } from "@spt/services/ItemFilterService";
+import { MailSendService } from "@spt/services/MailSendService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { RandomUtil } from "@spt/utils/RandomUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 /**
  * Helper class for common ragfair server actions
  */
 export declare class RagfairServerHelper {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
-    protected hashUtil: HashUtil;
     protected timeUtil: TimeUtil;
     protected saveServer: SaveServer;
     protected databaseServer: DatabaseServer;
     protected profileHelper: ProfileHelper;
     protected itemHelper: ItemHelper;
-    protected localeService: LocaleService;
-    protected dialogueHelper: DialogueHelper;
     protected traderHelper: TraderHelper;
     protected mailSendService: MailSendService;
     protected itemFilterService: ItemFilterService;
@@ -40,7 +33,7 @@ export declare class RagfairServerHelper {
     protected ragfairConfig: IRagfairConfig;
     protected questConfig: IQuestConfig;
     protected static goodsReturnedTemplate: string;
-    constructor(logger: ILogger, randomUtil: RandomUtil, hashUtil: HashUtil, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, profileHelper: ProfileHelper, itemHelper: ItemHelper, localeService: LocaleService, dialogueHelper: DialogueHelper, traderHelper: TraderHelper, mailSendService: MailSendService, itemFilterService: ItemFilterService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, randomUtil: RandomUtil, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, profileHelper: ProfileHelper, itemHelper: ItemHelper, traderHelper: TraderHelper, mailSendService: MailSendService, itemFilterService: ItemFilterService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Is item valid / on blacklist / quest item
      * @param itemDetails
@@ -83,13 +76,6 @@ export declare class RagfairServerHelper {
      * @returns currency tpl
      */
     getDynamicOfferCurrency(): string;
-    getMemberType(userID: string): MemberCategory;
-    /**
-     * Get a player or traders nickname from their profile by their user id
-     * @param userID Sessionid/userid
-     * @returns Nickname of individual
-     */
-    getNickname(userID: string): string;
     /**
      * Given a preset id from globals.json, return an array of items[] with unique ids
      * @param item Preset item

@@ -1,9 +1,9 @@
-import { MinMax } from "@spt-aki/models/common/MinMax";
-import { GenerationData } from "@spt-aki/models/eft/common/tables/IBotType";
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
-import { IBotDurability } from "@spt-aki/models/spt/config/IBotDurability";
+import { MinMax } from "@spt/models/common/MinMax";
+import { GenerationData } from "@spt/models/eft/common/tables/IBotType";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import { IBotDurability } from "@spt/models/spt/config/IBotDurability";
 export interface IBotConfig extends IBaseConfig {
-    kind: "aki-bot";
+    kind: "spt-bot";
     /** How many variants of each bot should be generated on raid start */
     presetBatch: PresetBatch;
     /** Bot roles that should not have PMC types (sptBear/sptUsec) added as enemies to */
@@ -39,6 +39,8 @@ export interface IBotConfig extends IBaseConfig {
     walletLoot: IWalletLootSettings;
     /** Currency weights, Keyed by botrole / currency */
     currencyStackSize: Record<string, Record<string, Record<string, number>>>;
+    /** Tpls for low profile gas blocks */
+    lowProfileGasBlockTpls: string[];
 }
 /** Number of bots to generate and store in cache on raid start per bot type */
 export interface PresetBatch {

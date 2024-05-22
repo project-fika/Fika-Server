@@ -1,21 +1,21 @@
-import { HttpServerHelper } from "@spt-aki/helpers/HttpServerHelper";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { PreAkiModLoader } from "@spt-aki/loaders/PreAkiModLoader";
-import { IChangeRequestData } from "@spt-aki/models/eft/launcher/IChangeRequestData";
-import { ILoginRequestData } from "@spt-aki/models/eft/launcher/ILoginRequestData";
-import { IRegisterData } from "@spt-aki/models/eft/launcher/IRegisterData";
-import { Info, ModDetails } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { IConnectResponse } from "@spt-aki/models/eft/profile/IConnectResponse";
-import { ICoreConfig } from "@spt-aki/models/spt/config/ICoreConfig";
-import { IPackageJsonData } from "@spt-aki/models/spt/mod/IPackageJsonData";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { PreSptModLoader } from "@spt/loaders/PreSptModLoader";
+import { IChangeRequestData } from "@spt/models/eft/launcher/IChangeRequestData";
+import { ILoginRequestData } from "@spt/models/eft/launcher/ILoginRequestData";
+import { IRegisterData } from "@spt/models/eft/launcher/IRegisterData";
+import { IConnectResponse } from "@spt/models/eft/profile/IConnectResponse";
+import { Info, ModDetails } from "@spt/models/eft/profile/ISptProfile";
+import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import { IPackageJsonData } from "@spt/models/spt/mod/IPackageJsonData";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { RandomUtil } from "@spt/utils/RandomUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class LauncherController {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -26,10 +26,10 @@ export declare class LauncherController {
     protected profileHelper: ProfileHelper;
     protected databaseServer: DatabaseServer;
     protected localisationService: LocalisationService;
-    protected preAkiModLoader: PreAkiModLoader;
+    protected preSptModLoader: PreSptModLoader;
     protected configServer: ConfigServer;
     protected coreConfig: ICoreConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, timeUtil: TimeUtil, randomUtil: RandomUtil, saveServer: SaveServer, httpServerHelper: HttpServerHelper, profileHelper: ProfileHelper, databaseServer: DatabaseServer, localisationService: LocalisationService, preAkiModLoader: PreAkiModLoader, configServer: ConfigServer);
+    constructor(logger: ILogger, hashUtil: HashUtil, timeUtil: TimeUtil, randomUtil: RandomUtil, saveServer: SaveServer, httpServerHelper: HttpServerHelper, profileHelper: ProfileHelper, databaseServer: DatabaseServer, localisationService: LocalisationService, preSptModLoader: PreSptModLoader, configServer: ConfigServer);
     connect(): IConnectResponse;
     /**
      * Get descriptive text for each of the profile edtions a player can choose, keyed by profile.json profile type e.g. "Edge Of Darkness"

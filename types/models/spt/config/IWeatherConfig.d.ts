@@ -1,9 +1,9 @@
-import { MinMax } from "@spt-aki/models/common/MinMax";
-import { Season } from "@spt-aki/models/enums/Season";
-import { WindDirection } from "@spt-aki/models/enums/WindDirection";
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { MinMax } from "@spt/models/common/MinMax";
+import { Season } from "@spt/models/enums/Season";
+import { WindDirection } from "@spt/models/enums/WindDirection";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IWeatherConfig extends IBaseConfig {
-    kind: "aki-weather";
+    kind: "spt-weather";
     acceleration: number;
     weather: Weather;
     seasonDates: ISeasonDateTimes[];

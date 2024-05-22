@@ -1,26 +1,26 @@
-import { HideoutHelper } from "@spt-aki/helpers/HideoutHelper";
-import { InventoryHelper } from "@spt-aki/helpers/InventoryHelper";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { TraderHelper } from "@spt-aki/helpers/TraderHelper";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { Bonus, HideoutSlot } from "@spt-aki/models/eft/common/tables/IBotBase";
-import { IPmcDataRepeatableQuest, IRepeatableQuest } from "@spt-aki/models/eft/common/tables/IRepeatableQuests";
-import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { StageBonus } from "@spt-aki/models/eft/hideout/IHideoutArea";
-import { IAkiProfile, IEquipmentBuild, IMagazineBuild, IWeaponBuild } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { HideoutAreas } from "@spt-aki/models/enums/HideoutAreas";
-import { ICoreConfig } from "@spt-aki/models/spt/config/ICoreConfig";
-import { IRagfairConfig } from "@spt-aki/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
-import { Watermark } from "@spt-aki/utils/Watermark";
+import { HideoutHelper } from "@spt/helpers/HideoutHelper";
+import { InventoryHelper } from "@spt/helpers/InventoryHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { TraderHelper } from "@spt/helpers/TraderHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { Bonus, HideoutSlot } from "@spt/models/eft/common/tables/IBotBase";
+import { IPmcDataRepeatableQuest, IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { StageBonus } from "@spt/models/eft/hideout/IHideoutArea";
+import { ISptProfile, IEquipmentBuild, IMagazineBuild, IWeaponBuild } from "@spt/models/eft/profile/ISptProfile";
+import { HideoutAreas } from "@spt/models/enums/HideoutAreas";
+import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { JsonUtil } from "@spt/utils/JsonUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
+import { Watermark } from "@spt/utils/Watermark";
 export declare class ProfileFixerService {
     protected logger: ILogger;
     protected watermark: Watermark;
@@ -58,7 +58,7 @@ export declare class ProfileFixerService {
      * Add tag to profile to indicate when it was made
      * @param fullProfile
      */
-    addMissingAkiVersionTagToProfile(fullProfile: IAkiProfile): void;
+    addMissingSptVersionTagToProfile(fullProfile: ISptProfile): void;
     /**
      * TODO - make this non-public - currently used by RepeatableQuestController
      * Remove unused condition counters
@@ -121,7 +121,7 @@ export declare class ProfileFixerService {
      * @param sessionId Session id
      * @param pmcProfile Profile to check inventory of
      */
-    checkForOrphanedModdedItems(sessionId: string, fullProfile: IAkiProfile): void;
+    checkForOrphanedModdedItems(sessionId: string, fullProfile: ISptProfile): void;
     /**
      * @param buildType The type of build, used for logging only
      * @param build The build to check for invalid items
@@ -149,7 +149,7 @@ export declare class ProfileFixerService {
      * Iterate over associated profile template and check all hideout areas exist, add if not
      * @param fullProfile Profile to update
      */
-    addMissingHideoutAreasToProfile(fullProfile: IAkiProfile): void;
+    addMissingHideoutAreasToProfile(fullProfile: ISptProfile): void;
     /**
      * These used to be used for storing scav case rewards, rewards are now generated on pickup
      * @param pmcProfile Profile to update
@@ -160,12 +160,12 @@ export declare class ProfileFixerService {
      * We store the old AID value in new field `sessionId`
      * @param fullProfile Profile to update
      */
-    fixIncorrectAidValue(fullProfile: IAkiProfile): void;
+    fixIncorrectAidValue(fullProfile: ISptProfile): void;
     /**
      * Bsg nested `stats` into a sub object called 'eft'
      * @param fullProfile Profile to check for and migrate stats data
      */
-    migrateStatsToNewStructure(fullProfile: IAkiProfile): void;
+    migrateStatsToNewStructure(fullProfile: ISptProfile): void;
     /**
      * 26126 (7th August) requires bonuses to have an ID, these were not included in the default profile presets
      * @param pmcProfile Profile to add missing IDs to

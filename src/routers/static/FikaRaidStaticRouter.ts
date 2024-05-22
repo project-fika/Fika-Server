@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
-import { RouteAction, StaticRouter } from "@spt-aki/di/Router";
-import { INullResponseData } from "@spt-aki/models/eft/httpResponse/INullResponseData";
+import { RouteAction, StaticRouter } from "@spt/di/Router";
+import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
 
 import { FikaRaidCallbacks } from "../../callbacks/FikaRaidCallbacks";
 import { IFikaRaidServerIdRequestData } from "../../models/fika/routes/raid/IFikaRaidServerIdRequestData";

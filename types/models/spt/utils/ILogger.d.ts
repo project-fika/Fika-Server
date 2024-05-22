@@ -1,6 +1,6 @@
-import { Daum } from "@spt-aki/models/eft/itemEvent/IItemEventRouterRequest";
-import { LogBackgroundColor } from "@spt-aki/models/spt/logging/LogBackgroundColor";
-import { LogTextColor } from "@spt-aki/models/spt/logging/LogTextColor";
+import { Daum } from "@spt/models/eft/itemEvent/IItemEventRouterRequest";
+import { LogBackgroundColor } from "@spt/models/spt/logging/LogBackgroundColor";
+import { LogTextColor } from "@spt/models/spt/logging/LogTextColor";
 export interface ILogger {
     writeToLogFile(data: string | Daum): void;
     log(data: string | Record<string, unknown> | Error, color: string, backgroundColor?: string): void;

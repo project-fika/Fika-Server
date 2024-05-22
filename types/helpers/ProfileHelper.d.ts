@@ -1,20 +1,20 @@
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { Common, CounterKeyValue, Stats } from "@spt-aki/models/eft/common/tables/IBotBase";
-import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { IValidateNicknameRequestData } from "@spt-aki/models/eft/profile/IValidateNicknameRequestData";
-import { SkillTypes } from "@spt-aki/models/enums/SkillTypes";
-import { IInventoryConfig } from "@spt-aki/models/spt/config/IInventoryConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { ProfileSnapshotService } from "@spt-aki/services/ProfileSnapshotService";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
-import { Watermark } from "@spt-aki/utils/Watermark";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { Common, CounterKeyValue, Stats } from "@spt/models/eft/common/tables/IBotBase";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { IValidateNicknameRequestData } from "@spt/models/eft/profile/IValidateNicknameRequestData";
+import { SkillTypes } from "@spt/models/enums/SkillTypes";
+import { IInventoryConfig } from "@spt/models/spt/config/IInventoryConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { ProfileSnapshotService } from "@spt/services/ProfileSnapshotService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
+import { Watermark } from "@spt/utils/Watermark";
 export declare class ProfileHelper {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -39,7 +39,7 @@ export declare class ProfileHelper {
      * Get all profiles from server
      * @returns Dictionary of profiles
      */
-    getProfiles(): Record<string, IAkiProfile>;
+    getProfiles(): Record<string, ISptProfile>;
     /**
      * Get the pmc and scav profiles as an array by profile id
      * @param sessionID
@@ -66,7 +66,7 @@ export declare class ProfileHelper {
      * @returns True if already used
      */
     isNicknameTaken(nicknameRequest: IValidateNicknameRequestData, sessionID: string): boolean;
-    protected profileHasInfoProperty(profile: IAkiProfile): boolean;
+    protected profileHasInfoProperty(profile: ISptProfile): boolean;
     protected stringsMatch(stringA: string, stringB: string): boolean;
     /**
      * Add experience to a PMC inside the players profile
@@ -91,13 +91,13 @@ export declare class ProfileHelper {
      * @returns Max level
      */
     getMaxLevel(): number;
-    getDefaultAkiDataObject(): any;
+    getDefaultSptDataObject(): any;
     /**
      * Get full representation of a players profile json
      * @param sessionID Profile id to get
-     * @returns IAkiProfile object
+     * @returns ISptProfile object
      */
-    getFullProfile(sessionID: string): IAkiProfile;
+    getFullProfile(sessionID: string): ISptProfile;
     /**
      * Get a PMC profile by its session id
      * @param sessionID Profile id to return
@@ -130,7 +130,7 @@ export declare class ProfileHelper {
     removeSecureContainer(profile: IPmcData): IPmcData;
     /**
      *  Flag a profile as having received a gift
-     * Store giftid in profile aki object
+     * Store giftid in profile spt object
      * @param playerId Player to add gift flag to
      * @param giftId Gift player received
      */
