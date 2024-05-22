@@ -1,10 +1,11 @@
 # Fika - Aki.Server Mod
 
-[![Discord](https://img.shields.io/discord/1202292159366037545?style=for-the-badge&logo=discord&logoColor=FFFFFF&label=Fika%20Discord
+[![Discord](https://img.shields.io/discord/1202292159366037545?style=plastic&logo=discord&logoColor=FFFFFF&label=Fika%20Discord
 )](https://discord.gg/project-fika)
-[![Downloads](https://img.shields.io/github/downloads/project-fika/Fika-Server/latest/total?style=for-the-badge&logo=github)](https://github.com/project-fika/Fika-Server/releases/latest)
-![Size](https://img.shields.io/github/languages/code-size/project-fika/Fika-Server?style=for-the-badge&logo=github)
-![Issues](https://img.shields.io/github/issues/project-fika/Fika-Server?style=for-the-badge&logo=github)
+[![Downloads](https://img.shields.io/github/downloads/project-fika/Fika-Server/latest/total?style=plastic&logo=github)](https://github.com/project-fika/Fika-Server/releases/latest)
+![Size](https://img.shields.io/github/languages/code-size/project-fika/Fika-Server?style=plastic&logo=github)
+![Issues](https://img.shields.io/github/issues/project-fika/Fika-Server?style=plastic&logo=github)
+[![License](https://img.shields.io/badge/CC--BY--NC--SA--4.0-blue?style=plastic&logo=creativecommons&logoColor=FFFFFF&label=License)](LICENSE)
 
 Server-side changes to make multiplayer work.
 

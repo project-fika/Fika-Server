@@ -9,6 +9,7 @@ import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaR
 import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaidJoinResponse";
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 import { IFikaRaidSpawnpointResponse } from "../models/fika/routes/raid/spawnpoint/IFikaRaidSpawnpointResponse";
+import { IFikaRaidSettingsResponse } from "../models/fika/routes/raid/getsettings/IFikaRaidSettingsResponse";
 import { FikaMatchService } from "../services/FikaMatchService";
 
 @injectable()
@@ -86,6 +87,22 @@ export class FikaRaidController {
 
         return {
             spawnpoint: match.spawnPoint,
+        };
+    }
+
+    /**
+     * Handle /fika/raid/getsettings
+     * @param request
+     */
+    public handleRaidGetSettings(request: IFikaRaidServerIdRequestData): IFikaRaidSettingsResponse {
+        const match = this.fikaMatchService.getMatch(request.serverId);
+        if (!match) {
+            return;
+        }
+
+        return {
+            metabolismDisabled: match.raidConfig.metabolismDisabled,
+            playersSpawnPlace: match.raidConfig.playersSpawnPlace
         };
     }
 }
