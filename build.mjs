@@ -29,11 +29,10 @@
  * @version v1.0.0
  */
 
+import os from "node:os";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import fs from "fs-extra";
-import os from "os";
-import path from "path";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
 import ignore from "ignore";
 import archiver from "archiver";
 import winston from "winston";
@@ -165,7 +164,7 @@ async function main() {
  * @returns {string} The absolute path of the current working directory.
  */
 function getCurrentDirectory() {
-    return dirname(fileURLToPath(import.meta.url));
+    return path.dirname(fileURLToPath(import.meta.url));
 }
 
 /**
@@ -231,7 +230,7 @@ function createProjectName(packageJson) {
 }
 
 /**
- * Defines the location of the distribution directory where the final mod package will be stored and deletes any 
+ * Defines the location of the distribution directory where the final mod package will be stored and deletes any
  * existing distribution directory to ensure a clean slate for the build process.
  *
  * @param {string} currentDirectory - The absolute path of the current working directory.
