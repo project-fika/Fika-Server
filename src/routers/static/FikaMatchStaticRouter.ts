@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { RouteAction, StaticRouter } from "@spt-aki/di/Router";
+import { RouteAction, StaticRouter } from "@spt/di/Router";
 
 import { FikaMatchCallbacks } from "../../callbacks/FikaMatchCallbacks";
 

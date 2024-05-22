@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
-import { IProfileStatusRequest } from "@spt-aki/models/eft/match/IProfileStatusRequest";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { IProfileStatusRequest } from "@spt/models/eft/match/IProfileStatusRequest";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { FikaMatchController } from "../controllers/FikaMatchController";
 
@@ -16,7 +16,7 @@ export class FikaMatchCallbacks {
 
     /** Handle /client/match/group/current */
     // GameCallbacks
-    // TODO: override AKI's to handle groups
+    // TODO: override SPT's to handle groups
     public handleMatchGroupCurrent(_url: string, _info: any, sessionID: string): string {
         return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupCurrent(sessionID));
     }
@@ -33,7 +33,7 @@ export class FikaMatchCallbacks {
 
     /** Handle /client/profile/status */
     // ProfileCallbacks
-    // TODO: override AKI's to handle groups
+    // TODO: override SPT's to handle groups
     public handleProfileStatus(_url: string, info: IProfileStatusRequest, sessionID: string): string {
         return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleProfileStatus(info, sessionID));
     }

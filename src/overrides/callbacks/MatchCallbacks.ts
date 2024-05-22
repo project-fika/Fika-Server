@@ -1,15 +1,15 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { MatchCallbacks } from "@spt-aki/callbacks/MatchCallbacks";
-import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
-import { INullResponseData } from "@spt-aki/models/eft/httpResponse/INullResponseData";
-import { IMatchGroupInviteSendRequest } from "@spt-aki/models/eft/match/IMatchGroupInviteSendRequest";
-import { IMatchGroupPlayerRemoveRequest } from "@spt-aki/models/eft/match/IMatchGroupPlayerRemoveRequest";
-import { IMatchGroupStartGameRequest } from "@spt-aki/models/eft/match/IMatchGroupStartGameRequest";
-import { IMatchGroupStatusRequest } from "@spt-aki/models/eft/match/IMatchGroupStatusRequest";
-import { IMatchGroupTransferRequest } from "@spt-aki/models/eft/match/IMatchGroupTransferRequest";
-import { IRequestIdRequest } from "@spt-aki/models/eft/match/IRequestIdRequest";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { MatchCallbacks } from "@spt/callbacks/MatchCallbacks";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { IMatchGroupInviteSendRequest } from "@spt/models/eft/match/IMatchGroupInviteSendRequest";
+import { IMatchGroupPlayerRemoveRequest } from "@spt/models/eft/match/IMatchGroupPlayerRemoveRequest";
+import { IMatchGroupStartGameRequest } from "@spt/models/eft/match/IMatchGroupStartGameRequest";
+import { IMatchGroupStatusRequest } from "@spt/models/eft/match/IMatchGroupStatusRequest";
+import { IMatchGroupTransferRequest } from "@spt/models/eft/match/IMatchGroupTransferRequest";
+import { IRequestIdRequest } from "@spt/models/eft/match/IRequestIdRequest";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { FikaMatchController } from "../../controllers/FikaMatchController";
 import { Override } from "../../di/Override";

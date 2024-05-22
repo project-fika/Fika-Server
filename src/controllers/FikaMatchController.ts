@@ -1,17 +1,17 @@
 import { inject, injectable } from "tsyringe";
 
-import { IGroupCharacter } from "@spt-aki/models/eft/match/IGroupCharacter";
+import { IGroupCharacter } from "@spt/models/eft/match/IGroupCharacter";
 
-import { IMatchGroupCurrentResponse } from "@spt-aki/models/eft/match/IMatchGroupCurrentResponse";
-import { IMatchGroupInviteSendRequest } from "@spt-aki/models/eft/match/IMatchGroupInviteSendRequest";
-import { IMatchGroupPlayerRemoveRequest } from "@spt-aki/models/eft/match/IMatchGroupPlayerRemoveRequest";
-import { IMatchGroupStartGameRequest } from "@spt-aki/models/eft/match/IMatchGroupStartGameRequest";
-import { IMatchGroupStatusRequest } from "@spt-aki/models/eft/match/IMatchGroupStatusRequest";
-import { IMatchGroupStatusResponse } from "@spt-aki/models/eft/match/IMatchGroupStatusResponse";
-import { IMatchGroupTransferRequest } from "@spt-aki/models/eft/match/IMatchGroupTransferRequest";
-import { IProfileStatusRequest } from "@spt-aki/models/eft/match/IProfileStatusRequest";
-import { IProfileStatusResponse } from "@spt-aki/models/eft/match/IProfileStatusResponse";
-import { IRequestIdRequest } from "@spt-aki/models/eft/match/IRequestIdRequest";
+import { IMatchGroupCurrentResponse } from "@spt/models/eft/match/IMatchGroupCurrentResponse";
+import { IMatchGroupInviteSendRequest } from "@spt/models/eft/match/IMatchGroupInviteSendRequest";
+import { IMatchGroupPlayerRemoveRequest } from "@spt/models/eft/match/IMatchGroupPlayerRemoveRequest";
+import { IMatchGroupStartGameRequest } from "@spt/models/eft/match/IMatchGroupStartGameRequest";
+import { IMatchGroupStatusRequest } from "@spt/models/eft/match/IMatchGroupStatusRequest";
+import { IMatchGroupStatusResponse } from "@spt/models/eft/match/IMatchGroupStatusResponse";
+import { IMatchGroupTransferRequest } from "@spt/models/eft/match/IMatchGroupTransferRequest";
+import { IProfileStatusRequest } from "@spt/models/eft/match/IProfileStatusRequest";
+import { IProfileStatusResponse } from "@spt/models/eft/match/IProfileStatusResponse";
+import { IRequestIdRequest } from "@spt/models/eft/match/IRequestIdRequest";
 
 import { FikaMatchService } from "../services/FikaMatchService";
 

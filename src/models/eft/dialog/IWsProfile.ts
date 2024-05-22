@@ -1,4 +1,4 @@
-import { MemberCategory } from "@spt-aki/models/enums/MemberCategory";
+import { MemberCategory } from "@spt/models/enums/MemberCategory";
 
 export interface IWsProfile {
     type: string;
@@ -12,6 +12,6 @@ export interface IWsProfile {
             Side: string;
             Level: number;
             MemberCategory: MemberCategory;
-        }
-    }
+        };
+    };
 }
