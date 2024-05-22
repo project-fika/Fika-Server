@@ -1,14 +1,14 @@
-import { CustomizationController } from "@spt-aki/controllers/CustomizationController";
-import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { ISuit } from "@spt-aki/models/eft/common/tables/ITrader";
-import { IBuyClothingRequestData } from "@spt-aki/models/eft/customization/IBuyClothingRequestData";
-import { IGetSuitsResponse } from "@spt-aki/models/eft/customization/IGetSuitsResponse";
-import { IWearClothingRequestData } from "@spt-aki/models/eft/customization/IWearClothingRequestData";
-import { IGetBodyResponseData } from "@spt-aki/models/eft/httpResponse/IGetBodyResponseData";
-import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { CustomizationController } from "@spt/controllers/CustomizationController";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { ISuit } from "@spt/models/eft/common/tables/ITrader";
+import { IBuyClothingRequestData } from "@spt/models/eft/customization/IBuyClothingRequestData";
+import { IGetSuitsResponse } from "@spt/models/eft/customization/IGetSuitsResponse";
+import { IWearClothingRequestData } from "@spt/models/eft/customization/IWearClothingRequestData";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 export declare class CustomizationCallbacks {
     protected customizationController: CustomizationController;
     protected saveServer: SaveServer;

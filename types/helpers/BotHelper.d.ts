@@ -1,21 +1,19 @@
-import { MinMax } from "@spt-aki/models/common/MinMax";
-import { Difficulty, IBotType } from "@spt-aki/models/eft/common/tables/IBotType";
-import { EquipmentFilters, IBotConfig, RandomisationDetails } from "@spt-aki/models/spt/config/IBotConfig";
-import { IPmcConfig } from "@spt-aki/models/spt/config/IPmcConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
+import { MinMax } from "@spt/models/common/MinMax";
+import { Difficulty, IBotType } from "@spt/models/eft/common/tables/IBotType";
+import { EquipmentFilters, IBotConfig, RandomisationDetails } from "@spt/models/spt/config/IBotConfig";
+import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class BotHelper {
     protected logger: ILogger;
     protected databaseServer: DatabaseServer;
     protected randomUtil: RandomUtil;
-    protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, randomUtil: RandomUtil, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseServer: DatabaseServer, randomUtil: RandomUtil, configServer: ConfigServer);
     /**
      * Get a template object for the specified botRole from bots.types db
      * @param role botRole to get template for
@@ -85,4 +83,5 @@ export declare class BotHelper {
      * @returns pmc side as string
      */
     protected getRandomizedPmcSide(): string;
+    getPmcNicknameOfMaxLength(userId: string, maxLength: number): string;
 }

@@ -1,5 +1,5 @@
-import { MinMax } from "@spt-aki/models/common/MinMax";
-import { Ixyz } from "@spt-aki/models/eft/common/Ixyz";
+import { MinMax } from "@spt/models/common/MinMax";
+import { Ixyz } from "@spt/models/eft/common/Ixyz";
 export interface ILocationBase {
     AccessKeys: string[];
     AirdropParameters: AirdropParameter[];

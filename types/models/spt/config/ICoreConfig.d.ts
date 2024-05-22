@@ -1,7 +1,7 @@
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface ICoreConfig extends IBaseConfig {
-    kind: "aki-core";
-    akiVersion: string;
+    kind: "spt-core";
+    sptVersion: string;
     projectName: string;
     compatibleTarkovVersion: string;
     serverName: string;

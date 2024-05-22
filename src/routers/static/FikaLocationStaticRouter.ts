@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
-import { RouteAction, StaticRouter } from "@spt-aki/di/Router";
-import { IGetRaidConfigurationRequestData } from "@spt-aki/models/eft/match/IGetRaidConfigurationRequestData";
+import { RouteAction, StaticRouter } from "@spt/di/Router";
+import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
 
 import { FikaLocationCallbacks } from "../../callbacks/FikaLocationCallbacks";
 

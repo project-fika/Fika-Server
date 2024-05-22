@@ -1,7 +1,7 @@
-import { ConfigTypes } from "@spt-aki/models/enums/ConfigTypes";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { VFS } from "@spt-aki/utils/VFS";
+import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { JsonUtil } from "@spt/utils/JsonUtil";
+import { VFS } from "@spt/utils/VFS";
 export declare class ConfigServer {
     protected logger: ILogger;
     protected vfs: VFS;

@@ -1,13 +1,13 @@
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { NotificationSendHelper } from "@spt-aki/helpers/NotificationSendHelper";
-import { NotifierHelper } from "@spt-aki/helpers/NotifierHelper";
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { Dialogue, MessagePreview } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { NotificationSendHelper } from "@spt/helpers/NotificationSendHelper";
+import { NotifierHelper } from "@spt/helpers/NotifierHelper";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { Dialogue, MessagePreview } from "@spt/models/eft/profile/ISptProfile";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { HashUtil } from "@spt/utils/HashUtil";
 export declare class DialogueHelper {
     protected logger: ILogger;
     protected hashUtil: HashUtil;

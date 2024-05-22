@@ -1,4 +1,4 @@
-import { IGetRaidConfigurationRequestData } from "@spt-aki/models/eft/match/IGetRaidConfigurationRequestData";
+import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
 import { FikaSide } from "../../../../enums/FikaSide";
 import { FikaTime } from "../../../../enums/FikaTime";
 

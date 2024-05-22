@@ -1,4 +1,4 @@
-import { MinMax } from "@spt-aki/models/common/MinMax";
+import { MinMax } from "@spt/models/common/MinMax";
 export interface BotGenerationDetails {
     /** Should the bot be generated as a PMC */
     isPmc: boolean;

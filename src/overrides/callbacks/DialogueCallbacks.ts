@@ -1,15 +1,15 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { DialogueCallbacks } from "@spt-aki/callbacks/DialogueCallbacks";
-import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
-import { IUIDRequestData } from "@spt-aki/models/eft/common/request/IUIDRequestData";
-import { IAcceptFriendRequestData, ICancelFriendRequestData, IDeclineFriendRequestData } from "@spt-aki/models/eft/dialog/IAcceptFriendRequestData";
-import { IDeleteFriendRequest } from "@spt-aki/models/eft/dialog/IDeleteFriendRequest";
-import { IFriendRequestData } from "@spt-aki/models/eft/dialog/IFriendRequestData";
-import { IFriendRequestSendResponse } from "@spt-aki/models/eft/dialog/IFriendRequestSendResponse";
-import { IGetBodyResponseData } from "@spt-aki/models/eft/httpResponse/IGetBodyResponseData";
-import { INullResponseData } from "@spt-aki/models/eft/httpResponse/INullResponseData";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { DialogueCallbacks } from "@spt/callbacks/DialogueCallbacks";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { IUIDRequestData } from "@spt/models/eft/common/request/IUIDRequestData";
+import { IAcceptFriendRequestData, ICancelFriendRequestData, IDeclineFriendRequestData } from "@spt/models/eft/dialog/IAcceptFriendRequestData";
+import { IDeleteFriendRequest } from "@spt/models/eft/dialog/IDeleteFriendRequest";
+import { IFriendRequestData } from "@spt/models/eft/dialog/IFriendRequestData";
+import { IFriendRequestSendResponse } from "@spt/models/eft/dialog/IFriendRequestSendResponse";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { FikaDialogueController } from "../../controllers/FikaDialogueController";
 import { Override } from "../../di/Override";

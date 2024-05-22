@@ -1,7 +1,7 @@
-import { GenerationData } from "@spt-aki/models/eft/common/tables/IBotType";
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { GenerationData } from "@spt/models/eft/common/tables/IBotType";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IPlayerScavConfig extends IBaseConfig {
-    kind: "aki-playerscav";
+    kind: "spt-playerscav";
     karmaLevel: Record<string, KarmaLevel>;
 }
 export interface KarmaLevel {

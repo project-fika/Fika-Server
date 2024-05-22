@@ -1,9 +1,9 @@
-import { Category } from "@spt-aki/models/eft/common/tables/IHandbookBase";
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { IItemConfig } from "@spt-aki/models/spt/config/IItemConfig";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
+import { Category } from "@spt/models/eft/common/tables/IHandbookBase";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItemConfig } from "@spt/models/spt/config/IItemConfig";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 declare class LookupItem<T, I> {
     readonly byId: Map<string, T>;
     readonly byParent: Map<string, I[]>;
@@ -28,7 +28,7 @@ export declare class HandbookHelper {
     hydrateLookup(): void;
     /**
      * Get price from internal cache, if cache empty look up price directly in handbook (expensive)
-     * If no values found, return 1
+     * If no values found, return 0
      * @param tpl item tpl to look up price for
      * @returns price in roubles
      */

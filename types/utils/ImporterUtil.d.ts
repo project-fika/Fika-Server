@@ -1,5 +1,5 @@
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { VFS } from "@spt-aki/utils/VFS";
+import { JsonUtil } from "@spt/utils/JsonUtil";
+import { VFS } from "@spt/utils/VFS";
 export declare class ImporterUtil {
     protected vfs: VFS;
     protected jsonUtil: JsonUtil;

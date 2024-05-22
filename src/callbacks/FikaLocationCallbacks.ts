@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
-import { IGetRaidConfigurationRequestData } from "@spt-aki/models/eft/match/IGetRaidConfigurationRequestData";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { FikaLocationController } from "../controllers/FikaLocationController";
 

@@ -1,11 +1,11 @@
-import { ItemEventRouterDefinition } from "@spt-aki/di/Router";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { IItemEventRouterRequest } from "@spt-aki/models/eft/itemEvent/IItemEventRouterRequest";
-import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { ICloner } from "@spt-aki/utils/cloners/ICloner";
+import { ItemEventRouterDefinition } from "@spt/di/Router";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { IItemEventRouterRequest } from "@spt/models/eft/itemEvent/IItemEventRouterRequest";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class ItemEventRouter {
     protected logger: ILogger;
     protected profileHelper: ProfileHelper;

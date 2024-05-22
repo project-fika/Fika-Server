@@ -1,10 +1,10 @@
 import { inject, injectAll, injectable } from "tsyringe";
 
-import { IDialogueChatBot } from "@spt-aki/helpers/Dialogue/IDialogueChatBot";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { IFriendRequestSendResponse } from "@spt-aki/models/eft/dialog/IFriendRequestSendResponse";
-import { IGetFriendListDataResponse } from "@spt-aki/models/eft/dialog/IGetFriendListDataResponse";
-import { BackendErrorCodes } from "@spt-aki/models/enums/BackendErrorCodes";
+import { IDialogueChatBot } from "@spt/helpers/Dialogue/IDialogueChatBot";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { IFriendRequestSendResponse } from "@spt/models/eft/dialog/IFriendRequestSendResponse";
+import { IGetFriendListDataResponse } from "@spt/models/eft/dialog/IGetFriendListDataResponse";
+import { BackendErrorCodes } from "@spt/models/enums/BackendErrorCodes";
 
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
 import { FikaPlayerRelationsHelper } from "../helpers/FikaPlayerRelationsHelper";

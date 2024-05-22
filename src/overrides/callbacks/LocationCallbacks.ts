@@ -1,9 +1,9 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { LocationCallbacks } from "@spt-aki/callbacks/LocationCallbacks";
-import { LocationController } from "@spt-aki/controllers/LocationController";
-import { IGetLocationRequestData } from "@spt-aki/models/eft/location/IGetLocationRequestData";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { LocationCallbacks } from "@spt/callbacks/LocationCallbacks";
+import { LocationController } from "@spt/controllers/LocationController";
+import { IGetLocationRequestData } from "@spt/models/eft/location/IGetLocationRequestData";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { Override } from "../../di/Override";
 import { FikaMatchService } from "../../services/FikaMatchService";

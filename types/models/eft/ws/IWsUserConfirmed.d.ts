@@ -1,6 +1,6 @@
-import { IWsNotificationEvent } from "@spt-aki/models/eft/ws/IWsNotificationEvent";
-import { ProfileStatus } from "@spt-aki/models/enums/ProfileStatus";
-import { RaidMode } from "@spt-aki/models/enums/RaidMode";
+import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
+import { ProfileStatus } from "@spt/models/enums/ProfileStatus";
+import { RaidMode } from "@spt/models/enums/RaidMode";
 export interface IWsUserConfirmed extends IWsNotificationEvent {
     profileid: string;
     profileToken: string;

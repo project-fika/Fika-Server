@@ -1,5 +1,5 @@
-import { BotCallbacks } from "@spt-aki/callbacks/BotCallbacks";
-import { StaticRouter } from "@spt-aki/di/Router";
+import { BotCallbacks } from "@spt/callbacks/BotCallbacks";
+import { StaticRouter } from "@spt/di/Router";
 export declare class BotStaticRouter extends StaticRouter {
     protected botCallbacks: BotCallbacks;
     constructor(botCallbacks: BotCallbacks);

@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { FikaClientController } from "../controllers/FikaClientController";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";

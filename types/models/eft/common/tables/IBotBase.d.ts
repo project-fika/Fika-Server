@@ -1,11 +1,11 @@
-import { Item, Upd } from "@spt-aki/models/eft/common/tables/IItem";
-import { IPmcDataRepeatableQuest } from "@spt-aki/models/eft/common/tables/IRepeatableQuests";
-import { IRagfairOffer } from "@spt-aki/models/eft/ragfair/IRagfairOffer";
-import { BonusSkillType } from "@spt-aki/models/enums/BonusSkillType";
-import { BonusType } from "@spt-aki/models/enums/BonusType";
-import { HideoutAreas } from "@spt-aki/models/enums/HideoutAreas";
-import { MemberCategory } from "@spt-aki/models/enums/MemberCategory";
-import { QuestStatus } from "@spt-aki/models/enums/QuestStatus";
+import { Item, Upd } from "@spt/models/eft/common/tables/IItem";
+import { IPmcDataRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
+import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { BonusSkillType } from "@spt/models/enums/BonusSkillType";
+import { BonusType } from "@spt/models/enums/BonusType";
+import { HideoutAreas } from "@spt/models/enums/HideoutAreas";
+import { MemberCategory } from "@spt/models/enums/MemberCategory";
+import { QuestStatus } from "@spt/models/enums/QuestStatus";
 export interface IBotBase {
     _id: string;
     aid: number;

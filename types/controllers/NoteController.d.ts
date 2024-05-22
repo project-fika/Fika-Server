@@ -1,7 +1,7 @@
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
-import { INoteActionData } from "@spt-aki/models/eft/notes/INoteActionData";
-import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { INoteActionData } from "@spt/models/eft/notes/INoteActionData";
+import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 export declare class NoteController {
     protected eventOutputHolder: EventOutputHolder;
     constructor(eventOutputHolder: EventOutputHolder);

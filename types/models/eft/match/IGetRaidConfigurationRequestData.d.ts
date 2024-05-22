@@ -1,4 +1,4 @@
-import { IRaidSettings } from "@spt-aki/models/eft/match/IRaidSettings";
+import { IRaidSettings } from "@spt/models/eft/match/IRaidSettings";
 export interface IGetRaidConfigurationRequestData extends IRaidSettings {
     keyId: string;
     CanShowGroupPreview: boolean;

@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
-import { RouteAction, StaticRouter } from "@spt-aki/di/Router";
-import { INullResponseData } from "@spt-aki/models/eft/httpResponse/INullResponseData";
+import { RouteAction, StaticRouter } from "@spt/di/Router";
+import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
 
 import { FikaRaidCallbacks } from "../../callbacks/FikaRaidCallbacks";
 import { IFikaRaidServerIdRequestData } from "../../models/fika/routes/raid/IFikaRaidServerIdRequestData";
@@ -27,6 +27,9 @@ export class FikaRaidStaticRouter extends StaticRouter {
             }),
             new RouteAction("/fika/raid/spawnpoint", async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaRaidCallbacks.handleRaidSpawnpoint(url, info, sessionID);
+            }),
+            new RouteAction("/fika/raid/getsettings", (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): string => {
+                return this.fikaRaidCallbacks.handleRaidGetSettings(url, info, sessionID);
             }),
         ]);
     }

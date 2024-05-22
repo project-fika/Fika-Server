@@ -1,14 +1,14 @@
 /// <reference types="node" />
 /// <reference types="node" />
 import { IncomingMessage, ServerResponse } from "node:http";
-import { Serializer } from "@spt-aki/di/Serializer";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { HttpRouter } from "@spt-aki/routers/HttpRouter";
-import { IHttpListener } from "@spt-aki/servers/http/IHttpListener";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-export declare class AkiHttpListener implements IHttpListener {
+import { Serializer } from "@spt/di/Serializer";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { HttpRouter } from "@spt/routers/HttpRouter";
+import { IHttpListener } from "@spt/servers/http/IHttpListener";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
+import { JsonUtil } from "@spt/utils/JsonUtil";
+export declare class SptHttpListener implements IHttpListener {
     protected httpRouter: HttpRouter;
     protected serializers: Serializer[];
     protected logger: ILogger;

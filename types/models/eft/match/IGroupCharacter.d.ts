@@ -1,5 +1,5 @@
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { MemberCategory } from "@spt-aki/models/enums/MemberCategory";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { MemberCategory } from "@spt/models/enums/MemberCategory";
 export interface IGroupCharacter {
     _id: string;
     aid: number;

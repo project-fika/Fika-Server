@@ -1,8 +1,8 @@
-import { HttpServerHelper } from "@spt-aki/helpers/HttpServerHelper";
-import { Message, MessageContentRagfair } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { IWsChatMessageReceived } from "@spt-aki/models/eft/ws/IWsChatMessageReceived";
-import { IWsNotificationEvent } from "@spt-aki/models/eft/ws/IWsNotificationEvent";
-import { IWsRagfairOfferSold } from "@spt-aki/models/eft/ws/IWsRagfairOfferSold";
+import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
+import { Message, MessageContentRagfair } from "@spt/models/eft/profile/ISptProfile";
+import { IWsChatMessageReceived } from "@spt/models/eft/ws/IWsChatMessageReceived";
+import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
+import { IWsRagfairOfferSold } from "@spt/models/eft/ws/IWsRagfairOfferSold";
 export declare class NotifierHelper {
     protected httpServerHelper: HttpServerHelper;
     /**

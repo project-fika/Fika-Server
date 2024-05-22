@@ -1,18 +1,18 @@
-import { HideoutController } from "@spt-aki/controllers/HideoutController";
-import { RagfairController } from "@spt-aki/controllers/RagfairController";
-import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
-import { IGlobals } from "@spt-aki/models/eft/common/IGlobals";
-import { ICustomizationItem } from "@spt-aki/models/eft/common/tables/ICustomizationItem";
-import { IHandbookBase } from "@spt-aki/models/eft/common/tables/IHandbookBase";
-import { IGetItemPricesResponse } from "@spt-aki/models/eft/game/IGetItemPricesResponse";
-import { IHideoutArea } from "@spt-aki/models/eft/hideout/IHideoutArea";
-import { IHideoutProduction } from "@spt-aki/models/eft/hideout/IHideoutProduction";
-import { IHideoutScavCase } from "@spt-aki/models/eft/hideout/IHideoutScavCase";
-import { IHideoutSettingsBase } from "@spt-aki/models/eft/hideout/IHideoutSettingsBase";
-import { IGetBodyResponseData } from "@spt-aki/models/eft/httpResponse/IGetBodyResponseData";
-import { ISettingsBase } from "@spt-aki/models/spt/server/ISettingsBase";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { HideoutController } from "@spt/controllers/HideoutController";
+import { RagfairController } from "@spt/controllers/RagfairController";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { IGlobals } from "@spt/models/eft/common/IGlobals";
+import { ICustomizationItem } from "@spt/models/eft/common/tables/ICustomizationItem";
+import { IHandbookBase } from "@spt/models/eft/common/tables/IHandbookBase";
+import { IGetItemPricesResponse } from "@spt/models/eft/game/IGetItemPricesResponse";
+import { IHideoutArea } from "@spt/models/eft/hideout/IHideoutArea";
+import { IHideoutProduction } from "@spt/models/eft/hideout/IHideoutProduction";
+import { IHideoutScavCase } from "@spt/models/eft/hideout/IHideoutScavCase";
+import { IHideoutSettingsBase } from "@spt/models/eft/hideout/IHideoutSettingsBase";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import { ISettingsBase } from "@spt/models/spt/server/ISettingsBase";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 /**
  * Handle client requests
  */

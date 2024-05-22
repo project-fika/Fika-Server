@@ -1,5 +1,5 @@
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { Dialogue, IUserBuilds } from "@spt-aki/models/eft/profile/IAkiProfile";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { Dialogue, IUserBuilds } from "@spt/models/eft/profile/ISptProfile";
 export interface IProfileTemplates {
     "Standard": IProfileSides;
     "Left Behind": IProfileSides;

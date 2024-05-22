@@ -1,5 +1,5 @@
-import { CustomizationCallbacks } from "@spt-aki/callbacks/CustomizationCallbacks";
-import { StaticRouter } from "@spt-aki/di/Router";
+import { CustomizationCallbacks } from "@spt/callbacks/CustomizationCallbacks";
+import { StaticRouter } from "@spt/di/Router";
 export declare class CustomizationStaticRouter extends StaticRouter {
     protected customizationCallbacks: CustomizationCallbacks;
     constructor(customizationCallbacks: CustomizationCallbacks);

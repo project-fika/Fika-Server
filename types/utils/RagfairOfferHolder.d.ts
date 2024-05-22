@@ -1,5 +1,5 @@
-import { RagfairServerHelper } from "@spt-aki/helpers/RagfairServerHelper";
-import { IRagfairOffer } from "@spt-aki/models/eft/ragfair/IRagfairOffer";
+import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
+import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
 export declare class RagfairOfferHolder {
     protected maxOffersPerTemplate: number;
     protected ragfairServerHelper: RagfairServerHelper;

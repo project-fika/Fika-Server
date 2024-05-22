@@ -1,8 +1,8 @@
 import { IncomingMessage } from "node:http";
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { HttpServerHelper } from "@spt-aki/helpers/HttpServerHelper";
-import { HttpRouter } from "@spt-aki/routers/HttpRouter";
+import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
+import { HttpRouter } from "@spt/routers/HttpRouter";
 
 import { Override } from "../../di/Override";
 

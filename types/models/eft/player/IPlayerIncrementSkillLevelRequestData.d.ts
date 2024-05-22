@@ -1,4 +1,4 @@
-import { Skills } from "@spt-aki/models/eft/common/tables/IBotBase";
+import { Skills } from "@spt/models/eft/common/tables/IBotBase";
 export interface IPlayerIncrementSkillLevelRequestData {
     _id: string;
     experience: number;

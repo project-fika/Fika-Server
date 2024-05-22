@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
-import { INullResponseData } from "@spt-aki/models/eft/httpResponse/INullResponseData";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { FikaUpdateController } from "../controllers/FikaUpdateController";
 import { IFikaUpdatePingRequestData } from "../models/fika/routes/update/IFikaUpdatePingRequestData";

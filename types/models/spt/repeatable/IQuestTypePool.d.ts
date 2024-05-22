@@ -1,4 +1,4 @@
-import { ELocationName } from "@spt-aki/models/enums/ELocationName";
+import { ELocationName } from "@spt/models/enums/ELocationName";
 export interface IQuestTypePool {
     types: string[];
     pool: IQuestPool;

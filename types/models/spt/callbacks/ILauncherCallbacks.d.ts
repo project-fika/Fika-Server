@@ -1,8 +1,8 @@
-import { IChangeRequestData } from "@spt-aki/models/eft/launcher/IChangeRequestData";
-import { IGetMiniProfileRequestData } from "@spt-aki/models/eft/launcher/IGetMiniProfileRequestData";
-import { ILoginRequestData } from "@spt-aki/models/eft/launcher/ILoginRequestData";
-import { IRegisterData } from "@spt-aki/models/eft/launcher/IRegisterData";
-import { IRemoveProfileData } from "@spt-aki/models/eft/launcher/IRemoveProfileData";
+import { IChangeRequestData } from "@spt/models/eft/launcher/IChangeRequestData";
+import { IGetMiniProfileRequestData } from "@spt/models/eft/launcher/IGetMiniProfileRequestData";
+import { ILoginRequestData } from "@spt/models/eft/launcher/ILoginRequestData";
+import { IRegisterData } from "@spt/models/eft/launcher/IRegisterData";
+import { IRemoveProfileData } from "@spt/models/eft/launcher/IRemoveProfileData";
 export interface ILauncherCallbacks {
     connect(): string;
     login(url: string, info: ILoginRequestData, sessionID: string): string;

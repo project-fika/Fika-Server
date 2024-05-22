@@ -1,17 +1,17 @@
 import { DependencyContainer } from "tsyringe";
-import { ModLoadOrder } from "@spt-aki/loaders/ModLoadOrder";
-import { ModTypeCheck } from "@spt-aki/loaders/ModTypeCheck";
-import { ModDetails } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { ICoreConfig } from "@spt-aki/models/spt/config/ICoreConfig";
-import { IModLoader } from "@spt-aki/models/spt/mod/IModLoader";
-import { IPackageJsonData } from "@spt-aki/models/spt/mod/IPackageJsonData";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { ModCompilerService } from "@spt-aki/services/ModCompilerService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { VFS } from "@spt-aki/utils/VFS";
-export declare class PreAkiModLoader implements IModLoader {
+import { ModLoadOrder } from "@spt/loaders/ModLoadOrder";
+import { ModTypeCheck } from "@spt/loaders/ModTypeCheck";
+import { ModDetails } from "@spt/models/eft/profile/ISptProfile";
+import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import { IModLoader } from "@spt/models/spt/mod/IModLoader";
+import { IPackageJsonData } from "@spt/models/spt/mod/IPackageJsonData";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { ModCompilerService } from "@spt/services/ModCompilerService";
+import { JsonUtil } from "@spt/utils/JsonUtil";
+import { VFS } from "@spt/utils/VFS";
+export declare class PreSptModLoader implements IModLoader {
     protected logger: ILogger;
     protected vfs: VFS;
     protected jsonUtil: JsonUtil;
@@ -25,7 +25,7 @@ export declare class PreAkiModLoader implements IModLoader {
     protected readonly modOrderPath = "user/mods/order.json";
     protected order: Record<string, number>;
     protected imported: Record<string, IPackageJsonData>;
-    protected akiConfig: ICoreConfig;
+    protected sptConfig: ICoreConfig;
     protected serverDependencies: Record<string, string>;
     protected skippedMods: Set<string>;
     constructor(logger: ILogger, vfs: VFS, jsonUtil: JsonUtil, modCompilerService: ModCompilerService, localisationService: LocalisationService, configServer: ConfigServer, modLoadOrder: ModLoadOrder, modTypeCheck: ModTypeCheck);
@@ -60,10 +60,10 @@ export declare class PreAkiModLoader implements IModLoader {
     protected getModsPackageData(mods: string[]): Map<string, IPackageJsonData>;
     /**
      * Is the passed in mod compatible with the running server version
-     * @param mod Mod to check compatibiltiy with AKI
+     * @param mod Mod to check compatibiltiy with SPT
      * @returns True if compatible
      */
-    protected isModCombatibleWithAki(mod: IPackageJsonData): boolean;
+    protected isModCombatibleWithSpt(mod: IPackageJsonData): boolean;
     /**
      * Execute each mod found in this.imported
      * @returns void promise

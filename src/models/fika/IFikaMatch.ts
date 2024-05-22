@@ -1,5 +1,5 @@
-import { ILocationBase } from "@spt-aki/models/eft/common/ILocationBase";
-import { IGetRaidConfigurationRequestData } from "@spt-aki/models/eft/match/IGetRaidConfigurationRequestData";
+import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
+import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
 
 import { FikaMatchStatus } from "../enums/FikaMatchStatus";
 import { FikaSide } from "../enums/FikaSide";

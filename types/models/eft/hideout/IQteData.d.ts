@@ -1,14 +1,14 @@
-import { Effect } from "@spt-aki/models/eft/health/Effect";
-import { BodyPart } from "@spt-aki/models/eft/health/IOffraidHealRequestData";
-import { QteActivityType } from "@spt-aki/models/enums/hideout/QteActivityType";
-import { QteEffectType } from "@spt-aki/models/enums/hideout/QteEffectType";
-import { QteResultType } from "@spt-aki/models/enums/hideout/QteResultType";
-import { QteRewardType } from "@spt-aki/models/enums/hideout/QteRewardType";
-import { QteType } from "@spt-aki/models/enums/hideout/QteType";
-import { RequirementType } from "@spt-aki/models/enums/hideout/RequirementType";
-import { HideoutAreas } from "@spt-aki/models/enums/HideoutAreas";
-import { SkillTypes } from "@spt-aki/models/enums/SkillTypes";
-import { Traders } from "@spt-aki/models/enums/Traders";
+import { Effect } from "@spt/models/eft/health/Effect";
+import { BodyPart } from "@spt/models/eft/health/IOffraidHealRequestData";
+import { QteActivityType } from "@spt/models/enums/hideout/QteActivityType";
+import { QteEffectType } from "@spt/models/enums/hideout/QteEffectType";
+import { QteResultType } from "@spt/models/enums/hideout/QteResultType";
+import { QteRewardType } from "@spt/models/enums/hideout/QteRewardType";
+import { QteType } from "@spt/models/enums/hideout/QteType";
+import { RequirementType } from "@spt/models/enums/hideout/RequirementType";
+import { HideoutAreas } from "@spt/models/enums/HideoutAreas";
+import { SkillTypes } from "@spt/models/enums/SkillTypes";
+import { Traders } from "@spt/models/enums/Traders";
 export interface IQteData {
     id: string;
     type: QteActivityType;

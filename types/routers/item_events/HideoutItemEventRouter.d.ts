@@ -1,7 +1,7 @@
-import { HideoutCallbacks } from "@spt-aki/callbacks/HideoutCallbacks";
-import { HandledRoute, ItemEventRouterDefinition } from "@spt-aki/di/Router";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
+import { HideoutCallbacks } from "@spt/callbacks/HideoutCallbacks";
+import { HandledRoute, ItemEventRouterDefinition } from "@spt/di/Router";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 export declare class HideoutItemEventRouter extends ItemEventRouterDefinition {
     protected hideoutCallbacks: HideoutCallbacks;
     constructor(hideoutCallbacks: HideoutCallbacks);

@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
-import { LocationController } from "@spt-aki/controllers/LocationController";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
+import { LocationController } from "@spt/controllers/LocationController";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { SaveServer } from "@spt/servers/SaveServer";
 
 import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
 import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
