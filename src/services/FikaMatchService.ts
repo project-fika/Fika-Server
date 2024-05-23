@@ -208,7 +208,7 @@ export class FikaMatchService {
         this.addPlayerToMatch(data.serverId, data.serverId, { groupId: null, isDead: false });
 
         const successfullyCreated = this.matches.has(data.serverId) && this.timeoutIntervals.has(data.serverId);
-        if (successfullyCreated) {
+        if (successfullyCreated && match.expectedNumberOfPlayers > 1) {
             const sessionIds = Object.keys(this.saveServer.getProfiles())
                 .filter(
                     id => Object.values(this.matches).find(
@@ -258,8 +258,9 @@ export class FikaMatchService {
     public endMatch(matchId: string, reason: FikaMatchEndSessionMessage): void {
         this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
 
+        const match = this.matches.get(matchId);
         const matchWasDeleted = this.deleteMatch(matchId);
-        if (matchWasDeleted) {
+        if (matchWasDeleted && match.players.size > 1) {
             const sessionIds = Object.keys(this.saveServer.getProfiles())
                 .filter(
                     id => Object.values(this.matches).find(
