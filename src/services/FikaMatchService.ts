@@ -9,6 +9,8 @@ import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
 import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
+import { FikaWebSocketHelper } from "../helpers/FikaWebSocketHelper";
+import { WebSocketServer } from "@spt-aki/servers/WebSocketServer";
 
 @injectable()
 export class FikaMatchService {
@@ -19,6 +21,7 @@ export class FikaMatchService {
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("LocationController") protected locationController: LocationController,
         @inject("SaveServer") protected saveServer: SaveServer,
+        @inject("WebSocketServer") protected webSocketServer: WebSocketServer
     ) {
         this.matches = new Map();
         this.timeoutIntervals = new Map();
@@ -180,7 +183,7 @@ export class FikaMatchService {
             variantId: 0 /* unused */,
         });
 
-        this.matches.set(data.serverId, {
+        const match = {
             ip: null,
             port: null,
             hostUsername: data.hostUsername,
@@ -196,27 +199,55 @@ export class FikaMatchService {
             fikaVersion: data.fikaVersion,
             side: data.side,
             time: data.time,
-        });
+        };
+
+        this.matches.set(data.serverId, match);
 
         this.addTimeoutInterval(data.serverId);
 
         this.addPlayerToMatch(data.serverId, data.serverId, { groupId: null, isDead: false });
 
-        return this.matches.has(data.serverId) && this.timeoutIntervals.has(data.serverId);
+        const successfullyCreated = this.matches.has(data.serverId) && this.timeoutIntervals.has(data.serverId);
+        if (successfullyCreated && match.expectedNumberOfPlayers > 1) {
+            const sessionIds = Object.keys(this.saveServer.getProfiles())
+                .filter(
+                    id => Object.values(this.matches).find(
+                        (m: IFikaMatch) => Object.keys(m.players).includes(id)
+                    ) == undefined
+                );
+
+            for (const sessionId of sessionIds) {
+                if (sessionId == data.serverId) {
+                    continue;
+                }
+
+                this.webSocketServer.sendMessage(sessionId, <any>{
+                    type: "fika_match_created",
+                    data: {
+                        "hostUsername": match.hostUsername,
+                        "locationId": match.locationData.Id
+                    }
+                });
+            }
+        }
+
+        return successfullyCreated;
     }
 
     /**
      * Deletes a coop match and removes the timeout interval
      * @param matchId
      */
-    public deleteMatch(matchId: string): void {
+    public deleteMatch(matchId: string): boolean {
         if (!this.matches.has(matchId)) {
-            return;
+            return false;
         }
 
         this.matches.delete(matchId);
 
         this.removeTimeoutInterval(matchId);
+
+        return true;
     }
 
     /**
@@ -227,7 +258,29 @@ export class FikaMatchService {
     public endMatch(matchId: string, reason: FikaMatchEndSessionMessage): void {
         this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
 
-        this.deleteMatch(matchId);
+        const match = this.matches.get(matchId);
+        const matchWasDeleted = this.deleteMatch(matchId);
+        if (matchWasDeleted && match.players.size > 1) {
+            const sessionIds = Object.keys(this.saveServer.getProfiles())
+                .filter(
+                    id => Object.values(this.matches).find(
+                        (m: IFikaMatch) => Object.keys(m.players).includes(id)
+                    ) == undefined
+                );
+
+            for (const sessionId of sessionIds) {
+                if (sessionId == matchId) {
+                    continue;
+                }
+
+                this.webSocketServer.sendMessage(sessionId, <any>{
+                    type: "fika_match_ended",
+                    data: {
+                        matchId
+                    }
+                });
+            }
+        }
     }
 
     /**

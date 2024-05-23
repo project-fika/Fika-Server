@@ -14,6 +14,7 @@ import { HttpRouterOverride } from "../overrides/routers/HttpRouter";
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
+import { FikaWebSocketHelper } from "../helpers/FikaWebSocketHelper";
 
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
 import { FikaPlayerRelationsHelper } from "../helpers/FikaPlayerRelationsHelper";
@@ -96,6 +97,7 @@ export class Container {
     }
 
     private static registerServices(container: DependencyContainer): void {
+        container.register<FikaWebSocketHelper>("FikaWebSocketHelper", FikaWebSocketHelper, { lifecycle: Lifecycle.Singleton });
         container.register<FikaMatchService>("FikaMatchService", FikaMatchService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaFriendRequestsCacheService>("FikaFriendRequestsCacheService", FikaFriendRequestsCacheService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaPlayerRelationsCacheService>("FikaPlayerRelationsCacheService", FikaPlayerRelationsCacheService, { lifecycle: Lifecycle.Singleton });
