@@ -225,7 +225,7 @@ export class FikaMatchService {
                     type: "fika_match_created",
                     data: {
                         "hostUsername": match.hostUsername,
-                        "locationData": match.locationData._Id
+                        "locationId": match.locationData.Id
                     }
                 });
             }
