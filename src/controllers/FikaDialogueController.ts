@@ -167,9 +167,39 @@ export class FikaDialogueController {
     }
 
     public acceptFriendRequest(from: string, to: string): void {
-        this.fikaFriendRequestsHelper.removeFriendRequest(from, to);
+        const receiverProfile = this.profileHelper.getPmcProfile(to);
+        if (!receiverProfile) {
+            return;
+        }
+
+        if (!this.fikaFriendRequestsHelper.removeFriendRequest(from, to)) {
+            return;
+        }
 
         this.fikaPlayerRelationsHelper.addFriend(from, to);
+
+        const senderWebSocket: WebSocket = this.webSocketServer.getSessionWebSocket(from);
+        if (senderWebSocket) {
+            this.webSocketServer.sendMessage(
+                from,
+                {
+                    type: "friendListRequestAccept",
+                    eventId: "friendListRequestAccept",
+                    profile: {
+                        _id: receiverProfile._id,
+                        AccountId: receiverProfile.aid,
+                        Info: {
+                            Nickname: receiverProfile.Info.Nickname,
+                            Side: receiverProfile.Info.Side,
+                            Level: receiverProfile.Info.Level,
+                            MemberCategory: receiverProfile.Info.MemberCategory,
+                            Ignored: false,
+                            Banned: receiverProfile.Info.BannedState
+                        }
+                    }
+                } as any
+            );
+        }
     }
 
     public cancelFriendRequest(from: string, to: string): void {
