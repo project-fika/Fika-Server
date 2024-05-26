@@ -271,7 +271,35 @@ export class FikaDialogueController {
     }
 
     public deleteFriend(fromId: string, friendId: string): void {
+        const deletersProfile = this.profileHelper.getPmcProfile(fromId);
+        if (!deletersProfile) {
+            return;
+        }
+
         this.fikaPlayerRelationsHelper.removeFriend(fromId, friendId);
+
+        const targetWebSocket: WebSocket = this.webSocketServer.getSessionWebSocket(friendId);
+        if (targetWebSocket) {
+            this.webSocketServer.sendMessage(
+                friendId,
+                {
+                    type: "youAreRemovedFromFriendList",
+                    eventId: "youAreRemovedFromFriendList",
+                    profile: {
+                        _id: deletersProfile._id,
+                        AccountId: deletersProfile.aid,
+                        Info: {
+                            Nickname: deletersProfile.Info.Nickname,
+                            Side: deletersProfile.Info.Side,
+                            Level: deletersProfile.Info.Level,
+                            MemberCategory: deletersProfile.Info.MemberCategory,
+                            Ignored: false,
+                            Banned: deletersProfile.Info.BannedState
+                        }
+                    }
+                } as any
+            );
+        }
     }
 
     public ignoreFriend(fromId: string, friendId: string): void {
