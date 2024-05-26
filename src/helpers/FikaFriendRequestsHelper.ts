@@ -62,11 +62,11 @@ export class FikaFriendRequestsHelper {
      * @param fromProfileId
      * @param toProfileId
      */
-    public removeFriendRequest(fromProfileId: string, toProfileId: string): void {
+    public removeFriendRequest(fromProfileId: string, toProfileId: string): boolean {
         if (!this.fikaFriendRequestsCacheService.exists(fromProfileId, toProfileId)) {
-            return;
+            return false;
         }
 
-        this.fikaFriendRequestsCacheService.deleteFriendRequest(fromProfileId, toProfileId);
+        return this.fikaFriendRequestsCacheService.deleteFriendRequest(fromProfileId, toProfileId);
     }
 }

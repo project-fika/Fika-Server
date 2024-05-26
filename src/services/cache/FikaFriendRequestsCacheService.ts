@@ -42,15 +42,17 @@ export class FikaFriendRequestsCacheService {
         return !!this.friendRequests.find((request) => request.from === from && request.to === to);
     }
 
-    public deleteFriendRequest(from: string, to: string): void {
+    public deleteFriendRequest(from: string, to: string): boolean {
         const index = this.friendRequests.findIndex((request) => request.from === from && request.to === to);
         if (index === -1) {
-            return;
+            return false;
         }
 
         this.friendRequests.splice(index, 1);
 
         this.vfs.writeFile(this.friendRequestsFullPath, this.jsonUtil.serialize(this.friendRequests));
+
+        return true;
     }
 
     public storeFriendRequest(value: IFikaFriendRequests): void {
