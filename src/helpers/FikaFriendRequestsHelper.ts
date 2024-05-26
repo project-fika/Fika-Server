@@ -36,18 +36,25 @@ export class FikaFriendRequestsHelper {
      * Adds a friend request
      * @param fromProfileId
      * @param toProfileId
+     * @returns the id of the request
      */
-    public addFriendRequest(fromProfileId: string, toProfileId: string): void {
-        if (this.fikaFriendRequestsCacheService.exists(fromProfileId, toProfileId)) {
-            return;
+    public addFriendRequest(fromProfileId: string, toProfileId: string): string {
+        const foundRequest = this.fikaFriendRequestsCacheService
+            .getAllFriendRequests()
+            .find(fr => fr.from == fromProfileId && fr.to == toProfileId);
+        if (foundRequest) {
+            return null;
         }
 
+        const id = this.hashUtil.generate();
         this.fikaFriendRequestsCacheService.storeFriendRequest({
-            _id: this.hashUtil.generate(),
+            _id: id,
             from: fromProfileId,
             to: toProfileId,
             date: Math.round(Date.now() / 1000),
         });
+
+        return id;
     }
 
     /**

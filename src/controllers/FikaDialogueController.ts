@@ -9,6 +9,8 @@ import { BackendErrorCodes } from "@spt-aki/models/enums/BackendErrorCodes";
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
 import { FikaPlayerRelationsHelper } from "../helpers/FikaPlayerRelationsHelper";
 import { IFriendRequestListResponse } from "../models/eft/dialog/IFriendRequestListResponse";
+import { WebSocketServer } from "@spt-aki/servers/WebSocketServer";
+import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
 
 @injectable()
 export class FikaDialogueController {
@@ -17,6 +19,8 @@ export class FikaDialogueController {
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("FikaFriendRequestsHelper") protected fikaFriendRequestsHelper: FikaFriendRequestsHelper,
         @inject("FikaPlayerRelationsHelper") protected fikaPlayerRelationsHelper: FikaPlayerRelationsHelper,
+        @inject("WebSocketServer") protected webSocketServer: WebSocketServer,
+        @inject("WinstonLogger") protected logger: ILogger
     ) {
         // empty
     }
@@ -91,11 +95,65 @@ export class FikaDialogueController {
     }
 
     public sendFriendRequest(from: string, to: string): IFriendRequestSendResponse {
-        this.fikaFriendRequestsHelper.addFriendRequest(from, to);
+        const senderProfile = this.profileHelper.getProfileByPmcId(from);
+        if (!senderProfile) {
+            this.logger.error(`Failed to find profile for Sender:${from}`);
+            return {
+                status: BackendErrorCodes.PLAYERPROFILENOTFOUND,
+                requestId: null,
+                retryAfter: 0,
+            };
+        }
+
+        const targetProfile = this.profileHelper.getProfileByPmcId(to);
+        if (!targetProfile) {
+            this.logger.error(`Failed to find profile for Target:${to}`);
+            return {
+                status: BackendErrorCodes.PLAYERPROFILENOTFOUND,
+                requestId: null,
+                retryAfter: 0,
+            };
+        }
+
+        const requestId = this.fikaFriendRequestsHelper.addFriendRequest(from, to);
+        if (!requestId) {
+            return {
+                status: BackendErrorCodes.TOOMANYFRIENDREQUESTS,
+                requestId: null,
+                retryAfter: 0,
+            };
+        }
+
+        const targetWebSocket: WebSocket = this.webSocketServer.getSessionWebSocket(to);
+        if (targetWebSocket) {
+            this.webSocketServer.sendMessage(
+                to,
+                {
+                    type: "friendListNewRequest",
+                    eventId: "friendListNewRequest",
+                    _id: requestId,
+                    profile: {
+                        _id: senderProfile._id,
+                        AccountId: senderProfile.aid,
+                        Info: {
+                            Nickname: senderProfile.Info.Nickname,
+                            Side: senderProfile.Info.Side,
+                            Level: senderProfile.Info.Level,
+                            MemberCategory: senderProfile.Info.MemberCategory,
+                            Ignored: false,
+                            Banned: senderProfile.Info.BannedState
+                        }
+                    }
+                } as any
+            );
+        }
+        else {
+            this.logger.warning(`Failed to find WebSocket for ${to} (sessionId: ${to}), they will not be notified of this friend request`);
+        }
 
         return {
             status: BackendErrorCodes.NONE,
-            requestId: from,
+            requestId: requestId,
             retryAfter: 0,
         };
     }
