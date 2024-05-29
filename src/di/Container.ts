@@ -15,6 +15,7 @@ import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
 
+import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
 import { FikaPlayerRelationsHelper } from "../helpers/FikaPlayerRelationsHelper";
 
@@ -102,6 +103,7 @@ export class Container {
     }
 
     private static registerHelpers(container: DependencyContainer): void {
+        container.register<FikaClientModHashesHelper>("FikaClientModHashesHelper", FikaClientModHashesHelper, { lifecycle: Lifecycle.Singleton });
         container.register<FikaFriendRequestsHelper>("FikaFriendRequestsHelper", FikaFriendRequestsHelper, { lifecycle: Lifecycle.Singleton });
         container.register<FikaPlayerRelationsHelper>("FikaPlayerRelationsHelper", FikaPlayerRelationsHelper, { lifecycle: Lifecycle.Singleton });
     }
