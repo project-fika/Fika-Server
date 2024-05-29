@@ -40,8 +40,12 @@ export class FikaClientController {
             return mismatchedMods;
         }
 
+        // these mods are always required, no need to have the user add them to the config
+        const requiredMods = new Set([...fikaConfig.client.mods.required, "com.fika.core", "com.SPT.custom", "com.SPT.singleplayer", "com.SPT.core", "com.SPT.debugging"]);
+        const allowedMods = new Set([...requiredMods, ...fikaConfig.client.mods.optional, "com.bepis.bepinex.configurationmanager"]);
+
         //check for missing required mods first
-        for (const pluginId of fikaConfig.client.mods.required) {
+        for (const pluginId of requiredMods) {
             if (!request[pluginId]) {
                 mismatchedMods.missingRequired.push(pluginId);
             }
@@ -53,19 +57,20 @@ export class FikaClientController {
         }
 
         for (const [pluginId, hash] of Object.entries(request)) {
-            // check if the mod isn't in the required or optional mods list (meaning it's not allowed)
-            if (!fikaConfig.client.mods.required.includes(pluginId) && !fikaConfig.client.mods.optional.includes(pluginId)) {
+            // check if the mod isn't allowed
+            if (!allowedMods.has(pluginId)) {
                 mismatchedMods.forbidden.push(pluginId);
                 continue;
             }
 
             // first request made will fill in at the very least all the required mods hashes, following requests made by different clients will add any optional mod not added by the first request, otherwise will check against the first request data
-            if (this.fikaClientModHashesHelper.exists(pluginId)) {
-                if (this.fikaClientModHashesHelper.getHash(pluginId) !== hash) {
-                    mismatchedMods.hashMismatch.push(pluginId);
-                }
-            } else {
+            if (!this.fikaClientModHashesHelper.exists(pluginId)) {
                 this.fikaClientModHashesHelper.addHash(pluginId, hash);
+                continue;
+            }
+
+            if (this.fikaClientModHashesHelper.getHash(pluginId) !== hash) {
+                mismatchedMods.hashMismatch.push(pluginId);
             }
         }
 
