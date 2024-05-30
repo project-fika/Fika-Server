@@ -5,4 +5,8 @@ export interface IFikaConfigClient {
     allowFreeCam: boolean;
     allowItemSending: boolean;
     forceSaveOnDeath: boolean;
+    mods: {
+        required: string[];
+        optional: string[];
+    };
 }

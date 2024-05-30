@@ -70,7 +70,7 @@ export class FikaRaidController {
         }
 
         return {
-            ip: match.ip,
+            ips: match.ips,
             port: match.port,
         };
     }
