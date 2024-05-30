@@ -181,7 +181,7 @@ export class FikaMatchService {
         });
 
         this.matches.set(data.serverId, {
-            ip: null,
+            ips: null,
             port: null,
             hostUsername: data.hostUsername,
             timestamp: data.timestamp,
@@ -259,17 +259,17 @@ export class FikaMatchService {
     /**
      * Sets the ip and port for the given match
      * @param matchId
-     * @param ip
+     * @param ips
      * @param port
      */
-    public setMatchHost(matchId: string, ip: string, port: number): void {
+    public setMatchHost(matchId: string, ips: string[], port: number): void {
         if (!this.matches.has(matchId)) {
             return;
         }
 
         const match = this.matches.get(matchId);
 
-        match.ip = ip;
+        match.ips = ips;
         match.port = port;
     }
 

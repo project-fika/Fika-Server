@@ -1,5 +1,5 @@
 export interface IFikaUpdateSethostRequestData {
     serverId: string;
-    ip: string;
+    ips: string[];
     port: number;
 }
