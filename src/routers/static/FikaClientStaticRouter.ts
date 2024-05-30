@@ -3,6 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { RouteAction, StaticRouter } from "@spt/di/Router";
 
 import { FikaClientCallbacks } from "../../callbacks/FikaClientCallbacks";
+import { IFikaCheckModRequestData } from "../../models/fika/routes/client/check/IFikaCheckModRequestData";
 import { IFikaRaidServerIdRequestData } from "../../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 
 @injectable()
@@ -11,6 +12,9 @@ export class FikaClientStaticRouter extends StaticRouter {
         super([
             new RouteAction("/fika/client/config", async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaClientCallbacks.handleClientConfig(url, info, sessionID);
+            }),
+            new RouteAction("/fika/client/check/mods", async (url: string, info: IFikaCheckModRequestData, sessionID: string, _output: string): Promise<string> => {
+                return this.fikaClientCallbacks.handleCheckMods(url, info, sessionID);
             }),
         ]);
     }
