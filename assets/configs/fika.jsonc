@@ -5,7 +5,11 @@
         "dynamicVExfils": false,
         "allowFreeCam": false,
         "allowItemSending": true,
-        "forceSaveOnDeath": false
+        "forceSaveOnDeath": false,
+        "mods": {
+            "required": [],
+            "optional": []
+        }
     },
     "server": {
         "giftedItemsLoseFIR": true,

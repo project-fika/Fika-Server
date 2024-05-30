@@ -1,4 +1,4 @@
 export interface IFikaRaidGethostResponse {
-    ip: string;
+    ips: string[];
     port: number;
 }

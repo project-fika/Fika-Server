@@ -7,7 +7,7 @@ import { FikaTime } from "../enums/FikaTime";
 import { IFikaPlayer } from "./IFikaPlayer";
 
 export interface IFikaMatch {
-    ip: string;
+    ips: string[];
     port: number;
     hostUsername: string;
     timestamp: string;
