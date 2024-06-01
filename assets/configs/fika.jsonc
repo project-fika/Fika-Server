@@ -5,6 +5,7 @@
         "dynamicVExfils": false,
         "allowFreeCam": false,
         "allowItemSending": true,
+        "blacklistedItems": [],
         "forceSaveOnDeath": false,
         "mods": {
             "required": [],
