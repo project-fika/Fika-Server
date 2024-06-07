@@ -121,17 +121,17 @@ export class FikaDialogueController {
     }
 
     public acceptFriendRequest(from: string, to: string): void {
-        this.fikaFriendRequestsHelper.removeFriendRequest(from, to);
+        this.fikaFriendRequestsHelper.removeFriendRequest(from, to, "accept");
 
         this.fikaPlayerRelationsHelper.addFriend(from, to);
     }
 
     public cancelFriendRequest(from: string, to: string): void {
-        this.fikaFriendRequestsHelper.removeFriendRequest(from, to);
+        this.fikaFriendRequestsHelper.removeFriendRequest(from, to, "cancel");
     }
 
     public declineFriendRequest(from: string, to: string): void {
-        this.cancelFriendRequest(from, to);
+        this.fikaFriendRequestsHelper.removeFriendRequest(from, to, "decline");
     }
 
     public deleteFriend(fromId: string, friendId: string): void {
