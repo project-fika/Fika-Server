@@ -71,6 +71,7 @@ export class Container {
         container.registerType("Overrides", "DialogueCallbacksOverride");
         container.registerType("Overrides", "LocationCallbacksOverride");
         container.registerType("Overrides", "DialogueControllerOverride");
+        container.registerType("Overrides", "MatchCallbacksOverride");
         container.registerType("Overrides", "ProfileControllerOverride");
         container.registerType("Overrides", "HttpRouterOverride");
         container.registerType("Overrides", "LauncherBackgroundOverride");
