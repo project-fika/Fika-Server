@@ -388,6 +388,29 @@ export class FikaMatchController {
 
     /** Handle /client/match/group/transfer */
     public handleMatchGroupTransfer(info: IMatchGroupTransferRequest, sessionID: string): boolean {
+        const thisPlayerAid = this.saveServer.getProfile(sessionID).info.aid;
+        const thisPlayerGroup = this.groups.find(g => g.members.has(thisPlayerAid));
+        if (!thisPlayerGroup) {
+            this.logger.error(`handleMatchGroupTransfer: ${thisPlayerAid} is not in a group but tried to transfer leadership`);
+
+            return false;
+        }
+
+        const newOwnerAid = Number.parseInt(info.aidToChange);
+        thisPlayerGroup.owner = newOwnerAid;
+        thisPlayerGroup.members.get(newOwnerAid).isLeader = true;
+        thisPlayerGroup.members.get(thisPlayerAid).isLeader = false;
+
+        for (const [_, member] of thisPlayerGroup.members) {
+            this.webSocketHandler.sendMessage(member._id, {
+                type: "groupMatchLeaderChanged",
+                eventId: "groupMatchLeaderChanged",
+                owner: newOwnerAid
+            } as any);
+        }
+
+        this.logger.info(`handleMatchGroupTransfer: Changed leader from ${thisPlayerAid}->${newOwnerAid}`);
+
         return true;
     }
 
