@@ -30,6 +30,14 @@ class Group {
         this.invites = new Map<string, IGroupInvite>();
         this.members = new Map<number, IGroupCharacter>();
     }
+
+    addMember(member: IGroupCharacter) {
+        this.members.set(member.aid, member);
+    }
+
+    removeInvite(requestId: string) {
+        return this.invites.delete(requestId);
+    }
 }
 
 interface IGroupInvite {
@@ -88,18 +96,22 @@ export class FikaMatchController {
         const group = this.groups.find(g => g.invites.has(info.requestId));
         if (!group) {
             this.logger.error(`handleMatchGroupInviteAccept: Failed to find invite ${info.requestId}`);
-
             return [];
         }
 
+        this.logger.info(`Found group: ${JSON.stringify({
+            owner: group.owner,
+            invites: Array.from(group.invites.entries()),
+            members: Array.from(group.members.entries()).map(([aid, member]) => ({ aid, member }))
+        })}`);
+
         if (!group.invites.delete(info.requestId)) {
             this.logger.error(`handleMatchGroupInviteAccept: Failed to remove invite ${info.requestId}`);
-
             return [];
         }
 
         const profile = this.saveServer.getProfile(sessionID);
-        const profileInfo = {
+        const profileInfo: IGroupCharacter = {
             _id: profile.info.id,
             aid: profile.info.aid,
             Info: {
@@ -115,21 +127,28 @@ export class FikaMatchController {
             isLeader: false
         };
 
+        this.logger.info(`Adding member ${profile.info.aid} to group members`);
         group.members.set(profile.info.aid, profileInfo);
-        for (const [_, member] of group.members) {
-            if (member.aid == profile.info.aid) {
-                continue;
-            }
 
-            this.logger.info(`handleMatchGroupInviteAccept: Sending groupMatchInviteAccept to ${member._id}`);
+        this.logger.info(`Updated group after adding member: ${JSON.stringify({
+            owner: group.owner,
+            invites: Array.from(group.invites.entries()),
+            members: Array.from(group.members.entries()).map(([aid, member]) => ({ aid, member }))
+        })}`);
+
+        for (const [_, member] of group.members) {
             this.webSocketHandler.sendMessage(member._id, {
-                "type": "groupMatchInviteAccept",
-                "eventId": "groupMatchInviteAccept",
-                ...profile
+                type: "groupMatchInviteAccept",
+                eventId: "groupMatchInviteAccept",
+                aid: profile.info.aid,
+                _id: profile.info.id,
+                Info: profileInfo.Info,
+                IsReady: true,
+                PlayerVisualRepresentation: null
             } as any);
         }
 
-        return Object.values(group.members);
+        return Array.from(group.members.values());
     }
 
     /** Handle /client/match/group/invite/cancel */
@@ -137,25 +156,31 @@ export class FikaMatchController {
         const group = this.groups.find(g => g.invites.has(info.requestId));
         if (!group) {
             this.logger.error(`handleMatchGroupInviteCancel: Failed to find group with invite ${info.requestId}`);
-
             return false;
         }
 
         const invite = group.invites.get(info.requestId);
+        if (!invite) {
+            this.logger.error(`handleMatchGroupInviteCancel: Failed to find invite ${info.requestId} in group`);
+            return false;
+        }
+
         if (!group.invites.delete(info.requestId)) {
             this.logger.error(`handleMatchGroupInviteCancel: Failed to remove invite ${info.requestId} from invites`);
-
             return false;
         }
 
         const senderProfile = this.getProfileByAID(invite.sender);
         const recipientProfile = this.getProfileByAID(invite.recipient);
+
         this.webSocketHandler.sendMessage(recipientProfile.info.id, {
             "type": "groupMatchInviteCancel",
             "eventId": "groupMatchInviteCancel",
             "aid": senderProfile.info.aid,
             "nickname": senderProfile.characters.pmc.Info.Nickname
         } as any);
+
+        this.logger.info(`handleMatchGroupInviteCancel: Successfully canceled invite ${info.requestId} from ${invite.sender} to ${invite.recipient}`);
 
         return true;
     }
@@ -169,19 +194,32 @@ export class FikaMatchController {
     public handleMatchGroupInviteDecline(info: IRequestIdRequest, sessionID: string): boolean {
         const group = this.groups.find(g => g.invites.has(info.requestId));
         if (!group) {
+            this.logger.error(`handleMatchGroupInviteDecline: Failed to find group with invite ${info.requestId}`);
             return false;
         }
 
         const invite = group.invites.get(info.requestId);
-        group.invites.delete(info.requestId);
+        if (!invite) {
+            this.logger.error(`handleMatchGroupInviteDecline: Failed to find invite ${info.requestId} in group`);
+            return false;
+        }
+
+        if (!group.invites.delete(info.requestId)) {
+            this.logger.error(`handleMatchGroupInviteDecline: Failed to remove invite ${info.requestId} from invites`);
+            return false;
+        }
+
         const recipientProfile = this.getProfileByAID(invite.recipient);
         const senderProfile = this.getProfileByAID(invite.sender);
+
         this.webSocketHandler.sendMessage(senderProfile.info.id, {
             "type": "groupMatchInviteDecline",
             "eventId": "groupMatchInviteDecline",
             "aid": recipientProfile.info.aid,
             "Nickname": recipientProfile.characters.pmc.Info.Nickname
         } as any);
+
+        this.logger.info(`handleMatchGroupInviteDecline: Invite ${info.requestId} from ${invite.sender} to ${invite.recipient} declined successfully`);
 
         return true;
     }
@@ -191,7 +229,7 @@ export class FikaMatchController {
         const senderProfile = this.saveServer.getProfile(sessionID);
         const senderAid = senderProfile.info.aid;
         this.logger.info(`handleMatchGroupInviteSend: ${senderAid}->${info.to} ${(info.inLobby ? "in lobby" : "not in lobby")}`);
-        let group = this.groups.find(g => g.owner == senderAid);
+        let group = this.groups.find(g => g.owner === senderAid);
         if (!group) {
             this.logger.info("Does not own group, seeing if they are in one");
             group = this.groups.find(g => g.members.has(senderAid));
@@ -214,7 +252,7 @@ export class FikaMatchController {
                     isLeader: true
                 };
 
-                group.members[senderAid] = character;
+                group.members.set(senderAid, character);
                 this.groups.push(group);
             }
         }
@@ -234,7 +272,7 @@ export class FikaMatchController {
             "eventId": "groupMatchInviteSend",
             "requestId": id,
             "from": senderAid,
-            "members": Object.values(group.members)
+            "members": Array.from(group.members.values())
         } as any);
 
         this.logger.info(`handleMatchGroupInviteSend: Sent invite to ${info.to}`);
@@ -249,15 +287,15 @@ export class FikaMatchController {
         const group = this.groups.find(g => g.members.has(aid));
         if (!group) {
             this.logger.error(`handleMatchGroupLeave: ${aid} is not in a group`);
-
             return false;
         }
 
         if (!group.members.delete(aid)) {
-            this.logger.error(`handleMatchGroupLeave: Failed to remove ${aid} from characters`);
-
+            this.logger.error(`handleMatchGroupLeave: Failed to remove ${aid} from group members`);
             return false;
         }
+
+        this.logger.info(`handleMatchGroupLeave: ${aid} left group owned by ${group.owner}`);
 
         for (const [_, character] of group.members) {
             this.webSocketHandler.sendMessage(character._id, {
@@ -268,7 +306,19 @@ export class FikaMatchController {
             } as any);
         }
 
-        this.logger.info(`handleMatchGroupLeave: Left group`);
+        if (group.members.size === 0) {
+            this.logger.info(`handleMatchGroupLeave: Group owned by ${group.owner} is now empty, removing group`);
+            this.groups = this.groups.filter(g => g !== group);
+        } else if (aid === group.owner) {
+            this.logger.info(`handleMatchGroupLeave: Owner ${aid} left group, reassigning ownership`);
+            const newOwner = group.members.keys().next().value;
+            group.owner = newOwner;
+            const newLeader = group.members.get(newOwner);
+            if (newLeader) {
+                newLeader.isLeader = true;
+            }
+            this.logger.info(`handleMatchGroupLeave: New owner is ${newOwner}`);
+        }
 
         return true;
     }
@@ -289,14 +339,12 @@ export class FikaMatchController {
         const group = this.groups.find(g => g.members.has(aid));
         if (!group) {
             this.logger.error(`handleMatchGroupPlayerRemove: ${sessionID} tried to kick ${aid} from group but they aren't even in one`);
-
             return false;
         }
 
         const userWhoLeft = group.members.get(aid);
         if (!group.members.delete(aid)) {
-            this.logger.error(`handleMatchGroupPlayerRemove: Failed to remove ${sessionID} from members`);
-
+            this.logger.error(`handleMatchGroupPlayerRemove: Failed to remove ${aid} from members`);
             return false;
         }
 
@@ -304,10 +352,17 @@ export class FikaMatchController {
             this.webSocketHandler.sendMessage(character._id, {
                 "type": "groupMatchUserLeave",
                 "eventId": "groupMatchUserLeave",
-                "aid": sessionID,
+                "aid": aid,
                 "Nickname": userWhoLeft.Info.Nickname
             } as any);
         }
+
+        this.webSocketHandler.sendMessage(userWhoLeft._id, {
+            "type": "groupMatchUserLeave",
+            "eventId": "groupMatchUserLeave",
+            "aid": aid,
+            "Nickname": userWhoLeft.Info.Nickname
+        } as any);
 
         return true;
     }
