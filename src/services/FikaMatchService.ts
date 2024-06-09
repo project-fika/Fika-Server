@@ -10,6 +10,8 @@ import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 
+import { FikaConfig } from "../utils/FikaConfig";
+
 @injectable()
 export class FikaMatchService {
     protected matches: Map<string, IFikaMatch>;
@@ -19,6 +21,7 @@ export class FikaMatchService {
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("LocationController") protected locationController: LocationController,
         @inject("SaveServer") protected saveServer: SaveServer,
+        @inject("FikaConfig") protected fikaConfig: FikaConfig,
     ) {
         this.matches = new Map();
         this.timeoutIntervals = new Map();
@@ -29,6 +32,8 @@ export class FikaMatchService {
      * @param matchId
      */
     private addTimeoutInterval(matchId: string): void {
+        const fikaConfig = this.fikaConfig.getConfig();
+
         if (this.timeoutIntervals.has(matchId)) {
             this.removeTimeoutInterval(matchId);
         }
@@ -40,8 +45,8 @@ export class FikaMatchService {
 
                 match.timeout++;
 
-                // if it timed out 5 times or more, end the match
-                if (match.timeout >= 5) {
+                // if it timed out 'sessionTimeout' times or more, end the match
+                if (match.timeout >= fikaConfig.server.sessionTimeout) {
                     this.endMatch(matchId, FikaMatchEndSessionMessage.PING_TIMEOUT_MESSAGE);
                 }
             }, 60 * 1000),
