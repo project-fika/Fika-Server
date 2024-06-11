@@ -79,6 +79,7 @@ export class Container {
 
         container.registerType("StaticRoutes", "FikaClientStaticRouter");
         container.registerType("StaticRoutes", "FikaLocationStaticRouter");
+        container.registerType("StaticRoutes", "FikaMatchStaticRouter");
         container.registerType("StaticRoutes", "FikaRaidStaticRouter");
         container.registerType("StaticRoutes", "FikaSendItemStaticRouter");
         container.registerType("StaticRoutes", "FikaUpdateStaticRouter");
@@ -118,7 +119,7 @@ export class Container {
         container.register<FikaClientController>("FikaClientController", { useClass: FikaClientController });
         container.register<FikaDialogueController>("FikaDialogueController", { useClass: FikaDialogueController });
         container.register<FikaLocationController>("FikaLocationController", { useClass: FikaLocationController });
-        container.register<FikaMatchController>("FikaMatchController", { useClass: FikaMatchController });
+        container.register<FikaMatchController>("FikaMatchController", { useClass: FikaMatchController }, { lifecycle: Lifecycle.Singleton });
         container.register<FikaRaidController>("FikaRaidController", { useClass: FikaRaidController });
         container.register<FikaSendItemController>("FikaSendItemController", { useClass: FikaSendItemController });
         container.register<FikaUpdateController>("FikaUpdateController", { useClass: FikaUpdateController });

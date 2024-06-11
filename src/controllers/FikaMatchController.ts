@@ -1,4 +1,4 @@
-import { inject, injectable } from "tsyringe";
+import { container, inject, injectable } from "tsyringe";
 
 import { IGroupCharacter } from "@spt/models/eft/match/IGroupCharacter";
 
@@ -19,6 +19,7 @@ import { HashUtil } from "@spt/utils/HashUtil";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
 
 class Group {
     public owner: number;
@@ -30,14 +31,6 @@ class Group {
         this.invites = new Map<string, IGroupInvite>();
         this.members = new Map<number, IGroupCharacter>();
     }
-
-    addMember(member: IGroupCharacter) {
-        this.members.set(member.aid, member);
-    }
-
-    removeInvite(requestId: string) {
-        return this.invites.delete(requestId);
-    }
 }
 
 interface IGroupInvite {
@@ -48,6 +41,7 @@ interface IGroupInvite {
 @injectable()
 export class FikaMatchController {
     private groups: Group[];
+    static hasStarted: boolean = false;
 
     constructor(
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
@@ -57,6 +51,7 @@ export class FikaMatchController {
         @inject("SptWebSocketConnectionHandler") protected webSocketHandler: SptWebSocketConnectionHandler,
     ) {
         this.groups = [];
+        this.logger.info("FikaMatchController constructed");
     }
 
     getProfileByAID(aid: number): ISptProfile {
@@ -71,11 +66,12 @@ export class FikaMatchController {
 
     /** Handle /client/match/exit */
     public handleMatchExit(sessionID: string): void {
-        // code here
+        this.logger.warning("Default implementation of handleMatchExit");
     }
 
     /** Handle /client/match/group/current */
     public handleMatchGroupCurrent(sessionID: string): IMatchGroupCurrentResponse {
+        this.logger.warning("Default implementation of handleMatchGroupCurrent");
         return {
             squad: [],
         };
@@ -83,12 +79,13 @@ export class FikaMatchController {
 
     /** Handle /client/match/group/delete */
     public handleMatchGroupDelete(sessionID: string): boolean {
+        this.logger.warning("Default implementation of handleMatchGroupDelete");
         return true;
     }
 
     /** Handle /client/match/group/exit_from_menu */
     public handleMatchGroupExitFromMenu(sessionID: string): void {
-        // code here
+        this.logger.warning("Default implementation of handleMatchGroupExitFromMenu");
     }
 
     /** Handle /client/match/group/invite/accept */
@@ -98,12 +95,6 @@ export class FikaMatchController {
             this.logger.error(`handleMatchGroupInviteAccept: Failed to find invite ${info.requestId}`);
             return [];
         }
-
-        this.logger.info(`Found group: ${JSON.stringify({
-            owner: group.owner,
-            invites: Array.from(group.invites.entries()),
-            members: Array.from(group.members.entries()).map(([aid, member]) => ({ aid, member }))
-        })}`);
 
         if (!group.invites.delete(info.requestId)) {
             this.logger.error(`handleMatchGroupInviteAccept: Failed to remove invite ${info.requestId}`);
@@ -127,14 +118,7 @@ export class FikaMatchController {
             isLeader: false
         };
 
-        this.logger.info(`Adding member ${profile.info.aid} to group members`);
         group.members.set(profile.info.aid, profileInfo);
-
-        this.logger.info(`Updated group after adding member: ${JSON.stringify({
-            owner: group.owner,
-            invites: Array.from(group.invites.entries()),
-            members: Array.from(group.members.entries()).map(([aid, member]) => ({ aid, member }))
-        })}`);
 
         for (const [_, member] of group.members) {
             this.webSocketHandler.sendMessage(member._id, {
@@ -143,7 +127,7 @@ export class FikaMatchController {
                 aid: profile.info.aid,
                 _id: profile.info.id,
                 Info: profileInfo.Info,
-                IsReady: true,
+                IsReady: false,
                 PlayerVisualRepresentation: null
             } as any);
         }
@@ -187,11 +171,43 @@ export class FikaMatchController {
 
     /** Handle /client/match/group/invite/cancel-all */
     public handleMatchGroupInviteCancelAll(sessionID: string): boolean {
+        const profile = this.saveServer.getProfile(sessionID);
+        const aid = profile.info.aid;
+        const group = this.groups.find(g => g.owner == aid);
+        if (!group) {
+            this.logger.error(`handleMatchGroupInviteCancelAll: Failed to get group where ${aid} is the owner`);
+            return false;
+        }
+
+        for (const invite of Array.from(group.invites.values())) {
+            const recipient = this.getProfileByAID(invite.recipient);
+            if (!recipient) {
+                continue;
+            }
+
+            this.webSocketHandler.sendMessage(recipient.info.id, {
+                "type": "groupMatchInviteCancel",
+                "eventId": "groupMatchInviteCancel",
+                "aid": recipient.info.aid,
+                "nickname": recipient.characters.pmc.Info.Nickname
+            } as any);
+        }
+
+        for (const [_, member] of group.members) {
+            this.webSocketHandler.sendMessage(member._id, {
+                "type": "groupMatchUserLeave",
+                "eventId": "groupMatchUserLeave",
+                "aid": aid,
+                "Nickname": member.Info.Nickname
+            } as any);
+        }
+
         return true;
     }
 
     /** Handle /client/match/group/invite/decline */
     public handleMatchGroupInviteDecline(info: IRequestIdRequest, sessionID: string): boolean {
+        this.logger.warning(`handleMatchGroupInviteDecline: ${JSON.stringify(this.groups)}`);
         const group = this.groups.find(g => g.invites.has(info.requestId));
         if (!group) {
             this.logger.error(`handleMatchGroupInviteDecline: Failed to find group with invite ${info.requestId}`);
@@ -276,6 +292,7 @@ export class FikaMatchController {
         } as any);
 
         this.logger.info(`handleMatchGroupInviteSend: Sent invite to ${info.to}`);
+        this.logger.warning(`handleMatchGroupInviteSend: ${JSON.stringify(this.groups)}`);
 
         return id;
     }
@@ -309,7 +326,8 @@ export class FikaMatchController {
         if (group.members.size === 0) {
             this.logger.info(`handleMatchGroupLeave: Group owned by ${group.owner} is now empty, removing group`);
             this.groups = this.groups.filter(g => g !== group);
-        } else if (aid === group.owner) {
+        }
+        else if (aid === group.owner) {
             this.logger.info(`handleMatchGroupLeave: Owner ${aid} left group, reassigning ownership`);
             const newOwner = group.members.keys().next().value;
             group.owner = newOwner;
@@ -317,6 +335,7 @@ export class FikaMatchController {
             if (newLeader) {
                 newLeader.isLeader = true;
             }
+
             this.logger.info(`handleMatchGroupLeave: New owner is ${newOwner}`);
         }
 
@@ -325,12 +344,12 @@ export class FikaMatchController {
 
     /** Handle /client/match/group/looking/start */
     public handleMatchGroupLookingStart(sessionID: string): void {
-        // code here
+        this.logger.warning("Default implementation of handleMatchGroupLookingStart");
     }
 
     /** Handle /client/match/group/looking/stop */
     public handleMatchGroupLookingStop(sessionID: string): void {
-        // code here
+        this.logger.warning("Default implementation of handleMatchGroupLookingStop");
     }
 
     /** Handle /client/match/group/player/remove */
@@ -369,19 +388,22 @@ export class FikaMatchController {
 
     /** Handle /client/match/group/start_game */
     public handleMatchGroupStartGame(info: IMatchGroupStartGameRequest, sessionID: string): IProfileStatusResponse {
-        // NOTE: not entirely clear when `ip`, `port`, `sid`, `shortId` are set
+        this.logger.warning("Default implementation of handleMatchGroupStartGame");
         return {
             maxPveCountExceeded: false,
             profiles: [
-                // of all active characters in the group
             ],
         };
     }
 
     /** Handle /client/match/group/status */
     public handleMatchGroupStatus(info: IMatchGroupStatusRequest, sessionID: string): IMatchGroupStatusResponse {
+        this.logger.warning("Default implementation of handleMatchGroupStatus");
+        const profile = this.saveServer.getProfile(sessionID);
+        const group = this.groups.find(g => g.members.has(profile.info.aid));
+
         return {
-            players: [],
+            players: Array.from(group.members.values()),
             maxPveCountExceeded: false,
         };
     }
@@ -414,18 +436,9 @@ export class FikaMatchController {
         return true;
     }
 
-    /** Handle /client/match/group/raid/not-ready */
-    public handleMatchGroupRaidNotReady(sessionID: string): boolean {
-        return true;
-    }
-
-    /** Handle /client/match/group/raid/ready */
-    public handleMatchGroupRaidReady(sessionID: string): boolean {
-        return true;
-    }
-
     /** Handle /client/profile/status */
     public handleProfileStatus(info: IProfileStatusRequest, sessionID: string): IProfileStatusResponse {
+        this.logger.warning("Default implementation of handleProfileStatus");
         return {
             maxPveCountExceeded: false,
             profiles: [
@@ -434,5 +447,57 @@ export class FikaMatchController {
                 // - pmc
             ],
         };
+    }
+
+    /** Handle /client/match/raid/ready */
+    public handleRaidReady(info: IEmptyRequestData, sessionID: string): boolean {
+        const profile = this.saveServer.getProfile(sessionID);
+        this.logger.warning(`handleRaidReady: ${JSON.stringify(this.groups)}`);
+        const group = this.groups.find(g => g.members.has(profile.info.aid));
+        if (!group) {
+            this.logger.error(`handleRaidReady: ${profile.info.aid} set to ready but is not in a group`);
+
+            return false;
+        }
+
+        const thisMember = group.members.get(profile.info.aid);
+        thisMember.isReady = true;
+        for (const [_, member] of group.members) {
+            this.webSocketHandler.sendMessage(member._id, {
+                type: "groupMatchRaidReady",
+                eventId: "groupMatchRaidReady",
+                extendedProfile: thisMember
+            } as any);
+        }
+
+        this.logger.info(`handleRaidReady: ${profile.info.aid} set status to ready`);
+
+        return true;
+    }
+
+    /** Handle /client/match/raid/not-ready */
+    public handleNotRaidReady(info: IEmptyRequestData, sessionID: string): boolean {
+        const profile = this.saveServer.getProfile(sessionID);
+        const group = this.groups.find(g => g.members.has(profile.info.aid));
+        if (!group) {
+            this.logger.error(`handleNotRaidReady: ${profile.info.aid} set to not-ready but is not in a group`);
+
+            return false;
+        }
+
+        const thisMember = group.members.get(profile.info.aid);
+        thisMember.isReady = false;
+
+        for (const [_, member] of group.members) {
+            this.webSocketHandler.sendMessage(member._id, {
+                type: "groupMatchRaidNotReady",
+                eventId: "groupMatchRaidNotReady",
+                extendedProfile: thisMember
+            } as any);
+        }
+
+        this.logger.info(`handleNotRaidReady: ${profile.info.aid} set status to not-ready`);
+
+        return true;
     }
 }

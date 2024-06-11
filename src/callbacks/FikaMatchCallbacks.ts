@@ -21,14 +21,14 @@ export class FikaMatchCallbacks {
         return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupCurrent(sessionID));
     }
 
-    /** Handle /client/match/group/raid/not-ready */
+    /** Handle /client/match/raid/not-ready */
     public handleMatchGroupRaidNotReady(_url: string, _info: any, sessionID: string): string {
-        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupRaidNotReady(sessionID));
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleNotRaidReady(_info, sessionID));
     }
 
-    /** Handle /client/match/group/raid/ready */
+    /** Handle /client/match/raid/ready */
     public handleMatchGroupRaidReady(_url: string, _info: any, sessionID: string): string {
-        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleMatchGroupRaidReady(sessionID));
+        return this.httpResponseUtil.getUnclearedBody(this.fikaMatchController.handleRaidReady(_info, sessionID));
     }
 
     /** Handle /client/profile/status */

@@ -105,6 +105,16 @@ export class MatchCallbacksOverride extends Override {
                 result.getGroupStatus = (_url: string, info: IMatchGroupStatusRequest, sessionID: string) => {
                     return this.httpResponseUtil.getBody(this.fikaMatchController.handleMatchGroupStatus(info, sessionID));
                 };
+
+                /** Handle /client/match/raid/ready */
+                result.raidReady = (_url: string, info: IEmptyRequestData, sessionID: string) => {
+                    return this.httpResponseUtil.getBody(this.fikaMatchController.handleRaidReady(info, sessionID));
+                };
+
+                /** Handle /client/match/raid/not-ready */
+                result.notRaidReady = (_url: string, info: IEmptyRequestData, sessionID: string) => {
+                    return this.httpResponseUtil.getBody(this.fikaMatchController.handleNotRaidReady(info, sessionID));
+                };
             },
             { frequency: "Always" },
         );
