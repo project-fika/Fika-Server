@@ -96,7 +96,7 @@ export class FikaPlayerRelationsHelper {
             eventId: "youAreRemovedFromFriendList",
             profile: {
                 _id: profile.info.id,
-                AccountId: profile.info.aid,
+                aid: profile.info.aid,
                 Info: {
                     Nickname: profile.characters.pmc.Info.Nickname,
                     Side: profile.characters.pmc.Info.Side,
@@ -132,7 +132,7 @@ export class FikaPlayerRelationsHelper {
             _id: fromProfileId,
             profile: {
                 _id: profile.info.id,
-                AccountId: profile.info.aid,
+                aid: profile.info.aid,
                 Info: {
                     Nickname: profile.characters.pmc.Info.Nickname,
                     Side: profile.characters.pmc.Info.Side,
@@ -168,7 +168,7 @@ export class FikaPlayerRelationsHelper {
             _id: fromProfileId,
             profile: {
                 _id: profile.info.id,
-                AccountId: profile.info.aid,
+                aid: profile.info.aid,
                 Info: {
                     Nickname: profile.characters.pmc.Info.Nickname,
                     Side: profile.characters.pmc.Info.Side,

@@ -69,7 +69,7 @@ export class FikaFriendRequestsHelper {
                 _id: fromProfileId,
                 profile: {
                     _id: profile.info.id,
-                    AccountId: profile.info.aid,
+                    aid: profile.info.aid,
                     Info: {
                         Nickname: profile.characters.pmc.Info.Nickname,
                         Side: profile.characters.pmc.Info.Side,
@@ -109,7 +109,7 @@ export class FikaFriendRequestsHelper {
                     eventId: "friendListRequestAccept",
                     profile: {
                         _id: profile.info.id,
-                        AccountId: profile.info.aid,
+                        aid: profile.info.aid,
                         Info: {
                             Nickname: profile.characters.pmc.Info.Nickname,
                             Side: profile.characters.pmc.Info.Side,
@@ -131,7 +131,7 @@ export class FikaFriendRequestsHelper {
                     eventId: "friendListRequestCancel",
                     profile: {
                         _id: profile.info.id,
-                        AccountId: profile.info.aid,
+                        aid: profile.info.aid,
                         Info: {
                             Nickname: profile.characters.pmc.Info.Nickname,
                             Side: profile.characters.pmc.Info.Side,
@@ -153,7 +153,7 @@ export class FikaFriendRequestsHelper {
                     eventId: "friendListRequestDecline",
                     profile: {
                         _id: profile.info.id,
-                        AccountId: profile.info.aid,
+                        aid: profile.info.aid,
                         Info: {
                             Nickname: profile.characters.pmc.Info.Nickname,
                             Side: profile.characters.pmc.Info.Side,
