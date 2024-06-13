@@ -65,85 +65,86 @@ export class FikaDialogueController {
         const senderProfile = this.saveServer.getProfile(sessionID);
         const receiverProfile = this.saveServer.getProfile(request.dialogId);
         if (!receiverProfile) {
+            // if it's not to another player let Aki handle it
             return DialogueController.prototype.sendMessage.call(this.dialogController, sessionID, request);
         }
-
 
         let senderDialog: Dialogue;
         if (!(request.dialogId in senderProfile.dialogues)) {
             senderDialog = senderProfile.dialogues[request.dialogId] = {
                 attachmentsNew: 0,
-                new: 1,
+                new: 0,
                 pinned: false,
                 type: MessageType.USER_MESSAGE,
                 messages: [],
-                Users: [
-                    {
-                        _id: receiverProfile.info.id,
-                        aid: receiverProfile.info.aid,
-                        Info: {
-                            Nickname: receiverProfile.characters.pmc.Info.Nickname,
-                            Side: receiverProfile.characters.pmc.Info.Side,
-                            Level: receiverProfile.characters.pmc.Info.Level,
-                            MemberCategory: receiverProfile.characters.pmc.Info.MemberCategory
-                        }
-                    },
-                    {
-                        _id: senderProfile.info.id,
-                        aid: senderProfile.info.aid,
-                        Info: {
-                            Nickname: senderProfile.characters.pmc.Info.Nickname,
-                            Side: senderProfile.characters.pmc.Info.Side,
-                            Level: senderProfile.characters.pmc.Info.Level,
-                            MemberCategory: senderProfile.characters.pmc.Info.MemberCategory
-                        }
-                    }
-                ],
+                Users: [],
                 _id: request.dialogId
             };
         }
-        else {
-            senderDialog = senderProfile.dialogues[request.dialogId];
-            senderDialog.new++;
-        }
+
+        senderDialog = senderProfile.dialogues[request.dialogId];
+        senderDialog.new++;
 
         let receiverDialog: Dialogue;
         if (!(sessionID in receiverProfile.dialogues)) {
-            receiverDialog = receiverProfile.dialogues[sessionID] = {
+            receiverProfile.dialogues[sessionID] = {
                 attachmentsNew: 0,
-                new: 1,
+                new: 0,
                 pinned: false,
                 type: MessageType.USER_MESSAGE,
                 messages: [],
                 _id: sessionID,
-                Users: [
-                    {
-                        _id: senderProfile.info.id,
-                        aid: senderProfile.info.aid,
-                        Info: {
-                            Nickname: senderProfile.characters.pmc.Info.Nickname,
-                            Side: senderProfile.characters.pmc.Info.Side,
-                            Level: senderProfile.characters.pmc.Info.Level,
-                            MemberCategory: senderProfile.characters.pmc.Info.MemberCategory
-                        }
-                    },
-                    {
-                        _id: receiverProfile.info.id,
-                        aid: receiverProfile.info.aid,
-                        Info: {
-                            Nickname: receiverProfile.characters.pmc.Info.Nickname,
-                            Side: receiverProfile.characters.pmc.Info.Side,
-                            Level: receiverProfile.characters.pmc.Info.Level,
-                            MemberCategory: receiverProfile.characters.pmc.Info.MemberCategory
-                        }
-                    }
-                ]
+                Users: []
             };
         }
-        else {
-            receiverDialog = receiverProfile.dialogues[sessionID];
-            receiverDialog.new++;
-        }
+
+        senderDialog.Users = [
+            {
+                _id: receiverProfile.info.id,
+                aid: receiverProfile.info.aid,
+                Info: {
+                    Nickname: receiverProfile.characters.pmc.Info.Nickname,
+                    Side: receiverProfile.characters.pmc.Info.Side,
+                    Level: receiverProfile.characters.pmc.Info.Level,
+                    MemberCategory: receiverProfile.characters.pmc.Info.MemberCategory
+                }
+            },
+            {
+                _id: senderProfile.info.id,
+                aid: senderProfile.info.aid,
+                Info: {
+                    Nickname: senderProfile.characters.pmc.Info.Nickname,
+                    Side: senderProfile.characters.pmc.Info.Side,
+                    Level: senderProfile.characters.pmc.Info.Level,
+                    MemberCategory: senderProfile.characters.pmc.Info.MemberCategory
+                }
+            }
+        ];
+
+        receiverDialog = receiverProfile.dialogues[sessionID];
+        receiverDialog.new++;
+        receiverDialog.Users = [
+            {
+                _id: senderProfile.info.id,
+                aid: senderProfile.info.aid,
+                Info: {
+                    Nickname: senderProfile.characters.pmc.Info.Nickname,
+                    Side: senderProfile.characters.pmc.Info.Side,
+                    Level: senderProfile.characters.pmc.Info.Level,
+                    MemberCategory: senderProfile.characters.pmc.Info.MemberCategory
+                }
+            },
+            {
+                _id: receiverProfile.info.id,
+                aid: receiverProfile.info.aid,
+                Info: {
+                    Nickname: receiverProfile.characters.pmc.Info.Nickname,
+                    Side: receiverProfile.characters.pmc.Info.Side,
+                    Level: receiverProfile.characters.pmc.Info.Level,
+                    MemberCategory: receiverProfile.characters.pmc.Info.MemberCategory
+                }
+            }
+        ];
 
         const message: Message = {
             _id: this.hashUtil.generate(),
