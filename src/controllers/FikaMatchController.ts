@@ -448,6 +448,10 @@ export class FikaMatchController {
         const thisMember = group.members[profile.info.aid];
         thisMember.isReady = true;
         for (const member of Object.values(group.members)) {
+            if (member.isLeader) {
+                continue;
+            }
+
             this.webSocketHandler.sendMessage(member._id, {
                 type: "groupMatchRaidReady",
                 eventId: "groupMatchRaidReady",
