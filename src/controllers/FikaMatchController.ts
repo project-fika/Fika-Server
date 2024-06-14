@@ -20,6 +20,9 @@ import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";
 import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { RaidMode } from "@spt/models/enums/RaidMode";
 
 class Group {
     public owner: number;
@@ -55,6 +58,39 @@ export class FikaMatchController {
         this.logger.info("FikaMatchController constructed");
     }
 
+    createGroupCharacter(profile: ISptProfile, visualizePMC: boolean): IGroupCharacter {
+        const visualizedProfile: IPmcData = visualizePMC ? profile.characters.pmc : profile.characters.scav;
+        return {
+            _id: profile.info.id,
+            aid: profile.info.aid,
+            Info: {
+                Nickname: profile.characters.pmc.Info.Nickname,
+                Side: profile.characters.pmc.Info.Side,
+                Level: profile.characters.pmc.Info.Level,
+                MemberCategory: profile.characters.pmc.Info.MemberCategory,
+                GameVersion: profile.characters.pmc.Info.GameVersion,
+                SavageLockTime: profile.characters.scav.Info.SavageLockTime,
+                SavageNickname: profile.characters.scav.Info.Nickname,
+                hasCoopExtension: true,
+            },
+            PlayerVisualRepresentation: {
+                Info: {
+                    Side: visualizedProfile.Info.Side,
+                    Level: visualizedProfile.Info.Level,
+                    Nickname: visualizedProfile.Info.Nickname,
+                    MemberCategory: visualizedProfile.Info.MemberCategory,
+                    GameVersion: visualizedProfile.Info.GameVersion,
+                },
+                Customization: visualizedProfile.Customization,
+                Equipment: {
+                    Id: visualizedProfile.Inventory.equipment,
+                    Items: visualizedProfile.Inventory.items
+                }
+            },
+            isLeader: false
+        };
+    }
+
     getProfileByAID(aid: number): ISptProfile {
         for (const profile of Object.values(this.saveServer.getProfiles())) {
             if (profile.info.aid == aid) {
@@ -73,18 +109,9 @@ export class FikaMatchController {
         const group = this.getGroup(aid);
         if (!group) {
             const ownerProfile = this.getProfileByAID(aid);
-            const newGroup = new Group(aid, {
-                _id: ownerProfile.info.id,
-                aid: ownerProfile.info.aid,
-                Info: {
-                    Nickname: ownerProfile.characters.pmc.Info.Nickname,
-                    Side: ownerProfile.characters.pmc.Info.Side,
-                    Level: ownerProfile.characters.pmc.Info.Level,
-                    MemberCategory: ownerProfile.characters.pmc.Info.MemberCategory
-                },
-                isLeader: true
-            });
-
+            const groupCharacter = this.createGroupCharacter(ownerProfile, true);
+            groupCharacter.isLeader = true;
+            const newGroup = new Group(aid, groupCharacter);
             this.groups.push(newGroup);
 
             return newGroup;
@@ -127,21 +154,7 @@ export class FikaMatchController {
 
         delete group.invites[info.requestId];
         const profile = this.saveServer.getProfile(sessionID);
-        const profileInfo: IGroupCharacter = {
-            _id: profile.info.id,
-            aid: profile.info.aid,
-            Info: {
-                Nickname: profile.characters.pmc.Info.Nickname,
-                Side: profile.characters.pmc.Info.Side,
-                Level: profile.characters.pmc.Info.Level,
-                MemberCategory: profile.characters.pmc.Info.MemberCategory,
-                GameVersion: profile.info.edition,
-                SavageLockTime: profile.characters.scav.Info.SavageLockTime,
-                SavageNickname: profile.characters.scav.Info.Nickname,
-                hasCoopExtension: true
-            },
-            isLeader: false
-        };
+        const profileInfo: IGroupCharacter = this.createGroupCharacter(profile, true);
 
         group.members[profile.info.aid] = profileInfo;
 
@@ -448,7 +461,7 @@ export class FikaMatchController {
         const thisMember = group.members[profile.info.aid];
         thisMember.isReady = true;
         for (const member of Object.values(group.members)) {
-            if (member.isLeader) {
+            if (member.aid == profile.info.aid) {
                 continue;
             }
 
@@ -488,5 +501,28 @@ export class FikaMatchController {
         this.logger.info(`handleNotRaidReady: ${profile.info.aid} set status to not-ready`);
 
         return true;
+    }
+
+    /** Handle /client/raid/configuration */
+    startOfflineRaid(request: IGetRaidConfigurationRequestData, sessionID: string) {
+        const profile = this.saveServer.getProfile(sessionID);
+        const group = this.getGroup(profile.info.aid);
+        if (!group) {
+            this.logger.error(`startOfflineRaid: ${sessionID} is not in a group`);
+
+            return;
+        }
+
+        for (const member of Object.values(group.members)) {
+            if (member.aid == profile.info.aid) {
+                continue;
+            }
+
+            this.webSocketHandler.sendMessage(member._id, {
+                type: "groupMatchRaidSettings",
+                eventId: "groupMatchRaidSettings",
+                raidSettings: request,
+            } as any);
+        }
     }
 }
