@@ -135,7 +135,31 @@ export class FikaMatchController {
 
     /** Handle /client/match/group/delete */
     public handleMatchGroupDelete(sessionID: string): boolean {
-        this.logger.warning("Default implementation of handleMatchGroupDelete");
+        const profile = this.saveServer.getProfile(sessionID);
+        const group = this.getGroup(profile.info.aid);
+        if (!group) {
+            this.logger.error(`${profile.info.aid} tried to disband their group but they are not in one`);
+            return false;
+        }
+
+        if (group.owner != profile.info.aid) {
+            this.logger.warning(`${profile.info.aid} tried to disband their group but they are not the owner`);
+            return false;
+        }
+
+        for (const member of Object.values(group.members)) {
+            if (member.aid == profile.info.aid) {
+                continue;
+            }
+
+            this.webSocketHandler.sendMessage(member._id, {
+                type: "groupMatchWasRemoved",
+                eventId: "groupMatchWasRemoved",
+            } as any);
+        }
+
+        this.groups.splice(this.groups.indexOf(group), 1);
+
         return true;
     }
 
@@ -274,31 +298,32 @@ export class FikaMatchController {
     public handleMatchGroupInviteSend(info: IMatchGroupInviteSendRequest, sessionID: string): string {
         const senderProfile = this.saveServer.getProfile(sessionID);
         const senderAid = senderProfile.info.aid;
-        this.logger.info(`handleMatchGroupInviteSend: ${senderAid}->${info.to} ${(info.inLobby ? "in lobby" : "not in lobby")}`);
-        const group = this.getOrCreateGroup(senderAid);
-        console.log(JSON.stringify(this.groups));
         const recipientAid = Number.parseInt(info.to);
-        const id = this.hashUtil.generate();
-        const invite: IGroupInvite = {
+        const recipientProfile = this.getProfileByAID(recipientAid);
+        if (!recipientProfile) {
+            this.logger.error(`${senderAid} tried to invite ${info.to} but we couldn't find their profile. Are they a bot?`);
+
+            return null;
+        }
+
+        this.logger.info(`handleMatchGroupInviteSend: ${senderAid}->${recipientAid} ${(info.inLobby ? "in lobby" : "not in lobby")}`);
+        const group = this.getOrCreateGroup(senderAid);
+
+        const inviteId = this.hashUtil.generate();
+        group.invites[inviteId] = {
             sender: senderAid,
             recipient: recipientAid
         };
 
-        group.invites[id] = invite;
-        console.log(JSON.stringify(group.members));
-        const recipientProfile = this.getProfileByAID(recipientAid);
         this.webSocketHandler.sendMessage(recipientProfile.info.id, {
             "type": "groupMatchInviteSend",
             "eventId": "groupMatchInviteSend",
-            "requestId": id,
+            "requestId": inviteId,
             "from": senderAid,
             "members": Object.values(group.members)
         } as any);
 
-        this.logger.info(`handleMatchGroupInviteSend: Sent invite to ${info.to}`);
-        this.logger.warning(`handleMatchGroupInviteSend: ${JSON.stringify(this.groups)}`);
-
-        return id;
+        return inviteId;
     }
 
     /** Handle /client/match/group/leave */
@@ -396,7 +421,6 @@ export class FikaMatchController {
 
     /** Handle /client/match/group/status */
     public handleMatchGroupStatus(info: IMatchGroupStatusRequest, sessionID: string): IMatchGroupStatusResponse {
-        this.logger.warning("Default implementation of handleMatchGroupStatus");
         const profile = this.saveServer.getProfile(sessionID);
         const group = this.groups.find(g => g.members[profile.info.aid]);
 
@@ -450,7 +474,6 @@ export class FikaMatchController {
     /** Handle /client/match/raid/ready */
     public handleRaidReady(info: IEmptyRequestData, sessionID: string): boolean {
         const profile = this.saveServer.getProfile(sessionID);
-        this.logger.warning(`handleRaidReady: ${JSON.stringify(this.groups)}`);
         const group = this.groups.find(g => profile.info.aid in g.members);
         if (!group) {
             this.logger.error(`handleRaidReady: ${profile.info.aid} set to ready but is not in a group`);
@@ -491,10 +514,14 @@ export class FikaMatchController {
         thisMember.isReady = false;
 
         for (const member of Object.values(group.members)) {
+            if (member.aid == thisMember.aid) {
+                continue;
+            }
+
             this.webSocketHandler.sendMessage(member._id, {
                 type: "groupMatchRaidNotReady",
                 eventId: "groupMatchRaidNotReady",
-                extendedProfile: thisMember
+                aid: thisMember.aid
             } as any);
         }
 
