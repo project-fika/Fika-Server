@@ -1,4 +1,4 @@
-import { container, inject, injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 import { IGroupCharacter } from "@spt/models/eft/match/IGroupCharacter";
 
@@ -21,8 +21,7 @@ import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";
 import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
 import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { RaidMode } from "@spt/models/enums/RaidMode";
+import { SideType } from "@spt/models/enums/SideType";
 
 class Group {
     public owner: number;
@@ -58,8 +57,26 @@ export class FikaMatchController {
         this.logger.info("FikaMatchController constructed");
     }
 
-    createGroupCharacter(profile: ISptProfile, visualizePMC: boolean): IGroupCharacter {
-        const visualizedProfile: IPmcData = visualizePMC ? profile.characters.pmc : profile.characters.scav;
+    createPlayerVisualRepresentation(aid: number, isPMC: boolean): any {
+        const profile = this.getProfileByAID(aid);
+        const visualizedProfile = isPMC ? profile.characters.pmc : profile.characters.scav;
+        return {
+            Info: {
+                Side: visualizedProfile.Info.Side,
+                Level: visualizedProfile.Info.Level,
+                Nickname: visualizedProfile.Info.Nickname,
+                MemberCategory: visualizedProfile.Info.MemberCategory,
+                GameVersion: visualizedProfile.Info.GameVersion,
+            },
+            Customization: visualizedProfile.Customization,
+            Equipment: {
+                Id: visualizedProfile.Inventory.equipment,
+                Items: visualizedProfile.Inventory.items
+            }
+        };
+    }
+
+    createGroupCharacter(profile: ISptProfile): IGroupCharacter {
         return {
             _id: profile.info.id,
             aid: profile.info.aid,
@@ -73,20 +90,7 @@ export class FikaMatchController {
                 SavageNickname: profile.characters.scav.Info.Nickname,
                 hasCoopExtension: true,
             },
-            PlayerVisualRepresentation: {
-                Info: {
-                    Side: visualizedProfile.Info.Side,
-                    Level: visualizedProfile.Info.Level,
-                    Nickname: visualizedProfile.Info.Nickname,
-                    MemberCategory: visualizedProfile.Info.MemberCategory,
-                    GameVersion: visualizedProfile.Info.GameVersion,
-                },
-                Customization: visualizedProfile.Customization,
-                Equipment: {
-                    Id: visualizedProfile.Inventory.equipment,
-                    Items: visualizedProfile.Inventory.items
-                }
-            },
+            PlayerVisualRepresentation: null,
             isLeader: false
         };
     }
@@ -109,7 +113,7 @@ export class FikaMatchController {
         const group = this.getGroup(aid);
         if (!group) {
             const ownerProfile = this.getProfileByAID(aid);
-            const groupCharacter = this.createGroupCharacter(ownerProfile, true);
+            const groupCharacter = this.createGroupCharacter(ownerProfile);
             groupCharacter.isLeader = true;
             const newGroup = new Group(aid, groupCharacter);
             this.groups.push(newGroup);
@@ -178,7 +182,7 @@ export class FikaMatchController {
 
         delete group.invites[info.requestId];
         const profile = this.saveServer.getProfile(sessionID);
-        const profileInfo: IGroupCharacter = this.createGroupCharacter(profile, true);
+        const profileInfo: IGroupCharacter = this.createGroupCharacter(profile);
 
         group.members[profile.info.aid] = profileInfo;
 
@@ -265,7 +269,6 @@ export class FikaMatchController {
 
     /** Handle /client/match/group/invite/decline */
     public handleMatchGroupInviteDecline(info: IRequestIdRequest, sessionID: string): boolean {
-        this.logger.warning(`handleMatchGroupInviteDecline: ${JSON.stringify(this.groups)}`);
         const group = this.groups.find(g => info.requestId in g.invites);
         if (!group) {
             this.logger.error(`handleMatchGroupInviteDecline: Failed to find group with invite ${info.requestId}`);
@@ -411,11 +414,30 @@ export class FikaMatchController {
 
     /** Handle /client/match/group/start_game */
     public handleMatchGroupStartGame(info: IMatchGroupStartGameRequest, sessionID: string): IProfileStatusResponse {
-        this.logger.warning("Default implementation of handleMatchGroupStartGame");
+        const profile = this.saveServer.getProfile(sessionID);
+        const group = this.getGroup(profile.info.aid);
+        if (!group) {
+            this.logger.error(`handleMatchGroupStartGame: ${profile.info.aid} is not in a group`);
+            return null;
+        }
+
+        if (group.owner != profile.info.aid) {
+            this.logger.error(`handleMatchGroupStartGame: ${profile.info.aid} is not the owner of their group`);
+            return null;
+        }
+
         return {
             maxPveCountExceeded: false,
-            profiles: [
-            ],
+            profiles: Object.values(group.members).map(m => {
+                return {
+                    profileid: m._id,
+                    profileToken: m._id,
+                    status: "free",
+                    ip: "192.168.0.13",
+                    port: 25565,
+                    sid: "SHORT"
+                }
+            }),
         };
     }
 
@@ -541,6 +563,7 @@ export class FikaMatchController {
         }
 
         for (const member of Object.values(group.members)) {
+            member.PlayerVisualRepresentation = this.createPlayerVisualRepresentation(member.aid, request.side == SideType.PMC);
             if (member.aid == profile.info.aid) {
                 continue;
             }
@@ -551,5 +574,10 @@ export class FikaMatchController {
                 raidSettings: request,
             } as any);
         }
+    }
+
+    /** Handle /client/match/available */
+    public handleServerAvailable(sessionID: string): boolean {
+        return true;
     }
 }
