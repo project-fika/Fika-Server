@@ -201,6 +201,7 @@ export class FikaMatchService {
             fikaVersion: data.fikaVersion,
             side: data.side,
             time: data.time,
+            raidCode: data.raidCode
         });
 
         this.addTimeoutInterval(data.serverId);
