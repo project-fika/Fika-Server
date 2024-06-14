@@ -13,6 +13,7 @@ import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { FikaMatchController } from "../../controllers/FikaMatchController";
 import { Override } from "../../di/Override";
+import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
 
 @injectable()
 export class MatchCallbacksOverride extends Override {
@@ -115,6 +116,13 @@ export class MatchCallbacksOverride extends Override {
                 result.notRaidReady = (_url: string, info: IEmptyRequestData, sessionID: string) => {
                     return this.httpResponseUtil.getBody(this.fikaMatchController.handleNotRaidReady(info, sessionID));
                 };
+
+                /** Handle /client/raid/configuration */
+                result.getRaidConfiguration = (_url: string, info: IGetRaidConfigurationRequestData, sessionID: string): INullResponseData => {
+                    this.fikaMatchController.startOfflineRaid(info, sessionID);
+
+                    return this.httpResponseUtil.nullResponse();
+                }
             },
             { frequency: "Always" },
         );
