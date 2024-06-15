@@ -22,4 +22,5 @@ export interface IFikaMatch {
     players: Map<string, IFikaPlayer>;
     side: FikaSide;
     time: FikaTime;
+    natPunch: boolean;
 }

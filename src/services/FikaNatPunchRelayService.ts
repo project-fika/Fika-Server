@@ -1,35 +1,48 @@
 import { IncomingMessage } from "node:http";
-import { inject, injectable } from "tsyringe";
-import { WebSocket, Server } from "ws";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { inject, injectable } from "tsyringe";
+import { Server, WebSocket } from "ws";
+import { FikaConfig } from "../utils/FikaConfig";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
+import { IFikaConfig } from "../models/fika/config/IFikaConfig";
 
 @injectable()
 export class FikaNatPunchRelayService {
-
+    public Host: string;
+    public Port: number;
     protected webSocketServer: Server;
     protected webSockets: Record<string, WebSocket> = {};
+    protected httpConfig: IHttpConfig;
+    protected fikaConfig: IFikaConfig;
 
     constructor(
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
-        @inject("WinstonLogger") protected logger: ILogger)
-        {}
+        @inject("WinstonLogger") protected logger: ILogger,
+        @inject("ConfigServer") protected configServer: ConfigServer,
+        @inject("FikaConfig") protected fikaConfigServer: FikaConfig,
+    ) {
+        this.httpConfig = this.configServer.getConfig(ConfigTypes.HTTP);
+        this.fikaConfig = this.fikaConfigServer.getConfig();
+
+        this.Host = this.httpConfig.backendIp;
+        this.Port = this.fikaConfig.server.natPunchRelayServicePort;
+    }
 
     public start(): void {
+        this.webSocketServer = new Server({ host: this.Host, port: this.Port });
 
-        this.webSocketServer = new Server({ port: 6970 });
-
-        this.webSocketServer.addListener("listening", () =>
-        {
-            this.logger.success("FikaNatPunchService started on port 6970");
+        this.webSocketServer.addListener("listening", () => {
+            this.logger.success(`Started FikaNatPunchRelayService at ws://${this.Host}:${this.Port}`);
         });
 
         this.webSocketServer.addListener("connection", this.wsOnConnection.bind(this));
     }
 
-    protected wsOnConnection(ws: WebSocket, req: IncomingMessage): void
-    {
+    protected wsOnConnection(ws: WebSocket, req: IncomingMessage): void {
         // Strip request and break it into sections
         const splitUrl = req.url.substring(0, req.url.indexOf("?")).split("/");
         const sessionID = splitUrl.pop();
@@ -37,28 +50,24 @@ export class FikaNatPunchRelayService {
 
         this.webSockets[sessionID] = ws;
 
-        this.logger.info(`${playerProfile.info.username} connected to FikaNatPunchService`);
+        this.logger.info(`${playerProfile.info.username} connected to FikaNatPunchRelayService`);
+
         ws.on("message", (msg) => this.wsOnMessage(playerProfile, msg));
     }
 
     protected wsOnMessage(playerProfile: ISptProfile, msg: any) {
-        this.logger.info(`Received: ${msg}`);
+        const msgStr = msg.toString();
+        const msgObj = JSON.parse(msgStr);
 
-        const msgObj = JSON.parse(msg.toString());
+        if (msgObj.requestType == undefined) return;
 
-        if(msgObj.requestType == undefined)
-            return;
-
-        switch(msgObj.requestType)
-        {
+        switch (msgObj.requestType) {
             case "GetHostStunRequest":
-                this.logger.info(`sending GetHostStunRequest to server: ${msgObj.serverId}`);
-                this.webSockets[msgObj.serverId].send(msg.toString());
-            break;
+                this.webSockets[msgObj.serverId].send(msgStr);
+                break;
             case "GetHostStunResponse":
-                this.logger.info(`sending GetHostStunResponse to client: ${msgObj.clientId}`);
-                this.webSockets[msgObj.clientId].send(msg.toString());
-            break;
+                this.webSockets[msgObj.sessionId].send(msgStr);
+                break;
         }
     }
 }
