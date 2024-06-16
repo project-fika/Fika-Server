@@ -201,7 +201,7 @@ export class FikaMatchService {
             fikaVersion: data.fikaVersion,
             side: data.side,
             time: data.time,
-            natPunch: data.natPunch,
+            natPunch: false
         });
 
         this.addTimeoutInterval(data.serverId);
@@ -268,7 +268,7 @@ export class FikaMatchService {
      * @param ips
      * @param port
      */
-    public setMatchHost(matchId: string, ips: string[], port: number): void {
+    public setMatchHost(matchId: string, ips: string[], port: number, natPunch: boolean): void {
         if (!this.matches.has(matchId)) {
             return;
         }
@@ -277,6 +277,7 @@ export class FikaMatchService {
 
         match.ips = ips;
         match.port = port;
+        match.natPunch = natPunch;
     }
 
     /**
