@@ -14,6 +14,7 @@ import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { FikaMatchController } from "../../controllers/FikaMatchController";
 import { Override } from "../../di/Override";
 import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
 
 @injectable()
 export class MatchCallbacksOverride extends Override {
@@ -123,6 +124,11 @@ export class MatchCallbacksOverride extends Override {
 
                     return this.httpResponseUtil.nullResponse();
                 }
+
+                /** Handle /client/match/available */
+                result.serverAvailable = (_url, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<boolean> => {
+                    return this.httpResponseUtil.getBody(this.fikaMatchController.handleServerAvailable(sessionID));
+                };
             },
             { frequency: "Always" },
         );
