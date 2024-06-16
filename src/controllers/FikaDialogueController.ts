@@ -62,16 +62,15 @@ export class FikaDialogueController {
     }
 
     public sendMessage(sessionID: string, request: ISendMessageRequest): string {
-        const senderProfile = this.saveServer.getProfile(sessionID);
         const receiverProfile = this.saveServer.getProfile(request.dialogId);
         if (!receiverProfile) {
             // if it's not to another player let Aki handle it
             return DialogueController.prototype.sendMessage.call(this.dialogController, sessionID, request);
         }
 
-        let senderDialog: Dialogue;
+        const senderProfile = this.saveServer.getProfile(sessionID);
         if (!(request.dialogId in senderProfile.dialogues)) {
-            senderDialog = senderProfile.dialogues[request.dialogId] = {
+            senderProfile.dialogues[request.dialogId] = {
                 attachmentsNew: 0,
                 new: 0,
                 pinned: false,
@@ -82,22 +81,7 @@ export class FikaDialogueController {
             };
         }
 
-        senderDialog = senderProfile.dialogues[request.dialogId];
-        senderDialog.new++;
-
-        let receiverDialog: Dialogue;
-        if (!(sessionID in receiverProfile.dialogues)) {
-            receiverProfile.dialogues[sessionID] = {
-                attachmentsNew: 0,
-                new: 0,
-                pinned: false,
-                type: MessageType.USER_MESSAGE,
-                messages: [],
-                _id: sessionID,
-                Users: []
-            };
-        }
-
+        const senderDialog = senderProfile.dialogues[request.dialogId];
         senderDialog.Users = [
             {
                 _id: receiverProfile.info.id,
@@ -121,7 +105,19 @@ export class FikaDialogueController {
             }
         ];
 
-        receiverDialog = receiverProfile.dialogues[sessionID];
+        if (!(sessionID in receiverProfile.dialogues)) {
+            receiverProfile.dialogues[sessionID] = {
+                attachmentsNew: 0,
+                new: 0,
+                pinned: false,
+                type: MessageType.USER_MESSAGE,
+                messages: [],
+                _id: sessionID,
+                Users: []
+            };
+        }
+
+        const receiverDialog = receiverProfile.dialogues[sessionID];
         receiverDialog.new++;
         receiverDialog.Users = [
             {
@@ -165,9 +161,6 @@ export class FikaDialogueController {
 
         senderDialog.messages.push(message);
         receiverDialog.messages.push(message);
-
-        this.saveServer.saveProfile(sessionID);
-        this.saveServer.saveProfile(receiverProfile.info.id);
 
         this.webSocketHandler.sendMessage(receiverProfile.info.id, {
             type: "new_message",
