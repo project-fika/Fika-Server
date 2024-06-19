@@ -329,6 +329,10 @@ export class FikaMatchService {
      * @param playerId
      */
     public removePlayerFromMatch(matchId: string, playerId: string): void {
+        if (!this.matches.has(matchId)) {
+            return;
+        }
+
         this.matches.get(matchId).players.delete(playerId);
     }
 }
