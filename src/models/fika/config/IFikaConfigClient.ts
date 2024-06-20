@@ -11,4 +11,5 @@ export interface IFikaConfigClient {
         optional: string[];
     };
     useInertia: boolean;
+    sharedQuestProgression: boolean;
 }

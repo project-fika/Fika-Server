@@ -11,7 +11,8 @@
             "required": [],
             "optional": []
         },
-        "useInertia": true
+        "useInertia": true,
+        "sharedQuestProgression": false
     },
     "server": {
         "giftedItemsLoseFIR": true,
