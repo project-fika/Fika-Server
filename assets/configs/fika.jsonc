@@ -10,7 +10,8 @@
         "mods": {
             "required": [],
             "optional": []
-        }
+        },
+        "useInertia": true
     },
     "server": {
         "giftedItemsLoseFIR": true,
