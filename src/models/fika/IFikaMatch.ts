@@ -23,4 +23,5 @@ export interface IFikaMatch {
     side: FikaSide;
     time: FikaTime;
     raidCode: string;
+    natPunch: boolean;
 }

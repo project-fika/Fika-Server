@@ -1,7 +1,5 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
-
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
-
 import { Overrider } from "./overrides/Overrider";
 
 @injectable()
@@ -15,5 +13,9 @@ export class Fika {
 
     public async preSptLoad(container: DependencyContainer): Promise<void> {
         await this.overrider.override(container);
+    }
+
+    public async postSptLoad(container: DependencyContainer): Promise<void> {
+        // unused
     }
 }
