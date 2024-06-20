@@ -10,4 +10,5 @@ export interface IFikaConfigClient {
         required: string[];
         optional: string[];
     };
+    useInertia: boolean;
 }
