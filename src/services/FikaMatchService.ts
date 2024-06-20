@@ -201,6 +201,7 @@ export class FikaMatchService {
             fikaVersion: data.fikaVersion,
             side: data.side,
             time: data.time,
+            raidCode: data.raidCode,
             natPunch: false
         });
 
@@ -330,6 +331,10 @@ export class FikaMatchService {
      * @param playerId
      */
     public removePlayerFromMatch(matchId: string, playerId: string): void {
+        if (!this.matches.has(matchId)) {
+            return;
+        }
+
         this.matches.get(matchId).players.delete(playerId);
     }
 }

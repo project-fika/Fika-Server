@@ -22,5 +22,6 @@ export interface IFikaMatch {
     players: Map<string, IFikaPlayer>;
     side: FikaSide;
     time: FikaTime;
+    raidCode: string;
     natPunch: boolean;
 }
