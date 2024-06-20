@@ -5,6 +5,7 @@ import { FikaConfig } from "../utils/FikaConfig";
 import { Overrider } from "../overrides/Overrider";
 import { DialogueCallbacksOverride } from "../overrides/callbacks/DialogueCallbacks";
 import { LocationCallbacksOverride } from "../overrides/callbacks/LocationCallbacks";
+import { MatchCallbacksOverride } from "../overrides/callbacks/MatchCallbacks";
 import { DialogueControllerOverride } from "../overrides/controllers/DialogueController";
 import { ProfileControllerOverride } from "../overrides/controllers/ProfileController";
 import { LauncherBackgroundOverride } from "../overrides/other/LauncherBackground";
@@ -22,18 +23,21 @@ import { FikaPlayerRelationsHelper } from "../helpers/FikaPlayerRelationsHelper"
 import { FikaClientController } from "../controllers/FikaClientController";
 import { FikaDialogueController } from "../controllers/FikaDialogueController";
 import { FikaLocationController } from "../controllers/FikaLocationController";
+import { FikaMatchController } from "../controllers/FikaMatchController";
 import { FikaRaidController } from "../controllers/FikaRaidController";
 import { FikaSendItemController } from "../controllers/FikaSendItemController";
 import { FikaUpdateController } from "../controllers/FikaUpdateController";
 
 import { FikaClientCallbacks } from "../callbacks/FikaClientCallbacks";
 import { FikaLocationCallbacks } from "../callbacks/FikaLocationCallbacks";
+import { FikaMatchCallbacks } from "../callbacks/FikaMatchCallbacks";
 import { FikaRaidCallbacks } from "../callbacks/FikaRaidCallbacks";
 import { FikaSendItemCallbacks } from "../callbacks/FikaSendItemCallbacks";
 import { FikaUpdateCallbacks } from "../callbacks/FikaUpdateCallbacks";
 
 import { FikaClientStaticRouter } from "../routers/static/FikaClientStaticRouter";
 import { FikaLocationStaticRouter } from "../routers/static/FikaLocationStaticRouter";
+import { FikaMatchStaticRouter } from "../routers/static/FikaMatchStaticRouter";
 import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
@@ -92,6 +96,7 @@ export class Container {
     private static registerOverrides(container: DependencyContainer): void {
         container.register<DialogueCallbacksOverride>("DialogueCallbacksOverride", DialogueCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocationCallbacksOverride>("LocationCallbacksOverride", LocationCallbacksOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<MatchCallbacksOverride>("MatchCallbacksOverride", MatchCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DialogueControllerOverride>("DialogueControllerOverride", DialogueControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<ProfileControllerOverride>("ProfileControllerOverride", ProfileControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<HttpRouterOverride>("HttpRouterOverride", HttpRouterOverride, { lifecycle: Lifecycle.Singleton });
@@ -117,6 +122,7 @@ export class Container {
         container.register<FikaClientController>("FikaClientController", { useClass: FikaClientController });
         container.register<FikaDialogueController>("FikaDialogueController", { useClass: FikaDialogueController });
         container.register<FikaLocationController>("FikaLocationController", { useClass: FikaLocationController });
+        container.register<FikaMatchController>("FikaMatchController", { useClass: FikaMatchController });
         container.register<FikaRaidController>("FikaRaidController", { useClass: FikaRaidController });
         container.register<FikaSendItemController>("FikaSendItemController", { useClass: FikaSendItemController });
         container.register<FikaUpdateController>("FikaUpdateController", { useClass: FikaUpdateController });
@@ -125,6 +131,7 @@ export class Container {
     private static registerCallbacks(container: DependencyContainer): void {
         container.register<FikaClientCallbacks>("FikaClientCallbacks", { useClass: FikaClientCallbacks });
         container.register<FikaLocationCallbacks>("FikaLocationCallbacks", { useClass: FikaLocationCallbacks });
+        container.register<FikaMatchCallbacks>("FikaMatchCallbacks", { useClass: FikaMatchCallbacks });
         container.register<FikaRaidCallbacks>("FikaRaidCallbacks", { useClass: FikaRaidCallbacks });
         container.register<FikaSendItemCallbacks>("FikaSendItemCallbacks", { useClass: FikaSendItemCallbacks });
         container.register<FikaUpdateCallbacks>("FikaUpdateCallbacks", { useClass: FikaUpdateCallbacks });
@@ -133,6 +140,7 @@ export class Container {
     private static registerRouters(container: DependencyContainer): void {
         container.register<FikaClientStaticRouter>("FikaClientStaticRouter", { useClass: FikaClientStaticRouter });
         container.register<FikaLocationStaticRouter>("FikaLocationStaticRouter", { useClass: FikaLocationStaticRouter });
+        container.register<FikaMatchStaticRouter>("FikaMatchStaticRouter", { useClass: FikaMatchStaticRouter });
         container.register<FikaRaidStaticRouter>("FikaRaidStaticRouter", { useClass: FikaRaidStaticRouter });
         container.register<FikaSendItemStaticRouter>("FikaSendItemStaticRouter", { useClass: FikaSendItemStaticRouter });
         container.register<FikaUpdateStaticRouter>("FikaUpdateStaticRouter", { useClass: FikaUpdateStaticRouter });
