@@ -39,10 +39,10 @@ export class FikaNatPunchRelayService implements IWebSocketConnectionHandler{
 
         this.logger.info(`${playerProfile.info.username} connected to FikaNatPunchRelayService`);
 
-        ws.on("message", (msg) => this.OnMessage(msg));
+        ws.on("message", (msg) => this.onMessage(msg));
     }
 
-    protected OnMessage(msg: any) {
+    protected onMessage(msg: any) {
         const msgStr = msg.toString();
         const msgObj = JSON.parse(msgStr);
 
