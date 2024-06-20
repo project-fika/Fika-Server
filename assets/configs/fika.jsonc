@@ -15,8 +15,6 @@
     "server": {
         "giftedItemsLoseFIR": true,
         "launcherListAllProfiles": false,
-        "sessionTimeout": 5,
-        "natPunchRelayService": false,
-        "natPunchRelayServicePort": 6970
+        "sessionTimeout": 5
     }
 }

@@ -1,8 +1,9 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { Overrider } from "./overrides/Overrider";
-import { FikaNatPunchRelayService } from "./services/FikaNatPunchRelayService";
 import { FikaConfig } from "./utils/FikaConfig";
+import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
+import { FikaNatPunchRelayService } from "./services/FikaNatPunchRelayService";
 
 @injectable()
 export class Fika {
@@ -20,10 +21,5 @@ export class Fika {
     }
 
     public async postSptLoad(container: DependencyContainer): Promise<void> {
-        const fikaConfig = this.fikaConfigServer.getConfig();
-
-        if(fikaConfig.server.natPunchRelayService) {
-            this.fikaNatPunchRelayService.start();
-        }
     }
 }
