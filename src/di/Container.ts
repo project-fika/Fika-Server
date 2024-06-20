@@ -41,6 +41,8 @@ import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter
 import { FikaItemEventRouter } from "../routers/item_events/FikaItemEventRouter";
 
 import { Fika } from "../Fika";
+import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
+import { FikaNatPunchRelayService } from "../services/FikaNatPunchRelayService";
 
 export class Container {
     public static register(container: DependencyContainer): void {
@@ -78,6 +80,8 @@ export class Container {
         container.registerType("StaticRoutes", "FikaSendItemStaticRouter");
         container.registerType("StaticRoutes", "FikaUpdateStaticRouter");
 
+        container.registerType("WebSocketConnectionHandler", "FikaNatPunchRelayService");
+
         container.registerType("IERouters", "FikaItemEventRouter");
     }
 
@@ -100,6 +104,7 @@ export class Container {
         container.register<FikaMatchService>("FikaMatchService", FikaMatchService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaFriendRequestsCacheService>("FikaFriendRequestsCacheService", FikaFriendRequestsCacheService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaPlayerRelationsCacheService>("FikaPlayerRelationsCacheService", FikaPlayerRelationsCacheService, { lifecycle: Lifecycle.Singleton });
+        container.register<IWebSocketConnectionHandler>("FikaNatPunchRelayService", FikaNatPunchRelayService, {lifecycle: Lifecycle.Singleton });
     }
 
     private static registerHelpers(container: DependencyContainer): void {
