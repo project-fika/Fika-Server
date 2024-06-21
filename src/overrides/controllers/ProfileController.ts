@@ -40,17 +40,19 @@ export class ProfileControllerOverride extends Override {
                     const matches: ISearchFriendResponse[] = [];
 
                     for (const profile of Object.values(profiles)) {
-                        if (profile.characters.pmc.Info.Nickname.toLowerCase().startsWith(searchNicknameLowerCase)) {
-                            matches.push({
-                                _id: profile.characters.pmc._id,
-                                aid: profile.characters.pmc.aid,
-                                Info: {
-                                    Nickname: profile.characters.pmc.Info.Nickname,
-                                    Side: profile.characters.pmc.Info.Side,
-                                    Level: profile.characters.pmc.Info.Level,
-                                    MemberCategory: profile.characters.pmc.Info.MemberCategory,
-                                },
-                            });
+                        if (profile.characters?.pmc?.Info) {
+                            if (profile.characters.pmc.Info.Nickname.toLowerCase().startsWith(searchNicknameLowerCase)) {
+                                matches.push({
+                                    _id: profile.characters.pmc._id,
+                                    aid: profile.characters.pmc.aid,
+                                    Info: {
+                                        Nickname: profile.characters.pmc.Info.Nickname,
+                                        Side: profile.characters.pmc.Info.Side,
+                                        Level: profile.characters.pmc.Info.Level,
+                                        MemberCategory: profile.characters.pmc.Info.MemberCategory,
+                                    },
+                                });
+                            }
                         }
                     }
 
