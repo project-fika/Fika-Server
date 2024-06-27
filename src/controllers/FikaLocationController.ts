@@ -1,13 +1,16 @@
 import { inject, injectable } from "tsyringe";
 
 import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
 
 import { IFikaRaidsResponse } from "../models/fika/routes/location/IFikaRaidsResponse";
 import { FikaMatchService } from "../services/FikaMatchService";
+import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
 
 @injectable()
 export class FikaLocationController {
-    constructor(@inject("FikaMatchService") protected fikaMatchService: FikaMatchService) {
+    constructor(@inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
+        @inject("WinstonLogger") protected logger: ILogger) {
         // empty
     }
 
@@ -16,15 +19,25 @@ export class FikaLocationController {
      * @param request
      * @returns
      */
-    public handleGetRaids(_request: IGetRaidConfigurationRequestData): IFikaRaidsResponse {
+    public handleGetRaids(_request: IGetRaidConfigurationRequestData, _sessionID: string): IFikaRaidsResponse {
         const matches: IFikaRaidsResponse = [];
 
         for (const [matchId, match] of this.fikaMatchService.getAllMatches()) {
+
+            let matchStatus: FikaMatchStatus = match.status;
+
+            // _sessionID is player searching for a match, make sure its not the host too
+            if (match.players.get(_sessionID) !== undefined && _sessionID !== matchId) {
+                this.logger.warning(`Player ${_sessionID} is in match ${matchId}`);
+                this.logger.warning(`Setting match.status to Rejoin`);
+                matchStatus = FikaMatchStatus.REJOIN;
+            }
+
             matches.push({
                 serverId: matchId,
                 hostUsername: match.hostUsername,
                 playerCount: match.players.size,
-                status: match.status,
+                status: matchStatus,
                 location: match.raidConfig.location,
                 side: match.side,
                 time: match.time,

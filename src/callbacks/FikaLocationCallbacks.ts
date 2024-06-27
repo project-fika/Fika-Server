@@ -16,6 +16,6 @@ export class FikaLocationCallbacks {
 
     /** Handle /fika/location/raids */
     public handleGetRaids(_url: string, info: IGetRaidConfigurationRequestData, _sessionID: string): string {
-        return this.httpResponseUtil.noBody(this.fikaLocationController.handleGetRaids(info));
+        return this.httpResponseUtil.noBody(this.fikaLocationController.handleGetRaids(info, _sessionID));
     }
 }
