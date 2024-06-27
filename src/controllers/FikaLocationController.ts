@@ -11,12 +11,12 @@ import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
 export class FikaLocationController {
     constructor(@inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("WinstonLogger") protected logger: ILogger) {
-        // empty
     }
 
     /**
      * Handle /fika/location/raids
-     * @param request
+     * @param _request
+     * @param _sessionID
      * @returns
      */
     public handleGetRaids(_request: IGetRaidConfigurationRequestData, _sessionID: string): IFikaRaidsResponse {
@@ -28,8 +28,8 @@ export class FikaLocationController {
 
             // _sessionID is player searching for a match, make sure its not the host too
             if (match.players.get(_sessionID) !== undefined && _sessionID !== matchId) {
-                this.logger.warning(`Player ${_sessionID} is in match ${matchId}`);
-                this.logger.warning(`Setting match.status to Rejoin`);
+                this.logger.info(`Player ${_sessionID} is in match ${matchId}`);
+                this.logger.info(`Setting match.status to Rejoin`);
                 matchStatus = FikaMatchStatus.REJOIN;
             }
 
