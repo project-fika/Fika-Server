@@ -16,19 +16,19 @@ export class FikaLocationController {
     /**
      * Handle /fika/location/raids
      * @param _request
-     * @param _sessionID
+     * @param sessionID
      * @returns
      */
-    public handleGetRaids(_request: IGetRaidConfigurationRequestData, _sessionID: string): IFikaRaidsResponse {
+    public handleGetRaids(_request: IGetRaidConfigurationRequestData, sessionID: string): IFikaRaidsResponse {
         const matches: IFikaRaidsResponse = [];
 
         for (const [matchId, match] of this.fikaMatchService.getAllMatches()) {
 
             let matchStatus: FikaMatchStatus = match.status;
 
-            // _sessionID is player searching for a match, make sure its not the host too
-            if (match.players.get(_sessionID) !== undefined && _sessionID !== matchId) {
-                this.logger.info(`Player ${_sessionID} is in match ${matchId}`);
+            // sessionID is player searching for a match, make sure its not the host too
+            if (match.players.get(sessionID) !== undefined && sessionID !== matchId) {
+                this.logger.info(`Player ${sessionID} is in match ${matchId}`);
                 this.logger.info(`Setting match.status to Rejoin`);
                 matchStatus = FikaMatchStatus.REJOIN;
             }
