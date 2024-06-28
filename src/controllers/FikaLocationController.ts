@@ -9,7 +9,8 @@ import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
 
 @injectable()
 export class FikaLocationController {
-    constructor(@inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
+    constructor(
+        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("WinstonLogger") protected logger: ILogger) {
     }
 
