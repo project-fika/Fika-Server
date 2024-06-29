@@ -41,6 +41,7 @@ import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter
 import { FikaItemEventRouter } from "../routers/item_events/FikaItemEventRouter";
 
 import { Fika } from "../Fika";
+import { FikaServerTools } from "../utils/FikaServerTools";
 
 export class Container {
     public static register(container: DependencyContainer): void {
@@ -83,6 +84,7 @@ export class Container {
 
     private static registerUtils(container: DependencyContainer): void {
         container.register<FikaConfig>("FikaConfig", FikaConfig, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaServerTools>("FikaServerTools", FikaServerTools, { lifecycle: Lifecycle.Singleton });
     }
 
     private static registerOverrides(container: DependencyContainer): void {
