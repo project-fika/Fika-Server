@@ -23,7 +23,7 @@ export class FikaServerTools {
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("ConfigServer") protected configServer: ConfigServer,
     ) {
-        this.exePath = path.join(path.join(__dirname, "../../", "FikaServerTools.exe"));
+        this.exePath = path.join(path.join(__dirname, "../../"), "FikaServerTools.exe");
         this.natPunchServerConfig = fikaConfig.getConfig().natPunchServer;
         this.httpConfig = this.configServer.getConfig(ConfigTypes.HTTP);
     }
