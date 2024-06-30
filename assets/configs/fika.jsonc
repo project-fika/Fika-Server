@@ -18,5 +18,10 @@
         "giftedItemsLoseFIR": true,
         "launcherListAllProfiles": false,
         "sessionTimeout": 5
+    },
+    "natPunchServer": {
+        "enable": false,
+        "port": 6790,
+        "natIntroduceAmount": 1
     }
 }

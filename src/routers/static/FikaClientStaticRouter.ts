@@ -13,6 +13,9 @@ export class FikaClientStaticRouter extends StaticRouter {
             new RouteAction("/fika/client/config", async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaClientCallbacks.handleClientConfig(url, info, sessionID);
             }),
+            new RouteAction("/fika/natpunchserver/config", async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): Promise<string> => {
+                return this.fikaClientCallbacks.handleNatPunchServerConfig(url, info, sessionID);
+            }),
             new RouteAction("/fika/client/check/mods", async (url: string, info: IFikaCheckModRequestData, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaClientCallbacks.handleCheckMods(url, info, sessionID);
             }),
