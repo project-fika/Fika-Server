@@ -6,6 +6,7 @@ import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper"
 import { IFikaCheckModRequestData } from "../models/fika/routes/client/check/IFikaCheckModRequestData";
 import { IFikaCheckModResponse } from "../models/fika/routes/client/check/IFikaCheckModResponse";
 import { FikaConfig } from "../utils/FikaConfig";
+import { IFikaConfigNatPunchServer } from "../models/fika/config/IFikaConfigNatPunchServer";
 
 @injectable()
 export class FikaClientController {
@@ -27,6 +28,10 @@ export class FikaClientController {
      */
     public handleClientConfig(): IFikaConfigClient {
         return this.fikaConfig.getConfig().client;
+    }
+
+    public handleNatPunchServerConfig(): IFikaConfigNatPunchServer {
+        return this.fikaConfig.getConfig().natPunchServer;
     }
 
     /**
