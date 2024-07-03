@@ -26,7 +26,7 @@ export class FikaUpdateController {
      * @param request
      */
     public handleSpawnpoint(request: IFikaUpdateSpawnpointRequestData): void {
-        this.fikaMatchService.setMatchSpawnPoint(request.serverId, request.name);
+        this.fikaMatchService.setMatchSpawnPoint(request.serverId, request.name, request.groupId);
     }
 
     /**

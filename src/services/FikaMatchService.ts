@@ -1,16 +1,20 @@
 import { inject, injectable } from "tsyringe";
 
 import { LocationController } from "@spt/controllers/LocationController";
+import { NotificationSendHelper } from "@spt/helpers/NotificationSendHelper";
+import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
+import { NotificationEventType } from "@spt/models/enums/NotificationEventType";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { HashUtil } from "@spt/utils/HashUtil";
 
 import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
 import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
 import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
-
 import { FikaConfig } from "../utils/FikaConfig";
+import { FikaGroupService } from "./FikaGroupService";
 
 @injectable()
 export class FikaMatchService {
@@ -22,6 +26,9 @@ export class FikaMatchService {
         @inject("LocationController") protected locationController: LocationController,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
+        @inject("FikaGroupService") protected fikaGroupService: FikaGroupService,
+        @inject("NotificationSendHelper") protected notifications: NotificationSendHelper,
+        @inject("HashUtil") protected hashUtil: HashUtil,
     ) {
         this.matches = new Map();
         this.timeoutIntervals = new Map();
@@ -207,7 +214,10 @@ export class FikaMatchService {
 
         this.addTimeoutInterval(data.serverId);
 
-        this.addPlayerToMatch(data.serverId, data.serverId, { groupId: null, isDead: false });
+        const groupId = this.fikaGroupService.getGroupIdByMember(data.serverId) ?? null;
+        this.addPlayerToMatch(data.serverId, data.serverId, { groupId, isDead: false });
+
+        this.notifyGroupMembersToJoin(data.serverId);
 
         return this.matches.has(data.serverId) && this.timeoutIntervals.has(data.serverId);
     }
@@ -254,13 +264,17 @@ export class FikaMatchService {
      * Sets the spawn point of the given match
      * @param matchId
      * @param spawnPoint
+     * @param groupId
      */
-    public setMatchSpawnPoint(matchId: string, spawnPoint: string): void {
+    public setMatchSpawnPoint(matchId: string, spawnPoint: string, groupId: string): void {
         if (!this.matches.has(matchId)) {
             return;
         }
 
-        this.matches.get(matchId).spawnPoint = spawnPoint;
+        this.matches.get(matchId).spawnPoint = {
+            ...(this.matches.get(matchId).spawnPoint ?? {}),
+            [groupId]: spawnPoint
+        };
     }
 
     /**
@@ -336,5 +350,29 @@ export class FikaMatchService {
         }
 
         this.matches.get(matchId).players.delete(playerId);
+    }
+
+    /**
+     * Sends a notification to group members to instruct
+     * their game to automatically join the match.
+     * @param profileId
+     */
+    public notifyGroupMembersToJoin(profileId: string) {
+        const groupId = this.fikaGroupService.getGroupIdByMember(profileId);
+        const group = this.fikaGroupService.getGroup(groupId);
+        if (group) {
+            const leader = this.fikaGroupService.getGroupLeader(groupId);
+
+            if (leader?._id === profileId) {
+                for (const member of group) {
+                    if (member._id === profileId) continue;
+
+                    this.notifications.sendMessage(member._id, {
+                        type: NotificationEventType.GROUP_MATCH_START_GAME,
+                        eventId: this.hashUtil.generate(),
+                    } as IWsNotificationEvent);
+                }
+            }
+        }
     }
 }
