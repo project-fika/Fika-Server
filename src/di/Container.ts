@@ -4,6 +4,7 @@ import { FikaConfig } from "../utils/FikaConfig";
 
 import { Overrider } from "../overrides/Overrider";
 import { MatchCallbacksOverride } from "../overrides/callbacks/MatchCallbacks";
+import { GameCallbacksOverride } from "../overrides/callbacks/GameCallbacks";
 import { DialogueCallbacksOverride } from "../overrides/callbacks/DialogueCallbacks";
 import { LocationCallbacksOverride } from "../overrides/callbacks/LocationCallbacks";
 import { DialogueControllerOverride } from "../overrides/controllers/DialogueController";
@@ -74,6 +75,7 @@ export class Container {
 
     private static registerListTypes(container: DependencyContainer): void {
         container.registerType("Overrides", "MatchCallbacksOverride");
+        container.registerType("Overrides", "GameCallbacksOverride");
         container.registerType("Overrides", "DialogueCallbacksOverride");
         container.registerType("Overrides", "LocationCallbacksOverride");
         container.registerType("Overrides", "DialogueControllerOverride");
@@ -100,6 +102,7 @@ export class Container {
 
     private static registerOverrides(container: DependencyContainer): void {
         container.register<MatchCallbacksOverride>("MatchCallbacksOverride", MatchCallbacksOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<GameCallbacksOverride>("GameCallbacksOverride", GameCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DialogueCallbacksOverride>("DialogueCallbacksOverride", DialogueCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocationCallbacksOverride>("LocationCallbacksOverride", LocationCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DialogueControllerOverride>("DialogueControllerOverride", DialogueControllerOverride, { lifecycle: Lifecycle.Singleton });
