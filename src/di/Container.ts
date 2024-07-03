@@ -45,6 +45,7 @@ import { FikaLocationStaticRouter } from "../routers/static/FikaLocationStaticRo
 import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
+import { FikaMatchStaticRouter } from '../routers/static/FikaMatchStaticRouter';
 
 import { FikaItemEventRouter } from "../routers/item_events/FikaItemEventRouter";
 
@@ -91,6 +92,7 @@ export class Container {
         container.registerType("StaticRoutes", "FikaRaidStaticRouter");
         container.registerType("StaticRoutes", "FikaSendItemStaticRouter");
         container.registerType("StaticRoutes", "FikaUpdateStaticRouter");
+        container.registerType("StaticRoutes", "FikaMatchStaticRouter");
 
         container.registerType("IERouters", "FikaItemEventRouter");
     }
@@ -154,6 +156,8 @@ export class Container {
         container.register<FikaRaidStaticRouter>("FikaRaidStaticRouter", { useClass: FikaRaidStaticRouter });
         container.register<FikaSendItemStaticRouter>("FikaSendItemStaticRouter", { useClass: FikaSendItemStaticRouter });
         container.register<FikaUpdateStaticRouter>("FikaUpdateStaticRouter", { useClass: FikaUpdateStaticRouter });
+        container.register<FikaMatchStaticRouter>("FikaMatchStaticRouter", { useClass: FikaMatchStaticRouter });
+
         container.register<FikaItemEventRouter>("FikaItemEventRouter", { useClass: FikaItemEventRouter });
     }
 }
