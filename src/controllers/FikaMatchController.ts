@@ -24,6 +24,7 @@ import { IRequestIdRequest } from "@spt/models/eft/match/IRequestIdRequest";
 import { IGroupCharacter } from "@spt/models/eft/match/IGroupCharacter";
 import { IMatchGroupTransferRequest } from "@spt/models/eft/match/IMatchGroupTransferRequest";
 import { IMatchGroupPlayerRemoveRequest } from "@spt/models/eft/match/IMatchGroupPlayerRemoveRequest";
+import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
 
 import { FikaGroupService } from "../services/FikaGroupService";
 
@@ -150,5 +151,19 @@ export class FikaMatchController extends MatchController {
     public groupCurrent(info: IEmptyRequestData, sessionID: string): IMatchGroupCurrentResponse {
         const group = this.groupService.getGroupByMember(sessionID);
         return { squad: group ?? [] }
+    }
+
+    /**
+     * Handle /client/raid/configuration
+     * @param request Raid config request
+     * @param sessionID Player's session ID
+     */
+    public startOfflineRaid = (request: IGetRaidConfigurationRequestData, sessionID: string) => {
+        super.startOfflineRaid(request, sessionID);
+
+        const groupId = this.groupService.getGroupIdByMember(sessionID);
+        if (groupId) {
+            this.groupService.sendRaidSettings(groupId, request);
+        }
     }
 }

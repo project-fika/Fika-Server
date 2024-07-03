@@ -15,7 +15,8 @@ import { IWsAidNickname } from "@spt/models/eft/ws/IWsAidNickname";
 import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
 
 import { FikaConfig } from "../utils/FikaConfig";
-import { FikaGroupCacheService } from "./cache/FikaGroupCacheService";
+import { IRaidSettings } from "@spt/models/eft/match/IRaidSettings";
+import { IWsGroupMatchRaidSettings } from "@spt/models/eft/ws/IWsGroupMatchRaidSettings";
 
 @injectable()
 export class FikaGroupService {
@@ -29,17 +30,14 @@ export class FikaGroupService {
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("HashUtil") protected hashUtil: HashUtil,
-        @inject("FikaGroupCacheService") protected cache: FikaGroupCacheService,
         @inject("NotificationSendHelper") protected notifications: NotificationSendHelper,
     ) {
-        this.cache.load();
         this.invites = new Map();
         this.inviters = new Map();
-        this.groups = new Map(this.cache.getGroups() ?? []);
+        this.groups = new Map();
     }
 
     public getGroup(groupId: string): IGroupCharacter[] | null {
-        this.refreshCache()
         return this.groups.get(groupId) ?? [];
     }
 
@@ -49,7 +47,6 @@ export class FikaGroupService {
     }
 
     public getGroupIdByMember(sessionID: string) {
-        this.refreshCache()
         for (const [gid, group] of this.groups) {
             if (group.find(p => p._id === sessionID)) {
                 return gid;
@@ -96,7 +93,6 @@ export class FikaGroupService {
             }
         }
         this.groups.set(groupId, group);
-        this.updateCache();
         return group;
     }
 
@@ -109,7 +105,6 @@ export class FikaGroupService {
             }
         }
         this.groups.set(groupId, group);
-        this.updateCache();
         return group;
     }
 
@@ -341,6 +336,19 @@ export class FikaGroupService {
         return true;
     }
 
+    public sendRaidSettings(groupId: string, raidSettings: IRaidSettings) {
+        const group = this.getGroup(groupId);
+        for (const member of group) {
+            const notification: IWsGroupMatchRaidSettings = {
+                type: NotificationEventType.GROUP_MATCH_RAID_SETTINGS,
+                eventId: this.hashUtil.generate(),
+                raidSettings
+            }
+
+            this.notifications.sendMessage(member._id, notification);
+        }
+    }
+
     private changeLeader(groupId: string, newLeaderId: string) {
         try {
             const members = this.getGroup(groupId);
@@ -348,7 +356,6 @@ export class FikaGroupService {
                 member.isLeader = member._id === newLeaderId
             }
             this.groups.set(groupId, members);
-            this.updateCache();
             return true;
         } catch (err) {
             return false;
@@ -356,18 +363,14 @@ export class FikaGroupService {
     }
 
     private createGroup() {
-        this.refreshCache()
         const groupId = this.hashUtil.generate();
         this.logger.info(`[FikaGroupService] Created group ${groupId}`)
         this.groups.set(groupId, []);
-        this.updateCache();
         return groupId;
     }
 
     private deleteGroup(groupId: string) {
-        this.refreshCache()
         this.groups.delete(groupId);
-        this.updateCache();
     }
 
     private addMember(groupId: string, member: IGroupCharacter | string, leader = false): IGroupCharacter | null {
@@ -415,7 +418,6 @@ export class FikaGroupService {
                 }
                 group.push(memberObj);
                 this.groups.set(groupId, group);
-                this.updateCache();
 
                 return memberObj;
             }
@@ -433,21 +435,9 @@ export class FikaGroupService {
                 const [removed] = arr.splice(index, 1);
                 this.groups.set(groupId, arr);
 
-                this.updateCache();
-
                 return removed;
             }
         }
         return null;
     }
-
-    private updateCache() {
-        this.cache.store(Array.from(this.groups.entries()));
-    }
-
-    private refreshCache() {
-        this.cache.load();
-        this.groups = new Map(this.cache.getGroups())
-    }
-
 }
