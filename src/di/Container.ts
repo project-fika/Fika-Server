@@ -14,6 +14,8 @@ import { AchievementControllerOverride } from "../overrides/controllers/Achievem
 import { DatabaseServiceOverride } from "../overrides/services/FikaDatabaseService";
 
 import { FikaMatchService } from "../services/FikaMatchService";
+import { FikaGroupService } from '../services/FikaGroupService';
+import { FikaGroupCacheService } from "../services/cache/FikaGroupCacheService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
 
@@ -107,6 +109,8 @@ export class Container {
 
     private static registerServices(container: DependencyContainer): void {
         container.register<FikaMatchService>("FikaMatchService", FikaMatchService, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaGroupService>("FikaGroupService", FikaGroupService, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaGroupCacheService>("FikaGroupCacheService", FikaGroupCacheService, { lifecycle: Lifecycle.Singleton })
         container.register<FikaFriendRequestsCacheService>("FikaFriendRequestsCacheService", FikaFriendRequestsCacheService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaPlayerRelationsCacheService>("FikaPlayerRelationsCacheService", FikaPlayerRelationsCacheService, { lifecycle: Lifecycle.Singleton });
     }
