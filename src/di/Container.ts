@@ -3,6 +3,7 @@ import { DependencyContainer, Lifecycle } from "tsyringe";
 import { FikaConfig } from "../utils/FikaConfig";
 
 import { Overrider } from "../overrides/Overrider";
+import { MatchCallbacksOverride } from "../overrides/callbacks/MatchCallbacks";
 import { DialogueCallbacksOverride } from "../overrides/callbacks/DialogueCallbacks";
 import { LocationCallbacksOverride } from "../overrides/callbacks/LocationCallbacks";
 import { DialogueControllerOverride } from "../overrides/controllers/DialogueController";
@@ -30,6 +31,7 @@ import { FikaRaidController } from "../controllers/FikaRaidController";
 import { FikaSendItemController } from "../controllers/FikaSendItemController";
 import { FikaUpdateController } from "../controllers/FikaUpdateController";
 import { FikaAchievementController } from "../controllers/FikaAchievementController";
+import { FikaMatchController } from "../controllers/FikaMatchController";
 
 import { FikaClientCallbacks } from "../callbacks/FikaClientCallbacks";
 import { FikaLocationCallbacks } from "../callbacks/FikaLocationCallbacks";
@@ -47,6 +49,7 @@ import { FikaItemEventRouter } from "../routers/item_events/FikaItemEventRouter"
 
 import { Fika } from "../Fika";
 import { FikaServerTools } from "../utils/FikaServerTools";
+import { MatchController } from "@spt/controllers/MatchController";
 
 export class Container {
     public static register(container: DependencyContainer): void {
@@ -70,6 +73,7 @@ export class Container {
     }
 
     private static registerListTypes(container: DependencyContainer): void {
+        container.registerType("Overrides", "MatchCallbacksOverride");
         container.registerType("Overrides", "DialogueCallbacksOverride");
         container.registerType("Overrides", "LocationCallbacksOverride");
         container.registerType("Overrides", "DialogueControllerOverride");
@@ -95,6 +99,7 @@ export class Container {
     }
 
     private static registerOverrides(container: DependencyContainer): void {
+        container.register<MatchCallbacksOverride>("MatchCallbacksOverride", MatchCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DialogueCallbacksOverride>("DialogueCallbacksOverride", DialogueCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocationCallbacksOverride>("LocationCallbacksOverride", LocationCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DialogueControllerOverride>("DialogueControllerOverride", DialogueControllerOverride, { lifecycle: Lifecycle.Singleton });
@@ -122,6 +127,7 @@ export class Container {
     }
 
     private static registerControllers(container: DependencyContainer): void {
+        container.register<MatchController>("MatchController", { useClass: FikaMatchController });
         container.register<FikaClientController>("FikaClientController", { useClass: FikaClientController });
         container.register<FikaDialogueController>("FikaDialogueController", { useClass: FikaDialogueController });
         container.register<FikaLocationController>("FikaLocationController", { useClass: FikaLocationController });
