@@ -7,15 +7,21 @@ import { IGetOtherProfileRequest } from "@spt/models/eft/profile/IGetOtherProfil
 import { IGetOtherProfileResponse } from "@spt/models/eft/profile/IGetOtherProfileResponse";
 import { ISearchFriendRequestData } from "@spt/models/eft/profile/ISearchFriendRequestData";
 import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
+import { GetProfileStatusResponseData } from "@spt/models/eft/profile/GetProfileStatusResponseData";
 
 import { Override } from "../../di/Override";
 import { FikaConfig } from "../../utils/FikaConfig";
+import { FikaMatchService } from "../../services/FikaMatchService";
+import { FikaGroupService } from "../../services/FikaGroupService";
+import { SideType } from "@spt/models/enums/SideType";
 
 @injectable()
 export class ProfileControllerOverride extends Override {
     constructor(
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
+        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
+        @inject("FikaGroupService") protected fikaGroupService: FikaGroupService,
     ) {
         super();
     }
@@ -116,6 +122,49 @@ export class ProfileControllerOverride extends Override {
                         },
                     };
                 };
+
+                result.getProfileStatus = (sessionId: string): GetProfileStatusResponseData => {
+                    const account = this.profileHelper.getFullProfile(sessionId).info;
+                    const groupId = this.fikaGroupService.getGroupIdByMember(sessionId);
+                    const matchId = this.fikaMatchService.getMatchIdByProfile(sessionId);
+                    const match = this.fikaMatchService.getMatch(matchId);
+                    const matchPlayer = this.fikaMatchService.getPlayerInMatch(matchId, sessionId);
+
+                    const profileInfo = {
+                        [matchPlayer?.side ?? SideType.PMC]: {
+                            status: match?.ips?.length ? "Busy" : "Free",
+                            location: match?.raidConfig?.location,
+                            raidMode: match?.raidConfig?.raidMode,
+                            mode: groupId ?? undefined,
+                        }
+                    }
+
+                    const response: GetProfileStatusResponseData = {
+                        maxPveCountExceeded: false,
+                        profiles: [
+                            {
+                                profileid: account.scavId,
+                                profileToken: undefined,
+                                status: "Free", // This will be overwritten
+                                sid: "",
+                                ip: "",
+                                port: 0,
+                                ...(profileInfo[SideType.SAVAGE] ?? {})
+                            },
+                            {
+                                profileid: account.id,
+                                profileToken: undefined,
+                                status: "Free", // This will be overwritten
+                                sid: "",
+                                ip: "",
+                                port: 0,
+                                ...(profileInfo[SideType.PMC] ?? {})
+                            },
+                        ],
+                    };
+
+                    return response;
+                }
             },
             { frequency: "Always" },
         );
