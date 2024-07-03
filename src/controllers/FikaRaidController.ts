@@ -69,10 +69,19 @@ export class FikaRaidController {
      * Handle /fika/raid/gethost
      * @param request
      */
-    public handleRaidGethost(request: IFikaRaidServerIdRequestData): IFikaRaidGethostResponse {
-        const match = this.fikaMatchService.getMatch(request.serverId);
+    public handleRaidGethost(request: IFikaRaidServerIdRequestData, sessionID: string): IFikaRaidGethostResponse {
+        let match = this.fikaMatchService.getMatch(request.serverId);
         if (!match) {
-            return;
+            const groupId = this.fikaGroupService.getGroupIdByMember(sessionID);
+            const leader = this.fikaGroupService.getGroupLeader(groupId);
+            if (leader._id !== sessionID) {
+                const matchId = this.fikaMatchService.getMatchIdByPlayer(leader._id);
+                if (matchId) {
+                    match = this.fikaMatchService.getMatch(matchId);
+                }
+            }
+
+            if (!match) return;
         }
 
         return {
@@ -86,14 +95,24 @@ export class FikaRaidController {
      * Handle /fika/raid/spawnpoint
      * @param request
      */
-    public handleRaidSpawnpoint(request: IFikaRaidServerIdRequestData): IFikaRaidSpawnpointResponse {
+    public handleRaidSpawnpoint(request: IFikaRaidServerIdRequestData, sessionID: string): IFikaRaidSpawnpointResponse {
         const match = this.fikaMatchService.getMatch(request.serverId);
         if (!match) {
             return;
         }
 
+        const groupId = this.fikaGroupService.getGroupIdByMember(sessionID);
+        if (!groupId) {
+            return;
+        }
+
+        const spawnpoint = match.spawnPoint[groupId];
+        if (!spawnpoint) {
+            return;
+        }
+
         return {
-            spawnpoint: match.spawnPoint,
+            spawnpoint
         };
     }
 
