@@ -381,8 +381,8 @@ export class FikaGroupService {
                     memberObj = {
                         _id: memberId,
                         aid: profile.info.aid,
-                        isLeader: leader,
-                        isReady: false,
+                        IsLeader: leader,
+                        IsReady: false,
                         lookingGroup: false,
                         Info: {
                             Nickname: profile.characters.pmc.Info.Nickname,
@@ -391,6 +391,8 @@ export class FikaGroupService {
                             Side: profile.characters.pmc.Info.Side,
                             Level: profile.characters.pmc.Info.Level,
                             MemberCategory: profile.characters.pmc.Info.MemberCategory,
+                            SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
+                            GameVersion: profile.characters.pmc.Info.GameVersion,
                         },
                         PlayerVisualRepresentation: {
                             Info: {
@@ -398,6 +400,7 @@ export class FikaGroupService {
                                 Side: profile.characters.pmc.Info.Side,
                                 Level: profile.characters.pmc.Info.Level,
                                 MemberCategory: profile.characters.pmc.Info.MemberCategory,
+                                SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
                                 GameVersion: profile.characters.pmc.Info.GameVersion,
                             },
                             Customization: profile.characters.pmc.Customization,
