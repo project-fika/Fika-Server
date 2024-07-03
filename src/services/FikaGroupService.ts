@@ -78,7 +78,7 @@ export class FikaGroupService {
         if (!group) return null
 
         for (const member of group) {
-            if (member.isLeader) return member;
+            if (member.IsLeader) return member;
         }
 
         return null;
@@ -89,7 +89,7 @@ export class FikaGroupService {
         if (!group) return;
         for (const member of group) {
             if (member._id === sessionID) {
-                member.isReady = true;
+                member.IsReady = true;
             }
         }
         this.groups.set(groupId, group);
@@ -101,7 +101,7 @@ export class FikaGroupService {
         if (!group) return;
         for (const member of group) {
             if (member._id === sessionID) {
-                member.isReady = false;
+                member.IsReady = false;
             }
         }
         this.groups.set(groupId, group);
@@ -353,7 +353,7 @@ export class FikaGroupService {
         try {
             const members = this.getGroup(groupId);
             for (const member of members) {
-                member.isLeader = member._id === newLeaderId
+                member.IsLeader = member._id === newLeaderId
             }
             this.groups.set(groupId, members);
             return true;

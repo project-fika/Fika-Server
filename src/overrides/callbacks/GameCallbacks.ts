@@ -35,14 +35,14 @@ export class GameCallbacksOverride extends Override {
                         squad: group.map(p => ({
                             _id: p._id,
                             aid: String(p.aid),
-                            info: {
+                            Info: {
                                 Nickname: p.Info.Nickname,
                                 Side: p.Info.Side,
                                 Level: String(p.Info.Level),
                                 MemberCategory: p.Info.MemberCategory
                             },
-                            isLeader: p.isLeader,
-                            isReady: p.isReady
+                            IsLeader: p.IsLeader,
+                            IsReady: p.IsReady
                         }))
                     })
                 }

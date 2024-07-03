@@ -83,7 +83,7 @@ export class MatchCallbacksOverride extends Override {
 
                     // If the leader is ready, then we'll notify everyone that this
                     // player isn't anymore.
-                    if (leaderUnreadied || leader.isReady) {
+                    if (leaderUnreadied || leader.IsReady) {
                         for (const member of group) {
                             this.notifications.sendMessage(member._id, notification);
                         }
@@ -95,7 +95,7 @@ export class MatchCallbacksOverride extends Override {
                         for (const member of group) {
                             this.fikaGroupService.groupMemberNotReady(groupId, member._id);
 
-                            if (member._id === leader._id || !member.isReady) continue
+                            if (member._id === leader._id || !member.IsReady) continue
                             this.notifications.sendMessage(leader._id, {
                                 type: NotificationEventType.GROUP_MATCH_RAID_NOT_READY,
                                 eventId: this.hashUtil.generate(),
