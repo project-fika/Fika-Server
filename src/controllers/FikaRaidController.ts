@@ -11,10 +11,15 @@ import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaid
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 import { IFikaRaidSpawnpointResponse } from "../models/fika/routes/raid/spawnpoint/IFikaRaidSpawnpointResponse";
 import { FikaMatchService } from "../services/FikaMatchService";
+import { FikaGroupService } from "../services/FikaGroupService";
+import { IFikaGroupRaidResponse } from "../models/fika/routes/raid/group/IFikaGroupRaidResponse";
 
 @injectable()
 export class FikaRaidController {
-    constructor(@inject("FikaMatchService") protected fikaMatchService: FikaMatchService) {
+    constructor(
+        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
+        @inject("FikaGroupService") protected fikaGroupService: FikaGroupService
+    ) {
         // empty
     }
 
@@ -106,5 +111,33 @@ export class FikaRaidController {
             metabolismDisabled: match.raidConfig.metabolismDisabled,
             playersSpawnPlace: match.raidConfig.playersSpawnPlace
         };
+    }
+
+    /**
+     * Handle /fika/raid/group
+     * @param request
+     * @returns
+     */
+    public handleGetGroupRaid(sessionID: string): IFikaGroupRaidResponse {
+        const groupId = this.fikaGroupService.getGroupIdByMember(sessionID);
+        const leader = this.fikaGroupService.getGroupLeader(groupId);
+
+        if (!leader) {
+            const match = this.fikaMatchService.getMatchIdByPlayer(sessionID);
+            if (match) {
+                return {
+                    serverId: match
+                }
+            }
+        } else {
+            const match = this.fikaMatchService.getMatchIdByPlayer(leader._id);
+            if (match) {
+                return {
+                    serverId: match
+                }
+            }
+        }
+
+        return { serverId: '' }
     }
 }

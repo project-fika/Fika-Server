@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import { RouteAction, StaticRouter } from "@spt/di/Router";
 import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
 
 import { FikaRaidCallbacks } from "../../callbacks/FikaRaidCallbacks";
 import { IFikaRaidServerIdRequestData } from "../../models/fika/routes/raid/IFikaRaidServerIdRequestData";
@@ -30,6 +31,9 @@ export class FikaRaidStaticRouter extends StaticRouter {
             }),
             new RouteAction("/fika/raid/getsettings", async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaRaidCallbacks.handleRaidGetSettings(url, info, sessionID);
+            }),
+            new RouteAction("/fika/raid/group", async (url: string, _info: IEmptyRequestData, sessionID: string, _output: string): Promise<string> => {
+                return this.fikaRaidCallbacks.handleGetGroupRaid(url, sessionID);
             }),
         ]);
     }

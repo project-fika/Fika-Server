@@ -49,4 +49,9 @@ export class FikaRaidCallbacks {
     public handleRaidGetSettings(_url: string, info: IFikaRaidServerIdRequestData, _sessionID: string): string {
         return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidGetSettings(info));
     }
+
+    /** Handle /fika/raid/group */
+    public handleGetGroupRaid(_url: string, sessionID: string): string {
+        return this.httpResponseUtil.noBody(this.fikaRaidController.handleGetGroupRaid(sessionID))
+    }
 }
