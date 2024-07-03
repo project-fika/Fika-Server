@@ -38,7 +38,9 @@ export class FikaRaidController {
      * @param request
      */
     public handleRaidJoin(request: IFikaRaidJoinRequestData): IFikaRaidJoinResponse {
-        this.fikaMatchService.addPlayerToMatch(request.serverId, request.profileId, { groupId: null, isDead: false });
+        const groupId = this.fikaGroupService.getGroupIdByMember(request.profileId);
+
+        this.fikaMatchService.addPlayerToMatch(request.serverId, request.profileId, { groupId, isDead: false, side: request.side });
 
         const match = this.fikaMatchService.getMatch(request.serverId);
 
