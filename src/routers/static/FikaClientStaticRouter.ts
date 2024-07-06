@@ -19,6 +19,9 @@ export class FikaClientStaticRouter extends StaticRouter {
             new RouteAction("/fika/client/check/mods", async (url: string, info: IFikaCheckModRequestData, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaClientCallbacks.handleCheckMods(url, info, sessionID);
             }),
+            new RouteAction("/fika/profile/download", async (url: string, info: any, sessionID: string, _output: string): Promise<any> => {
+                return this.fikaClientCallbacks.handleProfileDownload(url, info, sessionID);
+            }),
         ]);
     }
 }

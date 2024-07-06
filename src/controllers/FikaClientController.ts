@@ -7,6 +7,8 @@ import { IFikaCheckModRequestData } from "../models/fika/routes/client/check/IFi
 import { IFikaCheckModResponse } from "../models/fika/routes/client/check/IFikaCheckModResponse";
 import { FikaConfig } from "../utils/FikaConfig";
 import { IFikaConfigNatPunchServer } from "../models/fika/config/IFikaConfigNatPunchServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
 
 @injectable()
 export class FikaClientController {
@@ -16,6 +18,8 @@ export class FikaClientController {
     constructor(
         @inject("FikaClientModHashesHelper") protected fikaClientModHashesHelper: FikaClientModHashesHelper,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
+        @inject("SaveServer") protected saveServer: SaveServer,
+        @inject("WinstonLogger") protected logger: ILogger,
     ) {
         const config = this.fikaConfig.getConfig();
 
@@ -82,5 +86,17 @@ export class FikaClientController {
         }
 
         return mismatchedMods;
+    }
+
+    /** Handle /fika/profile/download */
+    public handleProfileDownload(sessionID: string): any {
+        const profile = this.saveServer.getProfile(sessionID);
+        if (profile) {
+            this.logger.info(`${sessionID} has downloaded their profile`);
+            return profile;
+        }
+
+        this.logger.error(`${sessionID} wants to download their profile but we don't have it`);
+        return null;
     }
 }
