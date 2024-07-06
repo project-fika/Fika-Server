@@ -11,6 +11,7 @@ import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 
 import { FikaConfig } from "../utils/FikaConfig";
+import { FikaDedicatedRaidService } from "./FikaDedicatedRaidService";
 
 @injectable()
 export class FikaMatchService {
@@ -22,6 +23,7 @@ export class FikaMatchService {
         @inject("LocationController") protected locationController: LocationController,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
+        @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
     ) {
         this.matches = new Map();
         this.timeoutIntervals = new Map();
@@ -248,6 +250,10 @@ export class FikaMatchService {
         }
 
         this.matches.get(matchId).status = status;
+
+        if (status.toString() == "COMPLETE") {
+            this.fikaDedicatedRaidService.handleRequestedSessions(matchId);
+        }
     }
 
     /**
