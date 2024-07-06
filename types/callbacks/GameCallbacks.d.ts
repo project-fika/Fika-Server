@@ -1,23 +1,25 @@
-import { GameController } from "@spt-aki/controllers/GameController";
-import { OnLoad } from "@spt-aki/di/OnLoad";
-import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
-import { IUIDRequestData } from "@spt-aki/models/eft/common/request/IUIDRequestData";
-import { ICheckVersionResponse } from "@spt-aki/models/eft/game/ICheckVersionResponse";
-import { ICurrentGroupResponse } from "@spt-aki/models/eft/game/ICurrentGroupResponse";
-import { IGameConfigResponse } from "@spt-aki/models/eft/game/IGameConfigResponse";
-import { IGameEmptyCrcRequestData } from "@spt-aki/models/eft/game/IGameEmptyCrcRequestData";
-import { IGameKeepAliveResponse } from "@spt-aki/models/eft/game/IGameKeepAliveResponse";
-import { IGameLogoutResponseData } from "@spt-aki/models/eft/game/IGameLogoutResponseData";
-import { IGameStartResponse } from "@spt-aki/models/eft/game/IGameStartResponse";
-import { IGetRaidTimeRequest } from "@spt-aki/models/eft/game/IGetRaidTimeRequest";
-import { IGetRaidTimeResponse } from "@spt-aki/models/eft/game/IGetRaidTimeResponse";
-import { IServerDetails } from "@spt-aki/models/eft/game/IServerDetails";
-import { IVersionValidateRequestData } from "@spt-aki/models/eft/game/IVersionValidateRequestData";
-import { IGetBodyResponseData } from "@spt-aki/models/eft/httpResponse/IGetBodyResponseData";
-import { INullResponseData } from "@spt-aki/models/eft/httpResponse/INullResponseData";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { Watermark } from "@spt-aki/utils/Watermark";
+import { GameController } from "@spt/controllers/GameController";
+import { OnLoad } from "@spt/di/OnLoad";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { IUIDRequestData } from "@spt/models/eft/common/request/IUIDRequestData";
+import { ICheckVersionResponse } from "@spt/models/eft/game/ICheckVersionResponse";
+import { ICurrentGroupResponse } from "@spt/models/eft/game/ICurrentGroupResponse";
+import { IGameConfigResponse } from "@spt/models/eft/game/IGameConfigResponse";
+import { IGameEmptyCrcRequestData } from "@spt/models/eft/game/IGameEmptyCrcRequestData";
+import { IGameKeepAliveResponse } from "@spt/models/eft/game/IGameKeepAliveResponse";
+import { IGameLogoutResponseData } from "@spt/models/eft/game/IGameLogoutResponseData";
+import { IGameModeRequestData } from "@spt/models/eft/game/IGameModeRequestData";
+import { IGameModeResponse } from "@spt/models/eft/game/IGameModeResponse";
+import { IGameStartResponse } from "@spt/models/eft/game/IGameStartResponse";
+import { IGetRaidTimeRequest } from "@spt/models/eft/game/IGetRaidTimeRequest";
+import { IGetRaidTimeResponse } from "@spt/models/eft/game/IGetRaidTimeResponse";
+import { IServerDetails } from "@spt/models/eft/game/IServerDetails";
+import { IVersionValidateRequestData } from "@spt/models/eft/game/IVersionValidateRequestData";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
+import { Watermark } from "@spt/utils/Watermark";
 export declare class GameCallbacks implements OnLoad {
     protected httpResponse: HttpResponseUtil;
     protected watermark: Watermark;
@@ -47,6 +49,11 @@ export declare class GameCallbacks implements OnLoad {
      * @returns IGameConfigResponse
      */
     getGameConfig(url: string, info: IGameEmptyCrcRequestData, sessionID: string): IGetBodyResponseData<IGameConfigResponse>;
+    /**
+     * Handle client/game/mode
+     * @returns IGameModeResponse
+     */
+    getGameMode(url: string, info: IGameModeRequestData, sessionID: string): IGetBodyResponseData<IGameModeResponse>;
     /**
      * Handle client/server/list
      */

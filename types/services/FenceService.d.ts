@@ -1,28 +1,27 @@
-import { HandbookHelper } from "@spt-aki/helpers/HandbookHelper";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { PresetHelper } from "@spt-aki/helpers/PresetHelper";
-import { IFenceLevel } from "@spt-aki/models/eft/common/IGlobals";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { Item, Repairable } from "@spt-aki/models/eft/common/tables/IItem";
-import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { IBarterScheme, ITraderAssort } from "@spt-aki/models/eft/common/tables/ITrader";
-import { IItemDurabilityCurrentMax, ITraderConfig } from "@spt-aki/models/spt/config/ITraderConfig";
-import { ICreateFenceAssortsResult } from "@spt-aki/models/spt/fence/ICreateFenceAssortsResult";
-import { IFenceAssortGenerationValues, IGenerationAssortValues } from "@spt-aki/models/spt/fence/IFenceAssortGenerationValues";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { HandbookHelper } from "@spt/helpers/HandbookHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { PresetHelper } from "@spt/helpers/PresetHelper";
+import { IFenceLevel } from "@spt/models/eft/common/IGlobals";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { Item, Repairable } from "@spt/models/eft/common/tables/IItem";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IBarterScheme, ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
+import { IItemDurabilityCurrentMax, ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
+import { ICreateFenceAssortsResult } from "@spt/models/spt/fence/ICreateFenceAssortsResult";
+import { IFenceAssortGenerationValues, IGenerationAssortValues } from "@spt/models/spt/fence/IFenceAssortGenerationValues";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { RandomUtil } from "@spt/utils/RandomUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 /**
  * Handle actions surrounding Fence
  * e.g. generating or refreshing assorts / get next refresh time
  */
 export declare class FenceService {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected timeUtil: TimeUtil;
     protected randomUtil: RandomUtil;
     protected databaseServer: DatabaseServer;
@@ -31,6 +30,7 @@ export declare class FenceService {
     protected presetHelper: PresetHelper;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected traderConfig: ITraderConfig;
     /** Time when some items in assort will be replaced  */
     protected nextPartialRefreshTimestamp: number;
@@ -41,7 +41,7 @@ export declare class FenceService {
     /** Desired baseline counts - Hydrated on initial assort generation as part of generateFenceAssorts() */
     protected desiredAssortCounts: IFenceAssortGenerationValues;
     protected fenceItemUpdCompareProperties: Set<string>;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, timeUtil: TimeUtil, randomUtil: RandomUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, timeUtil: TimeUtil, randomUtil: RandomUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Replace main fence assort with new assort
      * @param assort New assorts to replace old with

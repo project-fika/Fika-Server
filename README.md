@@ -1,4 +1,4 @@
-# Fika - Aki.Server Mod
+# Fika - SPT.Server Mod
 
 [![Discord](https://img.shields.io/discord/1202292159366037545?style=plastic&logo=discord&logoColor=FFFFFF&label=Fika%20Discord
 )](https://discord.gg/project-fika)
@@ -32,4 +32,4 @@ This project is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/lic
 
 | **Project** | **License**                                                                   |
 | ----------- | ----------------------------------------------------------------------------- |
-| Aki.Server  | [NCSA](https://dev.sp-tarkov.com/SPT-AKI/Server/src/branch/master/LICENSE.md) |
+| SPT.Server  | [NCSA](https://dev.sp-tarkov.com/SPT/Server/src/branch/master/LICENSE.md) |

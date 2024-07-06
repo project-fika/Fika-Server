@@ -1,21 +1,23 @@
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { GiftSentResult } from "@spt-aki/models/enums/GiftSentResult";
-import { MessageType } from "@spt-aki/models/enums/MessageType";
-import { Gift, IGiftsConfig } from "@spt-aki/models/spt/config/IGiftsConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { MailSendService } from "@spt-aki/services/MailSendService";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { GiftSentResult } from "@spt/models/enums/GiftSentResult";
+import { MessageType } from "@spt/models/enums/MessageType";
+import { Gift, IGiftsConfig } from "@spt/models/spt/config/IGiftsConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { MailSendService } from "@spt/services/MailSendService";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class GiftService {
     protected logger: ILogger;
     protected mailSendService: MailSendService;
+    protected localisationService: LocalisationService;
     protected hashUtil: HashUtil;
     protected timeUtil: TimeUtil;
     protected profileHelper: ProfileHelper;
     protected configServer: ConfigServer;
     protected giftConfig: IGiftsConfig;
-    constructor(logger: ILogger, mailSendService: MailSendService, hashUtil: HashUtil, timeUtil: TimeUtil, profileHelper: ProfileHelper, configServer: ConfigServer);
+    constructor(logger: ILogger, mailSendService: MailSendService, localisationService: LocalisationService, hashUtil: HashUtil, timeUtil: TimeUtil, profileHelper: ProfileHelper, configServer: ConfigServer);
     /**
      * Does a gift with a specific ID exist in db
      * @param giftId Gift id to check for

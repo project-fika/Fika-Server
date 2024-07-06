@@ -1,5 +1,5 @@
-import { ItemEventCallbacks } from "@spt-aki/callbacks/ItemEventCallbacks";
-import { StaticRouter } from "@spt-aki/di/Router";
+import { ItemEventCallbacks } from "@spt/callbacks/ItemEventCallbacks";
+import { StaticRouter } from "@spt/di/Router";
 export declare class ItemEventStaticRouter extends StaticRouter {
     protected itemEventCallbacks: ItemEventCallbacks;
     constructor(itemEventCallbacks: ItemEventCallbacks);

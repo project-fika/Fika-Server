@@ -1,28 +1,27 @@
-import { BotEquipmentModGenerator } from "@spt-aki/generators/BotEquipmentModGenerator";
-import { IInventoryMagGen } from "@spt-aki/generators/weapongen/IInventoryMagGen";
-import { BotGeneratorHelper } from "@spt-aki/helpers/BotGeneratorHelper";
-import { BotWeaponGeneratorHelper } from "@spt-aki/helpers/BotWeaponGeneratorHelper";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { WeightedRandomHelper } from "@spt-aki/helpers/WeightedRandomHelper";
-import { Inventory as PmcInventory } from "@spt-aki/models/eft/common/tables/IBotBase";
-import { GenerationData, Inventory, ModsChances } from "@spt-aki/models/eft/common/tables/IBotType";
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { GenerateWeaponResult } from "@spt-aki/models/spt/bots/GenerateWeaponResult";
-import { IBotConfig } from "@spt-aki/models/spt/config/IBotConfig";
-import { IPmcConfig } from "@spt-aki/models/spt/config/IPmcConfig";
-import { IRepairConfig } from "@spt-aki/models/spt/config/IRepairConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { BotWeaponModLimitService } from "@spt-aki/services/BotWeaponModLimitService";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { RepairService } from "@spt-aki/services/RepairService";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
+import { BotEquipmentModGenerator } from "@spt/generators/BotEquipmentModGenerator";
+import { IInventoryMagGen } from "@spt/generators/weapongen/IInventoryMagGen";
+import { BotGeneratorHelper } from "@spt/helpers/BotGeneratorHelper";
+import { BotWeaponGeneratorHelper } from "@spt/helpers/BotWeaponGeneratorHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
+import { Inventory as PmcInventory } from "@spt/models/eft/common/tables/IBotBase";
+import { GenerationData, Inventory, ModsChances } from "@spt/models/eft/common/tables/IBotType";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { GenerateWeaponResult } from "@spt/models/spt/bots/GenerateWeaponResult";
+import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
+import { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { BotWeaponModLimitService } from "@spt/services/BotWeaponModLimitService";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { RepairService } from "@spt/services/RepairService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class BotWeaponGenerator {
-    protected jsonUtil: JsonUtil;
     protected logger: ILogger;
     protected hashUtil: HashUtil;
     protected databaseServer: DatabaseServer;
@@ -37,11 +36,12 @@ export declare class BotWeaponGenerator {
     protected localisationService: LocalisationService;
     protected repairService: RepairService;
     protected inventoryMagGenComponents: IInventoryMagGen[];
+    protected cloner: ICloner;
     protected readonly modMagazineSlotId = "mod_magazine";
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
     protected repairConfig: IRepairConfig;
-    constructor(jsonUtil: JsonUtil, logger: ILogger, hashUtil: HashUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper, weightedRandomHelper: WeightedRandomHelper, botGeneratorHelper: BotGeneratorHelper, randomUtil: RandomUtil, configServer: ConfigServer, botWeaponGeneratorHelper: BotWeaponGeneratorHelper, botWeaponModLimitService: BotWeaponModLimitService, botEquipmentModGenerator: BotEquipmentModGenerator, localisationService: LocalisationService, repairService: RepairService, inventoryMagGenComponents: IInventoryMagGen[]);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper, weightedRandomHelper: WeightedRandomHelper, botGeneratorHelper: BotGeneratorHelper, randomUtil: RandomUtil, configServer: ConfigServer, botWeaponGeneratorHelper: BotWeaponGeneratorHelper, botWeaponModLimitService: BotWeaponModLimitService, botEquipmentModGenerator: BotEquipmentModGenerator, localisationService: LocalisationService, repairService: RepairService, inventoryMagGenComponents: IInventoryMagGen[], cloner: ICloner);
     /**
      * Pick a random weapon based on weightings and generate a functional weapon
      * @param equipmentSlot Primary/secondary/holster

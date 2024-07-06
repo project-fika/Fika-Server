@@ -1,3 +1,4 @@
+import { MinMax } from "@spt/models/common/MinMax";
 export interface BotGenerationDetails {
     /** Should the bot be generated as a PMC */
     isPmc: boolean;
@@ -8,6 +9,8 @@ export interface BotGenerationDetails {
     /** Active players current level */
     playerLevel?: number;
     playerName?: string;
+    /** Level specific overrides for PMC level */
+    locationSpecificPmcLevelOverride?: MinMax;
     /** Delta of highest level of bot e.g. 50 means 50 levels above player */
     botRelativeLevelDeltaMax: number;
     /** Delta of lowest level of bot e.g. 50 means 50 levels below player */

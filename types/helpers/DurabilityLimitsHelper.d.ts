@@ -1,8 +1,8 @@
-import { BotHelper } from "@spt-aki/helpers/BotHelper";
-import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { IBotConfig } from "@spt-aki/models/spt/config/IBotConfig";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
+import { BotHelper } from "@spt/helpers/BotHelper";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class DurabilityLimitsHelper {
     protected randomUtil: RandomUtil;
     protected botHelper: BotHelper;

@@ -1,4 +1,4 @@
-import { ILocations } from "@spt-aki/models/spt/server/ILocations";
+import { ILocations } from "@spt/models/spt/server/ILocations";
 export interface ILocationsGenerateAllResponse {
     locations: ILocations;
     paths: Path[];

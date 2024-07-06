@@ -1,10 +1,10 @@
-import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
-import { INullResponseData } from "@spt-aki/models/eft/httpResponse/INullResponseData";
-import { IRegisterPlayerRequestData } from "@spt-aki/models/eft/inRaid/IRegisterPlayerRequestData";
-import { ISaveProgressRequestData } from "@spt-aki/models/eft/inRaid/ISaveProgressRequestData";
-import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
+import { ISaveProgressRequestData } from "@spt/models/eft/inRaid/ISaveProgressRequestData";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 export interface IInraidCallbacks {
-    onLoad(sessionID: string): IAkiProfile;
+    onLoad(sessionID: string): ISptProfile;
     registerPlayer(url: string, info: IRegisterPlayerRequestData, sessionID: string): INullResponseData;
     saveProgress(url: string, info: ISaveProgressRequestData, sessionID: string): INullResponseData;
     getRaidEndState(): string;

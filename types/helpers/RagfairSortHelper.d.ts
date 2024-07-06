@@ -1,7 +1,7 @@
-import { IRagfairOffer } from "@spt-aki/models/eft/ragfair/IRagfairOffer";
-import { RagfairSort } from "@spt-aki/models/enums/RagfairSort";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { LocaleService } from "@spt-aki/services/LocaleService";
+import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { RagfairSort } from "@spt/models/enums/RagfairSort";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { LocaleService } from "@spt/services/LocaleService";
 export declare class RagfairSortHelper {
     protected databaseServer: DatabaseServer;
     protected localeService: LocaleService;

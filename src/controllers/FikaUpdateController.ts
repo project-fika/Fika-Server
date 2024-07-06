@@ -42,7 +42,7 @@ export class FikaUpdateController {
      * @param request
      */
     public handleSethost(request: IFikaUpdateSethostRequestData): void {
-        this.fikaMatchService.setMatchHost(request.serverId, request.ip, request.port);
+        this.fikaMatchService.setMatchHost(request.serverId, request.ips, request.port, request.natPunch);
     }
 
     /**

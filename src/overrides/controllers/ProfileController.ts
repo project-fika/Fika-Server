@@ -1,12 +1,12 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { ProfileController } from "@spt-aki/controllers/ProfileController";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { IMiniProfile } from "@spt-aki/models/eft/launcher/IMiniProfile";
-import { IGetOtherProfileRequest } from "@spt-aki/models/eft/profile/IGetOtherProfileRequest";
-import { IGetOtherProfileResponse } from "@spt-aki/models/eft/profile/IGetOtherProfileResponse";
-import { ISearchFriendRequestData } from "@spt-aki/models/eft/profile/ISearchFriendRequestData";
-import { ISearchFriendResponse } from "@spt-aki/models/eft/profile/ISearchFriendResponse";
+import { ProfileController } from "@spt/controllers/ProfileController";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { IMiniProfile } from "@spt/models/eft/launcher/IMiniProfile";
+import { IGetOtherProfileRequest } from "@spt/models/eft/profile/IGetOtherProfileRequest";
+import { IGetOtherProfileResponse } from "@spt/models/eft/profile/IGetOtherProfileResponse";
+import { ISearchFriendRequestData } from "@spt/models/eft/profile/ISearchFriendRequestData";
+import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
 
 import { Override } from "../../di/Override";
 import { FikaConfig } from "../../utils/FikaConfig";
@@ -40,17 +40,19 @@ export class ProfileControllerOverride extends Override {
                     const matches: ISearchFriendResponse[] = [];
 
                     for (const profile of Object.values(profiles)) {
-                        if (profile.characters.pmc.Info.Nickname.toLowerCase().startsWith(searchNicknameLowerCase)) {
-                            matches.push({
-                                _id: profile.characters.pmc._id,
-                                aid: profile.characters.pmc.aid,
-                                Info: {
-                                    Nickname: profile.characters.pmc.Info.Nickname,
-                                    Side: profile.characters.pmc.Info.Side,
-                                    Level: profile.characters.pmc.Info.Level,
-                                    MemberCategory: profile.characters.pmc.Info.MemberCategory,
-                                },
-                            });
+                        if (profile.characters?.pmc?.Info) {
+                            if (profile.characters.pmc.Info.Nickname.toLowerCase().startsWith(searchNicknameLowerCase)) {
+                                matches.push({
+                                    _id: profile.characters.pmc._id,
+                                    aid: profile.characters.pmc.aid,
+                                    Info: {
+                                        Nickname: profile.characters.pmc.Info.Nickname,
+                                        Side: profile.characters.pmc.Info.Side,
+                                        Level: profile.characters.pmc.Info.Level,
+                                        MemberCategory: profile.characters.pmc.Info.MemberCategory,
+                                    },
+                                });
+                            }
                         }
                     }
 

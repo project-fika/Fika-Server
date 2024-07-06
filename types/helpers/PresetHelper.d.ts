@@ -1,16 +1,16 @@
-import { IPreset } from "@spt-aki/models/eft/common/IGlobals";
-import { BaseClasses } from "@spt-aki/models/enums/BaseClasses";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { IPreset } from "@spt/models/eft/common/IGlobals";
+import { BaseClasses } from "@spt/models/enums/BaseClasses";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 import { ItemHelper } from "./ItemHelper";
 export declare class PresetHelper {
-    protected jsonUtil: JsonUtil;
     protected databaseServer: DatabaseServer;
     protected itemHelper: ItemHelper;
+    protected cloner: ICloner;
     protected lookup: Record<string, string[]>;
     protected defaultEquipmentPresets: Record<string, IPreset>;
     protected defaultWeaponPresets: Record<string, IPreset>;
-    constructor(jsonUtil: JsonUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper);
+    constructor(databaseServer: DatabaseServer, itemHelper: ItemHelper, cloner: ICloner);
     hydratePresetStore(input: Record<string, string[]>): void;
     /**
      * Get default weapon and equipment presets

@@ -1,4 +1,4 @@
-import { IUserDialogInfo, Message } from "@spt-aki/models/eft/profile/IAkiProfile";
+import { IUserDialogInfo, Message } from "@spt/models/eft/profile/ISptProfile";
 export interface IGetMailDialogViewResponseData {
     messages: Message[];
     profiles: IUserDialogInfo[];

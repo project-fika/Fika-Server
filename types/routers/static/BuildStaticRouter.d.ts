@@ -1,5 +1,5 @@
-import { BuildsCallbacks } from "@spt-aki/callbacks/BuildsCallbacks";
-import { StaticRouter } from "@spt-aki/di/Router";
+import { BuildsCallbacks } from "@spt/callbacks/BuildsCallbacks";
+import { StaticRouter } from "@spt/di/Router";
 export declare class BuildsStaticRouter extends StaticRouter {
     protected buildsCallbacks: BuildsCallbacks;
     constructor(buildsCallbacks: BuildsCallbacks);

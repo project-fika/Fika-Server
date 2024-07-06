@@ -1,8 +1,8 @@
-import { MinMax } from "@spt-aki/models/common/MinMax";
-import { AirdropTypeEnum } from "@spt-aki/models/enums/AirdropType";
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { MinMax } from "@spt/models/common/MinMax";
+import { AirdropTypeEnum } from "@spt/models/enums/AirdropType";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IAirdropConfig extends IBaseConfig {
-    kind: "aki-airdrop";
+    kind: "spt-airdrop";
     airdropChancePercent: AirdropChancePercent;
     airdropTypeWeightings: Record<AirdropTypeEnum, number>;
     /** Lowest point plane will fly at */

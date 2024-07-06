@@ -1,11 +1,11 @@
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class ExhaustableArray<T> implements IExhaustableArray<T> {
     private itemPool;
     private randomUtil;
-    private jsonUtil;
+    private cloner;
     private pool;
-    constructor(itemPool: T[], randomUtil: RandomUtil, jsonUtil: JsonUtil);
+    constructor(itemPool: T[], randomUtil: RandomUtil, cloner: ICloner);
     getRandomValue(): T;
     getFirstValue(): T;
     hasValues(): boolean;

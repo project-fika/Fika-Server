@@ -1,12 +1,12 @@
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { IUserDialogInfo } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { GiftSenderType } from "@spt-aki/models/enums/GiftSenderType";
-import { SeasonalEventType } from "@spt-aki/models/enums/SeasonalEventType";
-import { Traders } from "@spt-aki/models/enums/Traders";
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import { GiftSenderType } from "@spt/models/enums/GiftSenderType";
+import { SeasonalEventType } from "@spt/models/enums/SeasonalEventType";
+import { Traders } from "@spt/models/enums/Traders";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 import { IProfileChangeEvent } from "../dialog/ISendMessageDetails";
 export interface IGiftsConfig extends IBaseConfig {
-    kind: "aki-gifts";
+    kind: "spt-gifts";
     gifts: Record<string, Gift>;
 }
 export interface Gift {

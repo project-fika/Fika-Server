@@ -1,23 +1,23 @@
-import { PMCLootGenerator } from "@spt-aki/generators/PMCLootGenerator";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { IBotType } from "@spt-aki/models/eft/common/tables/IBotType";
-import { ITemplateItem, Props } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { IBotLootCache, LootCacheType } from "@spt-aki/models/spt/bots/IBotLootCache";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { RagfairPriceService } from "@spt-aki/services/RagfairPriceService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { PMCLootGenerator } from "@spt/generators/PMCLootGenerator";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { IBotType } from "@spt/models/eft/common/tables/IBotType";
+import { ITemplateItem, Props } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IBotLootCache, LootCacheType } from "@spt/models/spt/bots/IBotLootCache";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { RagfairPriceService } from "@spt/services/RagfairPriceService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class BotLootCacheService {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected itemHelper: ItemHelper;
     protected databaseServer: DatabaseServer;
     protected pmcLootGenerator: PMCLootGenerator;
     protected localisationService: LocalisationService;
     protected ragfairPriceService: RagfairPriceService;
+    protected cloner: ICloner;
     protected lootCache: Record<string, IBotLootCache>;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, itemHelper: ItemHelper, databaseServer: DatabaseServer, pmcLootGenerator: PMCLootGenerator, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService);
+    constructor(logger: ILogger, itemHelper: ItemHelper, databaseServer: DatabaseServer, pmcLootGenerator: PMCLootGenerator, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, cloner: ICloner);
     /**
      * Remove cached bot loot data
      */

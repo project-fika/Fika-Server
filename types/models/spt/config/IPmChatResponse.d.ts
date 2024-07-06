@@ -1,6 +1,6 @@
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IPmcChatResponse extends IBaseConfig {
-    kind: "aki-pmcchatresponse";
+    kind: "spt-pmcchatresponse";
     victim: IResponseSettings;
     killer: IResponseSettings;
 }

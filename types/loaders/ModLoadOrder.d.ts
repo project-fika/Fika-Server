@@ -1,6 +1,6 @@
-import { IPackageJsonData } from "@spt-aki/models/spt/mod/IPackageJsonData";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
+import { IPackageJsonData } from "@spt/models/spt/mod/IPackageJsonData";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { LocalisationService } from "@spt/services/LocalisationService";
 export declare class ModLoadOrder {
     protected logger: ILogger;
     protected localisationService: LocalisationService;

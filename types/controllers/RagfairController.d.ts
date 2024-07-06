@@ -1,44 +1,44 @@
-import { RagfairOfferGenerator } from "@spt-aki/generators/RagfairOfferGenerator";
-import { HandbookHelper } from "@spt-aki/helpers/HandbookHelper";
-import { InventoryHelper } from "@spt-aki/helpers/InventoryHelper";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { PaymentHelper } from "@spt-aki/helpers/PaymentHelper";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { RagfairHelper } from "@spt-aki/helpers/RagfairHelper";
-import { RagfairOfferHelper } from "@spt-aki/helpers/RagfairOfferHelper";
-import { RagfairSellHelper } from "@spt-aki/helpers/RagfairSellHelper";
-import { RagfairSortHelper } from "@spt-aki/helpers/RagfairSortHelper";
-import { TraderHelper } from "@spt-aki/helpers/TraderHelper";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { ITraderAssort } from "@spt-aki/models/eft/common/tables/ITrader";
-import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
-import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { IAddOfferRequestData, Requirement } from "@spt-aki/models/eft/ragfair/IAddOfferRequestData";
-import { IExtendOfferRequestData } from "@spt-aki/models/eft/ragfair/IExtendOfferRequestData";
-import { IGetItemPriceResult } from "@spt-aki/models/eft/ragfair/IGetItemPriceResult";
-import { IGetMarketPriceRequestData } from "@spt-aki/models/eft/ragfair/IGetMarketPriceRequestData";
-import { IGetOffersResult } from "@spt-aki/models/eft/ragfair/IGetOffersResult";
-import { IGetRagfairOfferByIdRequest } from "@spt-aki/models/eft/ragfair/IGetRagfairOfferByIdRequest";
-import { IRagfairOffer } from "@spt-aki/models/eft/ragfair/IRagfairOffer";
-import { IRemoveOfferRequestData } from "@spt-aki/models/eft/ragfair/IRemoveOfferRequestData";
-import { ISearchRequestData } from "@spt-aki/models/eft/ragfair/ISearchRequestData";
-import { IProcessBuyTradeRequestData } from "@spt-aki/models/eft/trade/IProcessBuyTradeRequestData";
-import { IRagfairConfig } from "@spt-aki/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { RagfairServer } from "@spt-aki/servers/RagfairServer";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { PaymentService } from "@spt-aki/services/PaymentService";
-import { RagfairOfferService } from "@spt-aki/services/RagfairOfferService";
-import { RagfairPriceService } from "@spt-aki/services/RagfairPriceService";
-import { RagfairRequiredItemsService } from "@spt-aki/services/RagfairRequiredItemsService";
-import { RagfairTaxService } from "@spt-aki/services/RagfairTaxService";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { RagfairOfferGenerator } from "@spt/generators/RagfairOfferGenerator";
+import { HandbookHelper } from "@spt/helpers/HandbookHelper";
+import { InventoryHelper } from "@spt/helpers/InventoryHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { PaymentHelper } from "@spt/helpers/PaymentHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { RagfairHelper } from "@spt/helpers/RagfairHelper";
+import { RagfairOfferHelper } from "@spt/helpers/RagfairOfferHelper";
+import { RagfairSellHelper } from "@spt/helpers/RagfairSellHelper";
+import { RagfairSortHelper } from "@spt/helpers/RagfairSortHelper";
+import { TraderHelper } from "@spt/helpers/TraderHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { IAddOfferRequestData, Requirement } from "@spt/models/eft/ragfair/IAddOfferRequestData";
+import { IExtendOfferRequestData } from "@spt/models/eft/ragfair/IExtendOfferRequestData";
+import { IGetItemPriceResult } from "@spt/models/eft/ragfair/IGetItemPriceResult";
+import { IGetMarketPriceRequestData } from "@spt/models/eft/ragfair/IGetMarketPriceRequestData";
+import { IGetOffersResult } from "@spt/models/eft/ragfair/IGetOffersResult";
+import { IGetRagfairOfferByIdRequest } from "@spt/models/eft/ragfair/IGetRagfairOfferByIdRequest";
+import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { IRemoveOfferRequestData } from "@spt/models/eft/ragfair/IRemoveOfferRequestData";
+import { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
+import { IProcessBuyTradeRequestData } from "@spt/models/eft/trade/IProcessBuyTradeRequestData";
+import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { RagfairServer } from "@spt/servers/RagfairServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { PaymentService } from "@spt/services/PaymentService";
+import { RagfairOfferService } from "@spt/services/RagfairOfferService";
+import { RagfairPriceService } from "@spt/services/RagfairPriceService";
+import { RagfairRequiredItemsService } from "@spt/services/RagfairRequiredItemsService";
+import { RagfairTaxService } from "@spt/services/RagfairTaxService";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 /**
  * Handle RagfairCallback events
  */
@@ -112,7 +112,7 @@ export declare class RagfairController {
      * @param offer Flea offer to update
      * @param fullProfile Players full profile
      */
-    protected setTraderOfferPurchaseLimits(offer: IRagfairOffer, fullProfile: IAkiProfile): void;
+    protected setTraderOfferPurchaseLimits(offer: IRagfairOffer, fullProfile: ISptProfile): void;
     /**
      * Adjust ragfair offer stack count to match same value as traders assort stack count
      * @param offer Flea offer to adjust stack size of

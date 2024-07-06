@@ -1,6 +1,6 @@
-import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
-import { ITraderAssort, ITraderBase } from "@spt-aki/models/eft/common/tables/ITrader";
-import { IGetBodyResponseData } from "@spt-aki/models/eft/httpResponse/IGetBodyResponseData";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { ITraderAssort, ITraderBase } from "@spt/models/eft/common/tables/ITrader";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
 export interface ITraderCallbacks {
     load(): void;
     getTraderSettings(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<ITraderBase[]>;

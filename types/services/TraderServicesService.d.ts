@@ -1,13 +1,13 @@
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { ITraderServiceModel } from "@spt-aki/models/spt/services/ITraderServiceModel";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { ITraderServiceModel } from "@spt/models/spt/services/ITraderServiceModel";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class TraderServicesService {
     protected profileHelper: ProfileHelper;
-    protected jsonUtil: JsonUtil;
     protected logger: ILogger;
     protected databaseServer: DatabaseServer;
-    constructor(profileHelper: ProfileHelper, jsonUtil: JsonUtil, logger: ILogger, databaseServer: DatabaseServer);
+    protected cloner: ICloner;
+    constructor(profileHelper: ProfileHelper, logger: ILogger, databaseServer: DatabaseServer, cloner: ICloner);
     getTraderServices(sessionId: string, traderId: string): ITraderServiceModel[];
 }

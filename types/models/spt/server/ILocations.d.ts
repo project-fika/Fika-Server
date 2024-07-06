@@ -1,5 +1,5 @@
-import { ILocation } from "@spt-aki/models/eft/common/ILocation";
-import { ILocationsBase } from "@spt-aki/models/eft/common/tables/ILocationsBase";
+import { ILocation } from "@spt/models/eft/common/ILocation";
+import { ILocationsBase } from "@spt/models/eft/common/tables/ILocationsBase";
 export interface ILocations {
     bigmap?: ILocation;
     develop?: ILocation;
@@ -18,6 +18,7 @@ export interface ILocations {
     town?: ILocation;
     woods?: ILocation;
     sandbox?: ILocation;
+    sandbox_high?: ILocation;
     /** Holds a mapping of the linkages between locations on the UI */
     base?: ILocationsBase;
 }
