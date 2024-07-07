@@ -10,6 +10,7 @@ import { ProfileControllerOverride } from "../overrides/controllers/ProfileContr
 import { LauncherBackgroundOverride } from "../overrides/other/LauncherBackground";
 import { LocalesOverride } from "../overrides/other/Locales";
 import { HttpRouterOverride } from "../overrides/routers/HttpRouter";
+import { AchievementControllerOverride } from "../overrides/controllers/AchievementController";
 
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
@@ -42,6 +43,7 @@ import { FikaItemEventRouter } from "../routers/item_events/FikaItemEventRouter"
 
 import { Fika } from "../Fika";
 import { FikaServerTools } from "../utils/FikaServerTools";
+import { FikaAchievementController } from "../controllers/FikaAchievementController";
 
 export class Container {
     public static register(container: DependencyContainer): void {
@@ -72,6 +74,7 @@ export class Container {
         container.registerType("Overrides", "HttpRouterOverride");
         container.registerType("Overrides", "LauncherBackgroundOverride");
         container.registerType("Overrides", "LocalesOverride");
+        container.registerType("Overrides", "AchievementControllerOverride");
 
         container.registerType("StaticRoutes", "FikaClientStaticRouter");
         container.registerType("StaticRoutes", "FikaLocationStaticRouter");
@@ -96,6 +99,7 @@ export class Container {
         container.register<LauncherBackgroundOverride>("LauncherBackgroundOverride", LauncherBackgroundOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocalesOverride>("LocalesOverride", LocalesOverride, { lifecycle: Lifecycle.Singleton });
         container.register<Overrider>("Overrider", Overrider, { lifecycle: Lifecycle.Singleton });
+        container.register<AchievementControllerOverride>("AchievementControllerOverride", AchievementControllerOverride, { lifecycle: Lifecycle.Singleton });
     }
 
     private static registerServices(container: DependencyContainer): void {
@@ -117,6 +121,7 @@ export class Container {
         container.register<FikaRaidController>("FikaRaidController", { useClass: FikaRaidController });
         container.register<FikaSendItemController>("FikaSendItemController", { useClass: FikaSendItemController });
         container.register<FikaUpdateController>("FikaUpdateController", { useClass: FikaUpdateController });
+        container.register<FikaAchievementController>("FikaAchievementController", { useClass: FikaAchievementController });
     }
 
     private static registerCallbacks(container: DependencyContainer): void {
