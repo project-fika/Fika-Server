@@ -29,7 +29,17 @@
         "window.title": "Fika Server",
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "biomejs.biome",
-        "editor.codeActionsOnSave": ["source.organizeImports.biome"]
+        "editor.codeActionsOnSave": ["source.organizeImports.biome"],
+        "files.exclude": {
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/Thumbs.db": true,
+            "**/*.map": true,
+            "**/*.js": true
+        }
     },
     "extensions": {
         "recommendations": ["EditorConfig.EditorConfig", "biomejs.biome", "refringe.spt-id-highlighter"]
