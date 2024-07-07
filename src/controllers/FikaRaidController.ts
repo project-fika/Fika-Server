@@ -18,12 +18,14 @@ import { WebSocket } from "ws";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { IStatusDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStatusDedicatedRequest";
 import { IStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStatusDedicatedResponse";
+import { FikaDedicatedRaidWebSocket } from "../services/FikaDedicatedRaidWebSocket";
 
 @injectable()
 export class FikaRaidController {
     constructor(
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
+        @inject("FikaDedicatedRaidWebSocket") protected fikaDedicatedRaidWebSocket: FikaDedicatedRaidWebSocket,
         @inject("WinstonLogger") protected logger: ILogger,
     ) {
         // empty
@@ -145,7 +147,7 @@ export class FikaRaidController {
                 continue;
             }
 
-            dedicatedClientWs = this.fikaDedicatedRaidService.clientWebSockets[dedicatedSessionId];
+            dedicatedClientWs = this.fikaDedicatedRaidWebSocket.clientWebSockets[dedicatedSessionId];
 
             if(!dedicatedClientWs) {
                 continue;

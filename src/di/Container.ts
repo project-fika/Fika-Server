@@ -14,6 +14,7 @@ import { HttpRouterOverride } from "../overrides/routers/HttpRouter";
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
+import { FikaDedicatedRaidService } from "../services/FikaDedicatedRaidService";
 
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
@@ -37,12 +38,14 @@ import { FikaLocationStaticRouter } from "../routers/static/FikaLocationStaticRo
 import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
-
 import { FikaItemEventRouter } from "../routers/item_events/FikaItemEventRouter";
+
+import { FikaDedicatedRaidWebSocket } from "../services/FikaDedicatedRaidWebSocket";
+import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 
 import { Fika } from "../Fika";
 import { FikaServerTools } from "../utils/FikaServerTools";
-import { FikaDedicatedRaidService } from "../services/FikaDedicatedRaidService";
+
 
 export class Container {
     public static register(container: DependencyContainer): void {
@@ -59,6 +62,8 @@ export class Container {
         Container.registerCallbacks(container);
 
         Container.registerRouters(container);
+
+        Container.registerWebSockets(container);
 
         Container.registerListTypes(container);
 
@@ -81,7 +86,7 @@ export class Container {
         container.registerType("StaticRoutes", "FikaUpdateStaticRouter");
 
         container.registerType("IERouters", "FikaItemEventRouter");
-        container.registerType("WebSocketConnectionHandler", "FikaDedicatedRaidService");
+        container.registerType("WebSocketConnectionHandler", "FikaDedicatedRaidWebSocket");
     }
 
     private static registerUtils(container: DependencyContainer): void {
@@ -138,5 +143,10 @@ export class Container {
         container.register<FikaUpdateStaticRouter>("FikaUpdateStaticRouter", { useClass: FikaUpdateStaticRouter });
 
         container.register<FikaItemEventRouter>("FikaItemEventRouter", { useClass: FikaItemEventRouter });
+    }
+
+    private static registerWebSockets(container: DependencyContainer): void {
+        container.register<FikaDedicatedRaidWebSocket>("FikaDedicatedRaidWebSocket", FikaDedicatedRaidWebSocket, { lifecycle: Lifecycle.Singleton });
+        container.register<IWebSocketConnectionHandler>("FikaDedicatedRaidWebSocket", FikaDedicatedRaidWebSocket, { lifecycle: Lifecycle.Singleton });
     }
 }
