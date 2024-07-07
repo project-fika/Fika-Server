@@ -1,4 +1,4 @@
-import { TraderServiceType } from "@spt-aki/models/enums/TraderServiceType";
+import { TraderServiceType } from "@spt/models/enums/TraderServiceType";
 export interface ITraderServiceModel {
     serviceType: TraderServiceType;
     itemsToPay?: {

@@ -1,22 +1,24 @@
-import { ApplicationContext } from "@spt-aki/context/ApplicationContext";
-import { WeightedRandomHelper } from "@spt-aki/helpers/WeightedRandomHelper";
-import { IWeather, IWeatherData } from "@spt-aki/models/eft/weather/IWeatherData";
-import { WindDirection } from "@spt-aki/models/enums/WindDirection";
-import { IWeatherConfig } from "@spt-aki/models/spt/config/IWeatherConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { ApplicationContext } from "@spt/context/ApplicationContext";
+import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
+import { IWeather, IWeatherData } from "@spt/models/eft/weather/IWeatherData";
+import { WindDirection } from "@spt/models/enums/WindDirection";
+import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { SeasonalEventService } from "@spt/services/SeasonalEventService";
+import { RandomUtil } from "@spt/utils/RandomUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class WeatherGenerator {
     protected weightedRandomHelper: WeightedRandomHelper;
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
     protected timeUtil: TimeUtil;
+    protected seasonalEventService: SeasonalEventService;
     protected applicationContext: ApplicationContext;
     protected configServer: ConfigServer;
     protected weatherConfig: IWeatherConfig;
     private serverStartTimestampMS;
-    constructor(weightedRandomHelper: WeightedRandomHelper, logger: ILogger, randomUtil: RandomUtil, timeUtil: TimeUtil, applicationContext: ApplicationContext, configServer: ConfigServer);
+    constructor(weightedRandomHelper: WeightedRandomHelper, logger: ILogger, randomUtil: RandomUtil, timeUtil: TimeUtil, seasonalEventService: SeasonalEventService, applicationContext: ApplicationContext, configServer: ConfigServer);
     /**
      * Get current + raid datetime and format into correct BSG format and return
      * @param data Weather data

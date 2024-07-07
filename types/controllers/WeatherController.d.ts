@@ -1,8 +1,8 @@
-import { WeatherGenerator } from "@spt-aki/generators/WeatherGenerator";
-import { IWeatherData } from "@spt-aki/models/eft/weather/IWeatherData";
-import { IWeatherConfig } from "@spt-aki/models/spt/config/IWeatherConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
+import { WeatherGenerator } from "@spt/generators/WeatherGenerator";
+import { IWeatherData } from "@spt/models/eft/weather/IWeatherData";
+import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
 export declare class WeatherController {
     protected weatherGenerator: WeatherGenerator;
     protected logger: ILogger;

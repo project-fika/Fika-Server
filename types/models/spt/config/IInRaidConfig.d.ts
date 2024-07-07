@@ -1,6 +1,6 @@
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IInRaidConfig extends IBaseConfig {
-    kind: "aki-inraid";
+    kind: "spt-inraid";
     MIAOnRaidEnd: boolean;
     /** Overrides to apply to the pre-raid settings screen */
     raidMenuSettings: RaidMenuSettings;

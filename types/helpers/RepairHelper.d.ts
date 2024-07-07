@@ -1,19 +1,19 @@
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { ITemplateItem, Props } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { IRepairConfig } from "@spt-aki/models/spt/config/IRepairConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { ITemplateItem, Props } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class RepairHelper {
     protected logger: ILogger;
-    protected jsonUtil: JsonUtil;
     protected randomUtil: RandomUtil;
     protected databaseServer: DatabaseServer;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected repairConfig: IRepairConfig;
-    constructor(logger: ILogger, jsonUtil: JsonUtil, randomUtil: RandomUtil, databaseServer: DatabaseServer, configServer: ConfigServer);
+    constructor(logger: ILogger, randomUtil: RandomUtil, databaseServer: DatabaseServer, configServer: ConfigServer, cloner: ICloner);
     /**
      * Alter an items durability after a repair by trader/repair kit
      * @param itemToRepair item to update durability details

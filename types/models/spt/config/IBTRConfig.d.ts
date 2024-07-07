@@ -1,7 +1,7 @@
-import { MinMax } from "@spt-aki/models/common/MinMax";
+import { MinMax } from "@spt/models/common/MinMax";
 import { IBaseConfig } from "./IBaseConfig";
 export interface IBTRConfig extends IBaseConfig {
-    kind: "aki-btr";
+    kind: "spt-btr";
     /** How fast the BTR moves */
     moveSpeed: number;
     /** How long the cover fire service lasts for */

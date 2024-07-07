@@ -1,7 +1,7 @@
-import { HttpServerHelper } from "@spt-aki/helpers/HttpServerHelper";
-import { NotifierHelper } from "@spt-aki/helpers/NotifierHelper";
-import { INotifierChannel } from "@spt-aki/models/eft/notifier/INotifier";
-import { NotificationService } from "@spt-aki/services/NotificationService";
+import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
+import { NotifierHelper } from "@spt/helpers/NotifierHelper";
+import { INotifierChannel } from "@spt/models/eft/notifier/INotifier";
+import { NotificationService } from "@spt/services/NotificationService";
 export declare class NotifierController {
     protected notifierHelper: NotifierHelper;
     protected httpServerHelper: HttpServerHelper;

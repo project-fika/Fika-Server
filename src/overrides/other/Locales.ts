@@ -1,9 +1,9 @@
 import path from "node:path";
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { ILocaleBase } from "@spt-aki/models/spt/server/ILocaleBase";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { ImporterUtil } from "@spt-aki/utils/ImporterUtil";
+import { ILocaleBase } from "@spt/models/spt/server/ILocaleBase";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ImporterUtil } from "@spt/utils/ImporterUtil";
 
 import { Override } from "../../di/Override";
 import { FikaConfig } from "../../utils/FikaConfig";

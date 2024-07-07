@@ -4,4 +4,5 @@ export interface IFikaRaidJoinResponse {
     expectedNumberOfPlayers: number;
     gameVersion: string;
     fikaVersion: string;
+    raidCode: string;
 }

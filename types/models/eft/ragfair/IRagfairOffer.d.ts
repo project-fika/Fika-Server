@@ -1,5 +1,5 @@
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { MemberCategory } from "@spt-aki/models/enums/MemberCategory";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { MemberCategory } from "@spt/models/enums/MemberCategory";
 export interface IRagfairOffer {
     sellResult?: SellResult[];
     _id: string;
@@ -39,6 +39,7 @@ export interface IRagfairOfferUser {
     memberType: MemberCategory;
     avatar?: string;
     isRatingGrowing?: boolean;
+    aid?: number;
 }
 export interface SellResult {
     sellTime: number;

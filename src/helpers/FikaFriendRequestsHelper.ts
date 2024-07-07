@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { HashUtil } from "@spt-aki/utils/HashUtil";
+import { HashUtil } from "@spt/utils/HashUtil";
 
 import { IFikaFriendRequests } from "../models/fika/IFikaFriendRequests";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";

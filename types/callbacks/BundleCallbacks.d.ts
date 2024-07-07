@@ -1,7 +1,7 @@
-import { BundleLoader } from "@spt-aki/loaders/BundleLoader";
-import { IHttpConfig } from "@spt-aki/models/spt/config/IHttpConfig";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { BundleLoader } from "@spt/loaders/BundleLoader";
+import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 export declare class BundleCallbacks {
     protected httpResponse: HttpResponseUtil;
     protected bundleLoader: BundleLoader;

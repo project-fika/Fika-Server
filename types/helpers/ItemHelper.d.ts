@@ -1,21 +1,22 @@
-import { HandbookHelper } from "@spt-aki/helpers/HandbookHelper";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { InsuredItem } from "@spt-aki/models/eft/common/tables/IBotBase";
-import { Item, Repairable, Upd } from "@spt-aki/models/eft/common/tables/IItem";
-import { IStaticAmmoDetails } from "@spt-aki/models/eft/common/tables/ILootBase";
-import { ITemplateItem } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { ItemBaseClassService } from "@spt-aki/services/ItemBaseClassService";
-import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
-import { LocaleService } from "@spt-aki/services/LocaleService";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { CompareUtil } from "@spt-aki/utils/CompareUtil";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { MathUtil } from "@spt-aki/utils/MathUtil";
-import { ObjectId } from "@spt-aki/utils/ObjectId";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
+import { HandbookHelper } from "@spt/helpers/HandbookHelper";
+import { IStaticAmmoDetails } from "@spt/models/eft/common/ILocation";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { InsuredItem } from "@spt/models/eft/common/tables/IBotBase";
+import { Item, Repairable, Upd } from "@spt/models/eft/common/tables/IItem";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
+import { ItemFilterService } from "@spt/services/ItemFilterService";
+import { LocaleService } from "@spt/services/LocaleService";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { CompareUtil } from "@spt/utils/CompareUtil";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { JsonUtil } from "@spt/utils/JsonUtil";
+import { MathUtil } from "@spt/utils/MathUtil";
+import { ObjectId } from "@spt/utils/ObjectId";
+import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class ItemHelper {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -30,8 +31,9 @@ export declare class ItemHelper {
     protected localisationService: LocalisationService;
     protected localeService: LocaleService;
     protected compareUtil: CompareUtil;
+    protected cloner: ICloner;
     protected readonly defaultInvalidBaseTypes: string[];
-    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, randomUtil: RandomUtil, objectId: ObjectId, mathUtil: MathUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemBaseClassService: ItemBaseClassService, itemFilterService: ItemFilterService, localisationService: LocalisationService, localeService: LocaleService, compareUtil: CompareUtil);
+    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, randomUtil: RandomUtil, objectId: ObjectId, mathUtil: MathUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemBaseClassService: ItemBaseClassService, itemFilterService: ItemFilterService, localisationService: LocalisationService, localeService: LocaleService, compareUtil: CompareUtil, cloner: ICloner);
     /**
      * This method will compare two items (with all its children) and see if the are equivalent.
      * This method will NOT compare IDs on the items
@@ -368,9 +370,10 @@ export declare class ItemHelper {
      * @param staticAmmoDist Cartridge distribution
      * @param caliber Caliber of cartridge to add to magazine
      * @param minSizePercent % the magazine must be filled to
+     * @param defaultCartridgeTpl Cartridge to use when none found
      * @param weapon Weapon the magazine will be used for (if passed in uses Chamber as whitelist)
      */
-    fillMagazineWithRandomCartridge(magazine: Item[], magTemplate: ITemplateItem, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, caliber?: string, minSizePercent?: number, weapon?: ITemplateItem): void;
+    fillMagazineWithRandomCartridge(magazine: Item[], magTemplate: ITemplateItem, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, caliber?: string, minSizePercent?: number, defaultCartridgeTpl?: string, weapon?: ITemplateItem): void;
     /**
      * Add child items to a magazine of a specific cartridge
      * @param magazineWithChildCartridges Magazine to add child items to

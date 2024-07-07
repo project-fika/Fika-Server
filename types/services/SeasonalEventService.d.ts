@@ -1,18 +1,19 @@
-import { BotHelper } from "@spt-aki/helpers/BotHelper";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { IConfig } from "@spt-aki/models/eft/common/IGlobals";
-import { Inventory } from "@spt-aki/models/eft/common/tables/IBotType";
-import { SeasonalEventType } from "@spt-aki/models/enums/SeasonalEventType";
-import { IHttpConfig } from "@spt-aki/models/spt/config/IHttpConfig";
-import { IQuestConfig } from "@spt-aki/models/spt/config/IQuestConfig";
-import { ISeasonalEvent, ISeasonalEventConfig } from "@spt-aki/models/spt/config/ISeasonalEventConfig";
-import { IWeatherConfig } from "@spt-aki/models/spt/config/IWeatherConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { GiftService } from "@spt-aki/services/GiftService";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { DatabaseImporter } from "@spt-aki/utils/DatabaseImporter";
+import { BotHelper } from "@spt/helpers/BotHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { IConfig } from "@spt/models/eft/common/IGlobals";
+import { Inventory } from "@spt/models/eft/common/tables/IBotType";
+import { Season } from "@spt/models/enums/Season";
+import { SeasonalEventType } from "@spt/models/enums/SeasonalEventType";
+import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
+import { ISeasonalEvent, ISeasonalEventConfig } from "@spt/models/spt/config/ISeasonalEventConfig";
+import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { GiftService } from "@spt/services/GiftService";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { DatabaseImporter } from "@spt/utils/DatabaseImporter";
 export declare class SeasonalEventService {
     protected logger: ILogger;
     protected databaseServer: DatabaseServer;
@@ -102,6 +103,7 @@ export declare class SeasonalEventService {
      */
     enableSeasonalEvents(sessionId: string): void;
     protected cacheActiveEvents(): void;
+    getActiveWeatherSeason(): Season;
     /**
      * Iterate through bots inventory and loot to find and remove christmas items (as defined in SeasonalEventService)
      * @param botInventory Bots inventory to iterate over

@@ -1,7 +1,7 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { DialogueController } from "@spt-aki/controllers/DialogueController";
-import { IGetFriendListDataResponse } from "@spt-aki/models/eft/dialog/IGetFriendListDataResponse";
+import { DialogueController } from "@spt/controllers/DialogueController";
+import { IGetFriendListDataResponse } from "@spt/models/eft/dialog/IGetFriendListDataResponse";
 
 import { FikaDialogueController } from "../../controllers/FikaDialogueController";
 import { Override } from "../../di/Override";

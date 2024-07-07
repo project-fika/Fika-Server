@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class ObjectId {
     protected timeUtil: TimeUtil;
     constructor(timeUtil: TimeUtil);

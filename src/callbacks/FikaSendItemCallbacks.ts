@@ -1,8 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { FikaSendItemController } from "../controllers/FikaSendItemController";
 import { IFikaSendItemRequestData } from "../models/fika/routes/senditem/IFikaSendItemRequestData";

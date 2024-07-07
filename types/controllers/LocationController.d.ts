@@ -1,27 +1,26 @@
-import { ApplicationContext } from "@spt-aki/context/ApplicationContext";
-import { LocationGenerator } from "@spt-aki/generators/LocationGenerator";
-import { LootGenerator } from "@spt-aki/generators/LootGenerator";
-import { WeightedRandomHelper } from "@spt-aki/helpers/WeightedRandomHelper";
-import { ILocationBase } from "@spt-aki/models/eft/common/ILocationBase";
-import { ILocationsGenerateAllResponse } from "@spt-aki/models/eft/common/ILocationsSourceDestinationBase";
-import { IAirdropLootResult } from "@spt-aki/models/eft/location/IAirdropLootResult";
-import { IGetLocationRequestData } from "@spt-aki/models/eft/location/IGetLocationRequestData";
-import { AirdropTypeEnum } from "@spt-aki/models/enums/AirdropType";
-import { IAirdropConfig } from "@spt-aki/models/spt/config/IAirdropConfig";
-import { ILocationConfig } from "@spt-aki/models/spt/config/ILocationConfig";
-import { LootRequest } from "@spt-aki/models/spt/services/LootRequest";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { ItemFilterService } from "@spt-aki/services/ItemFilterService";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { RaidTimeAdjustmentService } from "@spt-aki/services/RaidTimeAdjustmentService";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { ApplicationContext } from "@spt/context/ApplicationContext";
+import { LocationGenerator } from "@spt/generators/LocationGenerator";
+import { LootGenerator } from "@spt/generators/LootGenerator";
+import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
+import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
+import { ILocationsGenerateAllResponse } from "@spt/models/eft/common/ILocationsSourceDestinationBase";
+import { IAirdropLootResult } from "@spt/models/eft/location/IAirdropLootResult";
+import { IGetLocationRequestData } from "@spt/models/eft/location/IGetLocationRequestData";
+import { AirdropTypeEnum } from "@spt/models/enums/AirdropType";
+import { IAirdropConfig } from "@spt/models/spt/config/IAirdropConfig";
+import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
+import { LootRequest } from "@spt/models/spt/services/LootRequest";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ItemFilterService } from "@spt/services/ItemFilterService";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { RaidTimeAdjustmentService } from "@spt/services/RaidTimeAdjustmentService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { RandomUtil } from "@spt/utils/RandomUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class LocationController {
-    protected jsonUtil: JsonUtil;
     protected hashUtil: HashUtil;
     protected randomUtil: RandomUtil;
     protected weightedRandomHelper: WeightedRandomHelper;
@@ -35,9 +34,10 @@ export declare class LocationController {
     protected timeUtil: TimeUtil;
     protected configServer: ConfigServer;
     protected applicationContext: ApplicationContext;
+    protected cloner: ICloner;
     protected airdropConfig: IAirdropConfig;
     protected locationConfig: ILocationConfig;
-    constructor(jsonUtil: JsonUtil, hashUtil: HashUtil, randomUtil: RandomUtil, weightedRandomHelper: WeightedRandomHelper, logger: ILogger, locationGenerator: LocationGenerator, localisationService: LocalisationService, raidTimeAdjustmentService: RaidTimeAdjustmentService, itemFilterService: ItemFilterService, lootGenerator: LootGenerator, databaseServer: DatabaseServer, timeUtil: TimeUtil, configServer: ConfigServer, applicationContext: ApplicationContext);
+    constructor(hashUtil: HashUtil, randomUtil: RandomUtil, weightedRandomHelper: WeightedRandomHelper, logger: ILogger, locationGenerator: LocationGenerator, localisationService: LocalisationService, raidTimeAdjustmentService: RaidTimeAdjustmentService, itemFilterService: ItemFilterService, lootGenerator: LootGenerator, databaseServer: DatabaseServer, timeUtil: TimeUtil, configServer: ConfigServer, applicationContext: ApplicationContext, cloner: ICloner);
     /**
      * Handle client/location/getLocalloot
      * Get a location (map) with generated loot data

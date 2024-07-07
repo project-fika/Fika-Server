@@ -1,19 +1,19 @@
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { IHideoutImprovement, Productive, TraderInfo } from "@spt-aki/models/eft/common/tables/IBotBase";
-import { TraderData } from "@spt-aki/models/eft/itemEvent/IItemEventRouterBase";
-import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IHideoutImprovement, Productive, TraderInfo } from "@spt/models/eft/common/tables/IBotBase";
+import { TraderData } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class EventOutputHolder {
-    protected jsonUtil: JsonUtil;
     protected profileHelper: ProfileHelper;
     protected timeUtil: TimeUtil;
+    protected cloner: ICloner;
     /** What has client been informed of this game session */
     protected clientActiveSessionStorage: Record<string, {
         clientInformed: boolean;
     }>;
-    constructor(jsonUtil: JsonUtil, profileHelper: ProfileHelper, timeUtil: TimeUtil);
+    constructor(profileHelper: ProfileHelper, timeUtil: TimeUtil, cloner: ICloner);
     protected output: IItemEventRouterResponse;
     getOutput(sessionID: string): IItemEventRouterResponse;
     /**

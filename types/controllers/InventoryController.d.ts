@@ -1,48 +1,47 @@
-import { LootGenerator } from "@spt-aki/generators/LootGenerator";
-import { HideoutHelper } from "@spt-aki/helpers/HideoutHelper";
-import { InventoryHelper } from "@spt-aki/helpers/InventoryHelper";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { PaymentHelper } from "@spt-aki/helpers/PaymentHelper";
-import { PresetHelper } from "@spt-aki/helpers/PresetHelper";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { QuestHelper } from "@spt-aki/helpers/QuestHelper";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { IInventoryBindRequestData } from "@spt-aki/models/eft/inventory/IInventoryBindRequestData";
-import { IInventoryCreateMarkerRequestData } from "@spt-aki/models/eft/inventory/IInventoryCreateMarkerRequestData";
-import { IInventoryDeleteMarkerRequestData } from "@spt-aki/models/eft/inventory/IInventoryDeleteMarkerRequestData";
-import { IInventoryEditMarkerRequestData } from "@spt-aki/models/eft/inventory/IInventoryEditMarkerRequestData";
-import { IInventoryExamineRequestData } from "@spt-aki/models/eft/inventory/IInventoryExamineRequestData";
-import { IInventoryFoldRequestData } from "@spt-aki/models/eft/inventory/IInventoryFoldRequestData";
-import { IInventoryMergeRequestData } from "@spt-aki/models/eft/inventory/IInventoryMergeRequestData";
-import { IInventoryMoveRequestData } from "@spt-aki/models/eft/inventory/IInventoryMoveRequestData";
-import { IInventoryReadEncyclopediaRequestData } from "@spt-aki/models/eft/inventory/IInventoryReadEncyclopediaRequestData";
-import { IInventoryRemoveRequestData } from "@spt-aki/models/eft/inventory/IInventoryRemoveRequestData";
-import { IInventorySortRequestData } from "@spt-aki/models/eft/inventory/IInventorySortRequestData";
-import { IInventorySplitRequestData } from "@spt-aki/models/eft/inventory/IInventorySplitRequestData";
-import { IInventorySwapRequestData } from "@spt-aki/models/eft/inventory/IInventorySwapRequestData";
-import { IInventoryTagRequestData } from "@spt-aki/models/eft/inventory/IInventoryTagRequestData";
-import { IInventoryToggleRequestData } from "@spt-aki/models/eft/inventory/IInventoryToggleRequestData";
-import { IInventoryTransferRequestData } from "@spt-aki/models/eft/inventory/IInventoryTransferRequestData";
-import { IOpenRandomLootContainerRequestData } from "@spt-aki/models/eft/inventory/IOpenRandomLootContainerRequestData";
-import { IRedeemProfileRequestData } from "@spt-aki/models/eft/inventory/IRedeemProfileRequestData";
-import { ISetFavoriteItems } from "@spt-aki/models/eft/inventory/ISetFavoriteItems";
-import { IItemEventRouterResponse } from "@spt-aki/models/eft/itemEvent/IItemEventRouterResponse";
-import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { EventOutputHolder } from "@spt-aki/routers/EventOutputHolder";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { FenceService } from "@spt-aki/services/FenceService";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { PlayerService } from "@spt-aki/services/PlayerService";
-import { RagfairOfferService } from "@spt-aki/services/RagfairOfferService";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { HttpResponseUtil } from "@spt-aki/utils/HttpResponseUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
+import { LootGenerator } from "@spt/generators/LootGenerator";
+import { HideoutHelper } from "@spt/helpers/HideoutHelper";
+import { InventoryHelper } from "@spt/helpers/InventoryHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { PaymentHelper } from "@spt/helpers/PaymentHelper";
+import { PresetHelper } from "@spt/helpers/PresetHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { QuestHelper } from "@spt/helpers/QuestHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IInventoryBindRequestData } from "@spt/models/eft/inventory/IInventoryBindRequestData";
+import { IInventoryCreateMarkerRequestData } from "@spt/models/eft/inventory/IInventoryCreateMarkerRequestData";
+import { IInventoryDeleteMarkerRequestData } from "@spt/models/eft/inventory/IInventoryDeleteMarkerRequestData";
+import { IInventoryEditMarkerRequestData } from "@spt/models/eft/inventory/IInventoryEditMarkerRequestData";
+import { IInventoryExamineRequestData } from "@spt/models/eft/inventory/IInventoryExamineRequestData";
+import { IInventoryFoldRequestData } from "@spt/models/eft/inventory/IInventoryFoldRequestData";
+import { IInventoryMergeRequestData } from "@spt/models/eft/inventory/IInventoryMergeRequestData";
+import { IInventoryMoveRequestData } from "@spt/models/eft/inventory/IInventoryMoveRequestData";
+import { IInventoryReadEncyclopediaRequestData } from "@spt/models/eft/inventory/IInventoryReadEncyclopediaRequestData";
+import { IInventoryRemoveRequestData } from "@spt/models/eft/inventory/IInventoryRemoveRequestData";
+import { IInventorySortRequestData } from "@spt/models/eft/inventory/IInventorySortRequestData";
+import { IInventorySplitRequestData } from "@spt/models/eft/inventory/IInventorySplitRequestData";
+import { IInventorySwapRequestData } from "@spt/models/eft/inventory/IInventorySwapRequestData";
+import { IInventoryTagRequestData } from "@spt/models/eft/inventory/IInventoryTagRequestData";
+import { IInventoryToggleRequestData } from "@spt/models/eft/inventory/IInventoryToggleRequestData";
+import { IInventoryTransferRequestData } from "@spt/models/eft/inventory/IInventoryTransferRequestData";
+import { IOpenRandomLootContainerRequestData } from "@spt/models/eft/inventory/IOpenRandomLootContainerRequestData";
+import { IRedeemProfileRequestData } from "@spt/models/eft/inventory/IRedeemProfileRequestData";
+import { ISetFavoriteItems } from "@spt/models/eft/inventory/ISetFavoriteItems";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { FenceService } from "@spt/services/FenceService";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { PlayerService } from "@spt/services/PlayerService";
+import { RagfairOfferService } from "@spt/services/RagfairOfferService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
+import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class InventoryController {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
-    protected jsonUtil: JsonUtil;
     protected itemHelper: ItemHelper;
     protected randomUtil: RandomUtil;
     protected databaseServer: DatabaseServer;
@@ -59,7 +58,8 @@ export declare class InventoryController {
     protected lootGenerator: LootGenerator;
     protected eventOutputHolder: EventOutputHolder;
     protected httpResponseUtil: HttpResponseUtil;
-    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, itemHelper: ItemHelper, randomUtil: RandomUtil, databaseServer: DatabaseServer, fenceService: FenceService, presetHelper: PresetHelper, inventoryHelper: InventoryHelper, questHelper: QuestHelper, hideoutHelper: HideoutHelper, ragfairOfferService: RagfairOfferService, profileHelper: ProfileHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, playerService: PlayerService, lootGenerator: LootGenerator, eventOutputHolder: EventOutputHolder, httpResponseUtil: HttpResponseUtil);
+    protected cloner: ICloner;
+    constructor(logger: ILogger, hashUtil: HashUtil, itemHelper: ItemHelper, randomUtil: RandomUtil, databaseServer: DatabaseServer, fenceService: FenceService, presetHelper: PresetHelper, inventoryHelper: InventoryHelper, questHelper: QuestHelper, hideoutHelper: HideoutHelper, ragfairOfferService: RagfairOfferService, profileHelper: ProfileHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, playerService: PlayerService, lootGenerator: LootGenerator, eventOutputHolder: EventOutputHolder, httpResponseUtil: HttpResponseUtil, cloner: ICloner);
     /**
      * Move Item
      * change location of item with parentId and slotId
@@ -167,7 +167,12 @@ export declare class InventoryController {
      * @returns response
      */
     examineItem(pmcData: IPmcData, body: IInventoryExamineRequestData, sessionID: string, output: IItemEventRouterResponse): IItemEventRouterResponse;
-    protected flagItemsAsInspectedAndRewardXp(itemTpls: string[], fullProfile: IAkiProfile): void;
+    /**
+     * Flag an item as seen in profiles encyclopedia + add inspect xp to profile
+     * @param itemTpls Inspected item tpls
+     * @param fullProfile Profile to add xp to
+     */
+    protected flagItemsAsInspectedAndRewardXp(itemTpls: string[], fullProfile: ISptProfile): void;
     /**
      * Get the tplid of an item from the examine request object
      * @param request Response request

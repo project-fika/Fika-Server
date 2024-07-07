@@ -1,4 +1,4 @@
-import { IMagazineTemplateAmmoItem } from "../profile/IAkiProfile";
+import { IMagazineTemplateAmmoItem } from "../profile/ISptProfile";
 export interface ISetMagazineRequest {
     Id: string;
     Name: string;

@@ -1,21 +1,21 @@
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { ITemplateItem, Props } from "@spt-aki/models/eft/common/tables/ITemplateItem";
-import { CreateItemResult, LocaleDetails, NewItemDetails, NewItemFromCloneDetails } from "@spt-aki/models/spt/mod/NewItemDetails";
-import { IDatabaseTables } from "@spt-aki/models/spt/server/IDatabaseTables";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { ItemBaseClassService } from "@spt-aki/services/ItemBaseClassService";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ITemplateItem, Props } from "@spt/models/eft/common/tables/ITemplateItem";
+import { CreateItemResult, LocaleDetails, NewItemDetails, NewItemFromCloneDetails } from "@spt/models/spt/mod/NewItemDetails";
+import { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { HashUtil } from "@spt/utils/HashUtil";
 export declare class CustomItemService {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
-    protected jsonUtil: JsonUtil;
     protected databaseServer: DatabaseServer;
     protected itemHelper: ItemHelper;
     protected itemBaseClassService: ItemBaseClassService;
+    protected cloner: ICloner;
     protected tables: IDatabaseTables;
-    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper, itemBaseClassService: ItemBaseClassService);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper, itemBaseClassService: ItemBaseClassService, cloner: ICloner);
     /**
      * Create a new item from a cloned item base
      * WARNING - If no item id is supplied, an id will be generated, this id will be random every time you add an item and will not be the same on each subsequent server start

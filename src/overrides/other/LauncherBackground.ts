@@ -1,7 +1,7 @@
 import path from "node:path";
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { ImageRouter } from "@spt-aki/routers/ImageRouter";
+import { ImageRouter } from "@spt/routers/ImageRouter";
 
 import { Override } from "../../di/Override";
 import { FikaConfig } from "../../utils/FikaConfig";

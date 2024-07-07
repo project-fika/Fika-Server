@@ -1,9 +1,9 @@
 /// <reference types="node" />
 import { IncomingMessage, ServerResponse } from "node:http";
-import { Serializer } from "@spt-aki/di/Serializer";
-import { BundleLoader } from "@spt-aki/loaders/BundleLoader";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { HttpFileUtil } from "@spt-aki/utils/HttpFileUtil";
+import { Serializer } from "@spt/di/Serializer";
+import { BundleLoader } from "@spt/loaders/BundleLoader";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { HttpFileUtil } from "@spt/utils/HttpFileUtil";
 export declare class BundleSerializer extends Serializer {
     protected logger: ILogger;
     protected bundleLoader: BundleLoader;

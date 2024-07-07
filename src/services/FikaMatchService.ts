@@ -1,14 +1,16 @@
 import { inject, injectable } from "tsyringe";
 
-import { LocationController } from "@spt-aki/controllers/LocationController";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
+import { LocationController } from "@spt/controllers/LocationController";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { SaveServer } from "@spt/servers/SaveServer";
 
 import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
 import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
 import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
+
+import { FikaConfig } from "../utils/FikaConfig";
 
 @injectable()
 export class FikaMatchService {
@@ -19,6 +21,7 @@ export class FikaMatchService {
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("LocationController") protected locationController: LocationController,
         @inject("SaveServer") protected saveServer: SaveServer,
+        @inject("FikaConfig") protected fikaConfig: FikaConfig,
     ) {
         this.matches = new Map();
         this.timeoutIntervals = new Map();
@@ -29,6 +32,8 @@ export class FikaMatchService {
      * @param matchId
      */
     private addTimeoutInterval(matchId: string): void {
+        const fikaConfig = this.fikaConfig.getConfig();
+
         if (this.timeoutIntervals.has(matchId)) {
             this.removeTimeoutInterval(matchId);
         }
@@ -40,8 +45,8 @@ export class FikaMatchService {
 
                 match.timeout++;
 
-                // if it timed out 5 times or more, end the match
-                if (match.timeout >= 5) {
+                // if it timed out 'sessionTimeout' times or more, end the match
+                if (match.timeout >= fikaConfig.server.sessionTimeout) {
                     this.endMatch(matchId, FikaMatchEndSessionMessage.PING_TIMEOUT_MESSAGE);
                 }
             }, 60 * 1000),
@@ -181,7 +186,7 @@ export class FikaMatchService {
         });
 
         this.matches.set(data.serverId, {
-            ip: null,
+            ips: null,
             port: null,
             hostUsername: data.hostUsername,
             timestamp: data.timestamp,
@@ -196,6 +201,8 @@ export class FikaMatchService {
             fikaVersion: data.fikaVersion,
             side: data.side,
             time: data.time,
+            raidCode: data.raidCode,
+            natPunch: false
         });
 
         this.addTimeoutInterval(data.serverId);
@@ -259,18 +266,19 @@ export class FikaMatchService {
     /**
      * Sets the ip and port for the given match
      * @param matchId
-     * @param ip
+     * @param ips
      * @param port
      */
-    public setMatchHost(matchId: string, ip: string, port: number): void {
+    public setMatchHost(matchId: string, ips: string[], port: number, natPunch: boolean): void {
         if (!this.matches.has(matchId)) {
             return;
         }
 
         const match = this.matches.get(matchId);
 
-        match.ip = ip;
+        match.ips = ips;
         match.port = port;
+        match.natPunch = natPunch;
     }
 
     /**
@@ -323,6 +331,10 @@ export class FikaMatchService {
      * @param playerId
      */
     public removePlayerFromMatch(matchId: string, playerId: string): void {
+        if (!this.matches.has(matchId)) {
+            return;
+        }
+
         this.matches.get(matchId).players.delete(playerId);
     }
 }

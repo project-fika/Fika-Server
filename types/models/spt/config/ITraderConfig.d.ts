@@ -1,8 +1,8 @@
-import { MinMax } from "@spt-aki/models/common/MinMax";
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
-import { LootRequest } from "@spt-aki/models/spt/services/LootRequest";
+import { MinMax } from "@spt/models/common/MinMax";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import { LootRequest } from "@spt/models/spt/services/LootRequest";
 export interface ITraderConfig extends IBaseConfig {
-    kind: "aki-trader";
+    kind: "spt-trader";
     updateTime: UpdateTime[];
     purchasesAreFoundInRaid: boolean;
     /** Should trader reset times be set based on server start time (false = bsg time - on the hour) */

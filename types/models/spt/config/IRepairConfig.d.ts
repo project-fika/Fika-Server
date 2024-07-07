@@ -1,7 +1,7 @@
-import { MinMax } from "@spt-aki/models/common/MinMax";
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { MinMax } from "@spt/models/common/MinMax";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IRepairConfig extends IBaseConfig {
-    kind: "aki-repair";
+    kind: "spt-repair";
     priceMultiplier: number;
     applyRandomizeDurabilityLoss: boolean;
     weaponSkillRepairGain: number;

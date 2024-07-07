@@ -2,7 +2,7 @@
 /// <reference types="node" />
 import "reflect-metadata";
 import fs from "node:fs";
-import { IAsyncQueue } from "@spt-aki/models/spt/utils/IAsyncQueue";
+import { IAsyncQueue } from "@spt/models/spt/utils/IAsyncQueue";
 export declare class VFS {
     protected asyncQueue: IAsyncQueue;
     accessFilePromisify: (path: fs.PathLike, mode?: number) => Promise<void>;

@@ -1,5 +1,5 @@
-import { ContextVariable } from "@spt-aki/context/ContextVariable";
-import { ContextVariableType } from "@spt-aki/context/ContextVariableType";
+import { ContextVariable } from "@spt/context/ContextVariable";
+import { ContextVariableType } from "@spt/context/ContextVariableType";
 export declare class ApplicationContext {
     private variables;
     private static holderMaxSize;

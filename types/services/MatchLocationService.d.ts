@@ -1,5 +1,5 @@
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class MatchLocationService {
     protected timeUtil: TimeUtil;
     protected saveServer: SaveServer;

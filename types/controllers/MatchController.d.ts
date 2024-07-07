@@ -1,29 +1,29 @@
-import { ApplicationContext } from "@spt-aki/context/ApplicationContext";
-import { LootGenerator } from "@spt-aki/generators/LootGenerator";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { TraderHelper } from "@spt-aki/helpers/TraderHelper";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { IEndOfflineRaidRequestData } from "@spt-aki/models/eft/match/IEndOfflineRaidRequestData";
-import { IGetGroupStatusRequestData } from "@spt-aki/models/eft/match/IGetGroupStatusRequestData";
-import { IGetGroupStatusResponse } from "@spt-aki/models/eft/match/IGetGroupStatusResponse";
-import { IGetRaidConfigurationRequestData } from "@spt-aki/models/eft/match/IGetRaidConfigurationRequestData";
-import { IJoinMatchRequestData } from "@spt-aki/models/eft/match/IJoinMatchRequestData";
-import { IJoinMatchResult } from "@spt-aki/models/eft/match/IJoinMatchResult";
-import { IInRaidConfig } from "@spt-aki/models/spt/config/IInRaidConfig";
-import { IMatchConfig } from "@spt-aki/models/spt/config/IMatchConfig";
-import { IPmcConfig } from "@spt-aki/models/spt/config/IPmcConfig";
-import { ITraderConfig } from "@spt-aki/models/spt/config/ITraderConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { BotGenerationCacheService } from "@spt-aki/services/BotGenerationCacheService";
-import { BotLootCacheService } from "@spt-aki/services/BotLootCacheService";
-import { MailSendService } from "@spt-aki/services/MailSendService";
-import { MatchLocationService } from "@spt-aki/services/MatchLocationService";
-import { ProfileSnapshotService } from "@spt-aki/services/ProfileSnapshotService";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { ApplicationContext } from "@spt/context/ApplicationContext";
+import { LootGenerator } from "@spt/generators/LootGenerator";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { TraderHelper } from "@spt/helpers/TraderHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IEndOfflineRaidRequestData } from "@spt/models/eft/match/IEndOfflineRaidRequestData";
+import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
+import { IMatchGroupStartGameRequest } from "@spt/models/eft/match/IMatchGroupStartGameRequest";
+import { IMatchGroupStatusRequest } from "@spt/models/eft/match/IMatchGroupStatusRequest";
+import { IMatchGroupStatusResponse } from "@spt/models/eft/match/IMatchGroupStatusResponse";
+import { IProfileStatusResponse } from "@spt/models/eft/match/IProfileStatusResponse";
+import { IInRaidConfig } from "@spt/models/spt/config/IInRaidConfig";
+import { IMatchConfig } from "@spt/models/spt/config/IMatchConfig";
+import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
+import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheService";
+import { BotLootCacheService } from "@spt/services/BotLootCacheService";
+import { MailSendService } from "@spt/services/MailSendService";
+import { MatchLocationService } from "@spt/services/MatchLocationService";
+import { ProfileSnapshotService } from "@spt/services/ProfileSnapshotService";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { RandomUtil } from "@spt/utils/RandomUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class MatchController {
     protected logger: ILogger;
     protected saveServer: SaveServer;
@@ -49,9 +49,9 @@ export declare class MatchController {
     /** Handle client/match/group/delete */
     deleteGroup(info: any): void;
     /** Handle match/group/start_game */
-    joinMatch(info: IJoinMatchRequestData, sessionId: string): IJoinMatchResult;
+    joinMatch(info: IMatchGroupStartGameRequest, sessionId: string): IProfileStatusResponse;
     /** Handle client/match/group/status */
-    getGroupStatus(info: IGetGroupStatusRequestData): IGetGroupStatusResponse;
+    getGroupStatus(info: IMatchGroupStatusRequest): IMatchGroupStatusResponse;
     /**
      * Handle /client/raid/configuration
      * @param request Raid config request

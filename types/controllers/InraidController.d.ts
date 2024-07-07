@@ -1,43 +1,42 @@
-import { ApplicationContext } from "@spt-aki/context/ApplicationContext";
-import { PlayerScavGenerator } from "@spt-aki/generators/PlayerScavGenerator";
-import { HealthHelper } from "@spt-aki/helpers/HealthHelper";
-import { InRaidHelper } from "@spt-aki/helpers/InRaidHelper";
-import { ItemHelper } from "@spt-aki/helpers/ItemHelper";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { QuestHelper } from "@spt-aki/helpers/QuestHelper";
-import { TraderHelper } from "@spt-aki/helpers/TraderHelper";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { Item } from "@spt-aki/models/eft/common/tables/IItem";
-import { IRegisterPlayerRequestData } from "@spt-aki/models/eft/inRaid/IRegisterPlayerRequestData";
-import { ISaveProgressRequestData } from "@spt-aki/models/eft/inRaid/ISaveProgressRequestData";
-import { PlayerRaidEndState } from "@spt-aki/models/enums/PlayerRaidEndState";
-import { IAirdropConfig } from "@spt-aki/models/spt/config/IAirdropConfig";
-import { IBTRConfig } from "@spt-aki/models/spt/config/IBTRConfig";
-import { IHideoutConfig } from "@spt-aki/models/spt/config/IHideoutConfig";
-import { IInRaidConfig } from "@spt-aki/models/spt/config/IInRaidConfig";
-import { ILocationConfig } from "@spt-aki/models/spt/config/ILocationConfig";
-import { IRagfairConfig } from "@spt-aki/models/spt/config/IRagfairConfig";
-import { ITraderConfig } from "@spt-aki/models/spt/config/ITraderConfig";
-import { ITraderServiceModel } from "@spt-aki/models/spt/services/ITraderServiceModel";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { SaveServer } from "@spt-aki/servers/SaveServer";
-import { InsuranceService } from "@spt-aki/services/InsuranceService";
-import { MailSendService } from "@spt-aki/services/MailSendService";
-import { MatchBotDetailsCacheService } from "@spt-aki/services/MatchBotDetailsCacheService";
-import { PmcChatResponseService } from "@spt-aki/services/PmcChatResponseService";
-import { TraderServicesService } from "@spt-aki/services/TraderServicesService";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { ApplicationContext } from "@spt/context/ApplicationContext";
+import { PlayerScavGenerator } from "@spt/generators/PlayerScavGenerator";
+import { HealthHelper } from "@spt/helpers/HealthHelper";
+import { InRaidHelper } from "@spt/helpers/InRaidHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { QuestHelper } from "@spt/helpers/QuestHelper";
+import { TraderHelper } from "@spt/helpers/TraderHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
+import { ISaveProgressRequestData } from "@spt/models/eft/inRaid/ISaveProgressRequestData";
+import { PlayerRaidEndState } from "@spt/models/enums/PlayerRaidEndState";
+import { IAirdropConfig } from "@spt/models/spt/config/IAirdropConfig";
+import { IBTRConfig } from "@spt/models/spt/config/IBTRConfig";
+import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
+import { IInRaidConfig } from "@spt/models/spt/config/IInRaidConfig";
+import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
+import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
+import { ITraderServiceModel } from "@spt/models/spt/services/ITraderServiceModel";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { InsuranceService } from "@spt/services/InsuranceService";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { MailSendService } from "@spt/services/MailSendService";
+import { MatchBotDetailsCacheService } from "@spt/services/MatchBotDetailsCacheService";
+import { PmcChatResponseService } from "@spt/services/PmcChatResponseService";
+import { TraderServicesService } from "@spt/services/TraderServicesService";
+import { RandomUtil } from "@spt/utils/RandomUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 /**
  * Logic for handling In Raid callbacks
  */
 export declare class InraidController {
     protected logger: ILogger;
     protected saveServer: SaveServer;
-    protected jsonUtil: JsonUtil;
     protected timeUtil: TimeUtil;
     protected databaseServer: DatabaseServer;
     protected pmcChatResponseService: PmcChatResponseService;
@@ -49,6 +48,7 @@ export declare class InraidController {
     protected healthHelper: HealthHelper;
     protected traderHelper: TraderHelper;
     protected traderServicesService: TraderServicesService;
+    protected localisationService: LocalisationService;
     protected insuranceService: InsuranceService;
     protected inRaidHelper: InRaidHelper;
     protected applicationContext: ApplicationContext;
@@ -62,7 +62,7 @@ export declare class InraidController {
     protected locationConfig: ILocationConfig;
     protected ragfairConfig: IRagfairConfig;
     protected hideoutConfig: IHideoutConfig;
-    constructor(logger: ILogger, saveServer: SaveServer, jsonUtil: JsonUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, pmcChatResponseService: PmcChatResponseService, matchBotDetailsCacheService: MatchBotDetailsCacheService, questHelper: QuestHelper, itemHelper: ItemHelper, profileHelper: ProfileHelper, playerScavGenerator: PlayerScavGenerator, healthHelper: HealthHelper, traderHelper: TraderHelper, traderServicesService: TraderServicesService, insuranceService: InsuranceService, inRaidHelper: InRaidHelper, applicationContext: ApplicationContext, configServer: ConfigServer, mailSendService: MailSendService, randomUtil: RandomUtil);
+    constructor(logger: ILogger, saveServer: SaveServer, timeUtil: TimeUtil, databaseServer: DatabaseServer, pmcChatResponseService: PmcChatResponseService, matchBotDetailsCacheService: MatchBotDetailsCacheService, questHelper: QuestHelper, itemHelper: ItemHelper, profileHelper: ProfileHelper, playerScavGenerator: PlayerScavGenerator, healthHelper: HealthHelper, traderHelper: TraderHelper, traderServicesService: TraderServicesService, localisationService: LocalisationService, insuranceService: InsuranceService, inRaidHelper: InRaidHelper, applicationContext: ApplicationContext, configServer: ConfigServer, mailSendService: MailSendService, randomUtil: RandomUtil);
     /**
      * Save locationId to active profiles inraid object AND app context
      * @param sessionID Session id

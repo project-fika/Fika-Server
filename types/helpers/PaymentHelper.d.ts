@@ -1,5 +1,5 @@
-import { IInventoryConfig } from "@spt-aki/models/spt/config/IInventoryConfig";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
+import { IInventoryConfig } from "@spt/models/spt/config/IInventoryConfig";
+import { ConfigServer } from "@spt/servers/ConfigServer";
 export declare class PaymentHelper {
     protected configServer: ConfigServer;
     protected inventoryConfig: IInventoryConfig;

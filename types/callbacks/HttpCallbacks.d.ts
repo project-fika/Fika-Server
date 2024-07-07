@@ -1,5 +1,5 @@
-import { OnLoad } from "@spt-aki/di/OnLoad";
-import { HttpServer } from "@spt-aki/servers/HttpServer";
+import { OnLoad } from "@spt/di/OnLoad";
+import { HttpServer } from "@spt/servers/HttpServer";
 export declare class HttpCallbacks implements OnLoad {
     protected httpServer: HttpServer;
     constructor(httpServer: HttpServer);

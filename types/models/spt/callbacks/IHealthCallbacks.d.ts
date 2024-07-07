@@ -1,11 +1,11 @@
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { IHealthTreatmentRequestData } from "@spt-aki/models/eft/health/IHealthTreatmentRequestData";
-import { IOffraidEatRequestData } from "@spt-aki/models/eft/health/IOffraidEatRequestData";
-import { IOffraidHealRequestData } from "@spt-aki/models/eft/health/IOffraidHealRequestData";
-import { ISyncHealthRequestData } from "@spt-aki/models/eft/health/ISyncHealthRequestData";
-import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IHealthTreatmentRequestData } from "@spt/models/eft/health/IHealthTreatmentRequestData";
+import { IOffraidEatRequestData } from "@spt/models/eft/health/IOffraidEatRequestData";
+import { IOffraidHealRequestData } from "@spt/models/eft/health/IOffraidHealRequestData";
+import { ISyncHealthRequestData } from "@spt/models/eft/health/ISyncHealthRequestData";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 export interface IHealthCallbacks {
-    onLoad(sessionID: string): IAkiProfile;
+    onLoad(sessionID: string): ISptProfile;
     syncHealth(url: string, info: ISyncHealthRequestData, sessionID: string): any;
     offraidEat(pmcData: IPmcData, body: IOffraidEatRequestData, sessionID: string): any;
     offraidHeal(pmcData: IPmcData, body: IOffraidHealRequestData, sessionID: string): any;

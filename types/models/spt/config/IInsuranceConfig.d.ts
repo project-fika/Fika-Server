@@ -1,6 +1,6 @@
-import { IBaseConfig } from "@spt-aki/models/spt/config/IBaseConfig";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IInsuranceConfig extends IBaseConfig {
-    kind: "aki-insurance";
+    kind: "spt-insurance";
     /** Insurance price multiplier */
     insuranceMultiplier: Record<string, number>;
     /** Chance item is returned as insurance, keyed by trader id */

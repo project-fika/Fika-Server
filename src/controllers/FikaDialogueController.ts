@@ -1,10 +1,13 @@
 import { inject, injectAll, injectable } from "tsyringe";
 
-import { IDialogueChatBot } from "@spt-aki/helpers/Dialogue/IDialogueChatBot";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { IFriendRequestSendResponse } from "@spt-aki/models/eft/dialog/IFriendRequestSendResponse";
-import { IGetFriendListDataResponse } from "@spt-aki/models/eft/dialog/IGetFriendListDataResponse";
-import { BackendErrorCodes } from "@spt-aki/models/enums/BackendErrorCodes";
+import { IDialogueChatBot } from "@spt/helpers/Dialogue/IDialogueChatBot";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { IFriendRequestSendResponse } from "@spt/models/eft/dialog/IFriendRequestSendResponse";
+import { IGetFriendListDataResponse } from "@spt/models/eft/dialog/IGetFriendListDataResponse";
+import { BackendErrorCodes } from "@spt/models/enums/BackendErrorCodes";
+import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
+import { ConfigServer } from "@spt/servers/ConfigServer";
 
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
 import { FikaPlayerRelationsHelper } from "../helpers/FikaPlayerRelationsHelper";
@@ -15,6 +18,7 @@ export class FikaDialogueController {
     constructor(
         @injectAll("DialogueChatBot") protected dialogueChatBots: IDialogueChatBot[],
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
+        @inject("ConfigServer") protected configServer: ConfigServer,
         @inject("FikaFriendRequestsHelper") protected fikaFriendRequestsHelper: FikaFriendRequestsHelper,
         @inject("FikaPlayerRelationsHelper") protected fikaPlayerRelationsHelper: FikaPlayerRelationsHelper,
     ) {
@@ -22,7 +26,15 @@ export class FikaDialogueController {
     }
 
     public getFriendList(sessionID: string): IGetFriendListDataResponse {
-        const botsAndFriends = this.dialogueChatBots.map((v) => v.getChatBot());
+        const core = this.configServer.getConfig<ICoreConfig>(ConfigTypes.CORE);
+        let botsAndFriends = this.dialogueChatBots.map((v) => v.getChatBot());
+        if (!core.features.chatbotFeatures.commandoEnabled) {
+            botsAndFriends = botsAndFriends.filter(u => u._id != "sptCommando");
+        }
+
+        if (!core.features.chatbotFeatures.sptFriendEnabled) {
+            botsAndFriends = botsAndFriends.filter(u => u._id != "sptFriend");
+        }
 
         const friendsIds = this.fikaPlayerRelationsHelper.getFriendsList(sessionID);
 

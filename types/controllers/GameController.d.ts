@@ -1,49 +1,49 @@
-import { ApplicationContext } from "@spt-aki/context/ApplicationContext";
-import { HideoutHelper } from "@spt-aki/helpers/HideoutHelper";
-import { HttpServerHelper } from "@spt-aki/helpers/HttpServerHelper";
-import { ProfileHelper } from "@spt-aki/helpers/ProfileHelper";
-import { PreAkiModLoader } from "@spt-aki/loaders/PreAkiModLoader";
-import { IEmptyRequestData } from "@spt-aki/models/eft/common/IEmptyRequestData";
-import { IPmcData } from "@spt-aki/models/eft/common/IPmcData";
-import { ICheckVersionResponse } from "@spt-aki/models/eft/game/ICheckVersionResponse";
-import { ICurrentGroupResponse } from "@spt-aki/models/eft/game/ICurrentGroupResponse";
-import { IGameConfigResponse } from "@spt-aki/models/eft/game/IGameConfigResponse";
-import { IGameKeepAliveResponse } from "@spt-aki/models/eft/game/IGameKeepAliveResponse";
-import { IGetRaidTimeRequest } from "@spt-aki/models/eft/game/IGetRaidTimeRequest";
-import { IGetRaidTimeResponse } from "@spt-aki/models/eft/game/IGetRaidTimeResponse";
-import { IServerDetails } from "@spt-aki/models/eft/game/IServerDetails";
-import { IAkiProfile } from "@spt-aki/models/eft/profile/IAkiProfile";
-import { IBotConfig } from "@spt-aki/models/spt/config/IBotConfig";
-import { ICoreConfig } from "@spt-aki/models/spt/config/ICoreConfig";
-import { IHideoutConfig } from "@spt-aki/models/spt/config/IHideoutConfig";
-import { IHttpConfig } from "@spt-aki/models/spt/config/IHttpConfig";
-import { ILocationConfig } from "@spt-aki/models/spt/config/ILocationConfig";
-import { ILootConfig } from "@spt-aki/models/spt/config/ILootConfig";
-import { IPmcConfig } from "@spt-aki/models/spt/config/IPmcConfig";
-import { IRagfairConfig } from "@spt-aki/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { CustomLocationWaveService } from "@spt-aki/services/CustomLocationWaveService";
-import { GiftService } from "@spt-aki/services/GiftService";
-import { ItemBaseClassService } from "@spt-aki/services/ItemBaseClassService";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
-import { OpenZoneService } from "@spt-aki/services/OpenZoneService";
-import { ProfileActivityService } from "@spt-aki/services/ProfileActivityService";
-import { ProfileFixerService } from "@spt-aki/services/ProfileFixerService";
-import { RaidTimeAdjustmentService } from "@spt-aki/services/RaidTimeAdjustmentService";
-import { SeasonalEventService } from "@spt-aki/services/SeasonalEventService";
-import { HashUtil } from "@spt-aki/utils/HashUtil";
-import { JsonUtil } from "@spt-aki/utils/JsonUtil";
-import { RandomUtil } from "@spt-aki/utils/RandomUtil";
-import { TimeUtil } from "@spt-aki/utils/TimeUtil";
+import { ApplicationContext } from "@spt/context/ApplicationContext";
+import { HideoutHelper } from "@spt/helpers/HideoutHelper";
+import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { PreSptModLoader } from "@spt/loaders/PreSptModLoader";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { ICheckVersionResponse } from "@spt/models/eft/game/ICheckVersionResponse";
+import { ICurrentGroupResponse } from "@spt/models/eft/game/ICurrentGroupResponse";
+import { IGameConfigResponse } from "@spt/models/eft/game/IGameConfigResponse";
+import { IGameKeepAliveResponse } from "@spt/models/eft/game/IGameKeepAliveResponse";
+import { IGameModeRequestData } from "@spt/models/eft/game/IGameModeRequestData";
+import { IGetRaidTimeRequest } from "@spt/models/eft/game/IGetRaidTimeRequest";
+import { IGetRaidTimeResponse } from "@spt/models/eft/game/IGetRaidTimeResponse";
+import { IServerDetails } from "@spt/models/eft/game/IServerDetails";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
+import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
+import { ILootConfig } from "@spt/models/spt/config/ILootConfig";
+import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
+import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { CustomLocationWaveService } from "@spt/services/CustomLocationWaveService";
+import { GiftService } from "@spt/services/GiftService";
+import { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
+import { LocalisationService } from "@spt/services/LocalisationService";
+import { OpenZoneService } from "@spt/services/OpenZoneService";
+import { ProfileActivityService } from "@spt/services/ProfileActivityService";
+import { ProfileFixerService } from "@spt/services/ProfileFixerService";
+import { RaidTimeAdjustmentService } from "@spt/services/RaidTimeAdjustmentService";
+import { SeasonalEventService } from "@spt/services/SeasonalEventService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { RandomUtil } from "@spt/utils/RandomUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class GameController {
     protected logger: ILogger;
     protected databaseServer: DatabaseServer;
-    protected jsonUtil: JsonUtil;
     protected timeUtil: TimeUtil;
     protected hashUtil: HashUtil;
-    protected preAkiModLoader: PreAkiModLoader;
+    protected preSptModLoader: PreSptModLoader;
     protected httpServerHelper: HttpServerHelper;
     protected randomUtil: RandomUtil;
     protected hideoutHelper: HideoutHelper;
@@ -59,6 +59,7 @@ export declare class GameController {
     protected profileActivityService: ProfileActivityService;
     protected applicationContext: ApplicationContext;
     protected configServer: ConfigServer;
+    protected cloner: ICloner;
     protected httpConfig: IHttpConfig;
     protected coreConfig: ICoreConfig;
     protected locationConfig: ILocationConfig;
@@ -67,7 +68,7 @@ export declare class GameController {
     protected pmcConfig: IPmcConfig;
     protected lootConfig: ILootConfig;
     protected botConfig: IBotConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, jsonUtil: JsonUtil, timeUtil: TimeUtil, hashUtil: HashUtil, preAkiModLoader: PreAkiModLoader, httpServerHelper: HttpServerHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, profileActivityService: ProfileActivityService, applicationContext: ApplicationContext, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseServer: DatabaseServer, timeUtil: TimeUtil, hashUtil: HashUtil, preSptModLoader: PreSptModLoader, httpServerHelper: HttpServerHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, profileActivityService: ProfileActivityService, applicationContext: ApplicationContext, configServer: ConfigServer, cloner: ICloner);
     load(): void;
     /**
      * Handle client/game/start
@@ -88,6 +89,10 @@ export declare class GameController {
      * Handle client/game/config
      */
     getGameConfig(sessionID: string): IGameConfigResponse;
+    /**
+     * Handle client/game/mode
+     */
+    getGameMode(sessionID: string, info: IGameModeRequestData): any;
     /**
      * Handle client/server/list
      */
@@ -145,7 +150,7 @@ export declare class GameController {
      * Get a list of installed mods and save their details to the profile being used
      * @param fullProfile Profile to add mod details to
      */
-    protected saveActiveModsToProfile(fullProfile: IAkiProfile): void;
+    protected saveActiveModsToProfile(fullProfile: ISptProfile): void;
     /**
      * Check for any missing assorts inside each traders assort.json data, checking against traders questassort.json
      */
@@ -159,7 +164,7 @@ export declare class GameController {
      * Check for a dialog with the key 'undefined', and remove it
      * @param fullProfile Profile to check for dialog in
      */
-    protected checkForAndRemoveUndefinedDialogs(fullProfile: IAkiProfile): void;
+    protected checkForAndRemoveUndefinedDialogs(fullProfile: ISptProfile): void;
     /**
      * Blank out the "test" mail message from prapor
      */
@@ -168,5 +173,5 @@ export declare class GameController {
      * Make non-trigger-spawned raiders spawn earlier + always
      */
     protected adjustLabsRaiderSpawnRate(): void;
-    protected logProfileDetails(fullProfile: IAkiProfile): void;
+    protected logProfileDetails(fullProfile: ISptProfile): void;
 }

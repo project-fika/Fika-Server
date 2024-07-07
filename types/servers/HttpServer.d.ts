@@ -1,14 +1,14 @@
 /// <reference types="node" />
 import { IncomingMessage, ServerResponse } from "node:http";
-import { ApplicationContext } from "@spt-aki/context/ApplicationContext";
-import { HttpServerHelper } from "@spt-aki/helpers/HttpServerHelper";
-import { IHttpConfig } from "@spt-aki/models/spt/config/IHttpConfig";
-import { ILogger } from "@spt-aki/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt-aki/servers/ConfigServer";
-import { DatabaseServer } from "@spt-aki/servers/DatabaseServer";
-import { IHttpListener } from "@spt-aki/servers/http/IHttpListener";
-import { WebSocketServer } from "@spt-aki/servers/WebSocketServer";
-import { LocalisationService } from "@spt-aki/services/LocalisationService";
+import { ApplicationContext } from "@spt/context/ApplicationContext";
+import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
+import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { IHttpListener } from "@spt/servers/http/IHttpListener";
+import { WebSocketServer } from "@spt/servers/WebSocketServer";
+import { LocalisationService } from "@spt/services/LocalisationService";
 export declare class HttpServer {
     protected logger: ILogger;
     protected databaseServer: DatabaseServer;
