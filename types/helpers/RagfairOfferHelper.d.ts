@@ -3,6 +3,7 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PaymentHelper } from "@spt/helpers/PaymentHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { QuestHelper } from "@spt/helpers/QuestHelper";
 import { RagfairHelper } from "@spt/helpers/RagfairHelper";
 import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
 import { RagfairSortHelper } from "@spt/helpers/RagfairSortHelper";
@@ -19,8 +20,8 @@ import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocaleService } from "@spt/services/LocaleService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { MailSendService } from "@spt/services/MailSendService";
@@ -28,13 +29,12 @@ import { RagfairOfferService } from "@spt/services/RagfairOfferService";
 import { RagfairRequiredItemsService } from "@spt/services/RagfairRequiredItemsService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { QuestHelper } from "./QuestHelper";
 export declare class RagfairOfferHelper {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;
     protected hashUtil: HashUtil;
     protected eventOutputHolder: EventOutputHolder;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected traderHelper: TraderHelper;
     protected saveServer: SaveServer;
     protected itemHelper: ItemHelper;
@@ -55,7 +55,7 @@ export declare class RagfairOfferHelper {
     protected static goodSoldTemplate: string;
     protected ragfairConfig: IRagfairConfig;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, databaseServer: DatabaseServer, traderHelper: TraderHelper, saveServer: SaveServer, itemHelper: ItemHelper, botHelper: BotHelper, paymentHelper: PaymentHelper, presetHelper: PresetHelper, profileHelper: ProfileHelper, questHelper: QuestHelper, ragfairServerHelper: RagfairServerHelper, ragfairSortHelper: RagfairSortHelper, ragfairHelper: RagfairHelper, ragfairOfferService: RagfairOfferService, ragfairRequiredItemsService: RagfairRequiredItemsService, localeService: LocaleService, localisationService: LocalisationService, mailSendService: MailSendService, configServer: ConfigServer);
+    constructor(logger: ILogger, timeUtil: TimeUtil, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, databaseService: DatabaseService, traderHelper: TraderHelper, saveServer: SaveServer, itemHelper: ItemHelper, botHelper: BotHelper, paymentHelper: PaymentHelper, presetHelper: PresetHelper, profileHelper: ProfileHelper, questHelper: QuestHelper, ragfairServerHelper: RagfairServerHelper, ragfairSortHelper: RagfairSortHelper, ragfairHelper: RagfairHelper, ragfairOfferService: RagfairOfferService, ragfairRequiredItemsService: RagfairRequiredItemsService, localeService: LocaleService, localisationService: LocalisationService, mailSendService: MailSendService, configServer: ConfigServer);
     /**
      * Passthrough to ragfairOfferService.getOffers(), get flea offers a player should see
      * @param searchRequest Data from client
@@ -177,7 +177,7 @@ export declare class RagfairOfferHelper {
      * @param pmcProfile Player profile
      * @returns True = should be shown to player
      */
-    isDisplayableOffer(searchRequest: ISearchRequestData, itemsToAdd: string[], traderAssorts: Record<string, ITraderAssort>, offer: IRagfairOffer, pmcProfile: IPmcData): boolean;
+    isDisplayableOffer(searchRequest: ISearchRequestData, itemsToAdd: string[], traderAssorts: Record<string, ITraderAssort>, offer: IRagfairOffer, pmcProfile: IPmcData, playerIsFleaBanned?: boolean): boolean;
     isDisplayableOfferThatNeedsItem(searchRequest: ISearchRequestData, offer: IRagfairOffer): boolean;
     /**
      * Does the passed in item have a condition property

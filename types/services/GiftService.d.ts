@@ -24,6 +24,17 @@ export declare class GiftService {
      * @returns True if it exists in  db
      */
     giftExists(giftId: string): boolean;
+    getGiftById(giftId: string): Gift;
+    /**
+     * Get dictionary of all gifts
+     * @returns Dict keyed by gift id
+     */
+    getGifts(): Record<string, Gift>;
+    /**
+     * Get an array of all gift ids
+     * @returns string array of gift ids
+     */
+    getGiftIds(): string[];
     /**
      * Send player a gift from a range of sources
      * @param playerId Player to send gift to / sessionId
@@ -36,13 +47,13 @@ export declare class GiftService {
      * @param giftData Gift to send player
      * @returns trader/user/system id
      */
-    protected getSenderId(giftData: Gift): string;
+    protected getSenderId(giftData: Gift): string | undefined;
     /**
      * Convert GiftSenderType into a dialog MessageType
      * @param giftData Gift to send player
      * @returns MessageType enum value
      */
-    protected getMessageType(giftData: Gift): MessageType;
+    protected getMessageType(giftData: Gift): MessageType | undefined;
     /**
      * Prapor sends gifts to player for first week after profile creation
      * @param sessionId Player id

@@ -9,7 +9,7 @@ import { ITrader, ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { FenceService } from "@spt/services/FenceService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { TraderAssortService } from "@spt/services/TraderAssortService";
@@ -21,7 +21,7 @@ export declare class TraderAssortHelper {
     protected logger: ILogger;
     protected mathUtil: MathUtil;
     protected timeUtil: TimeUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected profileHelper: ProfileHelper;
     protected assortHelper: AssortHelper;
     protected paymentHelper: PaymentHelper;
@@ -37,7 +37,7 @@ export declare class TraderAssortHelper {
     protected traderConfig: ITraderConfig;
     protected mergedQuestAssorts: Record<string, Record<string, string>>;
     protected createdMergedQuestAssorts: boolean;
-    constructor(logger: ILogger, mathUtil: MathUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, profileHelper: ProfileHelper, assortHelper: AssortHelper, paymentHelper: PaymentHelper, ragfairAssortGenerator: RagfairAssortGenerator, ragfairOfferGenerator: RagfairOfferGenerator, traderAssortService: TraderAssortService, localisationService: LocalisationService, traderPurchasePersisterService: TraderPurchasePersisterService, traderHelper: TraderHelper, fenceService: FenceService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, mathUtil: MathUtil, timeUtil: TimeUtil, databaseService: DatabaseService, profileHelper: ProfileHelper, assortHelper: AssortHelper, paymentHelper: PaymentHelper, ragfairAssortGenerator: RagfairAssortGenerator, ragfairOfferGenerator: RagfairOfferGenerator, traderAssortService: TraderAssortService, localisationService: LocalisationService, traderPurchasePersisterService: TraderPurchasePersisterService, traderHelper: TraderHelper, fenceService: FenceService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Get a traders assorts
      * Can be used for returning ragfair / fence assorts
@@ -48,6 +48,12 @@ export declare class TraderAssortHelper {
      * @returns a traders' assorts
      */
     getAssort(sessionId: string, traderId: string, flea?: boolean): ITraderAssort;
+    /**
+     * Given the blacklist provided, remove root items from assort
+     * @param assortToFilter Trader assort to modify
+     * @param itemsTplsToRemove Item TPLs the assort should not have
+     */
+    protected removeItemsFromAssort(assortToFilter: ITraderAssort, itemsTplsToRemove: string[]): void;
     /**
      * Reset every traders root item `BuyRestrictionCurrent` property to 0
      * @param assortItems Items to adjust

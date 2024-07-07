@@ -24,7 +24,7 @@ export declare class TraderPurchasePersisterService {
      * @param traderId Trader to loop up purchases for
      * @returns Dict of assort id and count purchased
      */
-    getProfileTraderPurchases(sessionId: string, traderId: string): Record<string, TraderPurchaseData>;
+    getProfileTraderPurchases(sessionId: string, traderId: string): Record<string, TraderPurchaseData> | undefined;
     /**
      * Get a purchase made from a trader for requested profile before the last trader reset
      * @param sessionId Session id
@@ -32,7 +32,7 @@ export declare class TraderPurchasePersisterService {
      * @param assortId Id of assort to get data for
      * @returns TraderPurchaseData
      */
-    getProfileTraderPurchase(sessionId: string, traderId: string, assortId: string): TraderPurchaseData;
+    getProfileTraderPurchase(sessionId: string, traderId: string, assortId: string): TraderPurchaseData | undefined;
     /**
      * Remove all trader purchase records from all profiles that exist
      * @param traderId Traders id

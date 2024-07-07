@@ -14,8 +14,8 @@ import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { BotWeaponModLimitService } from "@spt/services/BotWeaponModLimitService";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { RepairService } from "@spt/services/RepairService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
@@ -24,7 +24,7 @@ import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class BotWeaponGenerator {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected itemHelper: ItemHelper;
     protected weightedRandomHelper: WeightedRandomHelper;
     protected botGeneratorHelper: BotGeneratorHelper;
@@ -41,7 +41,7 @@ export declare class BotWeaponGenerator {
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
     protected repairConfig: IRepairConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper, weightedRandomHelper: WeightedRandomHelper, botGeneratorHelper: BotGeneratorHelper, randomUtil: RandomUtil, configServer: ConfigServer, botWeaponGeneratorHelper: BotWeaponGeneratorHelper, botWeaponModLimitService: BotWeaponModLimitService, botEquipmentModGenerator: BotEquipmentModGenerator, localisationService: LocalisationService, repairService: RepairService, inventoryMagGenComponents: IInventoryMagGen[], cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseService: DatabaseService, itemHelper: ItemHelper, weightedRandomHelper: WeightedRandomHelper, botGeneratorHelper: BotGeneratorHelper, randomUtil: RandomUtil, configServer: ConfigServer, botWeaponGeneratorHelper: BotWeaponGeneratorHelper, botWeaponModLimitService: BotWeaponModLimitService, botEquipmentModGenerator: BotEquipmentModGenerator, localisationService: LocalisationService, repairService: RepairService, inventoryMagGenComponents: IInventoryMagGen[], cloner: ICloner);
     /**
      * Pick a random weapon based on weightings and generate a functional weapon
      * @param equipmentSlot Primary/secondary/holster

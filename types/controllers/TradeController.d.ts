@@ -16,8 +16,8 @@ import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { RagfairServer } from "@spt/servers/RagfairServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { MailSendService } from "@spt/services/MailSendService";
 import { RagfairPriceService } from "@spt/services/RagfairPriceService";
@@ -27,7 +27,7 @@ import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class TradeController {
     protected logger: ILogger;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected eventOutputHolder: EventOutputHolder;
     protected tradeHelper: TradeHelper;
     protected timeUtil: TimeUtil;
@@ -42,10 +42,9 @@ export declare class TradeController {
     protected ragfairPriceService: RagfairPriceService;
     protected mailSendService: MailSendService;
     protected configServer: ConfigServer;
-    protected roubleTpl: string;
     protected ragfairConfig: IRagfairConfig;
     protected traderConfig: ITraderConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, eventOutputHolder: EventOutputHolder, tradeHelper: TradeHelper, timeUtil: TimeUtil, randomUtil: RandomUtil, hashUtil: HashUtil, itemHelper: ItemHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, ragfairServer: RagfairServer, httpResponse: HttpResponseUtil, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, mailSendService: MailSendService, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseService: DatabaseService, eventOutputHolder: EventOutputHolder, tradeHelper: TradeHelper, timeUtil: TimeUtil, randomUtil: RandomUtil, hashUtil: HashUtil, itemHelper: ItemHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, ragfairServer: RagfairServer, httpResponse: HttpResponseUtil, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, mailSendService: MailSendService, configServer: ConfigServer);
     /** Handle TradingConfirm event */
     confirmTrading(pmcData: IPmcData, request: IProcessBaseTradeRequestData, sessionID: string): IItemEventRouterResponse;
     /** Handle RagFairBuyOffer event */

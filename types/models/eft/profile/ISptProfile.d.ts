@@ -86,7 +86,7 @@ export interface Dialogue {
 export interface IUserDialogInfo {
     _id: string;
     aid: number;
-    Info: IUserDialogDetails;
+    Info?: IUserDialogDetails;
 }
 export interface IUserDialogDetails {
     Nickname: string;
@@ -160,9 +160,16 @@ export interface DateTime {
     time: string;
 }
 export interface Spt {
+    /** What version of SPT was this profile made with */
     version: string;
+    /** What mods has this profile loaded at any point in time */
     mods?: ModDetails[];
+    /** What gifts has this profile received and how many */
     receivedGifts: ReceivedGift[];
+    /** item TPLs blacklisted from being sold on flea for this profile */
+    blacklistedItemTpls?: string[];
+    /** key: daily type */
+    freeRepeatableRefreshUsedCount: Record<string, number>;
 }
 export interface ModDetails {
     name: string;
@@ -173,7 +180,8 @@ export interface ModDetails {
 }
 export interface ReceivedGift {
     giftId: string;
-    timestampAccepted: number;
+    timestampLastAccepted: number;
+    current: number;
 }
 export interface Vitality {
     health: Health;

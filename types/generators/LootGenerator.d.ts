@@ -9,7 +9,7 @@ import { ISealedAirdropContainerSettings, RewardDetails } from "@spt/models/spt/
 import { LootItem } from "@spt/models/spt/services/LootItem";
 import { LootRequest } from "@spt/models/spt/services/LootRequest";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { RagfairLinkedItemService } from "@spt/services/RagfairLinkedItemService";
@@ -22,7 +22,7 @@ type ItemLimit = {
 export declare class LootGenerator {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected randomUtil: RandomUtil;
     protected itemHelper: ItemHelper;
     protected presetHelper: PresetHelper;
@@ -31,7 +31,7 @@ export declare class LootGenerator {
     protected localisationService: LocalisationService;
     protected ragfairLinkedItemService: RagfairLinkedItemService;
     protected itemFilterService: ItemFilterService;
-    constructor(logger: ILogger, hashUtil: HashUtil, databaseServer: DatabaseServer, randomUtil: RandomUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, inventoryHelper: InventoryHelper, weightedRandomHelper: WeightedRandomHelper, localisationService: LocalisationService, ragfairLinkedItemService: RagfairLinkedItemService, itemFilterService: ItemFilterService);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseService: DatabaseService, randomUtil: RandomUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, inventoryHelper: InventoryHelper, weightedRandomHelper: WeightedRandomHelper, localisationService: LocalisationService, ragfairLinkedItemService: RagfairLinkedItemService, itemFilterService: ItemFilterService);
     /**
      * Generate a list of items based on configuration options parameter
      * @param options parameters to adjust how loot is generated
@@ -44,7 +44,7 @@ export declare class LootGenerator {
      * @param options Loot request options - armor level etc
      * @returns True if item has desired armor level
      */
-    protected armorIsDesiredProtectionLevel(armor: IPreset, options: LootRequest): boolean;
+    protected isArmorOfDesiredProtectionLevel(armor: IPreset, options: LootRequest): boolean;
     /**
      * Construct item limit record to hold max and current item count for each item type
      * @param limits limits as defined in config

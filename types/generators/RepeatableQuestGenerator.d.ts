@@ -9,7 +9,7 @@ import { IBossInfo, IEliminationConfig, IQuestConfig, IRepeatableQuestConfig } f
 import { IQuestTypePool } from "@spt/models/spt/repeatable/IQuestTypePool";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
 import { MathUtil } from "@spt/utils/MathUtil";
@@ -19,7 +19,7 @@ export declare class RepeatableQuestGenerator {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
     protected mathUtil: MathUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected itemHelper: ItemHelper;
     protected localisationService: LocalisationService;
     protected objectId: ObjectId;
@@ -28,7 +28,7 @@ export declare class RepeatableQuestGenerator {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper, localisationService: LocalisationService, objectId: ObjectId, repeatableQuestHelper: RepeatableQuestHelper, repeatableQuestRewardGenerator: RepeatableQuestRewardGenerator, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, databaseService: DatabaseService, itemHelper: ItemHelper, localisationService: LocalisationService, objectId: ObjectId, repeatableQuestHelper: RepeatableQuestHelper, repeatableQuestRewardGenerator: RepeatableQuestRewardGenerator, configServer: ConfigServer, cloner: ICloner);
     /**
      * This method is called by /GetClientRepeatableQuests/ and creates one element of quest type format (see assets/database/templates/repeatableQuests.json).
      * It randomly draws a quest type (currently Elimination, Completion or Exploration) as well as a trader who is providing the quest

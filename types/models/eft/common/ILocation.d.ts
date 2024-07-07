@@ -1,7 +1,7 @@
 import { Exit, ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { ILooseLoot } from "@spt/models/eft/common/ILooseLoot";
-import { Ixyz } from "./Ixyz";
-import { Item } from "./tables/IItem";
+import { Ixyz } from "@spt/models/eft/common/Ixyz";
+import { Item } from "@spt/models/eft/common/tables/IItem";
 export interface ILocation {
     /** Map meta-data */
     base: ILocationBase;

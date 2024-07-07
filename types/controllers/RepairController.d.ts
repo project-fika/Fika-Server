@@ -9,13 +9,13 @@ import { ITraderRepairActionDataRequest } from "@spt/models/eft/repair/ITraderRe
 import { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { PaymentService } from "@spt/services/PaymentService";
 import { RepairService } from "@spt/services/RepairService";
 export declare class RepairController {
     protected logger: ILogger;
     protected eventOutputHolder: EventOutputHolder;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected questHelper: QuestHelper;
     protected traderHelper: TraderHelper;
     protected paymentService: PaymentService;
@@ -23,7 +23,7 @@ export declare class RepairController {
     protected repairService: RepairService;
     protected profileHelper: ProfileHelper;
     protected repairConfig: IRepairConfig;
-    constructor(logger: ILogger, eventOutputHolder: EventOutputHolder, databaseServer: DatabaseServer, questHelper: QuestHelper, traderHelper: TraderHelper, paymentService: PaymentService, repairHelper: RepairHelper, repairService: RepairService, profileHelper: ProfileHelper);
+    constructor(logger: ILogger, eventOutputHolder: EventOutputHolder, databaseService: DatabaseService, questHelper: QuestHelper, traderHelper: TraderHelper, paymentService: PaymentService, repairHelper: RepairHelper, repairService: RepairService, profileHelper: ProfileHelper);
     /**
      * Handle TraderRepair event
      * Repair with trader

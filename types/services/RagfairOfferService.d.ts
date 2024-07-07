@@ -6,8 +6,8 @@ import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { RagfairOfferHolder } from "@spt/utils/RagfairOfferHolder";
@@ -15,7 +15,7 @@ import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class RagfairOfferService {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected saveServer: SaveServer;
     protected ragfairServerHelper: RagfairServerHelper;
     protected profileHelper: ProfileHelper;
@@ -28,14 +28,14 @@ export declare class RagfairOfferService {
     protected expiredOffers: Record<string, IRagfairOffer>;
     protected ragfairConfig: IRagfairConfig;
     protected ragfairOfferHandler: RagfairOfferHolder;
-    constructor(logger: ILogger, timeUtil: TimeUtil, databaseServer: DatabaseServer, saveServer: SaveServer, ragfairServerHelper: RagfairServerHelper, profileHelper: ProfileHelper, eventOutputHolder: EventOutputHolder, httpResponse: HttpResponseUtil, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, timeUtil: TimeUtil, databaseService: DatabaseService, saveServer: SaveServer, ragfairServerHelper: RagfairServerHelper, profileHelper: ProfileHelper, eventOutputHolder: EventOutputHolder, httpResponse: HttpResponseUtil, localisationService: LocalisationService, configServer: ConfigServer);
     /**
      * Get all offers
      * @returns IRagfairOffer array
      */
     getOffers(): IRagfairOffer[];
-    getOfferByOfferId(offerId: string): IRagfairOffer;
-    getOffersOfType(templateId: string): IRagfairOffer[];
+    getOfferByOfferId(offerId: string): IRagfairOffer | undefined;
+    getOffersOfType(templateId: string): IRagfairOffer[] | undefined;
     addOffer(offer: IRagfairOffer): void;
     addOfferToExpired(staleOffer: IRagfairOffer): void;
     /**

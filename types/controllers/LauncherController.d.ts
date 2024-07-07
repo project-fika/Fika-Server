@@ -10,8 +10,8 @@ import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
 import { IPackageJsonData } from "@spt/models/spt/mod/IPackageJsonData";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
@@ -24,19 +24,19 @@ export declare class LauncherController {
     protected saveServer: SaveServer;
     protected httpServerHelper: HttpServerHelper;
     protected profileHelper: ProfileHelper;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected localisationService: LocalisationService;
     protected preSptModLoader: PreSptModLoader;
     protected configServer: ConfigServer;
     protected coreConfig: ICoreConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, timeUtil: TimeUtil, randomUtil: RandomUtil, saveServer: SaveServer, httpServerHelper: HttpServerHelper, profileHelper: ProfileHelper, databaseServer: DatabaseServer, localisationService: LocalisationService, preSptModLoader: PreSptModLoader, configServer: ConfigServer);
+    constructor(logger: ILogger, hashUtil: HashUtil, timeUtil: TimeUtil, randomUtil: RandomUtil, saveServer: SaveServer, httpServerHelper: HttpServerHelper, profileHelper: ProfileHelper, databaseService: DatabaseService, localisationService: LocalisationService, preSptModLoader: PreSptModLoader, configServer: ConfigServer);
     connect(): IConnectResponse;
     /**
      * Get descriptive text for each of the profile edtions a player can choose, keyed by profile.json profile type e.g. "Edge Of Darkness"
      * @returns Dictionary of profile types with related descriptive text
      */
     protected getProfileDescriptions(): Record<string, string>;
-    find(sessionIdKey: string): Info;
+    find(sessionId: string): Info;
     login(info: ILoginRequestData): string;
     register(info: IRegisterData): string;
     protected createAccount(info: IRegisterData): string;

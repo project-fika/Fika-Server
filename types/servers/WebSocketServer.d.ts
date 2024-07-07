@@ -3,10 +3,10 @@ import http, { IncomingMessage } from "node:http";
 import { WebSocket, Server } from "ws";
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
-import { IWebSocketConnectionHandler } from "./ws/IWebSocketConnectionHandler";
 export declare class WebSocketServer {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;

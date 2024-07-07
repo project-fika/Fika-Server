@@ -13,8 +13,8 @@ import { ILostOnDeathConfig } from "@spt/models/spt/config/ILostOnDeathConfig";
 import { IInsuranceEquipmentPkg } from "@spt/models/spt/services/IInsuranceEquipmentPkg";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocaleService } from "@spt/services/LocaleService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { MailSendService } from "@spt/services/MailSendService";
@@ -24,7 +24,7 @@ import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class InsuranceService {
     protected logger: ILogger;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected secureContainerHelper: SecureContainerHelper;
     protected randomUtil: RandomUtil;
     protected itemHelper: ItemHelper;
@@ -42,7 +42,7 @@ export declare class InsuranceService {
     protected insured: Record<string, Record<string, Item[]>>;
     protected insuranceConfig: IInsuranceConfig;
     protected lostOnDeathConfig: ILostOnDeathConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, secureContainerHelper: SecureContainerHelper, randomUtil: RandomUtil, itemHelper: ItemHelper, hashUtil: HashUtil, timeUtil: TimeUtil, saveServer: SaveServer, traderHelper: TraderHelper, dialogueHelper: DialogueHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, localeService: LocaleService, mailSendService: MailSendService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, databaseService: DatabaseService, secureContainerHelper: SecureContainerHelper, randomUtil: RandomUtil, itemHelper: ItemHelper, hashUtil: HashUtil, timeUtil: TimeUtil, saveServer: SaveServer, traderHelper: TraderHelper, dialogueHelper: DialogueHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, localeService: LocaleService, mailSendService: MailSendService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Does player have insurance array
      * @param sessionId Player id
@@ -163,11 +163,11 @@ export declare class InsuranceService {
      * @param traderId Trader item is insured with
      * @returns price in roubles
      */
-    getPremium(pmcData: IPmcData, inventoryItem: Item, traderId: string): number;
+    getRoublePriceToInsureItemWithTrader(pmcData: IPmcData, inventoryItem: Item, traderId: string): number;
     /**
      * Returns the ID that should be used for a root-level Item's parentId property value within in the context of insurance.
-     *
-     * @returns The ID.
+     * @param sessionID Players id
+     * @returns The root item Id.
      */
     getRootItemParentID(sessionID: string): string;
 }

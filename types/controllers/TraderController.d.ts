@@ -6,7 +6,7 @@ import { ITraderAssort, ITraderBase } from "@spt/models/eft/common/tables/ITrade
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { FenceService } from "@spt/services/FenceService";
 import { TraderAssortService } from "@spt/services/TraderAssortService";
 import { TraderPurchasePersisterService } from "@spt/services/TraderPurchasePersisterService";
@@ -15,7 +15,7 @@ import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class TraderController {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected traderAssortHelper: TraderAssortHelper;
     protected profileHelper: ProfileHelper;
     protected traderHelper: TraderHelper;
@@ -26,7 +26,7 @@ export declare class TraderController {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected traderConfig: ITraderConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, databaseServer: DatabaseServer, traderAssortHelper: TraderAssortHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, traderAssortService: TraderAssortService, traderPurchasePersisterService: TraderPurchasePersisterService, fenceService: FenceService, fenceBaseAssortGenerator: FenceBaseAssortGenerator, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, timeUtil: TimeUtil, databaseService: DatabaseService, traderAssortHelper: TraderAssortHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, traderAssortService: TraderAssortService, traderPurchasePersisterService: TraderPurchasePersisterService, fenceService: FenceService, fenceBaseAssortGenerator: FenceBaseAssortGenerator, configServer: ConfigServer, cloner: ICloner);
     /**
      * Runs when onLoad event is fired
      * Iterate over traders, ensure a pristine copy of their assorts is stored in traderAssortService

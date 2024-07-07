@@ -3,6 +3,7 @@ import { BotGenerator } from "@spt/generators/BotGenerator";
 import { BotDifficultyHelper } from "@spt/helpers/BotDifficultyHelper";
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
 import { MinMax } from "@spt/models/common/MinMax";
 import { Condition, IGenerateBotsRequestData } from "@spt/models/eft/bot/IGenerateBotsRequestData";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
@@ -14,8 +15,8 @@ import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheService";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { MatchBotDetailsCacheService } from "@spt/services/MatchBotDetailsCacheService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
@@ -23,10 +24,11 @@ import { ICloner } from "@spt/utils/cloners/ICloner";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class BotController {
     protected logger: ILogger;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected botGenerator: BotGenerator;
     protected botHelper: BotHelper;
     protected botDifficultyHelper: BotDifficultyHelper;
+    protected weightedRandomHelper: WeightedRandomHelper;
     protected botGenerationCacheService: BotGenerationCacheService;
     protected matchBotDetailsCacheService: MatchBotDetailsCacheService;
     protected localisationService: LocalisationService;
@@ -38,7 +40,7 @@ export declare class BotController {
     protected cloner: ICloner;
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, botGenerator: BotGenerator, botHelper: BotHelper, botDifficultyHelper: BotDifficultyHelper, botGenerationCacheService: BotGenerationCacheService, matchBotDetailsCacheService: MatchBotDetailsCacheService, localisationService: LocalisationService, seasonalEventService: SeasonalEventService, profileHelper: ProfileHelper, configServer: ConfigServer, applicationContext: ApplicationContext, randomUtil: RandomUtil, cloner: ICloner);
+    constructor(logger: ILogger, databaseService: DatabaseService, botGenerator: BotGenerator, botHelper: BotHelper, botDifficultyHelper: BotDifficultyHelper, weightedRandomHelper: WeightedRandomHelper, botGenerationCacheService: BotGenerationCacheService, matchBotDetailsCacheService: MatchBotDetailsCacheService, localisationService: LocalisationService, seasonalEventService: SeasonalEventService, profileHelper: ProfileHelper, configServer: ConfigServer, applicationContext: ApplicationContext, randomUtil: RandomUtil, cloner: ICloner);
     /**
      * Return the number of bot load-out varieties to be generated
      * @param type bot Type we want the load-out gen count for
@@ -102,7 +104,7 @@ export declare class BotController {
      */
     protected generateWithBotDetails(condition: Condition, botGenerationDetails: BotGenerationDetails, sessionId: string): Promise<void>;
     /**
-     * Generate a single bot and store it in the cache
+     * Generate a single bot and store in the cache
      * @param botGenerationDetails the bot details to generate the bot with
      * @param sessionId Session id
      * @param cacheKey the cache key to store the bot with
@@ -116,6 +118,7 @@ export declare class BotController {
      * @returns Single IBotBase object
      */
     protected returnSingleBotFromCache(sessionId: string, request: IGenerateBotsRequestData): Promise<IBotBase[]>;
+    protected updateBotGenerationDetailsToRandomBoss(botGenerationDetails: BotGenerationDetails, possibleBossTypeWeights: Record<string, number>): void;
     /**
      * Get the difficulty passed in, if its not "asonline", get selected difficulty from config
      * @param requestedDifficulty
@@ -125,8 +128,9 @@ export declare class BotController {
     /**
      * Get the max number of bots allowed on a map
      * Looks up location player is entering when getting cap value
+     * @param location The map location cap was requested for
      * @returns cap number
      */
-    getBotCap(): number;
+    getBotCap(location: string): number;
     getAiBotBrainTypes(): any;
 }

@@ -20,35 +20,35 @@ export declare class LinkedList<T> {
     /**
      * Returns the first element's value.
      */
-    getHead(): T;
+    getHead(): T | undefined;
     /**
      * Finds the element from the list at the given index and returns it's value.
      */
-    get(idx: number): T;
+    get(idx: number): T | undefined;
     /**
      * Returns the last element's value.
      */
-    getTail(): T;
+    getTail(): T | undefined;
     /**
      * Finds and removes the first element from a list that has a value equal to the given value, returns it's value if it successfully removed it.
      */
-    remove(value: T): T;
+    remove(value: T): T | undefined;
     /**
      * Removes the first element from the list and returns it's value. If the list is empty, undefined is returned and the list is not modified.
      */
-    shift(): T;
+    shift(): T | undefined;
     /**
      * Removes the element from the list at the given index and returns it's value.
      */
-    removeAt(idx: number): T;
+    removeAt(idx: number): T | undefined;
     /**
      * Removes the last element from the list and returns it's value. If the list is empty, undefined is returned and the list is not modified.
      */
-    pop(): T;
+    pop(): T | undefined;
     /**
      * Returns an iterable of index, value pairs for every entry in the list.
      */
-    entries(): IterableIterator<[number, T]>;
+    entries(): IterableIterator<[number, T | undefined]>;
     /**
      * Returns an iterable of values in the list.
      */

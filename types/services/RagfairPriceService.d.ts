@@ -12,7 +12,7 @@ import { IRagfairConfig, IUnreasonableModPrices } from "@spt/models/spt/config/I
 import { IRagfairServerPrices } from "@spt/models/spt/ragfair/IRagfairServerPrices";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 /**
@@ -20,7 +20,7 @@ import { RandomUtil } from "@spt/utils/RandomUtil";
  */
 export declare class RagfairPriceService implements OnLoad {
     protected handbookHelper: HandbookHelper;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected logger: ILogger;
     protected itemHelper: ItemHelper;
     protected presetHelper: PresetHelper;
@@ -30,7 +30,7 @@ export declare class RagfairPriceService implements OnLoad {
     protected configServer: ConfigServer;
     protected ragfairConfig: IRagfairConfig;
     protected prices: IRagfairServerPrices;
-    constructor(handbookHelper: HandbookHelper, databaseServer: DatabaseServer, logger: ILogger, itemHelper: ItemHelper, presetHelper: PresetHelper, traderHelper: TraderHelper, randomUtil: RandomUtil, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(handbookHelper: HandbookHelper, databaseService: DatabaseService, logger: ILogger, itemHelper: ItemHelper, presetHelper: PresetHelper, traderHelper: TraderHelper, randomUtil: RandomUtil, localisationService: LocalisationService, configServer: ConfigServer);
     /**
      * Generate static (handbook) and dynamic (prices.json) flea prices, store inside class as dictionaries
      */

@@ -15,8 +15,8 @@ import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { BotLootCacheService } from "@spt/services/BotLootCacheService";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
 import { HashUtil } from "@spt/utils/HashUtil";
@@ -27,7 +27,7 @@ export declare class BotLootGenerator {
     protected randomUtil: RandomUtil;
     protected itemHelper: ItemHelper;
     protected inventoryHelper: InventoryHelper;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected handbookHelper: HandbookHelper;
     protected botGeneratorHelper: BotGeneratorHelper;
     protected botWeaponGenerator: BotWeaponGenerator;
@@ -39,7 +39,7 @@ export declare class BotLootGenerator {
     protected cloner: ICloner;
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, itemHelper: ItemHelper, inventoryHelper: InventoryHelper, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, botGeneratorHelper: BotGeneratorHelper, botWeaponGenerator: BotWeaponGenerator, weightedRandomHelper: WeightedRandomHelper, botHelper: BotHelper, botLootCacheService: BotLootCacheService, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, itemHelper: ItemHelper, inventoryHelper: InventoryHelper, databaseService: DatabaseService, handbookHelper: HandbookHelper, botGeneratorHelper: BotGeneratorHelper, botWeaponGenerator: BotWeaponGenerator, weightedRandomHelper: WeightedRandomHelper, botHelper: BotHelper, botLootCacheService: BotLootCacheService, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     protected getItemSpawnLimitsForBot(botRole: string): IItemSpawnLimitSettings;
     /**
      * Add loot to bots containers
@@ -60,7 +60,7 @@ export declare class BotLootGenerator {
     /**
      * Force healing items onto bot to ensure they can heal in-raid
      * @param botInventory Inventory to add items to
-     * @param botRole Role of bot (sptBear/sptUsec)
+     * @param botRole Role of bot (pmcBEAR/pmcUSEC)
      */
     protected addForcedMedicalItemsToPmcSecure(botInventory: PmcInventory, botRole: string): void;
     /**

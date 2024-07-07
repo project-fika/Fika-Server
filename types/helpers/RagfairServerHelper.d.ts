@@ -7,9 +7,10 @@ import { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
+import { LocalisationService } from "@spt/services/LocalisationService";
 import { MailSendService } from "@spt/services/MailSendService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
 import { RandomUtil } from "@spt/utils/RandomUtil";
@@ -22,18 +23,19 @@ export declare class RagfairServerHelper {
     protected randomUtil: RandomUtil;
     protected timeUtil: TimeUtil;
     protected saveServer: SaveServer;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected profileHelper: ProfileHelper;
     protected itemHelper: ItemHelper;
     protected traderHelper: TraderHelper;
     protected mailSendService: MailSendService;
+    protected localisationService: LocalisationService;
     protected itemFilterService: ItemFilterService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected ragfairConfig: IRagfairConfig;
     protected questConfig: IQuestConfig;
     protected static goodsReturnedTemplate: string;
-    constructor(logger: ILogger, randomUtil: RandomUtil, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, profileHelper: ProfileHelper, itemHelper: ItemHelper, traderHelper: TraderHelper, mailSendService: MailSendService, itemFilterService: ItemFilterService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, randomUtil: RandomUtil, timeUtil: TimeUtil, saveServer: SaveServer, databaseService: DatabaseService, profileHelper: ProfileHelper, itemHelper: ItemHelper, traderHelper: TraderHelper, mailSendService: MailSendService, localisationService: LocalisationService, itemFilterService: ItemFilterService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Is item valid / on blacklist / quest item
      * @param itemDetails
@@ -58,12 +60,6 @@ export declare class RagfairServerHelper {
      * @returns True if id was a trader
      */
     isTrader(traderId: string): boolean;
-    /**
-     * Is this user id the logged in player
-     * @param userId Id to test
-     * @returns True is the current player
-     */
-    isPlayer(userId: string): boolean;
     /**
      * Send items back to player
      * @param sessionID Player to send items to

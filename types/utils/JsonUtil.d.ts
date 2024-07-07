@@ -6,7 +6,7 @@ export declare class JsonUtil {
     protected vfs: VFS;
     protected hashUtil: HashUtil;
     protected logger: ILogger;
-    protected fileHashes: any;
+    protected fileHashes?: Map<string, string>;
     protected jsonCacheExists: boolean;
     protected jsonCachePath: string;
     constructor(vfs: VFS, hashUtil: HashUtil, logger: ILogger);
@@ -32,15 +32,15 @@ export declare class JsonUtil {
      * @param options Stringify options or a replacer.
      * @returns The string converted from the JavaScript value
      */
-    serializeJsonC(data: any, filename?: string | null, options?: IStringifyOptions | Reviver): string;
-    serializeJson5(data: any, filename?: string | null, prettify?: boolean): string;
+    serializeJsonC(data: any, filename?: string | undefined, options?: IStringifyOptions | Reviver): string | undefined;
+    serializeJson5(data: any, filename?: string | undefined, prettify?: boolean): string | undefined;
     /**
      * From string to object
      * @param jsonString json string to turn into object
      * @param filename Name of file being deserialized
      * @returns object
      */
-    deserialize<T>(jsonString: string, filename?: string): T;
+    deserialize<T>(jsonString: string, filename?: string): T | undefined;
     /**
      * From string to object
      * @param jsonString json string to turn into object
@@ -48,16 +48,17 @@ export declare class JsonUtil {
      * @param options Parsing options
      * @returns object
      */
-    deserializeJsonC<T>(jsonString: string, filename?: string, options?: IParseOptions): T;
-    deserializeJson5<T>(jsonString: string, filename?: string): T;
-    deserializeWithCacheCheckAsync<T>(jsonString: string, filePath: string): Promise<T>;
+    deserializeJsonC<T>(jsonString: string, filename?: string, options?: IParseOptions): T | undefined;
+    deserializeJson5<T>(jsonString: string, filename?: string): T | undefined;
+    deserializeWithCacheCheckAsync<T>(jsonString: string, filePath: string): Promise<T | undefined>;
     /**
-     * From json string to object
+     * Take json from file and convert into object
+     * Perform valadation on json during process if json file has not been processed before
      * @param jsonString String to turn into object
      * @param filePath Path to json file being processed
      * @returns Object
      */
-    deserializeWithCacheCheck<T>(jsonString: string, filePath: string): T;
+    deserializeWithCacheCheck<T>(jsonString: string, filePath: string): T | undefined;
     /**
      * Create file if nothing found
      * @param jsonCachePath path to cache

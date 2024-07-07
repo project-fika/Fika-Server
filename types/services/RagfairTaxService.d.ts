@@ -4,15 +4,15 @@ import { Item } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IStorePlayerOfferTaxAmountRequestData } from "@spt/models/eft/ragfair/IStorePlayerOfferTaxAmountRequestData";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { RagfairPriceService } from "@spt/services/RagfairPriceService";
 export declare class RagfairTaxService {
     protected logger: ILogger;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected ragfairPriceService: RagfairPriceService;
     protected itemHelper: ItemHelper;
     protected playerOfferTaxCache: Record<string, IStorePlayerOfferTaxAmountRequestData>;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, ragfairPriceService: RagfairPriceService, itemHelper: ItemHelper);
+    constructor(logger: ILogger, databaseService: DatabaseService, ragfairPriceService: RagfairPriceService, itemHelper: ItemHelper);
     storeClientOfferTaxValue(sessionId: string, offer: IStorePlayerOfferTaxAmountRequestData): void;
     clearStoredOfferTaxById(offerIdToRemove: string): void;
     getStoredClientOfferTaxValueById(offerIdToGet: string): IStorePlayerOfferTaxAmountRequestData;

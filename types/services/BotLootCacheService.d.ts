@@ -79,7 +79,7 @@ export declare class BotLootCacheService {
      */
     protected botRoleExistsInCache(botRole: string): boolean;
     /**
-     * If lootcache is null, init with empty property arrays
+     * If lootcache is undefined, init with empty property arrays
      * @param botRole Bot role to hydrate
      */
     protected initCacheForBotRole(botRole: string): void;

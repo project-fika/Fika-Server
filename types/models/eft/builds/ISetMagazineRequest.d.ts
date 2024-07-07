@@ -1,4 +1,4 @@
-import { IMagazineTemplateAmmoItem } from "../profile/ISptProfile";
+import { IMagazineTemplateAmmoItem } from "@spt/models/eft/profile/ISptProfile";
 export interface ISetMagazineRequest {
     Id: string;
     Name: string;
