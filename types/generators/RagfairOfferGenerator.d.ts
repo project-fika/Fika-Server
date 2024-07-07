@@ -13,8 +13,8 @@ import { IRagfairOffer, IRagfairOfferUser, OfferRequirement } from "@spt/models/
 import { Dynamic, IArmorPlateBlacklistSettings, IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { FenceService } from "@spt/services/FenceService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { RagfairOfferService } from "@spt/services/RagfairOfferService";
@@ -28,7 +28,7 @@ export declare class RagfairOfferGenerator {
     protected hashUtil: HashUtil;
     protected randomUtil: RandomUtil;
     protected timeUtil: TimeUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected ragfairServerHelper: RagfairServerHelper;
     protected profileHelper: ProfileHelper;
     protected handbookHelper: HandbookHelper;
@@ -51,7 +51,7 @@ export declare class RagfairOfferGenerator {
     }[];
     /** Internal counter to ensure each offer created has a unique value for its intId property */
     protected offerCounter: number;
-    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, ragfairServerHelper: RagfairServerHelper, profileHelper: ProfileHelper, handbookHelper: HandbookHelper, botHelper: BotHelper, saveServer: SaveServer, presetHelper: PresetHelper, ragfairAssortGenerator: RagfairAssortGenerator, ragfairOfferService: RagfairOfferService, ragfairPriceService: RagfairPriceService, localisationService: LocalisationService, paymentHelper: PaymentHelper, fenceService: FenceService, itemHelper: ItemHelper, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, timeUtil: TimeUtil, databaseService: DatabaseService, ragfairServerHelper: RagfairServerHelper, profileHelper: ProfileHelper, handbookHelper: HandbookHelper, botHelper: BotHelper, saveServer: SaveServer, presetHelper: PresetHelper, ragfairAssortGenerator: RagfairAssortGenerator, ragfairOfferService: RagfairOfferService, ragfairPriceService: RagfairPriceService, localisationService: LocalisationService, paymentHelper: PaymentHelper, fenceService: FenceService, itemHelper: ItemHelper, configServer: ConfigServer, cloner: ICloner);
     /**
      * Create a flea offer and store it in the Ragfair server offers array
      * @param userID Owner of the offer
@@ -170,7 +170,7 @@ export declare class RagfairOfferGenerator {
      * @param tpl Item to look for matching condition object
      * @returns condition id
      */
-    protected getDynamicConditionIdForTpl(tpl: string): string;
+    protected getDynamicConditionIdForTpl(tpl: string): string | undefined;
     /**
      * Alter an items condition based on its item base type
      * @param conditionSettingsId also the parentId of item being altered

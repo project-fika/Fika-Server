@@ -4,10 +4,11 @@ import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { Item } from "@spt/models/eft/common/tables/IItem";
 import { IQuestReward, IQuestRewards } from "@spt/models/eft/common/tables/IQuest";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import { IBaseQuestConfig, IQuestConfig, IRepeatableQuestConfig } from "@spt/models/spt/config/IQuestConfig";
+import { IBaseQuestConfig, IQuestConfig, IRepeatableQuestConfig, IRewardScaling } from "@spt/models/spt/config/IQuestConfig";
+import { IQuestRewardValues } from "@spt/models/spt/repeatable/IQuestRewardValues";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
@@ -19,7 +20,7 @@ export declare class RepeatableQuestRewardGenerator {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
     protected mathUtil: MathUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected itemHelper: ItemHelper;
     protected presetHelper: PresetHelper;
     protected handbookHelper: HandbookHelper;
@@ -30,7 +31,7 @@ export declare class RepeatableQuestRewardGenerator {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, databaseServer: DatabaseServer, itemHelper: ItemHelper, presetHelper: PresetHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, objectId: ObjectId, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, databaseService: DatabaseService, itemHelper: ItemHelper, presetHelper: PresetHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, objectId: ObjectId, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Generate the reward for a mission. A reward can consist of
      * - Experience
@@ -52,6 +53,29 @@ export declare class RepeatableQuestRewardGenerator {
      * @returns {object}                        object of "Reward"-type that can be given for a repeatable mission
      */
     generateReward(pmcLevel: number, difficulty: number, traderId: string, repeatableConfig: IRepeatableQuestConfig, questConfig: IBaseQuestConfig): IQuestRewards;
+    protected getQuestRewardValues(rewardScaling: IRewardScaling, difficulty: number, pmcLevel: number): IQuestRewardValues;
+    /**
+     * Get an array of items + stack size to give to player as reward that fit inside of a rouble budget
+     * @param itemPool All possible items to choose rewards from
+     * @param maxItemCount Total number of items to reward
+     * @param itemRewardBudget Rouble buget all item rewards must fit in
+     * @param repeatableConfig config for quest type
+     * @returns Items and stack size
+     */
+    protected getRewardableItemsFromPoolWithinBudget(itemPool: ITemplateItem[], maxItemCount: number, itemRewardBudget: number, repeatableConfig: IRepeatableQuestConfig): {
+        item: ITemplateItem;
+        stackSize: number;
+    }[];
+    /**
+     * Choose a random Weapon preset that fits inside of a rouble amount limit
+     * @param roublesBudget
+     * @param rewardIndex
+     * @returns IQuestReward
+     */
+    protected getRandomWeaponPresetWithinBudget(roublesBudget: number, rewardIndex: number): {
+        weapon: IQuestReward;
+        price: number;
+    } | undefined;
     /**
      * @param rewardItems List of reward items to filter
      * @param roublesBudget The budget remaining for rewards
@@ -62,21 +86,31 @@ export declare class RepeatableQuestRewardGenerator {
     /**
      * Get a randomised number a reward items stack size should be based on its handbook price
      * @param item Reward item to get stack size for
-     * @returns Stack size value
+     * @returns matching stack size for the passed in items price
      */
     protected getRandomisedRewardItemStackSizeByPrice(item: ITemplateItem): number;
     /**
      * Should reward item have stack size increased (25% chance)
-     * @param item Item to possibly increase stack size of
+     * @param item Item to increase reward stack size of
      * @param maxRoublePriceToStack Maximum rouble price an item can be to still be chosen for stacking
-     * @returns True if it should
+     * @param randomChanceToPass Additional randomised chance of passing
+     * @returns True if items stack size can be increased
      */
-    protected canIncreaseRewardItemStackSize(item: ITemplateItem, maxRoublePriceToStack: number): boolean;
+    protected canIncreaseRewardItemStackSize(item: ITemplateItem, maxRoublePriceToStack: number, randomChanceToPass?: number): boolean;
+    /**
+     * Get a count of cartridges that fits the rouble budget amount provided
+     * e.g. how many M80s for 50,000 roubles
+     * @param itemSelected Cartridge
+     * @param roublesBudget Rouble budget
+     * @param rewardNumItems
+     * @returns Count that fits budget (min 1)
+     */
     protected calculateAmmoStackSizeThatFitsBudget(itemSelected: ITemplateItem, roublesBudget: number, rewardNumItems: number): number;
     /**
      * Select a number of items that have a colelctive value of the passed in parameter
      * @param repeatableConfig Config
      * @param roublesBudget Total value of items to return
+     * @param traderId Id of the trader who will give player reward
      * @returns Array of reward items that fit budget
      */
     protected chooseRewardItemsWithinBudget(repeatableConfig: IRepeatableQuestConfig, roublesBudget: number, traderId: string): ITemplateItem[];
@@ -84,14 +118,30 @@ export declare class RepeatableQuestRewardGenerator {
      * Helper to create a reward item structured as required by the client
      *
      * @param   {string}    tpl             ItemId of the rewarded item
-     * @param   {integer}   value           Amount of items to give
+     * @param   {integer}   count           Amount of items to give
      * @param   {integer}   index           All rewards will be appended to a list, for unknown reasons the client wants the index
+     * @param preset Optional array of preset items
      * @returns {object}                    Object of "Reward"-item-type
      */
-    protected generateRewardItem(tpl: string, value: number, index: number, preset?: Item[]): IQuestReward;
+    protected generateItemReward(tpl: string, count: number, index: number): IQuestReward;
     /**
-     * Picks rewardable items from items.json. This means they need to fit into the inventory and they shouldn't be keys (debatable)
+     * Helper to create a reward item structured as required by the client
+     *
+     * @param   {string}    tpl             ItemId of the rewarded item
+     * @param   {integer}   count           Amount of items to give
+     * @param   {integer}   index           All rewards will be appended to a list, for unknown reasons the client wants the index
+     * @param preset Optional array of preset items
+     * @returns {object}                    Object of "Reward"-item-type
+     */
+    protected generatePresetReward(tpl: string, count: number, index: number, preset?: Item[]): IQuestReward;
+    /**
+     * Picks rewardable items from items.json
+     * This means they must:
+     * - Fit into the inventory
+     * - Shouldn't be keys
+     * - Have a price greater than 0
      * @param repeatableQuestConfig Config file
+     * @param traderId Id of trader who will give reward to player
      * @returns List of rewardable items [[_tpl, itemTemplate],...]
      */
     getRewardableItems(repeatableQuestConfig: IRepeatableQuestConfig, traderId: string): [string, ITemplateItem][];
@@ -102,5 +152,5 @@ export declare class RepeatableQuestRewardGenerator {
      * @returns True if item is valid reward
      */
     protected isValidRewardItem(tpl: string, repeatableQuestConfig: IRepeatableQuestConfig, itemBaseWhitelist: string[]): boolean;
-    protected addMoneyReward(traderId: string, rewards: IQuestRewards, rewardRoubles: number, rewardIndex: number): void;
+    protected getMoneyReward(traderId: string, rewardRoubles: number, rewardIndex: number): IQuestReward;
 }

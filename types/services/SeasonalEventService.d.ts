@@ -10,13 +10,13 @@ import { ISeasonalEvent, ISeasonalEventConfig } from "@spt/models/spt/config/ISe
 import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { GiftService } from "@spt/services/GiftService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { DatabaseImporter } from "@spt/utils/DatabaseImporter";
 export declare class SeasonalEventService {
     protected logger: ILogger;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected databaseImporter: DatabaseImporter;
     protected giftService: GiftService;
     protected localisationService: LocalisationService;
@@ -27,11 +27,11 @@ export declare class SeasonalEventService {
     protected questConfig: IQuestConfig;
     protected httpConfig: IHttpConfig;
     protected weatherConfig: IWeatherConfig;
-    protected halloweenEventActive: boolean;
-    protected christmasEventActive: boolean;
+    protected halloweenEventActive?: boolean;
+    protected christmasEventActive?: boolean;
     /** All events active at this point in time */
     protected currentlyActiveEvents: SeasonalEventType[];
-    constructor(logger: ILogger, databaseServer: DatabaseServer, databaseImporter: DatabaseImporter, giftService: GiftService, localisationService: LocalisationService, botHelper: BotHelper, profileHelper: ProfileHelper, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseService: DatabaseService, databaseImporter: DatabaseImporter, giftService: GiftService, localisationService: LocalisationService, botHelper: BotHelper, profileHelper: ProfileHelper, configServer: ConfigServer);
     protected get christmasEventItems(): string[];
     protected get halloweenEventItems(): string[];
     /**
@@ -146,9 +146,9 @@ export declare class SeasonalEventService {
     /**
      * Send gift to player if they'e not already received it
      * @param playerId Player to send gift to
-     * @param giftkey Key of gift to give
+     * @param giftKey Key of gift to give
      */
-    protected giveGift(playerId: string, giftkey: string): void;
+    protected giveGift(playerId: string, giftKey: string): void;
     /**
      * Get the underlying bot type for an event bot e.g. `peacefullZryachiyEvent` will return `bossZryachiy`
      * @param eventBotRole Event bot role type

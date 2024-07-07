@@ -49,5 +49,5 @@ export declare class MathUtil {
      * @param   {array}     y               support points in y (of same length as x)
      * @return  {number}                    y(xp)
      */
-    interp1(xp: number, x: number[], y: number[]): number;
+    interp1(xp: number, x: number[], y: number[]): number | undefined;
 }

@@ -52,5 +52,19 @@ export declare enum SkillTypes {
     USEC_DEEP_WEAPON_MOD = "UsecDeepweaponmodding_Settings",
     USEC_LONG_RANGE_OPTICS = "UsecLongrangeoptics_Settings",
     USEC_NEGOTIATIONS = "UsecNegotiations",
-    USEC_TACTICS = "UsecTactics"
+    USEC_TACTICS = "UsecTactics",
+    PISTOL = "Pistol",
+    REVOLVER = "Revolver",
+    SMG = "SMG",
+    ASSAULT = "Assault",
+    SHOTGUN = "Shotgun",
+    SNIPER = "Sniper",
+    LMG = "LMG",
+    HMG = "HMG",
+    LAUNCHER = "Launcher",
+    ATTACHED_LAUNCHER = "AttachedLauncher",
+    MISC = "Misc",
+    DMR = "DMR",
+    DRAW_MASTER = "DrawMaster",
+    AIM_MASTER = "AimMaster"
 }

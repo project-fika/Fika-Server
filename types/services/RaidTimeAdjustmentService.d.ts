@@ -7,17 +7,17 @@ import { ILocationConfig, IScavRaidTimeLocationSettings, LootMultiplier } from "
 import { IRaidChanges } from "@spt/models/spt/location/IRaidChanges";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class RaidTimeAdjustmentService {
     protected logger: ILogger;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected randomUtil: RandomUtil;
     protected weightedRandomHelper: WeightedRandomHelper;
     protected applicationContext: ApplicationContext;
     protected configServer: ConfigServer;
     protected locationConfig: ILocationConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, randomUtil: RandomUtil, weightedRandomHelper: WeightedRandomHelper, applicationContext: ApplicationContext, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseService: DatabaseService, randomUtil: RandomUtil, weightedRandomHelper: WeightedRandomHelper, applicationContext: ApplicationContext, configServer: ConfigServer);
     /**
      * Make alterations to the base map data passed in
      * Loot multipliers/waves/wave start times
@@ -56,5 +56,5 @@ export declare class RaidTimeAdjustmentService {
      * @param newRaidTimeMinutes How long raid is in minutes
      * @returns List of  exit changes to send to client
      */
-    protected getExitAdjustments(mapBase: ILocationBase, newRaidTimeMinutes: number): ExtractChange[];
+    protected getExitAdjustments(mapBase: ILocationBase, newRaidTimeMinutes: number): ExtractChange[] | undefined;
 }

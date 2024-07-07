@@ -31,7 +31,6 @@ export interface IConfig {
     TradingUnlimitedItems: boolean;
     MaxLoyaltyLevelForAll: boolean;
     GlobalLootChanceModifier: number;
-    GlobalLootChanceModifierPvE: number;
     GraphicSettings: IGraphicSettings;
     TimeBeforeDeploy: number;
     TimeBeforeDeployLocal: number;
@@ -49,6 +48,7 @@ export interface IConfig {
     BotsEnabled: boolean;
     BufferZone: IBufferZone;
     ArmorMaterials: IArmorMaterials;
+    ArenaEftTransferSettings: IArenaEftTransferSettings;
     LegsOverdamage: number;
     HandsOverdamage: number;
     StomachOverdamage: number;
@@ -76,6 +76,7 @@ export interface IConfig {
     SkillPointsBeforeFatigue: number;
     SkillFatigueReset: number;
     DiscardLimitsEnabled: boolean;
+    EnvironmentSettings: IEnvironmentSetting2;
     EventSettings: IEventSettings;
     FavoriteItemsSettings: IFavoriteItemsSettings;
     VaultingSettings: IVaultingSettings;
@@ -101,6 +102,12 @@ export interface IConfig {
     Inertia: IInertia;
     Ballistic: IBallistic;
     RepairSettings: IRepairSettings;
+}
+export interface IEnvironmentSetting2 {
+    EnvironmentUIData: IEnvironmentUIData;
+}
+export interface IEnvironmentUIData {
+    TheUnheardEditionEnvironmentUiType: string[];
 }
 export interface IBodyPartColliderSettings {
     BackHead: IBodyPartColliderPart;
@@ -178,7 +185,11 @@ export interface IItemsCommonSettings {
     ItemRemoveAfterInterruptionTime: number;
 }
 export interface ITradingSettings {
+    BuyRestrictionMaxBonus: Record<string, IBuyRestrictionMaxBonus>;
     BuyoutRestrictions: IBuyoutRestrictions;
+}
+export interface IBuyRestrictionMaxBonus {
+    multiplier: number;
 }
 export interface IBuyoutRestrictions {
     MinDurability: number;
@@ -380,6 +391,17 @@ export interface IBodyParts {
     Body: string;
     Feet: string;
     Hands: string;
+}
+export interface IArenaEftTransferSettings {
+    ArenaEftTransferSettings: ArenaEftTransferSettings;
+}
+export interface ArenaEftTransferSettings {
+    ArenaManagerReputationTaxMultiplier: number;
+    CharismaTaxMultiplier: number;
+    CreditPriceTaxMultiplier: number;
+    RubTaxMultiplier: number;
+    TransferLimitsByGameEdition: Record<string, number>;
+    TransferLimitsSettings: Record<string, number>;
 }
 export interface IArmorMaterials {
     UHMWPE: IArmorType;
@@ -994,6 +1016,10 @@ export interface IInsurance {
     MaxStorageTimeInHour: number;
     CoefOfSendingMessageTime: number;
     CoefOfHavingMarkOfUnknown: number;
+    EditionSendingMessageTime: Record<string, IMessageSendTImeMultipler>;
+}
+export interface IMessageSendTImeMultipler {
+    multiplier: number;
 }
 export interface ISkillsSettings {
     SkillProgressRate: number;
@@ -1405,6 +1431,8 @@ export interface IFenceLevel {
     PriceModTaxi: number;
     PriceModDelivery: number;
     PriceModCleanUp: number;
+    ReactOnMarkOnUnknowns: boolean;
+    ReactOnMarkOnUnknownsPVE: boolean;
     DeliveryGridSize: Ixyz;
     CanInteractWithBtr: boolean;
 }

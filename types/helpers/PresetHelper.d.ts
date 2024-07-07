@@ -1,16 +1,16 @@
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { IPreset } from "@spt/models/eft/common/IGlobals";
 import { BaseClasses } from "@spt/models/enums/BaseClasses";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
-import { ItemHelper } from "./ItemHelper";
 export declare class PresetHelper {
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected itemHelper: ItemHelper;
     protected cloner: ICloner;
     protected lookup: Record<string, string[]>;
     protected defaultEquipmentPresets: Record<string, IPreset>;
     protected defaultWeaponPresets: Record<string, IPreset>;
-    constructor(databaseServer: DatabaseServer, itemHelper: ItemHelper, cloner: ICloner);
+    constructor(databaseService: DatabaseService, itemHelper: ItemHelper, cloner: ICloner);
     hydratePresetStore(input: Record<string, string[]>): void;
     /**
      * Get default weapon and equipment presets
@@ -44,7 +44,7 @@ export declare class PresetHelper {
      * @param templateId Item id to get preset for
      * @returns Null if no default preset, otherwise IPreset
      */
-    getDefaultPreset(templateId: string): IPreset;
+    getDefaultPreset(templateId: string): IPreset | undefined;
     getBaseItemTpl(presetId: string): string;
     /**
      * Return the price of the preset for the given item tpl, or for the tpl itself if no preset exists

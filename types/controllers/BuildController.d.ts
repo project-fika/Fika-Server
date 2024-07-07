@@ -6,8 +6,8 @@ import { IRemoveBuildRequestData } from "@spt/models/eft/presetBuild/IRemoveBuil
 import { IUserBuilds } from "@spt/models/eft/profile/ISptProfile";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
 import { HashUtil } from "@spt/utils/HashUtil";
@@ -15,13 +15,13 @@ export declare class BuildController {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
     protected eventOutputHolder: EventOutputHolder;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected profileHelper: ProfileHelper;
     protected localisationService: LocalisationService;
     protected itemHelper: ItemHelper;
     protected saveServer: SaveServer;
     protected cloner: ICloner;
-    constructor(logger: ILogger, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, databaseServer: DatabaseServer, profileHelper: ProfileHelper, localisationService: LocalisationService, itemHelper: ItemHelper, saveServer: SaveServer, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, databaseService: DatabaseService, profileHelper: ProfileHelper, localisationService: LocalisationService, itemHelper: ItemHelper, saveServer: SaveServer, cloner: ICloner);
     /** Handle client/handbook/builds/my/list */
     getUserBuilds(sessionID: string): IUserBuilds;
     /** Handle client/builds/weapon/save */

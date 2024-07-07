@@ -3,13 +3,13 @@ import { IRandomisedBotLevelResult } from "@spt/models/eft/bot/IRandomisedBotLev
 import { IBotBase } from "@spt/models/eft/common/tables/IBotBase";
 import { BotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class BotLevelGenerator {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
-    protected databaseServer: DatabaseServer;
-    constructor(logger: ILogger, randomUtil: RandomUtil, databaseServer: DatabaseServer);
+    protected databaseService: DatabaseService;
+    constructor(logger: ILogger, randomUtil: RandomUtil, databaseService: DatabaseService);
     /**
      * Return a randomised bot level and exp value
      * @param levelDetails Min and max of level for bot

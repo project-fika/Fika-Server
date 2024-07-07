@@ -1,3 +1,3 @@
 export interface IGameModeRequestData {
-    sessionMode: string | null;
+    sessionMode: string | undefined;
 }

@@ -55,7 +55,7 @@ export declare class DialogueController {
      * @param sessionID Player id
      * @returns IUserDialogInfo array
      */
-    getDialogueUsers(dialog: Dialogue, messageType: MessageType, sessionID: string): IUserDialogInfo[];
+    getDialogueUsers(dialog: Dialogue, messageType: MessageType, sessionID: string): IUserDialogInfo[] | undefined;
     /**
      * Handle client/mail/dialog/view
      * Handle player clicking 'messenger' and seeing all the messages they've recieved
@@ -79,7 +79,7 @@ export declare class DialogueController {
      * @param dialogUsers The participants of the mail
      * @returns IUserDialogInfo array
      */
-    protected getProfilesForMail(fullProfile: ISptProfile, dialogUsers: IUserDialogInfo[]): IUserDialogInfo[];
+    protected getProfilesForMail(fullProfile: ISptProfile, dialogUsers?: IUserDialogInfo[]): IUserDialogInfo[];
     /**
      * Get a count of messages with attachments from a particular dialog
      * @param sessionID Session id
@@ -116,7 +116,7 @@ export declare class DialogueController {
      * @param sessionId Session id
      * @returns IGetAllAttachmentsResponse
      */
-    getAllAttachments(dialogueId: string, sessionId: string): IGetAllAttachmentsResponse;
+    getAllAttachments(dialogueId: string, sessionId: string): IGetAllAttachmentsResponse | undefined;
     /** client/mail/msg/send */
     sendMessage(sessionId: string, request: ISendMessageRequest): string;
     /**

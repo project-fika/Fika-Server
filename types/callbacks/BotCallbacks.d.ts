@@ -34,7 +34,7 @@ export declare class BotCallbacks {
      * Handle singleplayer/settings/bot/maxCap
      * @returns string
      */
-    getBotCap(): string;
+    getBotCap(url: string, info: any, sessionID: string): string;
     /**
      * Handle singleplayer/settings/bot/getBotBehaviours
      * @returns string

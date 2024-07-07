@@ -59,10 +59,11 @@ export declare class TradeHelper {
     /**
      * Traders allow a limited number of purchases per refresh cycle (default 60 mins)
      * @param sessionId Session id
+     * @param pmcData Profile making the purchase
      * @param traderId Trader assort is purchased from
      * @param assortBeingPurchased the item from trader being bought
      * @param assortId Id of assort being purchased
      * @param count How many of the item are being bought
      */
-    protected checkPurchaseIsWithinTraderItemLimit(sessionId: string, traderId: string, assortBeingPurchased: Item, assortId: string, count: number): void;
+    protected checkPurchaseIsWithinTraderItemLimit(sessionId: string, pmcData: IPmcData, traderId: string, assortBeingPurchased: Item, assortId: string, count: number): void;
 }

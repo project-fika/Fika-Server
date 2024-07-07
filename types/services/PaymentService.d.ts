@@ -9,7 +9,7 @@ import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRo
 import { IProcessBuyTradeRequestData } from "@spt/models/eft/trade/IProcessBuyTradeRequestData";
 import { IProcessSellTradeRequestData } from "@spt/models/eft/trade/IProcessSellTradeRequestData";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
@@ -17,14 +17,14 @@ export declare class PaymentService {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
     protected httpResponse: HttpResponseUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected handbookHelper: HandbookHelper;
     protected traderHelper: TraderHelper;
     protected itemHelper: ItemHelper;
     protected inventoryHelper: InventoryHelper;
     protected localisationService: LocalisationService;
     protected paymentHelper: PaymentHelper;
-    constructor(logger: ILogger, hashUtil: HashUtil, httpResponse: HttpResponseUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, traderHelper: TraderHelper, itemHelper: ItemHelper, inventoryHelper: InventoryHelper, localisationService: LocalisationService, paymentHelper: PaymentHelper);
+    constructor(logger: ILogger, hashUtil: HashUtil, httpResponse: HttpResponseUtil, databaseService: DatabaseService, handbookHelper: HandbookHelper, traderHelper: TraderHelper, itemHelper: ItemHelper, inventoryHelper: InventoryHelper, localisationService: LocalisationService, paymentHelper: PaymentHelper);
     /**
      * Take money and insert items into return to server request
      * @param pmcData Pmc profile
@@ -84,5 +84,5 @@ export declare class PaymentService {
      * @param playerStashId Players stash id
      * @returns true if its in inventory
      */
-    protected isInStash(itemId: string, inventoryItems: Item[], playerStashId: string): boolean;
+    protected isInStash(itemId: string | undefined, inventoryItems: Item[], playerStashId: string): boolean;
 }

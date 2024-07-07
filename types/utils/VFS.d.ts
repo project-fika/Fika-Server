@@ -9,7 +9,7 @@ export declare class VFS {
     copyFilePromisify: (src: fs.PathLike, dst: fs.PathLike, flags?: number) => Promise<void>;
     mkdirPromisify: (path: fs.PathLike, options: fs.MakeDirectoryOptions & {
         recursive: true;
-    }) => Promise<string>;
+    }) => Promise<string | undefined>;
     readFilePromisify: (path: fs.PathLike) => Promise<Buffer>;
     writeFilePromisify: (path: fs.PathLike, data: string, options?: any) => Promise<void>;
     readdirPromisify: (path: fs.PathLike, options?: BufferEncoding | {
@@ -49,7 +49,7 @@ export declare class VFS {
     protected lockFileSync(filepath: any): () => void;
     protected checkFileSync(filepath: any): boolean;
     protected unlockFileSync(filepath: any): void;
-    getFileExtension(filepath: string): string;
+    getFileExtension(filepath: string): string | undefined;
     stripExtension(filepath: string): string;
     minifyAllJsonInDirRecursive(filepath: string): Promise<void>;
     minifyAllJsonInDirRecursiveAsync(filepath: string): Promise<void>;

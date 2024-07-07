@@ -22,12 +22,12 @@ export declare class HealthHelper {
      */
     resetVitality(sessionID: string): ISptProfile;
     /**
-     * Update player profile with changes from request object
+     * Update player profile vitality values with changes from client request object
      * @param pmcData Player profile
      * @param request Heal request
      * @param sessionID Session id
-     * @param addEffects Should effects be added or removed (default - add)
-     * @param deleteExistingEffects Should all prior effects be removed before apply new ones
+     * @param addEffects Should effects be added to profile (default - true)
+     * @param deleteExistingEffects Should all prior effects be removed before apply new ones  (default - true)
      */
     saveVitality(pmcData: IPmcData, request: ISyncHealthRequestData, sessionID: string, addEffects?: boolean, deleteExistingEffects?: boolean): void;
     /**

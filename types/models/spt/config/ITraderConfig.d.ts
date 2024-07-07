@@ -27,7 +27,8 @@ export interface FenceConfig {
     presetPriceMult: number;
     armorMaxDurabilityPercentMinMax: IItemDurabilityCurrentMax;
     weaponDurabilityPercentMinMax: IItemDurabilityCurrentMax;
-    chancePlateExistsInArmorPercent: number;
+    /** Keyed to plate protection level */
+    chancePlateExistsInArmorPercent: Record<string, number>;
     /** Key: item tpl */
     itemStackSizeOverrideMinMax: Record<string, MinMax>;
     itemTypeLimits: Record<string, number>;

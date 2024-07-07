@@ -6,7 +6,7 @@ import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
 import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocaleService } from "@spt/services/LocaleService";
 import { MailSendService } from "@spt/services/MailSendService";
@@ -19,7 +19,7 @@ export declare class GiveSptCommand implements ISptCommand {
     protected presetHelper: PresetHelper;
     protected mailSendService: MailSendService;
     protected localeService: LocaleService;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected itemFilterService: ItemFilterService;
     protected cloner: ICloner;
     /**
@@ -34,7 +34,7 @@ export declare class GiveSptCommand implements ISptCommand {
     private static acceptableConfidence;
     private static excludedPresetItems;
     protected savedCommand: Map<string, SavedCommand>;
-    constructor(logger: ILogger, itemHelper: ItemHelper, hashUtil: HashUtil, presetHelper: PresetHelper, mailSendService: MailSendService, localeService: LocaleService, databaseServer: DatabaseServer, itemFilterService: ItemFilterService, cloner: ICloner);
+    constructor(logger: ILogger, itemHelper: ItemHelper, hashUtil: HashUtil, presetHelper: PresetHelper, mailSendService: MailSendService, localeService: LocaleService, databaseService: DatabaseService, itemFilterService: ItemFilterService, cloner: ICloner);
     getCommand(): string;
     getCommandHelp(): string;
     performAction(commandHandler: IUserDialogInfo, sessionId: string, request: ISendMessageRequest): string;
