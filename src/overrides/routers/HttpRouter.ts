@@ -22,7 +22,7 @@ export class HttpRouterOverride extends Override {
                 const originalGetResponse = result.getResponse;
 
                 result.getResponse = async (req: IncomingMessage, info: any, sessionID: string): Promise<string> => {
-                    let response = await originalGetResponse.apply(result, [req, info, sessionID]);
+                    let response = (await originalGetResponse.apply(result, [req, info, sessionID])) as string;
 
                     // if the response contains host, replace host with ours
                     if (req.headers?.host) {
