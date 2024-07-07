@@ -29,4 +29,9 @@ export class FikaClientCallbacks {
     public handleCheckMods(_url: string, info: IFikaCheckModRequestData, _sessionID: string): string {
         return this.httpResponseUtil.noBody(this.fikaClientController.handleCheckMods(info));
     }
+
+    /** Handle /fika/profile/download */
+    public handleProfileDownload(_url: string, info: any, sessionID: string): any {
+        return this.httpResponseUtil.noBody(this.fikaClientController.handleProfileDownload(sessionID));
+    }
 }
