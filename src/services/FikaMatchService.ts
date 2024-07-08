@@ -11,6 +11,7 @@ import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 
 import { FikaConfig } from "../utils/FikaConfig";
+import { FikaInsuranceService } from "./FikaInsuranceService";
 
 @injectable()
 export class FikaMatchService {
@@ -22,6 +23,7 @@ export class FikaMatchService {
         @inject("LocationController") protected locationController: LocationController,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
+        @inject("FikaInsuranceService") protected fikaInsuranceService: FikaInsuranceService,
     ) {
         this.matches = new Map();
         this.timeoutIntervals = new Map();
@@ -233,7 +235,7 @@ export class FikaMatchService {
      */
     public endMatch(matchId: string, reason: FikaMatchEndSessionMessage): void {
         this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
-
+        this.fikaInsuranceService.onMatchEnd(matchId);
         this.deleteMatch(matchId);
     }
 
@@ -305,6 +307,7 @@ export class FikaMatchService {
         }
 
         this.matches.get(matchId).players.set(playerId, data);
+        this.fikaInsuranceService.addInsuranceInformation(matchId, playerId);
     }
 
     /**
