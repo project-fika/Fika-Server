@@ -6,12 +6,14 @@ import { SaveServer } from "@spt/servers/SaveServer";
 
 import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
 import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
+import { FikaSide } from "../models/enums/FikaSide";
 import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 
 import { FikaConfig } from "../utils/FikaConfig";
 import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
+import { FikaInsuranceService } from "./FikaInsuranceService";
 
 @injectable()
 export class FikaMatchService {
@@ -24,6 +26,7 @@ export class FikaMatchService {
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
+        @inject("FikaInsuranceService") protected fikaInsuranceService: FikaInsuranceService,
     ) {
         this.matches = new Map();
         this.timeoutIntervals = new Map();
@@ -236,6 +239,7 @@ export class FikaMatchService {
             delete this.fikaDedicatedRaidService.requestedSessions[matchId];
         }
 
+        this.fikaInsuranceService.onMatchEnd(matchId);
         this.deleteMatch(matchId);
     }
 
@@ -298,7 +302,13 @@ export class FikaMatchService {
             return;
         }
 
-        this.matches.get(matchId).players.set(playerId, data);
+        const match = this.matches.get(matchId);
+        match.players.set(playerId, data);
+
+        if (match.side.toString() == "Pmc") 
+        {
+            this.fikaInsuranceService.addPlayerToMatchId(matchId, playerId);
+        }
     }
 
     /**

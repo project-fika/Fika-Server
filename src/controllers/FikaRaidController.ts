@@ -34,7 +34,7 @@ export class FikaRaidController {
         @inject("FikaDedicatedRaidWebSocket") protected fikaDedicatedRaidWebSocket: FikaDedicatedRaidWebSocket,
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("WinstonLogger") protected logger: ILogger,
-        @inject("InraidController") protected inraidController: InraidController,
+        @inject("InraidController") protected inraidController: InraidController
     ) {
         // empty
     }
