@@ -87,6 +87,7 @@ export class FikaRaidController {
             ips: match.ips,
             port: match.port,
             natPunch: match.natPunch,
+            isDedicated: match.isDedicated
         };
     }
 
