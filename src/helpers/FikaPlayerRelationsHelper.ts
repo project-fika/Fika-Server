@@ -1,10 +1,20 @@
 import { inject, injectable } from "tsyringe";
 
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { LogTextColor } from "@spt/models/spt/logging/LogTextColor";
 
 @injectable()
 export class FikaPlayerRelationsHelper {
-    constructor(@inject("FikaPlayerRelationsCacheService") protected fikaPlayerRelationsCacheService: FikaPlayerRelationsCacheService) {
+    constructor(
+        @inject("FikaPlayerRelationsCacheService") protected fikaPlayerRelationsCacheService: FikaPlayerRelationsCacheService,
+        @inject("SaveServer") protected saveServer: SaveServer,
+        @inject("SptWebSocketConnectionHandler") protected webSocketHandler: SptWebSocketConnectionHandler,
+        @inject("WinstonLogger") protected logger: ILogger,
+    ) {
         // empty
     }
 
@@ -77,6 +87,27 @@ export class FikaPlayerRelationsHelper {
             playerRelations2.Friends.splice(playerRelations2.Friends.indexOf(fromProfileId), 1);
             this.fikaPlayerRelationsCacheService.storeValue(toProfileId, playerRelations2);
         }
+
+        this.logger.info(`removeFriend: ${fromProfileId}->${toProfileId}`);
+
+        const profile = this.saveServer.getProfile(fromProfileId);
+        this.webSocketHandler.sendMessage(toProfileId, {
+            type: "youAreRemovedFromFriendList",
+            eventId: "youAreRemovedFromFriendList",
+            profile: {
+                _id: profile.info.id,
+                aid: profile.info.aid,
+                Info: {
+                    Nickname: profile.characters.pmc.Info.Nickname,
+                    Side: profile.characters.pmc.Info.Side,
+                    Level: profile.characters.pmc.Info.Level,
+                    MemberCategory: profile.characters.pmc.Info.MemberCategory,
+                    SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
+                    Ignored: false,
+                    Banned: profile.characters.pmc.Info.BannedState
+                }
+            }
+        } as any);
     }
 
     /**
@@ -87,10 +118,32 @@ export class FikaPlayerRelationsHelper {
     public addToIgnoreList(fromProfileId: string, toProfileId: string): void {
         const playerRelations = this.fikaPlayerRelationsCacheService.getStoredValue(fromProfileId);
 
-        if (!playerRelations.Ignore.includes(toProfileId)) {
-            playerRelations.Ignore.push(toProfileId);
-            this.fikaPlayerRelationsCacheService.storeValue(fromProfileId, playerRelations);
+        if (playerRelations.Ignore.includes(toProfileId)) {
+            return;
         }
+
+        playerRelations.Ignore.push(toProfileId);
+        this.fikaPlayerRelationsCacheService.storeValue(fromProfileId, playerRelations);
+
+        let profile: ISptProfile = this.saveServer.getProfile(fromProfileId);
+        this.webSocketHandler.sendMessage(toProfileId, {
+            type: "youAreAddToIgnoreList",
+            eventId: "youAreAddToIgnoreList",
+            _id: fromProfileId,
+            profile: {
+                _id: profile.info.id,
+                aid: profile.info.aid,
+                Info: {
+                    Nickname: profile.characters.pmc.Info.Nickname,
+                    Side: profile.characters.pmc.Info.Side,
+                    Level: profile.characters.pmc.Info.Level,
+                    MemberCategory: profile.characters.pmc.Info.MemberCategory,
+                    SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
+                    Ignored: false,
+                    Banned: profile.characters.pmc.Info.BannedState
+                }
+            }
+        } as any);
     }
 
     /**
@@ -101,9 +154,31 @@ export class FikaPlayerRelationsHelper {
     public removeFromIgnoreList(fromProfileId: string, toProfileId: string): void {
         const playerRelations = this.fikaPlayerRelationsCacheService.getStoredValue(fromProfileId);
 
-        if (playerRelations.Ignore.includes(toProfileId)) {
-            playerRelations.Ignore.splice(playerRelations.Ignore.indexOf(toProfileId), 1);
-            this.fikaPlayerRelationsCacheService.storeValue(fromProfileId, playerRelations);
+        if (!playerRelations.Ignore.includes(toProfileId)) {
+            return;
         }
+
+        playerRelations.Ignore.splice(playerRelations.Ignore.indexOf(toProfileId), 1);
+        this.fikaPlayerRelationsCacheService.storeValue(fromProfileId, playerRelations);
+
+        let profile: ISptProfile = this.saveServer.getProfile(fromProfileId);
+        this.webSocketHandler.sendMessage(toProfileId, {
+            type: "youAreRemoveFromIgnoreList",
+            eventId: "youAreRemoveFromIgnoreList",
+            _id: fromProfileId,
+            profile: {
+                _id: profile.info.id,
+                aid: profile.info.aid,
+                Info: {
+                    Nickname: profile.characters.pmc.Info.Nickname,
+                    Side: profile.characters.pmc.Info.Side,
+                    Level: profile.characters.pmc.Info.Level,
+                    MemberCategory: profile.characters.pmc.Info.MemberCategory,
+                    SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
+                    Ignored: false,
+                    Banned: profile.characters.pmc.Info.BannedState
+                }
+            }
+        } as any);
     }
 }

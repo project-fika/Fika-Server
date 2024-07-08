@@ -141,7 +141,6 @@ export class Container {
         container.register<FikaRaidStaticRouter>("FikaRaidStaticRouter", { useClass: FikaRaidStaticRouter });
         container.register<FikaSendItemStaticRouter>("FikaSendItemStaticRouter", { useClass: FikaSendItemStaticRouter });
         container.register<FikaUpdateStaticRouter>("FikaUpdateStaticRouter", { useClass: FikaUpdateStaticRouter });
-
         container.register<FikaItemEventRouter>("FikaItemEventRouter", { useClass: FikaItemEventRouter });
     }
 }
