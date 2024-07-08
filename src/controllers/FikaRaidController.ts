@@ -11,10 +11,16 @@ import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaid
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 import { IFikaRaidSpawnpointResponse } from "../models/fika/routes/raid/spawnpoint/IFikaRaidSpawnpointResponse";
 import { FikaMatchService } from "../services/FikaMatchService";
+import { IFikaRaidVerifyInsuredItemsRequestData } from "../models/fika/routes/raid/IFikaRaidVerifyInsuredItemsRequestData";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 
 @injectable()
 export class FikaRaidController {
-    constructor(@inject("FikaMatchService") protected fikaMatchService: FikaMatchService) {
+    constructor(
+        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
+        @inject("SaveServer") protected saveServer: SaveServer,
+    ) {
         // empty
     }
 
@@ -106,5 +112,63 @@ export class FikaRaidController {
             metabolismDisabled: match.raidConfig.metabolismDisabled,
             playersSpawnPlace: match.raidConfig.playersSpawnPlace
         };
+    }
+
+    /**
+     * Handle /fika/raid/verifyinsureditems
+     * @param request
+     */
+    public handleRaidVerifyInsuredItems(request: IFikaRaidVerifyInsuredItemsRequestData): void {
+        const profiles: Record<string, ISptProfile> = this.saveServer.getProfiles();
+        if (!request.insuranceDatas) {
+            return;
+        }
+
+        for (const profileId in request.insuranceDatas) {
+            const profile = profiles[profileId];
+            if (!profile) {
+                continue;
+            }
+
+            const pickedUpItems = request.insuranceDatas[profileId];
+            if (profile.characters?.pmc?.InsuredItems) {
+                const newProfileInsuredItems = [];
+                const profileInsuredItems = profile.characters.pmc.InsuredItems;
+                for (const profileInsuredItem of profileInsuredItems) {
+                    const foundItem = profile.characters.pmc.Inventory.items.find(i => i._id == profileInsuredItem.itemId);
+                    if (!foundItem) {
+                        continue;
+                    }
+
+                    if (!pickedUpItems.find(item => item.itemId == (foundItem.upd as any)?.PreviousID)) {
+                        newProfileInsuredItems.push(profileInsuredItem);
+                    }
+                }
+
+                profile.characters.pmc.InsuredItems = newProfileInsuredItems;
+            }
+
+            {
+                const newInsurances = [];
+                const insurances = [];
+                for (const insurance of profile.insurance) {
+                    const insuranceItems = [];
+                    for (const profileInsuredItem of insurance.items) {
+                        if (!pickedUpItems.find(item => item.itemId == (profileInsuredItem.upd as any)?.PreviousID)) {
+                            insuranceItems.push(profileInsuredItem);
+                        }
+                    }
+
+                    if (insurance.items.length > 0) {
+                        insurance.items = insuranceItems;
+                        insurances.push(insurance);
+                    }
+                }
+
+                profile.insurance = newInsurances;
+            }
+
+        }
+
     }
 }
