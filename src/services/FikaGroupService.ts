@@ -13,10 +13,10 @@ import { IWsGroupMatchInviteSend } from "@spt/models/eft/ws/IWsGroupMatchInviteS
 import { IWsGroupMatchLeaderChanged } from "@spt/models/eft/ws/IWsGroupMatchLeaderChanged";
 import { IWsAidNickname } from "@spt/models/eft/ws/IWsAidNickname";
 import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
-
-import { FikaConfig } from "../utils/FikaConfig";
 import { IRaidSettings } from "@spt/models/eft/match/IRaidSettings";
 import { IWsGroupMatchRaidSettings } from "@spt/models/eft/ws/IWsGroupMatchRaidSettings";
+
+import { FikaConfig } from "../utils/FikaConfig";
 
 @injectable()
 export class FikaGroupService {

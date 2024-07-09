@@ -8,12 +8,12 @@ import { IGetOtherProfileResponse } from "@spt/models/eft/profile/IGetOtherProfi
 import { ISearchFriendRequestData } from "@spt/models/eft/profile/ISearchFriendRequestData";
 import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
 import { GetProfileStatusResponseData } from "@spt/models/eft/profile/GetProfileStatusResponseData";
+import { SideType } from "@spt/models/enums/SideType";
 
 import { Override } from "../../di/Override";
 import { FikaConfig } from "../../utils/FikaConfig";
 import { FikaMatchService } from "../../services/FikaMatchService";
 import { FikaGroupService } from "../../services/FikaGroupService";
-import { SideType } from "@spt/models/enums/SideType";
 
 @injectable()
 export class ProfileControllerOverride extends Override {
