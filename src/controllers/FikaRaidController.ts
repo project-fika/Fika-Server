@@ -11,14 +11,14 @@ import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaid
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 import { IFikaRaidSpawnpointResponse } from "../models/fika/routes/raid/spawnpoint/IFikaRaidSpawnpointResponse";
 import { FikaMatchService } from "../services/FikaMatchService";
-import { FikaDedicatedRaidService } from "../services/FikaDedicatedRaidService";
+import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
 import { IStartDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStartDedicatedRequest";
 import { IStartDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStartDedicatedResponse";
 import { WebSocket } from "ws";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { IStatusDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStatusDedicatedRequest";
 import { IStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStatusDedicatedResponse";
-import { FikaDedicatedRaidWebSocket } from "../services/FikaDedicatedRaidWebSocket";
+import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
 
 @injectable()
 export class FikaRaidController {

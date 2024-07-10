@@ -1,7 +1,7 @@
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { inject, injectable } from "tsyringe";
-import { IDedicatedClientInfo } from "../models/fika/IDedicatedClientInfo";
-import { FikaDedicatedRaidWebSocket } from "./FikaDedicatedRaidWebSocket";
+import { IDedicatedClientInfo } from "../../models/fika/dedicated/IDedicatedClientInfo";
+import { FikaDedicatedRaidWebSocket } from "../../websockets/FikaDedicatedRaidWebSocket";
 
 @injectable()
 export class FikaDedicatedRaidService {

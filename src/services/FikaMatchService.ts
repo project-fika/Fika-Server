@@ -11,7 +11,7 @@ import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 
 import { FikaConfig } from "../utils/FikaConfig";
-import { FikaDedicatedRaidService } from "./FikaDedicatedRaidService";
+import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
 
 @injectable()
 export class FikaMatchService {

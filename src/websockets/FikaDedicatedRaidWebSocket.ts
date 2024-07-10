@@ -1,6 +1,6 @@
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { inject, injectable } from "tsyringe";
-import { IDedicatedClientInfo } from "../models/fika/IDedicatedClientInfo";
+import { IDedicatedClientInfo } from "../models/fika/dedicated/IDedicatedClientInfo";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { IncomingMessage } from "http";
 import { WebSocket } from "ws";
