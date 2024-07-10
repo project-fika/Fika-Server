@@ -101,20 +101,32 @@ export class FikaDedicatedProfileService {
     }
 
     public createDedicatedProfile(): ISptProfile {
+        // Generate a unique username
+        const username = `dedicated_${this.generateUniqueId()}`;
+        // Using a password allows us to know which profiles are dedicated client profiles.
+        const password = "fika-dedicated";
+        // Random edition. Doesn't matter
+        const edition = "Edge Of Darkness";
 
-        const username = `dedicated_${this.generateUniqueId()}`; // Generate a unique username
-        const profileId = this.createMiniProfile(username);
+        // Create mini profile
+        const profileId = this.createMiniProfile(username, password, edition);
 
-        const profile = this.createFullProfile(profileId);
+        // Random character configs. Doesn't matter.
+        const newProfileData: IProfileCreateRequestData = {
+            side: "usec",
+            nickname: username, // Use the username as the nickname to ensure it is unique.
+            headId: this.HEAD_USEC_4,
+            voiceId: this.VOICE_USEC_4
+        }
+
+        const profile = this.createFullProfile(newProfileData, profileId);
 
         return profile;
     }
 
-    public createMiniProfile(username: string): string {
-
+    public createMiniProfile(username: string, password: string, edition: string): string {
         const profileId = this.generateUniqueId();
         const scavId = this.generateUniqueId();
-        const password = "fika-dedicated"; // Allows us to know this is a dedicated client profile
 
         const newProfileDetails: Info = {
             id: profileId,
@@ -123,7 +135,7 @@ export class FikaDedicatedProfileService {
             username: username,
             password: password,
             wipe: true,
-            edition: "Edge Of Darkness", // Doesn't matter
+            edition: edition
         };
 
         this.saveServer.createProfile(newProfileDetails);
@@ -134,22 +146,13 @@ export class FikaDedicatedProfileService {
         return profileId;
     }
 
-    public createFullProfile(profileId: string) {
+    public createFullProfile(profileData: IProfileCreateRequestData, profileId: string) {
+
+        this.profileController.createProfile(profileData, profileId);
 
         const profile = this.saveServer.getProfile(profileId);
 
-        const newProfileData: IProfileCreateRequestData = {
-            side: "usec",
-            nickname: profile.info.username,
-            headId: this.HEAD_USEC_4,
-            voiceId: this.VOICE_USEC_4
-        }
-
-        this.profileController.createProfile(newProfileData, profileId);
-
-        const fullProfile = this.saveServer.getProfile(profileId);
-
-        return fullProfile;
+        return profile;
     }
 
     public generateLaunchScript(profile: ISptProfile, backendUrl: string, targetFolderPath: string) {
