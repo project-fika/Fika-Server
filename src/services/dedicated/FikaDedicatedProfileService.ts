@@ -18,9 +18,9 @@ import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
 
 @injectable()
 export class FikaDedicatedProfileService {
-    readonly scriptsPath = path.join(path.join(__dirname, "../../../assets/scripts"));
-    readonly HEAD_USEC_4 = "5fdb4139e4ed5b5ea251e4ed"; // (_parent: 5cc085e214c02e000c6bea67)
-    readonly VOICE_USEC_4 = "6284d6a28e4092597733b7a6"; // (_parent: 5fc100cf95572123ae738483)
+    readonly scriptsPath = path.join(__dirname, "../../../assets/scripts");
+    readonly HEAD_USEC_4 = "5fdb4139e4ed5b5ea251e4ed"; // _parent: 5cc085e214c02e000c6bea67
+    readonly VOICE_USEC_4 = "6284d6a28e4092597733b7a6"; // _parent: 5fc100cf95572123ae738483
 
     protected httpConfig: IHttpConfig;
     protected dedicatedConfig: IFikaConfigDedicated;
