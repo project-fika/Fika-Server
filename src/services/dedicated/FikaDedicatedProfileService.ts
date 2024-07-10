@@ -135,18 +135,21 @@ export class FikaDedicatedProfileService {
     }
 
     public createFullProfile(profileId: string) {
+
+        const profile = this.saveServer.getProfile(profileId);
+
         const newProfileData: IProfileCreateRequestData = {
             side: "usec",
-            nickname: "dedicated",
+            nickname: profile.info.username,
             headId: this.HEAD_USEC_4,
             voiceId: this.VOICE_USEC_4
         }
 
         this.profileController.createProfile(newProfileData, profileId);
 
-        const profile = this.saveServer.getProfile(profileId);
+        const fullProfile = this.saveServer.getProfile(profileId);
 
-        return profile;
+        return fullProfile;
     }
 
     public generateLaunchScript(profile: ISptProfile, backendUrl: string, targetFolderPath: string) {
