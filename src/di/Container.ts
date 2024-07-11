@@ -46,6 +46,7 @@ import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectio
 import { Fika } from "../Fika";
 import { FikaServerTools } from "../utils/FikaServerTools";
 import { FikaDedicatedProfileService } from "../services/dedicated/FikaDedicatedProfileService";
+import { BotControllerOverride } from "../overrides/controllers/BotController";
 
 
 export class Container {
@@ -79,6 +80,7 @@ export class Container {
         container.registerType("Overrides", "HttpRouterOverride");
         container.registerType("Overrides", "LauncherBackgroundOverride");
         container.registerType("Overrides", "LocalesOverride");
+        container.registerType("Overrides", "BotControllerOverride");
 
         container.registerType("StaticRoutes", "FikaClientStaticRouter");
         container.registerType("StaticRoutes", "FikaLocationStaticRouter");
@@ -103,6 +105,7 @@ export class Container {
         container.register<HttpRouterOverride>("HttpRouterOverride", HttpRouterOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LauncherBackgroundOverride>("LauncherBackgroundOverride", LauncherBackgroundOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocalesOverride>("LocalesOverride", LocalesOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<BotControllerOverride>("BotControllerOverride", BotControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<Overrider>("Overrider", Overrider, { lifecycle: Lifecycle.Singleton });
     }
 

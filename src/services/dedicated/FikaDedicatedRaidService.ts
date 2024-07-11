@@ -42,7 +42,6 @@ export class FikaDedicatedRaidService {
     public handleRequestedSessions(matchId: string): void {
         if (matchId in this.requestedSessions) {
             const userToJoin = this.requestedSessions[matchId];
-            delete this.requestedSessions[matchId];
 
             this.fikaDedicatedRaidWebSocket.clientWebSockets[userToJoin].send(JSON.stringify(
                 {

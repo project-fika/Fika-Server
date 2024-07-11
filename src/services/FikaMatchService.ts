@@ -237,6 +237,10 @@ export class FikaMatchService {
     public endMatch(matchId: string, reason: FikaMatchEndSessionMessage): void {
         this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
 
+        if(this.fikaDedicatedRaidService.requestedSessions.hasOwnProperty(matchId)) {
+            delete this.fikaDedicatedRaidService.requestedSessions[matchId];
+        }
+
         this.deleteMatch(matchId);
     }
 
