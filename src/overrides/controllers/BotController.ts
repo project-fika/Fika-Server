@@ -47,9 +47,11 @@ export class BotControllerOverride extends Override {
                     const isFirstGen = info.conditions.length > 1;
                     if (isFirstGen)
                     {
-                        return this.botController.generateBotsFirstTime(info, pmcProfile, sessionId);
+                        // Temporary cast to remove the error caused by protected method.
+                        return (this.botController as any).generateBotsFirstTime(info, pmcProfile, sessionId);
                     }
-                    return this.botController.returnSingleBotFromCache(sessionId, info);
+                    // Temporary cast to remove the error caused by protected method.
+                    return (this.botController as any).returnSingleBotFromCache(sessionId, info);
                 };
             },
             { frequency: "Always" },
