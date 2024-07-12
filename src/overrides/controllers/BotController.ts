@@ -47,11 +47,9 @@ export class BotControllerOverride extends Override {
                     const isFirstGen = info.conditions.length > 1;
                     if (isFirstGen)
                     {
-                        // Error because this is a protected method.
-                        return (this.botController as any).this.botController.generateBotsFirstTime(info, pmcProfile, sessionId);
+                        return this.botController.generateBotsFirstTime(info, pmcProfile, sessionId);
                     }
-                    // Error because this is a protected method.
-                    return (this.botController as any).this.botController.returnSingleBotFromCache(sessionId, info);
+                    return this.botController.returnSingleBotFromCache(sessionId, info);
                 };
             },
             { frequency: "Always" },
