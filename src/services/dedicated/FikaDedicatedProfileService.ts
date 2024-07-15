@@ -55,8 +55,8 @@ export class FikaDedicatedProfileService {
             this.logger.success(`Created ${createdProfiles.length} dedicated client profiles!`);
 
             if(this.dedicatedConfig.scripts.generate) {
-                let ip = this.httpConfig.backendIp;
-                const port = this.httpConfig.backendPort;
+                let ip = this.httpConfig.ip;
+                const port = this.httpConfig.port;
 
                 const forceIp = this.dedicatedConfig.scripts.forceIp;
 
