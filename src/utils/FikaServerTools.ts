@@ -34,7 +34,7 @@ export class FikaServerTools {
         switch(serviceName)
         {
             case "NatPunchServer":
-                const ip = this.httpConfig.backendIp;
+                const ip = this.httpConfig.ip;
                 const port = this.natPunchServerConfig.port;
                 const natIntroduceAmount = this.natPunchServerConfig.natIntroduceAmount;
                 exeArgs = `-NatPunchServer -IP ${ip} -Port ${port} -NatIntroduceAmount ${natIntroduceAmount}`.split(" ");
