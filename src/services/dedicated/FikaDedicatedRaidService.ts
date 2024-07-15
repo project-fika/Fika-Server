@@ -1,7 +1,7 @@
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { inject, injectable } from "tsyringe";
-import { IDedicatedClientInfo } from "../models/fika/IDedicatedClientInfo";
-import { FikaDedicatedRaidWebSocket } from "./FikaDedicatedRaidWebSocket";
+import { IDedicatedClientInfo } from "../../models/fika/dedicated/IDedicatedClientInfo";
+import { FikaDedicatedRaidWebSocket } from "../../websockets/FikaDedicatedRaidWebSocket";
 
 @injectable()
 export class FikaDedicatedRaidService {
@@ -42,7 +42,6 @@ export class FikaDedicatedRaidService {
     public handleRequestedSessions(matchId: string): void {
         if (matchId in this.requestedSessions) {
             const userToJoin = this.requestedSessions[matchId];
-            delete this.requestedSessions[matchId];
 
             this.fikaDedicatedRaidWebSocket.clientWebSockets[userToJoin].send(JSON.stringify(
                 {

@@ -11,7 +11,7 @@ import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 
 import { FikaConfig } from "../utils/FikaConfig";
-import { FikaDedicatedRaidService } from "./FikaDedicatedRaidService";
+import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
 
 @injectable()
 export class FikaMatchService {
@@ -236,6 +236,10 @@ export class FikaMatchService {
      */
     public endMatch(matchId: string, reason: FikaMatchEndSessionMessage): void {
         this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
+
+        if(this.fikaDedicatedRaidService.requestedSessions.hasOwnProperty(matchId)) {
+            delete this.fikaDedicatedRaidService.requestedSessions[matchId];
+        }
 
         this.deleteMatch(matchId);
     }
