@@ -12,7 +12,7 @@ import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
 import { LootRequest } from "@spt/models/spt/services/LootRequest";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { RaidTimeAdjustmentService } from "@spt/services/RaidTimeAdjustmentService";
@@ -30,14 +30,14 @@ export declare class LocationController {
     protected raidTimeAdjustmentService: RaidTimeAdjustmentService;
     protected itemFilterService: ItemFilterService;
     protected lootGenerator: LootGenerator;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected timeUtil: TimeUtil;
     protected configServer: ConfigServer;
     protected applicationContext: ApplicationContext;
     protected cloner: ICloner;
     protected airdropConfig: IAirdropConfig;
     protected locationConfig: ILocationConfig;
-    constructor(hashUtil: HashUtil, randomUtil: RandomUtil, weightedRandomHelper: WeightedRandomHelper, logger: ILogger, locationGenerator: LocationGenerator, localisationService: LocalisationService, raidTimeAdjustmentService: RaidTimeAdjustmentService, itemFilterService: ItemFilterService, lootGenerator: LootGenerator, databaseServer: DatabaseServer, timeUtil: TimeUtil, configServer: ConfigServer, applicationContext: ApplicationContext, cloner: ICloner);
+    constructor(hashUtil: HashUtil, randomUtil: RandomUtil, weightedRandomHelper: WeightedRandomHelper, logger: ILogger, locationGenerator: LocationGenerator, localisationService: LocalisationService, raidTimeAdjustmentService: RaidTimeAdjustmentService, itemFilterService: ItemFilterService, lootGenerator: LootGenerator, databaseService: DatabaseService, timeUtil: TimeUtil, configServer: ConfigServer, applicationContext: ApplicationContext, cloner: ICloner);
     /**
      * Handle client/location/getLocalloot
      * Get a location (map) with generated loot data
@@ -47,7 +47,7 @@ export declare class LocationController {
      */
     get(sessionId: string, request: IGetLocationRequestData): ILocationBase;
     /**
-     * Generate a maps base location with loot
+     * Generate a maps base location and loot
      * @param name Map name
      * @returns ILocationBase
      */

@@ -18,7 +18,7 @@ import { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocaleService } from "@spt/services/LocaleService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { MailSendService } from "@spt/services/MailSendService";
@@ -30,9 +30,9 @@ export declare class QuestHelper {
     protected timeUtil: TimeUtil;
     protected hashUtil: HashUtil;
     protected itemHelper: ItemHelper;
+    protected databaseService: DatabaseService;
     protected questConditionHelper: QuestConditionHelper;
     protected eventOutputHolder: EventOutputHolder;
-    protected databaseServer: DatabaseServer;
     protected localeService: LocaleService;
     protected ragfairServerHelper: RagfairServerHelper;
     protected dialogueHelper: DialogueHelper;
@@ -45,7 +45,7 @@ export declare class QuestHelper {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, hashUtil: HashUtil, itemHelper: ItemHelper, questConditionHelper: QuestConditionHelper, eventOutputHolder: EventOutputHolder, databaseServer: DatabaseServer, localeService: LocaleService, ragfairServerHelper: RagfairServerHelper, dialogueHelper: DialogueHelper, profileHelper: ProfileHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, traderHelper: TraderHelper, presetHelper: PresetHelper, mailSendService: MailSendService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, timeUtil: TimeUtil, hashUtil: HashUtil, itemHelper: ItemHelper, databaseService: DatabaseService, questConditionHelper: QuestConditionHelper, eventOutputHolder: EventOutputHolder, localeService: LocaleService, ragfairServerHelper: RagfairServerHelper, dialogueHelper: DialogueHelper, profileHelper: ProfileHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, traderHelper: TraderHelper, presetHelper: PresetHelper, mailSendService: MailSendService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Get status of a quest in player profile by its id
      * @param pmcData Profile to search
@@ -144,11 +144,11 @@ export declare class QuestHelper {
     /**
      * Adjust quest money rewards by passed in multiplier
      * @param quest Quest to multiple money rewards
-     * @param multiplier Value to adjust money rewards by
+     * @param bonusPercent Value to adjust money rewards by
      * @param questStatus Status of quest to apply money boost to rewards of
      * @returns Updated quest
      */
-    applyMoneyBoost(quest: IQuest, multiplier: number, questStatus: QuestStatus): IQuest;
+    applyMoneyBoost(quest: IQuest, bonusPercent: number, questStatus: QuestStatus): IQuest;
     /**
      * Sets the item stack to new value, or delete the item if value <= 0
      * // TODO maybe merge this function and the one from customization

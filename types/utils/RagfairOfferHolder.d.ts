@@ -1,15 +1,17 @@
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
 import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
 export declare class RagfairOfferHolder {
     protected maxOffersPerTemplate: number;
     protected ragfairServerHelper: RagfairServerHelper;
+    protected profileHelper: ProfileHelper;
     protected offersById: Map<string, IRagfairOffer>;
     protected offersByTemplate: Map<string, Map<string, IRagfairOffer>>;
     protected offersByTrader: Map<string, Map<string, IRagfairOffer>>;
-    constructor(maxOffersPerTemplate: number, ragfairServerHelper: RagfairServerHelper);
-    getOfferById(id: string): IRagfairOffer;
-    getOffersByTemplate(templateId: string): Array<IRagfairOffer>;
-    getOffersByTrader(traderId: string): Array<IRagfairOffer>;
+    constructor(maxOffersPerTemplate: number, ragfairServerHelper: RagfairServerHelper, profileHelper: ProfileHelper);
+    getOfferById(id: string): IRagfairOffer | undefined;
+    getOffersByTemplate(templateId: string): Array<IRagfairOffer> | undefined;
+    getOffersByTrader(traderId: string): Array<IRagfairOffer> | undefined;
     getOffers(): Array<IRagfairOffer>;
     addOffers(offers: Array<IRagfairOffer>): void;
     addOffer(offer: IRagfairOffer): void;

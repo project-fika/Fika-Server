@@ -1,6 +1,6 @@
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 /**
  * Cache the baseids for each item in the tiems db inside a dictionary
@@ -8,11 +8,11 @@ import { LocalisationService } from "@spt/services/LocalisationService";
 export declare class ItemBaseClassService {
     protected logger: ILogger;
     protected localisationService: LocalisationService;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected itemBaseClassesCache: Record<string, string[]>;
     protected items: Record<string, ITemplateItem>;
     protected cacheGenerated: boolean;
-    constructor(logger: ILogger, localisationService: LocalisationService, databaseServer: DatabaseServer);
+    constructor(logger: ILogger, localisationService: LocalisationService, databaseService: DatabaseService);
     /**
      * Create cache and store inside ItemBaseClassService
      * Store a dict of an items tpl to the base classes it and its parents have

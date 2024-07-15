@@ -1,11 +1,11 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 export declare class RagfairLinkedItemService {
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected itemHelper: ItemHelper;
     protected linkedItemsCache: Record<string, Set<string>>;
-    constructor(databaseServer: DatabaseServer, itemHelper: ItemHelper);
+    constructor(databaseService: DatabaseService, itemHelper: ItemHelper);
     getLinkedItems(linkedSearchId: string): Set<string>;
     /**
      * Use ragfair linked item service to get an array of items that can fit on or in designated itemtpl

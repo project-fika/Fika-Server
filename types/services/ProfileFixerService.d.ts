@@ -14,7 +14,7 @@ import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
 import { HashUtil } from "@spt/utils/HashUtil";
@@ -24,6 +24,7 @@ import { Watermark } from "@spt/utils/Watermark";
 export declare class ProfileFixerService {
     protected logger: ILogger;
     protected watermark: Watermark;
+    protected databaseService: DatabaseService;
     protected hideoutHelper: HideoutHelper;
     protected inventoryHelper: InventoryHelper;
     protected traderHelper: TraderHelper;
@@ -33,12 +34,11 @@ export declare class ProfileFixerService {
     protected timeUtil: TimeUtil;
     protected jsonUtil: JsonUtil;
     protected hashUtil: HashUtil;
-    protected databaseServer: DatabaseServer;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected coreConfig: ICoreConfig;
     protected ragfairConfig: IRagfairConfig;
-    constructor(logger: ILogger, watermark: Watermark, hideoutHelper: HideoutHelper, inventoryHelper: InventoryHelper, traderHelper: TraderHelper, profileHelper: ProfileHelper, itemHelper: ItemHelper, localisationService: LocalisationService, timeUtil: TimeUtil, jsonUtil: JsonUtil, hashUtil: HashUtil, databaseServer: DatabaseServer, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, watermark: Watermark, databaseService: DatabaseService, hideoutHelper: HideoutHelper, inventoryHelper: InventoryHelper, traderHelper: TraderHelper, profileHelper: ProfileHelper, itemHelper: ItemHelper, localisationService: LocalisationService, timeUtil: TimeUtil, jsonUtil: JsonUtil, hashUtil: HashUtil, configServer: ConfigServer, cloner: ICloner);
     /**
      * Find issues in the pmc profile data that may cause issues and fix them
      * @param pmcProfile profile to check and fix
@@ -115,7 +115,7 @@ export declare class ProfileFixerService {
      * @param bonus bonus to find
      * @returns matching bonus
      */
-    protected getBonusFromProfile(profileBonuses: Bonus[], bonus: StageBonus): Bonus;
+    protected getBonusFromProfile(profileBonuses: Bonus[], bonus: StageBonus): Bonus | undefined;
     /**
      * Checks profile inventiory for items that do not exist inside the items db
      * @param sessionId Session id
@@ -187,7 +187,7 @@ export declare class ProfileFixerService {
     protected removeOrphanedQuests(pmcProfile: IPmcData): void;
     /**
      * If someone has run a mod from pre-3.8.0, it results in an invalid `nextResupply` value
-     * Resolve this by setting the nextResupply to 0 if it's null
+     * Resolve this by setting the nextResupply to 0 if it's undefined
      */
     protected fixNullTraderNextResupply(pmcProfile: IPmcData): void;
 }

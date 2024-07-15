@@ -13,8 +13,8 @@ export declare class ApplicationContext {
      * const matchInfo = this.applicationContext.getLatestValue(ContextVariableType.RAID_CONFIGURATION).getValue<IGetRaidConfigurationRequestData>();
      * ```
      */
-    getLatestValue(type: ContextVariableType): ContextVariable;
-    getValues(type: ContextVariableType): ContextVariable[];
+    getLatestValue(type: ContextVariableType): ContextVariable | undefined;
+    getValues(type: ContextVariableType): ContextVariable[] | undefined;
     addValue(type: ContextVariableType, value: any): void;
     clearValues(type: ContextVariableType): void;
 }

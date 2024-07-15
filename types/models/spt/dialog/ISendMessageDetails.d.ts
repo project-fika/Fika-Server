@@ -40,5 +40,7 @@ export declare enum ProfileChangeEventType {
     PROFILE_LEVEL = "ProfileLevel",
     SKILL_POINTS = "SkillPoints",
     EXAMINE_ALL_ITEMS = "ExamineAllItems",
-    UNLOCK_TRADER = "UnlockTrader"
+    UNLOCK_TRADER = "UnlockTrader",
+    ASSORT_UNLOCK_RULE = "AssortmentUnlockRule",
+    HIDEOUT_AREA_LEVEL = "HideoutAreaLevel"
 }

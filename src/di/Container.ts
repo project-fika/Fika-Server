@@ -10,6 +10,8 @@ import { ProfileControllerOverride } from "../overrides/controllers/ProfileContr
 import { LauncherBackgroundOverride } from "../overrides/other/LauncherBackground";
 import { LocalesOverride } from "../overrides/other/Locales";
 import { HttpRouterOverride } from "../overrides/routers/HttpRouter";
+import { AchievementControllerOverride } from "../overrides/controllers/AchievementController";
+import { DatabaseServiceOverride } from "../overrides/services/FikaDatabaseService";
 
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
@@ -26,6 +28,7 @@ import { FikaLocationController } from "../controllers/FikaLocationController";
 import { FikaRaidController } from "../controllers/FikaRaidController";
 import { FikaSendItemController } from "../controllers/FikaSendItemController";
 import { FikaUpdateController } from "../controllers/FikaUpdateController";
+import { FikaAchievementController } from "../controllers/FikaAchievementController";
 
 import { FikaClientCallbacks } from "../callbacks/FikaClientCallbacks";
 import { FikaLocationCallbacks } from "../callbacks/FikaLocationCallbacks";
@@ -78,6 +81,8 @@ export class Container {
         container.registerType("Overrides", "HttpRouterOverride");
         container.registerType("Overrides", "LauncherBackgroundOverride");
         container.registerType("Overrides", "LocalesOverride");
+        container.registerType("Overrides", "AchievementControllerOverride");
+        container.registerType("Overrides", "DatabaseServiceOverride");
 
         container.registerType("StaticRoutes", "FikaClientStaticRouter");
         container.registerType("StaticRoutes", "FikaLocationStaticRouter");
@@ -103,6 +108,8 @@ export class Container {
         container.register<LauncherBackgroundOverride>("LauncherBackgroundOverride", LauncherBackgroundOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocalesOverride>("LocalesOverride", LocalesOverride, { lifecycle: Lifecycle.Singleton });
         container.register<Overrider>("Overrider", Overrider, { lifecycle: Lifecycle.Singleton });
+        container.register<AchievementControllerOverride>("AchievementControllerOverride", AchievementControllerOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<DatabaseServiceOverride>("DatabaseServiceOverride", DatabaseServiceOverride, { lifecycle: Lifecycle.Singleton });
     }
 
     private static registerServices(container: DependencyContainer): void {
@@ -125,6 +132,7 @@ export class Container {
         container.register<FikaRaidController>("FikaRaidController", { useClass: FikaRaidController });
         container.register<FikaSendItemController>("FikaSendItemController", { useClass: FikaSendItemController });
         container.register<FikaUpdateController>("FikaUpdateController", { useClass: FikaUpdateController });
+        container.register<FikaAchievementController>("FikaAchievementController", { useClass: FikaAchievementController });
     }
 
     private static registerCallbacks(container: DependencyContainer): void {
@@ -141,7 +149,6 @@ export class Container {
         container.register<FikaRaidStaticRouter>("FikaRaidStaticRouter", { useClass: FikaRaidStaticRouter });
         container.register<FikaSendItemStaticRouter>("FikaSendItemStaticRouter", { useClass: FikaSendItemStaticRouter });
         container.register<FikaUpdateStaticRouter>("FikaUpdateStaticRouter", { useClass: FikaUpdateStaticRouter });
-
         container.register<FikaItemEventRouter>("FikaItemEventRouter", { useClass: FikaItemEventRouter });
     }
 

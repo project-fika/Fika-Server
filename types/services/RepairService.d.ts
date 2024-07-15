@@ -14,13 +14,13 @@ import { SkillTypes } from "@spt/models/enums/SkillTypes";
 import { BonusSettings, IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { PaymentService } from "@spt/services/PaymentService";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class RepairService {
     protected logger: ILogger;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected profileHelper: ProfileHelper;
     protected randomUtil: RandomUtil;
     protected itemHelper: ItemHelper;
@@ -31,7 +31,7 @@ export declare class RepairService {
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
     protected repairConfig: IRepairConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, profileHelper: ProfileHelper, randomUtil: RandomUtil, itemHelper: ItemHelper, traderHelper: TraderHelper, weightedRandomHelper: WeightedRandomHelper, paymentService: PaymentService, repairHelper: RepairHelper, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseService: DatabaseService, profileHelper: ProfileHelper, randomUtil: RandomUtil, itemHelper: ItemHelper, traderHelper: TraderHelper, weightedRandomHelper: WeightedRandomHelper, paymentService: PaymentService, repairHelper: RepairHelper, localisationService: LocalisationService, configServer: ConfigServer);
     /**
      * Use trader to repair an items durability
      * @param sessionID Session id

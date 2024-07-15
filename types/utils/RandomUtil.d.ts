@@ -44,7 +44,7 @@ export declare class ProbabilityObjectArray<K, V = undefined> extends Array<Prob
      * @param       {string}                        key                     The key of the element whose data shall be retrieved
      * @returns     {object}                                                The data object
      */
-    data(key: K): V;
+    data(key: K): V | undefined;
     /**
      * Get the relative probability of an element by its key
      *
@@ -93,7 +93,7 @@ export declare class ProbabilityObjectArray<K, V = undefined> extends Array<Prob
 export declare class ProbabilityObject<K, V = undefined> {
     key: K;
     relativeProbability: number;
-    data: V;
+    data?: V;
     /**
      * Constructor for the ProbabilityObject
      * @param       {string}                        key                         The key of the element

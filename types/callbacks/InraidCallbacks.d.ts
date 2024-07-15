@@ -59,4 +59,5 @@ export declare class InraidCallbacks {
     itemDelivery(url: string, request: IItemDeliveryRequestData, sessionId: string): INullResponseData;
     getTraitorScavHostileChance(url: string, info: IEmptyRequestData, sessionId: string): string;
     getSandboxMaxPatrolValue(url: string, info: IEmptyRequestData, sessionId: string): string;
+    getBossConvertSettings(url: string, info: IEmptyRequestData, sessionId: string): string;
 }

@@ -47,11 +47,14 @@ export interface IRepeatableQuestConfig {
     /** Item tplIds to ignore when generating rewards */
     rewardBlacklist: string[];
     rewardAmmoStackMinSize: number;
+    freeChangesAvailable: number;
+    freeChanges: number;
 }
 export interface IRewardScaling {
     levels: number[];
     experience: number[];
     roubles: number[];
+    gpCoins: number[];
     items: number[];
     reputation: number[];
     rewardSpread: number;

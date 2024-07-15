@@ -9,12 +9,15 @@ export declare class EventOutputHolder {
     protected profileHelper: ProfileHelper;
     protected timeUtil: TimeUtil;
     protected cloner: ICloner;
-    /** What has client been informed of this game session */
-    protected clientActiveSessionStorage: Record<string, {
+    /**
+     * What has client been informed of this game session
+     * Key = sessionId, then second key is prod id
+    */
+    protected clientActiveSessionStorage: Record<string, Record<string, {
         clientInformed: boolean;
-    }>;
+    }>>;
+    protected outputStore: Record<string, IItemEventRouterResponse>;
     constructor(profileHelper: ProfileHelper, timeUtil: TimeUtil, cloner: ICloner);
-    protected output: IItemEventRouterResponse;
     getOutput(sessionID: string): IItemEventRouterResponse;
     /**
      * Reset the response object to a default state
@@ -44,7 +47,7 @@ export declare class EventOutputHolder {
      * @param pmcData Player profile
      * @returns dictionary of hideout productions
      */
-    protected getProductionsFromProfileAndFlagComplete(productions: Record<string, Productive>): Record<string, Productive>;
+    protected getProductionsFromProfileAndFlagComplete(productions: Record<string, Productive>, sessionId: string): Record<string, Productive> | undefined;
     /**
      * Required as continuous productions don't reset and stay at 100% completion but client thinks it hasn't started
      * @param productions Productions in a profile

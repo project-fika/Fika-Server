@@ -65,7 +65,7 @@ export declare class DialogueCallbacks implements OnUpdate {
      * Handle client/mail/dialog/getAllAttachments
      * @returns IGetAllAttachmentsResponse
      */
-    getAllAttachments(url: string, info: IGetAllAttachmentsRequestData, sessionID: string): IGetBodyResponseData<IGetAllAttachmentsResponse>;
+    getAllAttachments(url: string, info: IGetAllAttachmentsRequestData, sessionID: string): IGetBodyResponseData<IGetAllAttachmentsResponse | undefined>;
     /** Handle client/mail/msg/send */
     sendMessage(url: string, request: ISendMessageRequest, sessionID: string): IGetBodyResponseData<string>;
     /** Handle client/friend/request/list/outbox */

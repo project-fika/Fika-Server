@@ -17,7 +17,9 @@
     "server": {
         "giftedItemsLoseFIR": true,
         "launcherListAllProfiles": false,
-        "sessionTimeout": 5
+        "sessionTimeout": 5,
+        "showDevProfile": false,
+        "showNonStandardProfile": false
     },
     "natPunchServer": {
         "enable": false,

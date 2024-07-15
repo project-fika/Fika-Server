@@ -35,8 +35,16 @@ export interface IBotBase {
     CoopExtractCounts: Record<string, number>;
     SurvivorClass: SurvivorClass;
     WishList: string[];
+    moneyTransferLimitData: IMoneyTransferLimits;
     /** SPT specific property used during bot generation in raid */
     sptIsPmc?: boolean;
+}
+export interface IMoneyTransferLimits {
+    /** TODO: Implement */
+    nextResetTime: number;
+    remainingLimit: number;
+    totalLimit: number;
+    resetInterval: number;
 }
 export interface ITaskConditionCounter {
     id: string;
@@ -74,6 +82,8 @@ export interface Info {
     BannedUntil: number;
     IsStreamerModeAvailable: boolean;
     lastCompletedEvent?: LastCompleted;
+    SelectedMemberCategory: number;
+    isMigratedSkills: boolean;
 }
 export interface Settings {
     Role: string;
@@ -83,7 +93,7 @@ export interface Settings {
     AggressorBonus: number;
 }
 export interface IBan {
-    type: BanType;
+    banType: BanType;
     dateTime: number;
 }
 export declare enum BanType {
@@ -107,6 +117,7 @@ export interface Health {
     Temperature: CurrentMax;
     BodyParts: BodyPartsHealth;
     UpdateTime: number;
+    Immortal?: boolean;
 }
 export interface BodyPartsHealth {
     Head: BodyPartHealth;
@@ -163,7 +174,7 @@ export interface Common extends IBaseSkill {
 export interface Mastering extends IBaseSkill {
 }
 export interface Stats {
-    Eft: IEftStats;
+    Eft?: IEftStats;
 }
 export interface IEftStats {
     CarriedQuestItems: string[];

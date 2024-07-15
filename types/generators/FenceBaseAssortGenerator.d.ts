@@ -6,7 +6,7 @@ import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { FenceService } from "@spt/services/FenceService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
@@ -15,7 +15,7 @@ import { HashUtil } from "@spt/utils/HashUtil";
 export declare class FenceBaseAssortGenerator {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected handbookHelper: HandbookHelper;
     protected itemHelper: ItemHelper;
     protected presetHelper: PresetHelper;
@@ -25,7 +25,7 @@ export declare class FenceBaseAssortGenerator {
     protected configServer: ConfigServer;
     protected fenceService: FenceService;
     protected traderConfig: ITraderConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, localisationService: LocalisationService, configServer: ConfigServer, fenceService: FenceService);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseService: DatabaseService, handbookHelper: HandbookHelper, itemHelper: ItemHelper, presetHelper: PresetHelper, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, localisationService: LocalisationService, configServer: ConfigServer, fenceService: FenceService);
     /**
      * Create base fence assorts dynamically and store in memory
      */
@@ -39,9 +39,9 @@ export declare class FenceBaseAssortGenerator {
     /**
      * Get the penetration power value of an ammo, works with ammo boxes and raw ammos
      * @param rootItemDb Ammo box or ammo item from items.db
-     * @returns Penetration power of passed in item, null if it doesnt have a power
+     * @returns Penetration power of passed in item, undefined if it doesnt have a power
      */
-    protected getAmmoPenetrationPower(rootItemDb: ITemplateItem): number;
+    protected getAmmoPenetrationPower(rootItemDb: ITemplateItem): number | undefined;
     /**
      * Add soft inserts + armor plates to an armor
      * @param armor Armor item array to add mods into

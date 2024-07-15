@@ -15,6 +15,7 @@ export declare class RagfairSortHelper {
      */
     sortOffers(offers: IRagfairOffer[], type: RagfairSort, direction?: number): IRagfairOffer[];
     protected sortOffersByID(a: IRagfairOffer, b: IRagfairOffer): number;
+    protected sortOffersByBarter(a: IRagfairOffer, b: IRagfairOffer): number;
     protected sortOffersByRating(a: IRagfairOffer, b: IRagfairOffer): number;
     protected sortOffersByName(a: IRagfairOffer, b: IRagfairOffer): number;
     /**

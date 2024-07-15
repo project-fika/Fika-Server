@@ -9,5 +9,6 @@ export declare enum MemberCategory {
     CHAT_MODERATOR_WITH_PERMANENT_BAN = 64,
     UNIT_TEST = 128,
     SHERPA = 256,
-    EMISSARY = 512
+    EMISSARY = 512,
+    UNHEARD = 1024
 }

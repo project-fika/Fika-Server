@@ -1,5 +1,5 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import { IBaseConfig } from "./IBaseConfig";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IBTRConfig extends IBaseConfig {
     kind: "spt-btr";
     /** How fast the BTR moves */

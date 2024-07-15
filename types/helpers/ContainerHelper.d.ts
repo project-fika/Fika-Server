@@ -1,9 +1,9 @@
 export declare class FindSlotResult {
     success: boolean;
-    x: any;
-    y: any;
+    x?: number;
+    y?: number;
     rotation: boolean;
-    constructor(success?: boolean, x?: any, y?: any, rotation?: boolean);
+    constructor(success?: boolean, x?: number, y?: number, rotation?: boolean);
 }
 export declare class ContainerHelper {
     /**

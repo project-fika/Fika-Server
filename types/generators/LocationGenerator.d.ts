@@ -8,7 +8,8 @@ import { Item } from "@spt/models/eft/common/tables/IItem";
 import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
+import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
@@ -28,7 +29,7 @@ export interface IContainerGroupCount {
 }
 export declare class LocationGenerator {
     protected logger: ILogger;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected objectId: ObjectId;
     protected randomUtil: RandomUtil;
     protected itemHelper: ItemHelper;
@@ -37,14 +38,15 @@ export declare class LocationGenerator {
     protected containerHelper: ContainerHelper;
     protected presetHelper: PresetHelper;
     protected localisationService: LocalisationService;
+    protected itemFilterService: ItemFilterService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected locationConfig: ILocationConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, objectId: ObjectId, randomUtil: RandomUtil, itemHelper: ItemHelper, mathUtil: MathUtil, seasonalEventService: SeasonalEventService, containerHelper: ContainerHelper, presetHelper: PresetHelper, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, databaseService: DatabaseService, objectId: ObjectId, randomUtil: RandomUtil, itemHelper: ItemHelper, mathUtil: MathUtil, seasonalEventService: SeasonalEventService, containerHelper: ContainerHelper, presetHelper: PresetHelper, localisationService: LocalisationService, itemFilterService: ItemFilterService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Create an array of container objects with randomised loot
      * @param locationBase Map base to generate containers for
-     * @param staticAmmoDist Static ammo distribution - database.loot.staticAmmo
+     * @param staticAmmoDist Static ammo distribution
      * @returns Array of container objects
      */
     generateStaticContainers(locationBase: ILocationBase, staticAmmoDist: Record<string, IStaticAmmoDetails[]>): SpawnpointTemplate[];
@@ -143,6 +145,6 @@ export declare class LocationGenerator {
      * @param chosenTpl Tpl we want to get item with
      * @returns Item object
      */
-    protected getItemInArray(items: Item[], chosenTpl: string): Item;
+    protected getItemInArray(items: Item[], chosenTpl: string): Item | undefined;
     protected createStaticLootItem(chosenTpl: string, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, parentId?: string): IContainerItem;
 }

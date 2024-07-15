@@ -6,13 +6,13 @@ import { IWearClothingRequestData } from "@spt/models/eft/customization/IWearClo
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 export declare class CustomizationController {
     protected logger: ILogger;
     protected eventOutputHolder: EventOutputHolder;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected saveServer: SaveServer;
     protected localisationService: LocalisationService;
     protected profileHelper: ProfileHelper;
@@ -20,7 +20,7 @@ export declare class CustomizationController {
         lowerParentId: string;
         upperParentId: string;
     };
-    constructor(logger: ILogger, eventOutputHolder: EventOutputHolder, databaseServer: DatabaseServer, saveServer: SaveServer, localisationService: LocalisationService, profileHelper: ProfileHelper);
+    constructor(logger: ILogger, eventOutputHolder: EventOutputHolder, databaseService: DatabaseService, saveServer: SaveServer, localisationService: LocalisationService, profileHelper: ProfileHelper);
     /**
      * Get purchasable clothing items from trader that match players side (usec/bear)
      * @param traderID trader to look up clothing for

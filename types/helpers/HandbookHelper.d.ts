@@ -2,7 +2,7 @@ import { Category } from "@spt/models/eft/common/tables/IHandbookBase";
 import { Item } from "@spt/models/eft/common/tables/IItem";
 import { IItemConfig } from "@spt/models/spt/config/IItemConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
 declare class LookupItem<T, I> {
     readonly byId: Map<string, T>;
@@ -15,13 +15,13 @@ export declare class LookupCollection {
     constructor();
 }
 export declare class HandbookHelper {
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected itemConfig: IItemConfig;
     protected lookupCacheGenerated: boolean;
     protected handbookPriceCache: LookupCollection;
-    constructor(databaseServer: DatabaseServer, configServer: ConfigServer, cloner: ICloner);
+    constructor(databaseService: DatabaseService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Create an in-memory cache of all items with associated handbook price in handbookPriceCache class
      */
@@ -29,7 +29,7 @@ export declare class HandbookHelper {
     /**
      * Get price from internal cache, if cache empty look up price directly in handbook (expensive)
      * If no values found, return 0
-     * @param tpl item tpl to look up price for
+     * @param tpl Item tpl to look up price for
      * @returns price in roubles
      */
     getTemplatePrice(tpl: string): number;

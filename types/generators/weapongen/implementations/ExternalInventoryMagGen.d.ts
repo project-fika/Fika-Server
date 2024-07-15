@@ -23,5 +23,5 @@ export declare class ExternalInventoryMagGen implements IInventoryMagGen {
      * @param weaponTpl Weapon to get mag for
      * @returns tpl of magazine
      */
-    protected getRandomExternalMagazineForInternalMagazineGun(weaponTpl: string, magazineBlacklist: string[]): ITemplateItem;
+    protected getRandomExternalMagazineForInternalMagazineGun(weaponTpl: string, magazineBlacklist: string[]): ITemplateItem | undefined;
 }

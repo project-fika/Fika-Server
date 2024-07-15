@@ -16,15 +16,15 @@ import { IProfileStatusResponse } from "@spt/models/eft/match/IProfileStatusResp
 import { IPutMetricsRequestData } from "@spt/models/eft/match/IPutMetricsRequestData";
 import { IRequestIdRequest } from "@spt/models/eft/match/IRequestIdRequest";
 import { IUpdatePingRequestData } from "@spt/models/eft/match/IUpdatePingRequestData";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 export declare class MatchCallbacks {
     protected httpResponse: HttpResponseUtil;
     protected jsonUtil: JsonUtil;
     protected matchController: MatchController;
-    protected databaseServer: DatabaseServer;
-    constructor(httpResponse: HttpResponseUtil, jsonUtil: JsonUtil, matchController: MatchController, databaseServer: DatabaseServer);
+    protected databaseService: DatabaseService;
+    constructor(httpResponse: HttpResponseUtil, jsonUtil: JsonUtil, matchController: MatchController, databaseService: DatabaseService);
     /** Handle client/match/updatePing */
     updatePing(url: string, info: IUpdatePingRequestData, sessionID: string): INullResponseData;
     exitMatch(url: string, info: IEmptyRequestData, sessionID: string): INullResponseData;

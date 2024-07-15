@@ -7,7 +7,7 @@ import { IScavCaseConfig } from "@spt/models/spt/config/IScavCaseConfig";
 import { RewardCountAndPriceDetails, ScavCaseRewardCountsAndPrices } from "@spt/models/spt/hideout/ScavCaseRewardCountsAndPrices";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { RagfairPriceService } from "@spt/services/RagfairPriceService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
@@ -22,7 +22,7 @@ export declare class ScavCaseRewardGenerator {
     protected hashUtil: HashUtil;
     protected itemHelper: ItemHelper;
     protected presetHelper: PresetHelper;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected ragfairPriceService: RagfairPriceService;
     protected seasonalEventService: SeasonalEventService;
     protected itemFilterService: ItemFilterService;
@@ -30,7 +30,7 @@ export declare class ScavCaseRewardGenerator {
     protected scavCaseConfig: IScavCaseConfig;
     protected dbItemsCache: ITemplateItem[];
     protected dbAmmoItemsCache: ITemplateItem[];
-    constructor(logger: ILogger, randomUtil: RandomUtil, hashUtil: HashUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, databaseServer: DatabaseServer, ragfairPriceService: RagfairPriceService, seasonalEventService: SeasonalEventService, itemFilterService: ItemFilterService, configServer: ConfigServer);
+    constructor(logger: ILogger, randomUtil: RandomUtil, hashUtil: HashUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, databaseService: DatabaseService, ragfairPriceService: RagfairPriceService, seasonalEventService: SeasonalEventService, itemFilterService: ItemFilterService, configServer: ConfigServer);
     /**
      * Create an array of rewards that will be given to the player upon completing their scav case build
      * @param recipeId recipe of the scav case craft

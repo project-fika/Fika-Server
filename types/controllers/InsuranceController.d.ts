@@ -14,9 +14,10 @@ import { IInsuranceConfig } from "@spt/models/spt/config/IInsuranceConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { InsuranceService } from "@spt/services/InsuranceService";
+import { LocalisationService } from "@spt/services/LocalisationService";
 import { MailSendService } from "@spt/services/MailSendService";
 import { PaymentService } from "@spt/services/PaymentService";
 import { RagfairPriceService } from "@spt/services/RagfairPriceService";
@@ -33,7 +34,7 @@ export declare class InsuranceController {
     protected eventOutputHolder: EventOutputHolder;
     protected timeUtil: TimeUtil;
     protected saveServer: SaveServer;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected itemHelper: ItemHelper;
     protected profileHelper: ProfileHelper;
     protected dialogueHelper: DialogueHelper;
@@ -43,11 +44,11 @@ export declare class InsuranceController {
     protected insuranceService: InsuranceService;
     protected mailSendService: MailSendService;
     protected ragfairPriceService: RagfairPriceService;
+    protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected insuranceConfig: IInsuranceConfig;
-    protected roubleTpl: string;
-    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, timeUtil: TimeUtil, saveServer: SaveServer, databaseServer: DatabaseServer, itemHelper: ItemHelper, profileHelper: ProfileHelper, dialogueHelper: DialogueHelper, weightedRandomHelper: WeightedRandomHelper, traderHelper: TraderHelper, paymentService: PaymentService, insuranceService: InsuranceService, mailSendService: MailSendService, ragfairPriceService: RagfairPriceService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, hashUtil: HashUtil, eventOutputHolder: EventOutputHolder, timeUtil: TimeUtil, saveServer: SaveServer, databaseService: DatabaseService, itemHelper: ItemHelper, profileHelper: ProfileHelper, dialogueHelper: DialogueHelper, weightedRandomHelper: WeightedRandomHelper, traderHelper: TraderHelper, paymentService: PaymentService, insuranceService: InsuranceService, mailSendService: MailSendService, ragfairPriceService: RagfairPriceService, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Process insurance items of all profiles prior to being given back to the player through the mail service.
      *
@@ -181,9 +182,9 @@ export declare class InsuranceController {
      *
      * @param traderId The ID of the trader who insured the item.
      * @param insuredItem Optional. The item to roll for. Only used for logging.
-     * @returns true if the insured item should be removed from inventory, false otherwise, or null on error.
+     * @returns true if the insured item should be removed from inventory, false otherwise, or undefined on error.
      */
-    protected rollForDelete(traderId: string, insuredItem?: Item): boolean | null;
+    protected rollForDelete(traderId: string, insuredItem?: Item): boolean | undefined;
     /**
      * Handle Insure event
      * Add insurance to an item

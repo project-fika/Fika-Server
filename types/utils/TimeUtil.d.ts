@@ -43,6 +43,11 @@ export declare class TimeUtil {
      */
     getTimestamp(): number;
     /**
+     * Get timestamp of today + passed in day count
+     * @param daysFromNow Days from now
+     */
+    getTimeStampFromNowDays(daysFromNow: number): number;
+    /**
      * Gets the current time in UTC in a format suitable for mail in EFT.
      *
      * @returns {string} The current time as 'HH:MM' in UTC.

@@ -15,7 +15,7 @@ import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { PlayerService } from "@spt/services/PlayerService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
@@ -26,7 +26,7 @@ export declare class HideoutHelper {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
     protected timeUtil: TimeUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected eventOutputHolder: EventOutputHolder;
     protected httpResponse: HttpResponseUtil;
     protected profileHelper: ProfileHelper;
@@ -39,11 +39,9 @@ export declare class HideoutHelper {
     static bitcoinFarm: string;
     static bitcoinProductionId: string;
     static waterCollector: string;
-    static bitcoinTpl: string;
-    static expeditionaryFuelTank: string;
     static maxSkillPoint: number;
     protected hideoutConfig: IHideoutConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, timeUtil: TimeUtil, databaseServer: DatabaseServer, eventOutputHolder: EventOutputHolder, httpResponse: HttpResponseUtil, profileHelper: ProfileHelper, inventoryHelper: InventoryHelper, playerService: PlayerService, localisationService: LocalisationService, itemHelper: ItemHelper, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, timeUtil: TimeUtil, databaseService: DatabaseService, eventOutputHolder: EventOutputHolder, httpResponse: HttpResponseUtil, profileHelper: ProfileHelper, inventoryHelper: InventoryHelper, playerService: PlayerService, localisationService: LocalisationService, itemHelper: ItemHelper, configServer: ConfigServer, cloner: ICloner);
     /**
      * Add production to profiles' Hideout.Production array
      * @param pmcData Profile to add production to
@@ -202,7 +200,7 @@ export declare class HideoutHelper {
      */
     protected getAreaUpdObject(stackCount: number, resourceValue: number, resourceUnitsConsumed: number, isFoundInRaid: boolean): Upd;
     protected updateAirFilters(airFilterArea: HideoutArea, pmcData: IPmcData, isGeneratorOn: boolean): void;
-    protected updateBitcoinFarm(pmcData: IPmcData, btcFarmCGs: number, isGeneratorOn: boolean): Production;
+    protected updateBitcoinFarm(pmcData: IPmcData, btcFarmCGs: number, isGeneratorOn: boolean): Production | undefined;
     /**
      * Add bitcoin object to btc production products array and set progress time
      * @param btcProd Bitcoin production object

@@ -4,28 +4,22 @@ import { EquipmentFilters, IBotConfig, RandomisationDetails } from "@spt/models/
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class BotHelper {
     protected logger: ILogger;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected randomUtil: RandomUtil;
     protected configServer: ConfigServer;
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, randomUtil: RandomUtil, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseService: DatabaseService, randomUtil: RandomUtil, configServer: ConfigServer);
     /**
      * Get a template object for the specified botRole from bots.types db
      * @param role botRole to get template for
      * @returns IBotType object
      */
     getBotTemplate(role: string): IBotType;
-    /**
-     * Randomize the chance the PMC will attack their own side
-     * Look up value in bot.json/chanceSameSideIsHostilePercent
-     * @param difficultySettings pmc difficulty settings
-     */
-    randomizePmcHostility(difficultySettings: Difficulty): void;
     /**
      * Is the passed in bot role a PMC (usec/bear/pmc)
      * @param botRole bot role to check
@@ -41,12 +35,6 @@ export declare class BotHelper {
      */
     addBotToFriendlyList(difficultySettings: Difficulty, typeToAdd: string): void;
     /**
-     * Add a bot to the ENEMY_BOT_TYPES array, do not add itself if its on the enemy list
-     * @param difficultySettings bot settings to alter
-     * @param typesToAdd bot type to add to enemy list
-     */
-    addBotToEnemyList(difficultySettings: Difficulty, typesToAdd: string[], typeBeingEdited: string): void;
-    /**
      * Add a bot to the REVENGE_BOT_TYPES array
      * @param difficultySettings bot settings to alter
      * @param typesToAdd bot type to add to revenge list
@@ -59,6 +47,11 @@ export declare class BotHelper {
      */
     shouldBotBePmc(botRole: string): boolean;
     rollChanceToBePmc(role: string, botConvertMinMax: MinMax): boolean;
+    /**
+     * is the provided role a PMC, case-agnostic
+     * @param botRole Role to check
+     * @returns True if role is PMC
+     */
     botRoleIsPmc(botRole: string): boolean;
     /**
      * Get randomization settings for bot from config/bot.json
@@ -66,14 +59,14 @@ export declare class BotHelper {
      * @param botEquipConfig bot equipment json
      * @returns RandomisationDetails
      */
-    getBotRandomizationDetails(botLevel: number, botEquipConfig: EquipmentFilters): RandomisationDetails;
+    getBotRandomizationDetails(botLevel: number, botEquipConfig: EquipmentFilters): RandomisationDetails | undefined;
     /**
-     * Choose between sptBear and sptUsec at random based on the % defined in pmcConfig.isUsec
+     * Choose between pmcBEAR and pmcUSEC at random based on the % defined in pmcConfig.isUsec
      * @returns pmc role
      */
     getRandomizedPmcRole(): string;
     /**
-     * Get the corresponding side when sptBear or sptUsec is passed in
+     * Get the corresponding side when pmcBEAR or pmcUSEC is passed in
      * @param botRole role to get side for
      * @returns side (usec/bear)
      */

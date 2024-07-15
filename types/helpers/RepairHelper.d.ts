@@ -3,17 +3,17 @@ import { ITemplateItem, Props } from "@spt/models/eft/common/tables/ITemplateIte
 import { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class RepairHelper {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected repairConfig: IRepairConfig;
-    constructor(logger: ILogger, randomUtil: RandomUtil, databaseServer: DatabaseServer, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, randomUtil: RandomUtil, databaseService: DatabaseService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Alter an items durability after a repair by trader/repair kit
      * @param itemToRepair item to update durability details

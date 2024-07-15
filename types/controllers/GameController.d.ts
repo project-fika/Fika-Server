@@ -24,8 +24,8 @@ import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { CustomLocationWaveService } from "@spt/services/CustomLocationWaveService";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { GiftService } from "@spt/services/GiftService";
 import { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
 import { LocalisationService } from "@spt/services/LocalisationService";
@@ -40,7 +40,7 @@ import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class GameController {
     protected logger: ILogger;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected timeUtil: TimeUtil;
     protected hashUtil: HashUtil;
     protected preSptModLoader: PreSptModLoader;
@@ -68,14 +68,17 @@ export declare class GameController {
     protected pmcConfig: IPmcConfig;
     protected lootConfig: ILootConfig;
     protected botConfig: IBotConfig;
-    constructor(logger: ILogger, databaseServer: DatabaseServer, timeUtil: TimeUtil, hashUtil: HashUtil, preSptModLoader: PreSptModLoader, httpServerHelper: HttpServerHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, profileActivityService: ProfileActivityService, applicationContext: ApplicationContext, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, databaseService: DatabaseService, timeUtil: TimeUtil, hashUtil: HashUtil, preSptModLoader: PreSptModLoader, httpServerHelper: HttpServerHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, profileActivityService: ProfileActivityService, applicationContext: ApplicationContext, configServer: ConfigServer, cloner: ICloner);
     load(): void;
     /**
      * Handle client/game/start
      */
     gameStart(_url: string, _info: IEmptyRequestData, sessionID: string, startTimeStampMS: number): void;
-    protected adjustHideoutCraftTimes(): void;
-    protected adjustHideoutBuildTimes(): void;
+    protected adjustHideoutCraftTimes(overrideSeconds: number): void;
+    /**
+     * Adjust all hideout craft times to be no higher than the override
+     */
+    protected adjustHideoutBuildTimes(overrideSeconds: number): void;
     protected adjustLocationBotValues(): void;
     /**
      * Out of date/incorrectly made trader mods forget this data
@@ -122,7 +125,7 @@ export declare class GameController {
      * @param pmcProfile Player profile
      */
     protected warnOnActiveBotReloadSkill(pmcProfile: IPmcData): void;
-    protected flagAllItemsInDbAsSellableOnFlea(): void;
+    protected setAllDbItemsAsSellableOnFlea(): void;
     /**
      * When player logs in, iterate over all active effects and reduce timer
      * @param pmcProfile Profile to adjust values for

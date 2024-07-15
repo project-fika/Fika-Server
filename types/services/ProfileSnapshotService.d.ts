@@ -15,7 +15,7 @@ export declare class ProfileSnapshotService {
      * @param sessionID key
      * @returns A player profile object
      */
-    getProfileSnapshot(sessionID: string): ISptProfile;
+    getProfileSnapshot(sessionID: string): ISptProfile | undefined;
     /**
      * Does a profile exists against the provided key
      * @param sessionID key

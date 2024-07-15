@@ -12,13 +12,13 @@ import { EquipmentFilters, IBotConfig, IRandomisedResourceValues } from "@spt/mo
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class BotGeneratorHelper {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected durabilityLimitsHelper: DurabilityLimitsHelper;
     protected itemHelper: ItemHelper;
     protected inventoryHelper: InventoryHelper;
@@ -28,7 +28,7 @@ export declare class BotGeneratorHelper {
     protected configServer: ConfigServer;
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, randomUtil: RandomUtil, databaseServer: DatabaseServer, durabilityLimitsHelper: DurabilityLimitsHelper, itemHelper: ItemHelper, inventoryHelper: InventoryHelper, containerHelper: ContainerHelper, applicationContext: ApplicationContext, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, randomUtil: RandomUtil, databaseService: DatabaseService, durabilityLimitsHelper: DurabilityLimitsHelper, itemHelper: ItemHelper, inventoryHelper: InventoryHelper, containerHelper: ContainerHelper, applicationContext: ApplicationContext, localisationService: LocalisationService, configServer: ConfigServer);
     /**
      * Adds properties to an item
      * e.g. Repairable / HasHinge / Foldable / MaxDurability
@@ -50,24 +50,24 @@ export declare class BotGeneratorHelper {
      * Get the chance for the weapon attachment or helmet equipment to be set as activated
      * @param botRole role of bot with weapon/helmet
      * @param setting the setting of the weapon attachment/helmet equipment to be activated
-     * @param defaultValue default value for the chance of activation if the botrole or bot equipment role is null
+     * @param defaultValue default value for the chance of activation if the botrole or bot equipment role is undefined
      * @returns Percent chance to be active
      */
-    protected getBotEquipmentSettingFromConfig(botRole: string, setting: keyof EquipmentFilters, defaultValue: number): number;
+    protected getBotEquipmentSettingFromConfig(botRole: string | undefined, setting: keyof EquipmentFilters, defaultValue: number): number;
     /**
      * Create a repairable object for a weapon that containers durability + max durability properties
      * @param itemTemplate weapon object being generated for
      * @param botRole type of bot being generated for
      * @returns Repairable object
      */
-    protected generateWeaponRepairableProperties(itemTemplate: ITemplateItem, botRole: string): Repairable;
+    protected generateWeaponRepairableProperties(itemTemplate: ITemplateItem, botRole?: string): Repairable;
     /**
      * Create a repairable object for an armor that containers durability + max durability properties
      * @param itemTemplate weapon object being generated for
      * @param botRole type of bot being generated for
      * @returns Repairable object
      */
-    protected generateArmorRepairableProperties(itemTemplate: ITemplateItem, botRole: string): Repairable;
+    protected generateArmorRepairableProperties(itemTemplate: ITemplateItem, botRole?: string): Repairable;
     isWeaponModIncompatibleWithCurrentMods(itemsEquipped: Item[], tplToCheck: string, modSlot: string): IChooseRandomCompatibleModResult;
     /**
      * Can item be added to another item without conflict

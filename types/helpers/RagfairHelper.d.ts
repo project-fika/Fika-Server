@@ -8,13 +8,13 @@ import { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { RagfairLinkedItemService } from "@spt/services/RagfairLinkedItemService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class RagfairHelper {
     protected logger: ILogger;
     protected traderAssortHelper: TraderAssortHelper;
-    protected databaseServer: DatabaseServer;
+    protected databaseService: DatabaseService;
     protected handbookHelper: HandbookHelper;
     protected itemHelper: ItemHelper;
     protected ragfairLinkedItemService: RagfairLinkedItemService;
@@ -22,7 +22,7 @@ export declare class RagfairHelper {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected ragfairConfig: IRagfairConfig;
-    constructor(logger: ILogger, traderAssortHelper: TraderAssortHelper, databaseServer: DatabaseServer, handbookHelper: HandbookHelper, itemHelper: ItemHelper, ragfairLinkedItemService: RagfairLinkedItemService, utilityHelper: UtilityHelper, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, traderAssortHelper: TraderAssortHelper, databaseService: DatabaseService, handbookHelper: HandbookHelper, itemHelper: ItemHelper, ragfairLinkedItemService: RagfairLinkedItemService, utilityHelper: UtilityHelper, configServer: ConfigServer, cloner: ICloner);
     /**
      * Gets currency TAG from TPL
      * @param {string} currency
