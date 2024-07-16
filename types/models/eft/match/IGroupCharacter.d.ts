@@ -8,6 +8,7 @@ export interface IGroupCharacter {
         Side: string;
         Level: number;
         MemberCategory: MemberCategory;
+        SelectedMemberCategory: MemberCategory;
         GameVersion?: string;
         SavageLockTime?: number;
         SavageNickname?: string;
@@ -19,6 +20,7 @@ export interface IGroupCharacter {
             Level: number;
             Nickname: string;
             MemberCategory: MemberCategory;
+            SelectedMemberCategory: MemberCategory;
             GameVersion: string;
         };
         Customization: {
@@ -32,8 +34,8 @@ export interface IGroupCharacter {
             Items: Item[];
         };
     };
-    isLeader: boolean;
-    isReady?: boolean;
+    IsLeader: boolean;
+    IsReady?: boolean;
     region?: string;
     lookingGroup?: boolean;
 }

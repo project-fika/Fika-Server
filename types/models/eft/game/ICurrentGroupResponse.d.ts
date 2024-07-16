@@ -5,9 +5,9 @@ export interface ICurrentGroupResponse {
 export interface ICurrentGroupSquadMember {
     _id: string;
     aid: string;
-    info: ICurrentGroupMemberInfo;
-    isLeader: boolean;
-    isReady: boolean;
+    Info: ICurrentGroupMemberInfo;
+    IsLeader: boolean;
+    IsReady: boolean;
 }
 export interface ICurrentGroupMemberInfo {
     Nickname: string;

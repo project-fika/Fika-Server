@@ -11,10 +11,15 @@ import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaid
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 import { IFikaRaidSpawnpointResponse } from "../models/fika/routes/raid/spawnpoint/IFikaRaidSpawnpointResponse";
 import { FikaMatchService } from "../services/FikaMatchService";
+import { FikaGroupService } from "../services/FikaGroupService";
+import { IFikaGroupRaidResponse } from "../models/fika/routes/raid/group/IFikaGroupRaidResponse";
 
 @injectable()
 export class FikaRaidController {
-    constructor(@inject("FikaMatchService") protected fikaMatchService: FikaMatchService) {
+    constructor(
+        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
+        @inject("FikaGroupService") protected fikaGroupService: FikaGroupService
+    ) {
         // empty
     }
 
@@ -33,7 +38,9 @@ export class FikaRaidController {
      * @param request
      */
     public handleRaidJoin(request: IFikaRaidJoinRequestData): IFikaRaidJoinResponse {
-        this.fikaMatchService.addPlayerToMatch(request.serverId, request.profileId, { groupId: null, isDead: false });
+        const groupId = this.fikaGroupService.getGroupIdByMember(request.profileId);
+
+        this.fikaMatchService.addPlayerToMatch(request.serverId, request.profileId, { groupId, isDead: false, side: request.side });
 
         const match = this.fikaMatchService.getMatch(request.serverId);
 
@@ -64,10 +71,19 @@ export class FikaRaidController {
      * Handle /fika/raid/gethost
      * @param request
      */
-    public handleRaidGethost(request: IFikaRaidServerIdRequestData): IFikaRaidGethostResponse {
-        const match = this.fikaMatchService.getMatch(request.serverId);
+    public handleRaidGethost(request: IFikaRaidServerIdRequestData, sessionID: string): IFikaRaidGethostResponse {
+        let match = this.fikaMatchService.getMatch(request.serverId);
         if (!match) {
-            return;
+            const groupId = this.fikaGroupService.getGroupIdByMember(sessionID);
+            const leader = this.fikaGroupService.getGroupLeader(groupId);
+            if (leader._id !== sessionID) {
+                const matchId = this.fikaMatchService.getMatchIdByPlayer(leader._id);
+                if (matchId) {
+                    match = this.fikaMatchService.getMatch(matchId);
+                }
+            }
+
+            if (!match) return;
         }
 
         return {
@@ -81,14 +97,24 @@ export class FikaRaidController {
      * Handle /fika/raid/spawnpoint
      * @param request
      */
-    public handleRaidSpawnpoint(request: IFikaRaidServerIdRequestData): IFikaRaidSpawnpointResponse {
+    public handleRaidSpawnpoint(request: IFikaRaidServerIdRequestData, sessionID: string): IFikaRaidSpawnpointResponse {
         const match = this.fikaMatchService.getMatch(request.serverId);
         if (!match) {
             return;
         }
 
+        const groupId = this.fikaGroupService.getGroupIdByMember(sessionID);
+        if (!groupId) {
+            return;
+        }
+
+        const spawnpoint = match.spawnPoint[groupId];
+        if (!spawnpoint) {
+            return;
+        }
+
         return {
-            spawnpoint: match.spawnPoint,
+            spawnpoint
         };
     }
 
@@ -106,5 +132,33 @@ export class FikaRaidController {
             metabolismDisabled: match.raidConfig.metabolismDisabled,
             playersSpawnPlace: match.raidConfig.playersSpawnPlace
         };
+    }
+
+    /**
+     * Handle /fika/raid/group
+     * @param request
+     * @returns
+     */
+    public handleGetGroupRaid(sessionID: string): IFikaGroupRaidResponse {
+        const groupId = this.fikaGroupService.getGroupIdByMember(sessionID);
+        const leader = this.fikaGroupService.getGroupLeader(groupId);
+
+        if (!leader) {
+            const match = this.fikaMatchService.getMatchIdByPlayer(sessionID);
+            if (match) {
+                return {
+                    serverId: match
+                }
+            }
+        } else {
+            const match = this.fikaMatchService.getMatchIdByPlayer(leader._id);
+            if (match) {
+                return {
+                    serverId: match
+                }
+            }
+        }
+
+        return { serverId: '' }
     }
 }

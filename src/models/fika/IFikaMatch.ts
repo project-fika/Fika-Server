@@ -17,7 +17,7 @@ export interface IFikaMatch {
     raidConfig: IGetRaidConfigurationRequestData;
     locationData: ILocationBase;
     status: FikaMatchStatus;
-    spawnPoint: string;
+    spawnPoint: Record<string, string>;
     timeout: number;
     players: Map<string, IFikaPlayer>;
     side: FikaSide;

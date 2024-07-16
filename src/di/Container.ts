@@ -3,6 +3,8 @@ import { DependencyContainer, Lifecycle } from "tsyringe";
 import { FikaConfig } from "../utils/FikaConfig";
 
 import { Overrider } from "../overrides/Overrider";
+import { MatchCallbacksOverride } from "../overrides/callbacks/MatchCallbacks";
+import { GameCallbacksOverride } from "../overrides/callbacks/GameCallbacks";
 import { DialogueCallbacksOverride } from "../overrides/callbacks/DialogueCallbacks";
 import { LocationCallbacksOverride } from "../overrides/callbacks/LocationCallbacks";
 import { DialogueControllerOverride } from "../overrides/controllers/DialogueController";
@@ -14,6 +16,7 @@ import { AchievementControllerOverride } from "../overrides/controllers/Achievem
 import { DatabaseServiceOverride } from "../overrides/services/FikaDatabaseService";
 
 import { FikaMatchService } from "../services/FikaMatchService";
+import { FikaGroupService } from '../services/FikaGroupService';
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
 
@@ -28,6 +31,7 @@ import { FikaRaidController } from "../controllers/FikaRaidController";
 import { FikaSendItemController } from "../controllers/FikaSendItemController";
 import { FikaUpdateController } from "../controllers/FikaUpdateController";
 import { FikaAchievementController } from "../controllers/FikaAchievementController";
+import { FikaMatchController } from "../controllers/FikaMatchController";
 
 import { FikaClientCallbacks } from "../callbacks/FikaClientCallbacks";
 import { FikaLocationCallbacks } from "../callbacks/FikaLocationCallbacks";
@@ -40,11 +44,13 @@ import { FikaLocationStaticRouter } from "../routers/static/FikaLocationStaticRo
 import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
+import { FikaMatchStaticRouter } from '../routers/static/FikaMatchStaticRouter';
 
 import { FikaItemEventRouter } from "../routers/item_events/FikaItemEventRouter";
 
 import { Fika } from "../Fika";
 import { FikaServerTools } from "../utils/FikaServerTools";
+import { MatchController } from "@spt/controllers/MatchController";
 
 export class Container {
     public static register(container: DependencyContainer): void {
@@ -68,6 +74,8 @@ export class Container {
     }
 
     private static registerListTypes(container: DependencyContainer): void {
+        container.registerType("Overrides", "MatchCallbacksOverride");
+        container.registerType("Overrides", "GameCallbacksOverride");
         container.registerType("Overrides", "DialogueCallbacksOverride");
         container.registerType("Overrides", "LocationCallbacksOverride");
         container.registerType("Overrides", "DialogueControllerOverride");
@@ -83,6 +91,7 @@ export class Container {
         container.registerType("StaticRoutes", "FikaRaidStaticRouter");
         container.registerType("StaticRoutes", "FikaSendItemStaticRouter");
         container.registerType("StaticRoutes", "FikaUpdateStaticRouter");
+        container.registerType("StaticRoutes", "FikaMatchStaticRouter");
 
         container.registerType("IERouters", "FikaItemEventRouter");
     }
@@ -93,6 +102,8 @@ export class Container {
     }
 
     private static registerOverrides(container: DependencyContainer): void {
+        container.register<MatchCallbacksOverride>("MatchCallbacksOverride", MatchCallbacksOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<GameCallbacksOverride>("GameCallbacksOverride", GameCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DialogueCallbacksOverride>("DialogueCallbacksOverride", DialogueCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocationCallbacksOverride>("LocationCallbacksOverride", LocationCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DialogueControllerOverride>("DialogueControllerOverride", DialogueControllerOverride, { lifecycle: Lifecycle.Singleton });
@@ -107,6 +118,7 @@ export class Container {
 
     private static registerServices(container: DependencyContainer): void {
         container.register<FikaMatchService>("FikaMatchService", FikaMatchService, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaGroupService>("FikaGroupService", FikaGroupService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaFriendRequestsCacheService>("FikaFriendRequestsCacheService", FikaFriendRequestsCacheService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaPlayerRelationsCacheService>("FikaPlayerRelationsCacheService", FikaPlayerRelationsCacheService, { lifecycle: Lifecycle.Singleton });
     }
@@ -118,6 +130,7 @@ export class Container {
     }
 
     private static registerControllers(container: DependencyContainer): void {
+        container.register<MatchController>("MatchController", { useClass: FikaMatchController });
         container.register<FikaClientController>("FikaClientController", { useClass: FikaClientController });
         container.register<FikaDialogueController>("FikaDialogueController", { useClass: FikaDialogueController });
         container.register<FikaLocationController>("FikaLocationController", { useClass: FikaLocationController });
@@ -141,6 +154,8 @@ export class Container {
         container.register<FikaRaidStaticRouter>("FikaRaidStaticRouter", { useClass: FikaRaidStaticRouter });
         container.register<FikaSendItemStaticRouter>("FikaSendItemStaticRouter", { useClass: FikaSendItemStaticRouter });
         container.register<FikaUpdateStaticRouter>("FikaUpdateStaticRouter", { useClass: FikaUpdateStaticRouter });
+        container.register<FikaMatchStaticRouter>("FikaMatchStaticRouter", { useClass: FikaMatchStaticRouter });
+
         container.register<FikaItemEventRouter>("FikaItemEventRouter", { useClass: FikaItemEventRouter });
     }
 }
