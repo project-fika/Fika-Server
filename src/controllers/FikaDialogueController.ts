@@ -75,13 +75,14 @@ export class FikaDialogueController {
     }
 
     public sendMessage(sessionID: string, request: ISendMessageRequest): string {
-        const receiverProfile = this.saveServer.getProfile(request.dialogId);
-        if (!receiverProfile) {
-            // if it's not to another player let Aki handle it
+        const profiles = this.saveServer.getProfiles();
+        if (!(sessionID in profiles) || !(request.dialogId in profiles)) {
+            // if it's not to another player let SPT handle it
             return DialogueController.prototype.sendMessage.call(this.dialogController, sessionID, request);
         }
 
-        const senderProfile = this.saveServer.getProfile(sessionID);
+        const receiverProfile = profiles[request.dialogId];
+        const senderProfile = profiles[sessionID];
         if (!(request.dialogId in senderProfile.dialogues)) {
             senderProfile.dialogues[request.dialogId] = {
                 attachmentsNew: 0,
