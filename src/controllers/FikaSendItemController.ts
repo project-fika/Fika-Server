@@ -100,6 +100,9 @@ export class FikaSendItemController {
         const profiles = this.saveServer.getProfiles();
 
         for (const profile of Object.values(profiles)) {
+            if (profile.info.password === "fika-dedicated")
+                continue;
+            
             const username = profile.info.username;
             if (!(username in result) && username !== sender.info.username) {
                 result[username] = profile.info.id;
