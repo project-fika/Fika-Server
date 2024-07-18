@@ -100,9 +100,9 @@ export class FikaSendItemController {
         const profiles = this.saveServer.getProfiles();
 
         for (const profile of Object.values(profiles)) {
-            const username = profile.info.username;
-            if (!(username in result) && username !== sender.info.username) {
-                result[username] = profile.info.id;
+            const nickname = profile.characters.pmc.Info.Nickname;
+            if (!(nickname in result) && nickname !== sender.characters.pmc.Info.Nickname) {
+                result[nickname] = profile.info.id;
             }
         }
 
