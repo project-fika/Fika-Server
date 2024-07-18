@@ -101,7 +101,7 @@ export class FikaSendItemController {
 
         for (const profile of Object.values(profiles)) {
             //Uninitialized profiles can cause this to error out, skip these.
-            if (profile.characters.pmc.Info == null)
+            if (profile.characters.pmc.Info === null)
             {
                 continue;
             }
