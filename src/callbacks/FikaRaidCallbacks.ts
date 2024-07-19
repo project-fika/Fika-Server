@@ -26,7 +26,7 @@ export class FikaRaidCallbacks {
     /** Handle /fika/raid/join */
     public handleRaidJoin(_url: string, info: IFikaRaidJoinRequestData, _sessionID: string): string {
         return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidJoin(info));
-    }
+    }    
 
     /** Handle /fika/raid/leave */
     public handleRaidLeave(_url: string, info: IFikaRaidLeaveRequestData, _sessionID: string): INullResponseData {
@@ -36,13 +36,8 @@ export class FikaRaidCallbacks {
     }
 
     /** Handle /fika/raid/gethost */
-    public handleRaidGethost(_url: string, info: IFikaRaidServerIdRequestData, _sessionID: string): string {
-        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidGethost(info));
-    }
-
-    /** Handle /fika/raid/spawnpoint */
-    public handleRaidSpawnpoint(_url: string, info: IFikaRaidServerIdRequestData, _sessionID: string): string {
-        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidSpawnpoint(info));
+    public handleRaidGetHost(_url: string, info: IFikaRaidServerIdRequestData, _sessionID: string): string {
+        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidGetHost(info));
     }
 
     /** Handle /fika/raid/getsettings */

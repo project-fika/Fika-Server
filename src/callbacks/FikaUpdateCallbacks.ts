@@ -8,7 +8,7 @@ import { IFikaUpdatePingRequestData } from "../models/fika/routes/update/IFikaUp
 import { IFikaUpdatePlayerspawnRequestData } from "../models/fika/routes/update/IFikaUpdatePlayerspawnRequestData";
 import { IFikaUpdateSetStatusRequestData } from "../models/fika/routes/update/IFikaUpdateSetStatusRequestData";
 import { IFikaUpdateSethostRequestData } from "../models/fika/routes/update/IFikaUpdateSethostRequestData";
-import { IFikaUpdateSpawnpointRequestData } from "../models/fika/routes/update/IFikaUpdateSpawnpointRequestData";
+import { IFikaUpdateRaidAddPlayerData } from "../models/fika/routes/raid/join/IFikaRaidAddPlayerData";
 
 @injectable()
 export class FikaUpdateCallbacks {
@@ -22,13 +22,6 @@ export class FikaUpdateCallbacks {
     /** Handle /fika/update/ping */
     public handlePing(_url: string, info: IFikaUpdatePingRequestData, _sessionID: string): INullResponseData {
         this.fikaUpdateController.handlePing(info);
-
-        return this.httpResponseUtil.nullResponse();
-    }
-
-    /** Handle /fika/update/spawnpoint */
-    public handleSpawnpoint(_url: string, info: IFikaUpdateSpawnpointRequestData, _sessionID: string): INullResponseData {
-        this.fikaUpdateController.handleSpawnpoint(info);
 
         return this.httpResponseUtil.nullResponse();
     }
@@ -50,6 +43,13 @@ export class FikaUpdateCallbacks {
     /** Handle /fika/update/setstatus */
     public handleSetStatus(_url: string, info: IFikaUpdateSetStatusRequestData, _sessionID: string): INullResponseData {
         this.fikaUpdateController.handleSetStatus(info);
+
+        return this.httpResponseUtil.nullResponse();
+    }
+
+    /** Handle /fika/update/addplayer */
+    public handleRaidAddPlayer(_url: string, info: IFikaUpdateRaidAddPlayerData, _sessionID: string): INullResponseData {
+        this.fikaUpdateController.handleRaidAddPlayer(info);
 
         return this.httpResponseUtil.nullResponse();
     }

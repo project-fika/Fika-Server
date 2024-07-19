@@ -4,7 +4,7 @@ import { IFikaUpdatePingRequestData } from "../models/fika/routes/update/IFikaUp
 import { IFikaUpdatePlayerspawnRequestData } from "../models/fika/routes/update/IFikaUpdatePlayerspawnRequestData";
 import { IFikaUpdateSetStatusRequestData } from "../models/fika/routes/update/IFikaUpdateSetStatusRequestData";
 import { IFikaUpdateSethostRequestData } from "../models/fika/routes/update/IFikaUpdateSethostRequestData";
-import { IFikaUpdateSpawnpointRequestData } from "../models/fika/routes/update/IFikaUpdateSpawnpointRequestData";
+import { IFikaUpdateRaidAddPlayerData } from "../models/fika/routes/raid/join/IFikaRaidAddPlayerData";
 import { FikaMatchService } from "../services/FikaMatchService";
 
 @injectable()
@@ -19,14 +19,6 @@ export class FikaUpdateController {
      */
     public handlePing(request: IFikaUpdatePingRequestData): void {
         this.fikaMatchService.resetTimeout(request.serverId);
-    }
-
-    /**
-     * Handle /fika/update/spawnpoint
-     * @param request
-     */
-    public handleSpawnpoint(request: IFikaUpdateSpawnpointRequestData): void {
-        this.fikaMatchService.setMatchSpawnPoint(request.serverId, request.name);
     }
 
     /**
@@ -51,5 +43,14 @@ export class FikaUpdateController {
      */
     public handleSetStatus(request: IFikaUpdateSetStatusRequestData): void {
         this.fikaMatchService.setMatchStatus(request.serverId, request.status);
+    }
+
+    /**
+     * Handle /fika/update/addplayer
+     * @param request 
+     * @returns 
+     */
+    public handleRaidAddPlayer(request: IFikaUpdateRaidAddPlayerData): void {
+        this.fikaMatchService.addPlayerToMatch(request.serverId, request.profileId, { groupId: null, isDead: false });
     }
 }
