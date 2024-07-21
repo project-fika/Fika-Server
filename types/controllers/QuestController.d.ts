@@ -23,7 +23,6 @@ import { LocaleService } from "@spt/services/LocaleService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { MailSendService } from "@spt/services/MailSendService";
 import { PlayerService } from "@spt/services/PlayerService";
-import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
@@ -42,12 +41,11 @@ export declare class QuestController {
     protected questConditionHelper: QuestConditionHelper;
     protected playerService: PlayerService;
     protected localeService: LocaleService;
-    protected seasonalEventService: SeasonalEventService;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, httpResponseUtil: HttpResponseUtil, eventOutputHolder: EventOutputHolder, databaseService: DatabaseService, itemHelper: ItemHelper, dialogueHelper: DialogueHelper, mailSendService: MailSendService, profileHelper: ProfileHelper, traderHelper: TraderHelper, questHelper: QuestHelper, questConditionHelper: QuestConditionHelper, playerService: PlayerService, localeService: LocaleService, seasonalEventService: SeasonalEventService, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, timeUtil: TimeUtil, httpResponseUtil: HttpResponseUtil, eventOutputHolder: EventOutputHolder, databaseService: DatabaseService, itemHelper: ItemHelper, dialogueHelper: DialogueHelper, mailSendService: MailSendService, profileHelper: ProfileHelper, traderHelper: TraderHelper, questHelper: QuestHelper, questConditionHelper: QuestConditionHelper, playerService: PlayerService, localeService: LocaleService, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Handle client/quest/list
      * Get all quests visible to player
@@ -63,12 +61,6 @@ export declare class QuestController {
      * @returns true if quest can be seen/accepted by player of defined level
      */
     protected playerLevelFulfillsQuestRequirement(quest: IQuest, playerLevel: number): boolean;
-    /**
-     * Should a quest be shown to the player in trader quest screen
-     * @param questId Quest to check
-     * @returns true = show to player
-     */
-    protected showEventQuestToPlayer(questId: string): boolean;
     /**
      * Handle QuestAccept event
      * Handle the client accepting a quest and starting it

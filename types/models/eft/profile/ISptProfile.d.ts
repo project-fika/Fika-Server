@@ -93,6 +93,7 @@ export interface IUserDialogDetails {
     Side: string;
     Level: number;
     MemberCategory: MemberCategory;
+    SelectedMemberCategory: MemberCategory;
 }
 export interface DialogueInfo {
     attachmentsNew: number;

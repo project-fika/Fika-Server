@@ -122,5 +122,5 @@ export declare class ProfileController {
     /**
      * Handle client/profile/settings
      */
-    setChosenProfileIcon(sessionId: string, request: IGetProfileSettingsRequest): void;
+    setChosenProfileIcon(sessionId: string, request: IGetProfileSettingsRequest): boolean;
 }

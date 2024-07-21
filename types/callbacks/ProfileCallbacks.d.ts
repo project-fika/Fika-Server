@@ -74,7 +74,7 @@ export declare class ProfileCallbacks {
     /**
      * Handle client/profile/settings
      */
-    getProfileSettings(url: string, info: IGetProfileSettingsRequest, sessionId: string): IGetBodyResponseData<string>;
+    getProfileSettings(url: string, info: IGetProfileSettingsRequest, sessionId: string): IGetBodyResponseData<boolean>;
     /**
      * Handle client/game/profile/search
      */
