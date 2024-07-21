@@ -9,7 +9,6 @@ import { IFikaRaidSettingsResponse } from "../models/fika/routes/raid/getsetting
 import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
 import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaidJoinResponse";
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
-import { IFikaRaidSpawnpointResponse } from "../models/fika/routes/raid/spawnpoint/IFikaRaidSpawnpointResponse";
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
 import { IStartDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStartDedicatedRequest";
@@ -46,8 +45,6 @@ export class FikaRaidController {
      * @param request
      */
     public handleRaidJoin(request: IFikaRaidJoinRequestData): IFikaRaidJoinResponse {
-        this.fikaMatchService.addPlayerToMatch(request.serverId, request.profileId, { groupId: null, isDead: false });
-
         const match = this.fikaMatchService.getMatch(request.serverId);
 
         return {
@@ -58,7 +55,7 @@ export class FikaRaidController {
             fikaVersion: match.fikaVersion,
             raidCode: match.raidCode
         };
-    }
+    }    
 
     /**
      * Handle /fika/raid/leave
@@ -77,7 +74,7 @@ export class FikaRaidController {
      * Handle /fika/raid/gethost
      * @param request
      */
-    public handleRaidGethost(request: IFikaRaidServerIdRequestData): IFikaRaidGethostResponse {
+    public handleRaidGetHost(request: IFikaRaidServerIdRequestData): IFikaRaidGethostResponse {
         const match = this.fikaMatchService.getMatch(request.serverId);
         if (!match) {
             return;
@@ -88,21 +85,6 @@ export class FikaRaidController {
             port: match.port,
             natPunch: match.natPunch,
             isDedicated: match.isDedicated
-        };
-    }
-
-    /**
-     * Handle /fika/raid/spawnpoint
-     * @param request
-     */
-    public handleRaidSpawnpoint(request: IFikaRaidServerIdRequestData): IFikaRaidSpawnpointResponse {
-        const match = this.fikaMatchService.getMatch(request.serverId);
-        if (!match) {
-            return;
-        }
-
-        return {
-            spawnpoint: match.spawnPoint,
         };
     }
 

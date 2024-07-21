@@ -33,7 +33,7 @@ export declare class RagfairHelper {
     getDisplayableAssorts(sessionID: string): Record<string, ITraderAssort>;
     protected getCategoryList(handbookId: string): string[];
     /**
-     * Merges Root Items
+     * Iterate over array of identical items and merge stack count
      * Ragfair allows abnormally large stacks.
      */
     mergeStackable(items: Item[]): Item[];

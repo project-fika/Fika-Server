@@ -20,15 +20,12 @@ export class FikaRaidStaticRouter extends StaticRouter {
             }),
             new RouteAction("/fika/raid/join", async (url: string, info: IFikaRaidJoinRequestData, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaRaidCallbacks.handleRaidJoin(url, info, sessionID);
-            }),
+            }),            
             new RouteAction("/fika/raid/leave", async (url: string, info: IFikaRaidLeaveRequestData, sessionID: string, _output: string): Promise<INullResponseData> => {
                 return this.fikaRaidCallbacks.handleRaidLeave(url, info, sessionID);
             }),
             new RouteAction("/fika/raid/gethost", async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): Promise<string> => {
-                return this.fikaRaidCallbacks.handleRaidGethost(url, info, sessionID);
-            }),
-            new RouteAction("/fika/raid/spawnpoint", async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): Promise<string> => {
-                return this.fikaRaidCallbacks.handleRaidSpawnpoint(url, info, sessionID);
+                return this.fikaRaidCallbacks.handleRaidGetHost(url, info, sessionID);
             }),
             new RouteAction("/fika/raid/getsettings", async (url: string, info: IFikaRaidServerIdRequestData, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaRaidCallbacks.handleRaidGetSettings(url, info, sessionID);

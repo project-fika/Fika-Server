@@ -25,7 +25,8 @@ export declare class RagfairSellHelper {
      * Get array of item count and sell time (empty array = no sell)
      * @param sellChancePercent chance item will sell
      * @param itemSellCount count of items to sell
+     * @param sellInOneGo All items listed get sold at once
      * @returns Array of purchases of item(s) listed
      */
-    rollForSale(sellChancePercent: number, itemSellCount: number): SellResult[];
+    rollForSale(sellChancePercent: number, itemSellCount: number, sellInOneGo?: boolean): SellResult[];
 }

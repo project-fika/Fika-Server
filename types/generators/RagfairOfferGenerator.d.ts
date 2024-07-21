@@ -70,10 +70,10 @@ export declare class RagfairOfferGenerator {
      * @param items Items in the offer
      * @param barterScheme Cost of item (currency or barter)
      * @param loyalLevel Loyalty level needed to buy item
-     * @param sellInOnePiece Set StackObjectsCount to 1
+     * @param isPackOffer Is offer being created flaged as a pack
      * @returns IRagfairOffer
      */
-    protected createOffer(userID: string, time: number, items: Item[], barterScheme: IBarterScheme[], loyalLevel: number, sellInOnePiece?: boolean): IRagfairOffer;
+    protected createOffer(userID: string, time: number, items: Item[], barterScheme: IBarterScheme[], loyalLevel: number, isPackOffer?: boolean): IRagfairOffer;
     /**
      * Create the user object stored inside each flea offer object
      * @param userID user creating the offer

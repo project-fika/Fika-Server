@@ -196,7 +196,6 @@ export class FikaMatchService {
             raidConfig: data.settings,
             locationData: locationData,
             status: FikaMatchStatus.LOADING,
-            spawnPoint: null,
             timeout: 0,
             players: new Map(),
             gameVersion: data.gameVersion,
@@ -259,19 +258,6 @@ export class FikaMatchService {
         if (status.toString() == "COMPLETE") {
             this.fikaDedicatedRaidService.handleRequestedSessions(matchId);
         }
-    }
-
-    /**
-     * Sets the spawn point of the given match
-     * @param matchId
-     * @param spawnPoint
-     */
-    public setMatchSpawnPoint(matchId: string, spawnPoint: string): void {
-        if (!this.matches.has(matchId)) {
-            return;
-        }
-
-        this.matches.get(matchId).spawnPoint = spawnPoint;
     }
 
     /**

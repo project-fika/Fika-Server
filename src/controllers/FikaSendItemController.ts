@@ -100,12 +100,16 @@ export class FikaSendItemController {
         const profiles = this.saveServer.getProfiles();
 
         for (const profile of Object.values(profiles)) {
+            //Uninitialized profiles can cause this to error out, skip these.
+            if (!profile.characters?.pmc?.Info)
+                continue;
+
             if (profile.info.password === "fika-dedicated")
                 continue;
             
-            const username = profile.info.username;
-            if (!(username in result) && username !== sender.info.username) {
-                result[username] = profile.info.id;
+            const nickname = profile.characters.pmc.Info.Nickname;
+            if (!(nickname in result) && nickname !== sender.characters.pmc.Info.Nickname) {
+                result[nickname] = profile.info.id;
             }
         }
 
