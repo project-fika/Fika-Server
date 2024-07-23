@@ -63,7 +63,7 @@ export class BotControllerOverride extends Override {
                     // Subtract by 1 if it's a dedicated session as we ignore the dedicated client's profile
                     const amountOfPlayers = isDedicated ? match.players.size - 1 : match.players.size;
                     // Get the average level
-                    level = level / amountOfPlayers;
+                    level = level / Math.round(amountOfPlayers);
                     
                     // Save the current level so that we can set it back later
                     const originalLevel = pmcProfile.Info.Level;
