@@ -8,6 +8,8 @@ import { IGenerateBotsRequestData } from "@spt/models/eft/bot/IGenerateBotsReque
 import { FikaDedicatedRaidService } from "../../services/dedicated/FikaDedicatedRaidService";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { FikaMatchService } from "../../services/FikaMatchService";
+import { SaveServer } from "@spt/servers/SaveServer";
 
 @injectable()
 export class BotControllerOverride extends Override {
@@ -16,6 +18,8 @@ export class BotControllerOverride extends Override {
         @inject("BotController") protected botController: BotController,
         @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
         @inject("WinstonLogger") protected logger: ILogger,
+        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
+        @inject("SaveServer") protected saveServer: SaveServer,
     ) {
         super();
     }
@@ -27,31 +31,59 @@ export class BotControllerOverride extends Override {
                 // Override the bot generate function to determine which profile to use whether we're
                 // generating bots for a dedicated client or a normal host.
                 result.generate = (sessionId: string, info: IGenerateBotsRequestData): Promise<IBotBase[]> => {
-
                     let pmcProfile: IPmcData;
                     const dedicatedSessions = this.fikaDedicatedRaidService.requestedSessions;
+                    const isDedicated = dedicatedSessions.hasOwnProperty(sessionId);
 
-                    if(dedicatedSessions.hasOwnProperty(sessionId)) {
+                    if (isDedicated) {
                         // Use the dedicated client requester's PMC profile
                         const dedicatedRequesterSessionId = dedicatedSessions[sessionId];
                         pmcProfile = this.profileHelper.getPmcProfile(dedicatedRequesterSessionId);
-                    }
-                    else {
+                    } else {
                         // Use the host PMC profile
                         pmcProfile = this.profileHelper.getPmcProfile(sessionId);
                     }
+
+                    // Get the matchId and then match
+                    const matchId = this.fikaMatchService.getMatchIdByProfile(sessionId);
+                    const match = this.fikaMatchService.getMatch(matchId);
+
+                    const players = match.players.keys();
+
+                    // Loop through all the players and get their profiles
+                    let level = 1;
+                    for (const playerId of players) {
+                        const player = this.saveServer.getProfile(playerId);
+                        if (player.info.password === "fika-dedicated") 
+                            continue;
+
+                        level += player.characters.pmc.Info.Level;
+                    }
+
+                    // Subtract by 1 if it's a dedicated session as we ignore the dedicated client's profile
+                    const amountOfPlayers = isDedicated ? match.players.size - 1 : match.players.size;
+                    // Get the average level
+                    level = level / amountOfPlayers;
+                    
+                    // Save the current level so that we can set it back later
+                    const originalLevel = pmcProfile.Info.Level;
+                    pmcProfile.Info.Level = level;
 
                     // If there's more than 1 condition, this is the first time client has requested bots
                     // Client sends every bot type it will need in raid
                     // Use this opportunity to create and cache bots for later retreval
                     const isFirstGen = info.conditions.length > 1;
-                    if (isFirstGen)
-                    {
+                    let result: Promise<IBotBase[]>;
+                    if (isFirstGen) {
                         // Temporary cast to remove the error caused by protected method.
-                        return (this.botController as any).generateBotsFirstTime(info, pmcProfile, sessionId);
+                        result = (this.botController as any).generateBotsFirstTime(info, pmcProfile, sessionId);
                     }
                     // Temporary cast to remove the error caused by protected method.
-                    return (this.botController as any).returnSingleBotFromCache(sessionId, info);
+                    result = (this.botController as any).returnSingleBotFromCache(sessionId, info);
+
+                    // Set back the original level
+                    pmcProfile.Info.Level = originalLevel;
+                    return result;
                 };
             },
             { frequency: "Always" },
