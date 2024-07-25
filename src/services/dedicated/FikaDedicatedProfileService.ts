@@ -159,7 +159,7 @@ export class FikaDedicatedProfileService {
 
         const scriptName = `Start_${profile.info.username}.bat`;
         const scriptPath = path.join(targetFolderPath, scriptName);
-        const scriptContent = `EscapeFromTarkov.exe -token=${profile.info.id} -config={"BackendUrl":"${backendUrl}","Version":"live"} -batchmode -nographics --enable-console true`;
+        const scriptContent = `start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={"BackendUrl":"${backendUrl}","Version":"live"} -batchmode -nographics --enable-console true`;
 
         try {
             if(!fs.existsSync(targetFolderPath)) {
