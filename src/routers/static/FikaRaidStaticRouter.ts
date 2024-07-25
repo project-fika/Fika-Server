@@ -36,6 +36,9 @@ export class FikaRaidStaticRouter extends StaticRouter {
             new RouteAction("/fika/raid/dedicated/status", async (url: string, info: IStatusDedicatedRequest, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaRaidCallbacks.handleRaidStatusDedicated(url, info, sessionID);
             }),
+            new RouteAction("/fika/raid/dedicated/getstatus", async (url: string, info: any, sessionID: string, _output: string): Promise<string> => {
+                return this.fikaRaidCallbacks.handleRaidGetStatusDedicated(url, info, sessionID);
+            }),
         ]);
     }
 }

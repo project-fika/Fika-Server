@@ -55,7 +55,12 @@ export class FikaRaidCallbacks {
     }
 
     /** Handle /fika/raid/dedicated/status */
-    public handleRaidStatusDedicated(url: string, info: IStatusDedicatedRequest, sessionID: string): string {
+    public handleRaidStatusDedicated(_url: string, info: IStatusDedicatedRequest, sessionID: string): string {
         return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidStatusDedicated(sessionID, info));
+    }
+
+    /** Handle /fika/raid/dedicated/getstatus */
+    public handleRaidGetStatusDedicated(_url: string, _info: any, _sessionID: string): string {
+        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidGetStatusDedicated());
     }
 }

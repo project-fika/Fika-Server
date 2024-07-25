@@ -17,6 +17,7 @@ import { WebSocket } from "ws";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { IStatusDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStatusDedicatedRequest";
 import { IStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStatusDedicatedResponse";
+import { IGetStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IGetStatusDedicatedResponse";
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
 
 @injectable()
@@ -53,9 +54,9 @@ export class FikaRaidController {
             expectedNumberOfPlayers: match.expectedNumberOfPlayers,
             gameVersion: match.gameVersion,
             fikaVersion: match.fikaVersion,
-            raidCode: match.raidCode
+            raidCode: match.raidCode,
         };
-    }    
+    }
 
     /**
      * Handle /fika/raid/leave
@@ -84,7 +85,7 @@ export class FikaRaidController {
             ips: match.ips,
             port: match.port,
             natPunch: match.natPunch,
-            isDedicated: match.isDedicated
+            isDedicated: match.isDedicated,
         };
     }
 
@@ -100,7 +101,7 @@ export class FikaRaidController {
 
         return {
             metabolismDisabled: match.raidConfig.metabolismDisabled,
-            playersSpawnPlace: match.raidConfig.playersSpawnPlace
+            playersSpawnPlace: match.raidConfig.playersSpawnPlace,
         };
     }
 
@@ -109,14 +110,14 @@ export class FikaRaidController {
         if (!this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
             return {
                 matchId: null,
-                error: "No dedicated clients available."
+                error: "No dedicated clients available.",
             };
         }
 
         if (sessionID in this.fikaDedicatedRaidService.dedicatedClients) {
             return {
                 matchId: null,
-                error: "A dedicated client is trying to use a dedicated client?"
+                error: "A dedicated client is trying to use a dedicated client?",
             };
         }
 
@@ -132,7 +133,7 @@ export class FikaRaidController {
 
             dedicatedClientWs = this.fikaDedicatedRaidWebSocket.clientWebSockets[dedicatedSessionId];
 
-            if(!dedicatedClientWs) {
+            if (!dedicatedClientWs) {
                 continue;
             }
 
@@ -143,47 +144,57 @@ export class FikaRaidController {
         if (!dedicatedClient) {
             return {
                 matchId: null,
-                error: "No dedicated clients available at this time"
+                error: "No dedicated clients available at this time",
             };
         }
 
         this.fikaDedicatedRaidService.requestedSessions[dedicatedClient] = sessionID;
 
         dedicatedClientWs.send(
-            JSON.stringify(
-            {
+            JSON.stringify({
                 type: "fikaDedicatedStartRaid",
-                ...info
-            }
-        ));
+                ...info,
+            }),
+        );
 
         this.logger.info(`Sent WS to ${dedicatedClient}`);
 
         return {
             // This really isn't required, I just want to make sure on the client
             matchId: dedicatedClient,
-            error: null
-        }
+            error: null,
+        };
     }
 
     /** Handle /fika/raid/dedicated/status */
     public handleRaidStatusDedicated(sessionId: string, info: IStatusDedicatedRequest): IStatusDedicatedResponse {
-
-        if(info.status == "ready" && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
-            if(this.fikaDedicatedRaidService.onDedicatedClientAvailable) {
+        if (info.status == "ready" && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
+            if (this.fikaDedicatedRaidService.onDedicatedClientAvailable) {
                 this.fikaDedicatedRaidService.onDedicatedClientAvailable();
             }
         }
 
-        this.fikaDedicatedRaidService.dedicatedClients[sessionId] =
-        {
+        this.fikaDedicatedRaidService.dedicatedClients[sessionId] = {
             state: info.status,
-            lastPing: Date.now()
-        }
+            lastPing: Date.now(),
+        };
 
         return {
             sessionId: info.sessionId,
-            status: info.status
+            status: info.status,
+        };
+    }
+
+    /** Handle /fika/raid/dedicated/getstatus */
+    public handleRaidGetStatusDedicated(): IGetStatusDedicatedResponse {
+        if (!this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
+            return {
+                available: false
+            };
+        } else {
+            return {
+                available: true
+            };
         }
     }
 }
