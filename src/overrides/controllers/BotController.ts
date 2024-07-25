@@ -57,15 +57,10 @@ export class BotControllerOverride extends Override {
                         if (player.info.password === "fika-dedicated") 
                             continue;
 
-                        level += player.characters.pmc.Info.Level;
+                        if (player.characters.pmc.Info.Level > level)
+                            level = player.characters.pmc.Info.Level;
                     }
 
-                    // Subtract by 1 if it's a dedicated session as we ignore the dedicated client's profile
-                    const amountOfPlayers = isDedicated ? match.players.size - 1 : match.players.size;
-                    // Get the average level
-                    level = level / Math.round(amountOfPlayers);
-                    
-                    // Save the current level so that we can set it back later
                     const originalLevel = pmcProfile.Info.Level;
                     pmcProfile.Info.Level = level;
 
@@ -82,6 +77,7 @@ export class BotControllerOverride extends Override {
                     result = (this.botController as any).returnSingleBotFromCache(sessionId, info);
 
                     // Set back the original level
+                    //pmcProfile.Info.Level = originalLevel;
                     pmcProfile.Info.Level = originalLevel;
                     return result;
                 };
