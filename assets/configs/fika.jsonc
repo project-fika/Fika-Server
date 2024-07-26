@@ -25,5 +25,14 @@
         "enable": false,
         "port": 6790,
         "natIntroduceAmount": 1
+    },
+    "dedicated": {
+        "profiles": {
+            "amount": 0
+        },
+        "scripts": {
+            "generate": true,
+            "forceIp": ""
+        }
     }
 }

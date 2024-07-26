@@ -16,6 +16,7 @@ import { DatabaseServiceOverride } from "../overrides/services/FikaDatabaseServi
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
+import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
 
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
@@ -40,11 +41,16 @@ import { FikaLocationStaticRouter } from "../routers/static/FikaLocationStaticRo
 import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
-
 import { FikaItemEventRouter } from "../routers/item_events/FikaItemEventRouter";
+
+import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
+import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 
 import { Fika } from "../Fika";
 import { FikaServerTools } from "../utils/FikaServerTools";
+import { FikaDedicatedProfileService } from "../services/dedicated/FikaDedicatedProfileService";
+import { BotControllerOverride } from "../overrides/controllers/BotController";
+
 
 export class Container {
     public static register(container: DependencyContainer): void {
@@ -62,6 +68,8 @@ export class Container {
 
         Container.registerRouters(container);
 
+        Container.registerWebSockets(container);
+
         Container.registerListTypes(container);
 
         container.register<Fika>("Fika", Fika, { lifecycle: Lifecycle.Singleton });
@@ -77,6 +85,7 @@ export class Container {
         container.registerType("Overrides", "LocalesOverride");
         container.registerType("Overrides", "AchievementControllerOverride");
         container.registerType("Overrides", "DatabaseServiceOverride");
+        container.registerType("Overrides", "BotControllerOverride");
 
         container.registerType("StaticRoutes", "FikaClientStaticRouter");
         container.registerType("StaticRoutes", "FikaLocationStaticRouter");
@@ -85,6 +94,7 @@ export class Container {
         container.registerType("StaticRoutes", "FikaUpdateStaticRouter");
 
         container.registerType("IERouters", "FikaItemEventRouter");
+        container.registerType("WebSocketConnectionHandler", "FikaDedicatedRaidWebSocket");
     }
 
     private static registerUtils(container: DependencyContainer): void {
@@ -100,6 +110,7 @@ export class Container {
         container.register<HttpRouterOverride>("HttpRouterOverride", HttpRouterOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LauncherBackgroundOverride>("LauncherBackgroundOverride", LauncherBackgroundOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocalesOverride>("LocalesOverride", LocalesOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<BotControllerOverride>("BotControllerOverride", BotControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<Overrider>("Overrider", Overrider, { lifecycle: Lifecycle.Singleton });
         container.register<AchievementControllerOverride>("AchievementControllerOverride", AchievementControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DatabaseServiceOverride>("DatabaseServiceOverride", DatabaseServiceOverride, { lifecycle: Lifecycle.Singleton });
@@ -109,6 +120,8 @@ export class Container {
         container.register<FikaMatchService>("FikaMatchService", FikaMatchService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaFriendRequestsCacheService>("FikaFriendRequestsCacheService", FikaFriendRequestsCacheService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaPlayerRelationsCacheService>("FikaPlayerRelationsCacheService", FikaPlayerRelationsCacheService, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaDedicatedRaidService>("FikaDedicatedRaidService", FikaDedicatedRaidService, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaDedicatedProfileService>("FikaDedicatedProfileService", FikaDedicatedProfileService, { lifecycle: Lifecycle.Singleton });
     }
 
     private static registerHelpers(container: DependencyContainer): void {
@@ -142,5 +155,10 @@ export class Container {
         container.register<FikaSendItemStaticRouter>("FikaSendItemStaticRouter", { useClass: FikaSendItemStaticRouter });
         container.register<FikaUpdateStaticRouter>("FikaUpdateStaticRouter", { useClass: FikaUpdateStaticRouter });
         container.register<FikaItemEventRouter>("FikaItemEventRouter", { useClass: FikaItemEventRouter });
+    }
+
+    private static registerWebSockets(container: DependencyContainer): void {
+        container.register<FikaDedicatedRaidWebSocket>("FikaDedicatedRaidWebSocket", FikaDedicatedRaidWebSocket, { lifecycle: Lifecycle.Singleton });
+        container.register<IWebSocketConnectionHandler>("FikaDedicatedRaidWebSocket", FikaDedicatedRaidWebSocket, { lifecycle: Lifecycle.Singleton });
     }
 }

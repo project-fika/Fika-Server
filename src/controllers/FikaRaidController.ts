@@ -10,10 +10,24 @@ import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaR
 import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaidJoinResponse";
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 import { FikaMatchService } from "../services/FikaMatchService";
+import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
+import { IStartDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStartDedicatedRequest";
+import { IStartDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStartDedicatedResponse";
+import { WebSocket } from "ws";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { IStatusDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStatusDedicatedRequest";
+import { IStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStatusDedicatedResponse";
+import { IGetStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IGetStatusDedicatedResponse";
+import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
 
 @injectable()
 export class FikaRaidController {
-    constructor(@inject("FikaMatchService") protected fikaMatchService: FikaMatchService) {
+    constructor(
+        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
+        @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
+        @inject("FikaDedicatedRaidWebSocket") protected fikaDedicatedRaidWebSocket: FikaDedicatedRaidWebSocket,
+        @inject("WinstonLogger") protected logger: ILogger,
+    ) {
         // empty
     }
 
@@ -40,9 +54,9 @@ export class FikaRaidController {
             expectedNumberOfPlayers: match.expectedNumberOfPlayers,
             gameVersion: match.gameVersion,
             fikaVersion: match.fikaVersion,
-            raidCode: match.raidCode
+            raidCode: match.raidCode,
         };
-    }    
+    }
 
     /**
      * Handle /fika/raid/leave
@@ -71,6 +85,7 @@ export class FikaRaidController {
             ips: match.ips,
             port: match.port,
             natPunch: match.natPunch,
+            isDedicated: match.isDedicated,
         };
     }
 
@@ -86,7 +101,100 @@ export class FikaRaidController {
 
         return {
             metabolismDisabled: match.raidConfig.metabolismDisabled,
-            playersSpawnPlace: match.raidConfig.playersSpawnPlace
+            playersSpawnPlace: match.raidConfig.playersSpawnPlace,
         };
+    }
+
+    /** Handle /fika/raid/dedicated/start */
+    handleRaidStartDedicated(sessionID: string, info: IStartDedicatedRequest): IStartDedicatedResponse {
+        if (!this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
+            return {
+                matchId: null,
+                error: "No dedicated clients available.",
+            };
+        }
+
+        if (sessionID in this.fikaDedicatedRaidService.dedicatedClients) {
+            return {
+                matchId: null,
+                error: "A dedicated client is trying to use a dedicated client?",
+            };
+        }
+
+        let dedicatedClient: string | undefined = undefined;
+        let dedicatedClientWs: WebSocket | undefined = undefined;
+
+        for (const dedicatedSessionId in this.fikaDedicatedRaidService.dedicatedClients) {
+            const dedicatedClientInfo = this.fikaDedicatedRaidService.dedicatedClients[dedicatedSessionId];
+
+            if (dedicatedClientInfo.state != "ready") {
+                continue;
+            }
+
+            dedicatedClientWs = this.fikaDedicatedRaidWebSocket.clientWebSockets[dedicatedSessionId];
+
+            if (!dedicatedClientWs) {
+                continue;
+            }
+
+            dedicatedClient = dedicatedSessionId;
+            break;
+        }
+
+        if (!dedicatedClient) {
+            return {
+                matchId: null,
+                error: "No dedicated clients available at this time",
+            };
+        }
+
+        this.fikaDedicatedRaidService.requestedSessions[dedicatedClient] = sessionID;
+
+        dedicatedClientWs.send(
+            JSON.stringify({
+                type: "fikaDedicatedStartRaid",
+                ...info,
+            }),
+        );
+
+        this.logger.info(`Sent WS to ${dedicatedClient}`);
+
+        return {
+            // This really isn't required, I just want to make sure on the client
+            matchId: dedicatedClient,
+            error: null,
+        };
+    }
+
+    /** Handle /fika/raid/dedicated/status */
+    public handleRaidStatusDedicated(sessionId: string, info: IStatusDedicatedRequest): IStatusDedicatedResponse {
+        if (info.status == "ready" && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
+            if (this.fikaDedicatedRaidService.onDedicatedClientAvailable) {
+                this.fikaDedicatedRaidService.onDedicatedClientAvailable();
+            }
+        }
+
+        this.fikaDedicatedRaidService.dedicatedClients[sessionId] = {
+            state: info.status,
+            lastPing: Date.now(),
+        };
+
+        return {
+            sessionId: info.sessionId,
+            status: info.status,
+        };
+    }
+
+    /** Handle /fika/raid/dedicated/getstatus */
+    public handleRaidGetStatusDedicated(): IGetStatusDedicatedResponse {
+        if (!this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
+            return {
+                available: false
+            };
+        } else {
+            return {
+                available: true
+            };
+        }
     }
 }
