@@ -15,7 +15,5 @@ export interface Items {
     change: any[];
     del: any[];
 }
-export interface Production {
-}
-export interface TraderRelations {
-}
+export type Production = {};
+export type TraderRelations = {};

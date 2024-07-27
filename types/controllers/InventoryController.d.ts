@@ -37,10 +37,10 @@ import { LocalisationService } from "@spt/services/LocalisationService";
 import { MapMarkerService } from "@spt/services/MapMarkerService";
 import { PlayerService } from "@spt/services/PlayerService";
 import { RagfairOfferService } from "@spt/services/RagfairOfferService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class InventoryController {
     protected logger: ILogger;
     protected hashUtil: HashUtil;

@@ -25,9 +25,9 @@ import { BotWeaponModLimitService } from "@spt/services/BotWeaponModLimitService
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class BotEquipmentModGenerator {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -65,7 +65,7 @@ export declare class BotEquipmentModGenerator {
      * @param settings Bot equipment generation settings
      * @param modSlot Armor slot being filtered
      * @param existingPlateTplPool Plates tpls to choose from
-     * @param armorItem
+     * @param armorItem The armor items db template
      * @returns Array of plate tpls to choose from
      */
     protected filterPlateModsForSlotByLevel(settings: IGenerateEquipmentProperties, modSlot: string, existingPlateTplPool: string[], armorItem: ITemplateItem): IFilterPlateModsForSlotByLevelResult;

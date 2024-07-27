@@ -29,5 +29,4 @@ export declare enum OfferOwnerType {
     TRADEROWNERTYPE = 1,
     PLAYEROWNERTYPE = 2
 }
-export interface BuildItems {
-}
+export type BuildItems = {};

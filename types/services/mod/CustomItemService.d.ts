@@ -4,8 +4,8 @@ import { CreateItemResult, LocaleDetails, NewItemDetails, NewItemFromCloneDetail
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
 import { HashUtil } from "@spt/utils/HashUtil";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class CustomItemService {
     protected logger: ILogger;
     protected hashUtil: HashUtil;

@@ -209,12 +209,9 @@ export interface Effects {
     LeftLeg: LeftLeg;
     RightLeg: RightLeg;
 }
-export interface Head {
-}
-export interface Chest {
-}
-export interface Stomach {
-}
+export type Head = {};
+export type Chest = {};
+export type Stomach = {};
 export interface LeftArm {
     Fracture?: number;
 }

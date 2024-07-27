@@ -1,8 +1,8 @@
-import { I18n } from "i18n";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { LocaleService } from "@spt/services/LocaleService";
 import { RandomUtil } from "@spt/utils/RandomUtil";
+import { I18n } from "i18n";
 /**
  * Handles translating server text into different langauges
  */

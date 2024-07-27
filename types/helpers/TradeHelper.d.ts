@@ -17,8 +17,8 @@ import { FenceService } from "@spt/services/FenceService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { PaymentService } from "@spt/services/PaymentService";
 import { TraderPurchasePersisterService } from "@spt/services/TraderPurchasePersisterService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class TradeHelper {
     protected logger: ILogger;
     protected eventOutputHolder: EventOutputHolder;

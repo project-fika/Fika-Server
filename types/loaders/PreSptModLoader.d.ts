@@ -1,4 +1,3 @@
-import { DependencyContainer } from "tsyringe";
 import { ModLoadOrder } from "@spt/loaders/ModLoadOrder";
 import { ModTypeCheck } from "@spt/loaders/ModTypeCheck";
 import { ModDetails } from "@spt/models/eft/profile/ISptProfile";
@@ -11,6 +10,7 @@ import { LocalisationService } from "@spt/services/LocalisationService";
 import { ModCompilerService } from "@spt/services/ModCompilerService";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 import { VFS } from "@spt/utils/VFS";
+import { DependencyContainer } from "tsyringe";
 export declare class PreSptModLoader implements IModLoader {
     protected logger: ILogger;
     protected vfs: VFS;

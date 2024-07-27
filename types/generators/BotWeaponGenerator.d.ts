@@ -18,9 +18,9 @@ import { BotWeaponModLimitService } from "@spt/services/BotWeaponModLimitService
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { RepairService } from "@spt/services/RepairService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class BotWeaponGenerator {
     protected logger: ILogger;
     protected hashUtil: HashUtil;

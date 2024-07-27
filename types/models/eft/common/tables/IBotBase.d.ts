@@ -373,8 +373,7 @@ export interface LastCompleted {
 export interface Notes {
     Notes: Note[];
 }
-export interface CarExtractCounts {
-}
+export type CarExtractCounts = {};
 export declare enum SurvivorClass {
     UNKNOWN = 0,
     NEUTRALIZER = 1,

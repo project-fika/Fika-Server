@@ -4,12 +4,14 @@ import { IBotBase } from "@spt/models/eft/common/tables/IBotBase";
 import { BotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
+import { MathUtil } from "@spt/utils/MathUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class BotLevelGenerator {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
     protected databaseService: DatabaseService;
-    constructor(logger: ILogger, randomUtil: RandomUtil, databaseService: DatabaseService);
+    protected mathUtil: MathUtil;
+    constructor(logger: ILogger, randomUtil: RandomUtil, databaseService: DatabaseService, mathUtil: MathUtil);
     /**
      * Return a randomised bot level and exp value
      * @param levelDetails Min and max of level for bot
@@ -18,6 +20,7 @@ export declare class BotLevelGenerator {
      * @returns IRandomisedBotLevelResult object
      */
     generateBotLevel(levelDetails: MinMax, botGenerationDetails: BotGenerationDetails, bot: IBotBase): IRandomisedBotLevelResult;
+    protected chooseBotLevel(min: number, max: number, shift: number, number: number): number;
     /**
      * Get the highest level a bot can be relative to the players level, but no further than the max size from globals.exp_table
      * @param botGenerationDetails Details to help generate a bot

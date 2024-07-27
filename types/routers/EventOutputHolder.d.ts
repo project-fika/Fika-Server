@@ -3,8 +3,8 @@ import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IHideoutImprovement, Productive, TraderInfo } from "@spt/models/eft/common/tables/IBotBase";
 import { TraderData } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { ICloner } from "@spt/utils/cloners/ICloner";
 import { TimeUtil } from "@spt/utils/TimeUtil";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class EventOutputHolder {
     protected profileHelper: ProfileHelper;
     protected timeUtil: TimeUtil;
@@ -12,7 +12,7 @@ export declare class EventOutputHolder {
     /**
      * What has client been informed of this game session
      * Key = sessionId, then second key is prod id
-    */
+     */
     protected clientActiveSessionStorage: Record<string, Record<string, {
         clientInformed: boolean;
     }>>;

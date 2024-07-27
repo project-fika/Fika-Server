@@ -11,10 +11,10 @@ import { SaveServer } from "@spt/servers/SaveServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { ProfileSnapshotService } from "@spt/services/ProfileSnapshotService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 import { Watermark } from "@spt/utils/Watermark";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class ProfileHelper {
     protected logger: ILogger;
     protected hashUtil: HashUtil;

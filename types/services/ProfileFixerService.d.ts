@@ -8,7 +8,7 @@ import { Bonus, HideoutSlot } from "@spt/models/eft/common/tables/IBotBase";
 import { IPmcDataRepeatableQuest, IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { StageBonus } from "@spt/models/eft/hideout/IHideoutArea";
-import { ISptProfile, IEquipmentBuild, IMagazineBuild, IWeaponBuild } from "@spt/models/eft/profile/ISptProfile";
+import { IEquipmentBuild, IMagazineBuild, ISptProfile, IWeaponBuild } from "@spt/models/eft/profile/ISptProfile";
 import { HideoutAreas } from "@spt/models/enums/HideoutAreas";
 import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
@@ -16,11 +16,11 @@ import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 import { Watermark } from "@spt/utils/Watermark";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class ProfileFixerService {
     protected logger: ILogger;
     protected watermark: Watermark;
@@ -73,6 +73,7 @@ export declare class ProfileFixerService {
      */
     protected removeDanglingTaskConditionCounters(pmcProfile: IPmcData): void;
     protected getActiveRepeatableQuests(repeatableQuests: IPmcDataRepeatableQuest[]): IRepeatableQuest[];
+    protected fixNullRagfairRatings(pmcProfile: IPmcData): void;
     protected fixNullTraderSalesSums(pmcProfile: IPmcData): void;
     protected addMissingBonusesProperty(pmcProfile: IPmcData): void;
     /**

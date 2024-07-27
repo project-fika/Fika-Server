@@ -13,6 +13,7 @@ import { ISaveProgressRequestData } from "@spt/models/eft/inRaid/ISaveProgressRe
 import { PlayerRaidEndState } from "@spt/models/enums/PlayerRaidEndState";
 import { IAirdropConfig } from "@spt/models/spt/config/IAirdropConfig";
 import { IBTRConfig } from "@spt/models/spt/config/IBTRConfig";
+import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import { IInRaidConfig } from "@spt/models/spt/config/IInRaidConfig";
 import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
@@ -31,7 +32,6 @@ import { PmcChatResponseService } from "@spt/services/PmcChatResponseService";
 import { TraderServicesService } from "@spt/services/TraderServicesService";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 /**
  * Logic for handling In Raid callbacks
  */

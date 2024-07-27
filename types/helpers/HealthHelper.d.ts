@@ -5,8 +5,8 @@ import { IHealthConfig } from "@spt/models/spt/config/IHealthConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
-import { ICloner } from "@spt/utils/cloners/ICloner";
 import { TimeUtil } from "@spt/utils/TimeUtil";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class HealthHelper {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;

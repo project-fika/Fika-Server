@@ -151,7 +151,7 @@ export declare class RagfairOfferHelper {
      * @param boughtAmount Amount item was purchased for
      * @returns IItemEventRouterResponse
      */
-    protected completeOffer(sessionID: string, offer: IRagfairOffer, boughtAmount: number): IItemEventRouterResponse;
+    completeOffer(sessionID: string, offer: IRagfairOffer, boughtAmount: number): IItemEventRouterResponse;
     /**
      * Get a localised message for when players offer has sold on flea
      * @param itemTpl Item sold

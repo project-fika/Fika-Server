@@ -1,7 +1,6 @@
 /// <reference types="node" />
 /// <reference types="node" />
 import { IncomingMessage } from "http";
-import { WebSocket } from "ws";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
 import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
@@ -11,6 +10,7 @@ import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectio
 import { ISptWebSocketMessageHandler } from "@spt/servers/ws/message/ISptWebSocketMessageHandler";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { JsonUtil } from "@spt/utils/JsonUtil";
+import { WebSocket } from "ws";
 export declare class SptWebSocketConnectionHandler implements IWebSocketConnectionHandler {
     protected logger: ILogger;
     protected profileHelper: ProfileHelper;

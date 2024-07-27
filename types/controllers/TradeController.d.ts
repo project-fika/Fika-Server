@@ -1,5 +1,6 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { RagfairOfferHelper } from "@spt/helpers/RagfairOfferHelper";
 import { TradeHelper } from "@spt/helpers/TradeHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
@@ -35,6 +36,7 @@ export declare class TradeController {
     protected hashUtil: HashUtil;
     protected itemHelper: ItemHelper;
     protected profileHelper: ProfileHelper;
+    protected ragfairOfferHelper: RagfairOfferHelper;
     protected traderHelper: TraderHelper;
     protected ragfairServer: RagfairServer;
     protected httpResponse: HttpResponseUtil;
@@ -44,7 +46,7 @@ export declare class TradeController {
     protected configServer: ConfigServer;
     protected ragfairConfig: IRagfairConfig;
     protected traderConfig: ITraderConfig;
-    constructor(logger: ILogger, databaseService: DatabaseService, eventOutputHolder: EventOutputHolder, tradeHelper: TradeHelper, timeUtil: TimeUtil, randomUtil: RandomUtil, hashUtil: HashUtil, itemHelper: ItemHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, ragfairServer: RagfairServer, httpResponse: HttpResponseUtil, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, mailSendService: MailSendService, configServer: ConfigServer);
+    constructor(logger: ILogger, databaseService: DatabaseService, eventOutputHolder: EventOutputHolder, tradeHelper: TradeHelper, timeUtil: TimeUtil, randomUtil: RandomUtil, hashUtil: HashUtil, itemHelper: ItemHelper, profileHelper: ProfileHelper, ragfairOfferHelper: RagfairOfferHelper, traderHelper: TraderHelper, ragfairServer: RagfairServer, httpResponse: HttpResponseUtil, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, mailSendService: MailSendService, configServer: ConfigServer);
     /** Handle TradingConfirm event */
     confirmTrading(pmcData: IPmcData, request: IProcessBaseTradeRequestData, sessionID: string): IItemEventRouterResponse;
     /** Handle RagFairBuyOffer event */
@@ -68,9 +70,16 @@ export declare class TradeController {
      */
     protected buyPmcItemFromRagfair(sessionId: string, pmcData: IPmcData, fleaOffer: IRagfairOffer, requestOffer: IOfferRequest, output: IItemEventRouterResponse): void;
     /**
+     * Is the provided offerid and ownerid from a player made offer
+     * @param offerId Id of the offer
+     * @param offerOwnerId Owner id
+     * @returns true if offer was made by a player
+     */
+    protected isPlayerOffer(offerId: string, offerOwnerId: string): boolean;
+    /**
      * Does Player have necessary trader loyalty to purchase flea offer
      * @param sellerIsTrader is seller trader
-     * @param fleaOffer FLea offer being bought
+     * @param fleaOffer Flea offer being bought
      * @param pmcData Player profile
      * @returns True if player can buy offer
      */
