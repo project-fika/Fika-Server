@@ -73,7 +73,7 @@ export class BotControllerOverride extends Override {
 
                     // If there's more than 1 condition, this is the first time client has requested bots
                     // Client sends every bot type it will need in raid
-                    // Use this opportunity to create and cache bots for later retreval
+                    // Use this opportunity to create and cache bots for later retrieval
                     const isFirstGen = info.conditions.length > 1;
                     let botGenerationResult: Promise<IBotBase[]>;
                     if (isFirstGen) {
