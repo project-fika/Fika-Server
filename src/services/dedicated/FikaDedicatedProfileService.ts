@@ -159,7 +159,13 @@ export class FikaDedicatedProfileService {
 
         const scriptName = `Start_${profile.info.username}.bat`;
         const scriptPath = path.join(targetFolderPath, scriptName);
-        const scriptContent = `start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={"BackendUrl":"${backendUrl}","Version":"live"} -batchmode -nographics --enable-console true`;
+        const scriptContent = `@echo off
+if NOT EXIST ".\\BepInEx\\plugins\\Fika.Dedicated.dll" (
+    echo Could not find 'Fika.Dedicated.dll', please install the dedicated plugin before starting the client.
+    pause
+) else (
+    start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={"BackendUrl":"${backendUrl}","Version":"live"} & exit
+)`
 
         try {
             if(!fs.existsSync(targetFolderPath)) {
