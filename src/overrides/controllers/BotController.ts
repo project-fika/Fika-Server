@@ -46,7 +46,7 @@ export class BotControllerOverride extends Override {
 
                     // Get the matchId and then match
                     const matchId = this.fikaMatchService.getMatchIdByProfile(sessionId);
-                    let match = this.fikaMatchService.getMatch(matchId);
+                    const match = this.fikaMatchService.getMatch(matchId);
 
                     if(!match)
                     {
