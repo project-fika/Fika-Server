@@ -48,6 +48,13 @@ export class BotControllerOverride extends Override {
                     const matchId = this.fikaMatchService.getMatchIdByProfile(sessionId);
                     const match = this.fikaMatchService.getMatch(matchId);
 
+                    if(!match)
+                    {
+                        this.logger.warning("FIKA Match is null! Running default SPT bot generation");
+
+                        return this.botController.generate(sessionId, info);
+                    }
+
                     const players = match.players.keys();
 
                     // Loop through all the players and get their profiles
@@ -66,20 +73,20 @@ export class BotControllerOverride extends Override {
 
                     // If there's more than 1 condition, this is the first time client has requested bots
                     // Client sends every bot type it will need in raid
-                    // Use this opportunity to create and cache bots for later retreval
+                    // Use this opportunity to create and cache bots for later retrieval
                     const isFirstGen = info.conditions.length > 1;
-                    let result: Promise<IBotBase[]>;
+                    let botGenerationResult: Promise<IBotBase[]>;
                     if (isFirstGen) {
                         // Temporary cast to remove the error caused by protected method.
-                        result = (this.botController as any).generateBotsFirstTime(info, pmcProfile, sessionId);
+                        botGenerationResult = (this.botController as any).generateBotsFirstTime(info, pmcProfile, sessionId);
                     }
                     // Temporary cast to remove the error caused by protected method.
-                    result = (this.botController as any).returnSingleBotFromCache(sessionId, info);
+                    botGenerationResult = (this.botController as any).returnSingleBotFromCache(sessionId, info);
 
                     // Set back the original level
                     //pmcProfile.Info.Level = originalLevel;
                     pmcProfile.Info.Level = originalLevel;
-                    return result;
+                    return botGenerationResult;
                 };
             },
             { frequency: "Always" },
