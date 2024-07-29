@@ -164,7 +164,7 @@ if NOT EXIST ".\\BepInEx\\plugins\\Fika.Dedicated.dll" (
     echo Could not find 'Fika.Dedicated.dll', please install the dedicated plugin before starting the client.
     pause
 ) else (
-    start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={"BackendUrl":"${backendUrl}","Version":"live"} & exit
+    start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={"BackendUrl":"${backendUrl}","Version":"live"} -batchmode -nographics & exit
 )`
 
         try {
