@@ -19,6 +19,8 @@ import { IStatusDedicatedRequest } from "../models/fika/routes/raid/dedicated/IS
 import { IStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStatusDedicatedResponse";
 import { IGetStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IGetStatusDedicatedResponse";
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 
 @injectable()
 export class FikaRaidController {
@@ -26,6 +28,7 @@ export class FikaRaidController {
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
         @inject("FikaDedicatedRaidWebSocket") protected fikaDedicatedRaidWebSocket: FikaDedicatedRaidWebSocket,
+        @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("WinstonLogger") protected logger: ILogger,
     ) {
         // empty
@@ -147,6 +150,15 @@ export class FikaRaidController {
                 error: "No dedicated clients available at this time",
             };
         }
+
+        const pmcDedicatedClientProfile: IPmcData = this.profileHelper.getPmcProfile(dedicatedClient);
+        const requesterProfile: IPmcData = this.profileHelper.getPmcProfile(sessionID);
+
+        this.logger.debug(`Dedicated: ${pmcDedicatedClientProfile.Info.Nickname} ${pmcDedicatedClientProfile.Info.Level} - Requester: ${requesterProfile.Info.Nickname} ${requesterProfile.Info.Level}`)
+
+        //Set level of the dedicated profile to the person that has requested the raid to be started.
+        pmcDedicatedClientProfile.Info.Level = requesterProfile.Info.Level;
+        pmcDedicatedClientProfile.Info.Experience = requesterProfile.Info.Experience;
 
         this.fikaDedicatedRaidService.requestedSessions[dedicatedClient] = sessionID;
 
