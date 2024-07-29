@@ -52,7 +52,6 @@ import { FikaDedicatedProfileService } from "../services/dedicated/FikaDedicated
 
 import { ItemHelperOverride } from "../overrides/helpers/ItemHelper";
 import { FikaItemHelper } from "../helpers/FikaItemHelper";
-import { HashUtilOverride } from "../overrides/utils/HashUtil";
 import { FikaInsuranceService } from "../services/FikaInsuranceService";
 import { InraidControllerOverride } from "../overrides/controllers/InraidController";
 
@@ -90,7 +89,6 @@ export class Container {
         container.registerType("Overrides", "AchievementControllerOverride");
         container.registerType("Overrides", "DatabaseServiceOverride");
         container.registerType("Overrides", "ItemHelperOverride");
-        container.registerType("Overrides", "HashUtilOverride");
         container.registerType("Overrides", "InraidControllerOverride");
 
         container.registerType("StaticRoutes", "FikaClientStaticRouter");
@@ -120,7 +118,6 @@ export class Container {
         container.register<AchievementControllerOverride>("AchievementControllerOverride", AchievementControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DatabaseServiceOverride>("DatabaseServiceOverride", DatabaseServiceOverride, { lifecycle: Lifecycle.Singleton });
         container.register<ItemHelperOverride>("ItemHelperOverride", ItemHelperOverride, { lifecycle: Lifecycle.Singleton });
-        container.register<HashUtilOverride>("HashUtilOverride", HashUtilOverride, { lifecycle: Lifecycle.Singleton });
         container.register<InraidControllerOverride>("InraidControllerOverride", InraidControllerOverride, { lifecycle: Lifecycle.Singleton });
     }
 
