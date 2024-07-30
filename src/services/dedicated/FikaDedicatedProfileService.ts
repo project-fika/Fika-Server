@@ -44,29 +44,32 @@ export class FikaDedicatedProfileService {
     public init() {
         this.dedicatedProfiles = this.loadDedicatedProfiles();
 
-        this.logger.info(`Found ${this.dedicatedProfiles.length} dedicated client profiles.`)
+        this.logger.info(`Found ${this.dedicatedProfiles.length} dedicated client profiles.`);
 
         const profileAmount = this.dedicatedConfig.profiles.amount;
 
-        if(this.dedicatedProfiles.length < profileAmount) {
-
+        if (this.dedicatedProfiles.length < profileAmount) {
             const createdProfiles = this.createDedicatedProfiles(profileAmount);
 
             this.logger.success(`Created ${createdProfiles.length} dedicated client profiles!`);
 
-            if(this.dedicatedConfig.scripts.generate) {
+            if (this.dedicatedConfig.scripts.generate) {
                 let ip = this.httpConfig.ip;
                 const port = this.httpConfig.port;
 
                 const forceIp = this.dedicatedConfig.scripts.forceIp;
 
-                if(forceIp != "") {
+                if (forceIp != "") {
                     ip = forceIp;
+                }
+
+                if (ip == "0.0.0.0") {
+                    ip = "127.0.0.1";
                 }
 
                 const backendUrl = `http://${ip}:${port}`;
 
-                for(const profile of createdProfiles) {
+                for (const profile of createdProfiles) {
                     this.generateLaunchScript(profile, backendUrl, this.scriptsPath);
                 }
             }
@@ -76,10 +79,10 @@ export class FikaDedicatedProfileService {
     public loadDedicatedProfiles(): ISptProfile[] {
         let profiles: ISptProfile[] = [];
 
-        for(const profileId in this.saveServer.getProfiles()) {
+        for (const profileId in this.saveServer.getProfiles()) {
             const profile = this.saveServer.getProfile(profileId);
 
-            if(profile.info.password == "fika-dedicated") {
+            if (profile.info.password == "fika-dedicated") {
                 profiles.push(profile);
             }
         }
@@ -92,7 +95,7 @@ export class FikaDedicatedProfileService {
         let profileAmountToCreate = profileAmount - profileCount;
         let createdProfiles: ISptProfile[] = [];
 
-        for(let i = 0; i < profileAmountToCreate; i++) {
+        for (let i = 0; i < profileAmountToCreate; i++) {
             const profile = this.createDedicatedProfile();
             createdProfiles.push(profile);
         }
@@ -116,8 +119,8 @@ export class FikaDedicatedProfileService {
             side: "usec",
             nickname: username, // Use the username as the nickname to ensure it is unique.
             headId: this.HEAD_USEC_4,
-            voiceId: this.VOICE_USEC_4
-        }
+            voiceId: this.VOICE_USEC_4,
+        };
 
         const profile = this.createFullProfile(newProfileData, profileId);
 
@@ -135,7 +138,7 @@ export class FikaDedicatedProfileService {
             username: username,
             password: password,
             wipe: true,
-            edition: edition
+            edition: edition,
         };
 
         this.saveServer.createProfile(newProfileDetails);
@@ -147,7 +150,6 @@ export class FikaDedicatedProfileService {
     }
 
     public createFullProfile(profileData: IProfileCreateRequestData, profileId: string) {
-
         this.profileController.createProfile(profileData, profileId);
 
         const profile = this.saveServer.getProfile(profileId);
@@ -156,7 +158,6 @@ export class FikaDedicatedProfileService {
     }
 
     public generateLaunchScript(profile: ISptProfile, backendUrl: string, targetFolderPath: string) {
-
         const scriptName = `Start_${profile.info.username}.bat`;
         const scriptPath = path.join(targetFolderPath, scriptName);
         const scriptContent = `@echo off
@@ -165,32 +166,29 @@ if NOT EXIST ".\\BepInEx\\plugins\\Fika.Dedicated.dll" (
     pause
 ) else (
     start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={"BackendUrl":"${backendUrl}","Version":"live"} -batchmode -nographics --enable-console true & exit
-)`
+)`;
 
         try {
-            if(!fs.existsSync(targetFolderPath)) {
+            if (!fs.existsSync(targetFolderPath)) {
                 fs.mkdirSync(targetFolderPath);
             }
 
             fs.writeFileSync(scriptPath, scriptContent);
 
             this.logger.success(`Generated launch script: /fika-server/assets/scripts/${scriptName}`);
-        }
-        catch(error) {
+        } catch (error) {
             this.logger.error(`Failed to generate launch script: ${error}`);
         }
     }
 
     // generateProfileId
-    protected generateUniqueId(): string
-    {
+    protected generateUniqueId(): string {
         const timestamp = this.timeUtil.getTimestamp();
 
         return this.formatID(timestamp, timestamp * this.randomUtil.getInt(1, 1000000));
     }
 
-    protected formatID(timeStamp: number, counter: number): string
-    {
+    protected formatID(timeStamp: number, counter: number): string {
         const timeStampStr = timeStamp.toString(16).padStart(8, "0");
         const counterStr = counter.toString(16).padStart(16, "0");
 
