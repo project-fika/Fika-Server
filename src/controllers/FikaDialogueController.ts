@@ -193,6 +193,11 @@ export class FikaDialogueController {
         for (const sentFriendRequest of sentFriendRequests) {
             const profile = this.profileHelper.getPmcProfile(sentFriendRequest.to);
 
+            if(!profile)
+            {
+                continue;
+            }
+
             sentFriendRequest.profile = {
                 _id: profile._id,
                 aid: profile.aid,
@@ -213,6 +218,11 @@ export class FikaDialogueController {
 
         for (const receivedFriendRequest of receivedFriendRequests) {
             const profile = this.profileHelper.getPmcProfile(receivedFriendRequest.from);
+
+            if(!profile)
+            {
+                continue;
+            }
 
             receivedFriendRequest.profile = {
                 _id: profile._id,
