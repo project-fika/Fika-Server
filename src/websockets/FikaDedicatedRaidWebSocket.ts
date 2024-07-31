@@ -12,9 +12,12 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
     constructor(
         @inject("WinstonLogger") protected logger: ILogger,
     ) {
-
         this.clientWebSockets = {};
 
+        // Keep websocket connections alive
+        setInterval(() => {
+            this.keepAlive();
+        }, 30000);
     }
 
     public getSocketId(): string
@@ -41,6 +44,23 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
     }
 
     public onMessage(sessionID: string, msg: string) {
-        // Do Nothing
+        // Do nothing
+    }
+
+    public keepAlive() {
+        for (const sessionId in this.clientWebSockets) {
+            const clientWebSocket = this.clientWebSockets[sessionId];
+
+            if(clientWebSocket.readyState == WebSocket.CLOSED) {
+                delete this.clientWebSockets[sessionId];
+                return;
+            }
+
+            clientWebSocket.send(
+                JSON.stringify({
+                    type: "fikaDedicatedKeepAlive"
+                }),
+            );
+        }
     }
 }
