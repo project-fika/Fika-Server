@@ -7,7 +7,6 @@ import { DialogueCallbacksOverride } from "../overrides/callbacks/DialogueCallba
 import { LocationCallbacksOverride } from "../overrides/callbacks/LocationCallbacks";
 import { DialogueControllerOverride } from "../overrides/controllers/DialogueController";
 import { ProfileControllerOverride } from "../overrides/controllers/ProfileController";
-import { LauncherBackgroundOverride } from "../overrides/other/LauncherBackground";
 import { LocalesOverride } from "../overrides/other/Locales";
 import { HttpRouterOverride } from "../overrides/routers/HttpRouter";
 import { AchievementControllerOverride } from "../overrides/controllers/AchievementController";
@@ -80,7 +79,6 @@ export class Container {
         container.registerType("Overrides", "DialogueControllerOverride");
         container.registerType("Overrides", "ProfileControllerOverride");
         container.registerType("Overrides", "HttpRouterOverride");
-        container.registerType("Overrides", "LauncherBackgroundOverride");
         container.registerType("Overrides", "LocalesOverride");
         container.registerType("Overrides", "AchievementControllerOverride");
         container.registerType("Overrides", "DatabaseServiceOverride");
@@ -106,7 +104,6 @@ export class Container {
         container.register<DialogueControllerOverride>("DialogueControllerOverride", DialogueControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<ProfileControllerOverride>("ProfileControllerOverride", ProfileControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<HttpRouterOverride>("HttpRouterOverride", HttpRouterOverride, { lifecycle: Lifecycle.Singleton });
-        container.register<LauncherBackgroundOverride>("LauncherBackgroundOverride", LauncherBackgroundOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocalesOverride>("LocalesOverride", LocalesOverride, { lifecycle: Lifecycle.Singleton });
         container.register<Overrider>("Overrider", Overrider, { lifecycle: Lifecycle.Singleton });
         container.register<AchievementControllerOverride>("AchievementControllerOverride", AchievementControllerOverride, { lifecycle: Lifecycle.Singleton });
