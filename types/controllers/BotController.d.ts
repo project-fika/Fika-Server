@@ -75,9 +75,15 @@ export declare class BotController {
      * @param request Bot generation request object
      * @param pmcProfile Player profile
      * @param sessionId Session id
-     * @returns
+     * @returns IBotBase[]
      */
-    generateBotsFirstTime(request: IGenerateBotsRequestData, pmcProfile: IPmcData, sessionId: string): Promise<IBotBase[]>;
+    protected generateMultipleBotsAndCache(request: IGenerateBotsRequestData, pmcProfile: IPmcData, sessionId: string): Promise<IBotBase[]>;
+    /**
+     * Get min/max level range values for a specific map
+     * @param location Map name e.g. factory4_day
+     * @returns MinMax
+     */
+    protected getPmcLevelRangeForMap(location: string): MinMax;
     /**
      * Create a BotGenerationDetails for the bot generator to use
      * @param condition Client data defining bot type and difficulty
@@ -117,7 +123,7 @@ export declare class BotController {
      * @param request Bot generation request object
      * @returns Single IBotBase object
      */
-    returnSingleBotFromCache(sessionId: string, request: IGenerateBotsRequestData): Promise<IBotBase[]>;
+    protected returnSingleBotFromCache(sessionId: string, request: IGenerateBotsRequestData): Promise<IBotBase[]>;
     protected updateBotGenerationDetailsToRandomBoss(botGenerationDetails: BotGenerationDetails, possibleBossTypeWeights: Record<string, number>): void;
     /**
      * Get the difficulty passed in, if its not "asonline", get selected difficulty from config

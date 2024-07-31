@@ -6,5 +6,5 @@ export declare class WishlistItemEventRouter extends ItemEventRouterDefinition {
     protected wishlistCallbacks: WishlistCallbacks;
     constructor(wishlistCallbacks: WishlistCallbacks);
     getHandledRoutes(): HandledRoute[];
-    handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string): Promise<IItemEventRouterResponse>;
+    handleItemEvent(url: string, pmcData: IPmcData, request: any, sessionID: string): Promise<IItemEventRouterResponse>;
 }

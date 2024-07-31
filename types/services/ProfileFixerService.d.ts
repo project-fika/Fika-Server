@@ -49,6 +49,11 @@ export declare class ProfileFixerService {
      * @param scavProfile profile to check and fix
      */
     checkForAndFixScavProfileIssues(scavProfile: IPmcData): void;
+    /**
+     * Check for and cap profile skills at 5100.
+     * @param pmcProfile profile to check and fix
+     */
+    protected checkForSkillsOverMaxLevel(pmcProfile: IPmcData): void;
     protected addMissingGunStandContainerImprovements(pmcProfile: IPmcData): void;
     protected addMissingHallOfFameContainerImprovements(pmcProfile: IPmcData): void;
     protected ensureGunStandLevelsMatch(pmcProfile: IPmcData): void;
@@ -73,7 +78,6 @@ export declare class ProfileFixerService {
      */
     protected removeDanglingTaskConditionCounters(pmcProfile: IPmcData): void;
     protected getActiveRepeatableQuests(repeatableQuests: IPmcDataRepeatableQuest[]): IRepeatableQuest[];
-    protected fixNullRagfairRatings(pmcProfile: IPmcData): void;
     protected fixNullTraderSalesSums(pmcProfile: IPmcData): void;
     protected addMissingBonusesProperty(pmcProfile: IPmcData): void;
     /**

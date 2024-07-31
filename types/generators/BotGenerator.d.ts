@@ -5,7 +5,7 @@ import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
 import { IBaseJsonSkills, IBaseSkill, IBotBase, Info, Health as PmcHealth, Skills as botSkills } from "@spt/models/eft/common/tables/IBotBase";
-import { Appearance, Health, IBotType, Inventory } from "@spt/models/eft/common/tables/IBotType";
+import { Appearance, BodyPart, Health, IBotType, Inventory } from "@spt/models/eft/common/tables/IBotType";
 import { BotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
@@ -114,6 +114,12 @@ export declare class BotGenerator {
      * @returns PmcHealth object
      */
     protected generateHealth(healthObj: Health, playerScav?: boolean): PmcHealth;
+    /**
+     * Sum up body parts max hp values, return the bodypart collection with lowest value
+     * @param bodies Body parts to sum up
+     * @returns Lowest hp collection
+     */
+    protected getLowestHpBody(bodies: BodyPart[]): BodyPart | undefined;
     /**
      * Get a bots skills with randomsied progress value between the min and max values
      * @param botSkills Skills that should have their progress value randomised

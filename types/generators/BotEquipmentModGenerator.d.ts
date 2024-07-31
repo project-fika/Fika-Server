@@ -17,6 +17,7 @@ import { IGenerateEquipmentProperties } from "@spt/models/spt/bots/IGenerateEqui
 import { IGenerateWeaponRequest } from "@spt/models/spt/bots/IGenerateWeaponRequest";
 import { IModToSpawnRequest } from "@spt/models/spt/bots/IModToSpawnRequest";
 import { EquipmentFilterDetails, EquipmentFilters, IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { ExhaustableArray } from "@spt/models/spt/server/ExhaustableArray";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { BotEquipmentFilterService } from "@spt/services/BotEquipmentFilterService";
@@ -130,7 +131,8 @@ export declare class BotEquipmentModGenerator {
      */
     protected chooseModToPutIntoSlot(request: IModToSpawnRequest): [boolean, ITemplateItem] | undefined;
     /**
-     *
+     * Choose a weapon mod tpl for a given slot from a pool of choices
+     * Checks chosen tpl is compatible with all existing weapon items
      * @param modPool Pool of mods that can be picked from
      * @param parentSlot Slot the picked mod will have as a parent
      * @param choiceTypeEnum How should chosen tpl be treated: DEFAULT_MOD/SPAWN/SKIP
@@ -138,7 +140,24 @@ export declare class BotEquipmentModGenerator {
      * @param modSlotName Name of slot picked mod will be placed into
      * @returns Chosen weapon details
      */
-    protected pickWeaponModTplForSlotFromPool(modPool: string[], parentSlot: Slot, choiceTypeEnum: ModSpawn, weapon: Item[], modSlotName: string): IChooseRandomCompatibleModResult;
+    protected getCompatibleWeaponModTplForSlotFromPool(modPool: string[], parentSlot: Slot, choiceTypeEnum: ModSpawn, weapon: Item[], modSlotName: string): IChooseRandomCompatibleModResult;
+    /**
+     *
+     * @param modPool Pool of item Tpls to choose from
+     * @param modSpawnType How should the slot choice be handled - forced/normal etc
+     * @param weapon Weapon mods at current time
+     * @param modSlotName Name of mod slot being filled
+     * @returns IChooseRandomCompatibleModResult
+     */
+    protected getCompatibleModFromPool(modPool: string[], modSpawnType: ModSpawn, weapon: Item[]): IChooseRandomCompatibleModResult;
+    protected createExhaustableArray<T>(itemsToAddToArray: T[]): ExhaustableArray<T>;
+    /**
+     * Get a list of mod tpls that are compatible with the current weapon
+     * @param initialModPool
+     * @param weapon
+     * @returns string array of compatible mod tpls with weapon
+     */
+    protected getFilteredModPool(initialModPool: string[], weapon: Item[]): string[];
     /**
      * Filter mod pool down based on various criteria:
      * Is slot flagged as randomisable

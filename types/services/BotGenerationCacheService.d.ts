@@ -44,4 +44,6 @@ export declare class BotGenerationCacheService {
      * @returns false if empty
      */
     cacheHasBotOfRole(key: string): boolean;
+    getCachedBotCount(key: string): number;
+    createCacheKey(role: string, difficulty: string): string;
 }

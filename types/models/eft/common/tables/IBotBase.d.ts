@@ -20,7 +20,7 @@ export interface IBotBase {
     Stats: Stats;
     Encyclopedia: Record<string, boolean>;
     TaskConditionCounters: Record<string, ITaskConditionCounter>;
-    InsuredItems: InsuredItem[];
+    InsuredItems: IInsuredItem[];
     Hideout: Hideout;
     Quests: IQuestStatus[];
     TradersInfo: Record<string, TraderInfo>;
@@ -34,7 +34,7 @@ export interface IBotBase {
     CarExtractCounts: Record<string, number>;
     CoopExtractCounts: Record<string, number>;
     SurvivorClass: SurvivorClass;
-    WishList: string[];
+    WishList: Record<string, number>;
     moneyTransferLimitData: IMoneyTransferLimits;
     /** SPT specific property used during bot generation in raid */
     sptIsPmc?: boolean;
@@ -70,6 +70,7 @@ export interface Info {
     GameVersion: string;
     AccountType: number;
     MemberCategory: MemberCategory;
+    SelectedMemberCategory: MemberCategory;
     lockedMoveCommands: boolean;
     SavageLockTime: number;
     LastTimePlayedAsSavage: number;
@@ -82,7 +83,6 @@ export interface Info {
     BannedUntil: number;
     IsStreamerModeAvailable: boolean;
     lastCompletedEvent?: LastCompleted;
-    SelectedMemberCategory: number;
     isMigratedSkills: boolean;
 }
 export interface Settings {
@@ -290,7 +290,7 @@ export interface BackendCounter {
     qid?: string;
     value: number;
 }
-export interface InsuredItem {
+export interface IInsuredItem {
     /** Trader Id item was insured by */
     tid: string;
     itemId: string;

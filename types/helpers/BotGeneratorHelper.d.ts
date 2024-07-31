@@ -68,7 +68,6 @@ export declare class BotGeneratorHelper {
      * @returns Repairable object
      */
     protected generateArmorRepairableProperties(itemTemplate: ITemplateItem, botRole?: string): Repairable;
-    isWeaponModIncompatibleWithCurrentMods(itemsEquipped: Item[], tplToCheck: string, modSlot: string): IChooseRandomCompatibleModResult;
     /**
      * Can item be added to another item without conflict
      * @param itemsEquipped Items to check compatibilities with

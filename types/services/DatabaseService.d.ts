@@ -3,6 +3,7 @@ import { ILocation } from "@spt/models/eft/common/ILocation";
 import { IAchievement } from "@spt/models/eft/common/tables/IAchievement";
 import { ICustomizationItem } from "@spt/models/eft/common/tables/ICustomizationItem";
 import { IHandbookBase } from "@spt/models/eft/common/tables/IHandbookBase";
+import { ILocationServices } from "@spt/models/eft/common/tables/ILocationServices";
 import { IMatch } from "@spt/models/eft/common/tables/IMatch";
 import { IProfileTemplates } from "@spt/models/eft/common/tables/IProfileTemplate";
 import { IQuest } from "@spt/models/eft/common/tables/IQuest";
@@ -110,4 +111,8 @@ export declare class DatabaseService {
      * @returns assets/database/traders/
      */
     getTrader(traderId: string): ITrader;
+    /**
+     * @returns assets/database/locationServices/
+     */
+    getLocationServices(): ILocationServices;
 }

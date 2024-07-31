@@ -6,7 +6,6 @@ import { IPreset } from "@spt/models/eft/common/IGlobals";
 import { Item } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ISealedAirdropContainerSettings, RewardDetails } from "@spt/models/spt/config/IInventoryConfig";
-import { LootItem } from "@spt/models/spt/services/LootItem";
 import { LootRequest } from "@spt/models/spt/services/LootRequest";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -37,7 +36,7 @@ export declare class LootGenerator {
      * @param options parameters to adjust how loot is generated
      * @returns An array of loot items
      */
-    createRandomLoot(options: LootRequest): LootItem[];
+    createRandomLoot(options: LootRequest): Item[];
     /**
      * Filter armor items by their front plates protection level - top if its a helmet
      * @param armor Armor preset to check
@@ -62,7 +61,7 @@ export declare class LootGenerator {
     protected findAndAddRandomItemToLoot(items: [string, ITemplateItem][], itemTypeCounts: Record<string, {
         current: number;
         max: number;
-    }>, options: LootRequest, result: LootItem[]): boolean;
+    }>, options: LootRequest, result: Item[]): boolean;
     /**
      * Get a randomised stack count for an item between its StackMinRandom and StackMaxSize values
      * @param item item to get stack count of
@@ -81,7 +80,7 @@ export declare class LootGenerator {
     protected findAndAddRandomPresetToLoot(presetPool: IPreset[], itemTypeCounts: Record<string, {
         current: number;
         max: number;
-    }>, itemBlacklist: string[], result: LootItem[]): boolean;
+    }>, itemBlacklist: string[], result: Item[]): boolean;
     /**
      * Sealed weapon containers have a weapon + associated mods inside them + assortment of other things (food/meds)
      * @param containerSettings sealed weapon container settings

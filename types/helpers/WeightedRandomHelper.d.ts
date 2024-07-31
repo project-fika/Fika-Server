@@ -1,14 +1,5 @@
 export declare class WeightedRandomHelper {
     /**
-     * @deprecated USE getWeightedValue() WHERE POSSIBLE
-     * Gets a tplId from a weighted dictionary
-     * @param {tplId: weighting[]} itemArray
-     * @returns tplId
-     */
-    getWeightedInventoryItem(itemArray: {
-        [tplId: string]: unknown;
-    } | ArrayLike<unknown>): string;
-    /**
      * Choos an item from the passed in array based on the weightings of each
      * @param itemArray Items and weights to use
      * @returns Chosen item from array

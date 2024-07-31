@@ -27,7 +27,7 @@ export interface IContainerGroupCount {
     /** How many containers the map should spawn with this group id */
     chosenCount: number;
 }
-export declare class LocationGenerator {
+export declare class LocationLootGenerator {
     protected logger: ILogger;
     protected databaseService: DatabaseService;
     protected objectId: ObjectId;

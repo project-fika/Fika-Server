@@ -1,7 +1,7 @@
 import { HandbookHelper } from "@spt/helpers/HandbookHelper";
 import { IStaticAmmoDetails } from "@spt/models/eft/common/ILocation";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { InsuredItem } from "@spt/models/eft/common/tables/IBotBase";
+import { IInsuredItem } from "@spt/models/eft/common/tables/IBotBase";
 import { Item, Repairable, Upd } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ItemTpl } from "@spt/models/enums/ItemTpl";
@@ -278,7 +278,7 @@ export declare class ItemHelper {
      * @param fastPanel Quick slot panel
      * @returns Item[]
      */
-    replaceIDs(originalItems: Item[], pmcData?: IPmcData, insuredItems?: InsuredItem[], fastPanel?: any): Item[];
+    replaceIDs(originalItems: Item[], pmcData?: IPmcData, insuredItems?: IInsuredItem[], fastPanel?: any): Item[];
     /**
      * Mark the passed in array of items as found in raid.
      * Modifies passed in items
@@ -510,6 +510,7 @@ export declare class ItemHelper {
      * @returns True when upd object was added
      */
     addUpdObjectToItem(item: Item, warningMessageWhenMissing?: string): boolean;
+    getMoneyTpls(): string[];
 }
 declare namespace ItemHelper {
     interface ItemSize {

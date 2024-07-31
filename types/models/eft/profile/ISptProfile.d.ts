@@ -166,11 +166,11 @@ export interface Spt {
     /** What mods has this profile loaded at any point in time */
     mods?: ModDetails[];
     /** What gifts has this profile received and how many */
-    receivedGifts: ReceivedGift[];
+    receivedGifts?: ReceivedGift[];
     /** item TPLs blacklisted from being sold on flea for this profile */
     blacklistedItemTpls?: string[];
     /** key: daily type */
-    freeRepeatableRefreshUsedCount: Record<string, number>;
+    freeRepeatableRefreshUsedCount?: Record<string, number>;
 }
 export interface ModDetails {
     name: string;

@@ -76,6 +76,7 @@ export interface ILocationBase {
     EscapeTimeLimitCoop: number;
     EscapeTimeLimitPVE: number;
     exit_access_time: number;
+    ForceOnlineRaidInPVE: boolean;
     exit_count: number;
     exit_time: number;
     exits: Exit[];
@@ -149,14 +150,18 @@ export interface BossSupport {
 export interface BotLocationModifier {
     AccuracySpeed: number;
     DistToActivate: number;
+    DistToActivatePvE: number;
     DistToPersueAxemanCoef: number;
     DistToSleep: number;
+    DistToSleepPvE: number;
     GainSight: number;
     KhorovodChance: number;
     MagnetPower: number;
     MarksmanAccuratyCoef: number;
     Scattering: number;
     VisibleDistance: number;
+    MaxExfiltrationTime: number;
+    MinExfiltrationTime: number;
 }
 export interface MinMaxBot extends MinMax {
     WildSpawnType: WildSpawnType | string;
@@ -234,6 +239,7 @@ export interface Wave {
     time_min: number;
     sptId?: string;
     ChanceGroup?: number;
+    SpawnMode: string[];
 }
 export declare enum WildSpawnType {
     ASSAULT = "assault",

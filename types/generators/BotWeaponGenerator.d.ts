@@ -62,8 +62,8 @@ export declare class BotWeaponGenerator {
     pickWeightedWeaponTplFromPool(equipmentSlot: string, botTemplateInventory: Inventory): string;
     /**
      * Generated a weapon based on the supplied weapon tpl
-     * @param weaponTpl weapon tpl to generate (use pickWeightedWeaponTplFromPool())
-     * @param equipmentSlot slot to fit into, primary/secondary/holster
+     * @param weaponTpl Weapon tpl to generate (use pickWeightedWeaponTplFromPool())
+     * @param slotName Slot to fit into, primary/secondary/holster
      * @param botTemplateInventory e.g. assault.json
      * @param weaponParentId ParentId of the weapon being generated
      * @param modChances Dictionary of item types and % chance weapon will have that mod
@@ -71,7 +71,7 @@ export declare class BotWeaponGenerator {
      * @param isPmc Is weapon being generated for a pmc
      * @returns GenerateWeaponResult object
      */
-    generateWeaponByTpl(sessionId: string, weaponTpl: string, equipmentSlot: string, botTemplateInventory: Inventory, weaponParentId: string, modChances: ModsChances, botRole: string, isPmc: boolean, botLevel: number): GenerateWeaponResult;
+    generateWeaponByTpl(sessionId: string, weaponTpl: string, slotName: string, botTemplateInventory: Inventory, weaponParentId: string, modChances: ModsChances, botRole: string, isPmc: boolean, botLevel: number): GenerateWeaponResult;
     /**
      * Insert a cartridge(s) into a weapon
      * Handles all chambers - patron_in_weapon, patron_in_weapon_000 etc
@@ -140,11 +140,17 @@ export declare class BotWeaponGenerator {
     protected getMagazineTplFromWeaponTemplate(weaponMods: Item[], weaponTemplate: ITemplateItem, botRole: string): string;
     /**
      * Finds and return a compatible ammo tpl based on the bots ammo weightings (x.json/inventory/equipment/ammo)
-     * @param ammo a list of ammo tpls the weapon can use
-     * @param weaponTemplate the weapon we want to pick ammo for
-     * @returns an ammo tpl that works with the desired gun
+     * @param cartridgePool Dict of all cartridges keyed by type e.g. Caliber556x45NATO
+     * @param weaponTemplate Weapon details from db we want to pick ammo for
+     * @returns Ammo tpl that works with the desired gun
      */
-    protected getWeightedCompatibleAmmo(ammo: Record<string, Record<string, number>>, weaponTemplate: ITemplateItem): string;
+    protected getWeightedCompatibleAmmo(cartridgePool: Record<string, Record<string, number>>, weaponTemplate: ITemplateItem): string;
+    /**
+     * Get the cartridge ids from a weapon template that work with the weapon
+     * @param weaponTemplate Weapon db template to get cartridges for
+     * @returns Array of cartridge tpls
+     */
+    protected getCompatibleCartridgesFromWeaponTemplate(weaponTemplate: ITemplateItem): string[];
     /**
      * Get a weapons compatible cartridge caliber
      * @param weaponTemplate Weapon to look up caliber of

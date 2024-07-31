@@ -76,10 +76,19 @@ export declare class GameCallbacks implements OnLoad {
      * @returns string
      */
     getVersion(url: string, info: IEmptyRequestData, sessionID: string): string;
+    /**
+     * Handle /client/report/send & /client/reports/lobby/send
+     * @returns INullResponseData
+     */
     reportNickname(url: string, info: IUIDRequestData, sessionID: string): INullResponseData;
     /**
      * Handle singleplayer/settings/getRaidTime
      * @returns string
      */
     getRaidTime(url: string, request: IGetRaidTimeRequest, sessionID: string): IGetRaidTimeResponse;
+    /**
+     * Handle /client/survey
+     * @returns INullResponseData
+     */
+    getSurvey(url: string, request: IEmptyRequestData, sessionID: string): INullResponseData;
 }

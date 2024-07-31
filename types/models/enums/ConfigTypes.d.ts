@@ -24,6 +24,5 @@ export declare enum ConfigTypes {
     WEATHER = "spt-weather",
     SEASONAL_EVENT = "spt-seasonalevents",
     LOST_ON_DEATH = "spt-lostondeath",
-    GIFTS = "spt-gifts",
-    BTR = "spt-btr"
+    GIFTS = "spt-gifts"
 }
