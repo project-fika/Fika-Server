@@ -104,7 +104,8 @@ export class FikaDialogueController {
                     Nickname: receiverProfile.characters.pmc.Info.Nickname,
                     Side: receiverProfile.characters.pmc.Info.Side,
                     Level: receiverProfile.characters.pmc.Info.Level,
-                    MemberCategory: receiverProfile.characters.pmc.Info.MemberCategory
+                    MemberCategory: receiverProfile.characters.pmc.Info.MemberCategory,
+                    SelectedMemberCategory: senderProfile.characters.pmc.Info.SelectedMemberCategory
                 }
             },
             {
@@ -114,7 +115,8 @@ export class FikaDialogueController {
                     Nickname: senderProfile.characters.pmc.Info.Nickname,
                     Side: senderProfile.characters.pmc.Info.Side,
                     Level: senderProfile.characters.pmc.Info.Level,
-                    MemberCategory: senderProfile.characters.pmc.Info.MemberCategory
+                    MemberCategory: senderProfile.characters.pmc.Info.MemberCategory,
+                    SelectedMemberCategory: senderProfile.characters.pmc.Info.SelectedMemberCategory
                 }
             }
         ];
@@ -141,7 +143,8 @@ export class FikaDialogueController {
                     Nickname: senderProfile.characters.pmc.Info.Nickname,
                     Side: senderProfile.characters.pmc.Info.Side,
                     Level: senderProfile.characters.pmc.Info.Level,
-                    MemberCategory: senderProfile.characters.pmc.Info.MemberCategory
+                    MemberCategory: senderProfile.characters.pmc.Info.MemberCategory,
+                    SelectedMemberCategory: senderProfile.characters.pmc.Info.SelectedMemberCategory
                 }
             },
             {
@@ -151,7 +154,8 @@ export class FikaDialogueController {
                     Nickname: receiverProfile.characters.pmc.Info.Nickname,
                     Side: receiverProfile.characters.pmc.Info.Side,
                     Level: receiverProfile.characters.pmc.Info.Level,
-                    MemberCategory: receiverProfile.characters.pmc.Info.MemberCategory
+                    MemberCategory: receiverProfile.characters.pmc.Info.MemberCategory,
+                    SelectedMemberCategory: senderProfile.characters.pmc.Info.SelectedMemberCategory
                 }
             }
         ];
