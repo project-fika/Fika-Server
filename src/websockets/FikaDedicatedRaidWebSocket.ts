@@ -16,7 +16,7 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
 
         // Keep websocket connections alive
         setInterval(() => {
-            this.keepAlive();
+            this.keepWebSocketAlive();
         }, 30000);
     }
 
@@ -38,8 +38,6 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
 
         this.clientWebSockets[sessionID] = ws;
 
-        this.logger.info(`${sessionID} connected to FikaDedicatedRaidService`);
-
         ws.on("message", (msg) => this.onMessage(sessionID, msg.toString()));
     }
 
@@ -47,7 +45,7 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
         // Do nothing
     }
 
-    public keepAlive() {
+    public keepWebSocketAlive() {
         for (const sessionId in this.clientWebSockets) {
             const clientWebSocket = this.clientWebSockets[sessionId];
 
@@ -56,6 +54,7 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
                 return;
             }
 
+            // Send a keep alive message to the dedicated client
             clientWebSocket.send(
                 JSON.stringify({
                     type: "fikaDedicatedKeepAlive"
