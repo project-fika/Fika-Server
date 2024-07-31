@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { LocationController } from "@spt/controllers/LocationController";
+import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 
@@ -20,7 +20,7 @@ export class FikaMatchService {
 
     constructor(
         @inject("WinstonLogger") protected logger: ILogger,
-        @inject("LocationController") protected locationController: LocationController,
+        @inject("LocationLifecycleService") protected locationLifecycleService: LocationLifecycleService,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
@@ -181,11 +181,7 @@ export class FikaMatchService {
             this.deleteMatch(data.serverId);
         }
 
-        const locationData = this.locationController.get(data.serverId, {
-            crc: 0 /* unused */,
-            locationId: data.settings.location,
-            variantId: 0 /* unused */,
-        });
+        const locationData = this.locationLifecycleService.generateLocationAndLoot(data.settings.location);
 
         this.matches.set(data.serverId, {
             ips: null,

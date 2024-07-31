@@ -4,7 +4,7 @@ import { FikaConfig } from "../utils/FikaConfig";
 
 import { Overrider } from "../overrides/Overrider";
 import { DialogueCallbacksOverride } from "../overrides/callbacks/DialogueCallbacks";
-import { LocationCallbacksOverride } from "../overrides/callbacks/LocationCallbacks";
+import { LocationLifecycleServiceOverride } from "../overrides/services/LocationLifecycleService";
 import { DialogueControllerOverride } from "../overrides/controllers/DialogueController";
 import { ProfileControllerOverride } from "../overrides/controllers/ProfileController";
 import { LocalesOverride } from "../overrides/other/Locales";
@@ -75,13 +75,13 @@ export class Container {
 
     private static registerListTypes(container: DependencyContainer): void {
         container.registerType("Overrides", "DialogueCallbacksOverride");
-        container.registerType("Overrides", "LocationCallbacksOverride");
         container.registerType("Overrides", "DialogueControllerOverride");
         container.registerType("Overrides", "ProfileControllerOverride");
         container.registerType("Overrides", "HttpRouterOverride");
         container.registerType("Overrides", "LocalesOverride");
         container.registerType("Overrides", "AchievementControllerOverride");
         container.registerType("Overrides", "DatabaseServiceOverride");
+        container.registerType("Overrides", "LocationLifecycleServiceOverride");
 
         container.registerType("StaticRoutes", "FikaClientStaticRouter");
         container.registerType("StaticRoutes", "FikaLocationStaticRouter");
@@ -100,7 +100,6 @@ export class Container {
 
     private static registerOverrides(container: DependencyContainer): void {
         container.register<DialogueCallbacksOverride>("DialogueCallbacksOverride", DialogueCallbacksOverride, { lifecycle: Lifecycle.Singleton });
-        container.register<LocationCallbacksOverride>("LocationCallbacksOverride", LocationCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DialogueControllerOverride>("DialogueControllerOverride", DialogueControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<ProfileControllerOverride>("ProfileControllerOverride", ProfileControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<HttpRouterOverride>("HttpRouterOverride", HttpRouterOverride, { lifecycle: Lifecycle.Singleton });
@@ -108,6 +107,7 @@ export class Container {
         container.register<Overrider>("Overrider", Overrider, { lifecycle: Lifecycle.Singleton });
         container.register<AchievementControllerOverride>("AchievementControllerOverride", AchievementControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DatabaseServiceOverride>("DatabaseServiceOverride", DatabaseServiceOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<LocationLifecycleServiceOverride>("LocationLifecycleServiceOverride", LocationLifecycleServiceOverride, { lifecycle: Lifecycle.Singleton });
     }
 
     private static registerServices(container: DependencyContainer): void {
