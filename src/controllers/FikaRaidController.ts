@@ -21,6 +21,8 @@ import { IGetStatusDedicatedResponse } from "../models/fika/routes/raid/dedicate
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { InraidController } from "@spt/controllers/InraidController";
+import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
 
 @injectable()
 export class FikaRaidController {
@@ -30,6 +32,7 @@ export class FikaRaidController {
         @inject("FikaDedicatedRaidWebSocket") protected fikaDedicatedRaidWebSocket: FikaDedicatedRaidWebSocket,
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("WinstonLogger") protected logger: ILogger,
+        @inject("InraidController") protected inraidController: InraidController,
     ) {
         // empty
     }
@@ -154,7 +157,7 @@ export class FikaRaidController {
         const pmcDedicatedClientProfile: IPmcData = this.profileHelper.getPmcProfile(dedicatedClient);
         const requesterProfile: IPmcData = this.profileHelper.getPmcProfile(sessionID);
 
-        this.logger.debug(`Dedicated: ${pmcDedicatedClientProfile.Info.Nickname} ${pmcDedicatedClientProfile.Info.Level} - Requester: ${requesterProfile.Info.Nickname} ${requesterProfile.Info.Level}`)
+        this.logger.debug(`Dedicated: ${pmcDedicatedClientProfile.Info.Nickname} ${pmcDedicatedClientProfile.Info.Level} - Requester: ${requesterProfile.Info.Nickname} ${requesterProfile.Info.Level}`);
 
         //Set level of the dedicated profile to the person that has requested the raid to be started.
         pmcDedicatedClientProfile.Info.Level = requesterProfile.Info.Level;
@@ -200,7 +203,12 @@ export class FikaRaidController {
     /** Handle /fika/raid/dedicated/getstatus */
     public handleRaidGetStatusDedicated(): IGetStatusDedicatedResponse {
         return {
-            available: this.fikaDedicatedRaidService.isDedicatedClientAvailable()
-        }
+            available: this.fikaDedicatedRaidService.isDedicatedClientAvailable(),
+        };
+    }
+
+    /** Handle /fika/raid/dedicated/registerPlayer */
+    public handleRaidRegisterPlayer(sessionId: string, info: IRegisterPlayerRequestData): void {
+        this.inraidController.addPlayer(sessionId, info);
     }
 }
