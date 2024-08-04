@@ -4,11 +4,11 @@ import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseDat
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { FikaUpdateController } from "../controllers/FikaUpdateController";
+import { IFikaUpdateRaidAddPlayerData } from "../models/fika/routes/raid/join/IFikaRaidAddPlayerData";
 import { IFikaUpdatePingRequestData } from "../models/fika/routes/update/IFikaUpdatePingRequestData";
 import { IFikaUpdatePlayerspawnRequestData } from "../models/fika/routes/update/IFikaUpdatePlayerspawnRequestData";
 import { IFikaUpdateSetStatusRequestData } from "../models/fika/routes/update/IFikaUpdateSetStatusRequestData";
 import { IFikaUpdateSethostRequestData } from "../models/fika/routes/update/IFikaUpdateSethostRequestData";
-import { IFikaUpdateRaidAddPlayerData } from "../models/fika/routes/raid/join/IFikaRaidAddPlayerData";
 
 @injectable()
 export class FikaUpdateCallbacks {
