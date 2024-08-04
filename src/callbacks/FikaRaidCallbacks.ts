@@ -1,18 +1,16 @@
 import { inject, injectable } from "tsyringe";
 
 import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { FikaRaidController } from "../controllers/FikaRaidController";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
-import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
-import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
-import { IStartDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStartDedicatedResponse";
 import { IStartDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStartDedicatedRequest";
 import { IStatusDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStatusDedicatedRequest";
-import { IStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStatusDedicatedResponse";
-import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
+import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
+import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 
 @injectable()
 export class FikaRaidCallbacks {
@@ -31,7 +29,7 @@ export class FikaRaidCallbacks {
     /** Handle /fika/raid/join */
     public handleRaidJoin(_url: string, info: IFikaRaidJoinRequestData, _sessionID: string): string {
         return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidJoin(info));
-    }    
+    }
 
     /** Handle /fika/raid/leave */
     public handleRaidLeave(_url: string, info: IFikaRaidLeaveRequestData, _sessionID: string): INullResponseData {
