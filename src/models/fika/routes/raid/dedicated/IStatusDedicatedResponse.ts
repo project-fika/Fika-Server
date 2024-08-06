@@ -1,4 +1,6 @@
+import { DedicatedStatus } from "./DedicatedStatus";
+
 export interface IStatusDedicatedResponse {
     sessionId: string;
-    status: string;
+    status: DedicatedStatus;
 }

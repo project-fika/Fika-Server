@@ -23,6 +23,7 @@ import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { InraidController } from "@spt/controllers/InraidController";
 import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
+import { DedicatedStatus } from "../models/fika/routes/raid/dedicated/DedicatedStatus";
 
 @injectable()
 export class FikaRaidController {
@@ -133,7 +134,7 @@ export class FikaRaidController {
         for (const dedicatedSessionId in this.fikaDedicatedRaidService.dedicatedClients) {
             const dedicatedClientInfo = this.fikaDedicatedRaidService.dedicatedClients[dedicatedSessionId];
 
-            if (dedicatedClientInfo.state != "ready") {
+            if (dedicatedClientInfo.state != DedicatedStatus.READY) {
                 continue;
             }
 
@@ -183,16 +184,16 @@ export class FikaRaidController {
 
     /** Handle /fika/raid/dedicated/status */
     public handleRaidStatusDedicated(sessionId: string, info: IStatusDedicatedRequest): IStatusDedicatedResponse {
-        this.fikaDedicatedRaidService.dedicatedClients[sessionId] = {
-            state: info.status,
-            lastPing: Date.now(),
-        };
-
-        if (info.status == "ready" && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
+        if (info.status == DedicatedStatus.READY && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
             if (this.fikaDedicatedRaidService.onDedicatedClientAvailable) {
                 this.fikaDedicatedRaidService.onDedicatedClientAvailable();
             }
         }
+
+        this.fikaDedicatedRaidService.dedicatedClients[sessionId] = {
+            state: info.status,
+            lastPing: Date.now(),
+        };
 
         return {
             sessionId: info.sessionId,
