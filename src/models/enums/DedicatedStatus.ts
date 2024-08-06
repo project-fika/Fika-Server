@@ -1,4 +1,4 @@
 export enum DedicatedStatus {
-    READY = 0,
-    IN_RAID = 1,
+    READY = 1,
+    IN_RAID = 2,
 }

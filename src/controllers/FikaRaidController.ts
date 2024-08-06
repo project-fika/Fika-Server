@@ -185,6 +185,17 @@ export class FikaRaidController {
 
     /** Handle /fika/raid/dedicated/status */
     public handleRaidStatusDedicated(sessionId: string, info: IStatusDedicatedRequest): IStatusDedicatedResponse {
+
+        // Temp fix because the enum gets deserialized as a string instead of an integer
+        switch(info.status.toString()) {
+            case "READY":
+                info.status = DedicatedStatus.READY;
+                break;
+            case "IN_RAID":
+                info.status = DedicatedStatus.IN_RAID;
+                break;
+        }
+
         if (info.status == DedicatedStatus.READY && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
             if (this.fikaDedicatedRaidService.onDedicatedClientAvailable) {
                 this.fikaDedicatedRaidService.onDedicatedClientAvailable();
