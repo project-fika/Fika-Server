@@ -1,4 +1,4 @@
-import { DedicatedStatus } from "../routes/raid/dedicated/DedicatedStatus";
+import { DedicatedStatus } from "../../enums/DedicatedStatus";
 
 export interface IDedicatedClientInfo {
     state: DedicatedStatus;

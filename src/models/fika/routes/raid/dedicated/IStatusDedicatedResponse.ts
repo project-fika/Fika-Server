@@ -1,4 +1,4 @@
-import { DedicatedStatus } from "./DedicatedStatus";
+import { DedicatedStatus } from "../../../../enums/DedicatedStatus";
 
 export interface IStatusDedicatedResponse {
     sessionId: string;

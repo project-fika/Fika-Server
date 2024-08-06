@@ -23,7 +23,7 @@ import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { InraidController } from "@spt/controllers/InraidController";
 import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
-import { DedicatedStatus } from "../models/fika/routes/raid/dedicated/DedicatedStatus";
+import { DedicatedStatus } from "../models/enums/DedicatedStatus";
 
 @injectable()
 export class FikaRaidController {
