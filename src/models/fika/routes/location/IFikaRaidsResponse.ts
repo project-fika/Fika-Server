@@ -10,6 +10,7 @@ export interface IFikaRaidResponse {
     location: string;
     side: FikaSide;
     time: FikaTime;
+    players: Record<string, boolean>;
 }
 
 export type IFikaRaidsResponse = IFikaRaidResponse[];

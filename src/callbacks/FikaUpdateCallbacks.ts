@@ -53,4 +53,11 @@ export class FikaUpdateCallbacks {
 
         return this.httpResponseUtil.nullResponse();
     }
+
+    /** Handle /fika/update/playerdied */
+    public handlePlayerDied(_url: string, info: IFikaUpdateRaidAddPlayerData, _sessionID: string): INullResponseData {
+        this.fikaUpdateController.handleRaidPlayerDied(info);
+
+        return this.httpResponseUtil.nullResponse();
+    }
 }
