@@ -1,3 +1,3 @@
 export interface IGetStatusDedicatedResponse {
-    available: boolean
+    available: boolean;
 }
