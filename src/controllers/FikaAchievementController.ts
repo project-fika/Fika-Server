@@ -8,7 +8,7 @@ import { DatabaseService } from "@spt/services/DatabaseService";
 export class FikaAchievementController {
     constructor(
         @inject("SaveServer") protected saveServer: SaveServer,
-        @inject("DatabaseService") protected databaseService: DatabaseService
+        @inject("DatabaseService") protected databaseService: DatabaseService,
     ) {
         // empty
     }
@@ -20,16 +20,19 @@ export class FikaAchievementController {
 
         for (const achievement of achievements) {
             let percentage = 0;
-            for (const profile of profiles)
-            {
-                if (!(profile.characters?.pmc?.Achievements)) {
+            for (const profile of profiles) {
+                if (profile.info?.username?.startsWith("dedicated_")) {
                     continue;
                 }
-                
+
+                if (!profile.characters?.pmc?.Achievements) {
+                    continue;
+                }
+
                 if (!(achievement.id in profile.characters.pmc.Achievements)) {
                     continue;
                 }
-                
+
                 percentage++;
             }
 
