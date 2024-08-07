@@ -1,9 +1,22 @@
 import { inject, injectable } from "tsyringe";
+import { WebSocket } from "ws";
 
+import { InraidController } from "@spt/controllers/InraidController";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+
+import { DedicatedStatus } from "../models/enums/DedicatedStatus";
 import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 import { IFikaRaidCreateResponse } from "../models/fika/routes/raid/create/IFikaRaidCreateResponse";
+import { IGetStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IGetStatusDedicatedResponse";
+import { IStartDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStartDedicatedRequest";
+import { IStartDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStartDedicatedResponse";
+import { IStatusDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStatusDedicatedRequest";
+import { IStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStatusDedicatedResponse";
 import { IFikaRaidGethostResponse } from "../models/fika/routes/raid/gethost/IFikaRaidGethostResponse";
 import { IFikaRaidSettingsResponse } from "../models/fika/routes/raid/getsettings/IFikaRaidSettingsResponse";
 import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
@@ -11,18 +24,7 @@ import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaid
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
-import { IStartDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStartDedicatedRequest";
-import { IStartDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStartDedicatedResponse";
-import { WebSocket } from "ws";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { IStatusDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStatusDedicatedRequest";
-import { IStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStatusDedicatedResponse";
-import { IGetStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IGetStatusDedicatedResponse";
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { InraidController } from "@spt/controllers/InraidController";
-import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
 
 @injectable()
 export class FikaRaidController {
@@ -133,7 +135,7 @@ export class FikaRaidController {
         for (const dedicatedSessionId in this.fikaDedicatedRaidService.dedicatedClients) {
             const dedicatedClientInfo = this.fikaDedicatedRaidService.dedicatedClients[dedicatedSessionId];
 
-            if (dedicatedClientInfo.state != "ready") {
+            if (dedicatedClientInfo.state != DedicatedStatus.READY) {
                 continue;
             }
 
@@ -183,16 +185,27 @@ export class FikaRaidController {
 
     /** Handle /fika/raid/dedicated/status */
     public handleRaidStatusDedicated(sessionId: string, info: IStatusDedicatedRequest): IStatusDedicatedResponse {
-        this.fikaDedicatedRaidService.dedicatedClients[sessionId] = {
-            state: info.status,
-            lastPing: Date.now(),
-        };
 
-        if (info.status == "ready" && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
+        // Temp fix because the enum gets deserialized as a string instead of an integer
+        switch(info.status.toString()) {
+            case "READY":
+                info.status = DedicatedStatus.READY;
+                break;
+            case "IN_RAID":
+                info.status = DedicatedStatus.IN_RAID;
+                break;
+        }
+
+        if (info.status == DedicatedStatus.READY && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
             if (this.fikaDedicatedRaidService.onDedicatedClientAvailable) {
                 this.fikaDedicatedRaidService.onDedicatedClientAvailable();
             }
         }
+
+        this.fikaDedicatedRaidService.dedicatedClients[sessionId] = {
+            state: info.status,
+            lastPing: Date.now(),
+        };
 
         return {
             sessionId: info.sessionId,

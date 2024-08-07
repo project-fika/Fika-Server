@@ -1,5 +1,7 @@
-import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { inject, injectable } from "tsyringe";
+
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+
 import { IDedicatedClientInfo } from "../../models/fika/dedicated/IDedicatedClientInfo";
 import { FikaDedicatedRaidWebSocket } from "../../websockets/FikaDedicatedRaidWebSocket";
 
@@ -30,8 +32,8 @@ export class FikaDedicatedRaidService {
                     logger.info(`Dedicated client removed: ${dedicatedClientSessionId}`);
                 }
 
-                if(!this.isDedicatedClientAvailable()) {
-                    if(this.onNoDedicatedClientAvailable) {
+                if (!this.isDedicatedClientAvailable()) {
+                    if (this.onNoDedicatedClientAvailable) {
                         this.onNoDedicatedClientAvailable();
                     }
                 }
@@ -43,12 +45,12 @@ export class FikaDedicatedRaidService {
         if (matchId in this.requestedSessions) {
             const userToJoin = this.requestedSessions[matchId];
 
-            this.fikaDedicatedRaidWebSocket.clientWebSockets[userToJoin].send(JSON.stringify(
-                {
+            this.fikaDedicatedRaidWebSocket.clientWebSockets[userToJoin].send(
+                JSON.stringify({
                     type: "fikaDedicatedJoinMatch",
-                    matchId: matchId
-                }
-            ));
+                    matchId: matchId,
+                }),
+            );
 
             this.logger.info(`Told ${userToJoin} to join raid ${matchId}`);
         }

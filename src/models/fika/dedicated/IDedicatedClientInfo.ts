@@ -1,4 +1,6 @@
+import { DedicatedStatus } from "../../enums/DedicatedStatus";
+
 export interface IDedicatedClientInfo {
-    state: string;
+    state: DedicatedStatus;
     lastPing: number;
 }
