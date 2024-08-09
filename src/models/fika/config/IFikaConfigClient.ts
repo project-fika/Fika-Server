@@ -3,6 +3,7 @@ export interface IFikaConfigClient {
     friendlyFire: boolean;
     dynamicVExfils: boolean;
     allowFreeCam: boolean;
+    allowSpectateFreeCam: boolean;
     allowItemSending: boolean;
     blacklistedItems: string[],
     forceSaveOnDeath: boolean;
