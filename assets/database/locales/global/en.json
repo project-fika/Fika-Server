@@ -6,7 +6,7 @@
     "F_Client_ReceivedSharedItemPlant": "{0} planted an item for {1}",
     "F_Client_ReceivePing": "Received a ping from {0}",
     "F_Client_ReceivePingObject": "{0} pinged {1}",
-    "F_Client_FreeCamInputDisabled": "Free cam input is now {0}",
+    "F_Client_FreeCamInputToggled": "Free cam input is now {0}",
     "F_Client_RandomSpawnPoints": "Using random spawn points",
     "F_Client_MetabolismDisabled": "Metabolism disabled",
     "F_Client_YouAreMIA": "You have gone missing in action...",
@@ -81,5 +81,9 @@
     "F_UI_SyncLampStates": "Syncing lamp states...",
     "F_UI_SyncWindows": "Syncing windows...",
     "F_UI_ReceiveOwnPlayer": "Receiving own player...",
-    "F_UI_FinishReconnect": "Finishing reconnect..."
+    "F_UI_FinishReconnect": "Finishing reconnect...",
+    "F_LANG_Enabled": "Enabled",
+    "F_LANG_Disabled": "Disabled",
+    "F_LANG_Player": "Player",
+    "F_LANG_Players": "Players"
 }
