@@ -1,14 +1,18 @@
 import path from "node:path";
-import { DependencyContainer, inject, injectable } from "tsyringe";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
-import { Overrider } from "./overrides/Overrider";
-import { FikaServerTools } from "./utils/FikaServerTools";
-import { FikaConfig } from "./utils/FikaConfig";
-import { IFikaConfigNatPunchServer } from "./models/fika/config/IFikaConfigNatPunchServer";
-import { IFikaConfigBackground } from "./models/fika/config/IFikaConfigBackground";
-import { FikaDedicatedProfileService } from "./services/dedicated/FikaDedicatedProfileService";
-import { IFikaConfigDedicated } from "./models/fika/config/IFikaConfigDedicated";
+
 import { ImageRouter } from "@spt/routers/ImageRouter";
+import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import { ImporterUtil } from "@spt/utils/ImporterUtil";
+
+import { ILocaleBase } from "@spt/models/spt/server/ILocaleBase";
+import { DependencyContainer, inject, injectable } from "tsyringe";
+import { IFikaConfigBackground } from "./models/fika/config/IFikaConfigBackground";
+import { IFikaConfigDedicated } from "./models/fika/config/IFikaConfigDedicated";
+import { IFikaConfigNatPunchServer } from "./models/fika/config/IFikaConfigNatPunchServer";
+import { Overrider } from "./overrides/Overrider";
+import { FikaDedicatedProfileService } from "./services/dedicated/FikaDedicatedProfileService";
+import { FikaConfig } from "./utils/FikaConfig";
+import { FikaServerTools } from "./utils/FikaServerTools";
 
 @injectable()
 export class Fika {
@@ -24,6 +28,7 @@ export class Fika {
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("FikaDedicatedProfileService") protected fikaDedicatedProfileService: FikaDedicatedProfileService,
         @inject("ImageRouter") protected imageRouter: ImageRouter,
+        @inject("ImporterUtil") protected importerUtil: ImporterUtil,
     ) {
         this.modPath = fikaConfig.getModPath();
         this.natPunchServerConfig = fikaConfig.getConfig().natPunchServer;
@@ -36,19 +41,35 @@ export class Fika {
     }
 
     public async postSptLoad(container: DependencyContainer): Promise<void> {
-        if(this.natPunchServerConfig.enable) {
+        if (this.natPunchServerConfig.enable) {
             this.fikaServerTools.startService("NatPunchServer");
         }
 
-        if(this.dedicatedConfig.profiles.amount > 0) {
+        if (this.dedicatedConfig.profiles.amount > 0) {
             this.fikaDedicatedProfileService.init();
         }
 
-        if(this.backgroundConfig.enable) {
-            const image = this.backgroundConfig.easteregg
-                ? "assets/images/launcher/bg-senko.png"
-                : "assets/images/launcher/bg.png";
+        this.AddFikaClientLocales();
+
+        if (this.backgroundConfig.enable) {
+            const image = this.backgroundConfig.easteregg ? "assets/images/launcher/bg-senko.png" : "assets/images/launcher/bg.png";
             this.imageRouter.addRoute("/files/launcher/bg", path.join(this.modPath, image));
+        }
+    }
+
+    private async AddFikaClientLocales() {
+        const database = this.databaseServer.getTables();
+        const databasePath = path.join(this.fikaConfig.getModPath(), "assets/database/");
+
+        const locales = await this.importerUtil.loadAsync<ILocaleBase>(path.join(databasePath, "locales/"), databasePath);
+
+        for (const folderName in locales) {
+            if (folderName === "global") {
+                for (const localeKey in locales.global) {
+                    const localeData = locales.global[localeKey];
+                    database.locales.global[localeKey] = { ...database.locales.global[localeKey], ...localeData };
+                }
+            }
         }
     }
 }
