@@ -200,7 +200,7 @@ export class FikaMatchService {
             time: data.time,
             raidCode: data.raidCode,
             natPunch: false,
-            isDedicated: false
+            isDedicated: false,
         });
 
         this.addTimeoutInterval(data.serverId);
@@ -232,7 +232,7 @@ export class FikaMatchService {
     public endMatch(matchId: string, reason: FikaMatchEndSessionMessage): void {
         this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
 
-        if(this.fikaDedicatedRaidService.requestedSessions.hasOwnProperty(matchId)) {
+        if (this.fikaDedicatedRaidService.requestedSessions.hasOwnProperty(matchId)) {
             delete this.fikaDedicatedRaidService.requestedSessions[matchId];
         }
 
@@ -299,6 +299,24 @@ export class FikaMatchService {
         }
 
         this.matches.get(matchId).players.set(playerId, data);
+    }
+
+    /**
+     * Sets a player to dead
+     * @param matchId
+     * @param playerId
+     * @param data
+     */
+    public setPlayerDead(matchId: string, playerId: string): void {
+        if (!this.matches.has(matchId)) {
+            return;
+        }
+
+        if (!this.matches.get(matchId).players.has(playerId)) {
+            return;
+        }
+
+        this.matches.get(matchId).players.get(playerId).isDead = true;
     }
 
     /**

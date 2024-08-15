@@ -4,11 +4,11 @@ import { RouteAction, StaticRouter } from "@spt/di/Router";
 import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
 
 import { FikaUpdateCallbacks } from "../../callbacks/FikaUpdateCallbacks";
+import { IFikaUpdateRaidAddPlayerData as IFikaUpdateAddPlayerData } from "../../models/fika/routes/raid/join/IFikaRaidAddPlayerData";
 import { IFikaUpdatePingRequestData } from "../../models/fika/routes/update/IFikaUpdatePingRequestData";
 import { IFikaUpdatePlayerspawnRequestData } from "../../models/fika/routes/update/IFikaUpdatePlayerspawnRequestData";
 import { IFikaUpdateSetStatusRequestData } from "../../models/fika/routes/update/IFikaUpdateSetStatusRequestData";
 import { IFikaUpdateSethostRequestData } from "../../models/fika/routes/update/IFikaUpdateSethostRequestData";
-import { IFikaUpdateRaidAddPlayerData as IFikaUpdateAddPlayerData } from "../../models/fika/routes/raid/join/IFikaRaidAddPlayerData";
 
 @injectable()
 export class FikaUpdateStaticRouter extends StaticRouter {
@@ -28,6 +28,9 @@ export class FikaUpdateStaticRouter extends StaticRouter {
             }),
             new RouteAction("/fika/update/addplayer", async (url: string, info: IFikaUpdateAddPlayerData, sessionID: string, _output: string): Promise<INullResponseData> => {
                 return this.fikaUpdateCallbacks.handleRaidAddPlayer(url, info, sessionID);
+            }),
+            new RouteAction("/fika/update/playerdied", async (url: string, info: IFikaUpdateAddPlayerData, sessionID: string, _output: string): Promise<INullResponseData> => {
+                return this.fikaUpdateCallbacks.handlePlayerDied(url, info, sessionID);
             }),
         ]);
     }

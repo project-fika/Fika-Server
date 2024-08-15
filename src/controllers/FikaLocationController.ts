@@ -20,6 +20,11 @@ export class FikaLocationController {
         const matches: IFikaRaidsResponse = [];
 
         for (const [matchId, match] of this.fikaMatchService.getAllMatches()) {
+            const players: Record<string, boolean> = {};
+            for (const [profileId, player] of match.players) {
+                players[profileId] = player.isDead;
+            }
+
             matches.push({
                 serverId: matchId,
                 hostUsername: match.hostUsername,
@@ -28,6 +33,7 @@ export class FikaLocationController {
                 location: match.raidConfig.location,
                 side: match.side,
                 time: match.time,
+                players: players,
             });
         }
 

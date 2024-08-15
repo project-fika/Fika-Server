@@ -2,13 +2,15 @@ import { inject, injectable } from "tsyringe";
 
 import { IFikaConfigClient } from "../models/fika/config/IFikaConfigClient";
 
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { SaveServer } from "@spt/servers/SaveServer";
+
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
+import { IFikaConfigNatPunchServer } from "../models/fika/config/IFikaConfigNatPunchServer";
 import { IFikaCheckModRequestData } from "../models/fika/routes/client/check/IFikaCheckModRequestData";
 import { IFikaCheckModResponse } from "../models/fika/routes/client/check/IFikaCheckModResponse";
+import { IVersionCheckResponse } from "../models/fika/routes/client/check/IFikaCheckModResponse copy";
 import { FikaConfig } from "../utils/FikaConfig";
-import { IFikaConfigNatPunchServer } from "../models/fika/config/IFikaConfigNatPunchServer";
-import { SaveServer } from "@spt/servers/SaveServer";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
 
 @injectable()
 export class FikaClientController {
@@ -34,6 +36,9 @@ export class FikaClientController {
         return this.fikaConfig.getConfig().client;
     }
 
+    /**
+     * Handle /fika/natpunchserver/config
+     */
     public handleNatPunchServerConfig(): IFikaConfigNatPunchServer {
         return this.fikaConfig.getConfig().natPunchServer;
     }
@@ -88,7 +93,9 @@ export class FikaClientController {
         return mismatchedMods;
     }
 
-    /** Handle /fika/profile/download */
+    /**
+     * Handle /fika/profile/download
+     */
     public handleProfileDownload(sessionID: string): any {
         const profile = this.saveServer.getProfile(sessionID);
         if (profile) {
@@ -98,5 +105,13 @@ export class FikaClientController {
 
         this.logger.error(`${sessionID} wants to download their profile but we don't have it`);
         return null;
+    }
+
+    /**
+     * Handle /fika/client/check/version
+     */
+    public handleVersionCheck(): IVersionCheckResponse {
+        const version = this.fikaConfig.getVersion();
+        return { version };
     }
 }
