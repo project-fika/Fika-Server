@@ -1,11 +1,11 @@
 import path from "node:path";
+import { DependencyContainer, inject, injectable } from "tsyringe";
 
+import { ILocaleBase } from "@spt/models/spt/server/ILocaleBase";
 import { ImageRouter } from "@spt/routers/ImageRouter";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { ImporterUtil } from "@spt/utils/ImporterUtil";
 
-import { ILocaleBase } from "@spt/models/spt/server/ILocaleBase";
-import { DependencyContainer, inject, injectable } from "tsyringe";
 import { IFikaConfigBackground } from "./models/fika/config/IFikaConfigBackground";
 import { IFikaConfigDedicated } from "./models/fika/config/IFikaConfigDedicated";
 import { IFikaConfigNatPunchServer } from "./models/fika/config/IFikaConfigNatPunchServer";

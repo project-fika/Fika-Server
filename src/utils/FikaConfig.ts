@@ -39,4 +39,8 @@ export class FikaConfig {
     public getModPath(): string {
         return this.modPath;
     }
+
+    public getVersion(): string {
+        return packageJson.version;
+    }
 }
