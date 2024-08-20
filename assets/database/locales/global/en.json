@@ -83,5 +83,7 @@
     "F_Client_FreeCamInputDisabled": "Free cam input disabled",
     "F_Client_FreeCamInputEnabled": "Free cam input enabled",
     "F_UI_WaitForPlayer": "Waiting for {0} player",
-    "F_UI_WaitForPlayers": "Waiting for {0} players"
+    "F_UI_WaitForPlayers": "Waiting for {0} players",
+    "F_UI_ToSLong": "Welcome to Fika!\r\n\r\nFika is a co-op mod for SPT, allowing you to play with your friends. Fika is and will always be free, if you paid for it you got scammed. You are also not allowed to host public servers with monetization or donations.\r\n\r\nWait for this message to fade to accept our Terms of Service.\r\n\r\nYou can join our Discord here: https://discord.gg/project-fika",
+    "F_UI_ToSShort": "Welcome to Fika!\r\n\r\nFika is a co-op mod for SPT, allowing you to play with your friends. Fika is and will always be free, if you paid for it you got scammed. You are also not allowed to host public servers with monetization or donations.\r\n\r\nYou can join our Discord here: https://discord.gg/project-fika"
 }
