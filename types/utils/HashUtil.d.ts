@@ -1,5 +1,3 @@
-/// <reference types="node" />
-/// <reference types="node" />
 import crypto from "node:crypto";
 import fs from "node:fs";
 import { TimeUtil } from "@spt/utils/TimeUtil";

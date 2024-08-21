@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { ServerResponse } from "node:http";
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
 export declare class HttpFileUtil {

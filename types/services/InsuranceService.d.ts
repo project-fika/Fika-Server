@@ -1,4 +1,5 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { Item } from "@spt/models/eft/common/tables/IItem";
@@ -24,13 +25,14 @@ export declare class InsuranceService {
     protected timeUtil: TimeUtil;
     protected saveServer: SaveServer;
     protected traderHelper: TraderHelper;
+    protected profileHelper: ProfileHelper;
     protected localisationService: LocalisationService;
     protected mailSendService: MailSendService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected insured: Record<string, Record<string, Item[]>>;
     protected insuranceConfig: IInsuranceConfig;
-    constructor(logger: ILogger, databaseService: DatabaseService, randomUtil: RandomUtil, itemHelper: ItemHelper, hashUtil: HashUtil, timeUtil: TimeUtil, saveServer: SaveServer, traderHelper: TraderHelper, localisationService: LocalisationService, mailSendService: MailSendService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, databaseService: DatabaseService, randomUtil: RandomUtil, itemHelper: ItemHelper, hashUtil: HashUtil, timeUtil: TimeUtil, saveServer: SaveServer, traderHelper: TraderHelper, profileHelper: ProfileHelper, localisationService: LocalisationService, mailSendService: MailSendService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Does player have insurance array
      * @param sessionId Player id

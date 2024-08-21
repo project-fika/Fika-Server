@@ -76,7 +76,13 @@ export declare class ItemHelper {
      */
     generateUpdForItem(itemTemplate: ITemplateItem): Upd;
     /**
-     * Checks if an id is a valid item. Valid meaning that it's an item that be stored in stash
+     * Checks if a tpl is a valid item. Valid meaning that it's an item that be stored in stash
+     * Valid means:
+     *  Not quest item
+     *  'Item' type
+     *  Not on the invalid base types array
+     *  Price above 0 roubles
+     *  Not on item config blacklist
      * @param    {string}  tpl  the template id / tpl
      * @returns                 boolean; true for items that may be in player possession and not quest items
      */
@@ -377,12 +383,12 @@ export declare class ItemHelper {
     addSingleStackCartridgesToAmmoBox(ammoBox: Item[], ammoBoxDetails: ITemplateItem): void;
     /**
      * Check if item is stored inside of a container
-     * @param item Item to check is inside of container
+     * @param itemToCheck Item to check is inside of container
      * @param desiredContainerSlotId Name of slot to check item is in e.g. SecuredContainer/Backpack
      * @param items Inventory with child parent items to check
      * @returns True when item is in container
      */
-    itemIsInsideContainer(item: Item, desiredContainerSlotId: string, items: Item[]): boolean;
+    itemIsInsideContainer(itemToCheck: Item, desiredContainerSlotId: string, items: Item[]): boolean;
     /**
      * Add child items (cartridges) to a magazine
      * @param magazine Magazine to add child items to

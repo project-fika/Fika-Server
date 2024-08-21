@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import fs from "node:fs";
 import { Daum } from "@spt/models/eft/itemEvent/IItemEventRouterRequest";
 import { LogBackgroundColor } from "@spt/models/spt/logging/LogBackgroundColor";

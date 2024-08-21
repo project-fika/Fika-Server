@@ -21,6 +21,8 @@ export interface IGenerateWeaponRequest {
     modLimits: BotModLimits;
     /** Info related to the weapon being generated */
     weaponStats: IWeaponStats;
+    /** Array of item tpls the weapon does not support */
+    conflictingItemTpls: Set<string>;
 }
 export interface IBotData {
     /** Role of bot weapon is generated for */

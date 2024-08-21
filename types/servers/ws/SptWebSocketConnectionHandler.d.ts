@@ -1,5 +1,3 @@
-/// <reference types="node" />
-/// <reference types="node" />
 import { IncomingMessage } from "node:http";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";

@@ -1,5 +1,3 @@
-/// <reference types="node" />
-/// <reference types="node" />
 import { IncomingMessage, ServerResponse } from "node:http";
 import { Serializer } from "@spt/di/Serializer";
 import { ILogger } from "@spt/models/spt/utils/ILogger";

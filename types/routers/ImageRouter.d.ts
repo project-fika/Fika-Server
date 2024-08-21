@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { IncomingMessage, ServerResponse } from "node:http";
 import { ImageRouteService } from "@spt/services/mod/image/ImageRouteService";
 import { HttpFileUtil } from "@spt/utils/HttpFileUtil";

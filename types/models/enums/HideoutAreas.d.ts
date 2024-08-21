@@ -25,5 +25,7 @@ export declare enum HideoutAreas {
     EMERGENCY_WALL = 22,
     GYM = 23,
     WEAPON_STAND = 24,
-    WEAPON_STAND_SECONDARY = 25
+    WEAPON_STAND_SECONDARY = 25,
+    EQUIPMENT_PRESETS_STAND = 26,
+    CIRCLE_OF_CULTISTS = 27
 }

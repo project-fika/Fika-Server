@@ -78,6 +78,14 @@ export declare class BotEquipmentModGenerator {
      */
     generateModsForWeapon(sessionId: string, request: IGenerateWeaponRequest): Item[];
     /**
+     * Should the provided bot have its stock chance values altered to 100%
+     * @param modSlot Slot to check
+     * @param botEquipConfig Bots equipment config/chance values
+     * @param modToAddTemplate Mod being added to bots weapon
+     * @returns True if it should
+     */
+    protected shouldForceSubStockSlots(modSlot: string, botEquipConfig: EquipmentFilters, modToAddTemplate: ITemplateItem): boolean;
+    /**
      * Is this modslot a front or rear sight
      * @param modSlot Slot to check
      * @returns true if it's a front/rear sight
@@ -140,7 +148,7 @@ export declare class BotEquipmentModGenerator {
      * @param modSlotName Name of slot picked mod will be placed into
      * @returns Chosen weapon details
      */
-    protected getCompatibleWeaponModTplForSlotFromPool(modPool: string[], parentSlot: Slot, choiceTypeEnum: ModSpawn, weapon: Item[], modSlotName: string): IChooseRandomCompatibleModResult;
+    protected getCompatibleWeaponModTplForSlotFromPool(request: IModToSpawnRequest, modPool: string[], parentSlot: Slot, choiceTypeEnum: ModSpawn, weapon: Item[], modSlotName: string): IChooseRandomCompatibleModResult;
     /**
      *
      * @param modPool Pool of item Tpls to choose from
@@ -153,26 +161,23 @@ export declare class BotEquipmentModGenerator {
     protected createExhaustableArray<T>(itemsToAddToArray: T[]): ExhaustableArray<T>;
     /**
      * Get a list of mod tpls that are compatible with the current weapon
-     * @param initialModPool
-     * @param weapon
+     * @param modPool
+     * @param tplBlacklist Tpls that are incompatible and should not be used
      * @returns string array of compatible mod tpls with weapon
      */
-    protected getFilteredModPool(initialModPool: string[], weapon: Item[]): string[];
+    protected getFilteredModPool(modPool: string[], tplBlacklist: Set<string>): string[];
     /**
      * Filter mod pool down based on various criteria:
      * Is slot flagged as randomisable
      * Is slot required
      * Is slot flagged as default mod only
-     * @param itemModPool Existing pool of mods to choose
-     * @param itemSpawnCategory How should slot be handled
-     * @param parentTemplate Mods parent
+     * @param request
      * @param weaponTemplate Mods root parent (weapon/equipment)
-     * @param modSlot name of mod slot to choose for
-     * @param botEquipBlacklist A blacklist of items not allowed to be picked
-     * @param isRandomisableSlot Slot is flagged as a randomisable slot
      * @returns Array of mod tpls
      */
-    protected getModPoolForSlot(itemModPool: Record<string, string[]>, itemSpawnCategory: ModSpawn, parentTemplate: ITemplateItem, weaponTemplate: ITemplateItem, modSlot: string, botEquipBlacklist: EquipmentFilterDetails, isRandomisableSlot: boolean): string[];
+    protected getModPoolForSlot(request: IModToSpawnRequest, weaponTemplate: ITemplateItem): string[];
+    protected getModPoolForDefaultSlot(request: IModToSpawnRequest, weaponTemplate: ITemplateItem): string[];
+    protected getMatchingModFromPreset(request: IModToSpawnRequest, weaponTemplate: ITemplateItem): Item;
     /**
      * Get default preset for weapon OR get specific weapon presets for edge cases (mp5/silenced dvl)
      * @param weaponTemplate Weapons db template

@@ -1,4 +1,5 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { Item } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
@@ -6,13 +7,16 @@ import { IStorePlayerOfferTaxAmountRequestData } from "@spt/models/eft/ragfair/I
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { RagfairPriceService } from "@spt/services/RagfairPriceService";
+import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class RagfairTaxService {
     protected logger: ILogger;
     protected databaseService: DatabaseService;
     protected ragfairPriceService: RagfairPriceService;
     protected itemHelper: ItemHelper;
+    protected profileHelper: ProfileHelper;
+    protected cloner: ICloner;
     protected playerOfferTaxCache: Record<string, IStorePlayerOfferTaxAmountRequestData>;
-    constructor(logger: ILogger, databaseService: DatabaseService, ragfairPriceService: RagfairPriceService, itemHelper: ItemHelper);
+    constructor(logger: ILogger, databaseService: DatabaseService, ragfairPriceService: RagfairPriceService, itemHelper: ItemHelper, profileHelper: ProfileHelper, cloner: ICloner);
     storeClientOfferTaxValue(sessionId: string, offer: IStorePlayerOfferTaxAmountRequestData): void;
     clearStoredOfferTaxById(offerIdToRemove: string): void;
     getStoredClientOfferTaxValueById(offerIdToGet: string): IStorePlayerOfferTaxAmountRequestData;

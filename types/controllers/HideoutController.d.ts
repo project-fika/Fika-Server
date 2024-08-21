@@ -11,6 +11,7 @@ import { HideoutUpgradeCompleteRequestData } from "@spt/models/eft/hideout/Hideo
 import { IHandleQTEEventRequestData } from "@spt/models/eft/hideout/IHandleQTEEventRequestData";
 import { IHideoutArea, Stage } from "@spt/models/eft/hideout/IHideoutArea";
 import { IHideoutCancelProductionRequestData } from "@spt/models/eft/hideout/IHideoutCancelProductionRequestData";
+import { IHideoutCircleOfCultistProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutCircleOfCultistProductionStartRequestData";
 import { IHideoutContinuousProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutContinuousProductionStartRequestData";
 import { IHideoutImproveAreaRequestData } from "@spt/models/eft/hideout/IHideoutImproveAreaRequestData";
 import { IHideoutProduction } from "@spt/models/eft/hideout/IHideoutProduction";
@@ -262,6 +263,13 @@ export declare class HideoutController {
      * @returns IItemEventRouterResponse
      */
     cancelProduction(sessionId: string, pmcData: IPmcData, request: IHideoutCancelProductionRequestData): IItemEventRouterResponse;
+    /**
+     * Handle client/game/profile/items/moving - HideoutCircleOfCultistProductionStart
+     * @param sessionId Session id
+     * @param pmcData Profile of crafter
+     * @param request Request data
+     */
+    circleOfCultistProductionStart(sessionId: string, pmcData: IPmcData, request: IHideoutCircleOfCultistProductionStartRequestData): IItemEventRouterResponse | PromiseLike<IItemEventRouterResponse>;
     /**
      * Function called every x seconds as part of onUpdate event
      */

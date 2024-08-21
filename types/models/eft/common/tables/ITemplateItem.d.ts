@@ -93,13 +93,16 @@ export interface Props {
     IsAnimated?: boolean;
     HasShoulderContact?: boolean;
     SightingRange?: number;
+    ZoomSensitivity?: number;
     DoubleActionAccuracyPenaltyMult?: number;
-    ModesCount?: any;
+    ModesCount?: number | number[];
     DurabilityBurnModificator?: number;
     HeatFactor?: number;
     CoolFactor?: number;
     muzzleModType?: string;
     CustomAimPlane?: string;
+    IsAdjustableOptic?: boolean;
+    MinMaxFov?: Ixyz;
     sightModType?: string;
     aimingSensitivity?: number;
     SightModesCount?: number;
@@ -226,6 +229,8 @@ export interface Props {
     RotationCenterNoStock?: Ixyz;
     ShotsGroupSettings?: IShotsGroupSettings[];
     FoldedSlot?: string;
+    ForbidMissingVitalParts?: boolean;
+    ForbidNonEmptyContainers?: boolean;
     CompactHandling?: boolean;
     MinRepairDegradation?: number;
     MaxRepairDegradation?: number;
@@ -263,6 +268,13 @@ export interface Props {
     RecoilStableIndexShot?: number;
     MinRepairKitDegradation?: number;
     MaxRepairKitDegradation?: number;
+    MountCameraSnapMultiplier?: number;
+    MountHorizontalRecoilMultiplier?: number;
+    MountReturnSpeedHandMultiplier?: number;
+    MountVerticalRecoilMultiplier?: number;
+    MountingHorizontalOutOfBreathMultiplier?: number;
+    MountingPosition?: Ixyz;
+    MountingVerticalOutOfBreathMultiplier?: Ixyz;
     BlocksEarpiece?: boolean;
     BlocksEyewear?: boolean;
     BlocksHeadwear?: boolean;
@@ -379,6 +391,7 @@ export interface Props {
     ShowHitEffectOnExplode?: boolean;
     ExplosionType?: string;
     AmmoLifeTimeSec?: number;
+    AmmoTooltipClass?: string;
     Contusion?: Ixyz;
     ArmorDistanceDistanceDamage?: Ixyz;
     Blindness?: Ixyz;
@@ -401,6 +414,7 @@ export interface Props {
     explDelay?: number;
     EmitTime?: number;
     CanBeHiddenDuringThrow?: boolean;
+    CanPlantOnGround?: boolean;
     MinTimeToContactExplode?: number;
     ExplosionEffectType?: string;
     LinkedWeapon?: string;
@@ -449,6 +463,7 @@ export interface GridProps {
 export interface GridFilter {
     Filter: string[];
     ExcludedFilter: string[];
+    locked?: boolean;
 }
 export interface Slot {
     _name: string;

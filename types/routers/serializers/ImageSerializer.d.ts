@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { IncomingMessage, ServerResponse } from "node:http";
 import { Serializer } from "@spt/di/Serializer";
 import { ImageRouter } from "@spt/routers/ImageRouter";

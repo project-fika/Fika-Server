@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { IncomingMessage, ServerResponse } from "node:http";
 import { NotifierController } from "@spt/controllers/NotifierController";
 import { Serializer } from "@spt/di/Serializer";

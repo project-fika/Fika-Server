@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { IncomingMessage, ServerResponse } from "node:http";
 import { ApplicationContext } from "@spt/context/ApplicationContext";
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";

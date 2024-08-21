@@ -1,4 +1,5 @@
 import { InventoryHelper } from "@spt/helpers/InventoryHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { Item } from "@spt/models/eft/common/tables/IItem";
 import { ILostOnDeathConfig } from "@spt/models/spt/config/ILostOnDeathConfig";
@@ -8,10 +9,11 @@ import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class InRaidHelper {
     protected logger: ILogger;
     protected inventoryHelper: InventoryHelper;
+    protected itemHelper: ItemHelper;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected lostOnDeathConfig: ILostOnDeathConfig;
-    constructor(logger: ILogger, inventoryHelper: InventoryHelper, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, inventoryHelper: InventoryHelper, itemHelper: ItemHelper, configServer: ConfigServer, cloner: ICloner);
     /**
      * @deprecated
      * Reset the skill points earned in a raid to 0, ready for next raid
@@ -35,6 +37,13 @@ export declare class InRaidHelper {
      * @param sessionId Session id
      */
     deleteInventory(pmcData: IPmcData, sessionId: string): void;
+    /**
+     * Remove FiR status from designated container
+     * @param sessionId Session id
+     * @param pmcData Player profile
+     * @param secureContainerSlotId Container slot id to find items for and remove FiR from
+     */
+    removeFiRStatusFromItemsInContainer(sessionId: string, pmcData: IPmcData, secureContainerSlotId: string): void;
     /**
      * Get an array of items from a profile that will be lost on death
      * @param pmcProfile Profile to get items from

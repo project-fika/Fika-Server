@@ -1,7 +1,7 @@
 import { Item } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ModSpawn } from "@spt/models/enums/ModSpawn";
-import { IWeaponStats } from "@spt/models/spt/bots/IGenerateWeaponRequest";
+import { IBotData, IWeaponStats } from "@spt/models/spt/bots/IGenerateWeaponRequest";
 import { EquipmentFilterDetails } from "@spt/models/spt/config/IBotConfig";
 export interface IModToSpawnRequest {
     /** Slot mod will fit into */
@@ -24,4 +24,7 @@ export interface IModToSpawnRequest {
     modSpawnResult: ModSpawn;
     /** Weapon stats for weapon being generated */
     weaponStats: IWeaponStats;
+    /** Array of item tpls the weapon does not support */
+    conflictingItemTpls: Set<string>;
+    botData: IBotData;
 }

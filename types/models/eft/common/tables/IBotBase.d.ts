@@ -63,6 +63,7 @@ export interface Info {
     Side: string;
     SquadInviteRestriction: boolean;
     HasCoopExtension: boolean;
+    HasPveGame: boolean;
     Voice: string;
     Level: number;
     Experience: number;
@@ -298,7 +299,7 @@ export interface IInsuredItem {
 export interface Hideout {
     Production: Record<string, Productive>;
     Areas: HideoutArea[];
-    Improvement: Record<string, IHideoutImprovement>;
+    Improvements: Record<string, IHideoutImprovement>;
     Seed: number;
     sptUpdateLastRunTimestamp: number;
 }
