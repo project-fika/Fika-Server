@@ -4,7 +4,6 @@ import { IEndLocalRaidRequestData } from "@spt/models/eft/match/IEndLocalRaidReq
 import { BaseClasses } from "@spt/models/enums/BaseClasses";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
-import { InsuranceService } from "@spt/services/InsuranceService";
 import { inject, injectable } from "tsyringe";
 
 export interface IFikaInsurancePlayer {
@@ -21,7 +20,6 @@ export class FikaInsuranceService {
 
     constructor(
         @inject("SaveServer") protected saveServer: SaveServer,
-        @inject("InsuranceService") protected insuranceService: InsuranceService,
         @inject("ItemHelper") protected itemHelper : ItemHelper,
         @inject("MatchController") protected matchController: MatchController,
         @inject("WinstonLogger") protected logger: ILogger,
