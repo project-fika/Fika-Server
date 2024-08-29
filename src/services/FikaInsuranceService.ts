@@ -111,22 +111,22 @@ export class FikaInsuranceService {
                 
                 if (insuredItemIndex != -1) {
                     const item = insurance.items[insuredItemIndex];
-                    this.logger.info(`Found ${item._id} which will be removed`);
+                    this.logger.debug(`[Fika Insurance] Found ${item._id} which will be removed`);
 
                     // Remove soft inserts out of armors
-                    if (this.itemHelper.isOfBaseclass(item._tpl, BaseClasses.ARMOR)) {
-                        this.logger.info(`[Fika Insurance] ${item._id} is a armor`);
+                    if (this.itemHelper.isOfBaseclass(item._tpl, BaseClasses.ARMOR) || this.itemHelper.isOfBaseclass(item._tpl, BaseClasses.HEADWEAR)) {
+                        this.logger.debug(`[Fika Insurance] ${item._id} is an armor or helmet`);
 
                         // Copy the original array, when we splice into the original array while looping over it we will skip certain items.
                         let insuranceItems = Array.from(insurance.items);
 
                         insuranceItems.forEach((innerItem) => {
-                            this.logger.info(`[Fika Insurance] Inner item: ${innerItem._id}`);
+                            this.logger.debug(`[Fika Insurance] Inner item: ${innerItem._id}`);
 
                             if(innerItem.parentId == item._id && this.itemHelper.isOfBaseclass(innerItem._tpl, BaseClasses.BUILT_IN_INSERTS)) {
                                 // There's mods that allow you to take soft inserts out and those will most likely have insurance set, dont need to remove those here.
                                 if(!ids.includes(innerItem._id)) {
-                                    this.logger.info(`[Fika Insurance] Removing soft insert ${innerItem._id} of armor ${item._id}`);
+                                    this.logger.debug(`[Fika Insurance] Removing soft insert ${innerItem._id} of item ${item._id}`);
 
                                     const innerItemIndex = insurance.items.findIndex(i => i._id == innerItem._id);
 
