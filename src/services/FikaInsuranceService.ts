@@ -9,6 +9,7 @@ import { inject, injectable } from "tsyringe";
 
 export interface IFikaInsurancePlayer {
     sessionID: string,
+    endedRaid: boolean,
     lostItems: string[],
     foundItems: string[],
     inventory: string[]
@@ -45,6 +46,7 @@ export class FikaInsuranceService {
 
         let Data = {} as IFikaInsurancePlayer;
         Data.sessionID = sessionID;
+        Data.endedRaid = false;
         Data.foundItems = [];
 
         this.matchInsuranceInfo[matchId].push(Data);
@@ -65,6 +67,7 @@ export class FikaInsuranceService {
             // Map both the lost items and the current inventory
             player.lostItems = endLocalRaidRequest.lostInsuredItems.map(i => i._id);
             player.inventory = endLocalRaidRequest.results.profile.Inventory.items.map(i => i._id);
+            player.endedRaid = true;
         }
 
         MatchController.prototype.endLocalRaid.call(this.matchController, sessionID, endLocalRaidRequest);
@@ -81,6 +84,11 @@ export class FikaInsuranceService {
             match.forEach((nextPlayer) => {
                 // Don't need to check the player we have in the base loop
                 if (player.sessionID == nextPlayer.sessionID) {
+                    return;
+                }
+
+                if (!player.endedRaid)
+                {
                     return;
                 }
 
