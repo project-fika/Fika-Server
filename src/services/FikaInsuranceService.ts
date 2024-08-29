@@ -81,14 +81,17 @@ export class FikaInsuranceService {
         const match = this.matchInsuranceInfo[matchId];
         
         match.forEach((player) => {
+            if (!player.endedRaid) {
+                return;
+            }
+
             match.forEach((nextPlayer) => {
                 // Don't need to check the player we have in the base loop
                 if (player.sessionID == nextPlayer.sessionID) {
                     return;
                 }
 
-                if (!player.endedRaid)
-                {
+                if (!nextPlayer.endedRaid) {
                     return;
                 }
 
