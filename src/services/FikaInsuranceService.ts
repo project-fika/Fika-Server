@@ -81,6 +81,7 @@ export class FikaInsuranceService {
         const match = this.matchInsuranceInfo[matchId];
         
         match.forEach((player) => {
+            // This player either crashed or the raid ended prematurely, eitherway we skip him.
             if (!player.endedRaid) {
                 return;
             }
@@ -91,6 +92,7 @@ export class FikaInsuranceService {
                     return;
                 }
 
+                // This player either crashed or the raid ended prematurely, eitherway we skip him.
                 if (!nextPlayer.endedRaid) {
                     return;
                 }
