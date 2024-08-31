@@ -52,6 +52,9 @@ export class FikaInsuranceService {
 
     public onEndLocalRaidRequest(sessionID: string, matchId: string, endLocalRaidRequest: IEndLocalRaidRequestData) : void {
         if (!(matchId in this.matchInsuranceInfo)) {
+            this.logger.error("[Fika Insurance] onEndLocalRaidRequest: matchId not found!")
+
+            MatchController.prototype.endLocalRaid.call(this.matchController, sessionID, endLocalRaidRequest);
             return;
         }
 
