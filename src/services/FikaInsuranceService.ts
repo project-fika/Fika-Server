@@ -54,6 +54,7 @@ export class FikaInsuranceService {
         if (!(matchId in this.matchInsuranceInfo)) {
             this.logger.error("[Fika Insurance] onEndLocalRaidRequest: matchId not found!")
 
+            // Pass back to SPT so thaat the player can save.
             MatchController.prototype.endLocalRaid.call(this.matchController, sessionID, endLocalRaidRequest);
             return;
         }
@@ -71,6 +72,7 @@ export class FikaInsuranceService {
             player.endedRaid = true;
         }
 
+        // Pass back to SPT so thaat the player can save.
         MatchController.prototype.endLocalRaid.call(this.matchController, sessionID, endLocalRaidRequest);
     }
 
