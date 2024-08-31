@@ -54,6 +54,11 @@ export class FikaDialogueController {
         for (const friendId of friendsIds) {
             const profile = this.profileHelper.getPmcProfile(friendId);
 
+            if (!profile) {
+                this.fikaPlayerRelationsHelper.removeFriend(sessionID, friendId);
+                continue;
+            }
+
             botsAndFriends.push({
                 _id: profile._id,
                 aid: profile.aid,
