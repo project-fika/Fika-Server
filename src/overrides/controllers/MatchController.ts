@@ -21,10 +21,7 @@ export class MatchControllerOverride extends Override {
             "MatchController",
             (_t, result: MatchController) => {
                 result.endLocalRaid = (sessionId: string, request: IEndLocalRaidRequestData) => {
-                    const match = this.fikaInsuranceService.getMatchId(sessionId);
-                    if (match) {
-                        this.fikaInsuranceService.onEndLocalRaidRequest(sessionId, match, request);
-                    }
+                    this.fikaInsuranceService.onEndLocalRaidRequest(sessionId, this.fikaInsuranceService.getMatchId(sessionId), request);
                 };
             },
             { frequency: "Always" },
