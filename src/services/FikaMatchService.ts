@@ -305,10 +305,7 @@ export class FikaMatchService {
         const match = this.matches.get(matchId);
         match.players.set(playerId, data);
 
-        if (match.side.toString() == "Pmc") 
-        {
-            this.fikaInsuranceService.addPlayerToMatchId(matchId, playerId);
-        }
+        this.fikaInsuranceService.addPlayerToMatchId(matchId, playerId);
     }
 
     /**
