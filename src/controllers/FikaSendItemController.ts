@@ -77,7 +77,8 @@ export class FikaSendItemController {
         this.mailSendService.sendSystemMessageToPlayer(
             body.target,
             `You have received a gift from ${senderProfile?.characters?.pmc?.Info?.Nickname ?? "unknown"}`,
-            itemsToSend
+            itemsToSend,
+            604800
         );
 
         this.inventoryHelper.removeItem(senderProfile.characters.pmc, body.id, sessionID, output);
