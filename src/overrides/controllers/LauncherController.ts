@@ -10,7 +10,6 @@ import { IConnectResponse } from "@spt/models/eft/profile/IConnectResponse";
 import { FikaConfig } from "../../utils/FikaConfig";
 import { Override } from "../../di/Override";
 import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
 
 @injectable()
 export class LauncherControllerOverride extends Override {
@@ -22,7 +21,6 @@ export class LauncherControllerOverride extends Override {
         @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("ConfigServer") protected configServer: ConfigServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
-        @inject("WinstonLogger") protected logger: ILogger
     ) {
         super();
 
