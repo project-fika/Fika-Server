@@ -29,12 +29,6 @@ export declare class InraidCallbacks {
      */
     saveProgress(url: string, info: IScavSaveRequestData, sessionID: string): INullResponseData;
     /**
-     * TODO - remove
-     * Handle singleplayer/settings/raid/endstate
-     * @returns
-     */
-    getRaidEndState(): string;
-    /**
      * Handle singleplayer/settings/raid/menu
      * @returns JSON as string
      */

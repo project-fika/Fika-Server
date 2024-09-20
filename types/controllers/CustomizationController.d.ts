@@ -1,7 +1,7 @@
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { ISuit } from "@spt/models/eft/common/tables/ITrader";
-import { ClothingItem, IBuyClothingRequestData } from "@spt/models/eft/customization/IBuyClothingRequestData";
+import { IBuyClothingRequestData, IPaymentItemForClothing } from "@spt/models/eft/customization/IBuyClothingRequestData";
 import { IWearClothingRequestData } from "@spt/models/eft/customization/IWearClothingRequestData";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -54,17 +54,17 @@ export declare class CustomizationController {
      * Update output object and player profile with purchase details
      * @param sessionId Session id
      * @param pmcData Player profile
-     * @param clothingItems Clothing purchased
+     * @param itemsToPayForClothingWith Clothing purchased
      * @param output Client response
      */
-    protected payForClothingItems(sessionId: string, pmcData: IPmcData, clothingItems: ClothingItem[], output: IItemEventRouterResponse): void;
+    protected payForClothingItems(sessionId: string, pmcData: IPmcData, itemsToPayForClothingWith: IPaymentItemForClothing[], output: IItemEventRouterResponse): void;
     /**
      * Update output object and player profile with purchase details for single piece of clothing
      * @param sessionId Session id
      * @param pmcData Player profile
-     * @param clothingItem Clothing item purchased
+     * @param paymentItemDetails Payment details
      * @param output Client response
      */
-    protected payForClothingItem(sessionId: string, pmcData: IPmcData, clothingItem: ClothingItem, output: IItemEventRouterResponse): void;
+    protected payForClothingItem(sessionId: string, pmcData: IPmcData, paymentItemDetails: IPaymentItemForClothing, output: IItemEventRouterResponse): void;
     protected getAllTraderSuits(sessionID: string): ISuit[];
 }

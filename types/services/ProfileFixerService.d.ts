@@ -4,9 +4,10 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { HideoutSlot } from "@spt/models/eft/common/tables/IBotBase";
+import { Bonus, HideoutSlot } from "@spt/models/eft/common/tables/IBotBase";
 import { IPmcDataRepeatableQuest, IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { StageBonus } from "@spt/models/eft/hideout/IHideoutArea";
 import { IEquipmentBuild, IMagazineBuild, ISptProfile, IWeaponBuild } from "@spt/models/eft/profile/ISptProfile";
 import { HideoutAreas } from "@spt/models/enums/HideoutAreas";
 import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
@@ -107,4 +108,16 @@ export declare class ProfileFixerService {
      * @returns True if the build should be removed from the build list, false otherwise
      */
     protected shouldRemoveMagazineBuild(magazineBuild: IMagazineBuild, itemsDb: Record<string, ITemplateItem>): boolean;
+    /**
+     * REQUIRED for dev profiles
+     * Iterate over players hideout areas and find what's build, look for missing bonuses those areas give and add them if missing
+     * @param pmcProfile Profile to update
+     */
+    addMissingHideoutBonusesToProfile(pmcProfile: IPmcData): void;
+    /**
+     * @param profileBonuses bonuses from profile
+     * @param bonus bonus to find
+     * @returns matching bonus
+     */
+    protected getBonusFromProfile(profileBonuses: Bonus[], bonus: StageBonus): Bonus | undefined;
 }

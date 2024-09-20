@@ -83,6 +83,13 @@ export declare class InsuranceService {
      */
     mapInsuredItemsToTrader(sessionId: string, lostInsuredItems: Item[], pmcProfile: IPmcData): IInsuranceEquipmentPkg[];
     /**
+     * Some items should never be returned in insurance but BSG send them in the request
+     * @param lostItem Item being returned in insurance
+     * @param inventoryItems Player inventory
+     * @returns True if item
+     */
+    protected itemCannotBeLostOnDeath(lostItem: Item, inventoryItems: Item[]): boolean;
+    /**
      * Add gear item to InsuredItems array in player profile
      * @param sessionID Session id
      * @param pmcData Player profile

@@ -15,7 +15,7 @@ export interface RewardDetails {
     rewardCount: number;
     foundInRaid: boolean;
     rewardTplPool?: Record<string, number>;
-    rewardTypePool?: Record<string, number>;
+    rewardTypePool?: string[];
 }
 export interface ISealedAirdropContainerSettings {
     weaponRewardWeight: Record<string, number>;

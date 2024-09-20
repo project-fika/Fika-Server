@@ -37,6 +37,10 @@ export declare class LootGenerator {
      * @returns An array of loot items
      */
     createRandomLoot(options: LootRequest): Item[];
+    protected getItemRewardPool(itemTplBlacklist: string[], itemTypeWhitelist: string[], useRewardItemBlacklist: boolean, allowBossItems: boolean): {
+        itemPool: [string, ITemplateItem][];
+        blacklist: Set<string>;
+    };
     /**
      * Filter armor items by their front plates protection level - top if its a helmet
      * @param armor Armor preset to check
@@ -108,5 +112,11 @@ export declare class LootGenerator {
      * @returns Array of item with children arrays
      */
     getRandomLootContainerLoot(rewardContainerDetails: RewardDetails): Item[][];
+    /**
+     * Pick a reward item based on the reward details data
+     * @param rewardContainerDetails
+     * @returns Single tpl
+     */
+    protected pickRewardItem(rewardContainerDetails: RewardDetails): string;
 }
 export {};

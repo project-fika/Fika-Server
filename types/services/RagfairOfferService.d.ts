@@ -10,6 +10,7 @@ import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
+import { HashUtil } from "@spt/utils/HashUtil";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { RagfairOfferHolder } from "@spt/utils/RagfairOfferHolder";
 import { TimeUtil } from "@spt/utils/TimeUtil";
@@ -17,6 +18,7 @@ import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class RagfairOfferService {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;
+    protected hashUtil: HashUtil;
     protected databaseService: DatabaseService;
     protected saveServer: SaveServer;
     protected ragfairServerHelper: RagfairServerHelper;
@@ -32,7 +34,7 @@ export declare class RagfairOfferService {
     protected expiredOffers: Record<string, IRagfairOffer>;
     protected ragfairConfig: IRagfairConfig;
     protected ragfairOfferHandler: RagfairOfferHolder;
-    constructor(logger: ILogger, timeUtil: TimeUtil, databaseService: DatabaseService, saveServer: SaveServer, ragfairServerHelper: RagfairServerHelper, itemHelper: ItemHelper, profileHelper: ProfileHelper, eventOutputHolder: EventOutputHolder, httpResponse: HttpResponseUtil, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, timeUtil: TimeUtil, hashUtil: HashUtil, databaseService: DatabaseService, saveServer: SaveServer, ragfairServerHelper: RagfairServerHelper, itemHelper: ItemHelper, profileHelper: ProfileHelper, eventOutputHolder: EventOutputHolder, httpResponse: HttpResponseUtil, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Get all offers
      * @returns IRagfairOffer array

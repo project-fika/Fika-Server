@@ -8,7 +8,7 @@ import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Common, TraderInfo } from "@spt/models/eft/common/tables/IBotBase";
+import { Common, IQuestStatus, TraderInfo } from "@spt/models/eft/common/tables/IBotBase";
 import { Item } from "@spt/models/eft/common/tables/IItem";
 import { IEndLocalRaidRequestData, IEndRaidResult } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 import { IStartLocalRaidRequestData } from "@spt/models/eft/match/IStartLocalRaidRequestData";
@@ -16,6 +16,7 @@ import { IStartLocalRaidResponseData } from "@spt/models/eft/match/IStartLocalRa
 import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import { IInRaidConfig } from "@spt/models/spt/config/IInRaidConfig";
 import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
+import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -23,6 +24,7 @@ import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheService";
 import { BotLootCacheService } from "@spt/services/BotLootCacheService";
+import { BotNameService } from "@spt/services/BotNameService";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { InsuranceService } from "@spt/services/InsuranceService";
 import { LocalisationService } from "@spt/services/LocalisationService";
@@ -55,6 +57,7 @@ export declare class LocationLifecycleService {
     protected botGenerationCacheService: BotGenerationCacheService;
     protected mailSendService: MailSendService;
     protected raidTimeAdjustmentService: RaidTimeAdjustmentService;
+    protected botNameService: BotNameService;
     protected lootGenerator: LootGenerator;
     protected applicationContext: ApplicationContext;
     protected locationLootGenerator: LocationLootGenerator;
@@ -64,10 +67,24 @@ export declare class LocationLifecycleService {
     protected ragfairConfig: IRagfairConfig;
     protected hideoutConfig: IHideoutConfig;
     protected locationConfig: ILocationConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, saveServer: SaveServer, timeUtil: TimeUtil, randomUtil: RandomUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, inRaidHelper: InRaidHelper, healthHelper: HealthHelper, matchBotDetailsCacheService: MatchBotDetailsCacheService, pmcChatResponseService: PmcChatResponseService, playerScavGenerator: PlayerScavGenerator, traderHelper: TraderHelper, localisationService: LocalisationService, insuranceService: InsuranceService, botLootCacheService: BotLootCacheService, configServer: ConfigServer, botGenerationCacheService: BotGenerationCacheService, mailSendService: MailSendService, raidTimeAdjustmentService: RaidTimeAdjustmentService, lootGenerator: LootGenerator, applicationContext: ApplicationContext, locationLootGenerator: LocationLootGenerator, cloner: ICloner);
+    protected pmcConfig: IPmcConfig;
+    constructor(logger: ILogger, hashUtil: HashUtil, saveServer: SaveServer, timeUtil: TimeUtil, randomUtil: RandomUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, inRaidHelper: InRaidHelper, healthHelper: HealthHelper, matchBotDetailsCacheService: MatchBotDetailsCacheService, pmcChatResponseService: PmcChatResponseService, playerScavGenerator: PlayerScavGenerator, traderHelper: TraderHelper, localisationService: LocalisationService, insuranceService: InsuranceService, botLootCacheService: BotLootCacheService, configServer: ConfigServer, botGenerationCacheService: BotGenerationCacheService, mailSendService: MailSendService, raidTimeAdjustmentService: RaidTimeAdjustmentService, botNameService: BotNameService, lootGenerator: LootGenerator, applicationContext: ApplicationContext, locationLootGenerator: LocationLootGenerator, cloner: ICloner);
+    /** Handle client/match/local/start */
     startLocalRaid(sessionId: string, request: IStartLocalRaidRequestData): IStartLocalRaidResponseData;
     /**
-     * Generate a maps base location and loot
+     * Replace map exits with scav exits when player is scavving
+     * @param playerSide Playders side (savage/usec/bear)
+     * @param location id of map being loaded
+     * @param locationData Maps locationbase data
+     */
+    protected adjustExtracts(playerSide: string, location: string, locationData: ILocationBase): void;
+    /**
+     * Adjust the bot hostility values prior to entering a raid
+     * @param location map to adjust values of
+     */
+    protected adjustBotHostilitySettings(location: ILocationBase): void;
+    /**
+     * Generate a maps base location (cloned) and loot
      * @param name Map name
      * @returns ILocationBase
      */
@@ -109,7 +126,14 @@ export declare class LocationLifecycleService {
      */
     protected extractTakenWasCoop(extractName: string): boolean;
     protected handlePostRaidPlayerScav(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, isDead: boolean, request: IEndLocalRaidRequestData): void;
-    protected handlePostRaidPmc(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, postRaidProfile: IPmcData, isDead: boolean, request: IEndLocalRaidRequestData, locationName: string): void;
+    protected handlePostRaidPmc(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, postRaidProfile: IPmcData, isDead: boolean, isSurvived: boolean, request: IEndLocalRaidRequestData, locationName: string): void;
+    /**
+     * Convert post-raid quests into correct format
+     * Quest status comes back as a string version of the enum `Success`, not the expected value of 1
+     * @param questsToProcess
+     * @returns IQuestStatus
+     */
+    protected processPostRaidQuests(questsToProcess: IQuestStatus[]): IQuestStatus[];
     /**
      * Adjust server trader settings if they differ from data sent by client
      * @param tradersServerProfile Server
@@ -123,12 +147,19 @@ export declare class LocationLifecycleService {
      */
     protected handleBTRItemTransferEvent(sessionId: string, request: IEndLocalRaidRequestData): void;
     protected btrItemDelivery(sessionId: string, traderId: string, items: Item[]): void;
+    protected handleInsuredItemLostEvent(sessionId: string, preRaidPmcProfile: IPmcData, request: IEndLocalRaidRequestData, locationName: string): void;
     /**
      * Return the equipped items from a players inventory
      * @param items Players inventory to search through
      * @returns an array of equipped items
      */
     protected getEquippedGear(items: Item[]): Item[];
+    /**
+     * Checks to see if player survives. run through will return false
+     * @param statusOnExit Exit value from offraidData object
+     * @returns true if Survived
+     */
+    protected isPlayerSurvived(results: IEndRaidResult): boolean;
     /**
      * Is the player dead after a raid - dead = anything other than "survived" / "runner"
      * @param statusOnExit Exit value from offraidData object

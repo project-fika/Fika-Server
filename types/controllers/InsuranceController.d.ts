@@ -196,6 +196,14 @@ export declare class InsuranceController {
      */
     insure(pmcData: IPmcData, body: IInsureRequestData, sessionID: string): IItemEventRouterResponse;
     /**
+     *  Insure softinserts of Armor that has softinsert slots
+     * Allows armors to come back after being lost correctly
+     * @param item Armor item to be insured
+     * @param pmcData Player profile
+     * @param body Insurance request data
+     */
+    insureSoftInserts(item: Item, pmcData: IPmcData, body: IInsureRequestData): void;
+    /**
      * Handle client/insurance/items/list/cost
      * Calculate insurance cost
      *

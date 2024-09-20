@@ -152,7 +152,7 @@ export declare class QuestHelper {
     /**
      * Adjust quest money rewards by passed in multiplier
      * @param quest Quest to multiple money rewards
-     * @param bonusPercent Value to adjust money rewards by
+     * @param bonusPercent Pecent to adjust money rewards by
      * @param questStatus Status of quest to apply money boost to rewards of
      * @returns Updated quest
      */
@@ -259,7 +259,7 @@ export declare class QuestHelper {
      * @param pmcData player profile
      * @returns bonus as a percent
      */
-    protected getQuestMoneyRewardBonus(pmcData: IPmcData): number;
+    protected getQuestMoneyRewardBonusMultiplier(pmcData: IPmcData): number;
     /**
      * Find quest with 'findItem' condition that needs the item tpl be handed in
      * @param itemTpl item tpl to look for

@@ -10,6 +10,7 @@ import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IBotBase } from "@spt/models/eft/common/tables/IBotBase";
 import { IBotCore } from "@spt/models/eft/common/tables/IBotCore";
 import { Difficulty } from "@spt/models/eft/common/tables/IBotType";
+import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
 import { BotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
@@ -58,10 +59,11 @@ export declare class BotController {
      * Adjust PMC settings to ensure they engage the correct bot types
      * @param type what bot the server is requesting settings for
      * @param diffLevel difficulty level server requested settings for
+     * @param raidConfig OPTIONAL - applicationContext Data stored at start of raid
      * @param ignoreRaidSettings should raid settings chosen pre-raid be ignored
      * @returns Difficulty object
      */
-    getBotDifficulty(type: string, diffLevel: string, ignoreRaidSettings?: boolean): Difficulty;
+    getBotDifficulty(type: string, diffLevel: string, raidConfig?: IGetRaidConfigurationRequestData, ignoreRaidSettings?: boolean): Difficulty;
     getAllBotDifficulties(): Record<string, any>;
     /**
      * Generate bot profiles and store in cache

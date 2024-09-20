@@ -37,6 +37,7 @@ export declare class HideoutHelper {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     static bitcoinFarm: string;
+    static cultistCircleCraftId: string;
     static bitcoinProductionId: string;
     static waterCollector: string;
     static maxSkillPoint: number;
@@ -54,7 +55,7 @@ export declare class HideoutHelper {
      * This convenience function initializes new Production Object
      * with all the constants.
      */
-    initProduction(recipeId: string, productionTime: number, needFuelForAllProductionTime: boolean): Production;
+    initProduction(recipeId: string, productionTime: number, needFuelForAllProductionTime: boolean, isCultistCircle?: boolean): Production;
     /**
      * Is the provided object a Production type
      * @param productive
@@ -116,6 +117,8 @@ export declare class HideoutHelper {
         isGeneratorOn: boolean;
         waterCollectorHasFilter?: boolean;
     }): void;
+    protected updateCultistCircleCraftProgress(pmcData: IPmcData, prodId: string): void;
+    protected flagCultistCircleCraftAsComplete(production: Productive): void;
     /**
      * Check if a productions progress value matches its corresponding recipes production time value
      * @param pmcData Player profile

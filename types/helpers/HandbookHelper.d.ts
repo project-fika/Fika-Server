@@ -1,4 +1,4 @@
-import { Category } from "@spt/models/eft/common/tables/IHandbookBase";
+import { IHandbookCategory } from "@spt/models/eft/common/tables/IHandbookBase";
 import { Item } from "@spt/models/eft/common/tables/IItem";
 import { IItemConfig } from "@spt/models/spt/config/IItemConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
@@ -66,6 +66,6 @@ export declare class HandbookHelper {
      * @returns currency count in desired type
      */
     fromRUB(roubleCurrencyCount: number, currencyTypeTo: string): number;
-    getCategoryById(handbookId: string): Category;
+    getCategoryById(handbookId: string): IHandbookCategory;
 }
 export {};

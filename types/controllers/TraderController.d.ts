@@ -3,11 +3,13 @@ import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderAssortHelper } from "@spt/helpers/TraderAssortHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { ITraderAssort, ITraderBase } from "@spt/models/eft/common/tables/ITrader";
+import { IGetItemPricesResponse } from "@spt/models/eft/game/IGetItemPricesResponse";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { FenceService } from "@spt/services/FenceService";
+import { RagfairPriceService } from "@spt/services/RagfairPriceService";
 import { TraderAssortService } from "@spt/services/TraderAssortService";
 import { TraderPurchasePersisterService } from "@spt/services/TraderPurchasePersisterService";
 import { TimeUtil } from "@spt/utils/TimeUtil";
@@ -20,13 +22,14 @@ export declare class TraderController {
     protected profileHelper: ProfileHelper;
     protected traderHelper: TraderHelper;
     protected traderAssortService: TraderAssortService;
+    protected ragfairPriceService: RagfairPriceService;
     protected traderPurchasePersisterService: TraderPurchasePersisterService;
     protected fenceService: FenceService;
     protected fenceBaseAssortGenerator: FenceBaseAssortGenerator;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected traderConfig: ITraderConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, databaseService: DatabaseService, traderAssortHelper: TraderAssortHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, traderAssortService: TraderAssortService, traderPurchasePersisterService: TraderPurchasePersisterService, fenceService: FenceService, fenceBaseAssortGenerator: FenceBaseAssortGenerator, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, timeUtil: TimeUtil, databaseService: DatabaseService, traderAssortHelper: TraderAssortHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, traderAssortService: TraderAssortService, ragfairPriceService: RagfairPriceService, traderPurchasePersisterService: TraderPurchasePersisterService, fenceService: FenceService, fenceBaseAssortGenerator: FenceBaseAssortGenerator, configServer: ConfigServer, cloner: ICloner);
     /**
      * Runs when onLoad event is fired
      * Iterate over traders, ensure a pristine copy of their assorts is stored in traderAssortService
@@ -58,4 +61,6 @@ export declare class TraderController {
     getTrader(sessionID: string, traderID: string): ITraderBase;
     /** Handle client/trading/api/getTraderAssort */
     getAssort(sessionId: string, traderId: string): ITraderAssort;
+    /** Handle client/items/prices/TRADERID */
+    getItemPrices(sessionId: string, traderId: string): IGetItemPricesResponse;
 }

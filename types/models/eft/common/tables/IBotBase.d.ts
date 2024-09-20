@@ -12,6 +12,7 @@ export interface IBotBase {
     /** SPT property - use to store player id - TODO - move to AID ( account id as guid of choice) */
     sessionId: string;
     savage?: string;
+    karmaValue: number;
     Info: Info;
     Customization: Customization;
     Health: Health;
@@ -134,6 +135,7 @@ export interface BodyPartHealth {
     Effects?: Record<string, BodyPartEffectProperties>;
 }
 export interface BodyPartEffectProperties {
+    ExtraData?: any;
     Time: number;
 }
 export interface CurrentMax {
@@ -150,7 +152,7 @@ export interface Inventory {
     /** Key is hideout area enum numeric as string e.g. "24", value is area _id  */
     hideoutAreaStashes: Record<string, string>;
     fastPanel: Record<string, string>;
-    favoriteItems: string[];
+    favoriteItems: Item[];
 }
 export interface IBaseJsonSkills {
     Common: Record<string, Common>;
@@ -300,8 +302,16 @@ export interface Hideout {
     Production: Record<string, Productive>;
     Areas: HideoutArea[];
     Improvements: Record<string, IHideoutImprovement>;
+    HideoutCounters: IHideoutCounters;
     Seed: number;
+    MannequinPoses: string[];
     sptUpdateLastRunTimestamp: number;
+}
+export interface IHideoutCounters {
+    fuelCounter: number;
+    airFilterCounter: number;
+    waterFilterCounter: number;
+    craftingTimeCounter: number;
 }
 export interface IHideoutImprovement {
     completed: boolean;
@@ -313,11 +323,11 @@ export interface Productive {
     Progress?: number;
     /** Is craft in some state of being worked on by client (crafting/ready to pick up) */
     inProgress?: boolean;
-    StartTimestamp?: number;
+    StartTimestamp?: string;
     SkipTime?: number;
     /** Seconds needed to fully craft */
     ProductionTime?: number;
-    GivenItemsInStart?: string[];
+    GivenItemsInStart?: Item[];
     Interrupted?: boolean;
     Code?: string;
     Decoded?: boolean;
@@ -333,6 +343,7 @@ export interface Productive {
     sptIsContinuous?: boolean;
     /** Stores a list of tools used in this craft and whether they're FiR, to give back once the craft is done */
     sptRequiredTools?: Item[];
+    sptIsCultistCircle?: boolean;
 }
 export interface Production extends Productive {
     RecipeId: string;
@@ -392,7 +403,7 @@ export interface IQuestStatus {
     availableAfter?: number;
 }
 export interface TraderInfo {
-    loyaltyLevel: number;
+    loyaltyLevel?: number;
     salesSum: number;
     standing: number;
     nextResupply: number;

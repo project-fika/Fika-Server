@@ -275,6 +275,13 @@ export declare class ItemHelper {
      */
     findBarterItems(by: "tpl" | "id", itemsToSearch: Item[], desiredBarterItemIds: string | string[]): Item[];
     /**
+     * Replace the _id value for base item + all children that are children of it
+     * REPARENTS ROOT ITEM ID, NOTHING ELSE
+     * @param itemWithChildren Item with mods to update
+     * @param newId new id to add on chidren of base item
+     */
+    replaceRootItemID(itemWithChildren: Item[], newId?: string): void;
+    /**
      * Regenerate all GUIDs with new IDs, for the exception of special item types (e.g. quest, sorting table, etc.) This
      * function will not mutate the original items array, but will return a new array with new GUIDs.
      *
@@ -405,9 +412,9 @@ export declare class ItemHelper {
      * @param magazineWithChildCartridges Magazine to add child items to
      * @param magTemplate Db template of magazine
      * @param cartridgeTpl Cartridge to add to magazine
-     * @param minSizePercent % the magazine must be filled to
+     * @param minSizeMultiplier % the magazine must be filled to
      */
-    fillMagazineWithCartridge(magazineWithChildCartridges: Item[], magTemplate: ITemplateItem, cartridgeTpl: string, minSizePercent?: number): void;
+    fillMagazineWithCartridge(magazineWithChildCartridges: Item[], magTemplate: ITemplateItem, cartridgeTpl: string, minSizeMultiplier?: number): void;
     /**
      * Choose a random bullet type from the list of possible a magazine has
      * @param magTemplate Magazine template from Db
@@ -516,7 +523,18 @@ export declare class ItemHelper {
      * @returns True when upd object was added
      */
     addUpdObjectToItem(item: Item, warningMessageWhenMissing?: string): boolean;
+    /**
+     * Return all tpls from Money enum
+     * @returns string tpls
+     */
     getMoneyTpls(): string[];
+    /**
+     * Get a randomsied stack size for the passed in ammo
+     * @param ammoItemTemplate Ammo to get stack size for
+     * @param maxLimit default: Limit to 60 to prevent crazy values when players use stack increase mods
+     * @returns number
+     */
+    getRandomisedAmmoStackSize(ammoItemTemplate: ITemplateItem, maxLimit?: number): number;
 }
 declare namespace ItemHelper {
     interface ItemSize {

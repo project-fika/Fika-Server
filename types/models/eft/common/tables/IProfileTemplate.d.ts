@@ -21,9 +21,9 @@ export interface ITemplateSide {
     suits: string[];
     dialogues: Record<string, Dialogue>;
     userbuilds: IUserBuilds;
-    trader: ProfileTraderTemplate;
+    trader: IProfileTraderTemplate;
 }
-export interface ProfileTraderTemplate {
+export interface IProfileTraderTemplate {
     initialLoyaltyLevel: Record<string, number>;
     initialStanding: Record<string, number>;
     setQuestsAvailableForStart?: boolean;

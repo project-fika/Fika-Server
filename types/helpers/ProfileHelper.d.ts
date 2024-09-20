@@ -59,7 +59,12 @@ export declare class ProfileHelper {
      * @param scavProfile post-raid scav profile
      * @returns Updated profile array
      */
-    protected postRaidXpWorkaroundFix(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, output: IPmcData[]): IPmcData[];
+    protected postRaidXpWorkaroundFix(sessionId: string, clonedPmc: IPmcData, clonedScav: IPmcData, output: IPmcData[]): IPmcData[];
+    /**
+     * Sanitize any information from the profile that the client does not expect to receive
+     * @param clonedProfile A clone of the full player profile
+     */
+    protected sanitizeProfileForClient(clonedProfile: ISptProfile): void;
     /**
      * Check if a nickname is used by another profile loaded by the server
      * @param nicknameRequest nickname request object

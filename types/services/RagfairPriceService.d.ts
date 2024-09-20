@@ -5,7 +5,7 @@ import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { MinMax } from "@spt/models/common/MinMax";
 import { IPreset } from "@spt/models/eft/common/IGlobals";
-import { HandbookItem } from "@spt/models/eft/common/tables/IHandbookBase";
+import { IHandbookItem } from "@spt/models/eft/common/tables/IHandbookBase";
 import { Item } from "@spt/models/eft/common/tables/IItem";
 import { IBarterScheme } from "@spt/models/eft/common/tables/ITrader";
 import { IRagfairConfig, IUnreasonableModPrices } from "@spt/models/spt/config/IRagfairConfig";
@@ -114,7 +114,7 @@ export declare class RagfairPriceService implements OnLoad {
      * @param price Current price of item
      * @returns Adjusted price of item
      */
-    protected adjustUnreasonablePrice(handbookPrices: HandbookItem[], unreasonableItemChange: IUnreasonableModPrices, itemTpl: string, price: number): number;
+    protected adjustUnreasonablePrice(handbookPrices: IHandbookItem[], unreasonableItemChange: IUnreasonableModPrices, itemTpl: string, price: number): number;
     /**
      * Get different min/max price multipliers for different offer types (preset/pack/default)
      * @param isPreset Offer is a preset

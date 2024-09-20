@@ -1,7 +1,6 @@
 import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IInRaidConfig extends IBaseConfig {
     kind: "spt-inraid";
-    MIAOnRaidEnd: boolean;
     /** Overrides to apply to the pre-raid settings screen */
     raidMenuSettings: RaidMenuSettings;
     /** What effects should be saved post-raid */
@@ -20,6 +19,8 @@ export interface IInRaidConfig extends IBaseConfig {
     pmcKillProbabilityForScavGain: number;
     /** On death should items in your secure keep their Find in raid status regardless of how you finished the raid */
     keepFiRSecureContainerOnDeath: boolean;
+    /** If enabled always keep found in raid status on items */
+    alwaysKeepFoundInRaidonRaidEnd: boolean;
     /** Percentage chance a player scav hot is hostile to the player when scavving */
     playerScavHostileChancePercent: number;
 }

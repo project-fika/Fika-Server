@@ -186,6 +186,7 @@ export interface IAdditionalHostilitySettings {
     ChancedEnemies: IChancedEnemy[];
     Neutral: string[];
     SavagePlayerBehaviour: string;
+    SavageEnemyChance?: number;
     UsecEnemyChance: number;
     UsecPlayerBehaviour: string;
     Warn: string[];

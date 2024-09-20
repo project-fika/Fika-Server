@@ -7,7 +7,7 @@ import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderAssortHelper } from "@spt/helpers/TraderAssortHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { Inventory } from "@spt/models/eft/common/tables/IBotBase";
-import { Item, Upd } from "@spt/models/eft/common/tables/IItem";
+import { Item, Location, Upd } from "@spt/models/eft/common/tables/IItem";
 import { IAddItemDirectRequest } from "@spt/models/eft/inventory/IAddItemDirectRequest";
 import { IAddItemsDirectRequest } from "@spt/models/eft/inventory/IAddItemsDirectRequest";
 import { IInventoryMergeRequestData } from "@spt/models/eft/inventory/IInventoryMergeRequestData";
@@ -162,13 +162,15 @@ export declare class InventoryHelper {
      */
     protected getBlankContainerMap(containerH: number, containerY: number): number[][];
     /**
+     * Get a 2d mapping of a container with what grid slots are filled
      * @param containerH Horizontal size of container
      * @param containerV Vertical size of container
-     * @param itemList
+     * @param itemList Players inventory items
      * @param containerId Id of the container
      * @returns Two-dimensional representation of container
      */
     getContainerMap(containerH: number, containerV: number, itemList: Item[], containerId: string): number[][];
+    protected isVertical(itemLocation: Location): boolean;
     protected getInventoryItemHash(inventoryItem: Item[]): InventoryHelper.InventoryItemHash;
     /**
      * Return the inventory that needs to be modified (scav/pmc etc)

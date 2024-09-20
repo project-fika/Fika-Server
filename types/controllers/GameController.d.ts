@@ -74,6 +74,7 @@ export declare class GameController {
      * Handle client/game/start
      */
     gameStart(_url: string, _info: IEmptyRequestData, sessionID: string, startTimeStampMS: number): void;
+    protected migrate39xProfile(fullProfile: ISptProfile): void;
     protected adjustHideoutCraftTimes(overrideSeconds: number): void;
     /**
      * Adjust all hideout craft times to be no higher than the override

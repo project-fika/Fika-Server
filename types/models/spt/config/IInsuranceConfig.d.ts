@@ -13,4 +13,5 @@ export interface IInsuranceConfig extends IBaseConfig {
     runIntervalSeconds: number;
     minAttachmentRoublePriceToBeTaken: number;
     chanceNoAttachmentsTakenPercent: number;
+    simulateItemsBeingTaken: boolean;
 }

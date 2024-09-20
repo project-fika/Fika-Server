@@ -134,12 +134,6 @@ export declare class LocationLootGenerator {
      */
     protected createDynamicLootItem(chosenComposedKey: string, spawnPoint: Spawnpoint, staticAmmoDist: Record<string, IStaticAmmoDetails[]>): IContainerItem;
     /**
-     * Replace the _id value for base item + all children items parentid value
-     * @param itemWithChildren Item with mods to update
-     * @param newId new id to add on chidren of base item
-     */
-    protected reparentItemAndChildren(itemWithChildren: Item[], newId?: string): void;
-    /**
      * Find an item in array by its _tpl, handle differently if chosenTpl is a weapon
      * @param items Items array to search
      * @param chosenTpl Tpl we want to get item with

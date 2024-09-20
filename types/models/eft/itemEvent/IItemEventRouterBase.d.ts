@@ -35,8 +35,8 @@ export interface ProfileChange {
     questsStatus: IQuestStatus[];
 }
 export interface IHideoutStashItem {
-    Id: string;
-    Tpl: string;
+    id: string;
+    tpl: string;
 }
 export interface IWeaponBuildChange {
     id: string;

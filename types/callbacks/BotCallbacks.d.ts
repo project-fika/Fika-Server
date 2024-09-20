@@ -1,3 +1,4 @@
+import { ApplicationContext } from "@spt/context/ApplicationContext";
 import { BotController } from "@spt/controllers/BotController";
 import { IGenerateBotsRequestData } from "@spt/models/eft/bot/IGenerateBotsRequestData";
 import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
@@ -8,7 +9,8 @@ import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 export declare class BotCallbacks {
     protected botController: BotController;
     protected httpResponse: HttpResponseUtil;
-    constructor(botController: BotController, httpResponse: HttpResponseUtil);
+    protected applicationContext: ApplicationContext;
+    constructor(botController: BotController, httpResponse: HttpResponseUtil, applicationContext: ApplicationContext);
     /**
      * Handle singleplayer/settings/bot/limit
      * Is called by client to define each bot roles wave limit

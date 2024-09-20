@@ -3,8 +3,8 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { Item } from "@spt/models/eft/common/tables/IItem";
-import { ProfileTraderTemplate } from "@spt/models/eft/common/tables/IProfileTemplate";
-import { ITraderAssort, ITraderBase, LoyaltyLevel } from "@spt/models/eft/common/tables/ITrader";
+import { IProfileTraderTemplate } from "@spt/models/eft/common/tables/IProfileTemplate";
+import { ITraderAssort, ITraderBase, ITraderLoyaltyLevel } from "@spt/models/eft/common/tables/ITrader";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { Traders } from "@spt/models/enums/Traders";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
@@ -66,7 +66,7 @@ export declare class TraderHelper {
      * @param rawProfileTemplate Raw profile from profiles.json to look up standing from
      * @returns Standing value
      */
-    protected getStartingStanding(traderId: string, rawProfileTemplate: ProfileTraderTemplate): number;
+    protected getStartingStanding(traderId: string, rawProfileTemplate: IProfileTraderTemplate): number;
     /**
      * Add an array of suit ids to a profiles suit array, no duplicates
      * @param fullProfile Profile to add to
@@ -118,7 +118,7 @@ export declare class TraderHelper {
      * @returns Time in seconds
      */
     getTraderUpdateSeconds(traderId: string): number | undefined;
-    getLoyaltyLevel(traderID: string, pmcData: IPmcData): LoyaltyLevel;
+    getLoyaltyLevel(traderID: string, pmcData: IPmcData): ITraderLoyaltyLevel;
     /**
      * Store the purchase of an assort from a trader in the player profile
      * @param sessionID Session id
