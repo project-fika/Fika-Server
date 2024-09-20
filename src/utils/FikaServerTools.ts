@@ -8,6 +8,7 @@ import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
 import { ChildProcessWithoutNullStreams, spawn } from "child_process";
 import path from "node:path";
 import fs from 'fs';
+import os from 'os';
 
 @injectable()
 export class FikaServerTools {
@@ -23,7 +24,16 @@ export class FikaServerTools {
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("ConfigServer") protected configServer: ConfigServer,
     ) {
-        this.exePath = path.join(path.join(__dirname, "../../"), "FikaServerTools.exe");
+        switch(os.platform()) { 
+            case 'linux': {
+                this.exePath = path.join(path.join(__dirname, "../../"), "FikaServerTools");
+               break; 
+            } 
+            default: {
+                this.exePath = path.join(path.join(__dirname, "../../"), "FikaServerTools.exe");
+                break;
+            }
+        } 
         this.natPunchServerConfig = fikaConfig.getConfig().natPunchServer;
         this.httpConfig = this.configServer.getConfig(ConfigTypes.HTTP);
     }
