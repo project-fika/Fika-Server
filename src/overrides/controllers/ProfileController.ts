@@ -10,6 +10,8 @@ import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResp
 
 import { Override } from "../../di/Override";
 import { FikaConfig } from "../../utils/FikaConfig";
+import { Item } from "@spt/models/eft/common/tables/IItem";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
 
 @injectable()
 export class ProfileControllerOverride extends Override {
@@ -79,6 +81,19 @@ export class ProfileControllerOverride extends Override {
                     const playerPmc = player.characters.pmc;
                     const playerScav = player.characters.scav;
 
+                    const favoriteItems: Item[] = [];
+
+                    playerPmc.Inventory.favoriteItems.forEach(item => {
+                        let favoriteItem = playerPmc.Inventory.items.find(i => i._id === item);
+
+                        if(favoriteItem === undefined)
+                        {
+                            return;
+                        }
+
+                        favoriteItems.push(favoriteItem);
+                    });
+
                     return {
                         id: playerPmc._id,
                         aid: playerPmc.aid,
@@ -104,7 +119,7 @@ export class ProfileControllerOverride extends Override {
                             Items: playerPmc.Inventory.items,
                         },
                         achievements: playerPmc.Achievements,
-                        favoriteItems: playerPmc.Inventory.favoriteItems ?? [],
+                        favoriteItems: favoriteItems,
                         pmcStats: {
                             eft: {
                                 totalInGameTime: playerPmc.Stats.Eft.TotalInGameTime,
