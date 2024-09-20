@@ -81,19 +81,6 @@ export class ProfileControllerOverride extends Override {
                     const playerPmc = player.characters.pmc;
                     const playerScav = player.characters.scav;
 
-                    const favoriteItems: Item[] = [];
-
-                    playerPmc.Inventory.favoriteItems.forEach(item => {
-                        let favoriteItem = playerPmc.Inventory.items.find(i => i._id === item);
-
-                        if(favoriteItem === undefined)
-                        {
-                            return;
-                        }
-
-                        favoriteItems.push(favoriteItem);
-                    });
-
                     return {
                         id: playerPmc._id,
                         aid: playerPmc.aid,
@@ -119,7 +106,7 @@ export class ProfileControllerOverride extends Override {
                             Items: playerPmc.Inventory.items,
                         },
                         achievements: playerPmc.Achievements,
-                        favoriteItems: favoriteItems,
+                        favoriteItems: playerPmc.Inventory.favoriteItems ?? [],
                         pmcStats: {
                             eft: {
                                 totalInGameTime: playerPmc.Stats.Eft.TotalInGameTime,
