@@ -62,7 +62,7 @@ export class FikaRaidController {
             expectedNumberOfPlayers: match.expectedNumberOfPlayers,
             gameVersion: match.gameVersion,
             fikaVersion: match.fikaVersion,
-            raidCode: match.raidCode,
+            raidCode: match.raidCode
         };
     }
 
@@ -110,6 +110,8 @@ export class FikaRaidController {
         return {
             metabolismDisabled: match.raidConfig.metabolismDisabled,
             playersSpawnPlace: match.raidConfig.playersSpawnPlace,
+            hourOfDay: match.raidConfig.timeAndWeatherSettings.hourOfDay,
+            timeFlowType: match.raidConfig.timeAndWeatherSettings.timeFlowType
         };
     }
 
@@ -187,7 +189,7 @@ export class FikaRaidController {
     public handleRaidStatusDedicated(sessionId: string, info: IStatusDedicatedRequest): IStatusDedicatedResponse {
 
         // Temp fix because the enum gets deserialized as a string instead of an integer
-        switch(info.status.toString()) {
+        switch (info.status.toString()) {
             case "READY":
                 info.status = DedicatedStatus.READY;
                 break;
