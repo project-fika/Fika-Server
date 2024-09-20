@@ -21,7 +21,7 @@ export class FikaAchievementController {
         for (const achievement of achievements) {
             let percentage = 0;
             for (const profile of profiles) {
-                if (profile.info?.username?.startsWith("dedicated_")) {
+                if (profile.info?.password === "fika-dedicated") {
                     continue;
                 }
 
