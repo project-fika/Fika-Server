@@ -4,5 +4,6 @@ export declare enum TraderServiceType {
     CULTISTS_AID = "CultistsAid",
     BTR_ITEMS_DELIVERY = "BtrItemsDelivery",
     PLAYER_TAXI = "PlayerTaxi",
-    BTR_BOT_COVER = "BtrBotCover"
+    BTR_BOT_COVER = "BtrBotCover",
+    TRANSIT_ITEMS_DELIVERY = "TransitItemsDelivery"
 }

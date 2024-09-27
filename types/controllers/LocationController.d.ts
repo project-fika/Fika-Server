@@ -1,4 +1,5 @@
 import { ILocationsGenerateAllResponse } from "@spt/models/eft/common/ILocationsSourceDestinationBase";
+import { IGetAirdropLootRequest } from "@spt/models/eft/location/IGetAirdropLootRequest";
 import { IGetAirdropLootResponse } from "@spt/models/eft/location/IGetAirdropLootResponse";
 import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -22,5 +23,5 @@ export declare class LocationController {
      */
     generateAll(sessionId: string): ILocationsGenerateAllResponse;
     /** Handle client/airdrop/loot */
-    getAirdropLoot(): IGetAirdropLootResponse;
+    getAirdropLoot(request: IGetAirdropLootRequest): IGetAirdropLootResponse;
 }

@@ -37,6 +37,7 @@ export declare class LootGenerator {
      * @returns An array of loot items
      */
     createRandomLoot(options: LootRequest): IItem[];
+    createForcedLoot(airdropConfig: LootRequest): IItem[];
     protected getItemRewardPool(itemTplBlacklist: string[], itemTypeWhitelist: string[], useRewardItemBlacklist: boolean, allowBossItems: boolean): {
         itemPool: [string, ITemplateItem][];
         blacklist: Set<string>;

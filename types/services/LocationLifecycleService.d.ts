@@ -141,13 +141,12 @@ export declare class LocationLifecycleService {
      */
     protected applyTraderStandingAdjustments(tradersServerProfile: Record<string, ITraderInfo>, tradersClientProfile: Record<string, ITraderInfo>): void;
     /**
-     * Check if player used BTR item sending service and send items to player via mail if found
+     * Check if player used BTR or transit item sending service and send items to player via mail if found
      * @param sessionId Session id
      * @param request End raid request
      */
-    protected handleBTRItemTransferEvent(sessionId: string, request: IEndLocalRaidRequestData): void;
-    protected btrItemDelivery(sessionId: string, traderId: string, items: IItem[]): void;
-    protected handleTransitItemTransferEvent(sessionId: string, request: IEndLocalRaidRequestData): void;
+    protected handleItemTransferEvent(sessionId: string, request: IEndLocalRaidRequestData): void;
+    protected transferItemDelivery(sessionId: string, traderId: string, items: IItem[]): void;
     protected handleInsuredItemLostEvent(sessionId: string, preRaidPmcProfile: IPmcData, request: IEndLocalRaidRequestData, locationName: string): void;
     /**
      * Return the equipped items from a players inventory

@@ -6,6 +6,7 @@ export interface IAirdropConfig extends IBaseConfig {
     airdropTypeWeightings: Record<AirdropTypeEnum, number>;
     /** What rewards will the loot crate contain, keyed by drop type e.g. mixed/weaponArmor/foodMedical/barter */
     loot: Record<string, IAirdropLoot>;
+    customAirdropMapping: Record<string, AirdropTypeEnum>;
 }
 /** Chance map will have an airdrop occur out of 100 - locations not included count as 0% */
 export interface IAirdropChancePercent {
@@ -20,6 +21,7 @@ export interface IAirdropChancePercent {
 }
 /** Loot inside crate */
 export interface IAirdropLoot {
+    icon: AirdropTypeEnum;
     /** Min/max of weapons inside crate */
     weaponPresetCount?: MinMax;
     /** Min/max of armors (head/chest/rig) inside crate */
@@ -40,4 +42,6 @@ export interface IAirdropLoot {
     armorLevelWhitelist?: number[];
     /** Should boss items be added to airdrop crate */
     allowBossItems: boolean;
+    useForcedLoot?: boolean;
+    forcedLoot?: Record<string, MinMax>;
 }

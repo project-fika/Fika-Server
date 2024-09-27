@@ -74,5 +74,7 @@ declare const _default: {
     "5e81ebcd8e146c7080625e15": string;
     "639c3fbbd0446708ee622ee9": string;
     "639af924d0446708ee62294e": string;
+    "66da1b49099cf6adcc07a36b": string;
+    "66da1b546916142b3b022777": string;
 };
 export default _default;
