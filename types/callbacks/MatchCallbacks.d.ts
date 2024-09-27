@@ -48,6 +48,7 @@ export declare class MatchCallbacks {
     /** Handle client/match/group/invite/cancel-all */
     cancelAllGroupInvite(url: string, info: IEmptyRequestData, sessionId: string): IGetBodyResponseData<boolean>;
     putMetrics(url: string, request: IPutMetricsRequestData, sessionId: string): INullResponseData;
+    eventDisconnect(url: string, request: IPutMetricsRequestData, sessionId: string): INullResponseData;
     serverAvailable(url: string, info: IEmptyRequestData, sessionId: string): IGetBodyResponseData<boolean>;
     /** Handle match/group/start_game */
     joinMatch(url: string, info: IMatchGroupStartGameRequest, sessionID: string): IGetBodyResponseData<IProfileStatusResponse>;

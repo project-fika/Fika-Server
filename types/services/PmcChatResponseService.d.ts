@@ -1,7 +1,7 @@
 import { NotificationSendHelper } from "@spt/helpers/NotificationSendHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Aggressor, Victim } from "@spt/models/eft/common/tables/IBotBase";
+import { IAggressor, IVictim } from "@spt/models/eft/common/tables/IBotBase";
 import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
 import { IGiftsConfig } from "@spt/models/spt/config/IGiftsConfig";
 import { IPmcChatResponse } from "@spt/models/spt/config/IPmChatResponse";
@@ -31,14 +31,14 @@ export declare class PmcChatResponseService {
      * @param pmcVictims Array of bots killed by player
      * @param pmcData Player profile
      */
-    sendVictimResponse(sessionId: string, pmcVictims: Victim[], pmcData: IPmcData): void;
+    sendVictimResponse(sessionId: string, pmcVictims: IVictim[], pmcData: IPmcData): void;
     /**
      * Not fully implemented yet, needs method of acquiring killers details after raid
      * @param sessionId Session id
      * @param pmcData Players profile
      * @param killer The bot who killed the player
      */
-    sendKillerResponse(sessionId: string, pmcData: IPmcData, killer: Aggressor): void;
+    sendKillerResponse(sessionId: string, pmcData: IPmcData, killer: IAggressor): void;
     /**
      * Choose a localised message to send the player (different if sender was killed or killed player)
      * @param isVictim Is the message coming from a bot killed by the player
@@ -87,11 +87,11 @@ export declare class PmcChatResponseService {
      * @param pmcVictims Possible victims to choose from
      * @returns IUserDialogInfo
      */
-    protected chooseRandomVictim(pmcVictims: Victim[]): IUserDialogInfo;
+    protected chooseRandomVictim(pmcVictims: IVictim[]): IUserDialogInfo;
     /**
      * Convert a victim object into a IUserDialogInfo object
      * @param pmcVictim victim to convert
      * @returns IUserDialogInfo
      */
-    protected getVictimDetails(pmcVictim: Victim): IUserDialogInfo;
+    protected getVictimDetails(pmcVictim: IVictim): IUserDialogInfo;
 }

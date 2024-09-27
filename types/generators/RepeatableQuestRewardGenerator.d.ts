@@ -1,7 +1,7 @@
 import { HandbookHelper } from "@spt/helpers/HandbookHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IQuestReward, IQuestRewards } from "@spt/models/eft/common/tables/IQuest";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBaseQuestConfig, IQuestConfig, IRepeatableQuestConfig, IRewardScaling } from "@spt/models/spt/config/IQuestConfig";
@@ -133,7 +133,7 @@ export declare class RepeatableQuestRewardGenerator {
      * @param preset Optional array of preset items
      * @returns {object}                    Object of "Reward"-item-type
      */
-    protected generatePresetReward(tpl: string, count: number, index: number, preset?: Item[]): IQuestReward;
+    protected generatePresetReward(tpl: string, count: number, index: number, preset?: IItem[]): IQuestReward;
     /**
      * Picks rewardable items from items.json
      * This means they must:

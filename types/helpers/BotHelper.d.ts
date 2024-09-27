@@ -1,5 +1,5 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import { Difficulty, IBotType } from "@spt/models/eft/common/tables/IBotType";
+import { IBotType, IDifficultyCategories } from "@spt/models/eft/common/tables/IBotType";
 import { EquipmentFilters, IBotConfig, RandomisationDetails } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -33,20 +33,15 @@ export declare class BotHelper {
      * @param difficultySettings bot settings to alter
      * @param typeToAdd bot type to add to friendly list
      */
-    addBotToFriendlyList(difficultySettings: Difficulty, typeToAdd: string): void;
+    addBotToFriendlyList(difficultySettings: IDifficultyCategories, typeToAdd: string): void;
     /**
      * Add a bot to the REVENGE_BOT_TYPES array
      * @param difficultySettings bot settings to alter
      * @param typesToAdd bot type to add to revenge list
      */
-    addBotToRevengeList(difficultySettings: Difficulty, typesToAdd: string[]): void;
-    /**
-     * Choose if a bot should become a PMC by checking if bot type is allowed to become a Pmc in botConfig.convertFromChances and doing a random int check
-     * @param botRole the bot role to check if should be a pmc
-     * @returns true if should be a pmc
-     */
-    shouldBotBePmc(botRole: string): boolean;
-    rollChanceToBePmc(role: string, botConvertMinMax: MinMax): boolean;
+    addBotToRevengeList(difficultySettings: IDifficultyCategories, typesToAdd: string[]): void;
+    rollChanceToBePmc(botConvertMinMax: MinMax): boolean;
+    protected getPmcConversionValuesForLocation(location: string): Record<string, MinMax>;
     /**
      * is the provided role a PMC, case-agnostic
      * @param botRole Role to check

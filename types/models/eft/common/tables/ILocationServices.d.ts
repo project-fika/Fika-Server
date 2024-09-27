@@ -4,15 +4,16 @@ export interface ILocationServices {
     BTRServerSettings: IBtrServerSettings;
 }
 export interface ITraderServerSettings {
-    TraderServices: TraderServices;
+    TraderServices: ITraderServices;
 }
-export interface TraderServices {
+export interface ITraderServices {
     ExUsecLoyalty: ITraderService;
     ZryachiyAid: ITraderService;
     CultistsAid: ITraderService;
     PlayerTaxi: ITraderService;
     BtrItemsDelivery: ITraderService;
     BtrBotCover: ITraderService;
+    TransitItemsDelivery: ITraderService;
 }
 export interface ITraderService {
     TraderId: string;

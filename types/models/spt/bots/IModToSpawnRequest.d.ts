@@ -1,4 +1,4 @@
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ModSpawn } from "@spt/models/enums/ModSpawn";
 import { IBotData, IWeaponStats } from "@spt/models/spt/bots/IGenerateWeaponRequest";
@@ -15,7 +15,7 @@ export interface IModToSpawnRequest {
     /** Pool of items to pick from */
     itemModPool: Record<string, string[]>;
     /** Array with only weapon tpl in it, ready for mods to be added */
-    weapon: Item[];
+    weapon: IItem[];
     /** Ammo tpl to use if slot requires a cartridge to be added (e.g. mod_magazine) */
     ammoTpl: string;
     /** Parent item the mod will go into */

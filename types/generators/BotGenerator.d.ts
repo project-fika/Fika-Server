@@ -3,8 +3,8 @@ import { BotLevelGenerator } from "@spt/generators/BotLevelGenerator";
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
-import { IBaseJsonSkills, IBaseSkill, IBotBase, Info, Health as PmcHealth, Skills as botSkills } from "@spt/models/eft/common/tables/IBotBase";
-import { Appearance, BodyPart, Health, IBotType, Inventory } from "@spt/models/eft/common/tables/IBotType";
+import { IBaseJsonSkills, IBaseSkill, IBotBase, IInfo, IHealth as PmcHealth, ISkills as botSkills } from "@spt/models/eft/common/tables/IBotBase";
+import { IAppearance, IBodyPart, IBotType, IHealth, IInventory } from "@spt/models/eft/common/tables/IBotType";
 import { BotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
@@ -81,14 +81,14 @@ export declare class BotGenerator {
      * Remove items from item.json/lootableItemBlacklist from bots inventory
      * @param botInventory Bot to filter
      */
-    protected removeBlacklistedLootFromBotTemplate(botInventory: Inventory): void;
+    protected removeBlacklistedLootFromBotTemplate(botInventory: IInventory): void;
     /**
      * Choose various appearance settings for a bot using weights: head/body/feet/hands
      * @param bot Bot to adjust
      * @param appearance Appearance settings to choose from
      * @param botGenerationDetails Generation details
      */
-    protected setBotAppearance(bot: IBotBase, appearance: Appearance, botGenerationDetails: BotGenerationDetails): void;
+    protected setBotAppearance(bot: IBotBase, appearance: IAppearance, botGenerationDetails: BotGenerationDetails): void;
     /**
      * Log the number of PMCs generated to the debug console
      * @param output Generated bot array, ready to send to client
@@ -100,13 +100,13 @@ export declare class BotGenerator {
      * @param playerScav Is a pscav bot being generated
      * @returns PmcHealth object
      */
-    protected generateHealth(healthObj: Health, playerScav?: boolean): PmcHealth;
+    protected generateHealth(healthObj: IHealth, playerScav?: boolean): PmcHealth;
     /**
      * Sum up body parts max hp values, return the bodypart collection with lowest value
      * @param bodies Body parts to sum up
      * @returns Lowest hp collection
      */
-    protected getLowestHpBody(bodies: BodyPart[]): BodyPart | undefined;
+    protected getLowestHpBody(bodies: IBodyPart[]): IBodyPart | undefined;
     /**
      * Get a bots skills with randomsied progress value between the min and max values
      * @param botSkills Skills that should have their progress value randomised
@@ -139,7 +139,7 @@ export declare class BotGenerator {
      * @param botInfo bot info object to update
      * @returns Chosen game version
      */
-    protected setRandomisedGameVersionAndCategory(botInfo: Info): string;
+    protected setRandomisedGameVersionAndCategory(botInfo: IInfo): string;
     /**
      * Add a side-specific (usec/bear) dogtag item to a bots inventory
      * @param bot bot to add dogtag to

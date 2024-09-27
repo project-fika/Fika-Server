@@ -2,7 +2,7 @@ import { HandbookHelper } from "@spt/helpers/HandbookHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IProfileTraderTemplate } from "@spt/models/eft/common/tables/IProfileTemplate";
 import { ITraderAssort, ITraderBase, ITraderLoyaltyLevel } from "@spt/models/eft/common/tables/ITrader";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
@@ -52,7 +52,7 @@ export declare class TraderHelper {
      * @param assortId Id of assort to find
      * @returns Item object
      */
-    getTraderAssortItemByAssortId(traderId: string, assortId: string): Item | undefined;
+    getTraderAssortItemByAssortId(traderId: string, assortId: string): IItem | undefined;
     /**
      * Reset a profiles trader data back to its initial state as seen by a level 1 player
      * Does NOT take into account different profile levels
@@ -130,7 +130,7 @@ export declare class TraderHelper {
             count: number;
         }[];
         traderId: string;
-    }, itemPurchased: Item): void;
+    }, itemPurchased: IItem): void;
     /**
      * EoD and Unheard get a 20% bonus to personal trader limit purchases
      * @param buyRestrictionMax Existing value from trader item

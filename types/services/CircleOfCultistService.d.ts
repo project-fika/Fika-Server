@@ -4,8 +4,8 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { HideoutArea } from "@spt/models/eft/common/tables/IBotBase";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IBotHideoutArea } from "@spt/models/eft/common/tables/IBotBase";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IStageRequirement } from "@spt/models/eft/hideout/IHideoutArea";
 import { IHideoutCircleOfCultistProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutCircleOfCultistProductionStartRequestData";
 import { IHideoutProduction, IHideoutProductionData, IRequirementBase, Requirement } from "@spt/models/eft/hideout/IHideoutProduction";
@@ -59,7 +59,7 @@ export declare class CircleOfCultistService {
      * @param rewardAmountRoubles Rouble amount to reward player in items with
      * @param directRewardSettings OPTIONAL: If craft is giving direct rewards
      */
-    protected registerCircleOfCultistProduction(sessionId: string, pmcData: IPmcData, recipeId: string, sacrificedItems: Item[], rewardAmountRoubles: number, directRewardSettings?: DirectRewardSettings): void;
+    protected registerCircleOfCultistProduction(sessionId: string, pmcData: IPmcData, recipeId: string, sacrificedItems: IItem[], rewardAmountRoubles: number, directRewardSettings?: DirectRewardSettings): void;
     /**
      * Get the circle craft time as seconds, value is based on reward item value
      * OR rewards are direct, then use custom craft time defined in oarameter object
@@ -73,7 +73,7 @@ export declare class CircleOfCultistService {
      * @param pmcData Player profile
      * @returns Array of its from player inventory
      */
-    protected getSacrificedItems(pmcData: IPmcData): Item[];
+    protected getSacrificedItems(pmcData: IPmcData): IItem[];
     /**
      * Given a pool of items + rouble budget, pick items until the budget is reached
      * @param rewardItemTplPool Items that can be picekd
@@ -81,14 +81,14 @@ export declare class CircleOfCultistService {
      * @param cultistCircleStashId Id of stash item
      * @returns Array of item arrays
      */
-    protected getRewardsWithinBudget(rewardItemTplPool: string[], rewardBudget: number, cultistCircleStashId: string): Item[][];
+    protected getRewardsWithinBudget(rewardItemTplPool: string[], rewardBudget: number, cultistCircleStashId: string): IItem[][];
     /**
      * Give every item as a reward that's passed in
      * @param rewardTpls Item tpls to turn into reward items
      * @param cultistCircleStashId Id of stash item
      * @returns Array of item arrays
      */
-    protected getExplicitRewards(explicitRewardSettings: DirectRewardSettings, cultistCircleStashId: string): Item[][];
+    protected getExplicitRewards(explicitRewardSettings: DirectRewardSettings, cultistCircleStashId: string): IItem[][];
     /**
      * Explicit rewards have thier own stack sizes as they dont use a reward rouble pool
      * @param rewardTpl Item being rewarded to get stack size of
@@ -115,7 +115,7 @@ export declare class CircleOfCultistService {
      * @param areas Hideout areas to iterate over
      * @returns Active area array
      */
-    protected getPlayerAccessibleHideoutAreas(areas: HideoutArea[]): HideoutArea[];
+    protected getPlayerAccessibleHideoutAreas(areas: IBotHideoutArea[]): IBotHideoutArea[];
     /**
      * Get all recipes the player has access to, includes base + unlocked recipes
      * @param unlockedRecipes Recipes player has flagged as unlocked

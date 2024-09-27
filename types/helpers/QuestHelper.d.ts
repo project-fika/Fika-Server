@@ -8,7 +8,7 @@ import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { Common, IQuestStatus } from "@spt/models/eft/common/tables/IBotBase";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IQuest, IQuestCondition, IQuestReward } from "@spt/models/eft/common/tables/IQuest";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { IAcceptQuestRequestData } from "@spt/models/eft/quests/IAcceptQuestRequestData";
@@ -102,20 +102,20 @@ export declare class QuestHelper {
      * @param questReward Reward item to fix
      * @returns Fixed rewards
      */
-    protected processReward(questReward: IQuestReward): Item[];
+    protected processReward(questReward: IQuestReward): IItem[];
     /**
      * Add missing mod items to a quest armor reward
      * @param originalRewardRootItem Original armor reward item from IQuestReward.items object
      * @param questReward Armor reward from quest
      */
-    protected generateArmorRewardChildSlots(originalRewardRootItem: Item, questReward: IQuestReward): void;
+    protected generateArmorRewardChildSlots(originalRewardRootItem: IItem, questReward: IQuestReward): void;
     /**
      * Gets a flat list of reward items for the given quest at a specific state (e.g. Fail/Success)
      * @param quest quest to get rewards for
      * @param status Quest status that holds the items (Started, Success, Fail)
      * @returns array of items with the correct maxStack
      */
-    getQuestRewardItems(quest: IQuest, status: QuestStatus): Item[];
+    getQuestRewardItems(quest: IQuest, status: QuestStatus): IItem[];
     /**
      * Look up quest in db by accepted quest id and construct a profile-ready object ready to store in profile
      * @param pmcData Player profile
@@ -142,6 +142,22 @@ export declare class QuestHelper {
      * @param questId QuestId to check
      */
     questIsForOtherSide(playerSide: string, questId: string): boolean;
+    /**
+     * Is the provided quest prevented from being viewed by the provided game version
+     * (Inclusive filter)
+     * @param gameVersion Game version to check against
+     * @param questId Quest id to check
+     * @returns True Quest should not be visible to game version
+     */
+    protected questIsProfileBlacklisted(gameVersion: string, questId: string): boolean;
+    /**
+     * Is the provided quest able to be seen by the provided game version
+     * (Exclusive filter)
+     * @param gameVersion Game version to check against
+     * @param questId Quest id to check
+     * @returns True Quest should be visible to game version
+     */
+    protected questIsProfileWhitelisted(gameVersion: string, questId: string): boolean;
     /**
      * Get quests that can be shown to player after failing a quest
      * @param failedQuestId Id of the quest failed by player
@@ -173,7 +189,7 @@ export declare class QuestHelper {
      * @param sessionId Session id
      * @param item Item that was adjusted
      */
-    protected addItemStackSizeChangeIntoEventResponse(output: IItemEventRouterResponse, sessionId: string, item: Item): void;
+    protected addItemStackSizeChangeIntoEventResponse(output: IItemEventRouterResponse, sessionId: string, item: IItem): void;
     /**
      * Get quests, strip all requirement conditions except level
      * @param quests quests to process
@@ -243,7 +259,7 @@ export declare class QuestHelper {
      * @param questResponse Response to send back to client
      * @returns Array of reward objects
      */
-    applyQuestReward(profileData: IPmcData, questId: string, state: QuestStatus, sessionId: string, questResponse: IItemEventRouterResponse): Item[];
+    applyQuestReward(profileData: IPmcData, questId: string, state: QuestStatus, sessionId: string, questResponse: IItemEventRouterResponse): IItem[];
     /**
      * WIP - Find hideout craft id and add to unlockedProductionRecipe array in player profile
      * also update client response recipeUnlocked array with craft id

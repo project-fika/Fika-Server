@@ -1,5 +1,5 @@
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { EquipmentBuildType } from "@spt/models/enums/EquipmentBuildType";
 import { MemberCategory } from "@spt/models/enums/MemberCategory";
 import { MessageType } from "@spt/models/enums/MessageType";
@@ -50,11 +50,11 @@ export interface IUserBuild {
 }
 export interface IWeaponBuild extends IUserBuild {
     Root: string;
-    Items: Item[];
+    Items: IItem[];
 }
 export interface IEquipmentBuild extends IUserBuild {
     Root: string;
-    Items: Item[];
+    Items: IItem[];
     BuildType: EquipmentBuildType;
 }
 export interface IMagazineBuild extends IUserBuild {
@@ -69,7 +69,7 @@ export interface IMagazineTemplateAmmoItem {
 }
 /** Used by defaultEquipmentPresets.json */
 export interface IDefaultEquipmentPreset extends IUserBuild {
-    Items: Item[];
+    Items: IItem[];
     Root: string;
     BuildType: EquipmentBuildType;
     type: string;
@@ -138,7 +138,7 @@ export interface MessagePreview {
 }
 export interface MessageItems {
     stash?: string;
-    data?: Item[];
+    data?: IItem[];
 }
 export interface ISystemData {
     date?: string;
@@ -171,6 +171,8 @@ export interface Spt {
     blacklistedItemTpls?: string[];
     /** key: daily type */
     freeRepeatableRefreshUsedCount?: Record<string, number>;
+    /** When was a profile migrated, value is timestamp */
+    migrations?: Record<string, number>;
 }
 export interface ModDetails {
     name: string;
@@ -235,7 +237,7 @@ export interface Insurance {
     systemData: ISystemData;
     messageType: MessageType;
     messageTemplateId: string;
-    items: Item[];
+    items: IItem[];
 }
 export interface MessageContentRagfair {
     offerId: string;

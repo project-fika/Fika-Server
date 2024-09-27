@@ -1,5 +1,5 @@
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IInventoryCreateMarkerRequestData } from "@spt/models/eft/inventory/IInventoryCreateMarkerRequestData";
 import { IInventoryDeleteMarkerRequestData } from "@spt/models/eft/inventory/IInventoryDeleteMarkerRequestData";
 import { IInventoryEditMarkerRequestData } from "@spt/models/eft/inventory/IInventoryEditMarkerRequestData";
@@ -13,21 +13,21 @@ export declare class MapMarkerService {
      * @param request Add marker request
      * @returns Item
      */
-    createMarkerOnMap(pmcData: IPmcData, request: IInventoryCreateMarkerRequestData): Item;
+    createMarkerOnMap(pmcData: IPmcData, request: IInventoryCreateMarkerRequestData): IItem;
     /**
      * Delete a map marker
      * @param pmcData Player profile
      * @param request Delete marker request
      * @returns Item
      */
-    deleteMarkerFromMap(pmcData: IPmcData, request: IInventoryDeleteMarkerRequestData): Item;
+    deleteMarkerFromMap(pmcData: IPmcData, request: IInventoryDeleteMarkerRequestData): IItem;
     /**
      * Edit an existing map marker
      * @param pmcData Player profile
      * @param request Edit marker request
      * @returns Item
      */
-    editMarkerOnMap(pmcData: IPmcData, request: IInventoryEditMarkerRequestData): Item;
+    editMarkerOnMap(pmcData: IPmcData, request: IInventoryEditMarkerRequestData): IItem;
     /**
      * Strip out characters from note string that are not: letter/numbers/unicode/spaces
      * @param mapNoteText Marker text to sanitise

@@ -10,7 +10,7 @@ import { RagfairSellHelper } from "@spt/helpers/RagfairSellHelper";
 import { RagfairSortHelper } from "@spt/helpers/RagfairSortHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
@@ -199,7 +199,7 @@ export declare class RagfairController {
      * @param output IItemEventRouterResponse
      * @returns True if charging tax to player failed
      */
-    protected chargePlayerTaxFee(sessionID: string, rootItem: Item, pmcData: IPmcData, requirementsPriceInRub: number, itemStackCount: number, offerRequest: IAddOfferRequestData, output: IItemEventRouterResponse): boolean;
+    protected chargePlayerTaxFee(sessionID: string, rootItem: IItem, pmcData: IPmcData, requirementsPriceInRub: number, itemStackCount: number, offerRequest: IAddOfferRequestData, output: IItemEventRouterResponse): boolean;
     /**
      * Is the item to be listed on the flea valid
      * @param offerRequest Client offer request
@@ -220,10 +220,10 @@ export declare class RagfairController {
      * @returns Array of items from player inventory
      */
     protected getItemsToListOnFleaFromInventory(pmcData: IPmcData, itemIdsFromFleaOfferRequest: string[]): {
-        items: Item[][] | undefined;
+        items: IItem[][] | undefined;
         errorMessage: string | undefined;
     };
-    createPlayerOffer(sessionId: string, requirements: Requirement[], items: Item[], sellInOnePiece: boolean): IRagfairOffer;
+    createPlayerOffer(sessionId: string, requirements: Requirement[], items: IItem[], sellInOnePiece: boolean): IRagfairOffer;
     getAllFleaPrices(): Record<string, number>;
     getStaticPrices(): Record<string, number>;
     /**

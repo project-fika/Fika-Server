@@ -2,7 +2,7 @@ import { HandbookHelper } from "@spt/helpers/HandbookHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { TraderAssortHelper } from "@spt/helpers/TraderAssortHelper";
 import { UtilityHelper } from "@spt/helpers/UtilityHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
 import { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
@@ -36,7 +36,7 @@ export declare class RagfairHelper {
      * Iterate over array of identical items and merge stack count
      * Ragfair allows abnormally large stacks.
      */
-    mergeStackable(items: Item[]): Item[];
+    mergeStackable(items: IItem[]): IItem[];
     /**
      * Return the symbol for a currency
      * e.g. 5449016a4bdc2d6f028b456f return ₽

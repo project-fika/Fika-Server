@@ -1,5 +1,5 @@
 import { Ixyz } from "@spt/models/eft/common/Ixyz";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 export interface IGlobals {
     time: number;
     config: IConfig;
@@ -9,7 +9,80 @@ export interface IGlobals {
     BotWeaponScatterings: IBotWeaponScattering[];
     ItemPresets: Record<string, IPreset>;
 }
+export interface IArtilleryShelling {
+    ArtilleryMapsConfigs: Record<string, IArtilleryMapSettings>;
+    ProjectileExplosionParams: IProjectileExplosionParams;
+    MaxCalledShellingCount: number;
+}
+export interface IArtilleryMapSettings {
+    PlanedShellingOn: boolean;
+    InitShellingTimer: number;
+    BeforeShellingSignalTime: number;
+    ShellingCount: number;
+    ZonesInShelling: number;
+    NewZonesForEachShelling: boolean;
+    InitCalledShellingTime: number;
+    ShellingZones: IShellingZone[];
+    Brigades: IBrigade[];
+    ArtilleryShellingAirDropSettings: IArtilleryShellingAirDropSettings;
+    PauseBetweenShellings: Ixyz;
+}
+export interface IShellingZone {
+    ID: number;
+    PointsInShellings: Ixyz;
+    ShellingRounds: number;
+    ShotCount: number;
+    PauseBetweenRounds: Ixyz;
+    PauseBetweenShots: Ixyz;
+    Center: Ixyz;
+    Rotate: number;
+    GridStep: Ixyz;
+    Points: Ixyz;
+    PointRadius: number;
+    ExplosionDistanceRange: Ixyz;
+    AlarmStages: IAlarmStage[];
+    BeforeShellingSignalTime: number;
+    UsedInPlanedShelling: boolean;
+    UseInCalledShelling: boolean;
+    IsActive: boolean;
+}
+export interface IAlarmStage {
+    Value: {
+        x: number;
+        y: number;
+    };
+}
+export interface IBrigade {
+    ID: number;
+    ArtilleryGuns: IArtilleryGun[];
+}
+export interface IArtilleryGun {
+    Position: Ixyz;
+}
+export interface IArtilleryShellingAirDropSettings {
+    UseAirDrop: boolean;
+    AirDropTime: number;
+    AirDropPosition: Ixyz;
+    LootTemplateId: string;
+}
+export interface IProjectileExplosionParams {
+    Blindness: Ixyz;
+    Contusion: Ixyz;
+    ArmorDistanceDistanceDamage: Ixyz;
+    MinExplosionDistance: number;
+    MaxExplosionDistance: number;
+    FragmentsCount: number;
+    Strength: number;
+    ArmorDamage: number;
+    StaminaBurnRate: number;
+    PenetrationPower: number;
+    DirectionalDamageAngle: number;
+    DirectionalDamageMultiplier: number;
+    FragmentType: string;
+    DeadlyDistance: number;
+}
 export interface IConfig {
+    ArtilleryShelling: IArtilleryShelling;
     content: IContent;
     AimPunchMagnitude: number;
     WeaponSkillProgressRate: number;
@@ -495,9 +568,9 @@ export interface IKarmaCalculationSettings {
     minSurvivedRaidCount: number;
 }
 export interface IArenaEftTransferSettings {
-    ArenaEftTransferSettings: ArenaEftTransferSettings;
+    ArenaEftTransferSettings: IArenaEftTransferSettings;
 }
-export interface ArenaEftTransferSettings {
+export interface IArenaEftTransferSettings {
     ArenaManagerReputationTaxMultiplier: number;
     CharismaTaxMultiplier: number;
     CreditPriceTaxMultiplier: number;
@@ -933,7 +1006,6 @@ export interface IMaxActiveOfferCount {
     from: number;
     to: number;
     count: number;
-    countForSpecialEditions: number;
 }
 export interface IMaxSumForRarity {
     Common: IRarityMaxSum;
@@ -1669,7 +1741,7 @@ export interface IPreset {
     _changeWeaponName: boolean;
     _name: string;
     _parent: string;
-    _items: Item[];
+    _items: IItem[];
     /** Default presets have this property */
     _encyclopedia?: string;
 }

@@ -1,4 +1,4 @@
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ISystemData, IUserDialogInfo, MessageContentRagfair } from "@spt/models/eft/profile/ISptProfile";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { Traders } from "@spt/models/enums/Traders";
@@ -16,7 +16,7 @@ export interface ISendMessageDetails {
     /** Optional - used in player/system messages, otherwise templateId is used */
     messageText?: string;
     /** Optinal - Items to send to player */
-    items?: Item[];
+    items?: IItem[];
     /** Optional - How long items will be stored in mail before expiry */
     itemsMaxStorageLifetimeSeconds?: number;
     /** Optional - Used when sending messages from traders who send text from locale json */

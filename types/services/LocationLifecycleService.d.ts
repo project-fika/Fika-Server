@@ -8,8 +8,8 @@ import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Common, IQuestStatus, TraderInfo } from "@spt/models/eft/common/tables/IBotBase";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { Common, IQuestStatus, ITraderInfo } from "@spt/models/eft/common/tables/IBotBase";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IEndLocalRaidRequestData, IEndRaidResult } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 import { IStartLocalRaidRequestData } from "@spt/models/eft/match/IStartLocalRaidRequestData";
 import { IStartLocalRaidResponseData } from "@spt/models/eft/match/IStartLocalRaidResponseData";
@@ -139,21 +139,22 @@ export declare class LocationLifecycleService {
      * @param tradersServerProfile Server
      * @param tradersClientProfile Client
      */
-    protected applyTraderStandingAdjustments(tradersServerProfile: Record<string, TraderInfo>, tradersClientProfile: Record<string, TraderInfo>): void;
+    protected applyTraderStandingAdjustments(tradersServerProfile: Record<string, ITraderInfo>, tradersClientProfile: Record<string, ITraderInfo>): void;
     /**
      * Check if player used BTR item sending service and send items to player via mail if found
      * @param sessionId Session id
      * @param request End raid request
      */
     protected handleBTRItemTransferEvent(sessionId: string, request: IEndLocalRaidRequestData): void;
-    protected btrItemDelivery(sessionId: string, traderId: string, items: Item[]): void;
+    protected btrItemDelivery(sessionId: string, traderId: string, items: IItem[]): void;
+    protected handleTransitItemTransferEvent(sessionId: string, request: IEndLocalRaidRequestData): void;
     protected handleInsuredItemLostEvent(sessionId: string, preRaidPmcProfile: IPmcData, request: IEndLocalRaidRequestData, locationName: string): void;
     /**
      * Return the equipped items from a players inventory
      * @param items Players inventory to search through
      * @returns an array of equipped items
      */
-    protected getEquippedGear(items: Item[]): Item[];
+    protected getEquippedGear(items: IItem[]): IItem[];
     /**
      * Checks to see if player survives. run through will return false
      * @param statusOnExit Exit value from offraidData object

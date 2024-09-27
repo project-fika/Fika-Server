@@ -1,7 +1,7 @@
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 export interface IAddItemsDirectRequest {
     /** Item and child mods to add to player inventory */
-    itemsWithModsToAdd: Item[][];
+    itemsWithModsToAdd: IItem[][];
     foundInRaid: boolean;
     /** Runs after EACH item with children is added */
     callback?: (buyCount: number) => void;

@@ -3,8 +3,8 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { IContainerMinMax, IStaticAmmoDetails, IStaticContainer, IStaticContainerData, IStaticForcedProps, IStaticLootDetails } from "@spt/models/eft/common/ILocation";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
-import { ILooseLoot, Spawnpoint, SpawnpointTemplate, SpawnpointsForced } from "@spt/models/eft/common/ILooseLoot";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { ILooseLoot, ISpawnpoint, ISpawnpointTemplate, ISpawnpointsForced } from "@spt/models/eft/common/ILooseLoot";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
@@ -17,7 +17,7 @@ import { ObjectId } from "@spt/utils/ObjectId";
 import { ProbabilityObjectArray, RandomUtil } from "@spt/utils/RandomUtil";
 import { ICloner } from "@spt/utils/cloners/ICloner";
 export interface IContainerItem {
-    items: Item[];
+    items: IItem[];
     width: number;
     height: number;
 }
@@ -49,7 +49,7 @@ export declare class LocationLootGenerator {
      * @param staticAmmoDist Static ammo distribution
      * @returns Array of container objects
      */
-    generateStaticContainers(locationBase: ILocationBase, staticAmmoDist: Record<string, IStaticAmmoDetails[]>): SpawnpointTemplate[];
+    generateStaticContainers(locationBase: ILocationBase, staticAmmoDist: Record<string, IStaticAmmoDetails[]>): ISpawnpointTemplate[];
     /**
      * Get containers with a non-100% chance to spawn OR are NOT on the container type randomistion blacklist
      * @param staticContainers
@@ -117,14 +117,14 @@ export declare class LocationLootGenerator {
      * @param locationName Location to generate loot for
      * @returns Array of spawn points with loot in them
      */
-    generateDynamicLoot(dynamicLootDist: ILooseLoot, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, locationName: string): SpawnpointTemplate[];
+    generateDynamicLoot(dynamicLootDist: ILooseLoot, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, locationName: string): ISpawnpointTemplate[];
     /**
      * Add forced spawn point loot into loot parameter array
      * @param lootLocationTemplates array to add forced loot spawn locations to
      * @param forcedSpawnPoints forced Forced loot locations that must be added
      * @param locationName Name of map currently having force loot created for
      */
-    protected addForcedLoot(lootLocationTemplates: SpawnpointTemplate[], forcedSpawnPoints: SpawnpointsForced[], locationName: string): void;
+    protected addForcedLoot(lootLocationTemplates: ISpawnpointTemplate[], forcedSpawnPoints: ISpawnpointsForced[], locationName: string): void;
     /**
      * Create array of item (with child items) and return
      * @param chosenComposedKey Key we want to look up items for
@@ -132,13 +132,13 @@ export declare class LocationLootGenerator {
      * @param staticAmmoDist ammo distributions
      * @returns IContainerItem
      */
-    protected createDynamicLootItem(chosenComposedKey: string, spawnPoint: Spawnpoint, staticAmmoDist: Record<string, IStaticAmmoDetails[]>): IContainerItem;
+    protected createDynamicLootItem(chosenComposedKey: string, spawnPoint: ISpawnpoint, staticAmmoDist: Record<string, IStaticAmmoDetails[]>): IContainerItem;
     /**
      * Find an item in array by its _tpl, handle differently if chosenTpl is a weapon
      * @param items Items array to search
      * @param chosenTpl Tpl we want to get item with
      * @returns Item object
      */
-    protected getItemInArray(items: Item[], chosenTpl: string): Item | undefined;
+    protected getItemInArray(items: IItem[], chosenTpl: string): IItem | undefined;
     protected createStaticLootItem(chosenTpl: string, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, parentId?: string): IContainerItem;
 }

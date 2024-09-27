@@ -1,6 +1,6 @@
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { EquipmentChances, Generation, GenerationData, IBotType, ModsChances } from "@spt/models/eft/common/tables/IBotType";
+import { EquipmentChances, IBotType, IGeneration, IGenerationData, IModsChances } from "@spt/models/eft/common/tables/IBotType";
 import { BotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
 import { EquipmentFilterDetails, EquipmentFilters, IAdjustmentDetails, IBotConfig, WeightingAdjustmentDetails } from "@spt/models/spt/config/IBotConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -26,13 +26,13 @@ export declare class BotEquipmentFilterService {
      * @param equipmentChanges Changes to apply
      * @param baseValues data to update
      */
-    protected adjustChances(equipmentChanges: Record<string, number>, baseValues: EquipmentChances | ModsChances): void;
+    protected adjustChances(equipmentChanges: Record<string, number>, baseValues: EquipmentChances | IModsChances): void;
     /**
      * Iterate over the Generation changes and alter data in baseValues.Generation
      * @param generationChanges Changes to apply
      * @param baseBotGeneration dictionary to update
      */
-    protected adjustGenerationChances(generationChanges: Record<string, GenerationData>, baseBotGeneration: Generation): void;
+    protected adjustGenerationChances(generationChanges: Record<string, IGenerationData>, baseBotGeneration: IGeneration): void;
     /**
      * Get equipment settings for bot
      * @param botEquipmentRole equipment role to return

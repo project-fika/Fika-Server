@@ -1,7 +1,7 @@
 import { LootGenerator } from "@spt/generators/LootGenerator";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IGetAirdropLootResponse } from "@spt/models/eft/location/IGetAirdropLootResponse";
 import { AirdropTypeEnum } from "@spt/models/enums/AirdropType";
 import { IAirdropConfig } from "@spt/models/spt/config/IAirdropConfig";
@@ -38,7 +38,7 @@ export declare class AirdropService {
      * @param airdropType What tpye of container: weapon/common etc
      * @returns Item
      */
-    protected getAirdropCrateItem(airdropType: AirdropTypeEnum): Item;
+    protected getAirdropCrateItem(airdropType: AirdropTypeEnum): IItem;
     /**
      * Randomly pick a type of airdrop loot using weighted values from config
      * @returns airdrop type value

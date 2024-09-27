@@ -4,7 +4,7 @@ import { RagfairOfferHelper } from "@spt/helpers/RagfairOfferHelper";
 import { TradeHelper } from "@spt/helpers/TradeHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITraderBase } from "@spt/models/eft/common/tables/ITrader";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
@@ -101,5 +101,5 @@ export declare class TradeController {
      * @param traderDetails Trader being sold to to perform buy category check against
      * @returns Rouble price
      */
-    protected getPriceOfItemAndChildren(parentItemId: string, items: Item[], handbookPrices: Record<string, number>, traderDetails: ITraderBase): number;
+    protected getPriceOfItemAndChildren(parentItemId: string, items: IItem[], handbookPrices: Record<string, number>, traderDetails: ITraderBase): number;
 }

@@ -1,4 +1,4 @@
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem, Props } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -24,7 +24,7 @@ export declare class RepairHelper {
      * @param traderQualityMultipler Trader quality value from traders base json
      * @param applyMaxDurabilityDegradation should item have max durability reduced
      */
-    updateItemDurability(itemToRepair: Item, itemToRepairDetails: ITemplateItem, isArmor: boolean, amountToRepair: number, useRepairKit: boolean, traderQualityMultipler: number, applyMaxDurabilityDegradation?: boolean): void;
+    updateItemDurability(itemToRepair: IItem, itemToRepairDetails: ITemplateItem, isArmor: boolean, amountToRepair: number, useRepairKit: boolean, traderQualityMultipler: number, applyMaxDurabilityDegradation?: boolean): void;
     /**
      * Repairing armor reduces the total durability value slightly, get a randomised (to 2dp) amount based on armor material
      * @param armorMaterial What material is the armor being repaired made of

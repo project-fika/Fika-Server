@@ -1,5 +1,5 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import { BossLocationSpawn, Wave } from "@spt/models/eft/common/ILocationBase";
+import { IBossLocationSpawn, IWave } from "@spt/models/eft/common/ILocationBase";
 import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface ILocationConfig extends IBaseConfig {
     kind: "spt-location";
@@ -9,10 +9,10 @@ export interface ILocationConfig extends IBaseConfig {
     rogueLighthouseSpawnTimeSettings: IRogueLighthouseSpawnTimeSettings;
     /** When a map has hit max alive bots, any wave that should spawn will be reduced to 1 bot in size and placed in a spawn queue, this splits waves into smaller sizes to reduce the impact of this behaviour */
     splitWaveIntoSingleSpawnsSettings: ISplitWaveSettings;
-    looseLootMultiplier: LootMultiplier;
-    staticLootMultiplier: LootMultiplier;
+    looseLootMultiplier: ILootMultiplier;
+    staticLootMultiplier: ILootMultiplier;
     /** Custom bot waves to add to a locations base json on game start if addCustomBotWavesToMaps is true */
-    customWaves: CustomWaves;
+    customWaves: ICustomWaves;
     /** Open zones to add to map */
     openZones: Record<string, string[]>;
     /** Key = map id, value = item tpls that should only have one forced loot spawn position */
@@ -61,16 +61,16 @@ export interface ISplitWaveSettings {
     ignoreMaps: string[];
     waveSizeThreshold: number;
 }
-export interface CustomWaves {
+export interface ICustomWaves {
     /** Bosses spawn on raid start */
-    boss: Record<string, BossLocationSpawn[]>;
-    normal: Record<string, Wave[]>;
+    boss: Record<string, IBossLocationSpawn[]>;
+    normal: Record<string, IWave[]>;
 }
 export interface IBotTypeLimit extends MinMax {
     type: string;
 }
 /** Multiplier to apply to the loot count for a given map */
-export interface LootMultiplier {
+export interface ILootMultiplier {
     bigmap: number;
     develop: number;
     factory4_day: number;

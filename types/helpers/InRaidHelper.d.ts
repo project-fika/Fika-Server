@@ -2,7 +2,7 @@ import { QuestController } from "@spt/controllers/QuestController";
 import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IInRaidConfig } from "@spt/models/spt/config/IInRaidConfig";
 import { ILostOnDeathConfig } from "@spt/models/spt/config/ILostOnDeathConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -73,12 +73,12 @@ export declare class InRaidHelper {
      * @param pmcProfile Profile to get items from
      * @returns Array of items lost on death
      */
-    protected getInventoryItemsLostOnDeath(pmcProfile: IPmcData): Item[];
+    protected getInventoryItemsLostOnDeath(pmcProfile: IPmcData): IItem[];
     /**
      * Does the provided items slotId mean its kept on the player after death
      * @pmcData Player profile
      * @itemToCheck Item to check should be kept
      * @returns true if item is kept after death
      */
-    protected isItemKeptAfterDeath(pmcData: IPmcData, itemToCheck: Item): boolean;
+    protected isItemKeptAfterDeath(pmcData: IPmcData, itemToCheck: IItem): boolean;
 }

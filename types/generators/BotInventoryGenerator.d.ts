@@ -5,8 +5,8 @@ import { BotGeneratorHelper } from "@spt/helpers/BotGeneratorHelper";
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
-import { Inventory as PmcInventory } from "@spt/models/eft/common/tables/IBotBase";
-import { Chances, Equipment, Generation, IBotType, Inventory } from "@spt/models/eft/common/tables/IBotType";
+import { IInventory as PmcInventory } from "@spt/models/eft/common/tables/IBotBase";
+import { IBotType, IChances, IEquipment, IGeneration, IInventory } from "@spt/models/eft/common/tables/IBotType";
 import { EquipmentSlots } from "@spt/models/enums/EquipmentSlots";
 import { IGenerateEquipmentProperties } from "@spt/models/spt/bots/IGenerateEquipmentProperties";
 import { EquipmentFilterDetails, IBotConfig } from "@spt/models/spt/config/IBotConfig";
@@ -59,17 +59,20 @@ export declare class BotInventoryGenerator {
      * @param botLevel Level of bot
      * @param chosenGameVersion Game version for bot, only really applies for PMCs
      */
-    protected generateAndAddEquipmentToBot(templateInventory: Inventory, wornItemChances: Chances, botRole: string, botInventory: PmcInventory, botLevel: number, chosenGameVersion: string): void;
+    protected generateAndAddEquipmentToBot(templateInventory: IInventory, wornItemChances: IChances, botRole: string, botInventory: PmcInventory, botLevel: number, chosenGameVersion: string): void;
     /**
      * Remove non-armored rigs from parameter data
      * @param templateEquipment Equpiment to filter TacticalVest of
+     * @param botRole Role of bot vests are being filtered for
      */
-    protected filterRigsToThoseWithProtection(templateEquipment: Equipment): void;
+    protected filterRigsToThoseWithProtection(templateEquipment: IEquipment, botRole: string): void;
     /**
      * Remove armored rigs from parameter data
      * @param templateEquipment Equpiment to filter TacticalVest of
+     * @param botRole Role of bot vests are being filtered for
+     * @param allowEmptyResult Should the function return all rigs when 0 unarmored are found
      */
-    protected filterRigsToThoseWithoutProtection(templateEquipment: Equipment): void;
+    protected filterRigsToThoseWithoutProtection(templateEquipment: IEquipment, botRole: string, allowEmptyResult?: boolean): void;
     /**
      * Add a piece of equipment with mods to inventory from the provided pools
      * @param settings Values to adjust how item is chosen and added to bot
@@ -94,13 +97,13 @@ export declare class BotInventoryGenerator {
      * @param itemGenerationLimitsMinMax Limits for items the bot can have
      * @param botLevel level of bot having weapon generated
      */
-    protected generateAndAddWeaponsToBot(templateInventory: Inventory, equipmentChances: Chances, sessionId: string, botInventory: PmcInventory, botRole: string, isPmc: boolean, itemGenerationLimitsMinMax: Generation, botLevel: number): void;
+    protected generateAndAddWeaponsToBot(templateInventory: IInventory, equipmentChances: IChances, sessionId: string, botInventory: PmcInventory, botRole: string, isPmc: boolean, itemGenerationLimitsMinMax: IGeneration, botLevel: number): void;
     /**
      * Calculate if the bot should have weapons in Primary/Secondary/Holster slots
      * @param equipmentChances Chances bot has certain equipment
      * @returns What slots bot should have weapons generated for
      */
-    protected getDesiredWeaponsForBot(equipmentChances: Chances): {
+    protected getDesiredWeaponsForBot(equipmentChances: IChances): {
         slot: EquipmentSlots;
         shouldSpawn: boolean;
     }[];
@@ -118,5 +121,5 @@ export declare class BotInventoryGenerator {
     protected addWeaponAndMagazinesToInventory(sessionId: string, weaponSlot: {
         slot: EquipmentSlots;
         shouldSpawn: boolean;
-    }, templateInventory: Inventory, botInventory: PmcInventory, equipmentChances: Chances, botRole: string, isPmc: boolean, itemGenerationWeights: Generation, botLevel: number): void;
+    }, templateInventory: IInventory, botInventory: PmcInventory, equipmentChances: IChances, botRole: string, isPmc: boolean, itemGenerationWeights: IGeneration, botLevel: number): void;
 }

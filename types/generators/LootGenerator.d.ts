@@ -3,7 +3,7 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
 import { IPreset } from "@spt/models/eft/common/IGlobals";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ISealedAirdropContainerSettings, RewardDetails } from "@spt/models/spt/config/IInventoryConfig";
 import { LootRequest } from "@spt/models/spt/services/LootRequest";
@@ -36,7 +36,7 @@ export declare class LootGenerator {
      * @param options parameters to adjust how loot is generated
      * @returns An array of loot items
      */
-    createRandomLoot(options: LootRequest): Item[];
+    createRandomLoot(options: LootRequest): IItem[];
     protected getItemRewardPool(itemTplBlacklist: string[], itemTypeWhitelist: string[], useRewardItemBlacklist: boolean, allowBossItems: boolean): {
         itemPool: [string, ITemplateItem][];
         blacklist: Set<string>;
@@ -65,7 +65,7 @@ export declare class LootGenerator {
     protected findAndAddRandomItemToLoot(items: [string, ITemplateItem][], itemTypeCounts: Record<string, {
         current: number;
         max: number;
-    }>, options: LootRequest, result: Item[]): boolean;
+    }>, options: LootRequest, result: IItem[]): boolean;
     /**
      * Get a randomised stack count for an item between its StackMinRandom and StackMaxSize values
      * @param item item to get stack count of
@@ -84,20 +84,20 @@ export declare class LootGenerator {
     protected findAndAddRandomPresetToLoot(presetPool: IPreset[], itemTypeCounts: Record<string, {
         current: number;
         max: number;
-    }>, itemBlacklist: string[], result: Item[]): boolean;
+    }>, itemBlacklist: string[], result: IItem[]): boolean;
     /**
      * Sealed weapon containers have a weapon + associated mods inside them + assortment of other things (food/meds)
      * @param containerSettings sealed weapon container settings
      * @returns Array of item with children arrays
      */
-    getSealedWeaponCaseLoot(containerSettings: ISealedAirdropContainerSettings): Item[][];
+    getSealedWeaponCaseLoot(containerSettings: ISealedAirdropContainerSettings): IItem[][];
     /**
      * Get non-weapon mod rewards for a sealed container
      * @param containerSettings Sealed weapon container settings
      * @param weaponDetailsDb Details for the weapon to reward player
      * @returns Array of item with children arrays
      */
-    protected getSealedContainerNonWeaponModRewards(containerSettings: ISealedAirdropContainerSettings, weaponDetailsDb: ITemplateItem): Item[][];
+    protected getSealedContainerNonWeaponModRewards(containerSettings: ISealedAirdropContainerSettings, weaponDetailsDb: ITemplateItem): IItem[][];
     /**
      * Iterate over the container weaponModRewardLimits settings and create an array of weapon mods to reward player
      * @param containerSettings Sealed weapon container settings
@@ -105,13 +105,13 @@ export declare class LootGenerator {
      * @param chosenWeaponPreset The weapon preset given to player as reward
      * @returns Array of item with children arrays
      */
-    protected getSealedContainerWeaponModRewards(containerSettings: ISealedAirdropContainerSettings, linkedItemsToWeapon: ITemplateItem[], chosenWeaponPreset: IPreset): Item[][];
+    protected getSealedContainerWeaponModRewards(containerSettings: ISealedAirdropContainerSettings, linkedItemsToWeapon: ITemplateItem[], chosenWeaponPreset: IPreset): IItem[][];
     /**
      * Handle event-related loot containers - currently just the halloween jack-o-lanterns that give food rewards
      * @param rewardContainerDetails
      * @returns Array of item with children arrays
      */
-    getRandomLootContainerLoot(rewardContainerDetails: RewardDetails): Item[][];
+    getRandomLootContainerLoot(rewardContainerDetails: RewardDetails): IItem[][];
     /**
      * Pick a reward item based on the reward details data
      * @param rewardContainerDetails

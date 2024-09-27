@@ -4,7 +4,7 @@ import { RepairHelper } from "@spt/helpers/RepairHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { RepairKitsInfo } from "@spt/models/eft/repair/IRepairActionDataRequest";
@@ -100,7 +100,7 @@ export declare class RepairService {
      * @param repairKitDetails Repair kit details from db
      * @param repairKitInInventory Repair kit to update
      */
-    protected addMaxResourceToKitIfMissing(repairKitDetails: ITemplateItem, repairKitInInventory: Item): void;
+    protected addMaxResourceToKitIfMissing(repairKitDetails: ITemplateItem, repairKitInInventory: IItem): void;
     /**
      * Chance to apply buff to an item (Armor/weapon) if repaired by armor kit
      * @param repairDetails Repair details of item
@@ -112,7 +112,7 @@ export declare class RepairService {
      * @param itemConfig weapon/armor config
      * @param repairDetails Details for item to repair
      */
-    addBuff(itemConfig: BonusSettings, item: Item): void;
+    addBuff(itemConfig: BonusSettings, item: IItem): void;
     /**
      * Check if item should be buffed by checking the item type and relevant player skill level
      * @param repairDetails Item that was repaired
@@ -138,7 +138,7 @@ export declare class RepairService {
 export declare class RepairDetails {
     repairCost?: number;
     repairPoints?: number;
-    repairedItem: Item;
+    repairedItem: IItem;
     repairedItemIsArmor: boolean;
     repairAmount: number;
     repairedByKit: boolean;

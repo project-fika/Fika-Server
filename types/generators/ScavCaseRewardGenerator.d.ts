@@ -1,6 +1,6 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IHideoutScavCase } from "@spt/models/eft/hideout/IHideoutScavCase";
 import { IScavCaseConfig } from "@spt/models/spt/config/IScavCaseConfig";
@@ -36,7 +36,7 @@ export declare class ScavCaseRewardGenerator {
      * @param recipeId recipe of the scav case craft
      * @returns Product array
      */
-    generate(recipeId: string): Item[][];
+    generate(recipeId: string): IItem[][];
     /**
      * Get all db items that are not blacklisted in scavcase config or global blacklist
      * Store in class field
@@ -75,7 +75,7 @@ export declare class ScavCaseRewardGenerator {
      * @param rewardItems items to convert
      * @returns Product array
      */
-    protected randomiseContainerItemRewards(rewardItems: ITemplateItem[], rarity: string): Item[][];
+    protected randomiseContainerItemRewards(rewardItems: ITemplateItem[], rarity: string): IItem[][];
     /**
      * @param dbItems all items from the items.json
      * @param itemFilters controls how the dbItems will be filtered and returned (handbook price)

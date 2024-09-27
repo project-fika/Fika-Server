@@ -11,6 +11,7 @@ export interface IRagfairConfig extends IBaseConfig {
     /** Trader ids + should their assorts be listed on flea */
     traders: Record<string, boolean>;
     dynamic: Dynamic;
+    tieredFlea: ITieredFlea;
 }
 export interface Sell {
     /** Should a fee be deducted from player when liting an item for sale */
@@ -155,4 +156,10 @@ export interface IArmorSettings {
     removeRemovablePlateChance: number;
     /** What slots are to be removed when removeRemovablePlateChance is true */
     plateSlotIdToRemovePool: string[];
+}
+export interface ITieredFlea {
+    enabled: boolean;
+    unlocks: Record<string, number>;
+    ammoTiersEnabled: boolean;
+    ammoTplUnlocks: Record<string, number>;
 }

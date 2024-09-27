@@ -4,7 +4,7 @@ import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IGetInsuranceCostRequestData } from "@spt/models/eft/insurance/IGetInsuranceCostRequestData";
 import { IGetInsuranceCostResponseData } from "@spt/models/eft/insurance/IGetInsuranceCostResponseData";
 import { IInsureRequestData } from "@spt/models/eft/insurance/IInsureRequestData";
@@ -109,7 +109,7 @@ export declare class InsuranceController {
      * @param itemsMap - A Map object for quick item look-up by item ID.
      * @returns A Map object containing parent item IDs to arrays of their attachment items.
      */
-    protected populateParentAttachmentsMap(rootItemParentID: string, insured: Insurance, itemsMap: Map<string, Item>): Map<string, Item[]>;
+    protected populateParentAttachmentsMap(rootItemParentID: string, insured: Insurance, itemsMap: Map<string, IItem>): Map<string, IItem[]>;
     /**
      * Remove attachments that can not be moddable in-raid from the parentAttachmentsMap. If no moddable attachments
      * remain, the parent is removed from the map as well.
@@ -118,7 +118,7 @@ export declare class InsuranceController {
      * @param itemsMap - A Map object for quick item look-up by item ID.
      * @returns A Map object containing parent item IDs to arrays of their attachment items which are not moddable in-raid.
      */
-    protected removeNonModdableAttachments(parentAttachmentsMap: Map<string, Item[]>, itemsMap: Map<string, Item>): Map<string, Item[]>;
+    protected removeNonModdableAttachments(parentAttachmentsMap: Map<string, IItem[]>, itemsMap: Map<string, IItem>): Map<string, IItem[]>;
     /**
      * Process "regular" insurance items. Any insured item that is not an attached, attachment is considered a "regular"
      * item. This method iterates over them, preforming item deletion rolls to see if they should be deleted. If so,
@@ -129,7 +129,7 @@ export declare class InsuranceController {
      * @param parentAttachmentsMap A Map object containing parent item IDs to arrays of their attachment items.
      * @returns void
      */
-    protected processRegularItems(insured: Insurance, toDelete: Set<string>, parentAttachmentsMap: Map<string, Item[]>): void;
+    protected processRegularItems(insured: Insurance, toDelete: Set<string>, parentAttachmentsMap: Map<string, IItem[]>): void;
     /**
      * Process parent items and their attachments, updating the toDelete Set accordingly.
      *
@@ -138,7 +138,7 @@ export declare class InsuranceController {
      * @param traderId The trader ID from the Insurance object.
      * @param toDelete A Set object to keep track of items marked for deletion.
      */
-    protected processAttachments(mainParentToAttachmentsMap: Map<string, Item[]>, itemsMap: Map<string, Item>, traderId: string, toDelete: Set<string>): void;
+    protected processAttachments(mainParentToAttachmentsMap: Map<string, IItem[]>, itemsMap: Map<string, IItem>, traderId: string, toDelete: Set<string>): void;
     /**
      * Takes an array of attachment items that belong to the same main-parent item, sorts them in descending order by
      * their maximum price. For each attachment, a roll is made to determine if a deletion should be made. Once the
@@ -150,9 +150,9 @@ export declare class InsuranceController {
      * @param toDelete The array that accumulates the IDs of the items to be deleted.
      * @returns void
      */
-    protected processAttachmentByParent(attachments: Item[], traderId: string, toDelete: Set<string>): void;
-    protected logAttachmentsBeingRemoved(attachmentIdsToRemove: string[], attachments: Item[], attachmentPrices: Record<string, number>): void;
-    protected weightAttachmentsByPrice(attachments: Item[]): Record<string, number>;
+    protected processAttachmentByParent(attachments: IItem[], traderId: string, toDelete: Set<string>): void;
+    protected logAttachmentsBeingRemoved(attachmentIdsToRemove: string[], attachments: IItem[], attachmentPrices: Record<string, number>): void;
+    protected weightAttachmentsByPrice(attachments: IItem[]): Record<string, number>;
     /**
      * Get count of items to remove from weapon (take into account trader + price of attachment)
      * @param weightedAttachmentByPrice Dict of item Tpls and thier rouble price
@@ -184,7 +184,7 @@ export declare class InsuranceController {
      * @param insuredItem Optional. The item to roll for. Only used for logging.
      * @returns true if the insured item should be removed from inventory, false otherwise, or undefined on error.
      */
-    protected rollForDelete(traderId: string, insuredItem?: Item): boolean | undefined;
+    protected rollForDelete(traderId: string, insuredItem?: IItem): boolean | undefined;
     /**
      * Handle Insure event
      * Add insurance to an item
@@ -202,7 +202,7 @@ export declare class InsuranceController {
      * @param pmcData Player profile
      * @param body Insurance request data
      */
-    insureSoftInserts(item: Item, pmcData: IPmcData, body: IInsureRequestData): void;
+    insureSoftInserts(item: IItem, pmcData: IPmcData, body: IInsureRequestData): void;
     /**
      * Handle client/insurance/items/list/cost
      * Calculate insurance cost

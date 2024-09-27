@@ -1,7 +1,7 @@
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IConfig } from "@spt/models/eft/common/IGlobals";
-import { Inventory } from "@spt/models/eft/common/tables/IBotType";
+import { IInventory } from "@spt/models/eft/common/tables/IBotType";
 import { Season } from "@spt/models/enums/Season";
 import { SeasonalEventType } from "@spt/models/enums/SeasonalEventType";
 import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
@@ -109,7 +109,7 @@ export declare class SeasonalEventService {
      * @param botInventory Bots inventory to iterate over
      * @param botRole the role of the bot being processed
      */
-    removeChristmasItemsFromBotInventory(botInventory: Inventory, botRole: string): void;
+    removeChristmasItemsFromBotInventory(botInventory: IInventory, botRole: string): void;
     /**
      * Make adjusted to server code based on the name of the event passed in
      * @param sessionId Player id

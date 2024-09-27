@@ -1,5 +1,5 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import { GenerationData } from "@spt/models/eft/common/tables/IBotType";
+import { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
 import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 import { IBotDurability } from "@spt/models/spt/config/IBotDurability";
 export interface IBotConfig extends IBaseConfig {
@@ -133,6 +133,7 @@ export interface EquipmentFilters {
     /** Should the stock mod be forced to spawn on bot */
     forceStock?: boolean;
     armorPlateWeighting?: IArmorPlateWeights[];
+    forceRigWhenNoVest?: boolean;
 }
 export interface ModLimits {
     /** How many scopes are allowed on a weapon - hard coded to work with OPTIC_SCOPE, ASSAULT_SCOPE, COLLIMATOR, COMPACT_COLLIMATOR */
@@ -143,7 +144,7 @@ export interface ModLimits {
 export interface RandomisationDetails {
     /** Between what levels do these randomisation setting apply to */
     levelRange: MinMax;
-    generation?: Record<string, GenerationData>;
+    generation?: Record<string, IGenerationData>;
     /** Mod slots that should be fully randomised -ignores mods from bottype.json and instaed creates a pool using items.json */
     randomisedWeaponModSlots?: string[];
     /** Armor slots that should be randomised e.g. 'Headwear, Armband' */

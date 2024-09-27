@@ -1,4 +1,4 @@
-import { GenerationData } from "@spt/models/eft/common/tables/IBotType";
+import { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
 import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IPlayerScavConfig extends IBaseConfig {
     kind: "spt-playerscav";
@@ -16,10 +16,10 @@ export interface Modifiers {
     mod: Record<string, number>;
 }
 export interface ItemLimits {
-    healing: GenerationData;
-    drugs: GenerationData;
-    stims: GenerationData;
-    looseLoot: GenerationData;
-    magazines: GenerationData;
-    grenades: GenerationData;
+    healing: IGenerationData;
+    drugs: IGenerationData;
+    stims: IGenerationData;
+    looseLoot: IGenerationData;
+    magazines: IGenerationData;
+    grenades: IGenerationData;
 }

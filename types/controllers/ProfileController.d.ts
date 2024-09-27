@@ -7,7 +7,7 @@ import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { IMiniProfile } from "@spt/models/eft/launcher/IMiniProfile";
-import { GetProfileStatusResponseData } from "@spt/models/eft/profile/GetProfileStatusResponseData";
+import { IGetProfileStatusResponseData } from "@spt/models/eft/profile/GetProfileStatusResponseData";
 import { IGetOtherProfileRequest } from "@spt/models/eft/profile/IGetOtherProfileRequest";
 import { IGetOtherProfileResponse } from "@spt/models/eft/profile/IGetOtherProfileResponse";
 import { IGetProfileSettingsRequest } from "@spt/models/eft/profile/IGetProfileSettingsRequest";
@@ -117,7 +117,7 @@ export declare class ProfileController {
     /**
      * Handle client/profile/status
      */
-    getProfileStatus(sessionId: string): GetProfileStatusResponseData;
+    getProfileStatus(sessionId: string): IGetProfileStatusResponseData;
     getOtherProfile(sessionId: string, request: IGetOtherProfileRequest): IGetOtherProfileResponse;
     /**
      * Handle client/profile/settings

@@ -6,7 +6,7 @@ import { PaymentHelper } from "@spt/helpers/PaymentHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { HideoutArea, ITaskConditionCounter, Product } from "@spt/models/eft/common/tables/IBotBase";
+import { IBotHideoutArea, IProduct, ITaskConditionCounter } from "@spt/models/eft/common/tables/IBotBase";
 import { HideoutUpgradeCompleteRequestData } from "@spt/models/eft/hideout/HideoutUpgradeCompleteRequestData";
 import { IHandleQTEEventRequestData } from "@spt/models/eft/hideout/IHandleQTEEventRequestData";
 import { IHideoutArea, Stage } from "@spt/models/eft/hideout/IHideoutArea";
@@ -92,7 +92,7 @@ export declare class HideoutController {
      * Upgrade wall status to visible in profile if medstation/water collector are both level 1
      * @param pmcData Player profile
      */
-    protected checkAndUpgradeWall(pmcData: IPmcData): void;
+    protected SetWallVisibleIfPrereqsMet(pmcData: IPmcData): void;
     /**
      * @param pmcData Profile to edit
      * @param output Object to send back to client
@@ -101,7 +101,7 @@ export declare class HideoutController {
      * @param dbHideoutArea Hideout area being upgraded
      * @param hideoutStage Stage hideout area is being upgraded to
      */
-    protected addContainerImprovementToProfile(output: IItemEventRouterResponse, sessionID: string, pmcData: IPmcData, profileParentHideoutArea: HideoutArea, dbHideoutArea: IHideoutArea, hideoutStage: Stage): void;
+    protected addContainerImprovementToProfile(output: IItemEventRouterResponse, sessionID: string, pmcData: IPmcData, profileParentHideoutArea: IBotHideoutArea, dbHideoutArea: IHideoutArea, hideoutStage: Stage): void;
     /**
      * Add stand1/stand2/stand3 inventory items to profile, depending on passed in hideout stage
      * @param sessionId Session id
@@ -153,7 +153,7 @@ export declare class HideoutController {
      * @param hideoutArea Area fuel is being removed from
      * @returns IItemEventRouterResponse response
      */
-    protected removeResourceFromArea(sessionID: string, pmcData: IPmcData, removeResourceRequest: IHideoutTakeItemOutRequestData, output: IItemEventRouterResponse, hideoutArea: HideoutArea): IItemEventRouterResponse;
+    protected removeResourceFromArea(sessionID: string, pmcData: IPmcData, removeResourceRequest: IHideoutTakeItemOutRequestData, output: IItemEventRouterResponse, hideoutArea: IBotHideoutArea): IItemEventRouterResponse;
     /**
      * Handle HideoutToggleArea event
      * Toggle area on/off
@@ -195,7 +195,7 @@ export declare class HideoutController {
      * @param rewards reward items to add to profile
      * @param recipeId recipe id to save into Production dict
      */
-    protected addScavCaseRewardsToProfile(pmcData: IPmcData, rewards: Product[], recipeId: string): void;
+    protected addScavCaseRewardsToProfile(pmcData: IPmcData, rewards: IProduct[], recipeId: string): void;
     /**
      * Start production of continuously created item
      * @param pmcData Player profile

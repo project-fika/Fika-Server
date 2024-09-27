@@ -1,8 +1,8 @@
 import { RepeatableQuestRewardGenerator } from "@spt/generators/RepeatableQuestRewardGenerator";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { RepeatableQuestHelper } from "@spt/helpers/RepeatableQuestHelper";
-import { Exit } from "@spt/models/eft/common/ILocationBase";
-import { TraderInfo } from "@spt/models/eft/common/tables/IBotBase";
+import { IExit } from "@spt/models/eft/common/ILocationBase";
+import { ITraderInfo } from "@spt/models/eft/common/tables/IBotBase";
 import { IQuestCondition, IQuestConditionCounterCondition } from "@spt/models/eft/common/tables/IQuest";
 import { IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
 import { IBossInfo, IEliminationConfig, IQuestConfig, IRepeatableQuestConfig } from "@spt/models/spt/config/IQuestConfig";
@@ -39,7 +39,7 @@ export declare class RepeatableQuestGenerator {
      * @param repeatableConfig Repeatable quest config
      * @returns IRepeatableQuest
      */
-    generateRepeatableQuest(pmcLevel: number, pmcTraderInfo: Record<string, TraderInfo>, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
+    generateRepeatableQuest(pmcLevel: number, pmcTraderInfo: Record<string, ITraderInfo>, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
     /**
      * Generate a randomised Elimination quest
      * @param pmcLevel Player's level for requested items and reward generation
@@ -109,7 +109,7 @@ export declare class RepeatableQuestGenerator {
      * @param playerSide Scav/Pmc
      * @returns Array of Exit objects
      */
-    protected getLocationExitsForSide(locationKey: string, playerSide: string): Exit[];
+    protected getLocationExitsForSide(locationKey: string, playerSide: string): IExit[];
     protected generatePickupQuest(pmcLevel: number, traderId: string, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
     /**
      * Convert a location into an quest code can read (e.g. factory4_day into 55f2d3fd4bdc2d5f408b4567)
@@ -124,7 +124,7 @@ export declare class RepeatableQuestGenerator {
      * @param   {string}        exit                The exit name to generate the condition for
      * @returns {object}                            Exit condition
      */
-    protected generateExplorationExitCondition(exit: Exit): IQuestConditionCounterCondition;
+    protected generateExplorationExitCondition(exit: IExit): IQuestConditionCounterCondition;
     /**
      * Generates the base object of quest type format given as templates in assets/database/templates/repeatableQuests.json
      * The templates include Elimination, Completion and Extraction quest types

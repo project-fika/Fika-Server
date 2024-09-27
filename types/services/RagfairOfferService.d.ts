@@ -1,7 +1,7 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -53,7 +53,7 @@ export declare class RagfairOfferService {
      * Get an array of arrays of expired offer items + children
      * @returns Expired offer assorts
      */
-    getExpiredOfferAssorts(): Item[][];
+    getExpiredOfferAssorts(): IItem[][];
     /**
      * Clear out internal expiredOffers dictionary of all items
      */
@@ -97,5 +97,5 @@ export declare class RagfairOfferService {
      * @param items Offer items to unstack
      * @returns Unstacked array of items
      */
-    protected unstackOfferItems(items: Item[]): Item[];
+    protected unstackOfferItems(items: IItem[]): IItem[];
 }

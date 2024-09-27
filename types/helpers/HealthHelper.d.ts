@@ -1,5 +1,5 @@
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { BodyPartsHealth, Health } from "@spt/models/eft/common/tables/IBotBase";
+import { IBodyPartsHealth, IHealth } from "@spt/models/eft/common/tables/IBotBase";
 import { ISyncHealthRequestData } from "@spt/models/eft/health/ISyncHealthRequestData";
 import { Effects, ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { IHealthConfig } from "@spt/models/spt/config/IHealthConfig";
@@ -31,14 +31,14 @@ export declare class HealthHelper {
      * @param addEffects Should effects be added to profile (default - true)
      * @param deleteExistingEffects Should all prior effects be removed before apply new ones  (default - true)
      */
-    updateProfileHealthPostRaid(pmcData: IPmcData, postRaidHealth: Health, sessionID: string, isDead: boolean): void;
+    updateProfileHealthPostRaid(pmcData: IPmcData, postRaidHealth: IHealth, sessionID: string, isDead: boolean): void;
     protected storeHydrationEnergyTempInProfile(fullProfile: ISptProfile, hydration: number, energy: number, temprature: number): void;
     /**
      * Take body part effects from client profile and apply to server profile
      * @param postRaidBodyParts Post-raid body part data
      * @param profileData Player profile on server
      */
-    protected transferPostRaidLimbEffectsToProfile(postRaidBodyParts: BodyPartsHealth, profileData: IPmcData): void;
+    protected transferPostRaidLimbEffectsToProfile(postRaidBodyParts: IBodyPartsHealth, profileData: IPmcData): void;
     /**
      * Update player profile vitality values with changes from client request object
      * @param pmcData Player profile

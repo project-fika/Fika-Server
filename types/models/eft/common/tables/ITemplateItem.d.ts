@@ -25,8 +25,9 @@ export interface Props {
     SpawnChance?: number;
     CreditsPrice?: number;
     ItemSound?: string;
-    Prefab?: Prefab;
-    UsePrefab?: Prefab;
+    Prefab?: IPrefab;
+    UsePrefab?: IPrefab;
+    airDropTemplateId?: string;
     StackObjectsCount?: number;
     NotShownInSlot?: boolean;
     ExaminedByDefault?: boolean;
@@ -51,6 +52,7 @@ export interface Props {
     ExtraSizeLeft?: number;
     ExtraSizeRight?: number;
     ExtraSizeUp?: number;
+    FlareTypes?: string[];
     ExtraSizeDown?: number;
     ExtraSizeForceAdd?: boolean;
     MergesWithChildren?: boolean;
@@ -70,8 +72,8 @@ export interface Props {
     MaxResource?: number;
     Resource?: number;
     DogTagQualities?: boolean;
-    Grids?: Grid[];
-    Slots?: Slot[];
+    Grids?: IGrid[];
+    Slots?: ISlot[];
     CanPutIntoDuringTheRaid?: boolean;
     CantRemoveFromSlotsDuringRaid?: string[];
     KeyIds?: string[];
@@ -138,7 +140,7 @@ export interface Props {
     PixelationBlockCount?: number;
     ShiftsAimCamera?: number;
     magAnimationIndex?: number;
-    Cartridges?: Slot[];
+    Cartridges?: ISlot[];
     CanFast?: boolean;
     CanHit?: boolean;
     CanAdmin?: boolean;
@@ -216,7 +218,7 @@ export interface Props {
     defAmmo?: string;
     AdjustCollimatorsToTrajectory?: boolean;
     shotgunDispersion?: number;
-    Chambers?: Slot[];
+    Chambers?: ISlot[];
     CameraSnap?: number;
     CameraToWeaponAngleSpeedRange?: Ixyz;
     CameraToWeaponAngleStep?: number;
@@ -401,7 +403,7 @@ export interface Props {
     LightAndSoundShotSelfContusionStrength?: number;
     MalfMisfireChance?: number;
     MalfFeedChance?: number;
-    StackSlots?: StackSlot[];
+    StackSlots?: IStackSlot[];
     type?: string;
     eqMin?: number;
     eqMax?: number;
@@ -427,7 +429,7 @@ export interface Props {
     RepairStrategyTypes?: string[];
     IsEncoded?: boolean;
     LayoutName?: string;
-    Lower75Prefab?: Prefab;
+    Lower75Prefab?: IPrefab;
     MaxUsages?: number;
     ScavKillExpPenalty?: number;
     ScavKillExpPenaltyPVE?: number;
@@ -440,19 +442,19 @@ export interface IHealthEffect {
     type: string;
     value: number;
 }
-export interface Prefab {
+export interface IPrefab {
     path: string;
     rcid: string;
 }
-export interface Grid {
+export interface IGrid {
     _name: string;
     _id: string;
     _parent: string;
-    _props: GridProps;
+    _props: IGridProps;
     _proto: string;
 }
-export interface GridProps {
-    filters: GridFilter[];
+export interface IGridProps {
+    filters: IGridFilter[];
     cellsH: number;
     cellsV: number;
     minCount: number;
@@ -460,26 +462,26 @@ export interface GridProps {
     maxWeight: number;
     isSortingTable: boolean;
 }
-export interface GridFilter {
+export interface IGridFilter {
     Filter: string[];
     ExcludedFilter: string[];
     locked?: boolean;
 }
-export interface Slot {
+export interface ISlot {
     _name: string;
     _id: string;
     _parent: string;
-    _props: SlotProps;
+    _props: ISlotProps;
     _max_count?: number;
     _required?: boolean;
     _mergeSlotWithChildren?: boolean;
     _proto: string;
 }
-export interface SlotProps {
-    filters: SlotFilter[];
+export interface ISlotProps {
+    filters: ISlotFilter[];
     MaxStackCount?: number;
 }
-export interface SlotFilter {
+export interface ISlotFilter {
     Shift?: number;
     locked?: boolean;
     Plate?: string;
@@ -488,17 +490,17 @@ export interface SlotFilter {
     Filter: string[];
     AnimationIndex?: number;
 }
-export interface StackSlot {
+export interface IStackSlot {
     _name?: string;
     _id: string;
     _parent: string;
     _max_count: number;
-    _props: StackSlotProps;
+    _props: IStackSlotProps;
     _proto: string;
     upd?: any;
 }
-export interface StackSlotProps {
-    filters: SlotFilter[];
+export interface IStackSlotProps {
+    filters: ISlotFilter[];
 }
 export interface IRandomLootSettings {
     allowToSpawnIdenticalItems: boolean;
@@ -515,14 +517,14 @@ export interface IRandomLootExcluded {
     rarity: string[];
     templates: any[];
 }
-export interface EffectsHealth {
-    Energy: EffectsHealthProps;
-    Hydration: EffectsHealthProps;
+export interface IEffectsHealth {
+    Energy: IEffectsHealthProps;
+    Hydration: IEffectsHealthProps;
 }
-export interface EffectsHealthProps {
+export interface IEffectsHealthProps {
     value: number;
 }
-export interface EffectsDamage {
+export interface IEffectsDamage {
     Pain: IEffectDamageProps;
     LightBleeding: IEffectDamageProps;
     HeavyBleeding: IEffectDamageProps;

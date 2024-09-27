@@ -2,7 +2,7 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITraderBase } from "@spt/models/eft/common/tables/ITrader";
 import { IInsuranceConfig } from "@spt/models/spt/config/IInsuranceConfig";
 import { IInsuranceEquipmentPkg } from "@spt/models/spt/services/IInsuranceEquipmentPkg";
@@ -30,7 +30,7 @@ export declare class InsuranceService {
     protected mailSendService: MailSendService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
-    protected insured: Record<string, Record<string, Item[]>>;
+    protected insured: Record<string, Record<string, IItem[]>>;
     protected insuranceConfig: IInsuranceConfig;
     constructor(logger: ILogger, databaseService: DatabaseService, randomUtil: RandomUtil, itemHelper: ItemHelper, hashUtil: HashUtil, timeUtil: TimeUtil, saveServer: SaveServer, traderHelper: TraderHelper, profileHelper: ProfileHelper, localisationService: LocalisationService, mailSendService: MailSendService, configServer: ConfigServer, cloner: ICloner);
     /**
@@ -44,15 +44,16 @@ export declare class InsuranceService {
      * @param sessionId Profile id (session id)
      * @returns Item array
      */
-    getInsurance(sessionId: string): Record<string, Item[]>;
+    getInsurance(sessionId: string): Record<string, IItem[]>;
     resetInsurance(sessionId: string): void;
     /**
-     * Sends stored insured items as message to player
-     * @param pmcData profile to send insured items to
+     * Sends `i will go look for your stuff` trader message +
+     * Store lost insurance items inside profile for later retreval
+     * @param pmcData Profile to send insured items to
      * @param sessionID SessionId of current player
-     * @param mapId Id of the map player died/exited that caused the insurance to be issued on
+     * @param mapId Id of the location player died/exited that caused the insurance to be issued on
      */
-    sendInsuredItems(pmcData: IPmcData, sessionID: string, mapId: string): void;
+    startPostRaidInsuranceLostProcess(pmcData: IPmcData, sessionID: string, mapId: string): void;
     /**
      * Get a timestamp of when insurance items should be sent to player based on trader used to insure
      * Apply insurance return bonus if found in profile
@@ -81,14 +82,14 @@ export declare class InsuranceService {
      * @param pmcProfile Player profile
      * @returns IInsuranceEquipmentPkg array
      */
-    mapInsuredItemsToTrader(sessionId: string, lostInsuredItems: Item[], pmcProfile: IPmcData): IInsuranceEquipmentPkg[];
+    mapInsuredItemsToTrader(sessionId: string, lostInsuredItems: IItem[], pmcProfile: IPmcData): IInsuranceEquipmentPkg[];
     /**
      * Some items should never be returned in insurance but BSG send them in the request
      * @param lostItem Item being returned in insurance
      * @param inventoryItems Player inventory
      * @returns True if item
      */
-    protected itemCannotBeLostOnDeath(lostItem: Item, inventoryItems: Item[]): boolean;
+    protected itemCannotBeLostOnDeath(lostItem: IItem, inventoryItems: IItem[]): boolean;
     /**
      * Add gear item to InsuredItems array in player profile
      * @param sessionID Session id
@@ -116,7 +117,7 @@ export declare class InsuranceService {
      * @param traderId Trader item insured with
      * @param itemToAdd Insured item (with children)
      */
-    addInsuranceItemToArray(sessionId: string, traderId: string, itemToAdd: Item): void;
+    addInsuranceItemToArray(sessionId: string, traderId: string, itemToAdd: IItem): void;
     /**
      * Get price of insurance * multiplier from config
      * @param pmcData Player profile
@@ -124,7 +125,7 @@ export declare class InsuranceService {
      * @param traderId Trader item is insured with
      * @returns price in roubles
      */
-    getRoublePriceToInsureItemWithTrader(pmcData: IPmcData, inventoryItem: Item, traderId: string): number;
+    getRoublePriceToInsureItemWithTrader(pmcData: IPmcData, inventoryItem: IItem, traderId: string): number;
     /**
      * Returns the ID that should be used for a root-level Item's parentId property value within in the context of insurance.
      * @param sessionID Players id

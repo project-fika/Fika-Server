@@ -6,7 +6,7 @@ import { QuestHelper } from "@spt/helpers/QuestHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IQuestStatus } from "@spt/models/eft/common/tables/IBotBase";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IQuest, IQuestCondition } from "@spt/models/eft/common/tables/IQuest";
 import { IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
@@ -73,6 +73,13 @@ export declare class QuestController {
      */
     acceptQuest(pmcData: IPmcData, acceptedQuest: IAcceptQuestRequestData, sessionID: string): IItemEventRouterResponse;
     /**
+     *
+     * @param questConditions Conditions to iterate over and possibly add to profile
+     * @param pmcData Profile to add to
+     * @param questId Quest conditions came from
+     */
+    protected addTaskConditionCountersToProfile(questConditions: IQuestCondition[], pmcData: IPmcData, questId: string): void;
+    /**
      * Handle the client accepting a repeatable quest and starting it
      * Send starting rewards if any to player and
      * Send start notification if any to player
@@ -127,7 +134,7 @@ export declare class QuestController {
      * @param completedQuestId Completed quest id
      * @param questRewards Rewards given to player
      */
-    protected sendSuccessDialogMessageOnQuestComplete(sessionID: string, pmcData: IPmcData, completedQuestId: string, questRewards: Item[]): void;
+    protected sendSuccessDialogMessageOnQuestComplete(sessionID: string, pmcData: IPmcData, completedQuestId: string, questRewards: IItem[]): void;
     /**
      * Look for newly available quests after completing a quest with a requirement to wait x minutes (time-locked) before being available and add data to profile
      * @param pmcData Player profile to update
@@ -167,7 +174,7 @@ export declare class QuestController {
      * @param output Response to send to user
      * @returns IItemEventRouterResponse
      */
-    protected showQuestItemHandoverMatchError(handoverQuestRequest: IHandoverQuestRequestData, itemHandedOver: Item, handoverRequirements: IQuestCondition, output: IItemEventRouterResponse): IItemEventRouterResponse;
+    protected showQuestItemHandoverMatchError(handoverQuestRequest: IHandoverQuestRequestData, itemHandedOver: IItem, handoverRequirements: IQuestCondition, output: IItemEventRouterResponse): IItemEventRouterResponse;
     /**
      * Increment a backend counter stored value by an amount,
      * Create counter if it does not exist
