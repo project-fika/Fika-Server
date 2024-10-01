@@ -1,4 +1,3 @@
-import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
 
 import { FikaMatchStatus } from "../enums/FikaMatchStatus";
@@ -15,7 +14,6 @@ export interface IFikaMatch {
     fikaVersion: string;
     gameVersion: string;
     raidConfig: IGetRaidConfigurationRequestData;
-    locationData: ILocationBase;
     status: FikaMatchStatus;
     timeout: number;
     players: Map<string, IFikaPlayer>;
