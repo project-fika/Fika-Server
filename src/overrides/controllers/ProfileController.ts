@@ -8,8 +8,6 @@ import { IGetOtherProfileResponse } from "@spt/models/eft/profile/IGetOtherProfi
 import { ISearchFriendRequestData } from "@spt/models/eft/profile/ISearchFriendRequestData";
 import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
 
-import { Item } from "@spt/models/eft/common/tables/IItem";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { Override } from "../../di/Override";
 import { FikaConfig } from "../../utils/FikaConfig";
 
