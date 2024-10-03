@@ -8,10 +8,10 @@ import { IGetOtherProfileResponse } from "@spt/models/eft/profile/IGetOtherProfi
 import { ISearchFriendRequestData } from "@spt/models/eft/profile/ISearchFriendRequestData";
 import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
 
-import { Override } from "../../di/Override";
-import { FikaConfig } from "../../utils/FikaConfig";
 import { Item } from "@spt/models/eft/common/tables/IItem";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { Override } from "../../di/Override";
+import { FikaConfig } from "../../utils/FikaConfig";
 
 @injectable()
 export class ProfileControllerOverride extends Override {
@@ -44,7 +44,7 @@ export class ProfileControllerOverride extends Override {
                     for (const profile of Object.values(profiles)) {
                         if (profile.info?.password === "fika-dedicated")
                             continue;
-                        
+
                         if (profile.characters?.pmc?.Info) {
                             if (profile.characters.pmc.Info.Nickname.toLowerCase().startsWith(searchNicknameLowerCase)) {
                                 matches.push({

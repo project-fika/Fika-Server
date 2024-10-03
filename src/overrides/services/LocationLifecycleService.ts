@@ -3,16 +3,16 @@ import { DependencyContainer, inject, injectable } from "tsyringe";
 import { LocationController } from "@spt/controllers/LocationController";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
-import { Override } from "../../di/Override";
-import { FikaMatchService } from "../../services/FikaMatchService";
-import { DatabaseService } from "@spt/services/DatabaseService";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
+import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IStartLocalRaidRequestData } from "@spt/models/eft/match/IStartLocalRaidRequestData";
 import { IStartLocalRaidResponseData } from "@spt/models/eft/match/IStartLocalRaidResponseData";
-import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheService";
+import { DatabaseService } from "@spt/services/DatabaseService";
+import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
 import { TimeUtil } from "@spt/utils/TimeUtil";
+import { Override } from "../../di/Override";
+import { FikaMatchService } from "../../services/FikaMatchService";
 
 @injectable()
 export class LocationLifecycleServiceOverride extends Override {
@@ -36,10 +36,12 @@ export class LocationLifecycleServiceOverride extends Override {
                 result.startLocalRaid = (sessionId: string, request: IStartLocalRaidRequestData): IStartLocalRaidResponseData => {
                     let locationLoot: ILocationBase;
                     const matchId = this.fikaMatchService.getMatchIdByProfile(sessionId);
+                    // Stops TS from throwing a trantrum :)
+                    const lifecycleService = (this.locationLifecycleService as any);
 
                     if (matchId === undefined) {
                         // player isn't in a Fika match, generate new loot
-                        locationLoot = this.locationLifecycleService.generateLocationAndLoot(request.location);
+                        locationLoot = lifecycleService.generateLocationAndLoot(request.location);
                     } else {
                         // player is in a Fika match, use match location loot
                         const match = this.fikaMatchService.getMatch(matchId);
@@ -49,17 +51,33 @@ export class LocationLifecycleServiceOverride extends Override {
                     const playerProfile = this.profileHelper.getPmcProfile(sessionId);
 
                     const result: IStartLocalRaidResponseData = {
-                        serverId: `${request.location}.${request.playerSide}.${this.timeUtil.getTimestamp()}`, // TODO - does this need to be more verbose - investigate client?
-                        serverSettings: this.databaseService.getLocationServices(), // TODO - is this per map or global?
+                        serverId: `${request.location}.${request.playerSide}.${this.timeUtil.getTimestamp()}`,
+                        serverSettings: this.databaseService.getLocationServices(),
                         profile: { insuredItems: playerProfile.InsuredItems },
-
-                        // --- ONLY PART THAT IS MODIFIED
                         locationLoot: locationLoot,
-                        // ---
+                        transition: {
+                            isLocationTransition: false,
+                            transitionRaidId: "66f5750951530ca5ae09876d",
+                            transitionCount: 0,
+                            visitedLocations: [],
+                        }
                     };
 
-                    // Clear bot cache ready for a fresh raid
-                    this.botGenerationCacheService.clearStoredBots();
+                    // Only has value when transitioning into map from previous one
+                    if (request.transition) {
+                        result.transition = request.transition;
+                    }
+
+                    if (typeof matchId === "undefined" || sessionId === matchId) {
+                        // Apply changes from pmcConfig to bot hostility values
+                        lifecycleService.adjustBotHostilitySettings(result.locationLoot);
+
+                        lifecycleService.adjustExtracts(request.playerSide, request.location, result.locationLoot);
+
+                        // Clear bot cache ready for a fresh raid
+                        lifecycleService.botGenerationCacheService.clearStoredBots();
+                        lifecycleService.botNameService.clearNameCache();
+                    }
 
                     return result;
                 };
