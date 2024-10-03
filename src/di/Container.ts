@@ -4,19 +4,20 @@ import { FikaConfig } from "../utils/FikaConfig";
 
 import { Overrider } from "../overrides/Overrider";
 import { DialogueCallbacksOverride } from "../overrides/callbacks/DialogueCallbacks";
+import { LocationLifecycleServiceOverride } from "../overrides/services/LocationLifecycleService";
 import { AchievementControllerOverride } from "../overrides/controllers/AchievementController";
 import { DialogueControllerOverride } from "../overrides/controllers/DialogueController";
-import { LauncherControllerOverride } from "../overrides/controllers/LauncherController";
-import { MatchControllerOverride } from "../overrides/controllers/MatchController";
 import { ProfileControllerOverride } from "../overrides/controllers/ProfileController";
 // import { LocalesOverride } from "../overrides/other/Locales";
 import { HttpRouterOverride } from "../overrides/routers/HttpRouter";
+import { LauncherControllerOverride } from "../overrides/controllers/LauncherController";
+import { MatchControllerOverride } from "../overrides/controllers/MatchController";
 
-import { FikaInsuranceService } from "../services/FikaInsuranceService";
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
 import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
+import { FikaInsuranceService } from "../services/FikaInsuranceService";
 
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
@@ -81,6 +82,7 @@ export class Container {
         // container.registerType("Overrides", "LocalesOverride");
         container.registerType("Overrides", "AchievementControllerOverride");
         container.registerType("Overrides", "LauncherControllerOverride");
+        container.registerType("Overrides", "LocationLifecycleServiceOverride");
         container.registerType("Overrides", "MatchControllerOverride");
 
         container.registerType("StaticRoutes", "FikaClientStaticRouter");
@@ -107,6 +109,7 @@ export class Container {
         container.register<Overrider>("Overrider", Overrider, { lifecycle: Lifecycle.Singleton });
         container.register<AchievementControllerOverride>("AchievementControllerOverride", AchievementControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LauncherControllerOverride>("LauncherControllerOverride", LauncherControllerOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<LocationLifecycleServiceOverride>("LocationLifecycleServiceOverride", LocationLifecycleServiceOverride, { lifecycle: Lifecycle.Singleton });
         container.register<MatchControllerOverride>("MatchControllerOverride", MatchControllerOverride, { lifecycle: Lifecycle.Singleton });
     }
 

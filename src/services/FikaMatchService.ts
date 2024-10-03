@@ -1,17 +1,19 @@
 import { inject, injectable } from "tsyringe";
 
+import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 
 import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
 import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
+import { FikaSide } from "../models/enums/FikaSide";
 import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 
 import { FikaConfig } from "../utils/FikaConfig";
-import { FikaInsuranceService } from "./FikaInsuranceService";
 import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
+import { FikaInsuranceService } from "./FikaInsuranceService";
 
 @injectable()
 export class FikaMatchService {
@@ -20,6 +22,7 @@ export class FikaMatchService {
 
     constructor(
         @inject("WinstonLogger") protected logger: ILogger,
+        @inject("LocationLifecycleService") protected locationLifecycleService: LocationLifecycleService,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
@@ -181,6 +184,8 @@ export class FikaMatchService {
             this.deleteMatch(data.serverId);
         }
 
+        const locationData = this.locationLifecycleService.generateLocationAndLoot(data.settings.location);
+
         this.matches.set(data.serverId, {
             ips: null,
             port: null,
@@ -188,6 +193,7 @@ export class FikaMatchService {
             timestamp: data.timestamp,
             expectedNumberOfPlayers: data.expectedNumberOfPlayers,
             raidConfig: data.settings,
+            locationData: locationData,
             status: FikaMatchStatus.LOADING,
             timeout: 0,
             players: new Map(),
