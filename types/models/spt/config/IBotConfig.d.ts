@@ -155,6 +155,11 @@ export interface RandomisationDetails {
     weaponMods?: Record<string, number>;
     /** Equipment mod chances */
     equipmentMods?: Record<string, number>;
+    nighttimeChanges?: INighttimeChanges;
+}
+export interface INighttimeChanges {
+    /** Applies changes to values stored in equipmentMods */
+    equipmentModsModifiers: Record<string, number>;
 }
 export interface EquipmentFilterDetails {
     /** Between what levels do these equipment filter setting apply to */

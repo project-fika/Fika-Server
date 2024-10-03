@@ -159,7 +159,10 @@ export interface IArmorSettings {
 }
 export interface ITieredFlea {
     enabled: boolean;
-    unlocks: Record<string, number>;
+    /** key: tpl, value: playerlevel */
+    unlocksTpl: Record<string, number>;
+    /** key: item type id, value: playerlevel */
+    unlocksType: Record<string, number>;
     ammoTiersEnabled: boolean;
     ammoTplUnlocks: Record<string, number>;
 }

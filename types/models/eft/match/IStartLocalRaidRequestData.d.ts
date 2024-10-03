@@ -6,6 +6,8 @@ export interface IStartLocalRaidRequestData {
     playerSide: string;
     isLocationTransition: boolean;
     transition: IStartLocalRaidTransition;
+    /** Should loot generation be skipped, default false */
+    sptSkipLootGeneration?: boolean;
 }
 export interface IStartLocalRaidTransition {
     isLocationTransition: boolean;

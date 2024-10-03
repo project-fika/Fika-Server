@@ -39,7 +39,7 @@ export declare class InRaidHelper {
      * @param serverProfile Profile to update
      * @param postRaidProfile Profile returned by client after a raid
      */
-    setInventory(sessionID: string, serverProfile: IPmcData, postRaidProfile: IPmcData, isSurvived: boolean): void;
+    setInventory(sessionID: string, serverProfile: IPmcData, postRaidProfile: IPmcData, isSurvived: boolean, isTransfer: boolean): void;
     /**
      * Iterate over inventory items and remove the property that defines an item as Found in Raid
      * Only removes property if item had FiR when entering raid

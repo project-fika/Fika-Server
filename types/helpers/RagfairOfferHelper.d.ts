@@ -65,7 +65,7 @@ export declare class RagfairOfferHelper {
      * @returns Offers the player should see
      */
     getValidOffers(searchRequest: ISearchRequestData, itemsToAdd: string[], traderAssorts: Record<string, ITraderAssort>, pmcData: IPmcData): IRagfairOffer[];
-    protected offerIsHiddenFromPlayerTieredFlea(tieredFlea: ITieredFlea, offer: IRagfairOffer, tieredFleaLimitTypes: string[], playerLevel: number): boolean;
+    protected checkAndLockOfferFromPlayerTieredFlea(tieredFlea: ITieredFlea, offer: IRagfairOffer, tieredFleaLimitTypes: string[], playerLevel: number): void;
     /**
      * Get matching offers that require the desired item and filter out offers from non traders if player is below ragfair unlock level
      * @param searchRequest Search request from client

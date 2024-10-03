@@ -86,9 +86,10 @@ export declare class LocationLifecycleService {
     /**
      * Generate a maps base location (cloned) and loot
      * @param name Map name
+     * @param generateLoot OPTIONAL - Should loot be generated for the map before being returned
      * @returns ILocationBase
      */
-    protected generateLocationAndLoot(name: string): ILocationBase;
+    protected generateLocationAndLoot(name: string, generateLoot?: boolean): ILocationBase;
     endLocalRaid(sessionId: string, request: IEndLocalRaidRequestData): void;
     /**
      * Was extract by car
@@ -125,8 +126,18 @@ export declare class LocationLifecycleService {
      * @returns True if coop extract
      */
     protected extractTakenWasCoop(extractName: string): boolean;
-    protected handlePostRaidPlayerScav(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, isDead: boolean, request: IEndLocalRaidRequestData): void;
-    protected handlePostRaidPmc(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, postRaidProfile: IPmcData, isDead: boolean, isSurvived: boolean, request: IEndLocalRaidRequestData, locationName: string): void;
+    protected handlePostRaidPlayerScav(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, isDead: boolean, isTransfer: boolean, request: IEndLocalRaidRequestData): void;
+    /**
+     *
+     * @param sessionId Player id
+     * @param pmcProfile Pmc profile
+     * @param scavProfile Scav profile
+     * @param isDead Player died/got left behind in raid
+     * @param isSurvived Not same as opposite of `isDead`, specific status
+     * @param request
+     * @param locationName
+     */
+    protected handlePostRaidPmc(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, isDead: boolean, isSurvived: boolean, isTransfer: boolean, request: IEndLocalRaidRequestData, locationName: string): void;
     /**
      * Convert post-raid quests into correct format
      * Quest status comes back as a string version of the enum `Success`, not the expected value of 1
@@ -162,10 +173,16 @@ export declare class LocationLifecycleService {
     protected isPlayerSurvived(results: IEndRaidResult): boolean;
     /**
      * Is the player dead after a raid - dead = anything other than "survived" / "runner"
-     * @param statusOnExit Exit value from offraidData object
+     * @param results Post raid request
      * @returns true if dead
      */
     protected isPlayerDead(results: IEndRaidResult): boolean;
+    /**
+     * Has the player moved from one map to another
+     * @param results Post raid request
+     * @returns True if players transfered
+     */
+    protected isMapToMapTransfer(results: IEndRaidResult): boolean;
     /**
      * Reset the skill points earned in a raid to 0, ready for next raid
      * @param commonSkills Profile common skills to update

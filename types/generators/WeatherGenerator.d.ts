@@ -1,4 +1,5 @@
 import { ApplicationContext } from "@spt/context/ApplicationContext";
+import { WeatherHelper } from "@spt/helpers/WeatherHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
 import { IWeather, IWeatherData } from "@spt/models/eft/weather/IWeatherData";
 import { WindDirection } from "@spt/models/enums/WindDirection";
@@ -10,6 +11,7 @@ import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class WeatherGenerator {
     protected weightedRandomHelper: WeightedRandomHelper;
+    protected weatherHelper: WeatherHelper;
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
     protected timeUtil: TimeUtil;
@@ -18,7 +20,7 @@ export declare class WeatherGenerator {
     protected configServer: ConfigServer;
     protected weatherConfig: IWeatherConfig;
     private serverStartTimestampMS;
-    constructor(weightedRandomHelper: WeightedRandomHelper, logger: ILogger, randomUtil: RandomUtil, timeUtil: TimeUtil, seasonalEventService: SeasonalEventService, applicationContext: ApplicationContext, configServer: ConfigServer);
+    constructor(weightedRandomHelper: WeightedRandomHelper, weatherHelper: WeatherHelper, logger: ILogger, randomUtil: RandomUtil, timeUtil: TimeUtil, seasonalEventService: SeasonalEventService, applicationContext: ApplicationContext, configServer: ConfigServer);
     /**
      * Get current + raid datetime and format into correct BSG format and return
      * @param data Weather data
@@ -32,12 +34,6 @@ export declare class WeatherGenerator {
      * @returns formatted time
      */
     protected getBsgFormattedInRaidTime(): string;
-    /**
-     * Get the current in-raid time
-     * @param currentDate (new Date())
-     * @returns Date object of current in-raid time
-     */
-    getInRaidTime(): Date;
     /**
      * Get current time formatted to fit BSGs requirement
      * @param date date to format into bsg style

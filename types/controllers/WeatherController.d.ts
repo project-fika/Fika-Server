@@ -1,4 +1,5 @@
 import { WeatherGenerator } from "@spt/generators/WeatherGenerator";
+import { WeatherHelper } from "@spt/helpers/WeatherHelper";
 import { IWeatherData } from "@spt/models/eft/weather/IWeatherData";
 import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -10,8 +11,9 @@ export declare class WeatherController {
     protected logger: ILogger;
     protected configServer: ConfigServer;
     protected seasonalEventService: SeasonalEventService;
+    protected weatherHelper: WeatherHelper;
     protected weatherConfig: IWeatherConfig;
-    constructor(weatherGenerator: WeatherGenerator, logger: ILogger, configServer: ConfigServer, seasonalEventService: SeasonalEventService);
+    constructor(weatherGenerator: WeatherGenerator, logger: ILogger, configServer: ConfigServer, seasonalEventService: SeasonalEventService, weatherHelper: WeatherHelper);
     /** Handle client/weather */
     generate(): IWeatherData;
     /**

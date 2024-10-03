@@ -13,6 +13,7 @@ export interface IEndLocalRaidRequestData {
 }
 export interface IEndRaidResult {
     profile: IPmcData;
+    /** "Survived/Transit etc" */
     result: string;
     ExitStatus: ExitStatus;
     killerId: string;
