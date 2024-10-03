@@ -14,7 +14,6 @@ import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
 import { MatchLocationService } from "@spt/services/MatchLocationService";
-import { ProfileSnapshotService } from "@spt/services/ProfileSnapshotService";
 import { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class MatchController {
     protected logger: ILogger;
@@ -27,7 +26,7 @@ export declare class MatchController {
     protected matchConfig: IMatchConfig;
     protected pmcConfig: IPmcConfig;
     constructor(logger: ILogger, saveServer: SaveServer, matchLocationService: MatchLocationService, configServer: ConfigServer,
-        profileSnapshotService: ProfileSnapshotService, applicationContext: ApplicationContext, locationLifecycleService: LocationLifecycleService, cloner: ICloner);
+        applicationContext: ApplicationContext, locationLifecycleService: LocationLifecycleService, cloner: ICloner);
     getEnabled(): boolean;
     /** Handle client/match/group/delete */
     deleteGroup(info: any): void;
