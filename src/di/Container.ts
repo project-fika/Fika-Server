@@ -44,7 +44,6 @@ import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
 
-import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
 
 import { Fika } from "../Fika";
@@ -157,6 +156,5 @@ export class Container {
 
     private static registerWebSockets(container: DependencyContainer): void {
         container.register<FikaDedicatedRaidWebSocket>("FikaDedicatedRaidWebSocket", FikaDedicatedRaidWebSocket, { lifecycle: Lifecycle.Singleton });
-        container.register<IWebSocketConnectionHandler>("FikaDedicatedRaidWebSocket", FikaDedicatedRaidWebSocket, { lifecycle: Lifecycle.Singleton });
     }
 }

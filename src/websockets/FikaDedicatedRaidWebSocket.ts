@@ -1,12 +1,11 @@
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { inject, injectable } from "tsyringe";
-import { IDedicatedClientInfo } from "../models/fika/dedicated/IDedicatedClientInfo";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { IncomingMessage } from "http";
 import { WebSocket } from "ws";
 
 @injectable()
-export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
+export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
     public clientWebSockets: Record<string, WebSocket>;
 
     constructor(
@@ -22,7 +21,7 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
 
     public getSocketId(): string
     {
-        return "FikaDedicatedRaidService";
+        return "Fika Dedicated Raid Service";
     }
 
     public getHookUrl(): string
@@ -41,11 +40,11 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
         ws.on("message", (msg) => this.onMessage(sessionID, msg.toString()));
     }
 
-    public onMessage(sessionID: string, msg: string) {
+    public onMessage(sessionID: string, msg: string): void {
         // Do nothing
     }
 
-    public keepWebSocketAlive() {
+    public keepWebSocketAlive(): void {
         for (const sessionId in this.clientWebSockets) {
             const clientWebSocket = this.clientWebSockets[sessionId];
 
