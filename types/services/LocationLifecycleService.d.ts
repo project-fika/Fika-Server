@@ -90,6 +90,7 @@ export declare class LocationLifecycleService {
      * @returns ILocationBase
      */
     protected generateLocationAndLoot(name: string, generateLoot?: boolean): ILocationBase;
+    /** Handle client/match/local/end */
     endLocalRaid(sessionId: string, request: IEndLocalRaidRequestData): void;
     /**
      * Was extract by car

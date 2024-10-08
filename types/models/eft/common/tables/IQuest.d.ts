@@ -150,4 +150,8 @@ export interface IQuestReward {
     traderId?: string;
     unknown?: boolean;
     findInRaid?: boolean;
+    /** Game editions whitelisted to get reward */
+    availableInGameEditions?: string[];
+    /** Game editions blacklisted from getting reward */
+    notAvailableInGameEditions?: string[];
 }

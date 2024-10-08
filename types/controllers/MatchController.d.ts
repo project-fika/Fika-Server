@@ -25,8 +25,7 @@ export declare class MatchController {
     protected cloner: ICloner;
     protected matchConfig: IMatchConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, saveServer: SaveServer, matchLocationService: MatchLocationService, configServer: ConfigServer,
-        applicationContext: ApplicationContext, locationLifecycleService: LocationLifecycleService, cloner: ICloner);
+    constructor(logger: ILogger, saveServer: SaveServer, matchLocationService: MatchLocationService, configServer: ConfigServer, applicationContext: ApplicationContext, locationLifecycleService: LocationLifecycleService, cloner: ICloner);
     getEnabled(): boolean;
     /** Handle client/match/group/delete */
     deleteGroup(info: any): void;
