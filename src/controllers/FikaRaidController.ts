@@ -51,7 +51,7 @@ export class FikaRaidController {
         const notification = {
             type: FikaNotifications.StartedRaid,
             nickname: request.hostUsername,
-            location: request.settings.location
+            location: request.settings.location // Todo: Location needs to be localized, currently it send the format as "bigmap" or "rezervbase"
         } as IStartRaidNotification;
 
         this.fikaNotificationWebSocket.broadcast(notification);

@@ -37,7 +37,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
 
         this.logger.debug(`[${this.getSocketId()}] User is ${UserSessionID}`);
 
-        if(!this.saveServer.getProfile(UserSessionID))
+        if (!this.saveServer.getProfile(UserSessionID))
         {
             this.logger.warning(`[${this.getSocketId()}] Invalid user ${UserSessionID} tried to authenticate!`);
             return;
@@ -69,7 +69,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         {
             const clientWebSocket = this.clientWebSockets[client];
 
-            if(clientWebSocket.readyState == WebSocket.CLOSED) {
+            if (clientWebSocket.readyState == WebSocket.CLOSED) {
                 continue;
             }
 
@@ -81,7 +81,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         for (const sessionId in this.clientWebSockets) {
             const clientWebSocket = this.clientWebSockets[sessionId];
 
-            if(clientWebSocket.readyState == WebSocket.CLOSED) {
+            if (clientWebSocket.readyState == WebSocket.CLOSED) {
                 continue;
             }
 

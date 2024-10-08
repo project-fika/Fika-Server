@@ -25,7 +25,6 @@ export class FikaNotificationCallbacks {
             return this.httpResponseUtil.nullResponse();
         }
         
-
         info.type = FikaNotifications.PushNotification;
 
         // Set default notification icon if data for this has not been correctly given.

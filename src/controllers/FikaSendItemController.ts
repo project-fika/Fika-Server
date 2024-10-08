@@ -15,6 +15,9 @@ import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { IFikaSendItemRequestData } from "../models/fika/routes/senditem/IFikaSendItemRequestData";
 import { IFikaSenditemAvailablereceiversResponse } from "../models/fika/routes/senditem/availablereceivers/IFikaSenditemAvailablereceiversResponse";
 import { FikaConfig } from "../utils/FikaConfig";
+import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
+import { IReceivedSentItemNotification } from "../models/fika/websocket/notifications/IReceivedSentItemNotification";
+import { FikaNotifications } from "../models/enums/FikaNotifications";
 
 @injectable()
 export class FikaSendItemController {
@@ -27,6 +30,7 @@ export class FikaSendItemController {
         @inject("ItemHelper") protected itemHelper: ItemHelper,
         @inject("HttpResponseUtil") protected httpResponse: HttpResponseUtil,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
+        @inject("FikaNotificationWebSocket") protected fikaNotificationWebSocket: FikaNotificationWebSocket
     ) {
         // empty
     }
@@ -82,6 +86,15 @@ export class FikaSendItemController {
         );
 
         this.inventoryHelper.removeItem(senderProfile.characters.pmc, body.id, sessionID, output);
+
+        const notification = {
+            type: FikaNotifications.SentItem,
+            nickname: senderProfile?.characters?.pmc?.Info?.Nickname,
+            targetId : body.target,
+            itemName: "An item" // Todo: This needs to have the item name localized.
+        } as IReceivedSentItemNotification;
+
+        this.fikaNotificationWebSocket.broadcast(notification);
 
         return output;
     }
