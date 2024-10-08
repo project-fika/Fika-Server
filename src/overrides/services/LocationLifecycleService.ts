@@ -3,8 +3,11 @@ import { DependencyContainer, inject, injectable } from "tsyringe";
 import { LocationController } from "@spt/controllers/LocationController";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
+import { ApplicationContext } from "@spt/context/ApplicationContext";
+import { ContextVariableType } from "@spt/context/ContextVariableType";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
+import { ILocationTransit } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 import { IStartLocalRaidRequestData } from "@spt/models/eft/match/IStartLocalRaidRequestData";
 import { IStartLocalRaidResponseData } from "@spt/models/eft/match/IStartLocalRaidResponseData";
 import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheService";
@@ -24,6 +27,7 @@ export class LocationLifecycleServiceOverride extends Override {
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("LocationLifecycleService") protected locationLifecycleService: LocationLifecycleService,
         @inject("BotGenerationCacheService") protected botGenerationCacheService: BotGenerationCacheService,
+        @inject("ApplicationContext") protected applicationContext: ApplicationContext,
         @inject("TimeUtil") protected timeUtil: TimeUtil
     ) {
         super();
@@ -66,6 +70,20 @@ export class LocationLifecycleServiceOverride extends Override {
                     // Only has value when transitioning into map from previous one
                     if (request.transition) {
                         result.transition = request.transition;
+                    }
+
+                    // Get data stored at end of previous raid (if any)
+                    const transitionData = this.applicationContext
+                        .getLatestValue(ContextVariableType.TRANSIT_INFO)
+                        ?.getValue<ILocationTransit>();
+                    if (transitionData) {
+                        result.transition.isLocationTransition = true;
+                        result.transition.transitionRaidId = transitionData.transitionRaidId;
+                        result.transition.transitionCount += 1;
+                        result.transition.visitedLocations.push(transitionData.location); // TODO - check doesnt exist before adding to prevent dupes
+
+                        // Complete, clean up
+                        this.applicationContext.clearValues(ContextVariableType.TRANSIT_INFO);
                     }
 
                     if (typeof matchId === "undefined" || sessionId === matchId) {
