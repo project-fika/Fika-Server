@@ -25,6 +25,9 @@ import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFik
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
+import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
+import { IStartRaidNotification } from "../models/fika/websocket/notifications/IStartRaidNotification";
+import { FikaNotifications } from "../models/enums/FikaNotifications";
 
 @injectable()
 export class FikaRaidController {
@@ -35,6 +38,7 @@ export class FikaRaidController {
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("InraidController") protected inraidController: InraidController
+        @inject("FikaNotificationWebSocket") protected fikaNotificationWebSocket: FikaNotificationWebSocket,
     ) {
         // empty
     }
@@ -44,6 +48,14 @@ export class FikaRaidController {
      * @param request
      */
     public handleRaidCreate(request: IFikaRaidCreateRequestData): IFikaRaidCreateResponse {
+        const notification = {
+            type: FikaNotifications.StartedRaid,
+            nickname: request.hostUsername,
+            location: request.settings.location
+        } as IStartRaidNotification;
+
+        this.fikaNotificationWebSocket.broadcast(notification);
+
         return {
             success: this.fikaMatchService.createMatch(request),
         };

@@ -45,10 +45,13 @@ import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRo
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
 
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
+import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
 
 import { Fika } from "../Fika";
 import { FikaDedicatedProfileService } from "../services/dedicated/FikaDedicatedProfileService";
 import { FikaServerTools } from "../utils/FikaServerTools";
+import { FikaNotificationStaticRouter } from "../routers/static/FikaNotificationStaticRouter";
+import { FikaNotificationCallbacks } from "../callbacks/FikaNotificationCallbacks";
 
 export class Container {
     public static register(container: DependencyContainer): void {
@@ -89,9 +92,12 @@ export class Container {
         container.registerType("StaticRoutes", "FikaRaidStaticRouter");
         container.registerType("StaticRoutes", "FikaSendItemStaticRouter");
         container.registerType("StaticRoutes", "FikaUpdateStaticRouter");
+        container.registerType("StaticRoutes", "FikaNotificationStaticRouter");
 
         container.registerType("IERouters", "FikaItemEventRouter");
+        
         container.registerType("WebSocketConnectionHandler", "FikaDedicatedRaidWebSocket");
+        container.registerType("WebSocketConnectionHandler", "FikaNotificationWebSocket");
     }
 
     private static registerUtils(container: DependencyContainer): void {
@@ -143,6 +149,7 @@ export class Container {
         container.register<FikaRaidCallbacks>("FikaRaidCallbacks", { useClass: FikaRaidCallbacks });
         container.register<FikaSendItemCallbacks>("FikaSendItemCallbacks", { useClass: FikaSendItemCallbacks });
         container.register<FikaUpdateCallbacks>("FikaUpdateCallbacks", { useClass: FikaUpdateCallbacks });
+        container.register<FikaNotificationCallbacks>("FikaNotificationCallbacks", { useClass: FikaNotificationCallbacks });
     }
 
     private static registerRouters(container: DependencyContainer): void {
@@ -152,9 +159,11 @@ export class Container {
         container.register<FikaSendItemStaticRouter>("FikaSendItemStaticRouter", { useClass: FikaSendItemStaticRouter });
         container.register<FikaUpdateStaticRouter>("FikaUpdateStaticRouter", { useClass: FikaUpdateStaticRouter });
         container.register<FikaItemEventRouter>("FikaItemEventRouter", { useClass: FikaItemEventRouter });
+        container.register<FikaNotificationStaticRouter>("FikaNotificationStaticRouter", { useClass: FikaNotificationStaticRouter });
     }
 
     private static registerWebSockets(container: DependencyContainer): void {
         container.register<FikaDedicatedRaidWebSocket>("FikaDedicatedRaidWebSocket", FikaDedicatedRaidWebSocket, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaNotificationWebSocket>("FikaNotificationWebSocket", FikaNotificationWebSocket, { lifecycle: Lifecycle.Singleton });
     }
 }
