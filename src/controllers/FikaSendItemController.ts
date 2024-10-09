@@ -9,6 +9,7 @@ import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { MailSendService } from "@spt/services/MailSendService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
@@ -24,6 +25,7 @@ export class FikaSendItemController {
     constructor(
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("EventOutputHolder") protected eventOutputHolder: EventOutputHolder,
+        @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("MailSendService") protected mailSendService: MailSendService,
         @inject("InventoryHelper") protected inventoryHelper: InventoryHelper,
         @inject("SaveServer") protected saveServer: SaveServer,
@@ -87,11 +89,13 @@ export class FikaSendItemController {
 
         this.inventoryHelper.removeItem(senderProfile.characters.pmc, body.id, sessionID, output);
 
+        const globalLocales = this.databaseService.getLocales().global.en;
+
         const notification = {
             type: FikaNotifications.SentItem,
             nickname: senderProfile?.characters?.pmc?.Info?.Nickname,
             targetId : body.target,
-            itemName: "An item" // Todo: This needs to have the item name localized.
+            itemName: globalLocales[`${itemsToSend[0]._tpl} Name`]
         } as IReceivedSentItemNotification;
 
         this.fikaNotificationWebSocket.broadcast(notification);
