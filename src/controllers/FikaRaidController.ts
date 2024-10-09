@@ -1,6 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { WebSocket } from "ws";
 
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { InraidController } from "@spt/controllers/InraidController";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
@@ -32,12 +33,13 @@ import { FikaNotifications } from "../models/enums/FikaNotifications";
 @injectable()
 export class FikaRaidController {
     constructor(
+        @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
         @inject("FikaDedicatedRaidWebSocket") protected fikaDedicatedRaidWebSocket: FikaDedicatedRaidWebSocket,
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("WinstonLogger") protected logger: ILogger,
-        @inject("InraidController") protected inraidController: InraidController
+        @inject("InraidController") protected inraidController: InraidController,
         @inject("FikaNotificationWebSocket") protected fikaNotificationWebSocket: FikaNotificationWebSocket,
     ) {
         // empty
@@ -48,10 +50,12 @@ export class FikaRaidController {
      * @param request
      */
     public handleRaidCreate(request: IFikaRaidCreateRequestData): IFikaRaidCreateResponse {
+        const globalLocales = this.databaseService.getLocales().global.en;
+
         const notification = {
             type: FikaNotifications.StartedRaid,
             nickname: request.hostUsername,
-            location: request.settings.location // Todo: Location needs to be localized, currently it send the format as "bigmap" or "rezervbase"
+            location:  globalLocales[request.settings.location]
         } as IStartRaidNotification;
 
         this.fikaNotificationWebSocket.broadcast(notification);

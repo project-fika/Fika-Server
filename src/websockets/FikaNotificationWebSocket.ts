@@ -32,7 +32,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
     }
 
     public onConnection(ws: WebSocket, req: IncomingMessage): void {
-        if (!req.headers.authorization)
+        if (req.headers.authorization === undefined)
         {
             ws.close();
             return;
