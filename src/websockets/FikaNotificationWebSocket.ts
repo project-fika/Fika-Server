@@ -32,6 +32,12 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
     }
 
     public onConnection(ws: WebSocket, req: IncomingMessage): void {
+        if (!req.headers.authorization)
+        {
+            ws.close();
+            return;
+        }
+
         const Authorization = Buffer.from(req.headers.authorization.split(" ")[1], 'base64').toString().split(":");
         const UserSessionID = Authorization[0];
 
