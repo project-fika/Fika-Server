@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -60,8 +60,8 @@ export class FikaSendItemController {
 
         this.logger.info(`${body.id} is going to sessionID: ${body.target}`);
 
-        const senderItems: Item[] = senderProfile.characters.pmc.Inventory.items;
-        const itemsToSend: Item[] = this.itemHelper.findAndReturnChildrenAsItems(senderItems, body.id);
+        const senderItems: IItem[] = senderProfile.characters.pmc.Inventory.items;
+        const itemsToSend: IItem[] = this.itemHelper.findAndReturnChildrenAsItems(senderItems, body.id);
         if (!itemsToSend || itemsToSend.length === 0) {
             return this.httpResponse.appendErrorToOutput(output, "Item not found in inventory");
         }
