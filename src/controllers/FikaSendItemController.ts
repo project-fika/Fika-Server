@@ -9,24 +9,30 @@ import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { MailSendService } from "@spt/services/MailSendService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { IFikaSendItemRequestData } from "../models/fika/routes/senditem/IFikaSendItemRequestData";
 import { IFikaSenditemAvailablereceiversResponse } from "../models/fika/routes/senditem/availablereceivers/IFikaSenditemAvailablereceiversResponse";
 import { FikaConfig } from "../utils/FikaConfig";
+import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
+import { IReceivedSentItemNotification } from "../models/fika/websocket/notifications/IReceivedSentItemNotification";
+import { FikaNotifications } from "../models/enums/FikaNotifications";
 
 @injectable()
 export class FikaSendItemController {
     constructor(
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("EventOutputHolder") protected eventOutputHolder: EventOutputHolder,
+        @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("MailSendService") protected mailSendService: MailSendService,
         @inject("InventoryHelper") protected inventoryHelper: InventoryHelper,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("ItemHelper") protected itemHelper: ItemHelper,
         @inject("HttpResponseUtil") protected httpResponse: HttpResponseUtil,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
+        @inject("FikaNotificationWebSocket") protected fikaNotificationWebSocket: FikaNotificationWebSocket
     ) {
         // empty
     }
@@ -82,6 +88,17 @@ export class FikaSendItemController {
         );
 
         this.inventoryHelper.removeItem(senderProfile.characters.pmc, body.id, sessionID, output);
+
+        const globalLocales = this.databaseService.getLocales().global.en;
+
+        const notification = {
+            type: FikaNotifications.SentItem,
+            nickname: senderProfile?.characters?.pmc?.Info?.Nickname,
+            targetId : body.target,
+            itemName: globalLocales[`${itemsToSend[0]._tpl} Name`]
+        } as IReceivedSentItemNotification;
+
+        this.fikaNotificationWebSocket.broadcast(notification);
 
         return output;
     }
