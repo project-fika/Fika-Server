@@ -18,13 +18,6 @@ import { Override } from "../../di/Override";
 import { FikaMatchService } from "../../services/FikaMatchService";
 import { BotLootCacheService } from "@spt/services/BotLootCacheService";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt/servers/ConfigServer";
-import { IInRaidConfig } from "@spt/models/spt/config/IInRaidConfig";
-import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
-import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
-import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
-import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
-import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
 
 @injectable()
 export class LocationLifecycleServiceOverride extends Override {
