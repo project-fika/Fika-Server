@@ -51,7 +51,7 @@ export class FikaUpdateController {
      * @returns
      */
     public handleRaidAddPlayer(request: IFikaUpdateRaidAddPlayerData): void {
-        this.fikaMatchService.addPlayerToMatch(request.serverId, request.profileId, { groupId: null, isDead: false });
+        this.fikaMatchService.addPlayerToMatch(request.serverId, request.profileId, { groupId: null, isDead: false, isSpectator: request.isSpectator });
     }
 
     /**

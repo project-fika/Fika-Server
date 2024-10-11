@@ -17,7 +17,7 @@ import { FikaInsuranceService } from "./FikaInsuranceService";
 
 @injectable()
 export class FikaMatchService {
-    protected matches: Map<string, IFikaMatch>;
+    public matches: Map<string, IFikaMatch>;
     protected timeoutIntervals: Map<string, NodeJS.Timeout>;
 
     constructor(
@@ -208,7 +208,7 @@ export class FikaMatchService {
 
         this.addTimeoutInterval(data.serverId);
 
-        this.addPlayerToMatch(data.serverId, data.serverId, { groupId: null, isDead: false });
+        this.addPlayerToMatch(data.serverId, data.serverId, { groupId: null, isDead: false, isSpectator: data.isSpectator });
 
         return this.matches.has(data.serverId) && this.timeoutIntervals.has(data.serverId);
     }
