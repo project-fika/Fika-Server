@@ -103,7 +103,6 @@ export class LocationLifecycleServiceOverride extends Override {
 
                     return result;
                 }
-
                 result.endLocalRaid = (sessionId: string, request: IEndLocalRaidRequestData): void => {
                     // Get match id from player session id
                     const matchId = this.fikaMatchService.getMatchIdByPlayer(sessionId);
