@@ -105,8 +105,6 @@ export class LocationLifecycleServiceOverride extends Override {
                 }
 
                 result.endLocalRaid = (sessionId: string, request: IEndLocalRaidRequestData): void => {
-                    var isSpectator: boolean = false;
-
                     // Get match id from player session id
                     const matchId = this.fikaMatchService.getMatchIdByPlayer(sessionId);
 
@@ -116,21 +114,13 @@ export class LocationLifecycleServiceOverride extends Override {
                         this.botLootCacheService.clearCache();
                     }
 
-                    const match = this.fikaMatchService.getMatch(matchId);
-
                     // Find player that exited the raid
-                    match.players.forEach((player, playerId) => {
-                        if(sessionId == playerId) {
-                            if(player.isSpectator) {
-                                isSpectator = true;
-                                return;
-                            }
-                        }
-                    });
+                    const player = this.fikaMatchService.getPlayerInMatch(matchId, sessionId);
 
-                    // Execute original method if not spectator (clear inventory, etc.)
-                    if(!isSpectator) {
-                        LocationLifecycleService.prototype.endLocalRaid.call(result, sessionId, request);
+                    if(player !== undefined) {
+                        if(!player.isSpectator) {
+                            LocationLifecycleService.prototype.endLocalRaid.call(result, sessionId, request);
+                        }
                     }
                 }
             },
