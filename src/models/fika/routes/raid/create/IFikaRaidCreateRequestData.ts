@@ -13,4 +13,5 @@ export interface IFikaRaidCreateRequestData {
     fikaVersion: string;
     side: FikaSide;
     time: FikaTime;
+    isSpectator: boolean;
 }
