@@ -95,7 +95,7 @@ export class Container {
         container.registerType("StaticRoutes", "FikaNotificationStaticRouter");
 
         container.registerType("IERouters", "FikaItemEventRouter");
-        
+
         container.registerType("WebSocketConnectionHandler", "FikaDedicatedRaidWebSocket");
         container.registerType("WebSocketConnectionHandler", "FikaNotificationWebSocket");
     }

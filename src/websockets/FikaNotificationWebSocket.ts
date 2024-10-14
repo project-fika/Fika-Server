@@ -39,7 +39,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
             return;
         }
 
-        const Authorization = Buffer.from(req.headers.authorization.split(" ")[1], 'base64').toString().split(":");
+        const Authorization = Buffer.from(req.headers.authorization.split(" ")[1], "base64").toString().split(":");
         const UserSessionID = Authorization[0];
 
         this.logger.debug(`[${this.getSocketId()}] User is ${UserSessionID}`);
@@ -55,10 +55,12 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         ws.on("close", (code, reason) => this.onClose(ws, UserSessionID, code, reason));
     }
 
+    // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
     public onMessage(sessionID: string, msg: string): void {
         // Do nothing
     }
 
+    // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
     public onClose(ws: WebSocket, sessionID: string, code: number, reason: Buffer): void {
         const clientWebSocket = this.clientWebSockets[sessionID];
 
@@ -92,7 +94,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
             // Send a keep alive message to clients.
             clientWebSocket.send(
                 JSON.stringify({
-                    type: FikaNotifications.KeepAlive
+                    type: FikaNotifications.KeepAlive,
                 }),
             );
         }

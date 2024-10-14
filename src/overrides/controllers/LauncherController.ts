@@ -33,22 +33,22 @@ export class LauncherControllerOverride extends Override {
             (_t, result: LauncherController) => {
                 result.connect = (): IConnectResponse => {
                     let editions = this.databaseService.getProfiles();
-                    
+
                     if (!this.fikaConfig.getConfig().server.showDevProfile) {
-                        delete editions["SPT Developer"]
+                        delete editions["SPT Developer"];
                     }
 
                     if (!this.fikaConfig.getConfig().server.showNonStandardProfile) {
                         for (const id of ["Tournament", "SPT Easy start", "SPT Zero to hero"]) {
-                            delete editions[id]
+                            delete editions[id];
                         }
                     }
-                    
+
                     return {
                         backendUrl: this.httpServerHelper.getBackendUrl(),
                         name: this.coreConfig.serverName,
                         editions: Object.keys(editions),
-                        profileDescriptions: this.launcherController.getProfileDescriptions()
+                        profileDescriptions: this.launcherController.getProfileDescriptions(),
                     };
                 };
             },

@@ -53,7 +53,7 @@ export class FikaRaidController {
         const notification = {
             type: FikaNotifications.StartedRaid,
             nickname: request.hostUsername,
-            location: request.settings.location
+            location: request.settings.location,
         } as IStartRaidNotification;
 
         this.fikaNotificationWebSocket.broadcast(notification);
@@ -76,7 +76,7 @@ export class FikaRaidController {
             expectedNumberOfPlayers: match.expectedNumberOfPlayers,
             gameVersion: match.gameVersion,
             fikaVersion: match.fikaVersion,
-            raidCode: match.raidCode
+            raidCode: match.raidCode,
         };
     }
 
@@ -125,7 +125,7 @@ export class FikaRaidController {
             metabolismDisabled: match.raidConfig.metabolismDisabled,
             playersSpawnPlace: match.raidConfig.playersSpawnPlace,
             hourOfDay: match.raidConfig.timeAndWeatherSettings.hourOfDay,
-            timeFlowType: match.raidConfig.timeAndWeatherSettings.timeFlowType
+            timeFlowType: match.raidConfig.timeAndWeatherSettings.timeFlowType,
         };
     }
 
@@ -201,7 +201,6 @@ export class FikaRaidController {
 
     /** Handle /fika/raid/dedicated/status */
     public handleRaidStatusDedicated(sessionId: string, info: IStatusDedicatedRequest): IStatusDedicatedResponse {
-
         // Temp fix because the enum gets deserialized as a string instead of an integer
         switch (info.status.toString()) {
             case "READY":

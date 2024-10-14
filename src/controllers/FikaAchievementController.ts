@@ -12,6 +12,7 @@ export class FikaAchievementController {
     ) {
         // empty
     }
+    // biome-ignore lint/correctness/noUnusedVariables: Can be ignored for now, could be useful in the future.
     getAchievementStatistics(sessionID: string): ICompletedAchievementsResponse {
         const achievements = this.databaseService.getAchievements();
         const stats: Record<string, number> = {};
