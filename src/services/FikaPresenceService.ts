@@ -28,11 +28,7 @@ export class FikaPresenceService {
             nickname: profile.characters.pmc.Info.Nickname,
             level: profile.characters.pmc.Info.Level,
             inRaid: false,
-            raidInformation: {
-                location: "",
-                side: 0,
-                timeStarted: 0,
-            } as IFikaRaidPresence,
+            raidInformation: null
         };
 
         this.logger.debug(`[Fika Presence] Adding player: ${data.nickname}`);
@@ -52,7 +48,7 @@ export class FikaPresenceService {
         return playerList;
     }
 
-    public updatePlayerPresence(sessionID: string, raidInformation: IFikaRaidPresence = { location: "", side: 0, timeStarted: 0 } as IFikaRaidPresence): void {
+    public updatePlayerPresence(sessionID: string, raidInformation: IFikaRaidPresence = null): void {
         if (!this.onlinePlayers[sessionID]) {
             return;
         }
