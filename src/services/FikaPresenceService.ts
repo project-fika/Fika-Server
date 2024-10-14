@@ -4,7 +4,6 @@ import { inject, injectable } from "tsyringe";
 import { FikaSide } from "../models/enums/FikaSide";
 
 export interface IFikaPlayerPresence {
-    sessionID: string;
     nickname: string;
     level: number;
     inRaid: boolean;
@@ -34,7 +33,6 @@ export class FikaPresenceService {
         }
 
         let data = {} as IFikaPlayerPresence;
-        data.sessionID = sessionID;
         data.nickname = profile.characters.pmc.Info.Nickname;
         data.level = profile.characters.pmc.Info.Level;
         data.inRaid = false;
@@ -75,7 +73,6 @@ export class FikaPresenceService {
         const profile = this.saveServer.getProfile(sessionID);
 
         let data = {} as IFikaPlayerPresence;
-        data.sessionID = sessionID;
         data.nickname = profile.characters.pmc.Info.Nickname;
         data.level = profile.characters.pmc.Info.Level;
 
