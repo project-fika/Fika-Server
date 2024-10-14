@@ -12,7 +12,7 @@ export class FikaPresenceStaticRouter extends StaticRouter {
         super([
             // biome-ignore lint/correctness/noUnusedVariables: Not necessary for this endpoint, but keep it as it is standard.
             new RouteAction("/fika/presence/get", async (url: string, info: any, sessionID: string, _output: string): Promise<IGetBodyResponseData<IFikaPlayerPresence[]>> => {
-                return this.fikaPresenceCallbacks.handlePushNotification();
+                return this.fikaPresenceCallbacks.handleGetPresence();
             }),
         ]);
     }

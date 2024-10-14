@@ -15,7 +15,7 @@ export class FikaPresenceCallbacks {
     }
 
     /** Handle /fika/presence/get */
-    public handlePushNotification(): IGetBodyResponseData<IFikaPlayerPresence[]> {
+    public handleGetPresence(): IGetBodyResponseData<IFikaPlayerPresence[]> {
         return this.httpResponseUtil.getBody(this.fikaPresenceService.getAllPlayersPresence());
     }
 }
