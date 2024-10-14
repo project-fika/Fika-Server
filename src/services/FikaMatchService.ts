@@ -6,15 +6,15 @@ import { SaveServer } from "@spt/servers/SaveServer";
 
 import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
 import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
-import { FikaSide } from "../models/enums/FikaSide";
 import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
+import { IFikaRaidPresence } from "../models/fika/presence/IFikaRaidPresence";
 
 import { FikaConfig } from "../utils/FikaConfig";
 import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
 import { FikaInsuranceService } from "./FikaInsuranceService";
-import { FikaPresenceService, IFikaRaidPresence } from "./FikaPresenceService";
+import { FikaPresenceService } from "./FikaPresenceService";
 
 @injectable()
 export class FikaMatchService {

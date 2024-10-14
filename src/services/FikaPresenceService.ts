@@ -3,21 +3,9 @@ import { inject, injectable } from "tsyringe";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 
-import { FikaSide } from "../models/enums/FikaSide";
+import { IFikaPlayerPresence } from "../models/fika/presence/IFikaPlayerPresence";
+import { IFikaRaidPresence } from "../models/fika/presence/IFikaRaidPresence";
 
-export interface IFikaPlayerPresence {
-    nickname: string;
-    level: number;
-    inRaid: boolean;
-    raidInformation: IFikaRaidPresence;
-}
-
-export type IFikaPlayerPresenceResponse = IFikaPlayerPresence[]
-
-export interface IFikaRaidPresence {
-    location: string;
-    side: FikaSide;
-}
 
 @injectable()
 export class FikaPresenceService {
@@ -37,13 +25,11 @@ export class FikaPresenceService {
             return;
         }
 
-        let data = {} as IFikaPlayerPresence;
-        data.nickname = profile.characters.pmc.Info.Nickname;
-        data.level = profile.characters.pmc.Info.Level;
-        data.inRaid = false;
-        data.raidInformation = {
-            location: "",
-            side: 0
+        let data: IFikaPlayerPresence =  {
+            nickname: profile.characters.pmc.Info.Nickname,
+            level: profile.characters.pmc.Info.Level,
+            inRaid: false,
+            raidInformation: {} as IFikaRaidPresence
         };
 
         this.logger.debug(`[Fika Presence] Adding player: ${data.nickname}`);
@@ -51,7 +37,7 @@ export class FikaPresenceService {
         this.onlinePlayers[sessionID] = data;
     }
 
-    public getAllPlayersPresence(): IFikaPlayerPresenceResponse {
+    public getAllPlayersPresence(): IFikaPlayerPresence[] {
         let playerList: IFikaPlayerPresence[] = [];
 
         for (const sessionID in this.onlinePlayers) {
