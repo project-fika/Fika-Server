@@ -368,6 +368,6 @@ export class FikaMatchService {
 
         this.matches.get(matchId).players.delete(playerId);
 
-        this.fikaPresenceService.updatePlayerPresence(playerId, null);
+        this.fikaPresenceService.updatePlayerPresence(playerId);
     }
 }
