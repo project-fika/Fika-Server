@@ -1,7 +1,8 @@
+import { inject, injectable } from "tsyringe";
+
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
-import { json } from "stream/consumers";
-import { inject, injectable } from "tsyringe";
+
 import { FikaSide } from "../models/enums/FikaSide";
 
 export interface IFikaPlayerPresence {
