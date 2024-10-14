@@ -1,11 +1,13 @@
-import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { inject, injectable } from "tsyringe";
-import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { IncomingMessage } from "http";
+import { inject, injectable } from "tsyringe";
 import { WebSocket } from "ws";
+
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
+
 import { FikaNotifications } from "../models/enums/FikaNotifications";
 import { IFikaNotificationBase } from "../models/fika/websocket/IFikaNotificationBase";
-import { SaveServer } from "@spt/servers/SaveServer";
 
 @injectable()
 export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
@@ -32,8 +34,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
     }
 
     public onConnection(ws: WebSocket, req: IncomingMessage): void {
-        if (req.headers.authorization === undefined)
-        {
+        if (req.headers.authorization === undefined) {
             ws.close();
             return;
         }
@@ -43,8 +44,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
 
         this.logger.debug(`[${this.getSocketId()}] User is ${UserSessionID}`);
 
-        if (!this.saveServer.getProfile(UserSessionID))
-        {
+        if (!this.saveServer.getProfile(UserSessionID)) {
             this.logger.warning(`[${this.getSocketId()}] Invalid user ${UserSessionID} tried to authenticate!`);
             return;
         }
@@ -59,11 +59,10 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         // Do nothing
     }
 
-    public onClose(ws: WebSocket, sessionID: string,  code: number, reason: Buffer): void {
+    public onClose(ws: WebSocket, sessionID: string, code: number, reason: Buffer): void {
         const clientWebSocket = this.clientWebSockets[sessionID];
 
-        if (clientWebSocket === ws)
-        {
+        if (clientWebSocket === ws) {
             this.logger.debug(`[${this.getSocketId()}] Deleting client ${sessionID}`);
 
             delete this.clientWebSockets[sessionID];
@@ -71,8 +70,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
     }
 
     public broadcast(message: IFikaNotificationBase): void {
-        for (const client in this.clientWebSockets)
-        {
+        for (const client in this.clientWebSockets) {
             const clientWebSocket = this.clientWebSockets[client];
 
             if (clientWebSocket.readyState == WebSocket.CLOSED) {
