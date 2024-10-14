@@ -14,6 +14,7 @@ import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IF
 import { FikaConfig } from "../utils/FikaConfig";
 import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
 import { FikaInsuranceService } from "./FikaInsuranceService";
+import { FikaPresenceService, IFikaRaidPresence } from "./FikaPresenceService";
 
 @injectable()
 export class FikaMatchService {
@@ -27,6 +28,7 @@ export class FikaMatchService {
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
         @inject("FikaInsuranceService") protected fikaInsuranceService: FikaInsuranceService,
+        @inject("FikaPresenceService") protected fikaPresenceService: FikaPresenceService,
     ) {
         this.matches = new Map();
         this.timeoutIntervals = new Map();
@@ -306,6 +308,12 @@ export class FikaMatchService {
         match.players.set(playerId, data);
 
         this.fikaInsuranceService.addPlayerToMatchId(matchId, playerId);
+
+        const raidInformation = {} as IFikaRaidPresence;
+        raidInformation.location = match.locationData.Id;
+        raidInformation.side = match.side;
+
+        this.fikaPresenceService.updatePlayerPresence(playerId, raidInformation);
     }
 
     /**
@@ -355,5 +363,7 @@ export class FikaMatchService {
         }
 
         this.matches.get(matchId).players.delete(playerId);
+
+        this.fikaPresenceService.updatePlayerPresence(playerId, null);
     }
 }

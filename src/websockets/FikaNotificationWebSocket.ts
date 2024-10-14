@@ -8,6 +8,7 @@ import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectio
 
 import { FikaNotifications } from "../models/enums/FikaNotifications";
 import { IFikaNotificationBase } from "../models/fika/websocket/IFikaNotificationBase";
+import { FikaPresenceService } from "../services/FikaPresenceService";
 
 @injectable()
 export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
@@ -16,6 +17,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
     constructor(
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("WinstonLogger") protected logger: ILogger,
+        @inject("FikaPresenceService") protected fikaPresenceService: FikaPresenceService,
     ) {
         this.clientWebSockets = {};
 
@@ -53,6 +55,8 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
 
         ws.on("message", (msg) => this.onMessage(UserSessionID, msg.toString()));
         ws.on("close", (code, reason) => this.onClose(ws, UserSessionID, code, reason));
+
+        this.fikaPresenceService.addPlayerPresence(UserSessionID);
     }
 
     // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
@@ -69,6 +73,8 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
 
             delete this.clientWebSockets[sessionID];
         }
+
+        this.fikaPresenceService.removePlayerPresence(sessionID);
     }
 
     public broadcast(message: IFikaNotificationBase): void {

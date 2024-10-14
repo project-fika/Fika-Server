@@ -18,6 +18,7 @@ import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequ
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
 import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
 import { FikaInsuranceService } from "../services/FikaInsuranceService";
+import { FikaPresenceService } from "../services/FikaPresenceService";
 
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
@@ -36,6 +37,7 @@ import { FikaLocationCallbacks } from "../callbacks/FikaLocationCallbacks";
 import { FikaRaidCallbacks } from "../callbacks/FikaRaidCallbacks";
 import { FikaSendItemCallbacks } from "../callbacks/FikaSendItemCallbacks";
 import { FikaUpdateCallbacks } from "../callbacks/FikaUpdateCallbacks";
+import { FikaPresenceCallbacks } from "../callbacks/FikaPresenceCallbacks";
 
 import { FikaItemEventRouter } from "../routers/item_events/FikaItemEventRouter";
 import { FikaClientStaticRouter } from "../routers/static/FikaClientStaticRouter";
@@ -43,6 +45,7 @@ import { FikaLocationStaticRouter } from "../routers/static/FikaLocationStaticRo
 import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
+import { FikaPresenceStaticRouter } from "../routers/static/FikaPresenceStaticRouter";
 
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
@@ -93,6 +96,7 @@ export class Container {
         container.registerType("StaticRoutes", "FikaSendItemStaticRouter");
         container.registerType("StaticRoutes", "FikaUpdateStaticRouter");
         container.registerType("StaticRoutes", "FikaNotificationStaticRouter");
+        container.registerType("StaticRoutes", "FikaPresenceStaticRouter");
 
         container.registerType("IERouters", "FikaItemEventRouter");
 
@@ -125,6 +129,7 @@ export class Container {
         container.register<FikaDedicatedRaidService>("FikaDedicatedRaidService", FikaDedicatedRaidService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaDedicatedProfileService>("FikaDedicatedProfileService", FikaDedicatedProfileService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaInsuranceService>("FikaInsuranceService", FikaInsuranceService, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaPresenceService>("FikaPresenceService", FikaPresenceService, { lifecycle: Lifecycle.Singleton });
     }
 
     private static registerHelpers(container: DependencyContainer): void {
@@ -150,6 +155,7 @@ export class Container {
         container.register<FikaSendItemCallbacks>("FikaSendItemCallbacks", { useClass: FikaSendItemCallbacks });
         container.register<FikaUpdateCallbacks>("FikaUpdateCallbacks", { useClass: FikaUpdateCallbacks });
         container.register<FikaNotificationCallbacks>("FikaNotificationCallbacks", { useClass: FikaNotificationCallbacks });
+        container.register<FikaPresenceCallbacks>("FikaPresenceCallbacks", { useClass: FikaPresenceCallbacks });
     }
 
     private static registerRouters(container: DependencyContainer): void {
@@ -160,6 +166,7 @@ export class Container {
         container.register<FikaUpdateStaticRouter>("FikaUpdateStaticRouter", { useClass: FikaUpdateStaticRouter });
         container.register<FikaItemEventRouter>("FikaItemEventRouter", { useClass: FikaItemEventRouter });
         container.register<FikaNotificationStaticRouter>("FikaNotificationStaticRouter", { useClass: FikaNotificationStaticRouter });
+        container.register<FikaPresenceStaticRouter>("FikaPresenceStaticRouter", { useClass: FikaPresenceStaticRouter });
     }
 
     private static registerWebSockets(container: DependencyContainer): void {
