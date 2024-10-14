@@ -2,8 +2,8 @@ import { inject, injectable } from "tsyringe";
 
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
-import { FikaPresenceService, IFikaPlayerPresence } from "../services/FikaPresenceService";
 import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import { FikaPresenceService, IFikaPlayerPresenceResponse } from "../services/FikaPresenceService";
 
 @injectable()
 export class FikaPresenceCallbacks {
@@ -15,7 +15,7 @@ export class FikaPresenceCallbacks {
     }
 
     /** Handle /fika/presence/get */
-    public handleGetPresence(): IGetBodyResponseData<IFikaPlayerPresence[]> {
-        return this.httpResponseUtil.getBody(this.fikaPresenceService.getAllPlayersPresence());
+    public handleGetPresence(): string {
+        return this.httpResponseUtil.noBody(this.fikaPresenceService.getAllPlayersPresence());
     }
 }

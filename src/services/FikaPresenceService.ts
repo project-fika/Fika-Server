@@ -1,15 +1,18 @@
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { json } from "stream/consumers";
 import { inject, injectable } from "tsyringe";
 import { FikaSide } from "../models/enums/FikaSide";
 
 export interface IFikaPlayerPresence {
-    sessionID: string;
     nickname: string;
     level: number;
     inRaid: boolean;
     raidInformation: IFikaRaidPresence;
 }
+
+export type IFikaPlayerPresenceResponse = IFikaPlayerPresence[]
+
 export interface IFikaRaidPresence {
     location: string;
     side: FikaSide;
@@ -34,18 +37,20 @@ export class FikaPresenceService {
         }
 
         let data = {} as IFikaPlayerPresence;
-        data.sessionID = sessionID;
         data.nickname = profile.characters.pmc.Info.Nickname;
         data.level = profile.characters.pmc.Info.Level;
         data.inRaid = false;
-        data.raidInformation = null;
+        data.raidInformation = {
+            location: "",
+            side: 0
+        };
 
         this.logger.debug(`[Fika Presence] Adding player: ${data.nickname}`);
 
         this.onlinePlayers[sessionID] = data;
     }
 
-    public getAllPlayersPresence(): IFikaPlayerPresence[] {
+    public getAllPlayersPresence(): IFikaPlayerPresenceResponse {
         let playerList: IFikaPlayerPresence[] = [];
 
         for (const sessionID in this.onlinePlayers) {
@@ -75,7 +80,6 @@ export class FikaPresenceService {
         const profile = this.saveServer.getProfile(sessionID);
 
         let data = {} as IFikaPlayerPresence;
-        data.sessionID = sessionID;
         data.nickname = profile.characters.pmc.Info.Nickname;
         data.level = profile.characters.pmc.Info.Level;
 
