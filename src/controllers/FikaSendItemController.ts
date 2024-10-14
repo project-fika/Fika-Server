@@ -13,12 +13,12 @@ import { DatabaseService } from "@spt/services/DatabaseService";
 import { MailSendService } from "@spt/services/MailSendService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
+import { FikaNotifications } from "../models/enums/FikaNotifications";
 import { IFikaSendItemRequestData } from "../models/fika/routes/senditem/IFikaSendItemRequestData";
 import { IFikaSenditemAvailablereceiversResponse } from "../models/fika/routes/senditem/availablereceivers/IFikaSenditemAvailablereceiversResponse";
+import { IReceivedSentItemNotification } from "../models/fika/websocket/notifications/IReceivedSentItemNotification";
 import { FikaConfig } from "../utils/FikaConfig";
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
-import { IReceivedSentItemNotification } from "../models/fika/websocket/notifications/IReceivedSentItemNotification";
-import { FikaNotifications } from "../models/enums/FikaNotifications";
 
 @injectable()
 export class FikaSendItemController {
@@ -89,13 +89,11 @@ export class FikaSendItemController {
 
         this.inventoryHelper.removeItem(senderProfile.characters.pmc, body.id, sessionID, output);
 
-        const globalLocales = this.databaseService.getLocales().global.en;
-
         const notification = {
             type: FikaNotifications.SentItem,
             nickname: senderProfile?.characters?.pmc?.Info?.Nickname,
-            targetId : body.target,
-            itemName: globalLocales[`${itemsToSend[0]._tpl} Name`]
+            targetId: body.target,
+            itemName: `${itemsToSend[0]._tpl} ShortName`
         } as IReceivedSentItemNotification;
 
         this.fikaNotificationWebSocket.broadcast(notification);
@@ -124,7 +122,7 @@ export class FikaSendItemController {
 
             if (profile.info.password === "fika-dedicated")
                 continue;
-            
+
             const nickname = profile.characters.pmc.Info.Nickname;
             if (!(nickname in result) && nickname !== sender.characters.pmc.Info.Nickname) {
                 result[nickname] = profile.info.id;

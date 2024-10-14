@@ -1,15 +1,16 @@
 import { inject, injectable } from "tsyringe";
 import { WebSocket } from "ws";
 
-import { DatabaseService } from "@spt/services/DatabaseService";
 import { InraidController } from "@spt/controllers/InraidController";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { DatabaseService } from "@spt/services/DatabaseService";
 
 import { DedicatedStatus } from "../models/enums/DedicatedStatus";
 import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
+import { FikaNotifications } from "../models/enums/FikaNotifications";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 import { IFikaRaidCreateResponse } from "../models/fika/routes/raid/create/IFikaRaidCreateResponse";
@@ -23,12 +24,11 @@ import { IFikaRaidSettingsResponse } from "../models/fika/routes/raid/getsetting
 import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
 import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaidJoinResponse";
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
+import { IStartRaidNotification } from "../models/fika/websocket/notifications/IStartRaidNotification";
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
-import { IStartRaidNotification } from "../models/fika/websocket/notifications/IStartRaidNotification";
-import { FikaNotifications } from "../models/enums/FikaNotifications";
 
 @injectable()
 export class FikaRaidController {
@@ -50,12 +50,10 @@ export class FikaRaidController {
      * @param request
      */
     public handleRaidCreate(request: IFikaRaidCreateRequestData): IFikaRaidCreateResponse {
-        const globalLocales = this.databaseService.getLocales().global.en;
-
         const notification = {
             type: FikaNotifications.StartedRaid,
             nickname: request.hostUsername,
-            location:  globalLocales[request.settings.location]
+            location: request.settings.location
         } as IStartRaidNotification;
 
         this.fikaNotificationWebSocket.broadcast(notification);
