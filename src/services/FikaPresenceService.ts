@@ -6,7 +6,6 @@ import { SaveServer } from "@spt/servers/SaveServer";
 import { IFikaPlayerPresence } from "../models/fika/presence/IFikaPlayerPresence";
 import { IFikaRaidPresence } from "../models/fika/presence/IFikaRaidPresence";
 
-
 @injectable()
 export class FikaPresenceService {
     private onlinePlayers: Record<string, IFikaPlayerPresence>;
@@ -25,11 +24,15 @@ export class FikaPresenceService {
             return;
         }
 
-        let data: IFikaPlayerPresence =  {
+        let data: IFikaPlayerPresence = {
             nickname: profile.characters.pmc.Info.Nickname,
             level: profile.characters.pmc.Info.Level,
             inRaid: false,
-            raidInformation: {} as IFikaRaidPresence
+            raidInformation: {
+                location: "",
+                side: 0,
+                timeStarted: 0,
+            } as IFikaRaidPresence,
         };
 
         this.logger.debug(`[Fika Presence] Adding player: ${data.nickname}`);
@@ -49,7 +52,7 @@ export class FikaPresenceService {
         return playerList;
     }
 
-    public updatePlayerPresence(sessionID: string, raidInformation: IFikaRaidPresence = null): void {
+    public updatePlayerPresence(sessionID: string, raidInformation: IFikaRaidPresence = { location: "", side: 0, timeStarted: 0 } as IFikaRaidPresence): void {
         if (!this.onlinePlayers[sessionID]) {
             return;
         }
@@ -60,7 +63,7 @@ export class FikaPresenceService {
         data.nickname = profile.characters.pmc.Info.Nickname;
         data.level = profile.characters.pmc.Info.Level;
 
-        if (raidInformation) {
+        if (raidInformation.location) {
             data.inRaid = true;
         } else {
             data.inRaid = false;
