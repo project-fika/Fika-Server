@@ -3,7 +3,8 @@ import { inject, injectable } from "tsyringe";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
-import { FikaPresenceService, IFikaPlayerPresence } from "../services/FikaPresenceService";
+import { FikaPresenceService } from "../services/FikaPresenceService";
+import { IFikaPlayerPresence } from "../models/fika/presence/IFikaPlayerPresence";
 
 @injectable()
 export class FikaPresenceCallbacks {

@@ -49,19 +49,9 @@ export class FikaPresenceService {
         return playerList;
     }
 
-    public getPlayerPresence(sessionID: string): IFikaPlayerPresence {
-        const presence = this.onlinePlayers[sessionID];
-
-        if (!presence) {
-            throw new Error("This player does not exist in Fika presence!");
-        }
-
-        return presence;
-    }
-
     public updatePlayerPresence(sessionID: string, raidInformation: IFikaRaidPresence = null): void {
         if (!this.onlinePlayers[sessionID]) {
-            throw new Error("This player does not exist in Fika presence!");
+            return;
         }
 
         const profile = this.saveServer.getProfile(sessionID);
