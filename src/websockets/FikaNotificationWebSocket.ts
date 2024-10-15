@@ -6,7 +6,7 @@ import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 
-import { FikaNotifications } from "../models/enums/FikaNotifications";
+import { EFikaNotifications } from "../models/enums/EFikaNotifications";
 import { IFikaNotificationBase } from "../models/fika/websocket/IFikaNotificationBase";
 import { FikaPresenceService } from "../services/FikaPresenceService";
 
@@ -100,7 +100,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
             // Send a keep alive message to clients.
             clientWebSocket.send(
                 JSON.stringify({
-                    type: FikaNotifications.KeepAlive,
+                    type: EFikaNotifications.KeepAlive,
                 }),
             );
         }

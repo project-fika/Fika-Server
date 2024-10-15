@@ -1,8 +1,8 @@
-import { FikaSide } from "../../enums/FikaSide";
-import { FikaTime } from "../../enums/FikaTime";
+import { EFikaSide } from "../../enums/EFikaSide";
+import { EFikaTime } from "../../enums/EFikaTime";
 
 export interface IFikaRaidPresence {
     location: string;
-    side: FikaSide;
-    time: FikaTime;
+    side: EFikaSide;
+    time: EFikaTime;
 }

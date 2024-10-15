@@ -1,4 +1,4 @@
-export enum FikaNotifications {
+export enum EFikaNotifications {
     KeepAlive = 0,
     StartedRaid = 1,
     SentItem = 2,

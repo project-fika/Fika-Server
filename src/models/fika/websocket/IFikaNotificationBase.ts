@@ -1,5 +1,5 @@
-import { FikaNotifications } from "../../enums/FikaNotifications";
+import { EFikaNotifications } from "../../enums/EFikaNotifications";
 
 export interface IFikaNotificationBase {
-    type: FikaNotifications;
+    type: EFikaNotifications;
 }

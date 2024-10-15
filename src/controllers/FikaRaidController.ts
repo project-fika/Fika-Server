@@ -8,9 +8,9 @@ import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlay
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 
-import { DedicatedStatus } from "../models/enums/DedicatedStatus";
-import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
-import { FikaNotifications } from "../models/enums/FikaNotifications";
+import { EDedicatedStatus } from "../models/enums/EDedicatedStatus";
+import { EFikaMatchEndSessionMessage } from "../models/enums/EFikaMatchEndSessionMessages";
+import { EFikaNotifications } from "../models/enums/EFikaNotifications";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 import { IFikaRaidCreateResponse } from "../models/fika/routes/raid/create/IFikaRaidCreateResponse";
@@ -51,7 +51,7 @@ export class FikaRaidController {
      */
     public handleRaidCreate(request: IFikaRaidCreateRequestData): IFikaRaidCreateResponse {
         const notification = {
-            type: FikaNotifications.StartedRaid,
+            type: EFikaNotifications.StartedRaid,
             nickname: request.hostUsername,
             location: request.settings.location,
         } as IStartRaidNotification;
@@ -86,7 +86,7 @@ export class FikaRaidController {
      */
     public handleRaidLeave(request: IFikaRaidLeaveRequestData): void {
         if (request.serverId === request.profileId) {
-            this.fikaMatchService.endMatch(request.serverId, FikaMatchEndSessionMessage.HOST_SHUTDOWN_MESSAGE);
+            this.fikaMatchService.endMatch(request.serverId, EFikaMatchEndSessionMessage.HOST_SHUTDOWN_MESSAGE);
             return;
         }
 
@@ -151,7 +151,7 @@ export class FikaRaidController {
         for (const dedicatedSessionId in this.fikaDedicatedRaidService.dedicatedClients) {
             const dedicatedClientInfo = this.fikaDedicatedRaidService.dedicatedClients[dedicatedSessionId];
 
-            if (dedicatedClientInfo.state != DedicatedStatus.READY) {
+            if (dedicatedClientInfo.state != EDedicatedStatus.READY) {
                 continue;
             }
 
@@ -204,14 +204,14 @@ export class FikaRaidController {
         // Temp fix because the enum gets deserialized as a string instead of an integer
         switch (info.status.toString()) {
             case "READY":
-                info.status = DedicatedStatus.READY;
+                info.status = EDedicatedStatus.READY;
                 break;
             case "IN_RAID":
-                info.status = DedicatedStatus.IN_RAID;
+                info.status = EDedicatedStatus.IN_RAID;
                 break;
         }
 
-        if (info.status == DedicatedStatus.READY && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
+        if (info.status == EDedicatedStatus.READY && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
             if (this.fikaDedicatedRaidService.onDedicatedClientAvailable) {
                 this.fikaDedicatedRaidService.onDedicatedClientAvailable();
             }

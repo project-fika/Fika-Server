@@ -4,7 +4,7 @@ import { TimeUtil } from "@spt/utils/TimeUtil";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 
-import { FikaPlayerPresences } from "../models/enums/FikaPlayerPresences";
+import { EFikaPlayerPresences } from "../models/enums/EFikaPlayerPresences";
 import { IFikaPlayerPresence } from "../models/fika/presence/IFikaPlayerPresence";
 import { IFikaRaidPresence } from "../models/fika/presence/IFikaRaidPresence";
 
@@ -30,7 +30,7 @@ export class FikaPresenceService {
         let data: IFikaPlayerPresence = {
             nickname: profile.characters.pmc.Info.Nickname,
             level: profile.characters.pmc.Info.Level,
-            activity: FikaPlayerPresences.IN_MENU,
+            activity: EFikaPlayerPresences.IN_MENU,
             activityStartedTimestamp: this.timeUtil.getTimestamp(),
             raidInformation: null
         };
@@ -52,7 +52,7 @@ export class FikaPresenceService {
         return playerList;
     }
 
-    public updatePlayerPresence(sessionID: string, activity: FikaPlayerPresences, raidInformation: IFikaRaidPresence = null): void {
+    public updatePlayerPresence(sessionID: string, activity: EFikaPlayerPresences, raidInformation: IFikaRaidPresence = null): void {
         if (!this.onlinePlayers[sessionID]) {
             return;
         }

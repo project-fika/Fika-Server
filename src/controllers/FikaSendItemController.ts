@@ -13,7 +13,7 @@ import { DatabaseService } from "@spt/services/DatabaseService";
 import { MailSendService } from "@spt/services/MailSendService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
-import { FikaNotifications } from "../models/enums/FikaNotifications";
+import { EFikaNotifications } from "../models/enums/EFikaNotifications";
 import { IFikaSendItemRequestData } from "../models/fika/routes/senditem/IFikaSendItemRequestData";
 import { IFikaSenditemAvailablereceiversResponse } from "../models/fika/routes/senditem/availablereceivers/IFikaSenditemAvailablereceiversResponse";
 import { IReceivedSentItemNotification } from "../models/fika/websocket/notifications/IReceivedSentItemNotification";
@@ -90,7 +90,7 @@ export class FikaSendItemController {
         this.inventoryHelper.removeItem(senderProfile.characters.pmc, body.id, sessionID, output);
 
         const notification = {
-            type: FikaNotifications.SentItem,
+            type: EFikaNotifications.SentItem,
             nickname: senderProfile?.characters?.pmc?.Info?.Nickname,
             targetId: body.target,
             itemName: `${itemsToSend[0]._tpl} ShortName`

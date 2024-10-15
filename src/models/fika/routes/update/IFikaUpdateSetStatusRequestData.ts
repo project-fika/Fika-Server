@@ -1,6 +1,6 @@
-import { FikaMatchStatus } from "../../../enums/FikaMatchStatus";
+import { EFikaMatchStatus } from "../../../enums/EFikaMatchStatus";
 
 export interface IFikaUpdateSetStatusRequestData {
     serverId: string;
-    status: FikaMatchStatus;
+    status: EFikaMatchStatus;
 }

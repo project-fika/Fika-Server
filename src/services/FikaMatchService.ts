@@ -4,13 +4,13 @@ import { LocationLifecycleService } from "@spt/services/LocationLifecycleService
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 
-import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
-import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
+import { EFikaMatchEndSessionMessage } from "../models/enums/EFikaMatchEndSessionMessages";
+import { EFikaMatchStatus } from "../models/enums/EFikaMatchStatus";
 import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 import { IFikaRaidPresence } from "../models/fika/presence/IFikaRaidPresence";
-import { FikaPlayerPresences } from "../models/enums/FikaPlayerPresences";
+import { EFikaPlayerPresences } from "../models/enums/EFikaPlayerPresences";
 
 import { FikaConfig } from "../utils/FikaConfig";
 import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
@@ -55,7 +55,7 @@ export class FikaMatchService {
 
                 // if it timed out 'sessionTimeout' times or more, end the match
                 if (match.timeout >= fikaConfig.server.sessionTimeout) {
-                    this.endMatch(matchId, FikaMatchEndSessionMessage.PING_TIMEOUT_MESSAGE);
+                    this.endMatch(matchId, EFikaMatchEndSessionMessage.PING_TIMEOUT_MESSAGE);
                 }
             }, 60 * 1000),
         );
@@ -197,7 +197,7 @@ export class FikaMatchService {
             expectedNumberOfPlayers: data.expectedNumberOfPlayers,
             raidConfig: data.settings,
             locationData: locationData,
-            status: FikaMatchStatus.LOADING,
+            status: EFikaMatchStatus.LOADING,
             timeout: 0,
             players: new Map(),
             gameVersion: data.gameVersion,
@@ -235,7 +235,7 @@ export class FikaMatchService {
      * @param matchId
      * @param reason
      */
-    public endMatch(matchId: string, reason: FikaMatchEndSessionMessage): void {
+    public endMatch(matchId: string, reason: EFikaMatchEndSessionMessage): void {
         this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
 
         if (this.fikaDedicatedRaidService.requestedSessions.hasOwnProperty(matchId)) {
@@ -251,7 +251,7 @@ export class FikaMatchService {
      * @param matchId
      * @param status
      */
-    public setMatchStatus(matchId: string, status: FikaMatchStatus): void {
+    public setMatchStatus(matchId: string, status: EFikaMatchStatus): void {
         if (!this.matches.has(matchId)) {
             return;
         }
@@ -316,7 +316,7 @@ export class FikaMatchService {
             time: match.time
         };
 
-        this.fikaPresenceService.updatePlayerPresence(playerId, FikaPlayerPresences.IN_RAID, raidInformation);
+        this.fikaPresenceService.updatePlayerPresence(playerId, EFikaPlayerPresences.IN_RAID, raidInformation);
     }
 
     /**
@@ -367,6 +367,6 @@ export class FikaMatchService {
 
         this.matches.get(matchId).players.delete(playerId);
 
-        this.fikaPresenceService.updatePlayerPresence(playerId, FikaPlayerPresences.IN_MENU);
+        this.fikaPresenceService.updatePlayerPresence(playerId, EFikaPlayerPresences.IN_MENU);
     }
 }

@@ -1,4 +1,4 @@
-export enum EFTNotificationIconType {
+export enum EEFTNotificationIconType {
     Default = 0,
     Alert = 1,
     Friend = 2,

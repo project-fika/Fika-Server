@@ -5,8 +5,8 @@ import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { IPushNotification } from "../models/fika/websocket/notifications/IPushNotification";
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
 import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
-import { FikaNotifications } from "../models/enums/FikaNotifications";
-import { EFTNotificationIconType } from "../models/enums/EFTNotificationIconType";
+import { EFikaNotifications } from "../models/enums/EFikaNotifications";
+import { EEFTNotificationIconType } from "../models/enums/EEFTNotificationIconType";
 
 @injectable()
 export class FikaNotificationCallbacks {
@@ -24,16 +24,16 @@ export class FikaNotificationCallbacks {
             return this.httpResponseUtil.nullResponse();
         }
 
-        info.type = FikaNotifications.PushNotification;
+        info.type = EFikaNotifications.PushNotification;
 
         // Set default notification icon if data for this has not been correctly given.
         if (!info.notificationIcon || typeof info.notificationIcon != "number") {
-            info.notificationIcon = EFTNotificationIconType.Default;
+            info.notificationIcon = EEFTNotificationIconType.Default;
         }
 
         //Do some exception handling for the client, icon 6 seems to cause an exception as well as going out of the enum's bounds.
         if (info.notificationIcon == 6 || info.notificationIcon > 14) {
-            info.notificationIcon = EFTNotificationIconType.Default;
+            info.notificationIcon = EEFTNotificationIconType.Default;
         }
 
         this.fikaNotificationWebSocket.broadcast(info);

@@ -1,6 +1,6 @@
-import { DedicatedStatus } from "../../../../enums/DedicatedStatus";
+import { EDedicatedStatus } from "../../../../enums/EDedicatedStatus";
 
 export interface IStatusDedicatedResponse {
     sessionId: string;
-    status: DedicatedStatus;
+    status: EDedicatedStatus;
 }

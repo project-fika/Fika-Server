@@ -1,7 +1,7 @@
-import { FikaPlayerPresences } from "../../enums/FikaPlayerPresences";
+import { EFikaPlayerPresences } from "../../enums/EFikaPlayerPresences";
 import { IFikaRaidPresence } from "./IFikaRaidPresence";
 
 export interface IFikaSetPresence {
-    activity: FikaPlayerPresences;
+    activity: EFikaPlayerPresences;
     raidInformation: IFikaRaidPresence;
 }
