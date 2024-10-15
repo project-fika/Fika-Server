@@ -6,5 +6,5 @@ export interface IFikaPlayerPresence {
     level: number;
     activity: EFikaPlayerPresences;
     activityStartedTimestamp: number;
-    raidInformation: IFikaRaidPresence;
+    raidInformation?: IFikaRaidPresence;
 }

@@ -52,7 +52,7 @@ export class FikaPresenceService {
         return playerList;
     }
 
-    public updatePlayerPresence(sessionID: string, activity: EFikaPlayerPresences, raidInformation: IFikaRaidPresence = null): void {
+    public updatePlayerPresence(sessionID: string, activity: EFikaPlayerPresences, raidInformation?: IFikaRaidPresence): void {
         if (!this.onlinePlayers[sessionID]) {
             return;
         }
