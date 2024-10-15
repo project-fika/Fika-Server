@@ -2,7 +2,6 @@ import { inject, injectable } from "tsyringe";
 
 import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { TimeUtil } from "@spt/utils/TimeUtil";
 import { SaveServer } from "@spt/servers/SaveServer";
 
 import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
@@ -11,6 +10,7 @@ import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 import { IFikaRaidPresence } from "../models/fika/presence/IFikaRaidPresence";
+import { FikaPlayerPresences } from "../models/enums/FikaPlayerPresences";
 
 import { FikaConfig } from "../utils/FikaConfig";
 import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
@@ -24,7 +24,6 @@ export class FikaMatchService {
 
     constructor(
         @inject("WinstonLogger") protected logger: ILogger,
-        @inject("TimeUtil") protected timeUtil: TimeUtil,
         @inject("LocationLifecycleService") protected locationLifecycleService: LocationLifecycleService,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
@@ -314,10 +313,10 @@ export class FikaMatchService {
         const raidInformation: IFikaRaidPresence = {
             location: match.locationData.Id,
             side: match.side,
-            timeStarted: this.timeUtil.getTimestamp(),
+            time: match.time
         };
-        
-        this.fikaPresenceService.updatePlayerPresence(playerId, raidInformation);
+
+        this.fikaPresenceService.updatePlayerPresence(playerId, FikaPlayerPresences.IN_RAID, raidInformation);
     }
 
     /**
@@ -368,6 +367,6 @@ export class FikaMatchService {
 
         this.matches.get(matchId).players.delete(playerId);
 
-        this.fikaPresenceService.updatePlayerPresence(playerId);
+        this.fikaPresenceService.updatePlayerPresence(playerId, FikaPlayerPresences.IN_MENU);
     }
 }

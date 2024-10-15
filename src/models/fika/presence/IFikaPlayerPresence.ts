@@ -1,8 +1,10 @@
+import { FikaPlayerPresences } from "../../enums/FikaPlayerPresences";
 import { IFikaRaidPresence } from "./IFikaRaidPresence";
 
 export interface IFikaPlayerPresence {
     nickname: string;
     level: number;
-    inRaid: boolean;
+    activity: FikaPlayerPresences;
+    activityStarted: number;
     raidInformation: IFikaRaidPresence;
 }
