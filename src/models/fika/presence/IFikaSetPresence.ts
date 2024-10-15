@@ -3,5 +3,5 @@ import { IFikaRaidPresence } from "./IFikaRaidPresence";
 
 export interface IFikaSetPresence {
     activity: EFikaPlayerPresences;
-    raidInformation: IFikaRaidPresence;
+    raidInformation?: IFikaRaidPresence;
 }
