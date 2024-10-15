@@ -23,7 +23,9 @@ export class FikaPresenceCallbacks {
 
     /** Handle /fika/presence/set */
     public handleSetPresence(_url: string, data: IFikaSetPresence, sessionID: string): INullResponseData {
-        return this.httpResponseUtil.noBody(this.fikaPresenceService.updatePlayerPresence(sessionID, data.activity, data.raidInformation));
+        this.fikaPresenceService.updatePlayerPresence(sessionID, data.activity, data.raidInformation);
+
+        return this.httpResponseUtil.nullResponse();
     }
 
     /** Handle /fika/presence/setget */
