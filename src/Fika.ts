@@ -49,7 +49,7 @@ export class Fika {
             this.fikaDedicatedProfileService.init();
         }
 
-        this.AddFikaClientLocales();
+        this.addFikaClientLocales();
 
         if (this.backgroundConfig.enable) {
             const image = this.backgroundConfig.easteregg ? "assets/images/launcher/bg-senko.png" : "assets/images/launcher/bg.png";
@@ -57,7 +57,7 @@ export class Fika {
         }
     }
 
-    private async AddFikaClientLocales() {
+    private async addFikaClientLocales() {
         const database = this.databaseServer.getTables();
         const databasePath = path.join(this.fikaConfig.getModPath(), "assets/database/");
 
