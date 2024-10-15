@@ -1,18 +1,13 @@
+import { inject, injectable } from "tsyringe";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+
 import { MatchController } from "@spt/controllers/MatchController";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { IEndLocalRaidRequestData } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 import { BaseClasses } from "@spt/models/enums/BaseClasses";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
-import { inject, injectable } from "tsyringe";
 
-export interface IFikaInsurancePlayer {
-    sessionID: string;
-    endedRaid: boolean;
-    lostItems: string[];
-    foundItems: string[];
-    inventory: string[];
-}
+import { IFikaInsurancePlayer } from "../models/fika/insurance/IFikaInsurancePlayer";
 
 @injectable()
 export class FikaInsuranceService {
