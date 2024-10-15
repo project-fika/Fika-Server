@@ -59,7 +59,7 @@ export class FikaPresenceService {
         data.nickname = profile.characters.pmc.Info.Nickname;
         data.level = profile.characters.pmc.Info.Level;
 
-        if (raidInformation.location) {
+        if (raidInformation?.location) {
             data.inRaid = true;
         } else {
             data.inRaid = false;
