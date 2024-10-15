@@ -7,6 +7,9 @@ import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EFikaPlayerPresences } from "../models/enums/EFikaPlayerPresences";
 import { IFikaPlayerPresence } from "../models/fika/presence/IFikaPlayerPresence";
 import { IFikaRaidPresence } from "../models/fika/presence/IFikaRaidPresence";
+import { IFikaSetPresence } from "../models/fika/presence/IFikaSetPresence";
+import { EFikaSide } from "../models/enums/EFikaSide";
+import { EFikaTime } from "../models/enums/EFikaTime";
 
 @injectable()
 export class FikaPresenceService {
@@ -52,7 +55,22 @@ export class FikaPresenceService {
         return playerList;
     }
 
-    public updatePlayerPresence(sessionID: string, activity: EFikaPlayerPresences, raidInformation?: IFikaRaidPresence): void {
+    public generateSetPresence(activity: EFikaPlayerPresences, raidInformation?: IFikaRaidPresence): IFikaSetPresence {
+        return {
+            activity: activity,
+            raidInformation: raidInformation,
+        };
+    }
+
+    public generateRaidPresence(location: string, side: EFikaSide, time: EFikaTime): IFikaRaidPresence {
+        return {
+            location: location,
+            side: side,
+            time: time,
+        };
+    }
+
+    public updatePlayerPresence(sessionID: string, newPresence: IFikaSetPresence): void {
         if (!this.onlinePlayers[sessionID]) {
             return;
         }
@@ -62,9 +80,9 @@ export class FikaPresenceService {
         let data: IFikaPlayerPresence = {
             nickname: profile.characters.pmc.Info.Nickname,
             level: profile.characters.pmc.Info.Level,
-            activity: activity,
+            activity: newPresence.activity,
             activityStartedTimestamp: this.timeUtil.getTimestamp(),
-            raidInformation: raidInformation,
+            raidInformation: newPresence.raidInformation,
         };
 
         this.onlinePlayers[sessionID] = data;

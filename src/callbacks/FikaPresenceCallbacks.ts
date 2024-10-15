@@ -23,14 +23,14 @@ export class FikaPresenceCallbacks {
 
     /** Handle /fika/presence/set */
     public handleSetPresence(_url: string, data: IFikaSetPresence, sessionID: string): INullResponseData {
-        this.fikaPresenceService.updatePlayerPresence(sessionID, data.activity, data.raidInformation);
+        this.fikaPresenceService.updatePlayerPresence(sessionID, data);
 
         return this.httpResponseUtil.nullResponse();
     }
 
     /** Handle /fika/presence/setget */
     public handleSetGetPresence(_url: string, data: IFikaSetPresence, sessionID: string): IFikaPlayerPresence {
-        this.fikaPresenceService.updatePlayerPresence(sessionID, data.activity, data.raidInformation);
+        this.fikaPresenceService.updatePlayerPresence(sessionID, data);
 
         return this.httpResponseUtil.noBody(this.fikaPresenceService.getAllPlayersPresence());
     }

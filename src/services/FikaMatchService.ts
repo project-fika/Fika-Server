@@ -9,13 +9,13 @@ import { EFikaMatchStatus } from "../models/enums/EFikaMatchStatus";
 import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
-import { IFikaRaidPresence } from "../models/fika/presence/IFikaRaidPresence";
 import { EFikaPlayerPresences } from "../models/enums/EFikaPlayerPresences";
 
 import { FikaConfig } from "../utils/FikaConfig";
 import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
 import { FikaInsuranceService } from "./FikaInsuranceService";
 import { FikaPresenceService } from "./FikaPresenceService";
+import { IFikaSetPresence } from "../models/fika/presence/IFikaSetPresence";
 
 @injectable()
 export class FikaMatchService {
@@ -310,13 +310,9 @@ export class FikaMatchService {
 
         this.fikaInsuranceService.addPlayerToMatchId(matchId, playerId);
 
-        const raidInformation: IFikaRaidPresence = {
-            location: match.locationData.Id,
-            side: match.side,
-            time: match.time,
-        };
-
-        this.fikaPresenceService.updatePlayerPresence(playerId, EFikaPlayerPresences.IN_RAID, raidInformation);
+        this.fikaPresenceService.updatePlayerPresence(playerId, this.fikaPresenceService.generateSetPresence(
+            EFikaPlayerPresences.IN_RAID,
+            this.fikaPresenceService.generateRaidPresence(match.locationData.Id, match.side, match.time)));
     }
 
     /**
@@ -367,6 +363,6 @@ export class FikaMatchService {
 
         this.matches.get(matchId).players.delete(playerId);
 
-        this.fikaPresenceService.updatePlayerPresence(playerId, EFikaPlayerPresences.IN_MENU);
+        this.fikaPresenceService.updatePlayerPresence(playerId, this.fikaPresenceService.generateSetPresence(EFikaPlayerPresences.IN_MENU));
     }
 }
