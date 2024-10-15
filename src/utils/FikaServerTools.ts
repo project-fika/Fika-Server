@@ -7,8 +7,8 @@ import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
 import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
 import { ChildProcessWithoutNullStreams, spawn } from "child_process";
 import path from "node:path";
-import fs from 'fs';
-import os from 'os';
+import fs from "fs";
+import os from "os";
 
 @injectable()
 export class FikaServerTools {
@@ -24,16 +24,16 @@ export class FikaServerTools {
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("ConfigServer") protected configServer: ConfigServer,
     ) {
-        switch(os.platform()) { 
-            case 'linux': {
+        switch (os.platform()) {
+            case "linux": {
                 this.exePath = path.join(path.join(__dirname, "../../"), "FikaServerTools");
-               break; 
-            } 
+                break;
+            }
             default: {
                 this.exePath = path.join(path.join(__dirname, "../../"), "FikaServerTools.exe");
                 break;
             }
-        } 
+        }
         this.natPunchServerConfig = fikaConfig.getConfig().natPunchServer;
         this.httpConfig = this.configServer.getConfig(ConfigTypes.HTTP);
     }
@@ -41,8 +41,7 @@ export class FikaServerTools {
     public startService(serviceName: string): void {
         var exeArgs: string[];
 
-        switch(serviceName)
-        {
+        switch (serviceName) {
             case "NatPunchServer":
                 const ip = this.httpConfig.ip;
                 const port = this.natPunchServerConfig.port;
@@ -54,32 +53,32 @@ export class FikaServerTools {
                 return;
         }
 
-        if(!fs.existsSync(this.exePath)) {
+        if (!fs.existsSync(this.exePath)) {
             this.logError(this.name, `File not found: ${this.exePath}`);
             return;
         }
 
-        if(serviceName in this.processes) {
+        if (serviceName in this.processes) {
             this.stopService(serviceName);
         }
 
         const process = spawn(this.exePath, exeArgs);
 
-        process.stdout.on("data", data => {
+        process.stdout.on("data", (data) => {
             var dataStr = data.toString();
             dataStr = dataStr.substring(0, dataStr.length - 1);
 
             this.logInfo(serviceName, dataStr);
         });
 
-        process.stderr.on("data", data => {
+        process.stderr.on("data", (data) => {
             var dataStr = data.toString();
             dataStr = dataStr.substring(0, dataStr.length - 1);
 
             this.logError(serviceName, dataStr);
         });
 
-        process.on("exit", code => {
+        process.on("exit", (code) => {
             this.logError(this.name, `FikaServerTools ended with code ${code}`);
         });
 
@@ -89,10 +88,10 @@ export class FikaServerTools {
     }
 
     public stopService(serviceName: string): void {
-        if(serviceName in this.processes) {
+        if (serviceName in this.processes) {
             const process = this.processes[serviceName];
-            if(process != null) {
-                if(!process.killed) {
+            if (process != null) {
+                if (!process.killed) {
                     process.kill();
                 }
             }

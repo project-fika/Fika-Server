@@ -32,7 +32,7 @@ export class FikaSendItemController {
         @inject("ItemHelper") protected itemHelper: ItemHelper,
         @inject("HttpResponseUtil") protected httpResponse: HttpResponseUtil,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
-        @inject("FikaNotificationWebSocket") protected fikaNotificationWebSocket: FikaNotificationWebSocket
+        @inject("FikaNotificationWebSocket") protected fikaNotificationWebSocket: FikaNotificationWebSocket,
     ) {
         // empty
     }
@@ -93,7 +93,7 @@ export class FikaSendItemController {
             type: EFikaNotifications.SentItem,
             nickname: senderProfile?.characters?.pmc?.Info?.Nickname,
             targetId: body.target,
-            itemName: `${itemsToSend[0]._tpl} ShortName`
+            itemName: `${itemsToSend[0]._tpl} ShortName`,
         } as IReceivedSentItemNotification;
 
         this.fikaNotificationWebSocket.broadcast(notification);
@@ -117,11 +117,9 @@ export class FikaSendItemController {
 
         for (const profile of Object.values(profiles)) {
             //Uninitialized profiles can cause this to error out, skip these.
-            if (!profile.characters?.pmc?.Info)
-                continue;
+            if (!profile.characters?.pmc?.Info) continue;
 
-            if (profile.info.password === "fika-dedicated")
-                continue;
+            if (profile.info.password === "fika-dedicated") continue;
 
             const nickname = profile.characters.pmc.Info.Nickname;
             if (!(nickname in result) && nickname !== sender.characters.pmc.Info.Nickname) {

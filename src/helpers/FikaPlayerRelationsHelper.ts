@@ -104,9 +104,9 @@ export class FikaPlayerRelationsHelper {
                     MemberCategory: profile.characters.pmc.Info.MemberCategory,
                     SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
                     Ignored: false,
-                    Banned: profile.characters.pmc.Info.BannedState
-                }
-            }
+                    Banned: profile.characters.pmc.Info.BannedState,
+                },
+            },
         } as any);
     }
 
@@ -140,9 +140,9 @@ export class FikaPlayerRelationsHelper {
                     MemberCategory: profile.characters.pmc.Info.MemberCategory,
                     SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
                     Ignored: false,
-                    Banned: profile.characters.pmc.Info.BannedState
-                }
-            }
+                    Banned: profile.characters.pmc.Info.BannedState,
+                },
+            },
         } as any);
     }
 
@@ -176,9 +176,9 @@ export class FikaPlayerRelationsHelper {
                     MemberCategory: profile.characters.pmc.Info.MemberCategory,
                     SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
                     Ignored: false,
-                    Banned: profile.characters.pmc.Info.BannedState
-                }
-            }
+                    Banned: profile.characters.pmc.Info.BannedState,
+                },
+            },
         } as any);
     }
 }

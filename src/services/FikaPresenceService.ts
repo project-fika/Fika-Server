@@ -32,7 +32,7 @@ export class FikaPresenceService {
             level: profile.characters.pmc.Info.Level,
             activity: EFikaPlayerPresences.IN_MENU,
             activityStartedTimestamp: this.timeUtil.getTimestamp(),
-            raidInformation: null
+            raidInformation: null,
         };
 
         this.logger.debug(`[Fika Presence] Adding player: ${data.nickname}`);
@@ -64,9 +64,9 @@ export class FikaPresenceService {
             level: profile.characters.pmc.Info.Level,
             activity: activity,
             activityStartedTimestamp: this.timeUtil.getTimestamp(),
-            raidInformation: raidInformation
+            raidInformation: raidInformation,
         };
-        
+
         this.onlinePlayers[sessionID] = data;
     }
 

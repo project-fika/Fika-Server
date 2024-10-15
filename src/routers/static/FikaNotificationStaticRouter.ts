@@ -11,7 +11,7 @@ export class FikaNotificationStaticRouter extends StaticRouter {
         super([
             new RouteAction("/fika/notification/push", async (url: string, info: IPushNotification, sessionID: string, _output: string): Promise<any> => {
                 return this.fikaNotificationCallbacks.handlePushNotification(url, info, sessionID);
-            })
+            }),
         ]);
     }
 }

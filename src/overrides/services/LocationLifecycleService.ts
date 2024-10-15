@@ -45,7 +45,7 @@ export class LocationLifecycleServiceOverride extends Override {
                     let locationLoot: ILocationBase;
                     const matchId = this.fikaMatchService.getMatchIdByProfile(sessionId);
                     // Stops TS from throwing a tantrum :)
-                    const lifecycleService = (this.locationLifecycleService as any);
+                    const lifecycleService = this.locationLifecycleService as any;
 
                     if (matchId === undefined) {
                         // player isn't in a Fika match, generate new loot
@@ -68,7 +68,7 @@ export class LocationLifecycleServiceOverride extends Override {
                             transitionRaidId: "66f5750951530ca5ae09876d",
                             transitionCount: 0,
                             visitedLocations: [],
-                        }
+                        },
                     };
 
                     // Only has value when transitioning into map from previous one
@@ -102,15 +102,14 @@ export class LocationLifecycleServiceOverride extends Override {
                     }
 
                     return result;
-                }
+                };
                 result.endLocalRaid = (sessionId: string, request: IEndLocalRaidRequestData): void => {
                     var isSpectator: boolean = false;
 
                     // Get match id from player session id
                     const matchId = this.fikaMatchService.getMatchIdByPlayer(sessionId);
 
-                    if(sessionId == matchId)
-                    {
+                    if (sessionId == matchId) {
                         // Clear bot loot cache only if host ended raid
                         this.botLootCacheService.clearCache();
                     }
@@ -118,17 +117,17 @@ export class LocationLifecycleServiceOverride extends Override {
                     // Find player that exited the raid
                     const player = this.fikaMatchService.getPlayerInMatch(matchId, sessionId);
 
-                    if(player !== undefined) {
-                        if(player.isSpectator) {
+                    if (player !== undefined) {
+                        if (player.isSpectator) {
                             isSpectator = true;
                         }
                     }
 
                     // Execute the original method if not a spectator
-                    if(!isSpectator) {
+                    if (!isSpectator) {
                         LocationLifecycleService.prototype.endLocalRaid.call(result, sessionId, request);
                     }
-                }
+                };
             },
             { frequency: "Always" },
         );

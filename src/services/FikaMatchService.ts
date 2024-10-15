@@ -313,7 +313,7 @@ export class FikaMatchService {
         const raidInformation: IFikaRaidPresence = {
             location: match.locationData.Id,
             side: match.side,
-            time: match.time
+            time: match.time,
         };
 
         this.fikaPresenceService.updatePlayerPresence(playerId, EFikaPlayerPresences.IN_RAID, raidInformation);
