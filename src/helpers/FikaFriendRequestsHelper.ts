@@ -52,8 +52,7 @@ export class FikaFriendRequestsHelper {
             return;
         }
 
-        if (!this.saveServer.getProfile(toProfileId))
-        {
+        if (!this.saveServer.profileExists(toProfileId)) {
             this.logger.logWithColor(`Friend request: ${toProfileId} doesn't exist! ${fromProfileId} tried to add an invalid user!`, LogTextColor.YELLOW);
 
             return;
