@@ -52,6 +52,13 @@ export class FikaFriendRequestsHelper {
             return;
         }
 
+        if (!this.saveServer.getProfile(toProfileId))
+        {
+            this.logger.logWithColor(`Friend request: ${toProfileId} doesn't exist! ${fromProfileId} tried to add an invalid user!`, LogTextColor.YELLOW);
+
+            return;
+        }
+
         this.fikaFriendRequestsCacheService.storeFriendRequest({
             _id: this.hashUtil.generate(),
             from: fromProfileId,
