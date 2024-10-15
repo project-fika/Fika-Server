@@ -1,13 +1,12 @@
 import { inject, injectable } from "tsyringe";
 
-import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { SaveServer } from "@spt/servers/SaveServer";
 import { TimeUtil } from "@spt/utils/TimeUtil";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
 
 import { EFikaPlayerPresences } from "../models/enums/EFikaPlayerPresences";
 import { IFikaPlayerPresence } from "../models/fika/presence/IFikaPlayerPresence";
 import { IFikaRaidPresence } from "../models/fika/presence/IFikaRaidPresence";
-import { IFikaSetPresence } from "../models/fika/presence/IFikaSetPresence";
 
 @injectable()
 export class FikaPresenceService {
@@ -65,27 +64,7 @@ export class FikaPresenceService {
             level: profile.characters.pmc.Info.Level,
             activity: activity,
             activityStartedTimestamp: this.timeUtil.getTimestamp(),
-            raidInformation: raidInformation
-        };
-
-        this.onlinePlayers[sessionID] = data;
-    }
-
-    public setPlayerPresence(sessionID: string, request: IFikaSetPresence): void {
-        if (!this.onlinePlayers[sessionID]) {
-            return;
-        }
-
-        console.log(JSON.stringify(request));
-
-        const profile = this.saveServer.getProfile(sessionID);
-
-        let data: IFikaPlayerPresence = {
-            nickname: profile.characters.pmc.Info.Nickname,
-            level: profile.characters.pmc.Info.Level,
-            activity: request.activity,
-            activityStartedTimestamp: this.timeUtil.getTimestamp(),
-            raidInformation: request?.raidInformation
+            raidInformation: raidInformation,
         };
 
         this.onlinePlayers[sessionID] = data;
