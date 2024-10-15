@@ -31,7 +31,7 @@ export class FikaPresenceService {
             nickname: profile.characters.pmc.Info.Nickname,
             level: profile.characters.pmc.Info.Level,
             activity: FikaPlayerPresences.IN_MENU,
-            activityStarted: this.timeUtil.getTimestamp(),
+            activityStartedTimestamp: this.timeUtil.getTimestamp(),
             raidInformation: null
         };
 
@@ -63,7 +63,7 @@ export class FikaPresenceService {
             nickname: profile.characters.pmc.Info.Nickname,
             level: profile.characters.pmc.Info.Level,
             activity: activity,
-            activityStarted: this.timeUtil.getTimestamp(),
+            activityStartedTimestamp: this.timeUtil.getTimestamp(),
             raidInformation: raidInformation
         };
         

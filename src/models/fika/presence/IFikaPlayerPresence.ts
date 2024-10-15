@@ -5,6 +5,6 @@ export interface IFikaPlayerPresence {
     nickname: string;
     level: number;
     activity: FikaPlayerPresences;
-    activityStarted: number;
+    activityStartedTimestamp: number;
     raidInformation: IFikaRaidPresence;
 }
