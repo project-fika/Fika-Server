@@ -96,7 +96,7 @@ export class FikaSendItemController {
             itemName: `${itemsToSend[0]._tpl} ShortName`,
         };
 
-        this.fikaNotificationWebSocket.broadcast(notification);
+        this.fikaNotificationWebSocket.send(body.target, notification);
 
         return output;
     }
