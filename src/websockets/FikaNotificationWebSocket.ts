@@ -12,7 +12,7 @@ import { FikaPresenceService } from "../services/FikaPresenceService";
 
 @injectable()
 export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
-    public clientWebSockets: Record<string, WebSocket>;
+    private clientWebSockets: Record<string, WebSocket>;
 
     constructor(
         @inject("SaveServer") protected saveServer: SaveServer,
@@ -100,13 +100,13 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         }
     }
 
-    public keepWebSocketAlive(): void {
+    private keepWebSocketAlive(): void {
         for (const sessionID in this.clientWebSockets) {
             let message: IFikaNotificationBase = {
                 type: EFikaNotifications.KeepAlive,
             };
 
-            this.send(sessionID, message)
+            this.send(sessionID, message);
         }
     }
 }
