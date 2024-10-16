@@ -1,5 +1,7 @@
-import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { inject, injectable } from "tsyringe";
+
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { SaveServer } from "@spt/servers/SaveServer";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { IncomingMessage } from "http";
 import { WebSocket } from "ws";
@@ -8,7 +10,10 @@ import { WebSocket } from "ws";
 export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
     public clientWebSockets: Record<string, WebSocket>;
 
-    constructor(@inject("WinstonLogger") protected logger: ILogger) {
+    constructor(
+        @inject("SaveServer") protected saveServer: SaveServer,
+        @inject("WinstonLogger") protected logger: ILogger,
+    ) {
         this.clientWebSockets = {};
 
         // Keep websocket connections alive
@@ -26,13 +31,25 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
     }
 
     public onConnection(ws: WebSocket, req: IncomingMessage): void {
-        // Strip request and break it into sections
-        const splitUrl = req.url.substring(0, req.url.indexOf("?")).split("/");
-        const sessionID = splitUrl.pop();
+        if (req.headers.authorization === undefined) {
+            ws.close();
+            return;
+        }
 
-        this.clientWebSockets[sessionID] = ws;
+        const Authorization = Buffer.from(req.headers.authorization.split(" ")[1], "base64").toString().split(":");
+        const UserSessionID = Authorization[0];
 
-        ws.on("message", (msg) => this.onMessage(sessionID, msg.toString()));
+        this.logger.debug(`[${this.getSocketId()}] User is ${UserSessionID}`);
+
+        if (!this.saveServer.getProfile(UserSessionID)) {
+            this.logger.warning(`[${this.getSocketId()}] Invalid user ${UserSessionID} tried to authenticate!`);
+            return;
+        }
+
+        this.clientWebSockets[UserSessionID] = ws;
+
+        ws.on("message", (msg) => this.onMessage(UserSessionID, msg.toString()));
+        ws.on("close", (code, reason) => this.onClose(ws, UserSessionID, code, reason));
     }
 
     // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
@@ -40,7 +57,18 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
         // Do nothing
     }
 
-    public keepWebSocketAlive(): void {
+    // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
+    public onClose(ws: WebSocket, sessionID: string, code: number, reason: Buffer): void {
+        const clientWebSocket = this.clientWebSockets[sessionID];
+
+        if (clientWebSocket === ws) {
+            this.logger.debug(`[${this.getSocketId()}] Deleting client ${sessionID}`);
+
+            delete this.clientWebSockets[sessionID];
+        }
+    }
+
+    private keepWebSocketAlive(): void {
         for (const sessionId in this.clientWebSockets) {
             const clientWebSocket = this.clientWebSockets[sessionId];
 
