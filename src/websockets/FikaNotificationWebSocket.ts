@@ -77,32 +77,36 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         this.fikaPresenceService.removePlayerPresence(sessionID);
     }
 
+    // Send functionality for sending to a single client.
+    public send(sessionID: string, message: IFikaNotificationBase): void {
+        const client = this.clientWebSockets[sessionID];
+
+        // Client is not online or not currently connected to the websocket.
+        if (!client) {
+            return;
+        }
+
+        // Client was formerly connected to the websocket, but may have connection issues as it didn't run onClose
+        if (client.readyState === WebSocket.CLOSED) {
+            return;
+        }
+
+        client.send(JSON.stringify(message));
+    }
+
     public broadcast(message: IFikaNotificationBase): void {
-        for (const client in this.clientWebSockets) {
-            const clientWebSocket = this.clientWebSockets[client];
-
-            if (clientWebSocket.readyState == WebSocket.CLOSED) {
-                continue;
-            }
-
-            clientWebSocket.send(JSON.stringify(message));
+        for (const sessionID in this.clientWebSockets) {
+            this.send(sessionID, message);
         }
     }
 
     public keepWebSocketAlive(): void {
-        for (const sessionId in this.clientWebSockets) {
-            const clientWebSocket = this.clientWebSockets[sessionId];
+        for (const sessionID in this.clientWebSockets) {
+            let message: IFikaNotificationBase = {
+                type: EFikaNotifications.KeepAlive,
+            };
 
-            if (clientWebSocket.readyState == WebSocket.CLOSED) {
-                continue;
-            }
-
-            // Send a keep alive message to clients.
-            clientWebSocket.send(
-                JSON.stringify({
-                    type: EFikaNotifications.KeepAlive,
-                }),
-            );
+            this.send(sessionID, message)
         }
     }
 }
