@@ -187,7 +187,10 @@ export class FikaMatchService {
             this.deleteMatch(data.serverId);
         }
 
-        const locationData = this.locationLifecycleService.generateLocationAndLoot(data.settings.location);
+        // Stop TS from throwing a tantrum over protected methods
+        const lifecycleService = this.locationLifecycleService as any;
+
+        const locationData = lifecycleService.generateLocationAndLoot(data.settings.location);
 
         this.matches.set(data.serverId, {
             ips: null,

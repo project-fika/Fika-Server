@@ -44,11 +44,14 @@ export class LauncherControllerOverride extends Override {
                         }
                     }
 
+                    // Stop TS from throwing a tantrum over protected methods
+                    const launchController = this.launcherController as any;
+
                     return {
                         backendUrl: this.httpServerHelper.getBackendUrl(),
                         name: this.coreConfig.serverName,
                         editions: Object.keys(editions),
-                        profileDescriptions: this.launcherController.getProfileDescriptions(),
+                        profileDescriptions: launchController.getProfileDescriptions(),
                     };
                 };
             },
