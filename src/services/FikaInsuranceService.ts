@@ -37,12 +37,15 @@ export class FikaInsuranceService {
             this.matchInsuranceInfo[matchId] = [];
         }
 
-        let Data = {} as IFikaInsurancePlayer;
-        Data.sessionID = sessionID;
-        Data.endedRaid = false;
-        Data.foundItems = [];
+        let player: IFikaInsurancePlayer = {
+            sessionID: sessionID,
+            endedRaid: false,
+            lostItems: [],
+            foundItems: [],
+            inventory: [],  
+        };
 
-        this.matchInsuranceInfo[matchId].push(Data);
+        this.matchInsuranceInfo[matchId].push(player);
     }
 
     public onEndLocalRaidRequest(sessionID: string, matchId: string, endLocalRaidRequest: IEndLocalRaidRequestData): void {

@@ -50,11 +50,11 @@ export class FikaRaidController {
      * @param request
      */
     public handleRaidCreate(request: IFikaRaidCreateRequestData): IFikaRaidCreateResponse {
-        const notification = {
+        const notification: IStartRaidNotification = {
             type: EFikaNotifications.StartedRaid,
             nickname: request.hostUsername,
             location: request.settings.location,
-        } as IStartRaidNotification;
+        };
 
         this.fikaNotificationWebSocket.broadcast(notification);
 

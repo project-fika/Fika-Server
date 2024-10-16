@@ -89,12 +89,12 @@ export class FikaSendItemController {
 
         this.inventoryHelper.removeItem(senderProfile.characters.pmc, body.id, sessionID, output);
 
-        const notification = {
+        const notification: IReceivedSentItemNotification = {
             type: EFikaNotifications.SentItem,
             nickname: senderProfile?.characters?.pmc?.Info?.Nickname,
             targetId: body.target,
             itemName: `${itemsToSend[0]._tpl} ShortName`,
-        } as IReceivedSentItemNotification;
+        };
 
         this.fikaNotificationWebSocket.broadcast(notification);
 
