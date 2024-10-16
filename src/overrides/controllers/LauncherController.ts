@@ -35,6 +35,7 @@ export class LauncherControllerOverride extends Override {
                     let editions = this.databaseService.getProfiles();
 
                     if (!this.fikaConfig.getConfig().server.showDevProfile) {
+                        // biome-ignore lint/performance/noDelete: Only ran once.
                         delete editions["SPT Developer"];
                     }
 
