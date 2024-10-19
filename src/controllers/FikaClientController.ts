@@ -15,6 +15,7 @@ import { FikaConfig } from "../utils/FikaConfig";
 export class FikaClientController {
     protected requiredMods: Set<string>;
     protected allowedMods: Set<string>;
+    protected hasRequiredorOptionalMods: boolean = true;
 
     constructor(
         @inject("FikaClientModHashesHelper") protected fikaClientModHashesHelper: FikaClientModHashesHelper,
@@ -26,6 +27,10 @@ export class FikaClientController {
 
         const sanitizedRequiredMods = this.filterEmptyMods(config.client.mods.required);
         const sanitizedOptionalMods = this.filterEmptyMods(config.client.mods.optional);
+
+        if (sanitizedRequiredMods.length === 0 && sanitizedRequiredMods.length === 0) {
+            this.hasRequiredorOptionalMods = false;
+        }
 
         this.requiredMods = new Set([...sanitizedRequiredMods, "com.fika.core", "com.SPT.custom", "com.SPT.singleplayer", "com.SPT.core", "com.SPT.debugging"]);
         this.allowedMods = new Set([...this.requiredMods, ...sanitizedOptionalMods, "com.bepis.bepinex.configurationmanager"]);
@@ -53,8 +58,6 @@ export class FikaClientController {
      * Handle /fika/client/check/mods
      */
     public handleCheckMods(request: IFikaCheckModRequestData): IFikaCheckModResponse {
-        const config = this.fikaConfig.getConfig();
-
         const mismatchedMods: IFikaCheckModResponse = {
             forbidden: [],
             missingRequired: [],
@@ -62,7 +65,7 @@ export class FikaClientController {
         };
 
         // if no configuration was made, allow all mods
-        if (config.client.mods.required.length === 0 && config.client.mods.optional.length === 0) {
+        if (!this.hasRequiredorOptionalMods) {
             return mismatchedMods;
         }
 
