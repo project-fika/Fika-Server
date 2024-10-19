@@ -14,11 +14,12 @@ export declare class WeatherHelper {
      * @param currentDate (new Date())
      * @returns Date object of current in-raid time
      */
-    getInRaidTime(): Date;
+    getInRaidTime(timestamp?: number): Date;
     /**
      * Is the current raid at nighttime
      * @param timeVariant PASS OR CURR (from raid settings)
      * @returns True when nighttime
      */
     isNightTime(timeVariant: DateTime): boolean;
+    isHourAtNightTime(currentHour: number): boolean;
 }

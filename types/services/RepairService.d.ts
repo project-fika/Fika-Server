@@ -7,11 +7,11 @@ import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { RepairKitsInfo } from "@spt/models/eft/repair/IRepairActionDataRequest";
-import { RepairItem } from "@spt/models/eft/repair/ITraderRepairActionDataRequest";
+import { IRepairKitsInfo } from "@spt/models/eft/repair/IRepairActionDataRequest";
+import { IRepairItem } from "@spt/models/eft/repair/ITraderRepairActionDataRequest";
 import { BonusType } from "@spt/models/enums/BonusType";
 import { SkillTypes } from "@spt/models/enums/SkillTypes";
-import { BonusSettings, IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
+import { IBonusSettings, IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -40,7 +40,7 @@ export declare class RepairService {
      * @param traderId Trader being used to repair item
      * @returns RepairDetails object
      */
-    repairItemByTrader(sessionID: string, pmcData: IPmcData, repairItemDetails: RepairItem, traderId: string): RepairDetails;
+    repairItemByTrader(sessionID: string, pmcData: IPmcData, repairItemDetails: IRepairItem, traderId: string): RepairDetails;
     /**
      * @param sessionID Session id
      * @param pmcData profile to take money from
@@ -72,7 +72,7 @@ export declare class RepairService {
      * @param output IItemEventRouterResponse
      * @returns Details of repair, item/price
      */
-    repairItemByKit(sessionId: string, pmcData: IPmcData, repairKits: RepairKitsInfo[], itemToRepairId: string, output: IItemEventRouterResponse): RepairDetails;
+    repairItemByKit(sessionId: string, pmcData: IPmcData, repairKits: IRepairKitsInfo[], itemToRepairId: string, output: IItemEventRouterResponse): RepairDetails;
     /**
      * Calculate value repairkit points need to be divided by to get the durability points to be added to an item
      * @param itemToRepairDetails Item to repair details
@@ -112,7 +112,7 @@ export declare class RepairService {
      * @param itemConfig weapon/armor config
      * @param repairDetails Details for item to repair
      */
-    addBuff(itemConfig: BonusSettings, item: IItem): void;
+    addBuff(itemConfig: IBonusSettings, item: IItem): void;
     /**
      * Check if item should be buffed by checking the item type and relevant player skill level
      * @param repairDetails Item that was repaired

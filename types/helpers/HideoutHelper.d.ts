@@ -4,12 +4,13 @@ import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IBotHideoutArea, IHideoutImprovement, IProduction, IProductive } from "@spt/models/eft/common/tables/IBotBase";
 import { IItem, IUpd } from "@spt/models/eft/common/tables/IItem";
-import { IHideoutArea, StageBonus } from "@spt/models/eft/hideout/IHideoutArea";
+import { IHideoutArea, IStageBonus } from "@spt/models/eft/hideout/IHideoutArea";
 import { IHideoutContinuousProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutContinuousProductionStartRequestData";
 import { IHideoutProduction } from "@spt/models/eft/hideout/IHideoutProduction";
 import { IHideoutSingleProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutSingleProductionStartRequestData";
 import { IHideoutTakeProductionRequestData } from "@spt/models/eft/hideout/IHideoutTakeProductionRequestData";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { HideoutAreas } from "@spt/models/enums/HideoutAreas";
 import { SkillTypes } from "@spt/models/enums/SkillTypes";
 import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -55,7 +56,7 @@ export declare class HideoutHelper {
      * This convenience function initializes new Production Object
      * with all the constants.
      */
-    initProduction(recipeId: string, productionTime: number, needFuelForAllProductionTime: boolean, isCultistCircle?: boolean): IProduction;
+    initProduction(recipeId: string, productionTime: number, needFuelForAllProductionTime: boolean): IProduction;
     /**
      * Is the provided object a Production type
      * @param productive
@@ -67,7 +68,7 @@ export declare class HideoutHelper {
      * @param pmcData Profile to add bonus to
      * @param bonus Bonus to add to profile
      */
-    applyPlayerUpgradesBonuses(pmcData: IPmcData, bonus: StageBonus): void;
+    applyPlayerUpgradesBonuses(pmcData: IPmcData, bonus: IStageBonus): void;
     /**
      * Process a players hideout, update areas that use resources + increment production timers
      * @param sessionID Session id
@@ -94,6 +95,21 @@ export declare class HideoutHelper {
         isGeneratorOn: boolean;
         waterCollectorHasFilter: boolean;
     }): void;
+    /**
+     * Is a craft from a particular hideout area
+     * @param craft Craft to check
+     * @param hideoutType Type to check craft against
+     * @returns True it is from that area
+     */
+    protected isCraftOfType(craft: IProduction, hideoutType: HideoutAreas): boolean;
+    /**
+     * Has the craft completed
+     * Ignores bitcoin farm/cultist circle as they're continuous crafts
+     * @param craft Craft to check
+
+     * @returns True when craft is compelte
+     */
+    protected isCraftComplete(craft: IProduction): boolean;
     /**
      * Update progress timer for water collector
      * @param pmcData profile to update

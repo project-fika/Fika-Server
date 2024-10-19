@@ -1,7 +1,7 @@
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IHideoutImprovement, IMoneyTransferLimits, IProductive, ITraderInfo } from "@spt/models/eft/common/tables/IBotBase";
-import { TraderData } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
+import { ITraderData } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 import { ICloner } from "@spt/utils/cloners/ICloner";
@@ -36,7 +36,7 @@ export declare class EventOutputHolder {
      * @param traderData server data for traders
      * @returns dict of trader id + TraderData
      */
-    protected constructTraderRelations(traderData: Record<string, ITraderInfo>): Record<string, TraderData>;
+    protected constructTraderRelations(traderData: Record<string, ITraderInfo>): Record<string, ITraderData>;
     /**
      * Return all hideout Improvements from player profile, adjust completed Improvements' completed property to be true
      * @param pmcData Player profile

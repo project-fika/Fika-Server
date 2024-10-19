@@ -2,7 +2,7 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { NotificationSendHelper } from "@spt/helpers/NotificationSendHelper";
 import { NotifierHelper } from "@spt/helpers/NotifierHelper";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { Dialogue, MessagePreview } from "@spt/models/eft/profile/ISptProfile";
+import { IDialogue, IMessagePreview } from "@spt/models/eft/profile/ISptProfile";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -23,7 +23,7 @@ export declare class DialogueHelper {
      * @param dialogue
      * @returns MessagePreview
      */
-    getMessagePreview(dialogue: Dialogue): MessagePreview;
+    getMessagePreview(dialogue: IDialogue): IMessagePreview;
     /**
      * Get the item contents for a particular message.
      * @param messageID
@@ -37,5 +37,5 @@ export declare class DialogueHelper {
      * @param sessionId Session/player id
      * @returns Dialog dictionary
      */
-    getDialogsForProfile(sessionId: string): Record<string, Dialogue>;
+    getDialogsForProfile(sessionId: string): Record<string, IDialogue>;
 }

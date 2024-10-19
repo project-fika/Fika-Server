@@ -4,7 +4,7 @@ import { OnUpdate } from "@spt/di/OnUpdate";
 import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
 import { ITraderAssort, ITraderBase } from "@spt/models/eft/common/tables/ITrader";
 import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
-import { ModdedTraders } from "@spt/models/spt/config/ITraderConfig";
+import { IModdedTraders } from "@spt/models/spt/config/ITraderConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 export declare class TraderCallbacks implements OnLoad, OnUpdate {
@@ -23,5 +23,5 @@ export declare class TraderCallbacks implements OnLoad, OnUpdate {
     /** Handle client/trading/api/getTraderAssort */
     getAssort(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<ITraderAssort>;
     /** Handle /singleplayer/moddedTraders */
-    getModdedTraderData(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<ModdedTraders>;
+    getModdedTraderData(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IModdedTraders>;
 }

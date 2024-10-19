@@ -7,9 +7,8 @@ import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IBotHideoutArea, IProduct, ITaskConditionCounter } from "@spt/models/eft/common/tables/IBotBase";
-import { HideoutUpgradeCompleteRequestData } from "@spt/models/eft/hideout/HideoutUpgradeCompleteRequestData";
 import { IHandleQTEEventRequestData } from "@spt/models/eft/hideout/IHandleQTEEventRequestData";
-import { IHideoutArea, Stage } from "@spt/models/eft/hideout/IHideoutArea";
+import { IHideoutArea, IStage } from "@spt/models/eft/hideout/IHideoutArea";
 import { IHideoutCancelProductionRequestData } from "@spt/models/eft/hideout/IHideoutCancelProductionRequestData";
 import { IHideoutCircleOfCultistProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutCircleOfCultistProductionStartRequestData";
 import { IHideoutContinuousProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutContinuousProductionStartRequestData";
@@ -22,8 +21,9 @@ import { IHideoutSingleProductionStartRequestData } from "@spt/models/eft/hideou
 import { IHideoutTakeItemOutRequestData } from "@spt/models/eft/hideout/IHideoutTakeItemOutRequestData";
 import { IHideoutTakeProductionRequestData } from "@spt/models/eft/hideout/IHideoutTakeProductionRequestData";
 import { IHideoutToggleAreaRequestData } from "@spt/models/eft/hideout/IHideoutToggleAreaRequestData";
+import { IHideoutUpgradeCompleteRequestData } from "@spt/models/eft/hideout/IHideoutUpgradeCompleteRequestData";
 import { IHideoutUpgradeRequestData } from "@spt/models/eft/hideout/IHideoutUpgradeRequestData";
-import { IQteData } from "@spt/models/eft/hideout/IQteData";
+import { IQteData, IQteResult } from "@spt/models/eft/hideout/IQteData";
 import { IRecordShootingRangePoints } from "@spt/models/eft/hideout/IRecordShootingRangePoints";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { HideoutAreas } from "@spt/models/enums/HideoutAreas";
@@ -87,7 +87,7 @@ export declare class HideoutController {
      * @param sessionID Session id
      * @param output Client response
      */
-    upgradeComplete(pmcData: IPmcData, request: HideoutUpgradeCompleteRequestData, sessionID: string, output: IItemEventRouterResponse): void;
+    upgradeComplete(pmcData: IPmcData, request: IHideoutUpgradeCompleteRequestData, sessionID: string, output: IItemEventRouterResponse): void;
     /**
      * Upgrade wall status to visible in profile if medstation/water collector are both level 1
      * @param pmcData Player profile
@@ -101,7 +101,7 @@ export declare class HideoutController {
      * @param dbHideoutArea Hideout area being upgraded
      * @param hideoutStage Stage hideout area is being upgraded to
      */
-    protected addContainerImprovementToProfile(output: IItemEventRouterResponse, sessionID: string, pmcData: IPmcData, profileParentHideoutArea: IBotHideoutArea, dbHideoutArea: IHideoutArea, hideoutStage: Stage): void;
+    protected addContainerImprovementToProfile(output: IItemEventRouterResponse, sessionID: string, pmcData: IPmcData, profileParentHideoutArea: IBotHideoutArea, dbHideoutArea: IHideoutArea, hideoutStage: IStage): void;
     /**
      * Add stand1/stand2/stand3 inventory items to profile, depending on passed in hideout stage
      * @param sessionId Session id
@@ -110,14 +110,14 @@ export declare class HideoutController {
      * @param equipmentPresetHideoutArea
      * @param output Response to send back to client
      */
-    protected addMissingPresetStandItemsToProfile(sessionId: string, equipmentPresetStage: Stage, pmcData: IPmcData, equipmentPresetHideoutArea: IHideoutArea, output: IItemEventRouterResponse): void;
+    protected addMissingPresetStandItemsToProfile(sessionId: string, equipmentPresetStage: IStage, pmcData: IPmcData, equipmentPresetHideoutArea: IHideoutArea, output: IItemEventRouterResponse): void;
     /**
      * Add an inventory item to profile from a hideout area stage data
      * @param pmcData Profile to update
      * @param dbHideoutArea Hideout area from db being upgraded
      * @param hideoutStage Stage area upgraded to
      */
-    protected addUpdateInventoryItemToProfile(sessionId: string, pmcData: IPmcData, dbHideoutArea: IHideoutArea, hideoutStage: Stage): void;
+    protected addUpdateInventoryItemToProfile(sessionId: string, pmcData: IPmcData, dbHideoutArea: IHideoutArea, hideoutStage: IStage): void;
     /**
      * @param output Object to send to client
      * @param sessionID Session/player id
@@ -125,7 +125,7 @@ export declare class HideoutController {
      * @param hideoutDbData Hideout area that caused addition of stash
      * @param hideoutStage Hideout area upgraded to this
      */
-    protected addContainerUpgradeToClientOutput(sessionID: string, areaType: HideoutAreas, hideoutDbData: IHideoutArea, hideoutStage: Stage, output: IItemEventRouterResponse): void;
+    protected addContainerUpgradeToClientOutput(sessionID: string, areaType: HideoutAreas, hideoutDbData: IHideoutArea, hideoutStage: IStage, output: IItemEventRouterResponse): void;
     /**
      * Handle HideoutPutItemsInAreaSlots
      * Create item in hideout slot item array, remove item from player inventory
@@ -252,6 +252,12 @@ export declare class HideoutController {
      * @param request QTE result object
      */
     handleQTEEventOutcome(sessionId: string, pmcData: IPmcData, request: IHandleQTEEventRequestData, output: IItemEventRouterResponse): void;
+    /**
+     * Apply mild/severe muscle pain after gym use
+     * @param pmcData Profile to apply effect to
+     * @param finishEffect Effect data to apply after completing QTE gym event
+     */
+    protected handleMusclePain(pmcData: IPmcData, finishEffect: IQteResult): void;
     /**
      * Record a high score from the shooting range into a player profiles overallcounters
      * @param sessionId Session id

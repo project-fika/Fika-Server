@@ -5,7 +5,7 @@ import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
 import { IBaseJsonSkills, IBaseSkill, IBotBase, IInfo, IHealth as PmcHealth, ISkills as botSkills } from "@spt/models/eft/common/tables/IBotBase";
 import { IAppearance, IBodyPart, IBotType, IHealth, IInventory } from "@spt/models/eft/common/tables/IBotType";
-import { BotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
+import { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -53,7 +53,7 @@ export declare class BotGenerator {
      * @param botGenerationDetails details on how to generate bots
      * @returns constructed bot
      */
-    prepareAndGenerateBot(sessionId: string, botGenerationDetails: BotGenerationDetails): IBotBase;
+    prepareAndGenerateBot(sessionId: string, botGenerationDetails: IBotGenerationDetails): IBotBase;
     /**
      * Get a clone of the default bot base object and adjust its role/side/difficulty values
      * @param botRole Role bot should have
@@ -75,7 +75,7 @@ export declare class BotGenerator {
      * @param botGenerationDetails details on how to generate the bot
      * @returns IBotBase object
      */
-    protected generateBot(sessionId: string, bot: IBotBase, botJsonTemplate: IBotType, botGenerationDetails: BotGenerationDetails): IBotBase;
+    protected generateBot(sessionId: string, bot: IBotBase, botJsonTemplate: IBotType, botGenerationDetails: IBotGenerationDetails): IBotBase;
     protected addAdditionalPocketLootWeightsForUnheardBot(botJsonTemplate: IBotType): void;
     /**
      * Remove items from item.json/lootableItemBlacklist from bots inventory
@@ -88,7 +88,7 @@ export declare class BotGenerator {
      * @param appearance Appearance settings to choose from
      * @param botGenerationDetails Generation details
      */
-    protected setBotAppearance(bot: IBotBase, appearance: IAppearance, botGenerationDetails: BotGenerationDetails): void;
+    protected setBotAppearance(bot: IBotBase, appearance: IAppearance, botGenerationDetails: IBotGenerationDetails): void;
     /**
      * Log the number of PMCs generated to the debug console
      * @param output Generated bot array, ready to send to client

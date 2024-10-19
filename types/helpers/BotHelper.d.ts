@@ -1,6 +1,6 @@
 import { MinMax } from "@spt/models/common/MinMax";
 import { IBotType, IDifficultyCategories } from "@spt/models/eft/common/tables/IBotType";
-import { EquipmentFilters, IBotConfig, RandomisationDetails } from "@spt/models/spt/config/IBotConfig";
+import { EquipmentFilters, IBotConfig, IRandomisationDetails } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
@@ -54,7 +54,7 @@ export declare class BotHelper {
      * @param botEquipConfig bot equipment json
      * @returns RandomisationDetails
      */
-    getBotRandomizationDetails(botLevel: number, botEquipConfig: EquipmentFilters): RandomisationDetails | undefined;
+    getBotRandomizationDetails(botLevel: number, botEquipConfig: EquipmentFilters): IRandomisationDetails | undefined;
     /**
      * Choose between pmcBEAR and pmcUSEC at random based on the % defined in pmcConfig.isUsec
      * @returns pmc role
@@ -71,5 +71,11 @@ export declare class BotHelper {
      * @returns pmc side as string
      */
     protected getRandomizedPmcSide(): string;
-    getPmcNicknameOfMaxLength(userId: string, maxLength: number): string;
+    /**
+     * Get a name from a PMC that fits the desired length
+     * @param maxLength Max length of name, inclusive
+     * @param side OPTIONAL - what side PMC to get name from (usec/bear)
+     * @returns name of PMC
+     */
+    getPmcNicknameOfMaxLength(maxLength: number, side?: string): string;
 }

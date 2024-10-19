@@ -27,7 +27,7 @@ import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest"
 import { ISetDialogReadRequestData } from "@spt/models/eft/dialog/ISetDialogReadRequestData";
 import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
 import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
-import { DialogueInfo } from "@spt/models/eft/profile/ISptProfile";
+import { IDialogueInfo } from "@spt/models/eft/profile/ISptProfile";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
@@ -48,11 +48,11 @@ export declare class DialogueCallbacks implements OnUpdate {
      */
     getChatServerList(url: string, info: IGetChatServerListRequestData, sessionID: string): IGetBodyResponseData<IChatServer[]>;
     /** Handle client/mail/dialog/list */
-    getMailDialogList(url: string, info: IGetMailDialogListRequestData, sessionID: string): IGetBodyResponseData<DialogueInfo[]>;
+    getMailDialogList(url: string, info: IGetMailDialogListRequestData, sessionID: string): IGetBodyResponseData<IDialogueInfo[]>;
     /** Handle client/mail/dialog/view */
     getMailDialogView(url: string, info: IGetMailDialogViewRequestData, sessionID: string): IGetBodyResponseData<IGetMailDialogViewResponseData>;
     /** Handle client/mail/dialog/info */
-    getMailDialogInfo(url: string, info: IGetMailDialogInfoRequestData, sessionID: string): IGetBodyResponseData<DialogueInfo>;
+    getMailDialogInfo(url: string, info: IGetMailDialogInfoRequestData, sessionID: string): IGetBodyResponseData<IDialogueInfo>;
     /** Handle client/mail/dialog/remove */
     removeDialog(url: string, info: IRemoveDialogRequestData, sessionID: string): IGetBodyResponseData<any[]>;
     /** Handle client/mail/dialog/pin */

@@ -22,4 +22,5 @@ export interface IWeather {
     time: string;
     date: string;
     timestamp: number;
+    sptInRaidTimestamp: number;
 }

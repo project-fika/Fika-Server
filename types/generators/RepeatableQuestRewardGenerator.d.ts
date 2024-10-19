@@ -33,26 +33,30 @@ export declare class RepeatableQuestRewardGenerator {
     protected questConfig: IQuestConfig;
     constructor(logger: ILogger, randomUtil: RandomUtil, mathUtil: MathUtil, databaseService: DatabaseService, itemHelper: ItemHelper, presetHelper: PresetHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, objectId: ObjectId, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer, cloner: ICloner);
     /**
-     * Generate the reward for a mission. A reward can consist of
+     * Generate the reward for a mission. A reward can consist of:
      * - Experience
      * - Money
+     * - GP coins
+     * - Weapon preset
      * - Items
      * - Trader Reputation
+     * - Skill level experience
      *
      * The reward is dependent on the player level as given by the wiki. The exact mapping of pmcLevel to
      * experience / money / items / trader reputation can be defined in QuestConfig.js
      *
-     * There's also a random variation of the reward the spread of which can be also defined in the config.
+     * There's also a random variation of the reward the spread of which can be also defined in the config
      *
      * Additionally, a scaling factor w.r.t. quest difficulty going from 0.2...1 can be used
-     *
-     * @param   {integer}   pmcLevel            player's level
-     * @param   {number}    difficulty          a reward scaling factor from 0.2 to 1
-     * @param   {string}    traderId            the trader for reputation gain (and possible in the future filtering of reward item type based on trader)
-     * @param   {object}    repeatableConfig    The configuration for the repeatable kind (daily, weekly) as configured in QuestConfig for the requested quest
-     * @returns {object}                        object of "Reward"-type that can be given for a repeatable mission
+     * @param pmcLevel Level of player reward is being generated for
+     * @param difficulty Reward scaling factor from 0.2 to 1
+     * @param traderId Trader reward will be given by
+     * @param repeatableConfig Config for quest type (daily, weekly)
+     * @param questConfig
+     * @param rewardTplBlacklist OPTIONAL: list of tpls to NOT use when picking a reward
+     * @returns IQuestRewards
      */
-    generateReward(pmcLevel: number, difficulty: number, traderId: string, repeatableConfig: IRepeatableQuestConfig, questConfig: IBaseQuestConfig): IQuestRewards;
+    generateReward(pmcLevel: number, difficulty: number, traderId: string, repeatableConfig: IRepeatableQuestConfig, questConfig: IBaseQuestConfig, rewardTplBlacklist?: string[]): IQuestRewards;
     protected getQuestRewardValues(rewardScaling: IRewardScaling, difficulty: number, pmcLevel: number): IQuestRewardValues;
     /**
      * Get an array of items + stack size to give to player as reward that fit inside of a rouble budget

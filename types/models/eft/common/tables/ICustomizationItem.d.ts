@@ -4,10 +4,10 @@ export interface ICustomizationItem {
     _name: string;
     _parent: string;
     _type: string;
-    _props: Props;
+    _props: IProps;
     _proto: string;
 }
-export interface Props {
+export interface IProps {
     Name: string;
     ShortName: string;
     Description: string;

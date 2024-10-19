@@ -12,16 +12,16 @@ export interface IHideoutArea {
     displayLevel: boolean;
     enableAreaRequirements: boolean;
     parentArea?: string;
-    stages: Record<string, Stage>;
+    stages: Record<string, IStage>;
 }
 export interface IAreaRequirement {
     areaType: number;
     requiredlevel: number;
     type: string;
 }
-export interface Stage {
+export interface IStage {
     autoUpgrade: boolean;
-    bonuses: StageBonus[];
+    bonuses: IStageBonus[];
     constructionTime: number;
     /** Containers inventory tpl */
     container?: string;
@@ -63,7 +63,7 @@ export interface IStageRequirement extends IRequirementBase {
     skillName?: string;
     skillLevel?: number;
 }
-export interface StageBonus {
+export interface IStageBonus {
     value: number;
     passive: boolean;
     production: boolean;

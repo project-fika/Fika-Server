@@ -1,7 +1,7 @@
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IBodyPartsHealth, IHealth } from "@spt/models/eft/common/tables/IBotBase";
 import { ISyncHealthRequestData } from "@spt/models/eft/health/ISyncHealthRequestData";
-import { Effects, ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { IEffects, ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { IHealthConfig } from "@spt/models/spt/config/IHealthConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
@@ -63,7 +63,7 @@ export declare class HealthHelper {
      * @param bodyPartsWithEffects dict of body parts with effects that should be added to profile
      * @param addEffects Should effects be added back to profile
      */
-    protected saveEffects(pmcData: IPmcData, sessionId: string, bodyPartsWithEffects: Effects, deleteExistingEffects?: boolean): void;
+    protected saveEffects(pmcData: IPmcData, sessionId: string, bodyPartsWithEffects: IEffects, deleteExistingEffects?: boolean): void;
     /**
      * Add effect to body part in profile
      * @param pmcData Player profile

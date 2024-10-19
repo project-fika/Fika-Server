@@ -4,14 +4,14 @@ export interface IInventoryConfig extends IBaseConfig {
     kind: "spt-inventory";
     /** Should new items purchased by flagged as found in raid */
     newItemsMarkedFound: boolean;
-    randomLootContainers: Record<string, RewardDetails>;
+    randomLootContainers: Record<string, IRewardDetails>;
     sealedAirdropContainer: ISealedAirdropContainerSettings;
     /** Contains item tpls that the server should consider money and treat the same as roubles/euros/dollars */
     customMoneyTpls: string[];
     /** Multipliers for skill gain when inside menus, NOT in-game */
     skillGainMultiplers: Record<string, number>;
 }
-export interface RewardDetails {
+export interface IRewardDetails {
     rewardCount: number;
     foundInRaid: boolean;
     rewardTplPool?: Record<string, number>;

@@ -6,7 +6,7 @@ import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IBotBase, ISkills, IStats } from "@spt/models/eft/common/tables/IBotBase";
 import { IBotType } from "@spt/models/eft/common/tables/IBotType";
-import { IPlayerScavConfig, KarmaLevel } from "@spt/models/spt/config/IPlayerScavConfig";
+import { IKarmaLevel, IPlayerScavConfig } from "@spt/models/spt/config/IPlayerScavConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -67,7 +67,7 @@ export declare class PlayerScavGenerator {
      * @param karmaSettings Values to modify the bot template with
      * @param baseBotNode bot template to modify according to karama level settings
      */
-    protected adjustBotTemplateWithKarmaSpecificSettings(karmaSettings: KarmaLevel, baseBotNode: IBotType): void;
+    protected adjustBotTemplateWithKarmaSpecificSettings(karmaSettings: IKarmaLevel, baseBotNode: IBotType): void;
     protected getScavSkills(scavProfile: IPmcData): ISkills;
     protected getDefaultScavSkills(): ISkills;
     protected getScavStats(scavProfile: IPmcData): IStats;

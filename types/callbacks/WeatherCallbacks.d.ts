@@ -13,5 +13,6 @@ export declare class WeatherCallbacks {
      * @returns IWeatherData
      */
     getWeather(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IWeatherData>;
+    /** Handle client/localGame/weather */
     getLocalWeather(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IGetLocalWeatherResponseData>;
 }

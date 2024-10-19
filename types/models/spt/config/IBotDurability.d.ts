@@ -1,6 +1,6 @@
 export interface IBotDurability {
     default: IDefaultDurability;
-    pmc: PmcDurability;
+    pmc: IPmcDurability;
     boss: IBotDurability;
     follower: IBotDurability;
     assault: IBotDurability;
@@ -20,7 +20,7 @@ export interface IDefaultDurability {
     armor: IArmorDurability;
     weapon: IWeaponDurability;
 }
-export interface PmcDurability {
+export interface IPmcDurability {
     armor: IPmcDurabilityArmor;
     weapon: IWeaponDurability;
 }

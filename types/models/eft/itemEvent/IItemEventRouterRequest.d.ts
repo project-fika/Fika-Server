@@ -1,19 +1,19 @@
 export interface IItemEventRouterRequest {
-    data: Daum[];
+    data: IDaum[];
     tm: number;
     reload: number;
 }
-export interface Daum {
+export interface IDaum {
     Action: string;
     item: string;
-    to: To;
+    to: ITo;
 }
-export interface To {
+export interface ITo {
     id: string;
     container: string;
-    location?: Location;
+    location?: ILocation;
 }
-export interface Location {
+export interface ILocation {
     x: number;
     y: number;
     r: string;

@@ -9,8 +9,10 @@ import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBarterScheme } from "@spt/models/eft/common/tables/ITrader";
-import { IRagfairOffer, IRagfairOfferUser, OfferRequirement } from "@spt/models/eft/ragfair/IRagfairOffer";
-import { Dynamic, IArmorPlateBlacklistSettings, IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { IOfferRequirement, IRagfairOffer, IRagfairOfferUser } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { IArmorPlateBlacklistSettings, IBarterDetails, IDynamic, IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { ITplWithFleaPrice } from "@spt/models/spt/ragfair/ITplWithFleaPrice";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -45,6 +47,7 @@ export declare class RagfairOfferGenerator {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected ragfairConfig: IRagfairConfig;
+    protected botConfig: IBotConfig;
     protected allowedFleaPriceItemsForBarter: {
         tpl: string;
         price: number;
@@ -86,7 +89,7 @@ export declare class RagfairOfferGenerator {
      * @param offerRequirements barter requirements for offer
      * @returns rouble cost of offer
      */
-    protected convertOfferRequirementsIntoRoubles(offerRequirements: OfferRequirement[]): number;
+    protected convertOfferRequirementsIntoRoubles(offerRequirements: IOfferRequirement[]): number;
     /**
      * Get avatar url from trader table in db
      * @param isTrader Is user we're getting avatar for a trader
@@ -136,7 +139,7 @@ export declare class RagfairOfferGenerator {
      * @param isExpiredOffer is an expired offer
      * @param config Ragfair dynamic config
      */
-    protected createOffersFromAssort(assortItemWithChildren: IItem[], isExpiredOffer: boolean, config: Dynamic): Promise<void>;
+    protected createOffersFromAssort(assortItemWithChildren: IItem[], isExpiredOffer: boolean, config: IDynamic): Promise<void>;
     /**
      * iterate over an items chidren and look for plates above desired level and remove them
      * @param presetWithChildren preset to check for plates
@@ -203,17 +206,15 @@ export declare class RagfairOfferGenerator {
     /**
      * Create a barter-based barter scheme, if not possible, fall back to making barter scheme currency based
      * @param offerItems Items for sale in offer
+     * @param barterConfig Barter config from ragfairConfig.dynamic.barter
      * @returns Barter scheme
      */
-    protected createBarterBarterScheme(offerItems: IItem[]): IBarterScheme[];
+    protected createBarterBarterScheme(offerItems: IItem[], barterConfig: IBarterDetails): IBarterScheme[];
     /**
      * Get an array of flea prices + item tpl, cached in generator class inside `allowedFleaPriceItemsForBarter`
      * @returns array with tpl/price values
      */
-    protected getFleaPricesAsArray(): {
-        tpl: string;
-        price: number;
-    }[];
+    protected getFleaPricesAsArray(): ITplWithFleaPrice[];
     /**
      * Create a random currency-based barter scheme for an array of items
      * @param offerWithChildren Items on offer

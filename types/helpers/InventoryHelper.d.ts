@@ -16,7 +16,7 @@ import { IInventoryRemoveRequestData } from "@spt/models/eft/inventory/IInventor
 import { IInventorySplitRequestData } from "@spt/models/eft/inventory/IInventorySplitRequestData";
 import { IInventoryTransferRequestData } from "@spt/models/eft/inventory/IInventoryTransferRequestData";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { IInventoryConfig, RewardDetails } from "@spt/models/spt/config/IInventoryConfig";
+import { IInventoryConfig, IRewardDetails } from "@spt/models/spt/config/IInventoryConfig";
 import { IOwnerInventoryItems } from "@spt/models/spt/inventory/IOwnerInventoryItems";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
@@ -246,7 +246,7 @@ export declare class InventoryHelper {
      * @param itemTpl Container being opened
      * @returns Reward details
      */
-    getRandomLootContainerRewardDetails(itemTpl: string): RewardDetails;
+    getRandomLootContainerRewardDetails(itemTpl: string): IRewardDetails;
     getInventoryConfig(): IInventoryConfig;
     /**
      * Recursively checks if the given item is

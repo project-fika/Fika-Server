@@ -16,7 +16,7 @@ import { IFilterPlateModsForSlotByLevelResult } from "@spt/models/spt/bots/IFilt
 import { IGenerateEquipmentProperties } from "@spt/models/spt/bots/IGenerateEquipmentProperties";
 import { IGenerateWeaponRequest } from "@spt/models/spt/bots/IGenerateWeaponRequest";
 import { IModToSpawnRequest } from "@spt/models/spt/bots/IModToSpawnRequest";
-import { EquipmentFilterDetails, EquipmentFilters, IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { EquipmentFilters, IBotConfig, IEquipmentFilterDetails } from "@spt/models/spt/config/IBotConfig";
 import { ExhaustableArray } from "@spt/models/spt/server/ExhaustableArray";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
@@ -56,11 +56,12 @@ export declare class BotEquipmentModGenerator {
      * @param equipment Equipment item to add mods to
      * @param modPool Mod list to choose frm
      * @param parentId parentid of item to add mod to
-     * @param parentTemplate template objet of item to add mods to
+     * @param parentTemplate Template object of item to add mods to
+     * @param specificBlacklist The relevant blacklist from bot.json equipment dictionary
      * @param forceSpawn should this mod be forced to spawn
      * @returns Item + compatible mods as an array
      */
-    generateModsForEquipment(equipment: IItem[], parentId: string, parentTemplate: ITemplateItem, settings: IGenerateEquipmentProperties, shouldForceSpawn?: boolean): IItem[];
+    generateModsForEquipment(equipment: IItem[], parentId: string, parentTemplate: ITemplateItem, settings: IGenerateEquipmentProperties, specificBlacklist: IEquipmentFilterDetails, shouldForceSpawn?: boolean): IItem[];
     /**
      * Filter a bots plate pool based on its current level
      * @param settings Bot equipment generation settings
@@ -125,13 +126,13 @@ export declare class BotEquipmentModGenerator {
     protected getModItemSlotFromDb(modSlot: string, parentTemplate: ITemplateItem): ISlot;
     /**
      * Randomly choose if a mod should be spawned, 100% for required mods OR mod is ammo slot
-     * @param itemSlot slot the item sits in
-     * @param modSlot slot the mod sits in
+     * @param itemSlot slot the item sits in from db
+     * @param modSlotName Name of slot the mod sits in
      * @param modSpawnChances Chances for various mod spawns
      * @param botEquipConfig Various config settings for generating this type of bot
      * @returns ModSpawn.SPAWN when mod should be spawned, ModSpawn.DEFAULT_MOD when default mod should spawn, ModSpawn.SKIP when mod is skipped
      */
-    protected shouldModBeSpawned(itemSlot: ISlot, modSlot: string, modSpawnChances: IModsChances, botEquipConfig: EquipmentFilters): ModSpawn;
+    protected shouldModBeSpawned(itemSlot: ISlot, modSlotName: string, modSpawnChances: IModsChances, botEquipConfig: EquipmentFilters): ModSpawn;
     /**
      * Choose a mod to fit into the desired slot
      * @param request Data used to choose an appropriate mod with
@@ -235,7 +236,7 @@ export declare class BotEquipmentModGenerator {
      * @param modPool Pool of mods we are adding to
      * @param botEquipBlacklist A blacklist of items that cannot be picked
      */
-    protected addCompatibleModsForProvidedMod(desiredSlotName: string, modTemplate: ITemplateItem, modPool: IMods, botEquipBlacklist: EquipmentFilterDetails): void;
+    protected addCompatibleModsForProvidedMod(desiredSlotName: string, modTemplate: ITemplateItem, modPool: IMods, botEquipBlacklist: IEquipmentFilterDetails): void;
     /**
      * Get the possible items that fit a slot
      * @param parentItemId item tpl to get compatible items for
@@ -243,7 +244,7 @@ export declare class BotEquipmentModGenerator {
      * @param botEquipBlacklist Equipment that should not be picked
      * @returns Array of compatible items for that slot
      */
-    protected getDynamicModPool(parentItemId: string, modSlot: string, botEquipBlacklist: EquipmentFilterDetails): string[];
+    protected getDynamicModPool(parentItemId: string, modSlot: string, botEquipBlacklist: IEquipmentFilterDetails): string[];
     /**
      * Take a list of tpls and filter out blacklisted values using itemFilterService + botEquipmentBlacklist
      * @param allowedMods Base mods to filter
@@ -251,7 +252,7 @@ export declare class BotEquipmentModGenerator {
      * @param modSlot Slot mods belong to
      * @returns Filtered array of mod tpls
      */
-    protected filterWeaponModsByBlacklist(allowedMods: string[], botEquipBlacklist: EquipmentFilterDetails, modSlot: string): string[];
+    protected filterModsByBlacklist(allowedMods: string[], botEquipBlacklist: IEquipmentFilterDetails, modSlot: string): string[];
     /**
      * With the shotgun revolver (60db29ce99594040e04c4a27) 12.12 introduced CylinderMagazines.
      * Those magazines (e.g. 60dc519adf4c47305f6d410d) have a "Cartridges" entry with a _max_count=0.

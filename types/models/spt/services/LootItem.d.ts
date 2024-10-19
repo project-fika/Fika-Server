@@ -1,4 +1,4 @@
-export declare class LootItem {
+export declare class ILootItem {
     id?: string;
     tpl: string;
     isPreset: boolean;

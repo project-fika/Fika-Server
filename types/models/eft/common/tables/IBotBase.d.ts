@@ -299,7 +299,7 @@ export interface IInsuredItem {
     itemId: string;
 }
 export interface IHideout {
-    Production: Record<string, IProductive>;
+    Production: Record<string, IProduction>;
     Areas: IBotHideoutArea[];
     Improvements: Record<string, IHideoutImprovement>;
     HideoutCounters: IHideoutCounters;
@@ -347,8 +347,8 @@ export interface IProductive {
 }
 export interface IProduction extends IProductive {
     RecipeId: string;
-    SkipTime: number;
-    ProductionTime: number;
+    SkipTime?: number;
+    ProductionTime?: number;
 }
 export interface IScavCase extends IProductive {
     RecipeId: string;

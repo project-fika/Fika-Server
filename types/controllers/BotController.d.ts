@@ -11,7 +11,7 @@ import { IBotBase } from "@spt/models/eft/common/tables/IBotBase";
 import { IBotCore } from "@spt/models/eft/common/tables/IBotCore";
 import { IDifficultyCategories } from "@spt/models/eft/common/tables/IBotType";
 import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
-import { BotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
+import { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -97,7 +97,7 @@ export declare class BotController {
      * @param generateAsPmc Force bot being generated a PMC
      * @returns BotGenerationDetails
      */
-    protected getBotGenerationDetailsForWave(condition: ICondition, pmcProfile: IPmcData, allPmcsHaveSameNameAsPlayer: boolean, raidSettings: IGetRaidConfigurationRequestData, botCountToGenerate: number, generateAsPmc: boolean): BotGenerationDetails;
+    protected getBotGenerationDetailsForWave(condition: ICondition, pmcProfile: IPmcData, allPmcsHaveSameNameAsPlayer: boolean, raidSettings: IGetRaidConfigurationRequestData, botCountToGenerate: number, generateAsPmc: boolean): IBotGenerationDetails;
     /**
      * Get players profile level
      * @param pmcProfile Profile to get level from
@@ -111,7 +111,7 @@ export declare class BotController {
      * @param sessionId Session id
      * @returns A promise for the bots to be done generating
      */
-    protected generateWithBotDetails(condition: ICondition, botGenerationDetails: BotGenerationDetails, sessionId: string): Promise<void>;
+    protected generateWithBotDetails(condition: ICondition, botGenerationDetails: IBotGenerationDetails, sessionId: string): Promise<void>;
     /**
      * Generate a single bot and store in the cache
      * @param botGenerationDetails the bot details to generate the bot with
@@ -119,7 +119,7 @@ export declare class BotController {
      * @param cacheKey the cache key to store the bot with
      * @returns A promise for the bot to be stored
      */
-    protected generateSingleBotAndStoreInCache(botGenerationDetails: BotGenerationDetails, sessionId: string, cacheKey: string): Promise<void>;
+    protected generateSingleBotAndStoreInCache(botGenerationDetails: IBotGenerationDetails, sessionId: string, cacheKey: string): Promise<void>;
     /**
      * Pull a single bot out of cache and return, if cache is empty add bots to it and then return
      * @param sessionId Session id
@@ -128,7 +128,7 @@ export declare class BotController {
      */
     protected returnSingleBotFromCache(sessionId: string, request: IGenerateBotsRequestData): Promise<IBotBase[]>;
     protected getPmcConversionMinMaxForLocation(requestedBotRole: string, location: string): MinMax;
-    protected updateBotGenerationDetailsToRandomBoss(botGenerationDetails: BotGenerationDetails, possibleBossTypeWeights: Record<string, number>): void;
+    protected updateBotGenerationDetailsToRandomBoss(botGenerationDetails: IBotGenerationDetails, possibleBossTypeWeights: Record<string, number>): void;
     /**
      * Get the difficulty passed in, if its not "asonline", get selected difficulty from config
      * @param requestedDifficulty

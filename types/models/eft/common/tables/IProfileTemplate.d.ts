@@ -1,5 +1,5 @@
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Dialogue, IUserBuilds } from "@spt/models/eft/profile/ISptProfile";
+import { IDialogue, IUserBuilds } from "@spt/models/eft/profile/ISptProfile";
 export interface IProfileTemplates {
     Standard: IProfileSides;
     "Left Behind": IProfileSides;
@@ -19,7 +19,7 @@ export interface IProfileSides {
 export interface ITemplateSide {
     character: IPmcData;
     suits: string[];
-    dialogues: Record<string, Dialogue>;
+    dialogues: Record<string, IDialogue>;
     userbuilds: IUserBuilds;
     trader: IProfileTraderTemplate;
 }

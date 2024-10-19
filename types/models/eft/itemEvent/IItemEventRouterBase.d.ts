@@ -28,7 +28,7 @@ export interface IProfileChange {
     improvements: Record<string, IHideoutImprovement>;
     skills: ISkills;
     health: IHealth;
-    traderRelations: Record<string, TraderData>;
+    traderRelations: Record<string, ITraderData>;
     moneyTransferLimitData: IMoneyTransferLimits;
     repeatableQuests?: IPmcDataRepeatableQuest[];
     recipeUnlocked: Record<string, boolean>;
@@ -60,7 +60,7 @@ export interface IItemChanges {
     del: IProduct[];
 }
 /** Related to TraderInfo */
-export interface TraderData {
+export interface ITraderData {
     salesSum: number;
     standing: number;
     loyalty: number;

@@ -8,9 +8,9 @@ import { IBotHideoutArea } from "@spt/models/eft/common/tables/IBotBase";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IStageRequirement } from "@spt/models/eft/hideout/IHideoutArea";
 import { IHideoutCircleOfCultistProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutCircleOfCultistProductionStartRequestData";
-import { IHideoutProduction, IHideoutProductionData, IRequirementBase, Requirement } from "@spt/models/eft/hideout/IHideoutProduction";
+import { IHideoutProduction, IHideoutProductionData, IRequirement, IRequirementBase } from "@spt/models/eft/hideout/IHideoutProduction";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { DirectRewardSettings, IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
+import { IDirectRewardSettings, IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
@@ -59,7 +59,7 @@ export declare class CircleOfCultistService {
      * @param rewardAmountRoubles Rouble amount to reward player in items with
      * @param directRewardSettings OPTIONAL: If craft is giving direct rewards
      */
-    protected registerCircleOfCultistProduction(sessionId: string, pmcData: IPmcData, recipeId: string, sacrificedItems: IItem[], rewardAmountRoubles: number, directRewardSettings?: DirectRewardSettings): void;
+    protected registerCircleOfCultistProduction(sessionId: string, pmcData: IPmcData, recipeId: string, sacrificedItems: IItem[], rewardAmountRoubles: number, directRewardSettings?: IDirectRewardSettings): void;
     /**
      * Get the circle craft time as seconds, value is based on reward item value
      * OR rewards are direct, then use custom craft time defined in oarameter object
@@ -67,7 +67,7 @@ export declare class CircleOfCultistService {
      * @param directRewardSettings OPTIONAL: If craft is giving direct rewards
      * @returns craft time seconds
      */
-    protected getCircleCraftTimeSeconds(rewardAmountRoubles: number, directRewardSettings?: DirectRewardSettings): number;
+    protected getCircleCraftTimeSeconds(rewardAmountRoubles: number, directRewardSettings?: IDirectRewardSettings): number;
     /**
      * Get the items player sacrificed in circle
      * @param pmcData Player profile
@@ -88,7 +88,7 @@ export declare class CircleOfCultistService {
      * @param cultistCircleStashId Id of stash item
      * @returns Array of item arrays
      */
-    protected getExplicitRewards(explicitRewardSettings: DirectRewardSettings, cultistCircleStashId: string): IItem[][];
+    protected getExplicitRewards(explicitRewardSettings: IDirectRewardSettings, cultistCircleStashId: string): IItem[][];
     /**
      * Explicit rewards have thier own stack sizes as they dont use a reward rouble pool
      * @param rewardTpl Item being rewarded to get stack size of
@@ -128,5 +128,5 @@ export declare class CircleOfCultistService {
      * @param requirements Requirements to iterate over
      * @returns Array of item requirements
      */
-    protected getItemRequirements(requirements: IRequirementBase[]): (IStageRequirement | Requirement)[];
+    protected getItemRequirements(requirements: IRequirementBase[]): (IStageRequirement | IRequirement)[];
 }

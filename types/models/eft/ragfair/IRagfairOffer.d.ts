@@ -5,7 +5,7 @@ export interface IRagfairOffer {
     sellResult?: ISellResult[];
     _id: string;
     items: IItem[];
-    requirements: OfferRequirement[];
+    requirements: IOfferRequirement[];
     root: string;
     intId: number;
     /** Handbook price */
@@ -14,6 +14,7 @@ export interface IRagfairOffer {
     requirementsCost: number;
     startTime: number;
     endTime: number;
+    /** True when offer is sold as pack */
     sellInOnePiece: boolean;
     /** Rouble price - same as requirementsCost */
     summaryCost: number;
@@ -25,7 +26,7 @@ export interface IRagfairOffer {
     buyRestrictionCurrent?: number;
     locked?: boolean;
 }
-export interface OfferRequirement {
+export interface IOfferRequirement {
     _tpl: string;
     count: number;
     onlyFunctional: boolean;

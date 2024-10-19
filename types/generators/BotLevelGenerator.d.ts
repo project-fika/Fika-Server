@@ -1,7 +1,7 @@
 import { MinMax } from "@spt/models/common/MinMax";
 import { IRandomisedBotLevelResult } from "@spt/models/eft/bot/IRandomisedBotLevelResult";
 import { IBotBase } from "@spt/models/eft/common/tables/IBotBase";
-import { BotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
+import { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { MathUtil } from "@spt/utils/MathUtil";
@@ -19,7 +19,7 @@ export declare class BotLevelGenerator {
      * @param bot Bot the level is being generated for
      * @returns IRandomisedBotLevelResult object
      */
-    generateBotLevel(levelDetails: MinMax, botGenerationDetails: BotGenerationDetails, bot: IBotBase): IRandomisedBotLevelResult;
+    generateBotLevel(levelDetails: MinMax, botGenerationDetails: IBotGenerationDetails, bot: IBotBase): IRandomisedBotLevelResult;
     protected chooseBotLevel(min: number, max: number, shift: number, number: number): number;
     /**
      * Return the min and max bot level based on a relative delta from the PMC level
@@ -28,5 +28,5 @@ export declare class BotLevelGenerator {
      * @param maxlevel Max level allowed
      * @returns A MinMax of the lowest and highest level to generate the bots
      */
-    protected getRelativeBotLevelRange(botGenerationDetails: BotGenerationDetails, levelDetails: MinMax, maxAvailableLevel: number): MinMax;
+    protected getRelativeBotLevelRange(botGenerationDetails: IBotGenerationDetails, levelDetails: MinMax, maxAvailableLevel: number): MinMax;
 }

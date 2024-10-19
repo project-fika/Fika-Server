@@ -2,16 +2,16 @@ import { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
 import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IPlayerScavConfig extends IBaseConfig {
     kind: "spt-playerscav";
-    karmaLevel: Record<string, KarmaLevel>;
+    karmaLevel: Record<string, IKarmaLevel>;
 }
-export interface KarmaLevel {
+export interface IKarmaLevel {
     botTypeForLoot: string;
-    modifiers: Modifiers;
+    modifiers: IModifiers;
     itemLimits: ItemLimits;
     equipmentBlacklist: Record<string, string[]>;
     lootItemsToAddChancePercent: Record<string, number>;
 }
-export interface Modifiers {
+export interface IModifiers {
     equipment: Record<string, number>;
     mod: Record<string, number>;
 }

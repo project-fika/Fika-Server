@@ -42,11 +42,17 @@ export declare class TimeUtil {
      * @returns {number} The current timestamp in seconds since the Unix epoch in UTC.
      */
     getTimestamp(): number;
+    getStartOfDayTimestamp(timestamp?: number): number;
     /**
      * Get timestamp of today + passed in day count
      * @param daysFromNow Days from now
      */
     getTimeStampFromNowDays(daysFromNow: number): number;
+    /**
+     * Get timestamp of today + passed in hour count
+     * @param daysFromNow Days from now
+     */
+    getTimeStampFromNowHours(hoursFromNow: number): number;
     /**
      * Gets the current time in UTC in a format suitable for mail in EFT.
      *
@@ -67,4 +73,10 @@ export declare class TimeUtil {
      */
     getHoursAsSeconds(hours: number): number;
     getTimestampOfNextHour(): number;
+    /**
+     * Returns the current days timestamp at 00:00
+     * e.g. current time: 13th march 14:22 will return 13th march 00:00
+     * @returns Timestamp
+     */
+    getTodaysMidnightTimestamp(): number;
 }

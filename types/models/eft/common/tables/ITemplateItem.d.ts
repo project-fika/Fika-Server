@@ -4,11 +4,11 @@ export interface ITemplateItem {
     _name: string;
     _parent: string;
     _type: ItemType;
-    _props: Props;
+    _props: IProps;
     _proto?: string;
 }
-export interface Props {
-    AllowSpawnOnLocations?: any[];
+export interface IProps {
+    AllowSpawnOnLocations?: string[];
     BeltMagazineRefreshCount?: number;
     ChangePriceCoef?: number;
     FixedPrice?: boolean;
@@ -175,7 +175,7 @@ export interface Props {
     spawnRarity?: string;
     minCountSpawn?: number;
     maxCountSpawn?: number;
-    openedByKeyID?: any[];
+    openedByKeyID?: string[];
     RigLayoutName?: string;
     MaxDurability?: number;
     armorZone?: string[];

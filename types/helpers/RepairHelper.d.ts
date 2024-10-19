@@ -1,5 +1,5 @@
 import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { ITemplateItem, Props } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
@@ -42,5 +42,5 @@ export declare class RepairHelper {
      * @param traderQualityMultipler Different traders produce different loss values
      * @returns Amount to reduce max durability by
      */
-    protected getRandomisedWeaponRepairDegradationValue(itemProps: Props, isRepairKit: boolean, weaponMax: number, traderQualityMultipler: number): number;
+    protected getRandomisedWeaponRepairDegradationValue(itemProps: IProps, isRepairKit: boolean, weaponMax: number, traderQualityMultipler: number): number;
 }

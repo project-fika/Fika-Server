@@ -2,11 +2,12 @@ import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
+import { MinMax } from "@spt/models/common/MinMax";
 import { IPreset } from "@spt/models/eft/common/IGlobals";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import { ISealedAirdropContainerSettings, RewardDetails } from "@spt/models/spt/config/IInventoryConfig";
-import { LootRequest } from "@spt/models/spt/services/LootRequest";
+import { IRewardDetails, ISealedAirdropContainerSettings } from "@spt/models/spt/config/IInventoryConfig";
+import { ILootRequest } from "@spt/models/spt/services/ILootRequest";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
@@ -36,8 +37,22 @@ export declare class LootGenerator {
      * @param options parameters to adjust how loot is generated
      * @returns An array of loot items
      */
-    createRandomLoot(options: LootRequest): IItem[];
-    createForcedLoot(airdropConfig: LootRequest): IItem[];
+    createRandomLoot(options: ILootRequest): IItem[];
+    /**
+     * Generate An array of items
+     * TODO - handle weapon presets/ammo packs
+     * @param forcedLootDict Dictionary of item tpls with minmax values
+     * @returns Array of IItem
+     */
+    createForcedLoot(forcedLootDict: Record<string, MinMax>): IItem[];
+    /**
+     * Get pool of items from item db that fit passed in param criteria
+     * @param itemTplBlacklist Prevent these items
+     * @param itemTypeWhitelist Only allow these items
+     * @param useRewardItemBlacklist Should item.json reward item config be used
+     * @param allowBossItems Should boss items be allowed in result
+     * @returns results of filtering + blacklist used
+     */
     protected getItemRewardPool(itemTplBlacklist: string[], itemTypeWhitelist: string[], useRewardItemBlacklist: boolean, allowBossItems: boolean): {
         itemPool: [string, ITemplateItem][];
         blacklist: Set<string>;
@@ -48,7 +63,7 @@ export declare class LootGenerator {
      * @param options Loot request options - armor level etc
      * @returns True if item has desired armor level
      */
-    protected isArmorOfDesiredProtectionLevel(armor: IPreset, options: LootRequest): boolean;
+    protected isArmorOfDesiredProtectionLevel(armor: IPreset, options: ILootRequest): boolean;
     /**
      * Construct item limit record to hold max and current item count for each item type
      * @param limits limits as defined in config
@@ -66,14 +81,14 @@ export declare class LootGenerator {
     protected findAndAddRandomItemToLoot(items: [string, ITemplateItem][], itemTypeCounts: Record<string, {
         current: number;
         max: number;
-    }>, options: LootRequest, result: IItem[]): boolean;
+    }>, options: ILootRequest, result: IItem[]): boolean;
     /**
      * Get a randomised stack count for an item between its StackMinRandom and StackMaxSize values
      * @param item item to get stack count of
      * @param options loot options
      * @returns stack count
      */
-    protected getRandomisedStackCount(item: ITemplateItem, options: LootRequest): number;
+    protected getRandomisedStackCount(item: ITemplateItem, options: ILootRequest): number;
     /**
      * Find a random item in items.json and add to result array
      * @param presetPool Presets to choose from
@@ -112,12 +127,12 @@ export declare class LootGenerator {
      * @param rewardContainerDetails
      * @returns Array of item with children arrays
      */
-    getRandomLootContainerLoot(rewardContainerDetails: RewardDetails): IItem[][];
+    getRandomLootContainerLoot(rewardContainerDetails: IRewardDetails): IItem[][];
     /**
      * Pick a reward item based on the reward details data
      * @param rewardContainerDetails
      * @returns Single tpl
      */
-    protected pickRewardItem(rewardContainerDetails: RewardDetails): string;
+    protected pickRewardItem(rewardContainerDetails: IRewardDetails): string;
 }
 export {};

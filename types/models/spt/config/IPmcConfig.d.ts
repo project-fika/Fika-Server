@@ -9,11 +9,11 @@ export interface IPmcConfig extends IBaseConfig {
     /** What account type should the PMC have */
     accountTypeWeight: Record<MemberCategory, number>;
     /** Global whitelist/blacklist of vest loot for PMCs */
-    vestLoot: SlotLootSettings;
+    vestLoot: ISlotLootSettings;
     /** Global whitelist/blacklist of pocket loot for PMCs */
-    pocketLoot: SlotLootSettings;
+    pocketLoot: ISlotLootSettings;
     /** Global whitelist/blacklist of backpack loot for PMCs */
-    backpackLoot: SlotLootSettings;
+    backpackLoot: ISlotLootSettings;
     /** Use difficulty defined in config/bot.json/difficulty instead of chosen difficulty dropdown value */
     useDifficultyOverride: boolean;
     /** Difficulty override e.g. "AsOnline/Hard" */
@@ -32,7 +32,7 @@ export interface IPmcConfig extends IBaseConfig {
     bearType: string;
     /** What 'brain' does a PMC use, keyed by map and side (USEC/BEAR) key: map location, value: type for usec/bear */
     pmcType: Record<string, Record<string, Record<string, number>>>;
-    maxBackpackLootTotalRub: MinMaxLootValue[];
+    maxBackpackLootTotalRub: IMinMaxLootValue[];
     maxPocketLootTotalRub: number;
     maxVestLootTotalRub: number;
     /** Percentage chance a bot from a wave is converted into a PMC, first key = map, second key = bot wildspawn type (assault/exusec), value: min+max chance to be converted */
@@ -61,14 +61,14 @@ export interface IHostilitySettings {
     additionalFriendlyTypes?: string[];
     savagePlayerBehaviour?: string;
 }
-export interface PmcTypes {
+export interface IPmcTypes {
     usec: string;
     bear: string;
 }
-export interface SlotLootSettings {
+export interface ISlotLootSettings {
     whitelist: string[];
     blacklist: string[];
 }
-export interface MinMaxLootValue extends MinMax {
+export interface IMinMaxLootValue extends MinMax {
     value: number;
 }

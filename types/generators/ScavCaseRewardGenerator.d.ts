@@ -4,7 +4,7 @@ import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IHideoutScavCase } from "@spt/models/eft/hideout/IHideoutScavCase";
 import { IScavCaseConfig } from "@spt/models/spt/config/IScavCaseConfig";
-import { RewardCountAndPriceDetails, ScavCaseRewardCountsAndPrices } from "@spt/models/spt/hideout/ScavCaseRewardCountsAndPrices";
+import { IRewardCountAndPriceDetails, IScavCaseRewardCountsAndPrices } from "@spt/models/spt/hideout/ScavCaseRewardCountsAndPrices";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -48,7 +48,7 @@ export declare class ScavCaseRewardGenerator {
      * @param itemFilters how the rewards should be filtered down (by item count)
      * @returns
      */
-    protected pickRandomRewards(items: ITemplateItem[], itemFilters: RewardCountAndPriceDetails, rarity: string): ITemplateItem[];
+    protected pickRandomRewards(items: ITemplateItem[], itemFilters: IRewardCountAndPriceDetails, rarity: string): ITemplateItem[];
     /**
      * Choose if money should be a reward based on the moneyRewardChancePercent config chance in scavCaseConfig
      * @returns true if reward should be money
@@ -81,13 +81,13 @@ export declare class ScavCaseRewardGenerator {
      * @param itemFilters controls how the dbItems will be filtered and returned (handbook price)
      * @returns filtered dbItems array
      */
-    protected getFilteredItemsByPrice(dbItems: ITemplateItem[], itemFilters: RewardCountAndPriceDetails): ITemplateItem[];
+    protected getFilteredItemsByPrice(dbItems: ITemplateItem[], itemFilters: IRewardCountAndPriceDetails): ITemplateItem[];
     /**
      * Gathers the reward min and max count params for each reward quality level from config and scavcase.json into a single object
      * @param scavCaseDetails scavcase.json values
      * @returns ScavCaseRewardCountsAndPrices object
      */
-    protected getScavCaseRewardCountsAndPrices(scavCaseDetails: IHideoutScavCase): ScavCaseRewardCountsAndPrices;
+    protected getScavCaseRewardCountsAndPrices(scavCaseDetails: IHideoutScavCase): IScavCaseRewardCountsAndPrices;
     /**
      * Randomises the size of ammo and money stacks
      * @param itemToCalculate ammo or money item

@@ -1,5 +1,4 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import { AirdropTypeEnum } from "@spt/models/enums/AirdropType";
 export interface LootRequest {
     weaponPresetCount: MinMax;
     armorPresetCount: MinMax;
@@ -13,9 +12,4 @@ export interface LootRequest {
     armorLevelWhitelist: number[];
     allowBossItems: boolean;
     useRewarditemBlacklist?: boolean;
-    useForcedLoot?: boolean;
-    forcedLoot?: Record<string, MinMax>;
-}
-export interface IAirdropLootRequest extends LootRequest {
-    icon?: AirdropTypeEnum;
 }

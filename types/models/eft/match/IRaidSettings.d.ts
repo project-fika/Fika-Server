@@ -15,15 +15,15 @@ export interface IRaidSettings {
     isLocationTransition: boolean;
     timeVariant: DateTime;
     metabolismDisabled: boolean;
-    timeAndWeatherSettings: TimeAndWeatherSettings;
-    botSettings: BotSettings;
-    wavesSettings: WavesSettings;
+    timeAndWeatherSettings: ITimeAndWeatherSettings;
+    botSettings: IBotSettings;
+    wavesSettings: IWavesSettings;
     side: SideType;
     raidMode: RaidMode;
     playersSpawnPlace: PlayersSpawnPlace;
     CanShowGroupPreview: boolean;
 }
-export interface TimeAndWeatherSettings {
+export interface ITimeAndWeatherSettings {
     isRandomTime: boolean;
     isRandomWeather: boolean;
     cloudinessType: CloudinessType;
@@ -33,11 +33,11 @@ export interface TimeAndWeatherSettings {
     timeFlowType: TimeFlowType;
     hourOfDay: number;
 }
-export interface BotSettings {
+export interface IBotSettings {
     isScavWars: boolean;
     botAmount: BotAmount;
 }
-export interface WavesSettings {
+export interface IWavesSettings {
     botAmount: BotAmount;
     botDifficulty: BotDifficulty;
     isBosses: boolean;

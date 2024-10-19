@@ -8,7 +8,7 @@ import { IInventory as PmcInventory } from "@spt/models/eft/common/tables/IBotBa
 import { IGenerationData, IInventory, IModsChances } from "@spt/models/eft/common/tables/IBotType";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import { GenerateWeaponResult } from "@spt/models/spt/bots/GenerateWeaponResult";
+import { IGenerateWeaponResult } from "@spt/models/spt/bots/IGenerateWeaponResult";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
@@ -52,7 +52,7 @@ export declare class BotWeaponGenerator {
      * @param isPmc Is weapon generated for a pmc
      * @returns GenerateWeaponResult object
      */
-    generateRandomWeapon(sessionId: string, equipmentSlot: string, botTemplateInventory: IInventory, weaponParentId: string, modChances: IModsChances, botRole: string, isPmc: boolean, botLevel: number): GenerateWeaponResult;
+    generateRandomWeapon(sessionId: string, equipmentSlot: string, botTemplateInventory: IInventory, weaponParentId: string, modChances: IModsChances, botRole: string, isPmc: boolean, botLevel: number): IGenerateWeaponResult;
     /**
      * Get a random weighted weapon from a bots pool of weapons
      * @param equipmentSlot Primary/secondary/holster
@@ -71,7 +71,7 @@ export declare class BotWeaponGenerator {
      * @param isPmc Is weapon being generated for a pmc
      * @returns GenerateWeaponResult object
      */
-    generateWeaponByTpl(sessionId: string, weaponTpl: string, slotName: string, botTemplateInventory: IInventory, weaponParentId: string, modChances: IModsChances, botRole: string, isPmc: boolean, botLevel: number): GenerateWeaponResult;
+    generateWeaponByTpl(sessionId: string, weaponTpl: string, slotName: string, botTemplateInventory: IInventory, weaponParentId: string, modChances: IModsChances, botRole: string, isPmc: boolean, botLevel: number): IGenerateWeaponResult;
     /**
      * Insert a cartridge(s) into a weapon
      * Handles all chambers - patron_in_weapon, patron_in_weapon_000 etc
@@ -114,14 +114,14 @@ export declare class BotWeaponGenerator {
      * @param inventory Inventory to add magazines to
      * @param botRole The bot type we're getting generating extra mags for
      */
-    addExtraMagazinesToInventory(generatedWeaponResult: GenerateWeaponResult, magWeights: IGenerationData, inventory: PmcInventory, botRole: string): void;
+    addExtraMagazinesToInventory(generatedWeaponResult: IGenerateWeaponResult, magWeights: IGenerationData, inventory: PmcInventory, botRole: string): void;
     /**
      * Add Grendaes for UBGL to bots vest and secure container
      * @param weaponMods Weapon array with mods
      * @param generatedWeaponResult result of weapon generation
      * @param inventory bot inventory to add grenades to
      */
-    protected addUbglGrenadesToBotInventory(weaponMods: IItem[], generatedWeaponResult: GenerateWeaponResult, inventory: PmcInventory): void;
+    protected addUbglGrenadesToBotInventory(weaponMods: IItem[], generatedWeaponResult: IGenerateWeaponResult, inventory: PmcInventory): void;
     /**
      * Add ammo to the secure container
      * @param stackCount How many stacks of ammo to add

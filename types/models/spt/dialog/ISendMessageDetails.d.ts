@@ -1,5 +1,5 @@
 import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { ISystemData, IUserDialogInfo, MessageContentRagfair } from "@spt/models/eft/profile/ISptProfile";
+import { IMessageContentRagfair, ISystemData, IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { Traders } from "@spt/models/enums/Traders";
 export interface ISendMessageDetails {
@@ -24,7 +24,7 @@ export interface ISendMessageDetails {
     /** Optional - ragfair related */
     systemData?: ISystemData;
     /** Optional - Used by ragfair messages */
-    ragfairDetails?: MessageContentRagfair;
+    ragfairDetails?: IMessageContentRagfair;
     /** OPTIONAL - allows modification of profile settings via mail */
     profileChangeEvents?: IProfileChangeEvent[];
 }
