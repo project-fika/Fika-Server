@@ -53,6 +53,8 @@ export class FikaClientController {
      * Handle /fika/client/check/mods
      */
     public handleCheckMods(request: IFikaCheckModRequestData): IFikaCheckModResponse {
+        const config = this.fikaConfig.getConfig();
+
         const mismatchedMods: IFikaCheckModResponse = {
             forbidden: [],
             missingRequired: [],
