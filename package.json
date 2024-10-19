@@ -5,6 +5,7 @@
     "main": "src/mod.js",
     "scripts": {
         "setup": "npm i",
+        "lint": "npx @biomejs/biome lint ./",
         "build": "node ./build.mjs",
         "buildinfo": "node ./build.mjs --verbose"
     },
