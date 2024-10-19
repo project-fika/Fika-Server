@@ -24,8 +24,15 @@ export class FikaClientController {
     ) {
         const config = this.fikaConfig.getConfig();
 
-        this.requiredMods = new Set([...config.client.mods.required, "com.fika.core", "com.SPT.custom", "com.SPT.singleplayer", "com.SPT.core", "com.SPT.debugging"]);
-        this.allowedMods = new Set([...this.requiredMods, ...config.client.mods.optional, "com.bepis.bepinex.configurationmanager"]);
+        const sanitizedRequiredMods = this.filterEmptyMods(config.client.mods.required);
+        const sanitizedOptionalMods = this.filterEmptyMods(config.client.mods.optional);
+
+        this.requiredMods = new Set([...sanitizedRequiredMods, "com.fika.core", "com.SPT.custom", "com.SPT.singleplayer", "com.SPT.core", "com.SPT.debugging"]);
+        this.allowedMods = new Set([...this.requiredMods, ...sanitizedOptionalMods, "com.bepis.bepinex.configurationmanager"]);
+    }
+
+    protected filterEmptyMods(array: string[]): string[] {
+        return array.filter(str => str.trim() !== "");
     }
 
     /**
@@ -55,7 +62,7 @@ export class FikaClientController {
         };
 
         // if no configuration was made, allow all mods
-        if (config.client.mods.required.length === 0 && config.client.mods.optional.length === 0) {
+        if (this.allowedMods.size === 0) {
             return mismatchedMods;
         }
 
