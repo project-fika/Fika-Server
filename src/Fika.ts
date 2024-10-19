@@ -40,7 +40,7 @@ export class Fika {
         await this.overrider.override(container);
     }
 
-    public async postSptLoad(container: DependencyContainer): Promise<void> {
+    public async postSptLoad(_container: DependencyContainer): Promise<void> {
         if (this.natPunchServerConfig.enable) {
             this.fikaServerTools.startService("NatPunchServer");
         }
