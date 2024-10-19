@@ -32,7 +32,7 @@ export class FikaClientController {
     }
 
     protected filterEmptyMods(array: string[]): string[] {
-        return array.filter(str => str.trim() !== "");
+        return array.filter((str) => str.trim() !== "");
     }
 
     /**
@@ -53,8 +53,6 @@ export class FikaClientController {
      * Handle /fika/client/check/mods
      */
     public handleCheckMods(request: IFikaCheckModRequestData): IFikaCheckModResponse {
-        const config = this.fikaConfig.getConfig();
-
         const mismatchedMods: IFikaCheckModResponse = {
             forbidden: [],
             missingRequired: [],
