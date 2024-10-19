@@ -15,7 +15,6 @@ import { FikaConfig } from "../utils/FikaConfig";
 import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
 import { FikaInsuranceService } from "./FikaInsuranceService";
 import { FikaPresenceService } from "./FikaPresenceService";
-import { IFikaSetPresence } from "../models/fika/presence/IFikaSetPresence";
 
 @injectable()
 export class FikaMatchService {

@@ -11,7 +11,7 @@ import { ConfigServer } from "@spt/servers/ConfigServer";
 
 import { DialogueController } from "@spt/controllers/DialogueController";
 import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import { Dialogue, IUserDialogInfo, Message } from "@spt/models/eft/profile/ISptProfile";
+import { IMessage } from "@spt/models/eft/profile/ISptProfile";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";
@@ -165,7 +165,7 @@ export class FikaDialogueController {
             },
         ];
 
-        const message: Message = {
+        const message: IMessage = {
             _id: this.hashUtil.generate(),
             uid: sessionID,
             type: request.type,
