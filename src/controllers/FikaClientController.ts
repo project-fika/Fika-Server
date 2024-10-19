@@ -60,7 +60,7 @@ export class FikaClientController {
         };
 
         // if no configuration was made, allow all mods
-        if (this.allowedMods.size === 0) {
+        if (config.client.mods.required.length === 0 && config.client.mods.optional.length === 0) {
             return mismatchedMods;
         }
 
