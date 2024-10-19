@@ -25,9 +25,9 @@ export class FikaClientController {
     ) {
         const config = this.fikaConfig.getConfig();
 
-        const sanitizeModList = (modList: string[]): string[] => modList.filter(mod => mod !== "");
+        const sanitizeModList = (strArr: string[]): string[] => strArr.filter(str => str !== "");
 
-        this.requiredMods = new Set([...(sanitizeModList(config.client.mods.required)), "com.fika.core", "com.SPT.custom", "com.SPT.singleplayer", "com.SPT.core", "com.SPT.debugging"]);
+        this.requiredMods = new Set([...sanitizeModList(config.client.mods.required), "com.fika.core", "com.SPT.custom", "com.SPT.singleplayer", "com.SPT.core", "com.SPT.debugging"]);
         this.allowedMods = new Set([...this.requiredMods, ...sanitizeModList(config.client.mods.optional), "com.bepis.bepinex.configurationmanager"]);
     }
 
