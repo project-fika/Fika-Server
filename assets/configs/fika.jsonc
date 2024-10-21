@@ -13,7 +13,8 @@
             "optional": []
         },
         "useInertia": true,
-        "sharedQuestProgression": false
+        "sharedQuestProgression": false,
+        "canEditRaidSettings": true
     },
     "server": {
         "giftedItemsLoseFIR": true,
