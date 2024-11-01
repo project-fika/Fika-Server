@@ -536,6 +536,11 @@ export declare class ItemHelper {
      */
     getRandomisedAmmoStackSize(ammoItemTemplate: ITemplateItem, maxLimit?: number): number;
     getItemBaseType(tpl: string, rootOnly?: boolean): string;
+    /**
+     * Remove FiR status from passed in items
+     * @param items Items to update FiR status of
+     */
+    removeSpawnedInSessionPropertyFromItems(items: IItem[]): void;
 }
 declare namespace ItemHelper {
     interface IItemSize {

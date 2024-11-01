@@ -93,6 +93,7 @@ export interface IBotInfoSettings {
     Experience: number;
     StandingForKill: number;
     AggressorBonus: number;
+    UseSimpleAnimator: boolean;
 }
 export interface IBan {
     banType: BanType;

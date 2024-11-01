@@ -39,7 +39,7 @@ export declare class TraderHelper {
      * @param sessionID Players id
      * @returns Trader base
      */
-    getTrader(traderID: string, sessionID: string): ITraderBase | undefined;
+    getTrader(traderID: string, sessionID: string): ITraderBase | any;
     /**
      * Get all assort data for a particular trader
      * @param traderId Trader to get assorts for

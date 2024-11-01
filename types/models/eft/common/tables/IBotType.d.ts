@@ -101,6 +101,7 @@ export interface IExperience {
     level: MinMax;
     reward: MinMax;
     standingForKill: number;
+    useSimpleAnimator: boolean;
 }
 export interface IGeneration {
     items: IGenerationWeightingItems;

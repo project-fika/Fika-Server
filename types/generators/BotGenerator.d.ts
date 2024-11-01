@@ -1,5 +1,6 @@
 import { BotInventoryGenerator } from "@spt/generators/BotInventoryGenerator";
 import { BotLevelGenerator } from "@spt/generators/BotLevelGenerator";
+import { BotGeneratorHelper } from "@spt/helpers/BotGeneratorHelper";
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
@@ -31,6 +32,7 @@ export declare class BotGenerator {
     protected botEquipmentFilterService: BotEquipmentFilterService;
     protected weightedRandomHelper: WeightedRandomHelper;
     protected botHelper: BotHelper;
+    protected botGeneratorHelper: BotGeneratorHelper;
     protected seasonalEventService: SeasonalEventService;
     protected itemFilterService: ItemFilterService;
     protected botNameService: BotNameService;
@@ -38,7 +40,7 @@ export declare class BotGenerator {
     protected cloner: ICloner;
     protected botConfig: IBotConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, timeUtil: TimeUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, botInventoryGenerator: BotInventoryGenerator, botLevelGenerator: BotLevelGenerator, botEquipmentFilterService: BotEquipmentFilterService, weightedRandomHelper: WeightedRandomHelper, botHelper: BotHelper, seasonalEventService: SeasonalEventService, itemFilterService: ItemFilterService, botNameService: BotNameService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, randomUtil: RandomUtil, timeUtil: TimeUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, botInventoryGenerator: BotInventoryGenerator, botLevelGenerator: BotLevelGenerator, botEquipmentFilterService: BotEquipmentFilterService, weightedRandomHelper: WeightedRandomHelper, botHelper: BotHelper, botGeneratorHelper: BotGeneratorHelper, seasonalEventService: SeasonalEventService, itemFilterService: ItemFilterService, botNameService: BotNameService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Generate a player scav bot object
      * @param role e.g. assault / pmcbot
@@ -76,6 +78,12 @@ export declare class BotGenerator {
      * @returns IBotBase object
      */
     protected generateBot(sessionId: string, bot: IBotBase, botJsonTemplate: IBotType, botGenerationDetails: IBotGenerationDetails): IBotBase;
+    /**
+     * Set weighting of flagged equipment to 0
+     * @param botJsonTemplate Bot data to adjust
+     * @param botGenerationDetails Generation details of bot
+     */
+    protected filterBlacklistedGear(botJsonTemplate: IBotType, botGenerationDetails: IBotGenerationDetails): void;
     protected addAdditionalPocketLootWeightsForUnheardBot(botJsonTemplate: IBotType): void;
     /**
      * Remove items from item.json/lootableItemBlacklist from bots inventory

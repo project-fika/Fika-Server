@@ -60,8 +60,9 @@ export declare class PaymentService {
      */
     addPaymentToOutput(pmcData: IPmcData, currencyTpl: string, amountToPay: number, sessionID: string, output: IItemEventRouterResponse): void;
     /**
+     * TODO - ensure money in containers inside secure container are LAST
      * Get all money stacks in inventory and prioritise items in stash
-     * @param pmcData
+     * @param pmcData Player profile
      * @param currencyTpl
      * @param playerStashId Players stash id
      * @returns Sorting money items

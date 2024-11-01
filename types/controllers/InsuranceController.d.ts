@@ -176,6 +176,11 @@ export declare class InsuranceController {
      * @returns void
      */
     protected sendMail(sessionID: string, insurance: IInsurance): void;
+    protected IsMapLabsAndInsuranceDisabled(insurance: IInsurance, labsId?: string): boolean;
+    /**
+     * Update IInsurance object with new messageTemplateId and wipe out items array data
+     */
+    protected handleLabsInsurance(traderDialogMessages: Record<string, string[]>, insurance: IInsurance): void;
     /**
      * Determines whether an insured item should be removed from the player's inventory based on a random roll and
      * trader-specific return chance.

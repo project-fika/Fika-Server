@@ -71,6 +71,7 @@ export interface IChatbotFeatures {
     commandoEnabled: boolean;
     commandoFeatures: ICommandoFeatures;
     commandUseLimits: Record<string, number>;
+    ids: Record<string, string>;
 }
 export interface ICommandoFeatures {
     giveCommandEnabled: boolean;

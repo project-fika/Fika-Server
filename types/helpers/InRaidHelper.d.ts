@@ -41,13 +41,6 @@ export declare class InRaidHelper {
      */
     setInventory(sessionID: string, serverProfile: IPmcData, postRaidProfile: IPmcData, isSurvived: boolean, isTransfer: boolean): void;
     /**
-     * Iterate over inventory items and remove the property that defines an item as Found in Raid
-     * Only removes property if item had FiR when entering raid
-     * @param postRaidProfile profile to update items for
-     * @returns Updated profile with SpawnedInSession removed
-     */
-    removeSpawnedInSessionPropertyFromItems(postRaidProfile: IPmcData): IPmcData;
-    /**
      * Clear PMC inventory of all items except those that are exempt
      * Used post-raid to remove items after death
      * @param pmcData Player profile

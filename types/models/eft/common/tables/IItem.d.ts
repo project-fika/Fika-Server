@@ -42,6 +42,12 @@ export interface IUpd {
     SideEffect?: IUpdSideEffect;
     RepairKit?: IUpdRepairKit;
     CultistAmulet?: IUpdCultistAmulet;
+    PinLockState?: PinLockState;
+}
+export declare enum PinLockState {
+    FREE = "Free",
+    LOCKED = "Locked",
+    PINNED = "Pinned"
 }
 export interface IUpdBuff {
     rarity: string;

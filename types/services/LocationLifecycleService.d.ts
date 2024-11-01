@@ -5,6 +5,7 @@ import { PlayerScavGenerator } from "@spt/generators/PlayerScavGenerator";
 import { HealthHelper } from "@spt/helpers/HealthHelper";
 import { InRaidHelper } from "@spt/helpers/InRaidHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { QuestHelper } from "@spt/helpers/QuestHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
@@ -46,6 +47,7 @@ export declare class LocationLifecycleService {
     protected databaseService: DatabaseService;
     protected inRaidHelper: InRaidHelper;
     protected healthHelper: HealthHelper;
+    protected questHelper: QuestHelper;
     protected matchBotDetailsCacheService: MatchBotDetailsCacheService;
     protected pmcChatResponseService: PmcChatResponseService;
     protected playerScavGenerator: PlayerScavGenerator;
@@ -68,7 +70,7 @@ export declare class LocationLifecycleService {
     protected hideoutConfig: IHideoutConfig;
     protected locationConfig: ILocationConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, saveServer: SaveServer, timeUtil: TimeUtil, randomUtil: RandomUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, inRaidHelper: InRaidHelper, healthHelper: HealthHelper, matchBotDetailsCacheService: MatchBotDetailsCacheService, pmcChatResponseService: PmcChatResponseService, playerScavGenerator: PlayerScavGenerator, traderHelper: TraderHelper, localisationService: LocalisationService, insuranceService: InsuranceService, botLootCacheService: BotLootCacheService, configServer: ConfigServer, botGenerationCacheService: BotGenerationCacheService, mailSendService: MailSendService, raidTimeAdjustmentService: RaidTimeAdjustmentService, botNameService: BotNameService, lootGenerator: LootGenerator, applicationContext: ApplicationContext, locationLootGenerator: LocationLootGenerator, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, saveServer: SaveServer, timeUtil: TimeUtil, randomUtil: RandomUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, inRaidHelper: InRaidHelper, healthHelper: HealthHelper, questHelper: QuestHelper, matchBotDetailsCacheService: MatchBotDetailsCacheService, pmcChatResponseService: PmcChatResponseService, playerScavGenerator: PlayerScavGenerator, traderHelper: TraderHelper, localisationService: LocalisationService, insuranceService: InsuranceService, botLootCacheService: BotLootCacheService, configServer: ConfigServer, botGenerationCacheService: BotGenerationCacheService, mailSendService: MailSendService, raidTimeAdjustmentService: RaidTimeAdjustmentService, botNameService: BotNameService, lootGenerator: LootGenerator, applicationContext: ApplicationContext, locationLootGenerator: LocationLootGenerator, cloner: ICloner);
     /** Handle client/match/local/start */
     startLocalRaid(sessionId: string, request: IStartLocalRaidRequestData): IStartLocalRaidResponseData;
     /**
@@ -140,9 +142,20 @@ export declare class LocationLifecycleService {
      */
     protected handlePostRaidPmc(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, isDead: boolean, isSurvived: boolean, isTransfer: boolean, request: IEndLocalRaidRequestData, locationName: string): void;
     /**
+     * In 0.15 Lightkeeper quests do not give rewards in PvE, this issue also occurs in spt
+     * We check for newly completed Lk quests and run them through the servers `CompleteQuest` process
+     * This rewards players with items + craft unlocks + new trader assorts
+     * @param sessionId Session id
+     * @param postRaidQuests Quest statuses post-raid
+     * @param preRaidQuests Quest statuses pre-raid
+     * @param pmcProfile Players profile
+     */
+    protected lightkeeperQuestWorkaround(sessionId: string, postRaidQuests: IQuestStatus[], preRaidQuests: IQuestStatus[], pmcProfile: IPmcData): void;
+    /**
      * Convert post-raid quests into correct format
      * Quest status comes back as a string version of the enum `Success`, not the expected value of 1
-     * @param questsToProcess
+     * @param questsToProcess quests data from client
+     * @param preRaidQuestStatuses quest data from before raid
      * @returns IQuestStatus
      */
     protected processPostRaidQuests(questsToProcess: IQuestStatus[]): IQuestStatus[];

@@ -3,11 +3,24 @@ import { IItem } from "@spt/models/eft/common/tables/IItem";
 export interface IGlobals {
     time: number;
     config: IConfig;
+    LocationInfection: ILocationInfection;
     bot_presets: IBotPreset[];
     AudioSettings: IAudioSettings;
     EnvironmentSettings: IEnvironmentSettings;
     BotWeaponScatterings: IBotWeaponScattering[];
     ItemPresets: Record<string, IPreset>;
+}
+export interface ILocationInfection {
+    Interchange: number;
+    Lighthouse: number;
+    RezervBase: number;
+    Sandbox: number;
+    Shoreline: number;
+    TarkovStreets: number;
+    Woods: number;
+    bigmap: number;
+    factory4: number;
+    laboratory: number;
 }
 export interface IArtilleryShelling {
     ArtilleryMapsConfigs: Record<string, IArtilleryMapSettings>;
@@ -96,6 +109,7 @@ export interface IConfig {
     MaxBotsAliveOnMapPvE: number;
     SavagePlayCooldown: number;
     SavagePlayCooldownNdaFree: number;
+    SeasonActivity: ISeasonActivity;
     MarksmanAccuracy: number;
     SavagePlayCooldownDevelop: number;
     TODSkyDate: string;
@@ -182,6 +196,14 @@ export interface IConfig {
     Ballistic: IBallistic;
     RepairSettings: IRepairSettings;
 }
+export interface ISeasonActivity {
+    InfectionHalloween: ISeasonActivityHalloween;
+}
+export interface ISeasonActivityHalloween {
+    DisplayUIEnabled: boolean;
+    Enabled: boolean;
+    ZombieBleedMul: number;
+}
 export interface IEnvironmentSetting2 {
     EnvironmentUIData: IEnvironmentUIData;
 }
@@ -262,6 +284,7 @@ export interface ITransitSettings {
     PercentageOfMissingEnergyRestore: number;
     PercentageOfMissingHealthRestore: number;
     PercentageOfMissingWaterRestore: number;
+    RestoreHealthOnDestroyedParts: boolean;
     ScavPriceMod: number;
     UsecPriceMod: number;
     active: boolean;
@@ -634,6 +657,12 @@ export interface IEffects {
     HeavyBleeding: IHeavyBleeding;
     LightBleeding: ILightBleeding;
     BodyTemperature: IBodyTemperature;
+    ZombieInfection: IZombieInfection;
+}
+export interface IZombieInfection {
+    Dehydration: number;
+    HearingDebuffPercentage: number;
+    СumulativeTime: number;
 }
 export interface IExistence {
     EnergyLoopTime: number;
@@ -1203,6 +1232,7 @@ export interface IInsurance {
     CoefOfSendingMessageTime: number;
     CoefOfHavingMarkOfUnknown: number;
     EditionSendingMessageTime: Record<string, IMessageSendTImeMultipler>;
+    OnlyInDeathCase: boolean;
 }
 export interface IMessageSendTImeMultipler {
     multiplier: number;

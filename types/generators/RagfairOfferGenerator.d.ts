@@ -149,12 +149,13 @@ export declare class RagfairOfferGenerator {
     protected removeBannedPlatesFromPreset(presetWithChildren: IItem[], plateSettings: IArmorPlateBlacklistSettings): boolean;
     /**
      * Create one flea offer for a specific item
+     * @param sellerId Id of seller
      * @param itemWithChildren Item to create offer for
      * @param isPreset Is item a weapon preset
-     * @param itemDetails raw db item details
+     * @param itemToSellDetails Raw db item details
      * @returns Item array
      */
-    protected createSingleOfferForItem(itemWithChildren: IItem[], isPreset: boolean, itemDetails: [boolean, ITemplateItem]): Promise<void>;
+    protected createSingleOfferForItem(sellerId: string, itemWithChildren: IItem[], isPreset: boolean, itemToSellDetails: ITemplateItem): Promise<void>;
     /**
      * Generate trader offers on flea using the traders assort data
      * @param traderID Trader to generate offers for

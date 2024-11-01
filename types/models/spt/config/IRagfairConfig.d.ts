@@ -50,6 +50,8 @@ export interface IDynamic {
     priceRanges: IPriceRanges;
     /** Should default presets to listed only or should non-standard presets found in globals.json be listed too */
     showDefaultPresetsOnly: boolean;
+    /** Tpls that should not use the variable price system when their quality is < 100% (lower dura/uses = lower price) */
+    ignoreQualityPriceVarianceBlacklist: string[];
     endTimeSeconds: MinMax;
     /** Settings to control the durability range of item items listed on flea */
     condition: Condition;
@@ -90,6 +92,8 @@ export interface IBarterDetails {
     priceRangeVariancePercent: number;
     /** Min rouble price for an offer to be considered for turning into a barter */
     minRoubleCostToBecomeBarter: number;
+    /** Should barter offers only single stack */
+    makeSingleStackOnly: boolean;
     /** Item Tpls to never be turned into a barter */
     itemTypeBlacklist: string[];
 }
