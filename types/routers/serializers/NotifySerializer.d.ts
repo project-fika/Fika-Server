@@ -8,6 +8,6 @@ export declare class NotifySerializer extends Serializer {
     protected jsonUtil: JsonUtil;
     protected httpServerHelper: HttpServerHelper;
     constructor(notifierController: NotifierController, jsonUtil: JsonUtil, httpServerHelper: HttpServerHelper);
-    serialize(_sessionID: string, req: IncomingMessage, resp: ServerResponse, _: any): void;
+    serialize(_sessionID: string, req: IncomingMessage, resp: ServerResponse, _: any): Promise<void>;
     canHandle(route: string): boolean;
 }

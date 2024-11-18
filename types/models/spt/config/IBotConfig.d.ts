@@ -160,6 +160,8 @@ export interface IRandomisationDetails {
     /** Equipment mod chances */
     equipmentMods?: Record<string, number>;
     nighttimeChanges?: INighttimeChanges;
+    /** Key = weapon tpl, value = min size of magaizne allowed */
+    minimumMagazineSize?: Record<string, number>;
 }
 export interface INighttimeChanges {
     /** Applies changes to values stored in equipmentMods */

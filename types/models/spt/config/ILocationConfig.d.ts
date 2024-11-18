@@ -44,6 +44,8 @@ export interface ILocationConfig extends IBaseConfig {
     equipmentLootSettings: IEquipmentLootSettings;
     /** min percentage to set raider spawns at, -1 makes no changes */
     reserveRaiderSpawnChanceOverrides: IReserveRaiderSpawnChanceOverrides;
+    /** Map ids players cannot visit */
+    nonMaps: string[];
 }
 export interface IReserveRaiderSpawnChanceOverrides {
     nonTriggered: number;

@@ -219,6 +219,7 @@ export interface IVictim {
     Level: number;
     Weapon: string;
     Role: string;
+    Location: string;
 }
 export interface ISessionCounters {
     Items: ICounterKeyValue[];

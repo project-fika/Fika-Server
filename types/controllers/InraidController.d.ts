@@ -28,13 +28,13 @@ export declare class InraidController {
      */
     addPlayer(sessionID: string, info: IRegisterPlayerRequestData): void;
     /**
-     * Handle raid/profile/save
+     * Handle raid/profile/scavsave
      * Save profile state to disk
      * Handles pmc/pscav
-     * @param offraidData post-raid request data
+     * @param offraidProfileData Post-raid scav profile data
      * @param sessionID Session id
      */
-    savePostRaidProfileForScav(offraidData: IScavSaveRequestData, sessionID: string): void;
+    savePostRaidProfileForScav(offraidProfileData: IScavSaveRequestData, sessionID: string): void;
     /**
      * Get the inraid config from configs/inraid.json
      * @returns InRaid Config

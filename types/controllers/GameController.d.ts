@@ -14,6 +14,7 @@ import { IGameModeRequestData } from "@spt/models/eft/game/IGameModeRequestData"
 import { IGetRaidTimeRequest } from "@spt/models/eft/game/IGetRaidTimeRequest";
 import { IGetRaidTimeResponse } from "@spt/models/eft/game/IGetRaidTimeResponse";
 import { IServerDetails } from "@spt/models/eft/game/IServerDetails";
+import { ISurveyResponseData } from "@spt/models/eft/game/ISurveyResponseData";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
@@ -132,4 +133,5 @@ export declare class GameController {
      */
     protected checkForAndRemoveUndefinedDialogs(fullProfile: ISptProfile): void;
     protected logProfileDetails(fullProfile: ISptProfile): void;
+    getSurvey(sessionId: string): ISurveyResponseData;
 }

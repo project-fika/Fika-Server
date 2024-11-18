@@ -1,3 +1,4 @@
+import { ISurveyResponseData } from "@spt/models/eft/game/ISurveyResponseData";
 import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface ICoreConfig extends IBaseConfig {
     kind: "spt-core";
@@ -11,6 +12,7 @@ export interface ICoreConfig extends IBaseConfig {
     bsgLogging: IBsgLogging;
     release: IRelease;
     fixes: IGameFixes;
+    survey: ISurveyResponseData;
     features: IServerFeatures;
     /** Commit hash build server was created from */
     commit?: string;

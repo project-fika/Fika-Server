@@ -140,6 +140,13 @@ export declare class BotEquipmentModGenerator {
      */
     protected chooseModToPutIntoSlot(request: IModToSpawnRequest): [boolean, ITemplateItem] | undefined;
     /**
+     * Given the passed in array of magaizne tpls, look up the min size set in config and return only those that have that size or larger
+     * @param modSpawnRequest Request data
+     * @param modPool Pool of magazine tpls to filter
+     * @returns Filtered pool of magazine tpls
+     */
+    protected getFilterdMagazinePoolByCapacity(modSpawnRequest: IModToSpawnRequest, modPool: string[]): string[];
+    /**
      * Choose a weapon mod tpl for a given slot from a pool of choices
      * Checks chosen tpl is compatible with all existing weapon items
      * @param modPool Pool of mods that can be picked from

@@ -66,5 +66,5 @@ export declare class WeatherGenerator {
     protected getWeightedWindSpeed(): number;
     protected getWeightedFog(): number;
     protected getWeightedRain(): number;
-    protected getRandomFloat(node: string): number;
+    protected getRandomFloat(node: string, precision?: number): number;
 }

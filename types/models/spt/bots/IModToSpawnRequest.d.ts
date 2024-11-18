@@ -2,12 +2,13 @@ import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ModSpawn } from "@spt/models/enums/ModSpawn";
 import { IBotData, IWeaponStats } from "@spt/models/spt/bots/IGenerateWeaponRequest";
-import { IEquipmentFilterDetails } from "@spt/models/spt/config/IBotConfig";
+import { IEquipmentFilterDetails, IRandomisationDetails } from "@spt/models/spt/config/IBotConfig";
 export interface IModToSpawnRequest {
     /** Slot mod will fit into */
     modSlot: string;
     /** Will generate a randomised mod pool if true */
     isRandomisableSlot: boolean;
+    randomisationSettings: IRandomisationDetails;
     /** Parent slot the item will be a part of */
     botWeaponSightWhitelist: Record<string, string[]>;
     /** Blacklist to prevent mods from being picked */

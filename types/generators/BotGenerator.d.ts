@@ -4,6 +4,7 @@ import { BotGeneratorHelper } from "@spt/helpers/BotGeneratorHelper";
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
+import { MinMax } from "@spt/models/common/MinMax";
 import { IBaseJsonSkills, IBaseSkill, IBotBase, IInfo, IHealth as PmcHealth, ISkills as botSkills } from "@spt/models/eft/common/tables/IBotBase";
 import { IAppearance, IBodyPart, IBotType, IHealth, IInventory } from "@spt/models/eft/common/tables/IBotType";
 import { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
@@ -50,7 +51,7 @@ export declare class BotGenerator {
      */
     generatePlayerScav(sessionId: string, role: string, difficulty: string, botTemplate: IBotType): IBotBase;
     /**
-     * Create 1  bots of the type/side/difficulty defined in botGenerationDetails
+     * Create 1 bot of the type/side/difficulty defined in botGenerationDetails
      * @param sessionId Session id
      * @param botGenerationDetails details on how to generate bots
      * @returns constructed bot
@@ -78,6 +79,30 @@ export declare class BotGenerator {
      * @returns IBotBase object
      */
     protected generateBot(sessionId: string, bot: IBotBase, botJsonTemplate: IBotType, botGenerationDetails: IBotGenerationDetails): IBotBase;
+    /**
+     * Get exp for kill by bot difficulty
+     * @param experience Dict of difficulties and experience
+     * @param botDifficulty the killed bots difficulty
+     * @param role Role of bot (optional, used for error logging)
+     * @returns Experience for kill
+     */
+    protected getExperienceRewardForKillByDifficulty(experience: Record<string, MinMax>, botDifficulty: string, role: string): number;
+    /**
+     * Get the standing value change when player kills a bot
+     * @param standingForKill Dictionary of standing values keyed by bot difficulty
+     * @param botDifficulty Difficulty of bot to look up
+     * @param role Role of bot (optional, used for error logging)
+     * @returns Standing change value
+     */
+    protected getStandingChangeForKillByDifficulty(standingForKill: Record<string, number>, botDifficulty: string, role: string): number;
+    /**
+     * Get the agressor bonus value when player kills a bot
+     * @param standingForKill Dictionary of standing values keyed by bot difficulty
+     * @param botDifficulty Difficulty of bot to look up
+     * @param role Role of bot (optional, used for error logging)
+     * @returns Standing change value
+     */
+    protected getAgressorBonusByDifficulty(aggressorBonus: Record<string, number>, botDifficulty: string, role: string): number;
     /**
      * Set weighting of flagged equipment to 0
      * @param botJsonTemplate Bot data to adjust

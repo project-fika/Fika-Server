@@ -8,6 +8,6 @@ export declare class ImageRouter {
     protected httpFileUtil: HttpFileUtil;
     constructor(vfs: VFS, imageRouteService: ImageRouteService, httpFileUtil: HttpFileUtil);
     addRoute(key: string, valueToAdd: string): void;
-    sendImage(sessionID: string, req: IncomingMessage, resp: ServerResponse, body: any): void;
+    sendImage(sessionID: string, req: IncomingMessage, resp: ServerResponse, body: any): Promise<void>;
     getImage(): string;
 }

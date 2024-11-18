@@ -47,6 +47,10 @@ export interface IFenceConfig {
     blacklist: string[];
     coopExtractGift: ICoopExtractReward;
     btrDeliveryExpireHours: number;
+    /** Smallest value player rep with fence can fall to */
+    playerRepMin: number;
+    /** Highest value player rep with fence can climb to */
+    playerRepMax: number;
 }
 export interface IItemDurabilityCurrentMax {
     current: MinMax;

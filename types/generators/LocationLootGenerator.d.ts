@@ -3,7 +3,7 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { IContainerMinMax, IStaticAmmoDetails, IStaticContainer, IStaticContainerData, IStaticForcedProps, IStaticLootDetails } from "@spt/models/eft/common/ILocation";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
-import { ILooseLoot, ISpawnpoint, ISpawnpointTemplate, ISpawnpointsForced } from "@spt/models/eft/common/ILooseLoot";
+import { ILooseLoot, ISpawnpointTemplate, ISpawnpointsForced } from "@spt/models/eft/common/ILooseLoot";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -124,7 +124,7 @@ export declare class LocationLootGenerator {
      * @param forcedSpawnPoints forced Forced loot locations that must be added
      * @param locationName Name of map currently having force loot created for
      */
-    protected addForcedLoot(lootLocationTemplates: ISpawnpointTemplate[], forcedSpawnPoints: ISpawnpointsForced[], locationName: string): void;
+    protected addForcedLoot(lootLocationTemplates: ISpawnpointTemplate[], forcedSpawnPoints: ISpawnpointsForced[], locationName: string, staticAmmoDist: Record<string, IStaticAmmoDetails[]>): void;
     /**
      * Create array of item (with child items) and return
      * @param chosenComposedKey Key we want to look up items for
@@ -132,7 +132,7 @@ export declare class LocationLootGenerator {
      * @param staticAmmoDist ammo distributions
      * @returns IContainerItem
      */
-    protected createDynamicLootItem(chosenComposedKey: string, spawnPoint: ISpawnpoint, staticAmmoDist: Record<string, IStaticAmmoDetails[]>): IContainerItem;
+    protected createDynamicLootItem(chosenComposedKey: string, items: IItem[], staticAmmoDist: Record<string, IStaticAmmoDetails[]>): IContainerItem;
     /**
      * Find an item in array by its _tpl, handle differently if chosenTpl is a weapon
      * @param items Items array to search

@@ -1,5 +1,6 @@
 import { MatchController } from "@spt/controllers/MatchController";
 import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { IMetrics } from "@spt/models/eft/common/tables/IMatch";
 import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
 import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
 import { IEndLocalRaidRequestData } from "@spt/models/eft/match/IEndLocalRaidRequestData";
@@ -53,7 +54,7 @@ export declare class MatchCallbacks {
     /** Handle match/group/start_game */
     joinMatch(url: string, info: IMatchGroupStartGameRequest, sessionID: string): IGetBodyResponseData<IProfileStatusResponse>;
     /** Handle client/getMetricsConfig */
-    getMetrics(url: string, info: any, sessionID: string): IGetBodyResponseData<string>;
+    getMetrics(url: string, info: any, sessionID: string): IGetBodyResponseData<IMetrics>;
     /**
      * Called periodically while in a group
      * Handle client/match/group/status

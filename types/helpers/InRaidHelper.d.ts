@@ -41,6 +41,17 @@ export declare class InRaidHelper {
      */
     setInventory(sessionID: string, serverProfile: IPmcData, postRaidProfile: IPmcData, isSurvived: boolean, isTransfer: boolean): void;
     /**
+     * Remove FiR status from items
+     * @param items Items to process
+     */
+    protected removeFiRStatusFromCertainItems(items: IItem[]): void;
+    /**
+     * Add items from one parameter into another
+     * @param itemsToAdd Items we want to add
+     * @param serverInventoryItems Location to add items to
+     */
+    protected addItemsToInventory(itemsToAdd: IItem[], serverInventoryItems: IItem[]): void;
+    /**
      * Clear PMC inventory of all items except those that are exempt
      * Used post-raid to remove items after death
      * @param pmcData Player profile

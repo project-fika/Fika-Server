@@ -72,14 +72,6 @@ export declare class BotLootGenerator {
      */
     protected addForcedMedicalItemsToPmcSecure(botInventory: PmcInventory, botRole: string): void;
     /**
-     * Get a biased random number
-     * @param min Smallest size
-     * @param max Biggest size
-     * @param nValue Value to bias choice
-     * @returns Chosen number
-     */
-    protected getRandomisedCount(min: number, max: number, nValue: number): number;
-    /**
      * Take random items from a pool and add to an inventory until totalItemCount or totalValueLimit or space limit is reached
      * @param pool Pool of items to pick from with weight
      * @param equipmentSlots What equipment slot will the loot items be added to

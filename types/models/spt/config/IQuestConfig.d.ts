@@ -15,7 +15,7 @@ export interface IQuestConfig extends IBaseConfig {
     usecOnlyQuests: string[];
     /** Quests that the keyed game version do not see/access */
     profileBlacklist: Record<string, string[]>;
-    /** Quests that only the keyed game version can see/access */
+    /** key=questid, gameversions that can see/access quest */
     profileWhitelist: Record<string, string[]>;
 }
 export interface IPlayerTypeQuestIds {

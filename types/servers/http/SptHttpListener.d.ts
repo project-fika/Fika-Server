@@ -26,7 +26,7 @@ export declare class SptHttpListener implements IHttpListener {
      * @param body Buffer
      * @param output Server generated response data
      */
-    sendResponse(sessionID: string, req: IncomingMessage, resp: ServerResponse, body: Buffer, output: string): void;
+    sendResponse(sessionID: string, req: IncomingMessage, resp: ServerResponse, body: Buffer, output: string): Promise<void>;
     /**
      * Is request flagged as debug enabled
      * @param req Incoming request
@@ -42,5 +42,5 @@ export declare class SptHttpListener implements IHttpListener {
     getResponse(sessionID: string, req: IncomingMessage, body: Buffer): Promise<string>;
     protected getBodyInfo(body: Buffer, requestUrl?: any): any;
     sendJson(resp: ServerResponse, output: string, sessionID: string): void;
-    sendZlibJson(resp: ServerResponse, output: string, sessionID: string): void;
+    sendZlibJson(resp: ServerResponse, output: string, sessionID: string): Promise<void>;
 }

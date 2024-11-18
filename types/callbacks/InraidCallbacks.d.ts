@@ -21,7 +21,7 @@ export declare class InraidCallbacks {
      */
     registerPlayer(url: string, info: IRegisterPlayerRequestData, sessionID: string): INullResponseData;
     /**
-     * Handle raid/profile/save
+     * Handle raid/profile/scavsave
      * @param url
      * @param info Save progress request
      * @param sessionID Session id
