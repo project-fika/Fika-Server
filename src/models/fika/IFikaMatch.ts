@@ -24,4 +24,5 @@ export interface IFikaMatch {
     raidCode: string;
     natPunch: boolean;
     isDedicated: boolean;
+    raids: number;
 }

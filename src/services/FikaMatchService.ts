@@ -1,20 +1,20 @@
 import { inject, injectable } from "tsyringe";
 
-import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
 
 import { EFikaMatchEndSessionMessage } from "../models/enums/EFikaMatchEndSessionMessages";
 import { EFikaMatchStatus } from "../models/enums/EFikaMatchStatus";
+import { EFikaPlayerPresences } from "../models/enums/EFikaPlayerPresences";
 import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
-import { EFikaPlayerPresences } from "../models/enums/EFikaPlayerPresences";
 
 import { FikaConfig } from "../utils/FikaConfig";
-import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
 import { FikaInsuranceService } from "./FikaInsuranceService";
 import { FikaPresenceService } from "./FikaPresenceService";
+import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
 
 @injectable()
 export class FikaMatchService {
@@ -209,6 +209,7 @@ export class FikaMatchService {
             raidCode: data.raidCode,
             natPunch: false,
             isDedicated: false,
+            raids: 0
         });
 
         this.addTimeoutInterval(data.serverId);

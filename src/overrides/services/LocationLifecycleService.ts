@@ -54,7 +54,10 @@ export class LocationLifecycleServiceOverride extends Override {
                         // player is in a Fika match, use match location loot and regen if transit
                         const match = this.fikaMatchService.getMatch(matchId);
                         if (matchId === sessionId) {
-                            match.locationData = lifecycleService.generateLocationAndLoot(request.location);
+                            match.raids++;
+                            if (match.raids > 1) {
+                                match.locationData = lifecycleService.generateLocationAndLoot(request.location);
+                            }
                         }
                         locationLoot = match.locationData;
                     }
