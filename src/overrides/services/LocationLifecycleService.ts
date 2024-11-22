@@ -1,23 +1,23 @@
 import { DependencyContainer, inject, injectable } from "tsyringe";
 
-import { LocationController } from "@spt/controllers/LocationController";
-import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
-
 import { ApplicationContext } from "@spt/context/ApplicationContext";
 import { ContextVariableType } from "@spt/context/ContextVariableType";
+import { LocationController } from "@spt/controllers/LocationController";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IEndLocalRaidRequestData, ILocationTransit } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 import { IStartLocalRaidRequestData } from "@spt/models/eft/match/IStartLocalRaidRequestData";
 import { IStartLocalRaidResponseData } from "@spt/models/eft/match/IStartLocalRaidResponseData";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheService";
+import { BotLootCacheService } from "@spt/services/BotLootCacheService";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
+import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
+
 import { Override } from "../../di/Override";
 import { FikaMatchService } from "../../services/FikaMatchService";
-import { BotLootCacheService } from "@spt/services/BotLootCacheService";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
 
 @injectable()
 export class LocationLifecycleServiceOverride extends Override {
@@ -51,8 +51,11 @@ export class LocationLifecycleServiceOverride extends Override {
                         // player isn't in a Fika match, generate new loot
                         locationLoot = lifecycleService.generateLocationAndLoot(request.location);
                     } else {
-                        // player is in a Fika match, use match location loot
+                        // player is in a Fika match, use match location loot and regen if transit
                         const match = this.fikaMatchService.getMatch(matchId);
+                        if (matchId === sessionId) {
+                            match.locationData = lifecycleService.generateLocationAndLoot(request.location);
+                        }
                         locationLoot = match.locationData;
                     }
 
@@ -84,7 +87,7 @@ export class LocationLifecycleServiceOverride extends Override {
                         result.transition.isLocationTransition = true;
                         result.transition.transitionRaidId = transitionData.transitionRaidId;
                         result.transition.transitionCount += 1;
-                        result.transition.visitedLocations.push(transitionData.location); // TODO - check doesnt exist before adding to prevent dupes
+                        result.transition.visitedLocations.push(transitionData.sptLastVisitedLocation);
 
                         // Complete, clean up
                         this.applicationContext.clearValues(ContextVariableType.TRANSIT_INFO);
