@@ -84,6 +84,14 @@
     "F_Client_FreeCamInputEnabled": "Input abilitati in Free cam",
     "F_UI_WaitForPlayer": "In attesa di {0} giocatore",
     "F_UI_WaitForPlayers": "In attesa di {0} giocatori",
-    "F_UI_ToSLong": "Welcome to Fika!\r\n\r\nFika is a co-op mod for SPT, allowing you to play with your friends. Fika is and will always be free, if you paid for it you got scammed. You are also not allowed to host public servers with monetization or donations.\r\n\r\nWait for this message to fade to accept our Terms of Service.\r\n\r\nYou can join our Discord here: https://discord.gg/project-fika",
-    "F_UI_ToSShort": "Welcome to Fika!\r\n\r\nFika is a co-op mod for SPT, allowing you to play with your friends. Fika is and will always be free, if you paid for it you got scammed. You are also not allowed to host public servers with monetization or donations.\r\n\r\nYou can join our Discord here: https://discord.gg/project-fika"
+    "F_UI_ToSLong": "Benvenuto su Fika!\n\nFika è una mod co-op per SPT, che ti permette di giocare con i tuoi amici. Fika è e sarà sempre gratuito, se lo hai pagato sei stato truffato. Non è inoltre consentito ospitare server pubblici con monetizzazione o donazioni.\n\nAspetta che questo messaggio svanisca per accettare i nostri Termini di Servizio.\n\nPuoi unirti alla nostra community Discord qui: https://discord.gg/project-fika",
+    "F_UI_ToSShort": "Benvenuto su Fika!\n\nFika è una mod co-op per SPT, che ti permette di giocare con i tuoi amici. Fika è e sarà sempre gratuito, se lo hai pagato sei stato truffato. Non è inoltre consentito ospitare server pubblici con monetizzazione o donazioni.\n\nPuoi unirti alla nostra community Discord qui: https://discord.gg/project-fika",
+    "F_UI_RaidSettingsDescription": "In this mode, you can play online co-op with your friends without the risk of meeting others.\\nAll game mechanics in the co-op mode (weather, bots, bosses, etc.) are identical to the online mechanics.\\nOnly the hosts settings will take effect.",
+    "F_UI_CoopGameMode": "Fika Co-op Game Mode",
+    "F_UI_CoopRaidSettings": "Fika Co-op Raid Settings",
+    "F_UI_FikaAlwaysCoop": "Co-op is always enabled in Fika",
+    "F_UI_UpnpFailed": "UPnP mapping failed. Make sure the selected port is not already open!\\nDisable UPnP if you are using a VPN.",
+    "F_UI_InitWeather": "Generating weather...",
+    "F_Notification_RaidStarted": "{0} started a raid on {1}",
+    "F_Notification_ItemReceived": "You received a {0} from {1}"
 }
