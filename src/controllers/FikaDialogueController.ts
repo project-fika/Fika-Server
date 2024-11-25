@@ -38,7 +38,6 @@ export class FikaDialogueController {
     }
 
     public getFriendList(sessionID: string): IGetFriendListDataResponse {
-        const core = this.configServer.getConfig<ICoreConfig>(ConfigTypes.CORE);
         // Cast to any to get rid of protected error
         const dialogueChatBots: IDialogueChatBot[] = (this.dialogController as any).dialogueChatBots;
         let botsAndFriends = dialogueChatBots.map((v) => v.getChatBot());
