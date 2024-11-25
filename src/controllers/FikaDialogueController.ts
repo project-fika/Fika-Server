@@ -24,7 +24,6 @@ import { IFriendRequestListResponse } from "../models/eft/dialog/IFriendRequestL
 @injectable()
 export class FikaDialogueController {
     constructor(
-        @injectAll("DialogueChatBot") protected dialogueChatBots: IDialogueChatBot[],
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("ConfigServer") protected configServer: ConfigServer,
         @inject("FikaFriendRequestsHelper") protected fikaFriendRequestsHelper: FikaFriendRequestsHelper,
@@ -40,7 +39,9 @@ export class FikaDialogueController {
 
     public getFriendList(sessionID: string): IGetFriendListDataResponse {
         const core = this.configServer.getConfig<ICoreConfig>(ConfigTypes.CORE);
-        let botsAndFriends = this.dialogueChatBots.map((v) => v.getChatBot());
+        // Cast to any to get rid of protected error
+        const dialogueChatBots: IDialogueChatBot[] = (this.dialogController as any).dialogueChatBots;
+        let botsAndFriends = dialogueChatBots.map((v) => v.getChatBot());
         if (!core.features.chatbotFeatures.commandoEnabled) {
             botsAndFriends = botsAndFriends.filter((u) => u._id != "sptCommando");
         }
