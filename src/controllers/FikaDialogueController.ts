@@ -42,13 +42,6 @@ export class FikaDialogueController {
         // Cast to any to get rid of protected error
         const dialogueChatBots: IDialogueChatBot[] = (this.dialogController as any).dialogueChatBots;
         let botsAndFriends = dialogueChatBots.map((v) => v.getChatBot());
-        if (!core.features.chatbotFeatures.commandoEnabled) {
-            botsAndFriends = botsAndFriends.filter((u) => u._id != "sptCommando");
-        }
-
-        if (!core.features.chatbotFeatures.sptFriendEnabled) {
-            botsAndFriends = botsAndFriends.filter((u) => u._id != "sptFriend");
-        }
 
         const friendsIds = this.fikaPlayerRelationsHelper.getFriendsList(sessionID);
 
