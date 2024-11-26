@@ -86,12 +86,12 @@
     "F_UI_WaitForPlayers": "Ожидание {0} игроков",
     "F_UI_ToSLong": "Fika это кооперативная модификация для SPT, позволяющая вам играть со своими друзьями. Fika всегда была и всегда будет бесплатной, если вы заплатили - вас обманули. Также запрещено хостить публичные сервера с монетизацией или сбором пожертвований.\n\nПодождите пока это сообщение исчезнет, чтобы принять наши Условия использования.\n\nВы можете вступить в наш Discord по этой ссылке: https://discord.gg/project-fika",
     "F_UI_ToSShort": "Fika это кооперативная модификация для SPT, позволяющая вам играть со своими друзьями. Fika всегда была и всегда будет бесплатной, если вы заплатили - вас обманули. Также запрещено хостить публичные сервера с монетизацией или сбором пожертвований.\n\nВы можете вступить в наш Discord по этой ссылке: https://discord.gg/project-fika",
-    "F_UI_RaidSettingsDescription": "In this mode, you can play online co-op with your friends without the risk of meeting others.\\nAll game mechanics in the co-op mode (weather, bots, bosses, etc.) are identical to the online mechanics.\\nOnly the hosts settings will take effect.",
-    "F_UI_CoopGameMode": "Fika Co-op Game Mode",
-    "F_UI_CoopRaidSettings": "Fika Co-op Raid Settings",
-    "F_UI_FikaAlwaysCoop": "Co-op is always enabled in Fika",
-    "F_UI_UpnpFailed": "UPnP mapping failed. Make sure the selected port is not already open!\\nDisable UPnP if you are using a VPN.",
-    "F_UI_InitWeather": "Generating weather...",
-    "F_Notification_RaidStarted": "{0} started a raid on {1}",
-    "F_Notification_ItemReceived": "You received a {0} from {1}"
+    "F_UI_RaidSettingsDescription": "В этом режиме вы можете играть в кооператив с друзьями в сети без риска встречи с другими.\\nВсе игровые механики в кооперативном режиме (погода, боты, боты и т. д.) идентично онлайн.\\nВступят в силу только настройки хоста.",
+    "F_UI_CoopGameMode": "Кооперативный Режим Fika",
+    "F_UI_CoopRaidSettings": "Настройки Кооперативного Рейда Fika",
+    "F_UI_FikaAlwaysCoop": "Кооператив всегда включен в Fika",
+    "F_UI_UpnpFailed": "Ошибка сопоставления UPnP. Убедитесь, что выбранный порт уже не открыт!\\nОтключите UPnP, если вы используете VPN.",
+    "F_UI_InitWeather": "Генерируем погоду...",
+    "F_Notification_RaidStarted": "{0} запустил рейд на {1}",
+    "F_Notification_ItemReceived": "Вы получили {0} от {1}"
 }

@@ -87,11 +87,11 @@
     "F_UI_ToSLong": "Bienvenue sur Fika!\n\nFika est un mod pour SPT, vous permettant de jouer avec vos amis. Fika est et sera toujours gratuit, si vous avez payé pour l'obtenir, c'est une arnaque. Il n'est pas non plus autorisé d'heberger un serveur public avec monétisation ou dons.\n\nPatientez le temps que ce message disparaisse pour accepter nos conditions d'utilisation.\n\nVous pouvez rejoindre notre serveur Discord ici: https://discord.gg/project-fika",
     "F_UI_ToSShort": "Bienvenue sur Fika!\n\nFika est un mod pour SPT, vous permettant de jouer avec vos amis. Fika est et sera toujours gratuit, si vous avez payé pour l'obtenir, c'est une arnaque. Il n'est pas non plus autorisé d'heberger un serveur public avec monétisation ou dons.\n\nVous pouvez rejoindre notre serveur Discord ici: https://discord.gg/project-fika",
     "F_UI_RaidSettingsDescription": "Dans ce mode, vous pouvez jouer en co-op avec des amis sans le risque de rencontrer des joueurs.\\n Toutes les mécaniques de jeu dans le mode co-op (météo, bots, boss, etc.) sont identiques aux mécaniques en ligne.\\n Seulement les paramètres de l'hôte prendrons effet.",
-    "F_UI_CoopGameMode": "Fika Co-op Game Mode",
+    "F_UI_CoopGameMode": "Fika coopérative mode de jeu",
     "F_UI_CoopRaidSettings": "Paramètres pour les raids du mod coop Fika",
-    "F_UI_FikaAlwaysCoop": "Co-op is always enabled in Fika",
+    "F_UI_FikaAlwaysCoop": "Coopérative est toujours activé dans Fika",
     "F_UI_UpnpFailed": "Échec du mappage UPnP. Vérifiez que le port sélectionné n'est pas déjà ouvert !\\nDésactivez UPnP si vous utilisez un VPN.",
-    "F_UI_InitWeather": "Generating weather...",
-    "F_Notification_RaidStarted": "{0} started a raid on {1}",
+    "F_UI_InitWeather": "Générer la météo...",
+    "F_Notification_RaidStarted": "{0} a démarrer un raid sur {1}",
     "F_Notification_ItemReceived": "Vous avez reçu un {0} de {1}"
 }
