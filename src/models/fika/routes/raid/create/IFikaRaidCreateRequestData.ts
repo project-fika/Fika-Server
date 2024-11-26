@@ -1,6 +1,6 @@
 import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
-import { FikaSide } from "../../../../enums/FikaSide";
-import { FikaTime } from "../../../../enums/FikaTime";
+import { EFikaSide } from "../../../../enums/EFikaSide";
+import { EFikaTime } from "../../../../enums/EFikaTime";
 
 export interface IFikaRaidCreateRequestData {
     raidCode: string;
@@ -11,6 +11,7 @@ export interface IFikaRaidCreateRequestData {
     expectedNumberOfPlayers: number;
     gameVersion: string;
     fikaVersion: string;
-    side: FikaSide;
-    time: FikaTime;
+    side: EFikaSide;
+    time: EFikaTime;
+    isSpectator: boolean;
 }

@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import http, { IncomingMessage } from "node:http";
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
 import { ILogger } from "@spt/models/spt/utils/ILogger";

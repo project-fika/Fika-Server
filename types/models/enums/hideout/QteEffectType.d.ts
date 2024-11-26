@@ -1,5 +1,5 @@
 export declare enum QteEffectType {
-    FINISH_EFFECT = "FinishEffect",
-    SINGLE_SUCCESS_EFFECT = "SingleSuccessEffect",
-    SINGLE_FAIL_EFFECT = "SingleFailEffect"
+    FINISH_EFFECT = "finishEffect",
+    SINGLE_SUCCESS_EFFECT = "singleSuccessEffect",
+    SINGLE_FAIL_EFFECT = "singleFailEffect"
 }

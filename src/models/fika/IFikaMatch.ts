@@ -1,9 +1,9 @@
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
 
-import { FikaMatchStatus } from "../enums/FikaMatchStatus";
-import { FikaSide } from "../enums/FikaSide";
-import { FikaTime } from "../enums/FikaTime";
+import { EFikaMatchStatus } from "../enums/EFikaMatchStatus";
+import { EFikaSide } from "../enums/EFikaSide";
+import { EFikaTime } from "../enums/EFikaTime";
 import { IFikaPlayer } from "./IFikaPlayer";
 
 export interface IFikaMatch {
@@ -16,12 +16,13 @@ export interface IFikaMatch {
     gameVersion: string;
     raidConfig: IGetRaidConfigurationRequestData;
     locationData: ILocationBase;
-    status: FikaMatchStatus;
+    status: EFikaMatchStatus;
     timeout: number;
     players: Map<string, IFikaPlayer>;
-    side: FikaSide;
-    time: FikaTime;
+    side: EFikaSide;
+    time: EFikaTime;
     raidCode: string;
     natPunch: boolean;
     isDedicated: boolean;
+    raids: number;
 }

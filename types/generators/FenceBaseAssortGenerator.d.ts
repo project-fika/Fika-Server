@@ -1,7 +1,7 @@
 import { HandbookHelper } from "@spt/helpers/HandbookHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -47,7 +47,7 @@ export declare class FenceBaseAssortGenerator {
      * @param armor Armor item array to add mods into
      * @param itemDbDetails Armor items db template
      */
-    protected addChildrenToArmorModSlots(armor: Item[], itemDbDetails: ITemplateItem): void;
+    protected addChildrenToArmorModSlots(armor: IItem[], itemDbDetails: ITemplateItem): void;
     /**
      * Check if item is valid for being added to fence assorts
      * @param item Item to check

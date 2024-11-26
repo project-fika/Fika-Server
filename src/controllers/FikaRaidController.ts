@@ -6,9 +6,11 @@ import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { DatabaseService } from "@spt/services/DatabaseService";
 
-import { DedicatedStatus } from "../models/enums/DedicatedStatus";
-import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
+import { EDedicatedStatus } from "../models/enums/EDedicatedStatus";
+import { EFikaMatchEndSessionMessage } from "../models/enums/EFikaMatchEndSessionMessages";
+import { EFikaNotifications } from "../models/enums/EFikaNotifications";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 import { IFikaRaidCreateResponse } from "../models/fika/routes/raid/create/IFikaRaidCreateResponse";
@@ -22,19 +24,23 @@ import { IFikaRaidSettingsResponse } from "../models/fika/routes/raid/getsetting
 import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
 import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaidJoinResponse";
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
+import { IStartRaidNotification } from "../models/fika/websocket/notifications/IStartRaidNotification";
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
+import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
 
 @injectable()
 export class FikaRaidController {
     constructor(
+        @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
         @inject("FikaDedicatedRaidWebSocket") protected fikaDedicatedRaidWebSocket: FikaDedicatedRaidWebSocket,
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("InraidController") protected inraidController: InraidController,
+        @inject("FikaNotificationWebSocket") protected fikaNotificationWebSocket: FikaNotificationWebSocket,
     ) {
         // empty
     }
@@ -44,6 +50,14 @@ export class FikaRaidController {
      * @param request
      */
     public handleRaidCreate(request: IFikaRaidCreateRequestData): IFikaRaidCreateResponse {
+        const notification: IStartRaidNotification = {
+            type: EFikaNotifications.StartedRaid,
+            nickname: request.hostUsername,
+            location: request.settings.location,
+        };
+
+        this.fikaNotificationWebSocket.broadcast(notification);
+
         return {
             success: this.fikaMatchService.createMatch(request),
         };
@@ -72,7 +86,7 @@ export class FikaRaidController {
      */
     public handleRaidLeave(request: IFikaRaidLeaveRequestData): void {
         if (request.serverId === request.profileId) {
-            this.fikaMatchService.endMatch(request.serverId, FikaMatchEndSessionMessage.HOST_SHUTDOWN_MESSAGE);
+            this.fikaMatchService.endMatch(request.serverId, EFikaMatchEndSessionMessage.HOST_SHUTDOWN_MESSAGE);
             return;
         }
 
@@ -110,6 +124,8 @@ export class FikaRaidController {
         return {
             metabolismDisabled: match.raidConfig.metabolismDisabled,
             playersSpawnPlace: match.raidConfig.playersSpawnPlace,
+            hourOfDay: match.raidConfig.timeAndWeatherSettings.hourOfDay,
+            timeFlowType: match.raidConfig.timeAndWeatherSettings.timeFlowType,
         };
     }
 
@@ -135,7 +151,7 @@ export class FikaRaidController {
         for (const dedicatedSessionId in this.fikaDedicatedRaidService.dedicatedClients) {
             const dedicatedClientInfo = this.fikaDedicatedRaidService.dedicatedClients[dedicatedSessionId];
 
-            if (dedicatedClientInfo.state != DedicatedStatus.READY) {
+            if (dedicatedClientInfo.state != EDedicatedStatus.READY) {
                 continue;
             }
 
@@ -185,18 +201,17 @@ export class FikaRaidController {
 
     /** Handle /fika/raid/dedicated/status */
     public handleRaidStatusDedicated(sessionId: string, info: IStatusDedicatedRequest): IStatusDedicatedResponse {
-
         // Temp fix because the enum gets deserialized as a string instead of an integer
-        switch(info.status.toString()) {
+        switch (info.status.toString()) {
             case "READY":
-                info.status = DedicatedStatus.READY;
+                info.status = EDedicatedStatus.READY;
                 break;
             case "IN_RAID":
-                info.status = DedicatedStatus.IN_RAID;
+                info.status = EDedicatedStatus.IN_RAID;
                 break;
         }
 
-        if (info.status == DedicatedStatus.READY && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
+        if (info.status == EDedicatedStatus.READY && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
             if (this.fikaDedicatedRaidService.onDedicatedClientAvailable) {
                 this.fikaDedicatedRaidService.onDedicatedClientAvailable();
             }

@@ -2,14 +2,15 @@ import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { HideoutArea, IHideoutImprovement, Production, Productive } from "@spt/models/eft/common/tables/IBotBase";
-import { Item, Upd } from "@spt/models/eft/common/tables/IItem";
-import { StageBonus } from "@spt/models/eft/hideout/IHideoutArea";
+import { IBotHideoutArea, IHideoutImprovement, IProduction, IProductive } from "@spt/models/eft/common/tables/IBotBase";
+import { IItem, IUpd } from "@spt/models/eft/common/tables/IItem";
+import { IHideoutArea, IStageBonus } from "@spt/models/eft/hideout/IHideoutArea";
 import { IHideoutContinuousProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutContinuousProductionStartRequestData";
 import { IHideoutProduction } from "@spt/models/eft/hideout/IHideoutProduction";
 import { IHideoutSingleProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutSingleProductionStartRequestData";
 import { IHideoutTakeProductionRequestData } from "@spt/models/eft/hideout/IHideoutTakeProductionRequestData";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { HideoutAreas } from "@spt/models/enums/HideoutAreas";
 import { SkillTypes } from "@spt/models/enums/SkillTypes";
 import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -37,6 +38,7 @@ export declare class HideoutHelper {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     static bitcoinFarm: string;
+    static cultistCircleCraftId: string;
     static bitcoinProductionId: string;
     static waterCollector: string;
     static maxSkillPoint: number;
@@ -54,19 +56,19 @@ export declare class HideoutHelper {
      * This convenience function initializes new Production Object
      * with all the constants.
      */
-    initProduction(recipeId: string, productionTime: number, needFuelForAllProductionTime: boolean): Production;
+    initProduction(recipeId: string, productionTime: number, needFuelForAllProductionTime: boolean): IProduction;
     /**
      * Is the provided object a Production type
      * @param productive
      * @returns
      */
-    isProductionType(productive: Productive): productive is Production;
+    isProductionType(productive: IProductive): productive is IProduction;
     /**
      * Apply bonus to player profile given after completing hideout upgrades
      * @param pmcData Profile to add bonus to
      * @param bonus Bonus to add to profile
      */
-    applyPlayerUpgradesBonuses(pmcData: IPmcData, bonus: StageBonus): void;
+    applyPlayerUpgradesBonuses(pmcData: IPmcData, bonus: IStageBonus): void;
     /**
      * Process a players hideout, update areas that use resources + increment production timers
      * @param sessionID Session id
@@ -82,7 +84,7 @@ export declare class HideoutHelper {
         isGeneratorOn: boolean;
         waterCollectorHasFilter: boolean;
     };
-    protected doesWaterCollectorHaveFilter(waterCollector: HideoutArea): boolean;
+    protected doesWaterCollectorHaveFilter(waterCollector: IBotHideoutArea): boolean;
     /**
      * Iterate over productions and update their progress timers
      * @param pmcData Profile to check for productions and update
@@ -93,6 +95,21 @@ export declare class HideoutHelper {
         isGeneratorOn: boolean;
         waterCollectorHasFilter: boolean;
     }): void;
+    /**
+     * Is a craft from a particular hideout area
+     * @param craft Craft to check
+     * @param hideoutType Type to check craft against
+     * @returns True it is from that area
+     */
+    protected isCraftOfType(craft: IProduction, hideoutType: HideoutAreas): boolean;
+    /**
+     * Has the craft completed
+     * Ignores bitcoin farm/cultist circle as they're continuous crafts
+     * @param craft Craft to check
+
+     * @returns True when craft is compelte
+     */
+    protected isCraftComplete(craft: IProduction): boolean;
     /**
      * Update progress timer for water collector
      * @param pmcData profile to update
@@ -116,6 +133,8 @@ export declare class HideoutHelper {
         isGeneratorOn: boolean;
         waterCollectorHasFilter?: boolean;
     }): void;
+    protected updateCultistCircleCraftProgress(pmcData: IPmcData, prodId: string): void;
+    protected flagCultistCircleCraftAsComplete(production: IProductive): void;
     /**
      * Check if a productions progress value matches its corresponding recipes production time value
      * @param pmcData Player profile
@@ -147,8 +166,8 @@ export declare class HideoutHelper {
      * @param pmcData Player profile
      * @param isGeneratorOn Is the generator turned on since last update
      */
-    protected updateFuel(generatorArea: HideoutArea, pmcData: IPmcData, isGeneratorOn: boolean): void;
-    protected updateWaterCollector(sessionId: string, pmcData: IPmcData, area: HideoutArea, hideoutProperties: {
+    protected updateFuel(generatorArea: IBotHideoutArea, pmcData: IPmcData, isGeneratorOn: boolean): void;
+    protected updateWaterCollector(sessionId: string, pmcData: IPmcData, area: IBotHideoutArea, hideoutProperties: {
         btcFarmCGs: number;
         isGeneratorOn: boolean;
         waterCollectorHasFilter: boolean;
@@ -168,7 +187,7 @@ export declare class HideoutHelper {
      * @param isGeneratorOn is generator enabled
      * @param pmcData Player profile
      */
-    protected updateWaterFilters(waterFilterArea: HideoutArea, production: Production, isGeneratorOn: boolean, pmcData: IPmcData): void;
+    protected updateWaterFilters(waterFilterArea: IBotHideoutArea, production: IProduction, isGeneratorOn: boolean, pmcData: IPmcData): void;
     /**
      * Get an adjusted water filter drain rate based on time elapsed since last run,
      * handle edge case when craft time has gone on longer than total production time
@@ -198,15 +217,15 @@ export declare class HideoutHelper {
      * @param resourceUnitsConsumed
      * @returns Upd
      */
-    protected getAreaUpdObject(stackCount: number, resourceValue: number, resourceUnitsConsumed: number, isFoundInRaid: boolean): Upd;
-    protected updateAirFilters(airFilterArea: HideoutArea, pmcData: IPmcData, isGeneratorOn: boolean): void;
-    protected updateBitcoinFarm(pmcData: IPmcData, btcFarmCGs: number, isGeneratorOn: boolean): Production | undefined;
+    protected getAreaUpdObject(stackCount: number, resourceValue: number, resourceUnitsConsumed: number, isFoundInRaid: boolean): IUpd;
+    protected updateAirFilters(airFilterArea: IBotHideoutArea, pmcData: IPmcData, isGeneratorOn: boolean): void;
+    protected updateBitcoinFarm(pmcData: IPmcData, btcProduction: IProductive, btcFarmCGs: number, isGeneratorOn: boolean): void;
     /**
      * Add bitcoin object to btc production products array and set progress time
      * @param btcProd Bitcoin production object
      * @param coinCraftTimeSeconds Time to craft a bitcoin
      */
-    protected addBtcToProduction(btcProd: Production, coinCraftTimeSeconds: number): void;
+    protected addBtcToProduction(btcProd: IProduction, coinCraftTimeSeconds: number): void;
     /**
      * Get number of ticks that have passed since hideout areas were last processed, reduced when generator is off
      * @param pmcData Player profile
@@ -248,7 +267,7 @@ export declare class HideoutHelper {
      * @returns Seconds to reduce craft time by
      */
     getSkillProductionTimeReduction(pmcData: IPmcData, productionTime: number, skill: SkillTypes, amountPerLevel: number): number;
-    isProduction(productive: Productive): productive is Production;
+    isProduction(productive: IProductive): productive is IProduction;
     /**
      * Gather crafted BTC from hideout area and add to inventory
      * Reset production start timestamp if hideout area at full coin capacity
@@ -286,5 +305,12 @@ export declare class HideoutHelper {
      * @param activeDogtags Active dogtags in place of fame dogtag slots
      * @returns combat bonus
      */
-    protected getDogtagCombatSkillBonusPercent(pmcData: IPmcData, activeDogtags: Item[]): number;
+    protected getDogtagCombatSkillBonusPercent(pmcData: IPmcData, activeDogtags: IItem[]): number;
+    /**
+     * The wall pollutes a profile with various temp buffs/debuffs,
+     * Remove them all
+     * @param wallAreaDb Hideout area data
+     * @param pmcData Player profile
+     */
+    removeHideoutWallBuffsAndDebuffs(wallAreaDb: IHideoutArea, pmcData: IPmcData): void;
 }

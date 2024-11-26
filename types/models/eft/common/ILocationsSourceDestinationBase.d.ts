@@ -1,9 +1,9 @@
 import { ILocations } from "@spt/models/spt/server/ILocations";
 export interface ILocationsGenerateAllResponse {
     locations: ILocations;
-    paths: Path[];
+    paths: IPath[];
 }
-export interface Path {
+export interface IPath {
     Source: string;
     Destination: string;
 }

@@ -3,8 +3,8 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { IFenceLevel } from "@spt/models/eft/common/IGlobals";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item, Repairable } from "@spt/models/eft/common/tables/IItem";
-import { ITemplateItem, Slot } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IItem, IUpdRepairable } from "@spt/models/eft/common/tables/IItem";
+import { ISlot, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBarterScheme, ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
 import { IItemDurabilityCurrentMax, ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
 import { ICreateFenceAssortsResult } from "@spt/models/spt/fence/ICreateFenceAssortsResult";
@@ -79,21 +79,21 @@ export declare class FenceService {
      * @param items the items to add with all its childrens
      * @param mainItem the most parent item of the array
      */
-    addItemsToFenceAssort(items: Item[], mainItem: Item): void;
+    addItemsToFenceAssort(items: IItem[], mainItem: IItem): void;
     /**
      * Calculates the overall price for an item (with all its children)
      * @param itemTpl the item tpl to calculate the fence price for
      * @param items the items (with its children) to calculate fence price for
      * @returns the fence price of the item
      */
-    getItemPrice(itemTpl: string, items: Item[]): number;
+    getItemPrice(itemTpl: string, items: IItem[]): number;
     /**
      * Calculate the overall price for an ammo box, where only one item is
      * the ammo box itself and every other items are the bullets in that box
      * @param items the ammo box (and all its children ammo items)
      * @returns the price of the ammo box
      */
-    protected getAmmoBoxPrice(items: Item[]): number;
+    protected getAmmoBoxPrice(items: IItem[]): number;
     /**
      * Adjust all items contained inside an assort by a multiplier
      * @param assort (clone)Assort that contains items with prices to adjust
@@ -115,7 +115,7 @@ export declare class FenceService {
      * @param modifier value to multiply item price by
      * @param presetModifier value to multiply preset price by
      */
-    protected adjustItemPriceByModifier(item: Item, assort: ITraderAssort, modifier: number, presetModifier: number): void;
+    protected adjustItemPriceByModifier(item: IItem, assort: ITraderAssort, modifier: number, presetModifier: number): void;
     /**
      * Get fence assorts with no price adjustments based on fence rep
      * @returns ITraderAssort
@@ -146,7 +146,7 @@ export declare class FenceService {
      * @param generationValues Base counts assorts should be adjusted to
      * @returns IGenerationAssortValues object with adjustments needed to reach desired state
      */
-    protected getItemCountsToGenerate(assortItems: Item[], generationValues: IGenerationAssortValues): IGenerationAssortValues;
+    protected getItemCountsToGenerate(assortItems: IItem[], generationValues: IGenerationAssortValues): IGenerationAssortValues;
     /**
      * Delete desired number of items from assort (including children)
      * @param itemCountToReplace
@@ -158,7 +158,7 @@ export declare class FenceService {
      * @param assort Trader assort to remove item from
      * @param rootItems Pool of root items to pick from to remove
      */
-    protected removeRandomItemFromAssorts(assort: ITraderAssort, rootItems: Item[]): void;
+    protected removeRandomItemFromAssorts(assort: ITraderAssort, rootItems: IItem[]): void;
     /**
      * Get an integer rounded count of items to replace based on percentrage from traderConfig value
      * @param totalItemCount total item count
@@ -217,14 +217,14 @@ export declare class FenceService {
      * @param itemsWithChildren Items to search through
      * @returns Matching assort item
      */
-    protected getMatchingItem(rootItemBeingAdded: Item, itemDbDetails: ITemplateItem, itemsWithChildren: Item[][]): Item | undefined;
+    protected getMatchingItem(rootItemBeingAdded: IItem, itemDbDetails: ITemplateItem, itemsWithChildren: IItem[][]): IItem | undefined;
     /**
      * Should this item be forced into only 1 stack on fence
      * @param existingItem Existing item from fence assort
      * @param itemDbDetails Item we want to add db details
      * @returns True item should be force stacked
      */
-    protected itemShouldBeForceStacked(existingItem: Item, itemDbDetails: ITemplateItem): boolean;
+    protected itemShouldBeForceStacked(existingItem: IItem, itemDbDetails: ITemplateItem): boolean;
     protected itemInPreventDupeCategoryList(tpl: string): boolean;
     /**
      * Adjust price of item based on what is left to buy (resource/uses left)
@@ -232,7 +232,7 @@ export declare class FenceService {
      * @param itemRoot Root item having price adjusted
      * @param itemTemplate Db template of item
      */
-    protected adjustItemPriceByQuality(barterSchemes: Record<string, IBarterScheme[][]>, itemRoot: Item, itemTemplate: ITemplateItem): void;
+    protected adjustItemPriceByQuality(barterSchemes: Record<string, IBarterScheme[][]>, itemRoot: IItem, itemTemplate: ITemplateItem): void;
     protected getMatchingItemLimit(itemTypeLimits: Record<string, {
         current: number;
         max: number;
@@ -253,20 +253,20 @@ export declare class FenceService {
      * @param armor Armor item array to add mods into
      * @param itemDbDetails Armor items db template
      */
-    protected randomiseArmorModDurability(armor: Item[], itemDbDetails: ITemplateItem): void;
+    protected randomiseArmorModDurability(armor: IItem[], itemDbDetails: ITemplateItem): void;
     /**
      * Randomise the durability values of items on armor with a passed in slot
      * @param softInsertSlots Slots of items to randomise
      * @param armorItemAndMods Array of armor + inserts to get items from
      */
-    protected randomiseArmorSoftInsertDurabilities(softInsertSlots: Slot[], armorItemAndMods: Item[]): void;
+    protected randomiseArmorSoftInsertDurabilities(softInsertSlots: ISlot[], armorItemAndMods: IItem[]): void;
     /**
      * Randomise the durability values of plate items in armor
      * Has chance to remove plate
      * @param plateSlots Slots of items to randomise
      * @param armorItemAndMods Array of armor + inserts to get items from
      */
-    protected randomiseArmorInsertsDurabilities(plateSlots: Slot[], armorItemAndMods: Item[]): void;
+    protected randomiseArmorInsertsDurabilities(plateSlots: ISlot[], armorItemAndMods: IItem[]): void;
     /**
      * Get stack size of a singular item (no mods)
      * @param itemDbDetails item being added to fence
@@ -277,27 +277,27 @@ export declare class FenceService {
      * Remove parts of a weapon prior to being listed on flea
      * @param itemAndMods Weapon to remove parts from
      */
-    protected removeRandomModsOfItem(itemAndMods: Item[]): void;
+    protected removeRandomModsOfItem(itemAndMods: IItem[]): void;
     /**
      * Roll % chance check to see if item should be removed
      * @param weaponMod Weapon mod being checked
      * @param itemsBeingDeleted Current list of items on weapon being deleted
      * @returns True if item will be removed
      */
-    protected presetModItemWillBeRemoved(weaponMod: Item, itemsBeingDeleted: string[]): boolean;
+    protected presetModItemWillBeRemoved(weaponMod: IItem, itemsBeingDeleted: string[]): boolean;
     /**
      * Randomise items' upd properties e.g. med packs/weapons/armor
      * @param itemDetails Item being randomised
      * @param itemToAdjust Item being edited
      */
-    protected randomiseItemUpdProperties(itemDetails: ITemplateItem, itemToAdjust: Item): void;
+    protected randomiseItemUpdProperties(itemDetails: ITemplateItem, itemToAdjust: IItem): void;
     /**
      * Generate a randomised current and max durabiltiy value for an armor item
      * @param itemDetails Item to create values for
      * @param equipmentDurabilityLimits Max durabiltiy percent min/max values
      * @returns Durability + MaxDurability values
      */
-    protected getRandomisedArmorDurabilityValues(itemDetails: ITemplateItem, equipmentDurabilityLimits: IItemDurabilityCurrentMax): Repairable;
+    protected getRandomisedArmorDurabilityValues(itemDetails: ITemplateItem, equipmentDurabilityLimits: IItemDurabilityCurrentMax): IUpdRepairable;
     /**
      * Construct item limit record to hold max and current item count
      * @param limits limits as defined in config
@@ -329,5 +329,5 @@ export declare class FenceService {
      * @param buyCount Count of items bought
      */
     amendOrRemoveFenceOffer(assortId: string, buyCount: number): void;
-    protected deleteOffer(assortId: string, assorts: Item[]): void;
+    protected deleteOffer(assortId: string, assorts: IItem[]): void;
 }

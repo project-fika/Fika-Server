@@ -5,8 +5,8 @@ import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { MinMax } from "@spt/models/common/MinMax";
 import { IPreset } from "@spt/models/eft/common/IGlobals";
-import { HandbookItem } from "@spt/models/eft/common/tables/IHandbookBase";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IHandbookItem } from "@spt/models/eft/common/tables/IHandbookBase";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IBarterScheme } from "@spt/models/eft/common/tables/ITrader";
 import { IRagfairConfig, IUnreasonableModPrices } from "@spt/models/spt/config/IRagfairConfig";
 import { IRagfairServerPrices } from "@spt/models/spt/ragfair/IRagfairServerPrices";
@@ -56,7 +56,7 @@ export declare class RagfairPriceService implements OnLoad {
      * @param offerItems offer item + children to process
      * @returns Rouble price
      */
-    getFleaPriceForOfferItems(offerItems: Item[]): number;
+    getFleaPriceForOfferItems(offerItems: IItem[]): number;
     /**
      * get the dynamic (flea) price for an item
      * @param itemTpl item template id to look up
@@ -96,7 +96,7 @@ export declare class RagfairPriceService implements OnLoad {
      * @param isPackOffer Price is for a pack type offer
      * @returns cost of item in desired currency
      */
-    getDynamicOfferPriceForOffer(offerItems: Item[], desiredCurrency: string, isPackOffer: boolean): number;
+    getDynamicOfferPriceForOffer(offerItems: IItem[], desiredCurrency: string, isPackOffer: boolean): number;
     /**
      * @param itemTemplateId items tpl value
      * @param desiredCurrency Currency to return result in
@@ -105,7 +105,7 @@ export declare class RagfairPriceService implements OnLoad {
      * @param isPackOffer
      * @returns
      */
-    getDynamicItemPrice(itemTemplateId: string, desiredCurrency: string, item?: Item, offerItems?: Item[], isPackOffer?: boolean): number;
+    getDynamicItemPrice(itemTemplateId: string, desiredCurrency: string, item?: IItem, offerItems?: IItem[], isPackOffer?: boolean): number;
     /**
      * using data from config, adjust an items price to be relative to its handbook price
      * @param handbookPrices Prices of items in handbook
@@ -114,7 +114,7 @@ export declare class RagfairPriceService implements OnLoad {
      * @param price Current price of item
      * @returns Adjusted price of item
      */
-    protected adjustUnreasonablePrice(handbookPrices: HandbookItem[], unreasonableItemChange: IUnreasonableModPrices, itemTpl: string, price: number): number;
+    protected adjustUnreasonablePrice(handbookPrices: IHandbookItem[], unreasonableItemChange: IUnreasonableModPrices, itemTpl: string, price: number): number;
     /**
      * Get different min/max price multipliers for different offer types (preset/pack/default)
      * @param isPreset Offer is a preset
@@ -143,7 +143,7 @@ export declare class RagfairPriceService implements OnLoad {
      * @param existingPrice price of existing base weapon
      * @returns price of weapon in roubles
      */
-    protected getWeaponPresetPrice(weaponRootItem: Item, weaponWithChildren: Item[], existingPrice: number): number;
+    protected getWeaponPresetPrice(weaponRootItem: IItem, weaponWithChildren: IItem[], existingPrice: number): number;
     /**
      * Get the highest price for an item that is stored in handbook or trader assorts
      * @param itemTpl Item to get highest price of
@@ -156,7 +156,7 @@ export declare class RagfairPriceService implements OnLoad {
      * @param presets weapon presets to choose from
      * @returns Default preset object
      */
-    protected getWeaponPreset(weapon: Item): {
+    protected getWeaponPreset(weapon: IItem): {
         isDefault: boolean;
         preset: IPreset;
     };

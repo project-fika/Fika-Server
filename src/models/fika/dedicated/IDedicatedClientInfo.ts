@@ -1,6 +1,6 @@
-import { DedicatedStatus } from "../../enums/DedicatedStatus";
+import { EDedicatedStatus } from "../../enums/EDedicatedStatus";
 
 export interface IDedicatedClientInfo {
-    state: DedicatedStatus;
+    state: EDedicatedStatus;
     lastPing: number;
 }

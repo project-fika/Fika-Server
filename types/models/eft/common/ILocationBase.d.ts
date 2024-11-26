@@ -1,18 +1,20 @@
 import { MinMax } from "@spt/models/common/MinMax";
 import { Ixyz } from "@spt/models/eft/common/Ixyz";
+import { ISpawnpointTemplate } from "./ILooseLoot";
 export interface ILocationBase {
     AccessKeys: string[];
-    AirdropParameters: AirdropParameter[];
+    AccessKeysPvE: string[];
+    AirdropParameters: IAirdropParameter[];
     Area: number;
     AveragePlayTime: number;
     AveragePlayerLevel: number;
-    Banners: Banner[];
-    BossLocationSpawn: BossLocationSpawn[];
+    Banners: IBanner[];
+    BossLocationSpawn: IBossLocationSpawn[];
     BotAssault: number;
     BotEasy: number;
     BotHard: number;
     BotImpossible: number;
-    BotLocationModifier: BotLocationModifier;
+    BotLocationModifier: IBotLocationModifier;
     BotMarksman: number;
     BotMax: number;
     BotMaxPlayer: number;
@@ -41,14 +43,14 @@ export interface ILocationBase {
     Insurance: boolean;
     IsSecret: boolean;
     Locked: boolean;
-    Loot: any[];
-    MatchMakerMinPlayersByWaitTime: MinPlayerWaitTime[];
+    Loot: ISpawnpointTemplate[];
+    MatchMakerMinPlayersByWaitTime: IMinPlayerWaitTime[];
     MaxBotPerZone: number;
     MaxDistToFreePoint: number;
     MaxPlayers: number;
     MinDistToExitPoint: number;
     MinDistToFreePoint: number;
-    MinMaxBots: MinMaxBot[];
+    MinMaxBots: IMinMaxBot[];
     MinPlayers: number;
     MaxCoopGroup: number;
     Name: string;
@@ -57,7 +59,7 @@ export interface ILocationBase {
     OcculsionCullingEnabled: boolean;
     OldSpawn: boolean;
     OpenZones: string;
-    Preview: Preview;
+    Preview: IPreview;
     PlayersRequestCount: number;
     RequiredPlayerLevel?: number;
     RequiredPlayerLevelMin?: number;
@@ -67,30 +69,44 @@ export interface ILocationBase {
     ScavMaxPlayersInGroup: number;
     Rules: string;
     SafeLocation: boolean;
-    Scene: Scene;
-    SpawnPointParams: SpawnPointParam[];
+    Scene: IScene;
+    SpawnPointParams: ISpawnPointParam[];
     UnixDateTime: number;
     _Id: string;
     doors: any[];
     EscapeTimeLimit: number;
     EscapeTimeLimitCoop: number;
     EscapeTimeLimitPVE: number;
+    Events: ILocationEvents;
     exit_access_time: number;
+    ForceOnlineRaidInPVE: boolean;
     exit_count: number;
     exit_time: number;
-    exits: Exit[];
+    exits: IExit[];
     filter_ex: string[];
     limits: ILimit[];
     matching_min_seconds: number;
     GenerateLocalLootCache: boolean;
-    maxItemCountInLocation: MaxItemCountInLocation[];
+    maxItemCountInLocation: IMaxItemCountInLocation[];
     sav_summon_seconds: number;
     tmp_location_field_remove_me: number;
+    transits: ITransit[];
     users_gather_seconds: number;
     users_spawn_seconds_n: number;
     users_spawn_seconds_n2: number;
     users_summon_seconds: number;
-    waves: Wave[];
+    waves: IWave[];
+}
+export interface ITransit {
+    activateAfterSec: string;
+    active: boolean;
+    name: string;
+    conditions: string;
+    description: string;
+    id: number;
+    location: string;
+    target: string;
+    time: number;
 }
 export interface INonWaveGroupScenario {
     Chance: number;
@@ -101,7 +117,7 @@ export interface INonWaveGroupScenario {
 export interface ILimit extends MinMax {
     items: any[];
 }
-export interface AirdropParameter {
+export interface IAirdropParameter {
     AirdropPointDeactivateDistance: number;
     MinPlayersCountToSpawnAirdrop: number;
     PlaneAirdropChance: number;
@@ -113,15 +129,15 @@ export interface AirdropParameter {
     PlaneAirdropStartMin: number;
     UnsuccessfulTryPenalty: number;
 }
-export interface Banner {
+export interface IBanner {
     id: string;
-    pic: Pic;
+    pic: IPic;
 }
-export interface Pic {
+export interface IPic {
     path: string;
     rcid: string;
 }
-export interface BossLocationSpawn {
+export interface IBossLocationSpawn {
     BossChance: number;
     BossDifficult: string;
     BossEscortAmount: string;
@@ -135,48 +151,73 @@ export interface BossLocationSpawn {
     TriggerId: string;
     TriggerName: string;
     Delay?: number;
+    DependKarma?: boolean;
+    DependKarmaPVE?: boolean;
     ForceSpawn?: boolean;
     IgnoreMaxBots?: boolean;
-    Supports?: BossSupport[];
+    Supports?: IBossSupport[];
     sptId?: string;
     spawnMode: string[];
 }
-export interface BossSupport {
+export interface IBossSupport {
     BossEscortAmount: string;
     BossEscortDifficult: string[];
     BossEscortType: string;
 }
-export interface BotLocationModifier {
+export interface IBotLocationModifier {
     AccuracySpeed: number;
+    AdditionalHostilitySettings: IAdditionalHostilitySettings[];
     DistToActivate: number;
+    DistToActivatePvE: number;
     DistToPersueAxemanCoef: number;
     DistToSleep: number;
+    DistToSleepPvE: number;
     GainSight: number;
     KhorovodChance: number;
     MagnetPower: number;
     MarksmanAccuratyCoef: number;
     Scattering: number;
     VisibleDistance: number;
+    MaxExfiltrationTime: number;
+    MinExfiltrationTime: number;
 }
-export interface MinMaxBot extends MinMax {
+export interface IAdditionalHostilitySettings {
+    AlwaysEnemies: string[];
+    AlwaysFriends: string[];
+    BearEnemyChance: number;
+    BearPlayerBehaviour: string;
+    BotRole: string;
+    ChancedEnemies: IChancedEnemy[];
+    Neutral: string[];
+    SavagePlayerBehaviour: string;
+    SavageEnemyChance?: number;
+    UsecEnemyChance: number;
+    UsecPlayerBehaviour: string;
+    Warn: string[];
+}
+export interface IChancedEnemy {
+    EnemyChance: number;
+    Role: string;
+}
+export interface IMinMaxBot extends MinMax {
     WildSpawnType: WildSpawnType | string;
 }
-export interface MinPlayerWaitTime {
+export interface IMinPlayerWaitTime {
     minPlayers: number;
     time: number;
 }
-export interface Preview {
+export interface IPreview {
     path: string;
     rcid: string;
 }
-export interface Scene {
+export interface IScene {
     path: string;
     rcid: string;
 }
-export interface SpawnPointParam {
+export interface ISpawnPointParam {
     BotZoneName: string;
     Categories: string[];
-    ColliderParams: ColliderParams;
+    ColliderParams: IColliderParams;
     CorePointId: number;
     DelayToCanSpawnSec: number;
     Id: string;
@@ -185,15 +226,15 @@ export interface SpawnPointParam {
     Rotation: number;
     Sides: string[];
 }
-export interface ColliderParams {
+export interface IColliderParams {
     _parent: string;
-    _props: Props;
+    _props: IProps;
 }
-export interface Props {
+export interface IProps {
     Center: Ixyz;
     Radius: number;
 }
-export interface Exit {
+export interface IExit {
     /** % Chance out of 100 exit will appear in raid */
     Chance: number;
     ChancePVE: number;
@@ -217,11 +258,11 @@ export interface Exit {
     RequirementTip: string;
     Side?: string;
 }
-export interface MaxItemCountInLocation {
+export interface IMaxItemCountInLocation {
     TemplateId: string;
     Value: number;
 }
-export interface Wave {
+export interface IWave {
     BotPreset: string;
     BotSide: string;
     SpawnPoints: string;
@@ -232,11 +273,40 @@ export interface Wave {
     slots_min: number;
     time_max: number;
     time_min: number;
+    /** OPTIONAL - Needs to be unique - Used by custom wave service to ensure same wave isnt added multiple times */
     sptId?: string;
     ChanceGroup?: number;
+    /** 'pve' and/or 'regular' */
+    SpawnMode: string[];
+}
+export interface ILocationEvents {
+    Halloween2024: IHalloween2024;
+}
+export interface IHalloween2024 {
+    CrowdAttackBlockRadius: number;
+    CrowdAttackSpawnParams: CrowdAttackSpawnParam[];
+    CrowdCooldownPerPlayerSec: number;
+    CrowdsLimit: number;
+    InfectedLookCoeff: number;
+    MaxCrowdAttackSpawnLimit: number;
+    MinInfectionPercentage: number;
+    MinSpawnDistToPlayer: number;
+    TargetPointSearchRadiusLimit: number;
+    ZombieCallDeltaRadius: number;
+    ZombieCallPeriodSec: number;
+    ZombieCallRadiusLimit: number;
+    ZombieMultiplier: number;
+    InfectionPercentage: number;
+}
+export interface CrowdAttackSpawnParam {
+    Difficulty: string;
+    Role: string;
+    Weight: number;
 }
 export declare enum WildSpawnType {
     ASSAULT = "assault",
     MARKSMAN = "marksman",
-    PMCBOT = "pmcbot"
+    PMCBOT = "pmcbot",
+    BOSSKILLA = "bosskilla",
+    BOSSKNIGHT = "bossknight"
 }

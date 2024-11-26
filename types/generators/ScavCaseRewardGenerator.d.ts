@@ -1,10 +1,10 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IHideoutScavCase } from "@spt/models/eft/hideout/IHideoutScavCase";
 import { IScavCaseConfig } from "@spt/models/spt/config/IScavCaseConfig";
-import { RewardCountAndPriceDetails, ScavCaseRewardCountsAndPrices } from "@spt/models/spt/hideout/ScavCaseRewardCountsAndPrices";
+import { IRewardCountAndPriceDetails, IScavCaseRewardCountsAndPrices } from "@spt/models/spt/hideout/ScavCaseRewardCountsAndPrices";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -36,7 +36,7 @@ export declare class ScavCaseRewardGenerator {
      * @param recipeId recipe of the scav case craft
      * @returns Product array
      */
-    generate(recipeId: string): Item[][];
+    generate(recipeId: string): IItem[][];
     /**
      * Get all db items that are not blacklisted in scavcase config or global blacklist
      * Store in class field
@@ -48,7 +48,7 @@ export declare class ScavCaseRewardGenerator {
      * @param itemFilters how the rewards should be filtered down (by item count)
      * @returns
      */
-    protected pickRandomRewards(items: ITemplateItem[], itemFilters: RewardCountAndPriceDetails, rarity: string): ITemplateItem[];
+    protected pickRandomRewards(items: ITemplateItem[], itemFilters: IRewardCountAndPriceDetails, rarity: string): ITemplateItem[];
     /**
      * Choose if money should be a reward based on the moneyRewardChancePercent config chance in scavCaseConfig
      * @returns true if reward should be money
@@ -75,19 +75,19 @@ export declare class ScavCaseRewardGenerator {
      * @param rewardItems items to convert
      * @returns Product array
      */
-    protected randomiseContainerItemRewards(rewardItems: ITemplateItem[], rarity: string): Item[][];
+    protected randomiseContainerItemRewards(rewardItems: ITemplateItem[], rarity: string): IItem[][];
     /**
      * @param dbItems all items from the items.json
      * @param itemFilters controls how the dbItems will be filtered and returned (handbook price)
      * @returns filtered dbItems array
      */
-    protected getFilteredItemsByPrice(dbItems: ITemplateItem[], itemFilters: RewardCountAndPriceDetails): ITemplateItem[];
+    protected getFilteredItemsByPrice(dbItems: ITemplateItem[], itemFilters: IRewardCountAndPriceDetails): ITemplateItem[];
     /**
      * Gathers the reward min and max count params for each reward quality level from config and scavcase.json into a single object
      * @param scavCaseDetails scavcase.json values
      * @returns ScavCaseRewardCountsAndPrices object
      */
-    protected getScavCaseRewardCountsAndPrices(scavCaseDetails: IHideoutScavCase): ScavCaseRewardCountsAndPrices;
+    protected getScavCaseRewardCountsAndPrices(scavCaseDetails: IHideoutScavCase): IScavCaseRewardCountsAndPrices;
     /**
      * Randomises the size of ammo and money stacks
      * @param itemToCalculate ammo or money item

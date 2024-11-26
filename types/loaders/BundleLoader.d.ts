@@ -8,7 +8,7 @@ export declare class BundleInfo {
     filename: string;
     crc: number;
     dependencies: string[];
-    constructor(modpath: string, bundle: BundleManifestEntry, bundleHash: number);
+    constructor(modpath: string, bundle: IBundleManifestEntry, bundleHash: number);
 }
 export declare class BundleLoader {
     protected httpServerHelper: HttpServerHelper;
@@ -26,10 +26,10 @@ export declare class BundleLoader {
     addBundles(modpath: string): void;
     addBundle(key: string, b: BundleInfo): void;
 }
-export interface BundleManifest {
-    manifest: BundleManifestEntry[];
+export interface IBundleManifest {
+    manifest: IBundleManifestEntry[];
 }
-export interface BundleManifestEntry {
+export interface IBundleManifestEntry {
     key: string;
     dependencyKeys: string[];
 }

@@ -1,8 +1,8 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { NotificationSendHelper } from "@spt/helpers/NotificationSendHelper";
 import { NotifierHelper } from "@spt/helpers/NotifierHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
-import { Dialogue, MessagePreview } from "@spt/models/eft/profile/ISptProfile";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { IDialogue, IMessagePreview } from "@spt/models/eft/profile/ISptProfile";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -23,7 +23,7 @@ export declare class DialogueHelper {
      * @param dialogue
      * @returns MessagePreview
      */
-    getMessagePreview(dialogue: Dialogue): MessagePreview;
+    getMessagePreview(dialogue: IDialogue): IMessagePreview;
     /**
      * Get the item contents for a particular message.
      * @param messageID
@@ -31,11 +31,11 @@ export declare class DialogueHelper {
      * @param itemId Item being moved to inventory
      * @returns
      */
-    getMessageItemContents(messageID: string, sessionID: string, itemId: string): Item[];
+    getMessageItemContents(messageID: string, sessionID: string, itemId: string): IItem[];
     /**
      * Get the dialogs dictionary for a profile, create if doesnt exist
      * @param sessionId Session/player id
      * @returns Dialog dictionary
      */
-    getDialogsForProfile(sessionId: string): Record<string, Dialogue>;
+    getDialogsForProfile(sessionId: string): Record<string, IDialogue>;
 }

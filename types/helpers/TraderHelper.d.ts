@@ -2,9 +2,9 @@ import { HandbookHelper } from "@spt/helpers/HandbookHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { Item } from "@spt/models/eft/common/tables/IItem";
-import { ProfileTraderTemplate } from "@spt/models/eft/common/tables/IProfileTemplate";
-import { ITraderAssort, ITraderBase, LoyaltyLevel } from "@spt/models/eft/common/tables/ITrader";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { IProfileTraderTemplate } from "@spt/models/eft/common/tables/IProfileTemplate";
+import { ITraderAssort, ITraderBase, ITraderLoyaltyLevel } from "@spt/models/eft/common/tables/ITrader";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { Traders } from "@spt/models/enums/Traders";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
@@ -39,7 +39,7 @@ export declare class TraderHelper {
      * @param sessionID Players id
      * @returns Trader base
      */
-    getTrader(traderID: string, sessionID: string): ITraderBase | undefined;
+    getTrader(traderID: string, sessionID: string): ITraderBase | any;
     /**
      * Get all assort data for a particular trader
      * @param traderId Trader to get assorts for
@@ -52,7 +52,7 @@ export declare class TraderHelper {
      * @param assortId Id of assort to find
      * @returns Item object
      */
-    getTraderAssortItemByAssortId(traderId: string, assortId: string): Item | undefined;
+    getTraderAssortItemByAssortId(traderId: string, assortId: string): IItem | undefined;
     /**
      * Reset a profiles trader data back to its initial state as seen by a level 1 player
      * Does NOT take into account different profile levels
@@ -66,7 +66,7 @@ export declare class TraderHelper {
      * @param rawProfileTemplate Raw profile from profiles.json to look up standing from
      * @returns Standing value
      */
-    protected getStartingStanding(traderId: string, rawProfileTemplate: ProfileTraderTemplate): number;
+    protected getStartingStanding(traderId: string, rawProfileTemplate: IProfileTraderTemplate): number;
     /**
      * Add an array of suit ids to a profiles suit array, no duplicates
      * @param fullProfile Profile to add to
@@ -118,7 +118,7 @@ export declare class TraderHelper {
      * @returns Time in seconds
      */
     getTraderUpdateSeconds(traderId: string): number | undefined;
-    getLoyaltyLevel(traderID: string, pmcData: IPmcData): LoyaltyLevel;
+    getLoyaltyLevel(traderID: string, pmcData: IPmcData): ITraderLoyaltyLevel;
     /**
      * Store the purchase of an assort from a trader in the player profile
      * @param sessionID Session id
@@ -130,7 +130,7 @@ export declare class TraderHelper {
             count: number;
         }[];
         traderId: string;
-    }, itemPurchased: Item): void;
+    }, itemPurchased: IItem): void;
     /**
      * EoD and Unheard get a 20% bonus to personal trader limit purchases
      * @param buyRestrictionMax Existing value from trader item

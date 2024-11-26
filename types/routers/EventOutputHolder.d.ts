@@ -1,7 +1,7 @@
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IHideoutImprovement, Productive, TraderInfo } from "@spt/models/eft/common/tables/IBotBase";
-import { TraderData } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
+import { IHideoutImprovement, IMoneyTransferLimits, IProductive, ITraderInfo } from "@spt/models/eft/common/tables/IBotBase";
+import { ITraderData } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 import { ICloner } from "@spt/utils/cloners/ICloner";
@@ -30,12 +30,13 @@ export declare class EventOutputHolder {
      * @param sessionId Session id
      */
     updateOutputProperties(sessionId: string): void;
+    protected resetMoneyTransferLimit(limit: IMoneyTransferLimits): void;
     /**
      * Convert the internal trader data object into an object we can send to the client
      * @param traderData server data for traders
      * @returns dict of trader id + TraderData
      */
-    protected constructTraderRelations(traderData: Record<string, TraderInfo>): Record<string, TraderData>;
+    protected constructTraderRelations(traderData: Record<string, ITraderInfo>): Record<string, ITraderData>;
     /**
      * Return all hideout Improvements from player profile, adjust completed Improvements' completed property to be true
      * @param pmcData Player profile
@@ -47,10 +48,10 @@ export declare class EventOutputHolder {
      * @param pmcData Player profile
      * @returns dictionary of hideout productions
      */
-    protected getProductionsFromProfileAndFlagComplete(productions: Record<string, Productive>, sessionId: string): Record<string, Productive> | undefined;
+    protected getProductionsFromProfileAndFlagComplete(productions: Record<string, IProductive>, sessionId: string): Record<string, IProductive> | undefined;
     /**
      * Required as continuous productions don't reset and stay at 100% completion but client thinks it hasn't started
      * @param productions Productions in a profile
      */
-    protected cleanUpCompleteCraftsInProfile(productions: Record<string, Productive>): void;
+    protected cleanUpCompleteCraftsInProfile(productions: Record<string, IProductive>): void;
 }

@@ -3,8 +3,8 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { NotificationSendHelper } from "@spt/helpers/NotificationSendHelper";
 import { NotifierHelper } from "@spt/helpers/NotifierHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
-import { Dialogue, ISystemData, IUserDialogInfo, Message, MessageContentRagfair, MessageItems } from "@spt/models/eft/profile/ISptProfile";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { IDialogue, IMessage, IMessageContentRagfair, IMessageItems, ISystemData, IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { Traders } from "@spt/models/enums/Traders";
 import { IProfileChangeEvent, ISendMessageDetails } from "@spt/models/spt/dialog/ISendMessageDetails";
@@ -37,7 +37,7 @@ export declare class MailSendService {
      * @param items Optional items to send to player
      * @param maxStorageTimeSeconds Optional time to collect items before they expire
      */
-    sendDirectNpcMessageToPlayer(sessionId: string, trader: Traders, messageType: MessageType, message: string, items?: Item[], maxStorageTimeSeconds?: number, systemData?: ISystemData, ragfair?: MessageContentRagfair): void;
+    sendDirectNpcMessageToPlayer(sessionId: string, trader: Traders, messageType: MessageType, message: string, items?: IItem[], maxStorageTimeSeconds?: number, systemData?: ISystemData, ragfair?: IMessageContentRagfair): void;
     /**
      * Send a message from an NPC (e.g. prapor) to the player with or without items
      * @param sessionId The session ID to send the message to
@@ -47,7 +47,7 @@ export declare class MailSendService {
      * @param items Optional items to send to player
      * @param maxStorageTimeSeconds Optional time to collect items before they expire
      */
-    sendLocalisedNpcMessageToPlayer(sessionId: string, trader: Traders, messageType: MessageType, messageLocaleId: string, items?: Item[], maxStorageTimeSeconds?: number, systemData?: ISystemData, ragfair?: MessageContentRagfair): void;
+    sendLocalisedNpcMessageToPlayer(sessionId: string, trader: Traders, messageType: MessageType, messageLocaleId: string, items?: IItem[], maxStorageTimeSeconds?: number, systemData?: ISystemData, ragfair?: IMessageContentRagfair): void;
     /**
      * Send a message from SYSTEM to the player with or without items
      * @param sessionId The session ID to send the message to
@@ -55,7 +55,7 @@ export declare class MailSendService {
      * @param items Optional items to send to player
      * @param maxStorageTimeSeconds Optional time to collect items before they expire
      */
-    sendSystemMessageToPlayer(sessionId: string, message: string, items?: Item[], maxStorageTimeSeconds?: number, profileChangeEvents?: IProfileChangeEvent[]): void;
+    sendSystemMessageToPlayer(sessionId: string, message: string, items?: IItem[], maxStorageTimeSeconds?: number, profileChangeEvents?: IProfileChangeEvent[]): void;
     /**
      * Send a message from SYSTEM to the player with or without items with localised text
      * @param sessionId The session ID to send the message to
@@ -63,7 +63,7 @@ export declare class MailSendService {
      * @param items Optional items to send to player
      * @param maxStorageTimeSeconds Optional time to collect items before they expire
      */
-    sendLocalisedSystemMessageToPlayer(sessionId: string, messageLocaleId: string, items?: Item[], profileChangeEvents?: IProfileChangeEvent[], maxStorageTimeSeconds?: number): void;
+    sendLocalisedSystemMessageToPlayer(sessionId: string, messageLocaleId: string, items?: IItem[], profileChangeEvents?: IProfileChangeEvent[], maxStorageTimeSeconds?: number): void;
     /**
      * Send a USER message to a player with or without items
      * @param sessionId The session ID to send the message to
@@ -72,7 +72,7 @@ export declare class MailSendService {
      * @param items Optional items to send to player
      * @param maxStorageTimeSeconds Optional time to collect items before they expire
      */
-    sendUserMessageToPlayer(sessionId: string, senderDetails: IUserDialogInfo, message: string, items?: Item[], maxStorageTimeSeconds?: number): void;
+    sendUserMessageToPlayer(sessionId: string, senderDetails: IUserDialogInfo, message: string, items?: IItem[], maxStorageTimeSeconds?: number): void;
     /**
      * Large function to send messages to players from a variety of sources (SYSTEM/NPC/USER)
      * Helper functions in this class are available to simplify common actions
@@ -92,34 +92,34 @@ export declare class MailSendService {
      * @param messageDetails Various details on what the message must contain/do
      * @returns Message
      */
-    protected createDialogMessage(dialogId: string, messageDetails: ISendMessageDetails): Message;
+    protected createDialogMessage(dialogId: string, messageDetails: ISendMessageDetails): IMessage;
     /**
      * Add items to message and adjust various properties to reflect the items being added
      * @param message Message to add items to
      * @param itemsToSendToPlayer Items to add to message
      * @param maxStorageTimeSeconds total time items are stored in mail before being deleted
      */
-    protected addRewardItemsToMessage(message: Message, itemsToSendToPlayer: MessageItems | undefined, maxStorageTimeSeconds: number | undefined): void;
+    protected addRewardItemsToMessage(message: IMessage, itemsToSendToPlayer: IMessageItems | undefined, maxStorageTimeSeconds: number | undefined): void;
     /**
      * perform various sanitising actions on the items before they're considered ready for insertion into message
      * @param dialogType The type of the dialog that will hold the reward items being processed
      * @param messageDetails
      * @returns Sanitised items
      */
-    protected processItemsBeforeAddingToMail(dialogType: MessageType, messageDetails: ISendMessageDetails): MessageItems;
+    protected processItemsBeforeAddingToMail(dialogType: MessageType, messageDetails: ISendMessageDetails): IMessageItems;
     /**
      * Try to find the most correct item to be the 'primary' item in a reward mail
      * @param items Possible items to choose from
      * @returns Chosen 'primary' item
      */
-    protected getBaseItemFromRewards(items: Item[]): Item;
+    protected getBaseItemFromRewards(items: IItem[]): IItem;
     /**
      * Get a dialog with a specified entity (user/trader)
      * Create and store empty dialog if none exists in profile
      * @param messageDetails Data on what message should do
      * @returns Relevant Dialogue
      */
-    protected getDialog(messageDetails: ISendMessageDetails): Dialogue;
+    protected getDialog(messageDetails: ISendMessageDetails): IDialogue;
     /**
      * Get the appropriate sender id by the sender enum type
      * @param messageDetails

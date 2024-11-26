@@ -10,5 +10,7 @@ export declare enum HideoutEventActions {
     HIDEOUT_TAKE_PRODUCTION = "HideoutTakeProduction",
     HIDEOUT_RECORD_SHOOTING_RANGE_POINTS = "RecordShootingRangePoints",
     HIDEOUT_IMPROVE_AREA = "HideoutImproveArea",
-    HIDEOUT_CANCEL_PRODUCTION_COMMAND = "HideoutCancelProductionCommand"
+    HIDEOUT_CANCEL_PRODUCTION_COMMAND = "HideoutCancelProductionCommand",
+    HIDEOUT_CIRCLE_OF_CULTIST_PRODUCTION_START = "HideoutCircleOfCultistProductionStart",
+    HIDEOUT_DELETE_PRODUCTION_COMMAND = "HideoutDeleteProductionCommand"
 }

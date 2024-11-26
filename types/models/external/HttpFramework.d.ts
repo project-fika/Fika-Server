@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { IncomingMessage, ServerResponse } from "node:http";
 export type HandleFn = (_: string, req: IncomingMessage, resp: ServerResponse) => void;
 /**
@@ -6,7 +5,9 @@ export type HandleFn = (_: string, req: IncomingMessage, resp: ServerResponse) =
  *  @param basePath The base path
  *  @returns The decorator that create the listener proxy
  */
-export declare const Listen: (basePath: string) => <T extends new (...args: any[]) => any>(Base: T) => T;
+export declare const Listen: (basePath: string) => <T extends {
+    new (...args: any[]): any;
+}>(Base: T) => T;
 /**
  *  HTTP DELETE decorator
  */

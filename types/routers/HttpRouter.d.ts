@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { IncomingMessage } from "node:http";
 import { DynamicRouter, Router, StaticRouter } from "@spt/di/Router";
 export declare class HttpRouter {

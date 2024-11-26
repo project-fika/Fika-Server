@@ -40,9 +40,9 @@ export declare class PresetHelper {
     getAllPresets(): IPreset[];
     getPresets(templateId: string): IPreset[];
     /**
-     * Get the default preset for passed in item id
-     * @param templateId Item id to get preset for
-     * @returns Null if no default preset, otherwise IPreset
+     * Get a cloned default preset for passed in item tpl
+     * @param templateId Item tpl to get preset for
+     * @returns undefined if no default preset, otherwise IPreset
      */
     getDefaultPreset(templateId: string): IPreset | undefined;
     getBaseItemTpl(presetId: string): string;

@@ -1,10 +1,11 @@
 {
     "name": "server",
-    "version": "2.2.8",
-    "sptVersion": "~3.9",
+    "version": "2.3.0",
+    "sptVersion": "~3.10",
     "main": "src/mod.js",
     "scripts": {
         "setup": "npm i",
+        "lint": "npx @biomejs/biome lint ./",
         "build": "node ./build.mjs",
         "buildinfo": "node ./build.mjs --verbose"
     },

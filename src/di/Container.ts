@@ -4,18 +4,21 @@ import { FikaConfig } from "../utils/FikaConfig";
 
 import { Overrider } from "../overrides/Overrider";
 import { DialogueCallbacksOverride } from "../overrides/callbacks/DialogueCallbacks";
-import { LocationCallbacksOverride } from "../overrides/callbacks/LocationCallbacks";
+import { LocationLifecycleServiceOverride } from "../overrides/services/LocationLifecycleService";
 import { AchievementControllerOverride } from "../overrides/controllers/AchievementController";
 import { DialogueControllerOverride } from "../overrides/controllers/DialogueController";
 import { ProfileControllerOverride } from "../overrides/controllers/ProfileController";
 // import { LocalesOverride } from "../overrides/other/Locales";
 import { HttpRouterOverride } from "../overrides/routers/HttpRouter";
-import { DatabaseServiceOverride } from "../overrides/services/FikaDatabaseService";
+import { LauncherControllerOverride } from "../overrides/controllers/LauncherController";
+import { MatchControllerOverride } from "../overrides/controllers/MatchController";
 
 import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
 import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
+import { FikaInsuranceService } from "../services/FikaInsuranceService";
+import { FikaPresenceService } from "../services/FikaPresenceService";
 
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
@@ -34,6 +37,7 @@ import { FikaLocationCallbacks } from "../callbacks/FikaLocationCallbacks";
 import { FikaRaidCallbacks } from "../callbacks/FikaRaidCallbacks";
 import { FikaSendItemCallbacks } from "../callbacks/FikaSendItemCallbacks";
 import { FikaUpdateCallbacks } from "../callbacks/FikaUpdateCallbacks";
+import { FikaPresenceCallbacks } from "../callbacks/FikaPresenceCallbacks";
 
 import { FikaItemEventRouter } from "../routers/item_events/FikaItemEventRouter";
 import { FikaClientStaticRouter } from "../routers/static/FikaClientStaticRouter";
@@ -41,13 +45,16 @@ import { FikaLocationStaticRouter } from "../routers/static/FikaLocationStaticRo
 import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
+import { FikaPresenceStaticRouter } from "../routers/static/FikaPresenceStaticRouter";
 
-import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
+import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
 
 import { Fika } from "../Fika";
 import { FikaDedicatedProfileService } from "../services/dedicated/FikaDedicatedProfileService";
 import { FikaServerTools } from "../utils/FikaServerTools";
+import { FikaNotificationStaticRouter } from "../routers/static/FikaNotificationStaticRouter";
+import { FikaNotificationCallbacks } from "../callbacks/FikaNotificationCallbacks";
 
 export class Container {
     public static register(container: DependencyContainer): void {
@@ -74,22 +81,27 @@ export class Container {
 
     private static registerListTypes(container: DependencyContainer): void {
         container.registerType("Overrides", "DialogueCallbacksOverride");
-        container.registerType("Overrides", "LocationCallbacksOverride");
         container.registerType("Overrides", "DialogueControllerOverride");
         container.registerType("Overrides", "ProfileControllerOverride");
         container.registerType("Overrides", "HttpRouterOverride");
         // container.registerType("Overrides", "LocalesOverride");
         container.registerType("Overrides", "AchievementControllerOverride");
-        container.registerType("Overrides", "DatabaseServiceOverride");
+        container.registerType("Overrides", "LauncherControllerOverride");
+        container.registerType("Overrides", "LocationLifecycleServiceOverride");
+        container.registerType("Overrides", "MatchControllerOverride");
 
         container.registerType("StaticRoutes", "FikaClientStaticRouter");
         container.registerType("StaticRoutes", "FikaLocationStaticRouter");
         container.registerType("StaticRoutes", "FikaRaidStaticRouter");
         container.registerType("StaticRoutes", "FikaSendItemStaticRouter");
         container.registerType("StaticRoutes", "FikaUpdateStaticRouter");
+        container.registerType("StaticRoutes", "FikaNotificationStaticRouter");
+        container.registerType("StaticRoutes", "FikaPresenceStaticRouter");
 
         container.registerType("IERouters", "FikaItemEventRouter");
+
         container.registerType("WebSocketConnectionHandler", "FikaDedicatedRaidWebSocket");
+        container.registerType("WebSocketConnectionHandler", "FikaNotificationWebSocket");
     }
 
     private static registerUtils(container: DependencyContainer): void {
@@ -99,14 +111,15 @@ export class Container {
 
     private static registerOverrides(container: DependencyContainer): void {
         container.register<DialogueCallbacksOverride>("DialogueCallbacksOverride", DialogueCallbacksOverride, { lifecycle: Lifecycle.Singleton });
-        container.register<LocationCallbacksOverride>("LocationCallbacksOverride", LocationCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DialogueControllerOverride>("DialogueControllerOverride", DialogueControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<ProfileControllerOverride>("ProfileControllerOverride", ProfileControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<HttpRouterOverride>("HttpRouterOverride", HttpRouterOverride, { lifecycle: Lifecycle.Singleton });
         // container.register<LocalesOverride>("LocalesOverride", LocalesOverride, { lifecycle: Lifecycle.Singleton });
         container.register<Overrider>("Overrider", Overrider, { lifecycle: Lifecycle.Singleton });
         container.register<AchievementControllerOverride>("AchievementControllerOverride", AchievementControllerOverride, { lifecycle: Lifecycle.Singleton });
-        container.register<DatabaseServiceOverride>("DatabaseServiceOverride", DatabaseServiceOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<LauncherControllerOverride>("LauncherControllerOverride", LauncherControllerOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<LocationLifecycleServiceOverride>("LocationLifecycleServiceOverride", LocationLifecycleServiceOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<MatchControllerOverride>("MatchControllerOverride", MatchControllerOverride, { lifecycle: Lifecycle.Singleton });
     }
 
     private static registerServices(container: DependencyContainer): void {
@@ -115,6 +128,8 @@ export class Container {
         container.register<FikaPlayerRelationsCacheService>("FikaPlayerRelationsCacheService", FikaPlayerRelationsCacheService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaDedicatedRaidService>("FikaDedicatedRaidService", FikaDedicatedRaidService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaDedicatedProfileService>("FikaDedicatedProfileService", FikaDedicatedProfileService, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaInsuranceService>("FikaInsuranceService", FikaInsuranceService, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaPresenceService>("FikaPresenceService", FikaPresenceService, { lifecycle: Lifecycle.Singleton });
     }
 
     private static registerHelpers(container: DependencyContainer): void {
@@ -139,6 +154,8 @@ export class Container {
         container.register<FikaRaidCallbacks>("FikaRaidCallbacks", { useClass: FikaRaidCallbacks });
         container.register<FikaSendItemCallbacks>("FikaSendItemCallbacks", { useClass: FikaSendItemCallbacks });
         container.register<FikaUpdateCallbacks>("FikaUpdateCallbacks", { useClass: FikaUpdateCallbacks });
+        container.register<FikaNotificationCallbacks>("FikaNotificationCallbacks", { useClass: FikaNotificationCallbacks });
+        container.register<FikaPresenceCallbacks>("FikaPresenceCallbacks", { useClass: FikaPresenceCallbacks });
     }
 
     private static registerRouters(container: DependencyContainer): void {
@@ -148,10 +165,12 @@ export class Container {
         container.register<FikaSendItemStaticRouter>("FikaSendItemStaticRouter", { useClass: FikaSendItemStaticRouter });
         container.register<FikaUpdateStaticRouter>("FikaUpdateStaticRouter", { useClass: FikaUpdateStaticRouter });
         container.register<FikaItemEventRouter>("FikaItemEventRouter", { useClass: FikaItemEventRouter });
+        container.register<FikaNotificationStaticRouter>("FikaNotificationStaticRouter", { useClass: FikaNotificationStaticRouter });
+        container.register<FikaPresenceStaticRouter>("FikaPresenceStaticRouter", { useClass: FikaPresenceStaticRouter });
     }
 
     private static registerWebSockets(container: DependencyContainer): void {
         container.register<FikaDedicatedRaidWebSocket>("FikaDedicatedRaidWebSocket", FikaDedicatedRaidWebSocket, { lifecycle: Lifecycle.Singleton });
-        container.register<IWebSocketConnectionHandler>("FikaDedicatedRaidWebSocket", FikaDedicatedRaidWebSocket, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaNotificationWebSocket>("FikaNotificationWebSocket", FikaNotificationWebSocket, { lifecycle: Lifecycle.Singleton });
     }
 }

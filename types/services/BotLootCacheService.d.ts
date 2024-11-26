@@ -1,7 +1,7 @@
 import { PMCLootGenerator } from "@spt/generators/PMCLootGenerator";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { IBotType } from "@spt/models/eft/common/tables/IBotType";
-import { ITemplateItem, Props } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBotLootCache, LootCacheType } from "@spt/models/spt/bots/IBotLootCache";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
@@ -50,25 +50,25 @@ export declare class BotLootCacheService {
      * @param props
      * @returns
      */
-    protected isBulletOrGrenade(props: Props): boolean;
+    protected isBulletOrGrenade(props: IProps): boolean;
     /**
      * Internal and external magazine have this property
      * @param props
      * @returns
      */
-    protected isMagazine(props: Props): boolean;
+    protected isMagazine(props: IProps): boolean;
     /**
      * Medical use items (e.g. morphine/lip balm/grizzly)
      * @param props
      * @returns
      */
-    protected isMedicalItem(props: Props): boolean;
+    protected isMedicalItem(props: IProps): boolean;
     /**
      * Grenades have this property (e.g. smoke/frag/flash grenades)
      * @param props
      * @returns
      */
-    protected isGrenade(props: Props): boolean;
+    protected isGrenade(props: IProps): boolean;
     protected isFood(tpl: string): boolean;
     protected isDrink(tpl: string): boolean;
     protected isCurrency(tpl: string): boolean;

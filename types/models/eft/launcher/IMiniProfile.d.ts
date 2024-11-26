@@ -1,3 +1,4 @@
+import { ISpt } from "../profile/ISptProfile";
 export interface IMiniProfile {
     username: string;
     nickname: string;
@@ -7,8 +8,7 @@ export interface IMiniProfile {
     prevexp: number;
     nextlvl: number;
     maxlvl: number;
-    sptData: SPTData;
-}
-export interface SPTData {
-    version: string;
+    edition: string;
+    profileId: string;
+    sptData: ISpt;
 }

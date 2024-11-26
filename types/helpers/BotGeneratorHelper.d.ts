@@ -3,9 +3,9 @@ import { ContainerHelper } from "@spt/helpers/ContainerHelper";
 import { DurabilityLimitsHelper } from "@spt/helpers/DurabilityLimitsHelper";
 import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
-import { Inventory } from "@spt/models/eft/common/tables/IBotBase";
-import { Item, Repairable, Upd } from "@spt/models/eft/common/tables/IItem";
-import { Grid, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IInventory } from "@spt/models/eft/common/tables/IBotBase";
+import { IItem, IUpd, IUpdRepairable } from "@spt/models/eft/common/tables/IItem";
+import { IGrid, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ItemAddedResult } from "@spt/models/enums/ItemAddedResult";
 import { IChooseRandomCompatibleModResult } from "@spt/models/spt/bots/IChooseRandomCompatibleModResult";
 import { EquipmentFilters, IBotConfig, IRandomisedResourceValues } from "@spt/models/spt/config/IBotConfig";
@@ -37,7 +37,7 @@ export declare class BotGeneratorHelper {
      * @returns Item Upd object with extra properties
      */
     generateExtraPropertiesForItem(itemTemplate: ITemplateItem, botRole?: string): {
-        upd?: Upd;
+        upd?: IUpd;
     };
     /**
      * Randomize the HpResource for bots e.g (245/400 resources)
@@ -60,15 +60,14 @@ export declare class BotGeneratorHelper {
      * @param botRole type of bot being generated for
      * @returns Repairable object
      */
-    protected generateWeaponRepairableProperties(itemTemplate: ITemplateItem, botRole?: string): Repairable;
+    protected generateWeaponRepairableProperties(itemTemplate: ITemplateItem, botRole?: string): IUpdRepairable;
     /**
      * Create a repairable object for an armor that containers durability + max durability properties
      * @param itemTemplate weapon object being generated for
      * @param botRole type of bot being generated for
      * @returns Repairable object
      */
-    protected generateArmorRepairableProperties(itemTemplate: ITemplateItem, botRole?: string): Repairable;
-    isWeaponModIncompatibleWithCurrentMods(itemsEquipped: Item[], tplToCheck: string, modSlot: string): IChooseRandomCompatibleModResult;
+    protected generateArmorRepairableProperties(itemTemplate: ITemplateItem, botRole?: string): IUpdRepairable;
     /**
      * Can item be added to another item without conflict
      * @param itemsEquipped Items to check compatibilities with
@@ -76,7 +75,7 @@ export declare class BotGeneratorHelper {
      * @param equipmentSlot Slot the item will be placed into
      * @returns false if no incompatibilities, also has incompatibility reason
      */
-    isItemIncompatibleWithCurrentItems(itemsEquipped: Item[], tplToCheck: string, equipmentSlot: string): IChooseRandomCompatibleModResult;
+    isItemIncompatibleWithCurrentItems(itemsEquipped: IItem[], tplToCheck: string, equipmentSlot: string): IChooseRandomCompatibleModResult;
     /**
      * Convert a bots role to the equipment role used in config/bot.json
      * @param botRole Role to convert
@@ -92,12 +91,12 @@ export declare class BotGeneratorHelper {
      * @param inventory Inventory to add item+children into
      * @returns ItemAddedResult result object
      */
-    addItemWithChildrenToEquipmentSlot(equipmentSlots: string[], rootItemId: string, rootItemTplId: string, itemWithChildren: Item[], inventory: Inventory, containersIdFull?: Set<string>): ItemAddedResult;
+    addItemWithChildrenToEquipmentSlot(equipmentSlots: string[], rootItemId: string, rootItemTplId: string, itemWithChildren: IItem[], inventory: IInventory, containersIdFull?: Set<string>): ItemAddedResult;
     /**
      * Is the provided item allowed inside a container
      * @param slotGrid Items sub-grid we want to place item inside
      * @param itemTpl Item tpl being placed
      * @returns True if allowed
      */
-    protected itemAllowedInContainer(slotGrid: Grid, itemTpl: string): boolean;
+    protected itemAllowedInContainer(slotGrid: IGrid, itemTpl: string): boolean;
 }

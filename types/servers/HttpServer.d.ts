@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { IncomingMessage, ServerResponse } from "node:http";
 import { ApplicationContext } from "@spt/context/ApplicationContext";
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
@@ -25,7 +24,7 @@ export declare class HttpServer {
      * Handle server loading event
      */
     load(): void;
-    protected handleRequest(req: IncomingMessage, resp: ServerResponse): void;
+    protected handleRequest(req: IncomingMessage, resp: ServerResponse): Promise<void>;
     /**
      * Check against hardcoded values that determine its from a local address
      * @param remoteAddress Address to check

@@ -1,4 +1,4 @@
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 export interface IRagfairAssortGenerator {
-    getAssortItems(): Item[];
+    getAssortItems(): IItem[];
 }

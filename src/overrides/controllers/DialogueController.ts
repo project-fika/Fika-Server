@@ -23,7 +23,7 @@ export class DialogueControllerOverride extends Override {
 
                 result.sendMessage = (sessionId: string, request: ISendMessageRequest): string => {
                     return this.fikaDialogueController.sendMessage(sessionId, request);
-                }
+                };
             },
             { frequency: "Always" },
         );

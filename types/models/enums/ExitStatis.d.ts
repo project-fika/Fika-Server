@@ -1,7 +1,8 @@
 export declare enum ExitStatus {
-    SURVIVED = 0,
-    KILLED = 1,
-    LEFT = 2,
-    RUNNER = 3,
-    MISSINGINACTION = 4
+    SURVIVED = "Survived",
+    KILLED = "Killed",
+    LEFT = "Left",
+    RUNNER = "Runner",
+    MISSINGINACTION = "MissingInAction",
+    TRANSIT = "Transit"
 }

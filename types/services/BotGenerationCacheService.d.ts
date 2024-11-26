@@ -43,5 +43,7 @@ export declare class BotGenerationCacheService {
      * Does cache have a bot with requested key
      * @returns false if empty
      */
-    cacheHasBotOfRole(key: string): boolean;
+    cacheHasBotWithKey(key: string, size?: number): boolean;
+    getCachedBotCount(key: string): number;
+    createCacheKey(role: string, difficulty: string): string;
 }

@@ -1,6 +1,7 @@
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IBodyPartsHealth, IHealth } from "@spt/models/eft/common/tables/IBotBase";
 import { ISyncHealthRequestData } from "@spt/models/eft/health/ISyncHealthRequestData";
-import { Effects, ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { IEffects, ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { IHealthConfig } from "@spt/models/spt/config/IHealthConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
@@ -21,6 +22,23 @@ export declare class HealthHelper {
      * @returns updated profile
      */
     resetVitality(sessionID: string): ISptProfile;
+    /**
+     * Update player profile vitality values with changes from client request object
+     * @param pmcData Player profile
+     * @param postRaidHealth Post raid data
+     * @param sessionID Session id
+     * @param isDead Is player dead
+     * @param addEffects Should effects be added to profile (default - true)
+     * @param deleteExistingEffects Should all prior effects be removed before apply new ones  (default - true)
+     */
+    updateProfileHealthPostRaid(pmcData: IPmcData, postRaidHealth: IHealth, sessionID: string, isDead: boolean): void;
+    protected storeHydrationEnergyTempInProfile(fullProfile: ISptProfile, hydration: number, energy: number, temprature: number): void;
+    /**
+     * Take body part effects from client profile and apply to server profile
+     * @param postRaidBodyParts Post-raid body part data
+     * @param profileData Player profile on server
+     */
+    protected transferPostRaidLimbEffectsToProfile(postRaidBodyParts: IBodyPartsHealth, profileData: IPmcData): void;
     /**
      * Update player profile vitality values with changes from client request object
      * @param pmcData Player profile
@@ -45,7 +63,7 @@ export declare class HealthHelper {
      * @param bodyPartsWithEffects dict of body parts with effects that should be added to profile
      * @param addEffects Should effects be added back to profile
      */
-    protected saveEffects(pmcData: IPmcData, sessionId: string, bodyPartsWithEffects: Effects, deleteExistingEffects?: boolean): void;
+    protected saveEffects(pmcData: IPmcData, sessionId: string, bodyPartsWithEffects: IEffects, deleteExistingEffects?: boolean): void;
     /**
      * Add effect to body part in profile
      * @param pmcData Player profile

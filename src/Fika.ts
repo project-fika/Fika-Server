@@ -10,6 +10,7 @@ import { IFikaConfigBackground } from "./models/fika/config/IFikaConfigBackgroun
 import { IFikaConfigDedicated } from "./models/fika/config/IFikaConfigDedicated";
 import { IFikaConfigNatPunchServer } from "./models/fika/config/IFikaConfigNatPunchServer";
 import { Overrider } from "./overrides/Overrider";
+import { FikaPlayerRelationsCacheService } from "./services/cache/FikaPlayerRelationsCacheService";
 import { FikaDedicatedProfileService } from "./services/dedicated/FikaDedicatedProfileService";
 import { FikaConfig } from "./utils/FikaConfig";
 import { FikaServerTools } from "./utils/FikaServerTools";
@@ -29,6 +30,7 @@ export class Fika {
         @inject("FikaDedicatedProfileService") protected fikaDedicatedProfileService: FikaDedicatedProfileService,
         @inject("ImageRouter") protected imageRouter: ImageRouter,
         @inject("ImporterUtil") protected importerUtil: ImporterUtil,
+        @inject("FikaPlayerRelationsCacheService") protected fikaPlayerRelationCacheServce: FikaPlayerRelationsCacheService
     ) {
         this.modPath = fikaConfig.getModPath();
         this.natPunchServerConfig = fikaConfig.getConfig().natPunchServer;
@@ -40,7 +42,7 @@ export class Fika {
         await this.overrider.override(container);
     }
 
-    public async postSptLoad(container: DependencyContainer): Promise<void> {
+    public async postSptLoad(_container: DependencyContainer): Promise<void> {
         if (this.natPunchServerConfig.enable) {
             this.fikaServerTools.startService("NatPunchServer");
         }
@@ -49,7 +51,8 @@ export class Fika {
             this.fikaDedicatedProfileService.init();
         }
 
-        this.AddFikaClientLocales();
+        this.addFikaClientLocales();
+        this.fikaPlayerRelationCacheServce.postInit();
 
         if (this.backgroundConfig.enable) {
             const image = this.backgroundConfig.easteregg ? "assets/images/launcher/bg-senko.png" : "assets/images/launcher/bg.png";
@@ -57,7 +60,7 @@ export class Fika {
         }
     }
 
-    private async AddFikaClientLocales() {
+    private async addFikaClientLocales() {
         const database = this.databaseServer.getTables();
         const databasePath = path.join(this.fikaConfig.getModPath(), "assets/database/");
 

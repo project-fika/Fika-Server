@@ -1,8 +1,8 @@
 import { HandbookHelper } from "@spt/helpers/HandbookHelper";
 import { IStaticAmmoDetails } from "@spt/models/eft/common/ILocation";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { InsuredItem } from "@spt/models/eft/common/tables/IBotBase";
-import { Item, Repairable, Upd } from "@spt/models/eft/common/tables/IItem";
+import { IInsuredItem } from "@spt/models/eft/common/tables/IBotBase";
+import { IItem, IUpd, IUpdRepairable } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ItemTpl } from "@spt/models/enums/ItemTpl";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -42,7 +42,7 @@ export declare class ItemHelper {
      * @param slotId OPTIONAL - slotid of desired item
      * @returns True if pool contains item
      */
-    hasItemWithTpl(itemPool: Item[], item: ItemTpl, slotId?: string): boolean;
+    hasItemWithTpl(itemPool: IItem[], item: ItemTpl, slotId?: string): boolean;
     /**
      * Get the first item from provided pool with the desired tpl
      * @param itemPool Item collection to search
@@ -50,7 +50,7 @@ export declare class ItemHelper {
      * @param slotId OPTIONAL - slotid of desired item
      * @returns Item or undefined
      */
-    getItemFromPoolByTpl(itemPool: Item[], item: ItemTpl, slotId?: string): Item | undefined;
+    getItemFromPoolByTpl(itemPool: IItem[], item: ItemTpl, slotId?: string): IItem | undefined;
     /**
      * This method will compare two items (with all its children) and see if the are equivalent.
      * This method will NOT compare IDs on the items
@@ -59,7 +59,7 @@ export declare class ItemHelper {
      * @param compareUpdProperties Upd properties to compare between the items
      * @returns true if they are the same, false if they arent
      */
-    isSameItems(item1: Item[], item2: Item[], compareUpdProperties?: Set<string>): boolean;
+    isSameItems(item1: IItem[], item2: IItem[], compareUpdProperties?: Set<string>): boolean;
     /**
      * This method will compare two items and see if the are equivalent.
      * This method will NOT compare IDs on the items
@@ -68,15 +68,21 @@ export declare class ItemHelper {
      * @param compareUpdProperties Upd properties to compare between the items
      * @returns true if they are the same, false if they arent
      */
-    isSameItem(item1: Item, item2: Item, compareUpdProperties?: Set<string>): boolean;
+    isSameItem(item1: IItem, item2: IItem, compareUpdProperties?: Set<string>): boolean;
     /**
      * Helper method to generate a Upd based on a template
      * @param itemTemplate the item template to generate a Upd for
      * @returns A Upd with all the default properties set
      */
-    generateUpdForItem(itemTemplate: ITemplateItem): Upd;
+    generateUpdForItem(itemTemplate: ITemplateItem): IUpd;
     /**
-     * Checks if an id is a valid item. Valid meaning that it's an item that be stored in stash
+     * Checks if a tpl is a valid item. Valid meaning that it's an item that be stored in stash
+     * Valid means:
+     *  Not quest item
+     *  'Item' type
+     *  Not on the invalid base types array
+     *  Price above 0 roubles
+     *  Not on item config blacklist
      * @param    {string}  tpl  the template id / tpl
      * @returns                 boolean; true for items that may be in player possession and not quest items
      */
@@ -165,7 +171,7 @@ export declare class ItemHelper {
      * @param item Item to update
      * @returns Fixed item
      */
-    fixItemStackCount(item: Item): Item;
+    fixItemStackCount(item: IItem): IItem;
     /**
      * Get cloned copy of all item data from items.json
      * @returns array of ITemplateItem objects
@@ -185,7 +191,7 @@ export declare class ItemHelper {
      * @param skipArmorItemsWithoutDurability Skip over armor items without durability
      * @returns % quality modifer between 0 and 1
      */
-    getItemQualityModifierForItems(items: Item[], skipArmorItemsWithoutDurability?: boolean): number;
+    getItemQualityModifierForItems(items: IItem[], skipArmorItemsWithoutDurability?: boolean): number;
     /**
      * get normalized value (0-1) based on item condition
      * Will return -1 for base armor items with 0 durability
@@ -193,7 +199,7 @@ export declare class ItemHelper {
      * @param skipArmorItemsWithoutDurability return -1 for armor items that have maxdurability of 0
      * @returns Number between 0 and 1
      */
-    getItemQualityModifier(item: Item, skipArmorItemsWithoutDurability?: boolean): number;
+    getItemQualityModifier(item: IItem, skipArmorItemsWithoutDurability?: boolean): number;
     /**
      * Get a quality value based on a repairable items (weapon/armor) current state between current and max durability
      * @param itemDetails Db details for item we want quality value for
@@ -201,14 +207,14 @@ export declare class ItemHelper {
      * @param item Item quality value is for
      * @returns A number between 0 and 1
      */
-    protected getRepairableItemQualityValue(itemDetails: ITemplateItem, repairable: Repairable, item: Item): number;
+    protected getRepairableItemQualityValue(itemDetails: ITemplateItem, repairable: IUpdRepairable, item: IItem): number;
     /**
      * Recursive function that looks at every item from parameter and gets their childrens Ids + includes parent item in results
      * @param items Array of items (item + possible children)
      * @param baseItemId Parent items id
      * @returns an array of strings
      */
-    findAndReturnChildrenByItems(items: Item[], baseItemId: string): string[];
+    findAndReturnChildrenByItems(items: IItem[], baseItemId: string): string[];
     /**
      * A variant of findAndReturnChildren where the output is list of item objects instead of their ids.
      * @param items Array of items (item + possible children)
@@ -216,20 +222,20 @@ export declare class ItemHelper {
      * @param modsOnly Include only mod items, exclude items stored inside root item
      * @returns An array of Item objects
      */
-    findAndReturnChildrenAsItems(items: Item[], baseItemId: string, modsOnly?: boolean): Item[];
+    findAndReturnChildrenAsItems(items: IItem[], baseItemId: string, modsOnly?: boolean): IItem[];
     /**
      * Find children of the item in a given assort (weapons parts for example, need recursive loop function)
      * @param itemIdToFind Template id of item to check for
      * @param assort Array of items to check in
      * @returns Array of children of requested item
      */
-    findAndReturnChildrenByAssort(itemIdToFind: string, assort: Item[]): Item[];
+    findAndReturnChildrenByAssort(itemIdToFind: string, assort: IItem[]): IItem[];
     /**
      * Check if the passed in item has buy count restrictions
      * @param itemToCheck Item to check
      * @returns true if it has buy restrictions
      */
-    hasBuyRestrictions(itemToCheck: Item): boolean;
+    hasBuyRestrictions(itemToCheck: IItem): boolean;
     /**
      * is the passed in template id a dog tag
      * @param tpl Template id to check
@@ -241,7 +247,7 @@ export declare class ItemHelper {
      * @param item
      * @returns "slotId OR slotid,locationX,locationY"
      */
-    getChildId(item: Item): string;
+    getChildId(item: IItem): string;
     /**
      * Can the passed in item be stacked
      * @param tpl item to check
@@ -253,21 +259,28 @@ export declare class ItemHelper {
      * @param itemToSplit Item to split into smaller stacks
      * @returns Array of root item + children
      */
-    splitStack(itemToSplit: Item): Item[];
+    splitStack(itemToSplit: IItem): IItem[];
     /**
      * Turn items like money into separate stacks that adhere to max stack size
      * @param itemToSplit Item to split into smaller stacks
      * @returns
      */
-    splitStackIntoSeparateItems(itemToSplit: Item): Item[][];
+    splitStackIntoSeparateItems(itemToSplit: IItem): IItem[][];
     /**
      * Find Barter items from array of items
      * @param {string} by tpl or id
-     * @param {Item[]} itemsToSearch Array of items to iterate over
+     * @param {IItem[]} itemsToSearch Array of items to iterate over
      * @param {string} desiredBarterItemIds
      * @returns Array of Item objects
      */
-    findBarterItems(by: "tpl" | "id", itemsToSearch: Item[], desiredBarterItemIds: string | string[]): Item[];
+    findBarterItems(by: "tpl" | "id", itemsToSearch: IItem[], desiredBarterItemIds: string | string[]): IItem[];
+    /**
+     * Replace the _id value for base item + all children that are children of it
+     * REPARENTS ROOT ITEM ID, NOTHING ELSE
+     * @param itemWithChildren Item with mods to update
+     * @param newId new id to add on chidren of base item
+     */
+    replaceRootItemID(itemWithChildren: IItem[], newId?: string): void;
     /**
      * Regenerate all GUIDs with new IDs, for the exception of special item types (e.g. quest, sorting table, etc.) This
      * function will not mutate the original items array, but will return a new array with new GUIDs.
@@ -278,13 +291,13 @@ export declare class ItemHelper {
      * @param fastPanel Quick slot panel
      * @returns Item[]
      */
-    replaceIDs(originalItems: Item[], pmcData?: IPmcData, insuredItems?: InsuredItem[], fastPanel?: any): Item[];
+    replaceIDs(originalItems: IItem[], pmcData?: IPmcData, insuredItems?: IInsuredItem[], fastPanel?: any): IItem[];
     /**
      * Mark the passed in array of items as found in raid.
      * Modifies passed in items
      * @param items The list of items to mark as FiR
      */
-    setFoundInRaid(items: Item[]): void;
+    setFoundInRaid(items: IItem[]): void;
     /**
      * WARNING, SLOW. Recursively loop down through an items hierarchy to see if any of the ids match the supplied list, return true if any do
      * @param {string} tpl Items tpl to check parents of
@@ -309,7 +322,7 @@ export declare class ItemHelper {
      * @param parent The parent of the item to be checked
      * @returns True if the item is actually moddable, false if it is not, and undefined if the check cannot be performed.
      */
-    isRaidModdable(item: Item, parent: Item): boolean | undefined;
+    isRaidModdable(item: IItem, parent: IItem): boolean | undefined;
     /**
      * Retrieves the main parent item for a given attachment item.
      *
@@ -326,14 +339,14 @@ export declare class ItemHelper {
      * @param itemsMap - A Map containing item IDs mapped to their corresponding Item objects for quick lookup.
      * @returns The Item object representing the top-most parent of the given item, or `undefined` if no such parent exists.
      */
-    getAttachmentMainParent(itemId: string, itemsMap: Map<string, Item>): Item | undefined;
+    getAttachmentMainParent(itemId: string, itemsMap: Map<string, IItem>): IItem | undefined;
     /**
      * Determines if an item is an attachment that is currently attached to it's parent item.
      *
      * @param item The item to check.
      * @returns true if the item is attached attachment, otherwise false.
      */
-    isAttachmentAttached(item: Item): boolean;
+    isAttachmentAttached(item: IItem): boolean;
     /**
      * Retrieves the equipment parent item for a given item.
      *
@@ -349,14 +362,14 @@ export declare class ItemHelper {
      * @param itemsMap - A Map containing item IDs mapped to their corresponding Item objects for quick lookup.
      * @returns The Item object representing the equipment parent of the given item, or `undefined` if no such parent exists.
      */
-    getEquipmentParent(itemId: string, itemsMap: Map<string, Item>): Item | undefined;
+    getEquipmentParent(itemId: string, itemsMap: Map<string, IItem>): IItem | undefined;
     /**
      * Get the inventory size of an item
      * @param items Item with children
      * @param rootItemId
      * @returns ItemSize object (width and height)
      */
-    getItemSize(items: Item[], rootItemId: string): ItemHelper.ItemSize;
+    getItemSize(items: IItem[], rootItemId: string): ItemHelper.IItemSize;
     /**
      * Get a random cartridge from an items Filter property
      * @param item Db item template to look up Cartridge filter values from
@@ -368,21 +381,21 @@ export declare class ItemHelper {
      * @param ammoBox Box to add cartridges to
      * @param ammoBoxDetails Item template from items db
      */
-    addCartridgesToAmmoBox(ammoBox: Item[], ammoBoxDetails: ITemplateItem): void;
+    addCartridgesToAmmoBox(ammoBox: IItem[], ammoBoxDetails: ITemplateItem): void;
     /**
      * Add a single stack of cartridges to the ammo box
      * @param ammoBox Box to add cartridges to
      * @param ammoBoxDetails Item template from items db
      */
-    addSingleStackCartridgesToAmmoBox(ammoBox: Item[], ammoBoxDetails: ITemplateItem): void;
+    addSingleStackCartridgesToAmmoBox(ammoBox: IItem[], ammoBoxDetails: ITemplateItem): void;
     /**
      * Check if item is stored inside of a container
-     * @param item Item to check is inside of container
+     * @param itemToCheck Item to check is inside of container
      * @param desiredContainerSlotId Name of slot to check item is in e.g. SecuredContainer/Backpack
      * @param items Inventory with child parent items to check
      * @returns True when item is in container
      */
-    itemIsInsideContainer(item: Item, desiredContainerSlotId: string, items: Item[]): boolean;
+    itemIsInsideContainer(itemToCheck: IItem, desiredContainerSlotId: string, items: IItem[]): boolean;
     /**
      * Add child items (cartridges) to a magazine
      * @param magazine Magazine to add child items to
@@ -393,15 +406,15 @@ export declare class ItemHelper {
      * @param defaultCartridgeTpl Cartridge to use when none found
      * @param weapon Weapon the magazine will be used for (if passed in uses Chamber as whitelist)
      */
-    fillMagazineWithRandomCartridge(magazine: Item[], magTemplate: ITemplateItem, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, caliber?: string, minSizePercent?: number, defaultCartridgeTpl?: string, weapon?: ITemplateItem): void;
+    fillMagazineWithRandomCartridge(magazine: IItem[], magTemplate: ITemplateItem, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, caliber?: string, minSizePercent?: number, defaultCartridgeTpl?: string, weapon?: ITemplateItem): void;
     /**
      * Add child items to a magazine of a specific cartridge
      * @param magazineWithChildCartridges Magazine to add child items to
      * @param magTemplate Db template of magazine
      * @param cartridgeTpl Cartridge to add to magazine
-     * @param minSizePercent % the magazine must be filled to
+     * @param minSizeMultiplier % the magazine must be filled to
      */
-    fillMagazineWithCartridge(magazineWithChildCartridges: Item[], magTemplate: ITemplateItem, cartridgeTpl: string, minSizePercent?: number): void;
+    fillMagazineWithCartridge(magazineWithChildCartridges: IItem[], magTemplate: ITemplateItem, cartridgeTpl: string, minSizeMultiplier?: number): void;
     /**
      * Choose a random bullet type from the list of possible a magazine has
      * @param magTemplate Magazine template from Db
@@ -426,13 +439,13 @@ export declare class ItemHelper {
      * @param foundInRaid OPTIONAL - Are cartridges found in raid (SpawnedInSession)
      * @returns Item
      */
-    createCartridges(parentId: string, ammoTpl: string, stackCount: number, location: number, foundInRaid?: boolean): Item;
+    createCartridges(parentId: string, ammoTpl: string, stackCount: number, location: number, foundInRaid?: boolean): IItem;
     /**
      * Get the size of a stack, return 1 if no stack object count property found
      * @param item Item to get stack size of
      * @returns size of stack
      */
-    getItemStackSize(item: Item): number;
+    getItemStackSize(item: IItem): number;
     /**
      * Get the name of an item from the locale file using the item tpl
      * @param itemTpl Tpl of item to get name of
@@ -453,7 +466,7 @@ export declare class ItemHelper {
      * @param requiredOnly Only add required mods
      * @returns Item with children
      */
-    addChildSlotItems(itemToAdd: Item[], itemToAddTemplate: ITemplateItem, modSpawnChanceDict?: Record<string, number>, requiredOnly?: boolean): Item[];
+    addChildSlotItems(itemToAdd: IItem[], itemToAddTemplate: ITemplateItem, modSpawnChanceDict?: Record<string, number>, requiredOnly?: boolean): IItem[];
     /**
      * Get a compatible tpl from the array provided where it is not found in the provided incompatible mod tpls parameter
      * @param possibleTpls Tpls to randomly choose from
@@ -478,14 +491,14 @@ export declare class ItemHelper {
      * @param itemWithChildren Primary item + children of primary item
      * @returns Item array with updated IDs
      */
-    reparentItemAndChildren(rootItem: Item, itemWithChildren: Item[]): Item[];
+    reparentItemAndChildren(rootItem: IItem, itemWithChildren: IItem[]): IItem[];
     /**
      * Update a root items _id property value to be unique
      * @param itemWithChildren Item to update root items _id property
      * @param newId Optional: new id to use
      * @returns New root id
      */
-    remapRootItemId(itemWithChildren: Item[], newId?: string): string;
+    remapRootItemId(itemWithChildren: IItem[], newId?: string): string;
     /**
      * Adopts orphaned items by resetting them as root "hideout" items. Helpful in situations where a parent has been
      * deleted from a group of items and there are children still referencing the missing parent. This method will
@@ -495,24 +508,42 @@ export declare class ItemHelper {
      * @param items Array of Items that should be adjusted.
      * @returns Array of Items that have been adopted.
      */
-    adoptOrphanedItems(rootId: string, items: Item[]): Item[];
+    adoptOrphanedItems(rootId: string, items: IItem[]): IItem[];
     /**
      * Populate a Map object of items for quick lookup using their ID.
      *
      * @param items An array of Items that should be added to a Map.
      * @returns A Map where the keys are the item IDs and the values are the corresponding Item objects.
      */
-    generateItemsMap(items: Item[]): Map<string, Item>;
+    generateItemsMap(items: IItem[]): Map<string, IItem>;
     /**
      * Add a blank upd object to passed in item if it does not exist already
      * @param item item to add upd to
      * @param warningMessageWhenMissing text to write to log when upd object was not found
      * @returns True when upd object was added
      */
-    addUpdObjectToItem(item: Item, warningMessageWhenMissing?: string): boolean;
+    addUpdObjectToItem(item: IItem, warningMessageWhenMissing?: string): boolean;
+    /**
+     * Return all tpls from Money enum
+     * @returns string tpls
+     */
+    getMoneyTpls(): string[];
+    /**
+     * Get a randomsied stack size for the passed in ammo
+     * @param ammoItemTemplate Ammo to get stack size for
+     * @param maxLimit default: Limit to 60 to prevent crazy values when players use stack increase mods
+     * @returns number
+     */
+    getRandomisedAmmoStackSize(ammoItemTemplate: ITemplateItem, maxLimit?: number): number;
+    getItemBaseType(tpl: string, rootOnly?: boolean): string;
+    /**
+     * Remove FiR status from passed in items
+     * @param items Items to update FiR status of
+     */
+    removeSpawnedInSessionPropertyFromItems(items: IItem[]): void;
 }
 declare namespace ItemHelper {
-    interface ItemSize {
+    interface IItemSize {
         width: number;
         height: number;
     }

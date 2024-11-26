@@ -3,7 +3,9 @@ import { OnUpdate } from "@spt/di/OnUpdate";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IHandleQTEEventRequestData } from "@spt/models/eft/hideout/IHandleQTEEventRequestData";
 import { IHideoutCancelProductionRequestData } from "@spt/models/eft/hideout/IHideoutCancelProductionRequestData";
+import { IHideoutCircleOfCultistProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutCircleOfCultistProductionStartRequestData";
 import { IHideoutContinuousProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutContinuousProductionStartRequestData";
+import { IHideoutDeleteProductionRequestData } from "@spt/models/eft/hideout/IHideoutDeleteProductionRequestData";
 import { IHideoutImproveAreaRequestData } from "@spt/models/eft/hideout/IHideoutImproveAreaRequestData";
 import { IHideoutPutItemInRequestData } from "@spt/models/eft/hideout/IHideoutPutItemInRequestData";
 import { IHideoutScavCaseStartRequestData } from "@spt/models/eft/hideout/IHideoutScavCaseStartRequestData";
@@ -75,6 +77,14 @@ export declare class HideoutCallbacks implements OnUpdate {
      * Handle client/game/profile/items/moving - HideoutCancelProductionCommand
      */
     cancelProduction(pmcData: IPmcData, request: IHideoutCancelProductionRequestData, sessionId: string): IItemEventRouterResponse;
+    /**
+     * Handle client/game/profile/items/moving - HideoutCircleOfCultistProductionStart
+     */
+    circleOfCultistProductionStart(pmcData: IPmcData, request: IHideoutCircleOfCultistProductionStartRequestData, sessionId: string): IItemEventRouterResponse;
+    /**
+     * Handle client/game/profile/items/moving - HideoutDeleteProductionCommand
+     */
+    hideoutDeleteProductionCommand(pmcData: IPmcData, request: IHideoutDeleteProductionRequestData, sessionId: string): IItemEventRouterResponse;
     onUpdate(timeSinceLastRun: number): Promise<boolean>;
     getRoute(): string;
 }

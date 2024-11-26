@@ -1,5 +1,5 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
-import { Mods } from "@spt/models/eft/common/tables/IBotType";
+import { IMods } from "@spt/models/eft/common/tables/IBotType";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -16,8 +16,8 @@ export declare class BotEquipmentModPoolService {
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
     protected botConfig: IBotConfig;
-    protected weaponModPool: Mods;
-    protected gearModPool: Mods;
+    protected weaponModPool: IMods;
+    protected gearModPool: IMods;
     protected weaponPoolGenerated: boolean;
     protected armorPoolGenerated: boolean;
     constructor(logger: ILogger, vfs: VFS, itemHelper: ItemHelper, databaseService: DatabaseService, localisationService: LocalisationService, configServer: ConfigServer);

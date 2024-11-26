@@ -3,3 +3,7 @@ export interface IFikaCheckModResponse {
     missingRequired: string[];
     hashMismatch: string[];
 }
+
+export interface IVersionCheckResponse {
+    version: string;
+}

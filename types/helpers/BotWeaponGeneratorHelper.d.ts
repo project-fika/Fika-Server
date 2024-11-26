@@ -1,9 +1,9 @@
 import { BotGeneratorHelper } from "@spt/helpers/BotGeneratorHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
-import { Inventory } from "@spt/models/eft/common/tables/IBotBase";
-import { GenerationData } from "@spt/models/eft/common/tables/IBotType";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IInventory } from "@spt/models/eft/common/tables/IBotBase";
+import { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { EquipmentSlots } from "@spt/models/enums/EquipmentSlots";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -27,13 +27,13 @@ export declare class BotWeaponGeneratorHelper {
      * @param magTemplate magazine to generate bullet count for
      * @returns bullet count number
      */
-    getRandomizedBulletCount(magCounts: GenerationData, magTemplate: ITemplateItem): number;
+    getRandomizedBulletCount(magCounts: IGenerationData, magTemplate: ITemplateItem): number;
     /**
      * Get a randomized count of magazines
      * @param magCounts min and max value returned value can be between
      * @returns numerical value of magazine count
      */
-    getRandomizedMagazineCount(magCounts: GenerationData): number;
+    getRandomizedMagazineCount(magCounts: IGenerationData): number;
     /**
      * Is this magazine cylinder related (revolvers and grenade launchers)
      * @param magazineParentName the name of the magazines parent
@@ -47,7 +47,7 @@ export declare class BotWeaponGeneratorHelper {
      * @param magTemplate template object of magazine
      * @returns Item array
      */
-    createMagazineWithAmmo(magazineTpl: string, ammoTpl: string, magTemplate: ITemplateItem): Item[];
+    createMagazineWithAmmo(magazineTpl: string, ammoTpl: string, magTemplate: ITemplateItem): IItem[];
     /**
      * Add a specific number of cartridges to a bots inventory (defaults to vest and pockets)
      * @param ammoTpl Ammo tpl to add to vest/pockets
@@ -55,7 +55,7 @@ export declare class BotWeaponGeneratorHelper {
      * @param inventory bot inventory to add cartridges to
      * @param equipmentSlotsToAddTo what equipment slots should bullets be added into
      */
-    addAmmoIntoEquipmentSlots(ammoTpl: string, cartridgeCount: number, inventory: Inventory, equipmentSlotsToAddTo?: EquipmentSlots[]): void;
+    addAmmoIntoEquipmentSlots(ammoTpl: string, cartridgeCount: number, inventory: IInventory, equipmentSlotsToAddTo?: EquipmentSlots[]): void;
     /**
      * Get a weapons default magazine template id
      * @param weaponTemplate weapon to get default magazine for

@@ -12,12 +12,15 @@ export interface IWeather {
     temp: number;
     fog: number;
     rain_intensity: number;
+    /** 1 - 3 light rain, 3+ 'rain' */
     rain: number;
     wind_gustiness: number;
     wind_direction: WindDirection;
     wind_speed: number;
+    /** < -0.4 = clear day */
     cloud: number;
     time: string;
     date: string;
     timestamp: number;
+    sptInRaidTimestamp: number;
 }

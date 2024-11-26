@@ -1,29 +1,34 @@
 import { inject, injectable } from "tsyringe";
 
-import { LocationController } from "@spt/controllers/LocationController";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
 
-import { FikaMatchEndSessionMessage } from "../models/enums/FikaMatchEndSessionMessages";
-import { FikaMatchStatus } from "../models/enums/FikaMatchStatus";
+import { EFikaMatchEndSessionMessage } from "../models/enums/EFikaMatchEndSessionMessages";
+import { EFikaMatchStatus } from "../models/enums/EFikaMatchStatus";
+import { EFikaPlayerPresences } from "../models/enums/EFikaPlayerPresences";
 import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 
 import { FikaConfig } from "../utils/FikaConfig";
+import { FikaInsuranceService } from "./FikaInsuranceService";
+import { FikaPresenceService } from "./FikaPresenceService";
 import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
 
 @injectable()
 export class FikaMatchService {
-    protected matches: Map<string, IFikaMatch>;
+    public matches: Map<string, IFikaMatch>;
     protected timeoutIntervals: Map<string, NodeJS.Timeout>;
 
     constructor(
         @inject("WinstonLogger") protected logger: ILogger,
-        @inject("LocationController") protected locationController: LocationController,
+        @inject("LocationLifecycleService") protected locationLifecycleService: LocationLifecycleService,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
+        @inject("FikaInsuranceService") protected fikaInsuranceService: FikaInsuranceService,
+        @inject("FikaPresenceService") protected fikaPresenceService: FikaPresenceService,
     ) {
         this.matches = new Map();
         this.timeoutIntervals = new Map();
@@ -49,7 +54,7 @@ export class FikaMatchService {
 
                 // if it timed out 'sessionTimeout' times or more, end the match
                 if (match.timeout >= fikaConfig.server.sessionTimeout) {
-                    this.endMatch(matchId, FikaMatchEndSessionMessage.PING_TIMEOUT_MESSAGE);
+                    this.endMatch(matchId, EFikaMatchEndSessionMessage.PING_TIMEOUT_MESSAGE);
                 }
             }, 60 * 1000),
         );
@@ -181,11 +186,10 @@ export class FikaMatchService {
             this.deleteMatch(data.serverId);
         }
 
-        const locationData = this.locationController.get(data.serverId, {
-            crc: 0 /* unused */,
-            locationId: data.settings.location,
-            variantId: 0 /* unused */,
-        });
+        // Stop TS from throwing a tantrum over protected methods
+        const lifecycleService = this.locationLifecycleService as any;
+
+        const locationData = lifecycleService.generateLocationAndLoot(data.settings.location);
 
         this.matches.set(data.serverId, {
             ips: null,
@@ -195,7 +199,7 @@ export class FikaMatchService {
             expectedNumberOfPlayers: data.expectedNumberOfPlayers,
             raidConfig: data.settings,
             locationData: locationData,
-            status: FikaMatchStatus.LOADING,
+            status: EFikaMatchStatus.LOADING,
             timeout: 0,
             players: new Map(),
             gameVersion: data.gameVersion,
@@ -205,11 +209,12 @@ export class FikaMatchService {
             raidCode: data.raidCode,
             natPunch: false,
             isDedicated: false,
+            raids: 0
         });
 
         this.addTimeoutInterval(data.serverId);
 
-        this.addPlayerToMatch(data.serverId, data.serverId, { groupId: null, isDead: false });
+        this.addPlayerToMatch(data.serverId, data.serverId, { groupId: null, isDead: false, isSpectator: data.isSpectator });
 
         return this.matches.has(data.serverId) && this.timeoutIntervals.has(data.serverId);
     }
@@ -233,13 +238,14 @@ export class FikaMatchService {
      * @param matchId
      * @param reason
      */
-    public endMatch(matchId: string, reason: FikaMatchEndSessionMessage): void {
+    public endMatch(matchId: string, reason: EFikaMatchEndSessionMessage): void {
         this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
 
         if (this.fikaDedicatedRaidService.requestedSessions.hasOwnProperty(matchId)) {
             delete this.fikaDedicatedRaidService.requestedSessions[matchId];
         }
 
+        this.fikaInsuranceService.onMatchEnd(matchId);
         this.deleteMatch(matchId);
     }
 
@@ -248,7 +254,7 @@ export class FikaMatchService {
      * @param matchId
      * @param status
      */
-    public setMatchStatus(matchId: string, status: FikaMatchStatus): void {
+    public setMatchStatus(matchId: string, status: EFikaMatchStatus): void {
         if (!this.matches.has(matchId)) {
             return;
         }
@@ -302,7 +308,14 @@ export class FikaMatchService {
             return;
         }
 
-        this.matches.get(matchId).players.set(playerId, data);
+        const match = this.matches.get(matchId);
+        match.players.set(playerId, data);
+
+        this.fikaInsuranceService.addPlayerToMatchId(matchId, playerId);
+
+        this.fikaPresenceService.updatePlayerPresence(playerId, this.fikaPresenceService.generateSetPresence(
+            EFikaPlayerPresences.IN_RAID,
+            this.fikaPresenceService.generateRaidPresence(match.locationData.Id, match.side, match.time)));
     }
 
     /**
@@ -352,5 +365,7 @@ export class FikaMatchService {
         }
 
         this.matches.get(matchId).players.delete(playerId);
+
+        this.fikaPresenceService.updatePlayerPresence(playerId, this.fikaPresenceService.generateSetPresence(EFikaPlayerPresences.IN_MENU));
     }
 }

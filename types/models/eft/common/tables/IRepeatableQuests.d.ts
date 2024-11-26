@@ -41,14 +41,14 @@ export interface IOptions {
     Completion: ICompletionFilter;
 }
 export interface ICompletionFilter {
-    itemsBlacklist: ItemsBlacklist[];
-    itemsWhitelist: ItemsWhitelist[];
+    itemsBlacklist: IItemsBlacklist[];
+    itemsWhitelist: IItemsWhitelist[];
 }
-export interface ItemsBlacklist {
+export interface IItemsBlacklist {
     minPlayerLevel: number;
     itemIds: string[];
 }
-export interface ItemsWhitelist {
+export interface IItemsWhitelist {
     minPlayerLevel: number;
     itemIds: string[];
 }

@@ -1,5 +1,5 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -39,7 +39,7 @@ export declare class BotWeaponModLimitService {
      * @param modsParent The parent of the mod to be checked
      * @returns true if over item limit
      */
-    weaponModHasReachedLimit(botRole: string, modTemplate: ITemplateItem, modLimits: BotModLimits, modsParent: ITemplateItem, weapon: Item[]): boolean;
+    weaponModHasReachedLimit(botRole: string, modTemplate: ITemplateItem, modLimits: BotModLimits, modsParent: ITemplateItem, weapon: IItem[]): boolean;
     /**
      * Check if the specific item type on the weapon has reached the set limit
      * @param modTpl log mod tpl if over type limit

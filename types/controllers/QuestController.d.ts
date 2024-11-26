@@ -5,8 +5,7 @@ import { QuestConditionHelper } from "@spt/helpers/QuestConditionHelper";
 import { QuestHelper } from "@spt/helpers/QuestHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IQuestStatus } from "@spt/models/eft/common/tables/IBotBase";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IQuest, IQuestCondition } from "@spt/models/eft/common/tables/IQuest";
 import { IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
@@ -55,13 +54,6 @@ export declare class QuestController {
      */
     getClientQuests(sessionID: string): IQuest[];
     /**
-     * Does a provided quest have a level requirement equal to or below defined level
-     * @param quest Quest to check
-     * @param playerLevel level of player to test against quest
-     * @returns true if quest can be seen/accepted by player of defined level
-     */
-    protected playerLevelFulfillsQuestRequirement(quest: IQuest, playerLevel: number): boolean;
-    /**
      * Handle QuestAccept event
      * Handle the client accepting a quest and starting it
      * Send starting rewards if any to player and
@@ -72,6 +64,13 @@ export declare class QuestController {
      * @returns Client response
      */
     acceptQuest(pmcData: IPmcData, acceptedQuest: IAcceptQuestRequestData, sessionID: string): IItemEventRouterResponse;
+    /**
+     *
+     * @param questConditions Conditions to iterate over and possibly add to profile
+     * @param pmcData Profile to add to
+     * @param questId Quest conditions came from
+     */
+    protected addTaskConditionCountersToProfile(questConditions: IQuestCondition[], pmcData: IPmcData, questId: string): void;
     /**
      * Handle the client accepting a repeatable quest and starting it
      * Send starting rewards if any to player and
@@ -102,49 +101,6 @@ export declare class QuestController {
      */
     completeQuest(pmcData: IPmcData, body: ICompleteQuestRequestData, sessionID: string): IItemEventRouterResponse;
     /**
-     * Return a list of quests that would fail when supplied quest is completed
-     * @param completedQuestId quest completed id
-     * @returns array of IQuest objects
-     */
-    protected getQuestsFailedByCompletingQuest(completedQuestId: string, pmcProfile: IPmcData): IQuest[];
-    /**
-     * Remove a quest entirely from a profile
-     * @param sessionId Player id
-     * @param questIdToRemove Qid of quest to remove
-     */
-    protected removeQuestFromScavProfile(sessionId: string, questIdToRemove: string): void;
-    /**
-     * Return quests that have different statuses
-     * @param preQuestStatusus Quests before
-     * @param postQuestStatuses Quests after
-     * @returns QuestStatusChange array
-     */
-    protected getQuestsWithDifferentStatuses(preQuestStatusus: IQuestStatus[], postQuestStatuses: IQuestStatus[]): IQuestStatus[] | undefined;
-    /**
-     * Send a popup to player on successful completion of a quest
-     * @param sessionID session id
-     * @param pmcData Player profile
-     * @param completedQuestId Completed quest id
-     * @param questRewards Rewards given to player
-     */
-    protected sendSuccessDialogMessageOnQuestComplete(sessionID: string, pmcData: IPmcData, completedQuestId: string, questRewards: Item[]): void;
-    /**
-     * Look for newly available quests after completing a quest with a requirement to wait x minutes (time-locked) before being available and add data to profile
-     * @param pmcData Player profile to update
-     * @param quests Quests to look for wait conditions in
-     * @param completedQuestId Quest just completed
-     */
-    protected addTimeLockedQuestsToProfile(pmcData: IPmcData, quests: IQuest[], completedQuestId: string): void;
-    /**
-     * Fail the provided quests
-     * Update quest in profile, otherwise add fresh quest object with failed status
-     * @param sessionID session id
-     * @param pmcData player profile
-     * @param questsToFail quests to fail
-     * @param output Client output
-     */
-    protected failQuests(sessionID: string, pmcData: IPmcData, questsToFail: IQuest[], output: IItemEventRouterResponse): void;
-    /**
      * Handle QuestHandover event
      * @param pmcData Player profile
      * @param handoverQuestRequest handover item request
@@ -167,7 +123,7 @@ export declare class QuestController {
      * @param output Response to send to user
      * @returns IItemEventRouterResponse
      */
-    protected showQuestItemHandoverMatchError(handoverQuestRequest: IHandoverQuestRequestData, itemHandedOver: Item, handoverRequirements: IQuestCondition, output: IItemEventRouterResponse): IItemEventRouterResponse;
+    protected showQuestItemHandoverMatchError(handoverQuestRequest: IHandoverQuestRequestData, itemHandedOver: IItem, handoverRequirements: IQuestCondition, output: IItemEventRouterResponse): IItemEventRouterResponse;
     /**
      * Increment a backend counter stored value by an amount,
      * Create counter if it does not exist

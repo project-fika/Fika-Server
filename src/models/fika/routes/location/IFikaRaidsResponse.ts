@@ -1,15 +1,15 @@
-import { FikaMatchStatus } from "../../../enums/FikaMatchStatus";
-import { FikaSide } from "../../../enums/FikaSide";
-import { FikaTime } from "../../../enums/FikaTime";
+import { EFikaMatchStatus } from "../../../enums/EFikaMatchStatus";
+import { EFikaSide } from "../../../enums/EFikaSide";
+import { EFikaTime } from "../../../enums/EFikaTime";
 
 export interface IFikaRaidResponse {
     serverId: string;
     hostUsername: string;
     playerCount: number;
-    status: FikaMatchStatus;
+    status: EFikaMatchStatus;
     location: string;
-    side: FikaSide;
-    time: FikaTime;
+    side: EFikaSide;
+    time: EFikaTime;
     players: Record<string, boolean>;
 }
 

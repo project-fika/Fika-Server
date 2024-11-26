@@ -5,7 +5,6 @@ import { SaveServer } from "@spt/servers/SaveServer";
 import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
-import { LogTextColor } from "@spt/models/spt/logging/LogTextColor";
 
 @injectable()
 export class FikaPlayerRelationsHelper {
@@ -104,9 +103,9 @@ export class FikaPlayerRelationsHelper {
                     MemberCategory: profile.characters.pmc.Info.MemberCategory,
                     SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
                     Ignored: false,
-                    Banned: profile.characters.pmc.Info.BannedState
-                }
-            }
+                    Banned: profile.characters.pmc.Info.BannedState,
+                },
+            },
         } as any);
     }
 
@@ -140,9 +139,9 @@ export class FikaPlayerRelationsHelper {
                     MemberCategory: profile.characters.pmc.Info.MemberCategory,
                     SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
                     Ignored: false,
-                    Banned: profile.characters.pmc.Info.BannedState
-                }
-            }
+                    Banned: profile.characters.pmc.Info.BannedState,
+                },
+            },
         } as any);
     }
 
@@ -176,9 +175,9 @@ export class FikaPlayerRelationsHelper {
                     MemberCategory: profile.characters.pmc.Info.MemberCategory,
                     SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
                     Ignored: false,
-                    Banned: profile.characters.pmc.Info.BannedState
-                }
-            }
+                    Banned: profile.characters.pmc.Info.BannedState,
+                },
+            },
         } as any);
     }
 }

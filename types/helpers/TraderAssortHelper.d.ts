@@ -4,7 +4,7 @@ import { AssortHelper } from "@spt/helpers/AssortHelper";
 import { PaymentHelper } from "@spt/helpers/PaymentHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITrader, ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -58,7 +58,7 @@ export declare class TraderAssortHelper {
      * Reset every traders root item `BuyRestrictionCurrent` property to 0
      * @param assortItems Items to adjust
      */
-    protected resetBuyRestrictionCurrentValue(assortItems: Item[]): void;
+    protected resetBuyRestrictionCurrentValue(assortItems: IItem[]): void;
     /**
      * Create a dict of all assort id = quest id mappings used to work out what items should be shown to player based on the quests they've started/completed/failed
      */
@@ -85,7 +85,7 @@ export declare class TraderAssortHelper {
      * @param traderId trader id
      * @returns array of Items
      */
-    protected getPristineTraderAssorts(traderId: string): Item[];
+    protected getPristineTraderAssorts(traderId: string): IItem[];
     /**
      * Returns generated ragfair offers in a trader assort format
      * @returns Trader assort object

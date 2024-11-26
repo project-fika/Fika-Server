@@ -11,7 +11,7 @@ import { ConfigServer } from "@spt/servers/ConfigServer";
 
 import { DialogueController } from "@spt/controllers/DialogueController";
 import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import { Dialogue, IUserDialogInfo, Message } from "@spt/models/eft/profile/ISptProfile";
+import { IMessage } from "@spt/models/eft/profile/ISptProfile";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";
@@ -24,7 +24,6 @@ import { IFriendRequestListResponse } from "../models/eft/dialog/IFriendRequestL
 @injectable()
 export class FikaDialogueController {
     constructor(
-        @injectAll("DialogueChatBot") protected dialogueChatBots: IDialogueChatBot[],
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("ConfigServer") protected configServer: ConfigServer,
         @inject("FikaFriendRequestsHelper") protected fikaFriendRequestsHelper: FikaFriendRequestsHelper,
@@ -39,20 +38,19 @@ export class FikaDialogueController {
     }
 
     public getFriendList(sessionID: string): IGetFriendListDataResponse {
-        const core = this.configServer.getConfig<ICoreConfig>(ConfigTypes.CORE);
-        let botsAndFriends = this.dialogueChatBots.map((v) => v.getChatBot());
-        if (!core.features.chatbotFeatures.commandoEnabled) {
-            botsAndFriends = botsAndFriends.filter((u) => u._id != "sptCommando");
-        }
-
-        if (!core.features.chatbotFeatures.sptFriendEnabled) {
-            botsAndFriends = botsAndFriends.filter((u) => u._id != "sptFriend");
-        }
+        // Cast to any to get rid of protected error
+        const dialogueChatBots: IDialogueChatBot[] = (this.dialogController as any).dialogueChatBots;
+        let botsAndFriends = dialogueChatBots.map((v) => v.getChatBot());
 
         const friendsIds = this.fikaPlayerRelationsHelper.getFriendsList(sessionID);
 
         for (const friendId of friendsIds) {
             const profile = this.profileHelper.getPmcProfile(friendId);
+
+            if (!profile) {
+                this.fikaPlayerRelationsHelper.removeFriend(sessionID, friendId);
+                continue;
+            }
 
             botsAndFriends.push({
                 _id: profile._id,
@@ -160,7 +158,7 @@ export class FikaDialogueController {
             },
         ];
 
-        const message: Message = {
+        const message: IMessage = {
             _id: this.hashUtil.generate(),
             uid: sessionID,
             type: request.type,

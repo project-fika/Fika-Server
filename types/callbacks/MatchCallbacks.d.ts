@@ -1,8 +1,9 @@
 import { MatchController } from "@spt/controllers/MatchController";
 import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { IMetrics } from "@spt/models/eft/common/tables/IMatch";
 import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
 import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
-import { IEndOfflineRaidRequestData } from "@spt/models/eft/match/IEndOfflineRaidRequestData";
+import { IEndLocalRaidRequestData } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
 import { IGroupCharacter } from "@spt/models/eft/match/IGroupCharacter";
 import { IMatchGroupCurrentResponse } from "@spt/models/eft/match/IMatchGroupCurrentResponse";
@@ -15,6 +16,8 @@ import { IMatchGroupTransferRequest } from "@spt/models/eft/match/IMatchGroupTra
 import { IProfileStatusResponse } from "@spt/models/eft/match/IProfileStatusResponse";
 import { IPutMetricsRequestData } from "@spt/models/eft/match/IPutMetricsRequestData";
 import { IRequestIdRequest } from "@spt/models/eft/match/IRequestIdRequest";
+import { IStartLocalRaidRequestData } from "@spt/models/eft/match/IStartLocalRaidRequestData";
+import { IStartLocalRaidResponseData } from "@spt/models/eft/match/IStartLocalRaidResponseData";
 import { IUpdatePingRequestData } from "@spt/models/eft/match/IUpdatePingRequestData";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
@@ -45,13 +48,13 @@ export declare class MatchCallbacks {
     transferGroup(url: string, info: IMatchGroupTransferRequest, sessionId: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/group/invite/cancel-all */
     cancelAllGroupInvite(url: string, info: IEmptyRequestData, sessionId: string): IGetBodyResponseData<boolean>;
-    /** @deprecated - not called on raid start/end or game start/exit */
-    putMetrics(url: string, info: IPutMetricsRequestData, sessionId: string): INullResponseData;
+    putMetrics(url: string, request: IPutMetricsRequestData, sessionId: string): INullResponseData;
+    eventDisconnect(url: string, request: IPutMetricsRequestData, sessionId: string): INullResponseData;
     serverAvailable(url: string, info: IEmptyRequestData, sessionId: string): IGetBodyResponseData<boolean>;
     /** Handle match/group/start_game */
     joinMatch(url: string, info: IMatchGroupStartGameRequest, sessionID: string): IGetBodyResponseData<IProfileStatusResponse>;
     /** Handle client/getMetricsConfig */
-    getMetrics(url: string, info: any, sessionID: string): IGetBodyResponseData<string>;
+    getMetrics(url: string, info: any, sessionID: string): IGetBodyResponseData<IMetrics>;
     /**
      * Called periodically while in a group
      * Handle client/match/group/status
@@ -63,8 +66,10 @@ export declare class MatchCallbacks {
     leaveGroup(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<boolean>;
     /** Handle client/match/group/player/remove */
     removePlayerFromGroup(url: string, info: IMatchGroupPlayerRemoveRequest, sessionID: string): IGetBodyResponseData<boolean>;
-    /** Handle client/match/offline/end */
-    endOfflineRaid(url: string, info: IEndOfflineRaidRequestData, sessionID: string): INullResponseData;
+    /** Handle client/match/local/start */
+    startLocalRaid(url: string, info: IStartLocalRaidRequestData, sessionID: string): IGetBodyResponseData<IStartLocalRaidResponseData>;
+    /** Handle client/match/local/end */
+    endLocalRaid(url: string, info: IEndLocalRaidRequestData, sessionID: string): INullResponseData;
     /** Handle client/raid/configuration */
     getRaidConfiguration(url: string, info: IGetRaidConfigurationRequestData, sessionID: string): INullResponseData;
     /** Handle client/raid/configuration-by-profile */

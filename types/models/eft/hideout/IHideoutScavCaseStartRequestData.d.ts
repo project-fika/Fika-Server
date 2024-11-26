@@ -1,15 +1,15 @@
 export interface IHideoutScavCaseStartRequestData {
     Action: "HideoutScavCaseProductionStart";
     recipeId: string;
-    items: HideoutItem[];
-    tools: Tool[];
+    items: IHideoutItem[];
+    tools: ITool[];
     timestamp: number;
 }
-export interface HideoutItem {
+export interface IHideoutItem {
     id: string;
     count: number;
 }
-export interface Tool {
+export interface ITool {
     id: string;
     count: number;
 }

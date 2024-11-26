@@ -1,4 +1,4 @@
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { QuestRewardType } from "@spt/models/enums/QuestRewardType";
 import { QuestStatus } from "@spt/models/enums/QuestStatus";
 import { QuestTypeEnum } from "@spt/models/enums/QuestTypeEnum";
@@ -17,21 +17,19 @@ export interface IQuest {
     image: string;
     type: QuestTypeEnum;
     isKey: boolean;
-    /** @deprecated - Likely not used, use 'status' instead */
-    questStatus: QuestStatus;
     restartable: boolean;
     instantComplete: boolean;
     secretQuest: boolean;
     startedMessageText: string;
     successMessageText: string;
-    acceptPlayerMessage: string;
+    acceptPlayerMessage?: string;
     declinePlayerMessage: string;
-    completePlayerMessage: string;
-    templateId: string;
+    completePlayerMessage?: string;
+    templateId?: string;
     rewards: IQuestRewards;
     /** Becomes 'AppearStatus' inside client */
-    status: string | number;
-    KeyQuest: boolean;
+    status?: string | number;
+    KeyQuest?: boolean;
     changeQuestMessageText: string;
     /** "Pmc" or "Scav" */
     side: string;
@@ -39,10 +37,10 @@ export interface IQuest {
     sptStatus?: QuestStatus;
 }
 export interface IQuestConditionTypes {
-    Started: IQuestCondition[];
+    Started?: IQuestCondition[];
     AvailableForFinish: IQuestCondition[];
     AvailableForStart: IQuestCondition[];
-    Success: IQuestCondition[];
+    Success?: IQuestCondition[];
     Fail: IQuestCondition[];
 }
 export interface IQuestCondition {
@@ -50,21 +48,24 @@ export interface IQuestCondition {
     index?: number;
     compareMethod?: string;
     dynamicLocale: boolean;
-    visibilityConditions?: VisibilityCondition[];
+    visibilityConditions?: IVisibilityCondition[];
     globalQuestCounterId?: string;
     parentId?: string;
-    target: string[] | string;
+    target?: string[] | string;
     value?: string | number;
-    type?: boolean;
+    type?: boolean | string;
     status?: QuestStatus[];
     availableAfter?: number;
     dispersion?: number;
     onlyFoundInRaid?: boolean;
     oneSessionOnly?: boolean;
+    isResetOnConditionFailed?: boolean;
+    isNecessary?: boolean;
     doNotResetIfCounterCompleted?: boolean;
-    dogtagLevel?: number;
-    maxDurability?: number;
-    minDurability?: number;
+    dogtagLevel?: number | string;
+    traderId?: string;
+    maxDurability?: number | string;
+    minDurability?: number | string;
     counter?: IQuestConditionCounter;
     plantTime?: number;
     zoneId?: string;
@@ -79,7 +80,7 @@ export interface IQuestConditionCounter {
 }
 export interface IQuestConditionCounterCondition {
     id: string;
-    dynamicLocale: boolean;
+    dynamicLocale?: boolean;
     target?: string[] | string;
     completeInSeconds?: number;
     energy?: IValueCompare;
@@ -87,7 +88,7 @@ export interface IQuestConditionCounterCondition {
     hydration?: IValueCompare;
     time?: IValueCompare;
     compareMethod?: string;
-    value?: number;
+    value?: number | string;
     weapon?: string[];
     distance?: ICounterConditionDistance;
     equipmentInclusive?: string[][];
@@ -120,12 +121,12 @@ export interface IDaytimeCounter {
     from: number;
     to: number;
 }
-export interface VisibilityCondition {
+export interface IVisibilityCondition {
     id: string;
     target: string;
     value?: number;
     dynamicLocale?: boolean;
-    oneSessionOnly: boolean;
+    oneSessionOnly?: boolean;
     conditionType: string;
 }
 export interface IQuestRewards {
@@ -143,10 +144,14 @@ export interface IQuestReward {
     type: QuestRewardType;
     index: number;
     target?: string;
-    items?: Item[];
+    items?: IItem[];
     loyaltyLevel?: number;
     /** Hideout area id */
     traderId?: string;
     unknown?: boolean;
     findInRaid?: boolean;
+    /** Game editions whitelisted to get reward */
+    availableInGameEditions?: string[];
+    /** Game editions blacklisted from getting reward */
+    notAvailableInGameEditions?: string[];
 }

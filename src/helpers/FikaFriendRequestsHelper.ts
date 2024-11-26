@@ -52,6 +52,12 @@ export class FikaFriendRequestsHelper {
             return;
         }
 
+        if (!this.saveServer.profileExists(toProfileId)) {
+            this.logger.logWithColor(`Friend request: ${toProfileId} doesn't exist! ${fromProfileId} tried to add an invalid user!`, LogTextColor.YELLOW);
+
+            return;
+        }
+
         this.fikaFriendRequestsCacheService.storeFriendRequest({
             _id: this.hashUtil.generate(),
             from: fromProfileId,
@@ -77,12 +83,11 @@ export class FikaFriendRequestsHelper {
                         MemberCategory: profile.characters.pmc.Info.MemberCategory,
                         SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
                         Ignored: false,
-                        Banned: profile.characters.pmc.Info.BannedState
-                    }
-                }
+                        Banned: profile.characters.pmc.Info.BannedState,
+                    },
+                },
             } as any);
-        }
-        else {
+        } else {
             this.logger.logWithColor(`Could not find profile for ${fromProfileId}`, LogTextColor.RED);
         }
     }
@@ -117,9 +122,9 @@ export class FikaFriendRequestsHelper {
                             MemberCategory: profile.characters.pmc.Info.MemberCategory,
                             SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
                             Ignored: false,
-                            Banned: profile.characters.pmc.Info.BannedState
-                        }
-                    }
+                            Banned: profile.characters.pmc.Info.BannedState,
+                        },
+                    },
                 } as any);
 
                 break;
@@ -139,9 +144,9 @@ export class FikaFriendRequestsHelper {
                             MemberCategory: profile.characters.pmc.Info.MemberCategory,
                             SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
                             Ignored: false,
-                            Banned: profile.characters.pmc.Info.BannedState
-                        }
-                    }
+                            Banned: profile.characters.pmc.Info.BannedState,
+                        },
+                    },
                 } as any);
 
                 break;
@@ -161,9 +166,9 @@ export class FikaFriendRequestsHelper {
                             MemberCategory: profile.characters.pmc.Info.MemberCategory,
                             SelectedMemberCategory: profile.characters.pmc.Info.MemberCategory,
                             Ignored: false,
-                            Banned: profile.characters.pmc.Info.BannedState
-                        }
-                    }
+                            Banned: profile.characters.pmc.Info.BannedState,
+                        },
+                    },
                 } as any);
 
                 break;

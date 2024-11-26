@@ -1,25 +1,19 @@
 import { IBaseInteractionRequestData } from "@spt/models/eft/common/request/IBaseInteractionRequestData";
+import { IItemLocation } from "@spt/models/eft/common/tables/IItem";
 export interface IInventoryBaseActionRequestData extends IBaseInteractionRequestData {
 }
-export interface To {
+export interface ITo {
     id: string;
     container: string;
-    location?: ToLocation | number;
+    location?: IItemLocation | number;
     isSearched?: boolean;
 }
-export interface ToLocation {
-    x: number;
-    y: number;
-    r: string;
-    rotation?: string;
-    isSearched: boolean;
-}
-export interface Container {
+export interface IContainer {
     id: string;
     container: string;
-    location?: Location | number;
+    location?: ILocation | number;
 }
-export interface Location {
+export interface ILocation {
     x: number;
     y: number;
     r: string;

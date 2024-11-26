@@ -6,11 +6,13 @@ import { PaymentHelper } from "@spt/helpers/PaymentHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBarterScheme } from "@spt/models/eft/common/tables/ITrader";
-import { IRagfairOffer, IRagfairOfferUser, OfferRequirement } from "@spt/models/eft/ragfair/IRagfairOffer";
-import { Dynamic, IArmorPlateBlacklistSettings, IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { IOfferRequirement, IRagfairOffer, IRagfairOfferUser } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { IArmorPlateBlacklistSettings, IBarterDetails, IDynamic, IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { ITplWithFleaPrice } from "@spt/models/spt/ragfair/ITplWithFleaPrice";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -45,6 +47,7 @@ export declare class RagfairOfferGenerator {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected ragfairConfig: IRagfairConfig;
+    protected botConfig: IBotConfig;
     protected allowedFleaPriceItemsForBarter: {
         tpl: string;
         price: number;
@@ -62,7 +65,7 @@ export declare class RagfairOfferGenerator {
      * @param sellInOnePiece Flags sellInOnePiece to be true
      * @returns Created flea offer
      */
-    createAndAddFleaOffer(userID: string, time: number, items: Item[], barterScheme: IBarterScheme[], loyalLevel: number, sellInOnePiece?: boolean): IRagfairOffer;
+    createAndAddFleaOffer(userID: string, time: number, items: IItem[], barterScheme: IBarterScheme[], loyalLevel: number, sellInOnePiece?: boolean): IRagfairOffer;
     /**
      * Create an offer object ready to send to ragfairOfferService.addOffer()
      * @param userID Owner of the offer
@@ -73,7 +76,7 @@ export declare class RagfairOfferGenerator {
      * @param isPackOffer Is offer being created flaged as a pack
      * @returns IRagfairOffer
      */
-    protected createOffer(userID: string, time: number, items: Item[], barterScheme: IBarterScheme[], loyalLevel: number, isPackOffer?: boolean): IRagfairOffer;
+    protected createOffer(userID: string, time: number, items: IItem[], barterScheme: IBarterScheme[], loyalLevel: number, isPackOffer?: boolean): IRagfairOffer;
     /**
      * Create the user object stored inside each flea offer object
      * @param userID user creating the offer
@@ -86,7 +89,7 @@ export declare class RagfairOfferGenerator {
      * @param offerRequirements barter requirements for offer
      * @returns rouble cost of offer
      */
-    protected convertOfferRequirementsIntoRoubles(offerRequirements: OfferRequirement[]): number;
+    protected convertOfferRequirementsIntoRoubles(offerRequirements: IOfferRequirement[]): number;
     /**
      * Get avatar url from trader table in db
      * @param isTrader Is user we're getting avatar for a trader
@@ -130,28 +133,29 @@ export declare class RagfairOfferGenerator {
      * Create multiple offers for items by using a unique list of items we've generated previously
      * @param expiredOffers optional, expired offers to regenerate
      */
-    generateDynamicOffers(expiredOffers?: Item[][]): Promise<void>;
+    generateDynamicOffers(expiredOffers?: IItem[][]): Promise<void>;
     /**
      * @param assortItemWithChildren Item with its children to process into offers
      * @param isExpiredOffer is an expired offer
      * @param config Ragfair dynamic config
      */
-    protected createOffersFromAssort(assortItemWithChildren: Item[], isExpiredOffer: boolean, config: Dynamic): Promise<void>;
+    protected createOffersFromAssort(assortItemWithChildren: IItem[], isExpiredOffer: boolean, config: IDynamic): Promise<void>;
     /**
      * iterate over an items chidren and look for plates above desired level and remove them
      * @param presetWithChildren preset to check for plates
      * @param plateSettings Settings
      * @returns True if plate removed
      */
-    protected removeBannedPlatesFromPreset(presetWithChildren: Item[], plateSettings: IArmorPlateBlacklistSettings): boolean;
+    protected removeBannedPlatesFromPreset(presetWithChildren: IItem[], plateSettings: IArmorPlateBlacklistSettings): boolean;
     /**
      * Create one flea offer for a specific item
+     * @param sellerId Id of seller
      * @param itemWithChildren Item to create offer for
      * @param isPreset Is item a weapon preset
-     * @param itemDetails raw db item details
+     * @param itemToSellDetails Raw db item details
      * @returns Item array
      */
-    protected createSingleOfferForItem(itemWithChildren: Item[], isPreset: boolean, itemDetails: [boolean, ITemplateItem]): Promise<void>;
+    protected createSingleOfferForItem(sellerId: string, itemWithChildren: IItem[], isPreset: boolean, itemToSellDetails: ITemplateItem): Promise<void>;
     /**
      * Generate trader offers on flea using the traders assort data
      * @param traderID Trader to generate offers for
@@ -164,7 +168,7 @@ export declare class RagfairOfferGenerator {
      * @param itemWithMods Item and mods, get condition of first item (only first array item is modified)
      * @param itemDetails db details of first item
      */
-    protected randomiseOfferItemUpdProperties(userID: string, itemWithMods: Item[], itemDetails: ITemplateItem): void;
+    protected randomiseOfferItemUpdProperties(userID: string, itemWithMods: IItem[], itemDetails: ITemplateItem): void;
     /**
      * Get the relevant condition id if item tpl matches in ragfair.json/condition
      * @param tpl Item to look for matching condition object
@@ -177,7 +181,7 @@ export declare class RagfairOfferGenerator {
      * @param itemWithMods Item to adjust condition details of
      * @param itemDetails db item details of first item in array
      */
-    protected randomiseItemCondition(conditionSettingsId: string, itemWithMods: Item[], itemDetails: ITemplateItem): void;
+    protected randomiseItemCondition(conditionSettingsId: string, itemWithMods: IItem[], itemDetails: ITemplateItem): void;
     /**
      * Adjust an items durability/maxDurability value
      * @param item item (weapon/armor) to Adjust
@@ -185,35 +189,33 @@ export declare class RagfairOfferGenerator {
      * @param maxMultiplier Value to multiply max durability by
      * @param currentMultiplier Value to multiply current durability by
      */
-    protected randomiseWeaponDurability(item: Item, itemDbDetails: ITemplateItem, maxMultiplier: number, currentMultiplier: number): void;
+    protected randomiseWeaponDurability(item: IItem, itemDbDetails: ITemplateItem, maxMultiplier: number, currentMultiplier: number): void;
     /**
      * Randomise the durabiltiy values for an armors plates and soft inserts
      * @param armorWithMods Armor item with its child mods
      * @param currentMultiplier Chosen multipler to use for current durability value
      * @param maxMultiplier Chosen multipler to use for max durability value
      */
-    protected randomiseArmorDurabilityValues(armorWithMods: Item[], currentMultiplier: number, maxMultiplier: number): void;
+    protected randomiseArmorDurabilityValues(armorWithMods: IItem[], currentMultiplier: number, maxMultiplier: number): void;
     /**
      * Add missing conditions to an item if needed
      * Durabiltiy for repairable items
      * HpResource for medical items
      * @param item item to add conditions to
      */
-    protected addMissingConditions(item: Item): void;
+    protected addMissingConditions(item: IItem): void;
     /**
      * Create a barter-based barter scheme, if not possible, fall back to making barter scheme currency based
      * @param offerItems Items for sale in offer
+     * @param barterConfig Barter config from ragfairConfig.dynamic.barter
      * @returns Barter scheme
      */
-    protected createBarterBarterScheme(offerItems: Item[]): IBarterScheme[];
+    protected createBarterBarterScheme(offerItems: IItem[], barterConfig: IBarterDetails): IBarterScheme[];
     /**
      * Get an array of flea prices + item tpl, cached in generator class inside `allowedFleaPriceItemsForBarter`
      * @returns array with tpl/price values
      */
-    protected getFleaPricesAsArray(): {
-        tpl: string;
-        price: number;
-    }[];
+    protected getFleaPricesAsArray(): ITplWithFleaPrice[];
     /**
      * Create a random currency-based barter scheme for an array of items
      * @param offerWithChildren Items on offer
@@ -221,5 +223,5 @@ export declare class RagfairOfferGenerator {
      * @param multipler What to multiply the resulting price by
      * @returns Barter scheme for offer
      */
-    protected createCurrencyBarterScheme(offerWithChildren: Item[], isPackOffer: boolean, multipler?: number): IBarterScheme[];
+    protected createCurrencyBarterScheme(offerWithChildren: IItem[], isPackOffer: boolean, multipler?: number): IBarterScheme[];
 }

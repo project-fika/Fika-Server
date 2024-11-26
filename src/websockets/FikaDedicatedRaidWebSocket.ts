@@ -1,15 +1,17 @@
-import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { inject, injectable } from "tsyringe";
-import { IDedicatedClientInfo } from "../models/fika/dedicated/IDedicatedClientInfo";
+
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { SaveServer } from "@spt/servers/SaveServer";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { IncomingMessage } from "http";
 import { WebSocket } from "ws";
 
 @injectable()
-export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
+export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
     public clientWebSockets: Record<string, WebSocket>;
 
     constructor(
+        @inject("SaveServer") protected saveServer: SaveServer,
         @inject("WinstonLogger") protected logger: ILogger,
     ) {
         this.clientWebSockets = {};
@@ -20,36 +22,57 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
         }, 30000);
     }
 
-    public getSocketId(): string
-    {
-        return "FikaDedicatedRaidService";
+    public getSocketId(): string {
+        return "Fika Dedicated Raid Service";
     }
 
-    public getHookUrl(): string
-    {
+    public getHookUrl(): string {
         return "/fika/dedicatedraidservice/";
     }
 
-    public onConnection(ws: WebSocket, req: IncomingMessage): void
-    {
-        // Strip request and break it into sections
-        const splitUrl = req.url.substring(0, req.url.indexOf("?")).split("/");
-        const sessionID = splitUrl.pop();
+    public onConnection(ws: WebSocket, req: IncomingMessage): void {
+        if (req.headers.authorization === undefined) {
+            ws.close();
+            return;
+        }
 
-        this.clientWebSockets[sessionID] = ws;
+        const Authorization = Buffer.from(req.headers.authorization.split(" ")[1], "base64").toString().split(":");
+        const UserSessionID = Authorization[0];
 
-        ws.on("message", (msg) => this.onMessage(sessionID, msg.toString()));
+        this.logger.debug(`[${this.getSocketId()}] User is ${UserSessionID}`);
+
+        if (!this.saveServer.getProfile(UserSessionID)) {
+            this.logger.warning(`[${this.getSocketId()}] Invalid user ${UserSessionID} tried to authenticate!`);
+            return;
+        }
+
+        this.clientWebSockets[UserSessionID] = ws;
+
+        ws.on("message", (msg) => this.onMessage(UserSessionID, msg.toString()));
+        ws.on("close", (code, reason) => this.onClose(ws, UserSessionID, code, reason));
     }
 
-    public onMessage(sessionID: string, msg: string) {
+    // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
+    public onMessage(sessionID: string, msg: string): void {
         // Do nothing
     }
 
-    public keepWebSocketAlive() {
+    // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
+    public onClose(ws: WebSocket, sessionID: string, code: number, reason: Buffer): void {
+        const clientWebSocket = this.clientWebSockets[sessionID];
+
+        if (clientWebSocket === ws) {
+            this.logger.debug(`[${this.getSocketId()}] Deleting client ${sessionID}`);
+
+            delete this.clientWebSockets[sessionID];
+        }
+    }
+
+    private keepWebSocketAlive(): void {
         for (const sessionId in this.clientWebSockets) {
             const clientWebSocket = this.clientWebSockets[sessionId];
 
-            if(clientWebSocket.readyState == WebSocket.CLOSED) {
+            if (clientWebSocket.readyState == WebSocket.CLOSED) {
                 delete this.clientWebSockets[sessionId];
                 return;
             }
@@ -57,7 +80,7 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler{
             // Send a keep alive message to the dedicated client
             clientWebSocket.send(
                 JSON.stringify({
-                    type: "fikaDedicatedKeepAlive"
+                    type: "fikaDedicatedKeepAlive",
                 }),
             );
         }

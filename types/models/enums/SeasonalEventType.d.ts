@@ -4,5 +4,5 @@ export declare enum SeasonalEventType {
     HALLOWEEN = "Halloween",
     NEW_YEARS = "NewYears",
     PROMO = "Promo",
-    SNOW = "Snow"
+    APRIL_FOOLS = "AprilFools"
 }

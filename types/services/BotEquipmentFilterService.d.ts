@@ -1,8 +1,8 @@
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { EquipmentChances, Generation, GenerationData, IBotType, ModsChances } from "@spt/models/eft/common/tables/IBotType";
-import { BotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
-import { EquipmentFilterDetails, EquipmentFilters, IAdjustmentDetails, IBotConfig, WeightingAdjustmentDetails } from "@spt/models/spt/config/IBotConfig";
+import { EquipmentChances, IBotType, IGeneration, IGenerationData, IModsChances } from "@spt/models/eft/common/tables/IBotType";
+import { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
+import { EquipmentFilters, IAdjustmentDetails, IBotConfig, IEquipmentFilterDetails, IWeightingAdjustmentDetails } from "@spt/models/spt/config/IBotConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 export declare class BotEquipmentFilterService {
@@ -20,19 +20,19 @@ export declare class BotEquipmentFilterService {
      * @param botLevel Level of the bot
      * @param botGenerationDetails details on how to generate a bot
      */
-    filterBotEquipment(sessionId: string, baseBotNode: IBotType, botLevel: number, botGenerationDetails: BotGenerationDetails): void;
+    filterBotEquipment(sessionId: string, baseBotNode: IBotType, botLevel: number, botGenerationDetails: IBotGenerationDetails): void;
     /**
      * Iterate over the changes passed in and apply them to baseValues parameter
      * @param equipmentChanges Changes to apply
      * @param baseValues data to update
      */
-    protected adjustChances(equipmentChanges: Record<string, number>, baseValues: EquipmentChances | ModsChances): void;
+    protected adjustChances(equipmentChanges: Record<string, number>, baseValues: EquipmentChances | IModsChances): void;
     /**
      * Iterate over the Generation changes and alter data in baseValues.Generation
      * @param generationChanges Changes to apply
      * @param baseBotGeneration dictionary to update
      */
-    protected adjustGenerationChances(generationChanges: Record<string, GenerationData>, baseBotGeneration: Generation): void;
+    protected adjustGenerationChances(generationChanges: Record<string, IGenerationData>, baseBotGeneration: IGeneration): void;
     /**
      * Get equipment settings for bot
      * @param botEquipmentRole equipment role to return
@@ -51,28 +51,28 @@ export declare class BotEquipmentFilterService {
      * @param playerLevel Level of the player
      * @returns EquipmentBlacklistDetails object
      */
-    getBotEquipmentBlacklist(botRole: string, playerLevel: number): EquipmentFilterDetails | undefined;
+    getBotEquipmentBlacklist(botRole: string, playerLevel: number): IEquipmentFilterDetails | undefined;
     /**
      * Get the whitelist for a specific bot type that's within the players level
      * @param botRole Bot type
      * @param playerLevel Players level
      * @returns EquipmentFilterDetails object
      */
-    protected getBotEquipmentWhitelist(botRole: string, playerLevel: number): EquipmentFilterDetails | undefined;
+    protected getBotEquipmentWhitelist(botRole: string, playerLevel: number): IEquipmentFilterDetails | undefined;
     /**
      * Retrieve item weighting adjustments from bot.json config based on bot level
      * @param botRole Bot type to get adjustments for
      * @param botLevel Level of bot
      * @returns Weighting adjustments for bot items
      */
-    protected getBotWeightingAdjustments(botRole: string, botLevel: number): WeightingAdjustmentDetails | undefined;
+    protected getBotWeightingAdjustments(botRole: string, botLevel: number): IWeightingAdjustmentDetails | undefined;
     /**
      * Retrieve item weighting adjustments from bot.json config based on player level
      * @param botRole Bot type to get adjustments for
      * @param playerlevel Level of bot
      * @returns Weighting adjustments for bot items
      */
-    protected getBotWeightingAdjustmentsByPlayerLevel(botRole: string, playerlevel: number): WeightingAdjustmentDetails | undefined;
+    protected getBotWeightingAdjustmentsByPlayerLevel(botRole: string, playerlevel: number): IWeightingAdjustmentDetails | undefined;
     /**
      * Filter bot equipment based on blacklist and whitelist from config/bot.json
      * Prioritizes whitelist first, if one is found blacklist is ignored
@@ -80,7 +80,7 @@ export declare class BotEquipmentFilterService {
      * @param blacklist equipment blacklist
      * @returns Filtered bot file
      */
-    protected filterEquipment(baseBotNode: IBotType, blacklist: EquipmentFilterDetails, whitelist: EquipmentFilterDetails): void;
+    protected filterEquipment(baseBotNode: IBotType, blacklist: IEquipmentFilterDetails, whitelist: IEquipmentFilterDetails): void;
     /**
      * Filter bot cartridges based on blacklist and whitelist from config/bot.json
      * Prioritizes whitelist first, if one is found blacklist is ignored
@@ -89,7 +89,7 @@ export declare class BotEquipmentFilterService {
      * @param whitelist equipment on this list should be used exclusively
      * @returns Filtered bot file
      */
-    protected filterCartridges(baseBotNode: IBotType, blacklist: EquipmentFilterDetails, whitelist: EquipmentFilterDetails): void;
+    protected filterCartridges(baseBotNode: IBotType, blacklist: IEquipmentFilterDetails, whitelist: IEquipmentFilterDetails): void;
     /**
      * Add/Edit weighting changes to bot items using values from config/bot.json/equipment
      * @param weightingAdjustments Weighting change to apply to bot

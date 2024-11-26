@@ -1,8 +1,8 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
-import { Item } from "@spt/models/eft/common/tables/IItem";
-export interface OwnerInventoryItems {
-    from: Item[];
-    to: Item[];
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+export interface IOwnerInventoryItems {
+    from: IItem[];
+    to: IItem[];
     sameInventory: boolean;
     isMail: boolean;
 }
@@ -14,5 +14,5 @@ export declare class SecureContainerHelper {
      * @param items Inventory items to look for secure container in
      * @returns Array of ids
      */
-    getSecureContainerItems(items: Item[]): string[];
+    getSecureContainerItems(items: IItem[]): string[];
 }
