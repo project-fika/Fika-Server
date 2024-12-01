@@ -98,8 +98,7 @@ export class ProfileControllerOverride extends Override {
                         },
                         skills: playerPmc.Skills,
                         equipment: {
-                            // Default inventory tpl
-                            Id: playerPmc.Inventory.items.find((x) => x._tpl === "55d7217a4bdc2d86028b456d")._id,
+                            Id: playerPmc.Inventory.equipment,
                             Items: playerPmc.Inventory.items,
                         },
                         achievements: playerPmc.Achievements,
