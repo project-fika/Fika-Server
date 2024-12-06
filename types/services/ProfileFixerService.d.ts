@@ -2,9 +2,11 @@ import { HideoutHelper } from "@spt/helpers/HideoutHelper";
 import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { QuestHelper } from "@spt/helpers/QuestHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IBonus, IHideoutSlot } from "@spt/models/eft/common/tables/IBotBase";
+import { IQuest, IQuestReward } from "@spt/models/eft/common/tables/IQuest";
 import { IPmcDataRepeatableQuest, IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IStageBonus } from "@spt/models/eft/hideout/IHideoutArea";
@@ -36,9 +38,10 @@ export declare class ProfileFixerService {
     protected hashUtil: HashUtil;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
+    protected questHelper: QuestHelper;
     protected coreConfig: ICoreConfig;
     protected ragfairConfig: IRagfairConfig;
-    constructor(logger: ILogger, watermark: Watermark, databaseService: DatabaseService, hideoutHelper: HideoutHelper, inventoryHelper: InventoryHelper, traderHelper: TraderHelper, profileHelper: ProfileHelper, itemHelper: ItemHelper, localisationService: LocalisationService, timeUtil: TimeUtil, jsonUtil: JsonUtil, hashUtil: HashUtil, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, watermark: Watermark, databaseService: DatabaseService, hideoutHelper: HideoutHelper, inventoryHelper: InventoryHelper, traderHelper: TraderHelper, profileHelper: ProfileHelper, itemHelper: ItemHelper, localisationService: LocalisationService, timeUtil: TimeUtil, jsonUtil: JsonUtil, hashUtil: HashUtil, configServer: ConfigServer, cloner: ICloner, questHelper: QuestHelper);
     /**
      * Find issues in the pmc profile data that may cause issues and fix them
      * @param pmcProfile profile to check and fix
@@ -71,6 +74,25 @@ export declare class ProfileFixerService {
      * @param pmcProfile Profile to remove dead quests from
      */
     protected removeOrphanedQuests(pmcProfile: IPmcData): void;
+    /**
+     * Verify that all quest production unlocks have been applied to the PMC Profile
+     * @param pmcProfile The profile to validate quest productions for
+     */
+    protected verifyQuestProductionUnlocks(pmcProfile: IPmcData): void;
+    /**
+     * Validate that the given profile has the given quest reward production scheme unlocked, and add it if not
+     * @param pmcProfile Profile to check
+     * @param productionUnlockReward The quest reward to validate
+     * @param questDetails The quest the reward belongs to
+     * @returns
+     */
+    protected verifyQuestProductionUnlock(pmcProfile: IPmcData, productionUnlockReward: IQuestReward, questDetails: IQuest): void;
+    /**
+     * Initial release of SPT 3.10 used an incorrect favorites structure, reformat
+     * the structure to the correct MongoID array structure
+     * @param pmcProfile
+     */
+    protected fixFavorites(pmcProfile: IPmcData): void;
     /**
      * If the profile has elite Hideout Managment skill, add the additional slots from globals
      * NOTE: This seems redundant, but we will leave it here just incase.
@@ -120,4 +142,5 @@ export declare class ProfileFixerService {
      * @returns matching bonus
      */
     protected getBonusFromProfile(profileBonuses: IBonus[], bonus: IStageBonus): IBonus | undefined;
+    checkForAndRemoveInvalidTraders(fullProfile: ISptProfile): void;
 }

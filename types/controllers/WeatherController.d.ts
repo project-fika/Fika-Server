@@ -18,11 +18,6 @@ export declare class WeatherController {
     constructor(weatherGenerator: WeatherGenerator, logger: ILogger, configServer: ConfigServer, seasonalEventService: SeasonalEventService, raidWeatherService: RaidWeatherService, weatherHelper: WeatherHelper);
     /** Handle client/weather */
     generate(): IWeatherData;
-    /**
-     * Get the current in-raid time (MUST HAVE PLAYER LOGGED INTO CLIENT TO WORK)
-     * @returns Date object
-     */
-    getCurrentInRaidTime(): Date;
     /** Handle client/localGame/weather */
     generateLocal(sesssionId: string): IGetLocalWeatherResponseData;
 }

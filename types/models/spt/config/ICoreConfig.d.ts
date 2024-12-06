@@ -57,6 +57,8 @@ export interface IGameFixes {
     fixShotgunDispersion: boolean;
     /** Remove items added by mods when the mod no longer exists - can fix dead profiles stuck at game load */
     removeModItemsFromProfile: boolean;
+    /** Remove invalid traders from profile - trader data can be leftover when player removes trader mod */
+    removeInvalidTradersFromProfile: boolean;
     /** Fix issues that cause the game to not start due to inventory item issues */
     fixProfileBreakingInventoryItemIssues: boolean;
 }

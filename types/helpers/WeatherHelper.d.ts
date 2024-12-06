@@ -10,7 +10,7 @@ export declare class WeatherHelper {
     protected weatherConfig: IWeatherConfig;
     constructor(logger: ILogger, timeUtil: TimeUtil, configServer: ConfigServer);
     /**
-     * Get the current in-raid time
+     * Get the current in-raid time - does not include an accurate date, only time
      * @param currentDate (new Date())
      * @returns Date object of current in-raid time
      */

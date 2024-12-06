@@ -44,7 +44,7 @@ export declare class LocaleService {
      * Get the full locale of the computer running the server lowercased e.g. en-gb / pt-pt
      * @returns string
      */
-    protected getPlatformForServerLocale(): string;
+    getPlatformForServerLocale(): string;
     /**
      * Get the locale of the computer running the server
      * @returns langage part of locale e.g. 'en' part of 'en-US'

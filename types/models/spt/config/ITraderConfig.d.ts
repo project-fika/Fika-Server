@@ -4,10 +4,10 @@ import { ILootRequest } from "@spt/models/spt/services/ILootRequest";
 export interface ITraderConfig extends IBaseConfig {
     kind: "spt-trader";
     updateTime: IUpdateTime[];
+    updateTimeDefault: number;
     purchasesAreFoundInRaid: boolean;
     /** Should trader reset times be set based on server start time (false = bsg time - on the hour) */
     tradersResetFromServerStart: boolean;
-    updateTimeDefault: number;
     traderPriceMultipler: number;
     fence: IFenceConfig;
     moddedTraders: IModdedTraders;

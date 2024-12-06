@@ -138,6 +138,18 @@ export declare class SeasonalEventService {
      */
     protected enableHalloweenSummonEvent(): void;
     protected configureZombies(zombieSettings: IZombieSettings): void;
+    /**
+     * Get location ids of maps with an infection above 0
+     * @param locationInfections Dict of locations with their infection percentage
+     * @returns Array of location ids
+     */
+    protected getLocationsWithZombies(locationInfections: Record<string, number>): string[];
+    /**
+     * BSG store the location ids differently inside `LocationInfection`, need to convert to matching location IDs
+     * @param infectedLocationKey Key to convert
+     * @returns Array of locations
+     */
+    protected getLocationFromInfectedLocation(infectedLocationKey: string): string[];
     protected addEventWavesToMaps(eventType: string): void;
     /**
      * Add event bosses to maps

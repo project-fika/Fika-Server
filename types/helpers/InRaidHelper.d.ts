@@ -66,13 +66,6 @@ export declare class InRaidHelper {
      */
     removeFiRStatusFromItemsInContainer(sessionId: string, pmcData: IPmcData, secureContainerSlotId: string): void;
     /**
-     * Deletes quest conditions from pickup tasks given a list of quest items being carried by a PMC.
-     * @param carriedQuestItems Items carried by PMC at death, usually gotten from "CarriedQuestItems"
-     * @param sessionId Current sessionId
-     * @param pmcProfile Pre-raid profile that is being handled with raid information
-     */
-    removePickupQuestConditions(carriedQuestItems: string[], sessionId: string, pmcProfile: IPmcData): void;
-    /**
      * Get an array of items from a profile that will be lost on death
      * @param pmcProfile Profile to get items from
      * @returns Array of items lost on death

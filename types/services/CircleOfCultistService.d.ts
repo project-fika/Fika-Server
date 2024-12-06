@@ -3,14 +3,15 @@ import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { QuestHelper } from "@spt/helpers/QuestHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IBotHideoutArea } from "@spt/models/eft/common/tables/IBotBase";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IStageRequirement } from "@spt/models/eft/hideout/IHideoutArea";
 import { IHideoutCircleOfCultistProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutCircleOfCultistProductionStartRequestData";
-import { IHideoutProduction, IHideoutProductionData, IRequirement, IRequirementBase } from "@spt/models/eft/hideout/IHideoutProduction";
+import { IRequirement, IRequirementBase } from "@spt/models/eft/hideout/IHideoutProduction";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { IDirectRewardSettings, IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
+import { ICraftTimeThreshhold, ICultistCircleSettings, IDirectRewardSettings, IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
@@ -33,13 +34,14 @@ export declare class CircleOfCultistService {
     protected profileHelper: ProfileHelper;
     protected inventoryHelper: InventoryHelper;
     protected hideoutHelper: HideoutHelper;
+    protected questHelper: QuestHelper;
     protected databaseService: DatabaseService;
     protected itemFilterService: ItemFilterService;
     protected seasonalEventService: SeasonalEventService;
     protected configServer: ConfigServer;
     protected static circleOfCultistSlotId: string;
     protected hideoutConfig: IHideoutConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, cloner: ICloner, eventOutputHolder: EventOutputHolder, randomUtil: RandomUtil, hashUtil: HashUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, profileHelper: ProfileHelper, inventoryHelper: InventoryHelper, hideoutHelper: HideoutHelper, databaseService: DatabaseService, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer);
+    constructor(logger: ILogger, timeUtil: TimeUtil, cloner: ICloner, eventOutputHolder: EventOutputHolder, randomUtil: RandomUtil, hashUtil: HashUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, profileHelper: ProfileHelper, inventoryHelper: InventoryHelper, hideoutHelper: HideoutHelper, questHelper: QuestHelper, databaseService: DatabaseService, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer);
     /**
      * Start a sacrifice event
      * Generate rewards
@@ -51,23 +53,37 @@ export declare class CircleOfCultistService {
      */
     startSacrifice(sessionId: string, pmcData: IPmcData, request: IHideoutCircleOfCultistProductionStartRequestData): IItemEventRouterResponse;
     /**
+     * Create a map of the possible direct rewards, keyed by the items needed to be sacrificed
+     * @param directRewards Direct rewards array from hideout config
+     * @returns Map
+     */
+    protected generateSacrificedItemsCache(directRewards: IDirectRewardSettings[]): Map<string, IDirectRewardSettings>;
+    /**
+     * Get the reward amount multiple value based on players hideout management skill + configs rewardPriceMultiplerMinMax values
+     * @param pmcData Player profile
+     * @param cultistCircleSettings Circle config settings
+     * @returns Reward Amount Multipler
+     */
+    protected getRewardAmountMultipler(pmcData: IPmcData, cultistCircleSettings: ICultistCircleSettings): number;
+    /**
      * Register production inside player profile
      * @param sessionId Session id
      * @param pmcData Player profile
      * @param recipeId Recipe id
      * @param sacrificedItems Items player sacrificed
-     * @param rewardAmountRoubles Rouble amount to reward player in items with
-     * @param directRewardSettings OPTIONAL: If craft is giving direct rewards
+     * @param craftingTime How long the ritual should take
      */
-    protected registerCircleOfCultistProduction(sessionId: string, pmcData: IPmcData, recipeId: string, sacrificedItems: IItem[], rewardAmountRoubles: number, directRewardSettings?: IDirectRewardSettings): void;
+    protected registerCircleOfCultistProduction(sessionId: string, pmcData: IPmcData, recipeId: string, sacrificedItems: IItem[], craftingTime: number): void;
     /**
      * Get the circle craft time as seconds, value is based on reward item value
-     * OR rewards are direct, then use custom craft time defined in oarameter object
+     * And get the bonus status to determine what tier of reward is given
      * @param rewardAmountRoubles Value of rewards in roubles
-     * @param directRewardSettings OPTIONAL: If craft is giving direct rewards
-     * @returns craft time seconds
+     * @param circleConfig Circle config values
+     * @param directRewardSettings OPTIONAL - Values related to direct reward being given
+     * @returns craft time + type of reward + reward details
      */
-    protected getCircleCraftTimeSeconds(rewardAmountRoubles: number, directRewardSettings?: IDirectRewardSettings): number;
+    protected getCircleCraftingInfo(rewardAmountRoubles: number, circleConfig: ICultistCircleSettings, directRewardSettings?: IDirectRewardSettings): ICraftDetails;
+    protected getMatchingThreshold(thresholds: ICraftTimeThreshhold[], rewardAmountRoubles: number): ICraftTimeThreshhold;
     /**
      * Get the items player sacrificed in circle
      * @param pmcData Player profile
@@ -81,20 +97,40 @@ export declare class CircleOfCultistService {
      * @param cultistCircleStashId Id of stash item
      * @returns Array of item arrays
      */
-    protected getRewardsWithinBudget(rewardItemTplPool: string[], rewardBudget: number, cultistCircleStashId: string): IItem[][];
+    protected getRewardsWithinBudget(rewardItemTplPool: string[], rewardBudget: number, cultistCircleStashId: string, circleConfig: ICultistCircleSettings): IItem[][];
     /**
-     * Give every item as a reward that's passed in
-     * @param rewardTpls Item tpls to turn into reward items
+     * Get direct rewards
+     * @param sessionId sessionId
+     * @param directReward Items sacrificed
      * @param cultistCircleStashId Id of stash item
-     * @returns Array of item arrays
+     * @returns The reward object
      */
-    protected getExplicitRewards(explicitRewardSettings: IDirectRewardSettings, cultistCircleStashId: string): IItem[][];
+    protected getDirectRewards(sessionId: string, directReward: IDirectRewardSettings, cultistCircleStashId: string): IItem[][];
+    /**
+     * Check for direct rewards from what player sacrificed
+     * @param sessionId sessionId
+     * @param sacrificedItems Items sacrificed
+     * @returns Direct reward items to send to player
+     */
+    protected checkForDirectReward(sessionId: string, sacrificedItems: IItem[], directRewardsCache: Map<string, IDirectRewardSettings>): IDirectRewardSettings;
+    /**
+     * Create an md5 key of the sacrificed + reward items
+     * @param directReward Direct reward to create key for
+     * @returns Key
+     */
+    protected getDirectRewardHashKey(directReward: IDirectRewardSettings): string;
     /**
      * Explicit rewards have thier own stack sizes as they dont use a reward rouble pool
      * @param rewardTpl Item being rewarded to get stack size of
      * @returns stack size of item
      */
-    protected getExplicitRewardBaseTypeStackSize(rewardTpl: string): number;
+    protected getDirectRewardBaseTypeStackSize(rewardTpl: string): number;
+    /**
+     * Add a record to the players profile to signal they have accepted a non-repeatable direct reward
+     * @param sessionId Session id
+     * @param directReward Reward sent to player
+     */
+    protected flagDirectRewardAsAcceptedInProfile(sessionId: string, directReward: IDirectRewardSettings): void;
     /**
      * Get the size of a reward items stack
      * 1 for everything except ammo, ammo can be between min stack and max stack
@@ -107,9 +143,11 @@ export declare class CircleOfCultistService {
      * Get a pool of tpl IDs of items the player needs to complete hideout crafts/upgrade areas
      * @param sessionId Session id
      * @param pmcData Profile of player who will be getting the rewards
+     * @param rewardType Do we return bonus items (hideout/task items)
+     * @param cultistCircleConfig Circle config
      * @returns Array of tpls
      */
-    protected getCultistCircleRewardPool(sessionId: string, pmcData: IPmcData): string[];
+    protected getCultistCircleRewardPool(sessionId: string, pmcData: IPmcData, craftingInfo: ICraftDetails, cultistCircleConfig: ICultistCircleSettings): string[];
     /**
      * Get all active hideout areas
      * @param areas Hideout areas to iterate over
@@ -117,16 +155,27 @@ export declare class CircleOfCultistService {
      */
     protected getPlayerAccessibleHideoutAreas(areas: IBotHideoutArea[]): IBotHideoutArea[];
     /**
-     * Get all recipes the player has access to, includes base + unlocked recipes
-     * @param unlockedRecipes Recipes player has flagged as unlocked
-     * @param allRecipes All recipes
-     * @returns Array of recipes
+     * Get array of random reward items
+     * @param rewardPool Reward pool to add to
+     * @param itemRewardBlacklist Reward Blacklist
+     * @param valuable Should these items meet the valuable threshold
+     * @returns rewardPool
      */
-    protected getPlayerAccessibleRecipes(unlockedRecipes: string[], allRecipes: IHideoutProductionData): IHideoutProduction[];
+    protected getRandomLoot(rewardPool: Set<string>, itemRewardBlacklist: string[], valuable: boolean): Set<string>;
     /**
      * Iterate over passed in hideout requirements and return the Item
      * @param requirements Requirements to iterate over
      * @returns Array of item requirements
      */
     protected getItemRequirements(requirements: IRequirementBase[]): (IStageRequirement | IRequirement)[];
+}
+export declare enum CircleRewardType {
+    RANDOM = 0,
+    HIDEOUT_TASK = 1
+}
+export interface ICraftDetails {
+    time: number;
+    rewardType: CircleRewardType;
+    rewardAmountRoubles: number;
+    rewardDetails?: ICraftTimeThreshhold;
 }

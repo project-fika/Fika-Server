@@ -169,6 +169,13 @@ export interface ISpt {
     freeRepeatableRefreshUsedCount?: Record<string, number>;
     /** When was a profile migrated, value is timestamp */
     migrations?: Record<string, number>;
+    /** Cultist circle rewards received that are one time use, key (md5) is a combination of sacrificed + reward items */
+    cultistRewards?: Map<string, IAcceptedCultistReward>;
+}
+export interface IAcceptedCultistReward {
+    timestamp: number;
+    sacrificeItems: string[];
+    rewardItems: string[];
 }
 export interface IModDetails {
     name: string;
