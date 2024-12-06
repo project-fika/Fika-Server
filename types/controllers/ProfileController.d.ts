@@ -118,6 +118,9 @@ export declare class ProfileController {
      * Handle client/profile/status
      */
     getProfileStatus(sessionId: string): IGetProfileStatusResponseData;
+    /**
+     * Handle client/profile/view
+     */
     getOtherProfile(sessionId: string, request: IGetOtherProfileRequest): IGetOtherProfileResponse;
     /**
      * Handle client/profile/settings

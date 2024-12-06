@@ -67,6 +67,13 @@ export declare class RagfairOfferHelper {
      * @returns Offers the player should see
      */
     getValidOffers(searchRequest: ISearchRequestData, itemsToAdd: string[], traderAssorts: Record<string, ITraderAssort>, pmcData: IPmcData): IRagfairOffer[];
+    /**
+     * Disable offer if item is flagged by tiered flea config
+     * @param tieredFlea Tiered flea settings from ragfair config
+     * @param offer Ragfair offer to check
+     * @param tieredFleaLimitTypes Dict of item types with player level to be viewable
+     * @param playerLevel Level of player viewing offer
+     */
     protected checkAndLockOfferFromPlayerTieredFlea(tieredFlea: ITieredFlea, offer: IRagfairOffer, tieredFleaLimitTypes: string[], playerLevel: number): void;
     /**
      * Get matching offers that require the desired item and filter out offers from non traders if player is below ragfair unlock level
@@ -99,14 +106,14 @@ export declare class RagfairOfferHelper {
      */
     traderOfferItemQuestLocked(offer: IRagfairOffer, traderAssorts: Record<string, ITraderAssort>): boolean;
     /**
-     * Has a traders offer ran out of stock to sell to player
+     * Has trader offer ran out of stock to sell to player
      * @param offer Offer to check stock of
      * @returns true if out of stock
      */
     protected traderOutOfStock(offer: IRagfairOffer): boolean;
     /**
      * Check if trader offers' BuyRestrictionMax value has been reached
-     * @param offer offer to check restriction properties of
+     * @param offer Offer to check restriction properties of
      * @returns true if restriction reached, false if no restrictions/not reached
      */
     protected traderBuyRestrictionReached(offer: IRagfairOffer): boolean;
@@ -114,7 +121,7 @@ export declare class RagfairOfferHelper {
      * Get an array of flea offers that are inaccessible to player due to their inadequate loyalty level
      * @param offers Offers to check
      * @param pmcProfile Players profile with trader loyalty levels
-     * @returns array of offer ids player cannot see
+     * @returns Array of offer ids player cannot see
      */
     protected getLoyaltyLockedOffers(offers: IRagfairOffer[], pmcProfile: IPmcData): string[];
     /**
@@ -126,7 +133,7 @@ export declare class RagfairOfferHelper {
     /**
      * Count up all rootitem StackObjectsCount properties of an array of items
      * @param itemsInInventoryToList items to sum up
-     * @returns Total count
+     * @returns Total stack count
      */
     getTotalStackCountSize(itemsInInventoryToList: IItem[][]): number;
     /**
@@ -164,16 +171,16 @@ export declare class RagfairOfferHelper {
     protected getLocalisedOfferSoldMessage(itemTpl: string, boughtAmount: number): string;
     /**
      * Check an offer passes the various search criteria the player requested
-     * @param searchRequest
-     * @param offer
-     * @param pmcData
-     * @returns True
+     * @param searchRequest Client search request
+     * @param offer Offer to check
+     * @param pmcData Player profile
+     * @returns True if offer passes criteria
      */
     protected passesSearchFilterCriteria(searchRequest: ISearchRequestData, offer: IRagfairOffer, pmcData: IPmcData): boolean;
     /**
      * Check that the passed in offer item is functional
      * @param offerRootItem The root item of the offer
-     * @param offer The flea offer
+     * @param offer Flea offer to check
      * @returns True if the given item is functional
      */
     isItemFunctional(offerRootItem: IItem, offer: IRagfairOffer): boolean;
@@ -181,7 +188,7 @@ export declare class RagfairOfferHelper {
      * Should a ragfair offer be visible to the player
      * @param searchRequest Search request
      * @param itemsToAdd ?
-     * @param traderAssorts Trader assort items
+     * @param traderAssorts Trader assort items - used for filtering out locked trader items
      * @param offer The flea offer
      * @param pmcProfile Player profile
      * @returns True = should be shown to player
