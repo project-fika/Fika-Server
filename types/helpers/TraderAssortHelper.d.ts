@@ -44,10 +44,10 @@ export declare class TraderAssortHelper {
      * Filter out assorts not unlocked due to level OR quest completion
      * @param sessionId session id
      * @param traderId traders id
-     * @param flea Should assorts player hasn't unlocked be returned - default false
+     * @param showLockedAssorts Should assorts player hasn't unlocked be returned - default false
      * @returns a traders' assorts
      */
-    getAssort(sessionId: string, traderId: string, flea?: boolean): ITraderAssort;
+    getAssort(sessionId: string, traderId: string, showLockedAssorts?: boolean): ITraderAssort;
     /**
      * Given the blacklist provided, remove root items from assort
      * @param assortToFilter Trader assort to modify
@@ -76,19 +76,9 @@ export declare class TraderAssortHelper {
      */
     traderAssortsHaveExpired(traderID: string): boolean;
     /**
-     * Iterate over all assorts barter_scheme values, find barters selling for money and multiply by multipler in config
-     * @param traderAssort Assorts to multiple price of
-     */
-    protected multiplyItemPricesByConfigMultiplier(traderAssort: ITraderAssort): void;
-    /**
      * Get an array of pristine trader items prior to any alteration by player (as they were on server start)
      * @param traderId trader id
      * @returns array of Items
      */
     protected getPristineTraderAssorts(traderId: string): IItem[];
-    /**
-     * Returns generated ragfair offers in a trader assort format
-     * @returns Trader assort object
-     */
-    protected getRagfairDataAsTraderAssort(): ITraderAssort;
 }

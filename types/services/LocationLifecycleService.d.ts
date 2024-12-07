@@ -142,6 +142,14 @@ export declare class LocationLifecycleService {
      */
     protected handlePostRaidPmc(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, isDead: boolean, isSurvived: boolean, isTransfer: boolean, request: IEndLocalRaidRequestData, locationName: string): void;
     /**
+     * On death Quest items are lost, the client does not clean up completed conditions for picking up those quest items,
+     * If the completed conditions remain in the profile the player is unable to pick the item up again
+     * @param sessionId Session id
+     * @param lostQuestItems Quest items lost on player death
+     * @param profileQuests Quest status data from player profile
+     */
+    protected checkForAndFixPickupQuestsAfterDeath(sessionId: string, lostQuestItems: IItem[], profileQuests: IQuestStatus[]): void;
+    /**
      * In 0.15 Lightkeeper quests do not give rewards in PvE, this issue also occurs in spt
      * We check for newly completed Lk quests and run them through the servers `CompleteQuest` process
      * This rewards players with items + craft unlocks + new trader assorts

@@ -67,7 +67,7 @@ export declare class HideoutController {
     protected circleOfCultistService: CircleOfCultistService;
     protected cloner: ICloner;
     /** Key used in TaskConditionCounters array */
-    protected static nameTaskConditionCountersCrafting: string;
+    protected static nameTaskConditionCountersCraftingId: string;
     protected hideoutConfig: IHideoutConfig;
     constructor(logger: ILogger, hashUtil: HashUtil, timeUtil: TimeUtil, databaseService: DatabaseService, randomUtil: RandomUtil, inventoryHelper: InventoryHelper, itemHelper: ItemHelper, saveServer: SaveServer, playerService: PlayerService, presetHelper: PresetHelper, paymentHelper: PaymentHelper, eventOutputHolder: EventOutputHolder, httpResponse: HttpResponseUtil, profileHelper: ProfileHelper, hideoutHelper: HideoutHelper, scavCaseRewardGenerator: ScavCaseRewardGenerator, localisationService: LocalisationService, profileActivityService: ProfileActivityService, configServer: ConfigServer, fenceService: FenceService, circleOfCultistService: CircleOfCultistService, cloner: ICloner);
     /**

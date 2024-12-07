@@ -11,23 +11,36 @@ export interface ILocationBase {
     Banners: IBanner[];
     BossLocationSpawn: IBossLocationSpawn[];
     BotAssault: number;
+    /** Weighting on how likely a bot will be Easy difficulty */
     BotEasy: number;
+    /** Weighting on how likely a bot will be Hard difficulty */
     BotHard: number;
+    /** Weighting on how likely a bot will be Impossible difficulty */
     BotImpossible: number;
     BotLocationModifier: IBotLocationModifier;
     BotMarksman: number;
+    /** Maximum Number of bots that are currently alive/loading/delayed */
     BotMax: number;
+    /** Is not used in 33420 */
     BotMaxPlayer: number;
+    /** Is not used in 33420 */
     BotMaxTimePlayer: number;
+    /** Does not even exist in the client in 33420 */
     BotMaxPvE: number;
+    /** Weighting on how likely a bot will be Normal difficulty */
     BotNormal: number;
+    /** How many bot slots that need to be open before trying to spawn new bots. */
     BotSpawnCountStep: number;
+    /** How often to check if bots are spawn-able. In seconds */
     BotSpawnPeriodCheck: number;
+    /** The bot spawn will toggle on and off in intervals of Off(Min/Max) and On(Min/Max) */
     BotSpawnTimeOffMax: number;
     BotSpawnTimeOffMin: number;
     BotSpawnTimeOnMax: number;
     BotSpawnTimeOnMin: number;
+    /** How soon bots will be allowed to spawn */
     BotStart: number;
+    /** After this long bots will no longer spawn */
     BotStop: number;
     Description: string;
     DisabledForScav: boolean;

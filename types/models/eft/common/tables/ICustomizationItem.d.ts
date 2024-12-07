@@ -11,6 +11,7 @@ export interface IProps {
     Name: string;
     ShortName: string;
     Description: string;
+    Game: string[];
     Side: string[];
     BodyPart: string;
     AvailableAsDefault?: boolean;

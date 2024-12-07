@@ -2,7 +2,7 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import { IHideoutScavCase } from "@spt/models/eft/hideout/IHideoutScavCase";
+import { IScavRecipe } from "@spt/models/eft/hideout/IHideoutProduction";
 import { IScavCaseConfig } from "@spt/models/spt/config/IScavCaseConfig";
 import { IRewardCountAndPriceDetails, IScavCaseRewardCountsAndPrices } from "@spt/models/spt/hideout/ScavCaseRewardCountsAndPrices";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
@@ -84,10 +84,10 @@ export declare class ScavCaseRewardGenerator {
     protected getFilteredItemsByPrice(dbItems: ITemplateItem[], itemFilters: IRewardCountAndPriceDetails): ITemplateItem[];
     /**
      * Gathers the reward min and max count params for each reward quality level from config and scavcase.json into a single object
-     * @param scavCaseDetails scavcase.json values
+     * @param scavCaseDetails production.json/scavRecipes object
      * @returns ScavCaseRewardCountsAndPrices object
      */
-    protected getScavCaseRewardCountsAndPrices(scavCaseDetails: IHideoutScavCase): IScavCaseRewardCountsAndPrices;
+    protected getScavCaseRewardCountsAndPrices(scavCaseDetails: IScavRecipe): IScavCaseRewardCountsAndPrices;
     /**
      * Randomises the size of ammo and money stacks
      * @param itemToCalculate ammo or money item

@@ -10,6 +10,7 @@ import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { Common, IQuestStatus } from "@spt/models/eft/common/tables/IBotBase";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IQuest, IQuestCondition, IQuestReward } from "@spt/models/eft/common/tables/IQuest";
+import { IHideoutProduction } from "@spt/models/eft/hideout/IHideoutProduction";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { IAcceptQuestRequestData } from "@spt/models/eft/quests/IAcceptQuestRequestData";
 import { ICompleteQuestRequestData } from "@spt/models/eft/quests/ICompleteQuestRequestData";
@@ -113,12 +114,12 @@ export declare class QuestHelper {
      */
     protected generateArmorRewardChildSlots(originalRewardRootItem: IItem, questReward: IQuestReward): void;
     /**
-     * Gets a flat list of reward items for the given quest at a specific state (e.g. Fail/Success)
+     * Gets a flat list of reward items for the given quest at a specific state for the specified game version (e.g. Fail/Success)
      * @param quest quest to get rewards for
      * @param status Quest status that holds the items (Started, Success, Fail)
      * @returns array of items with the correct maxStack
      */
-    getQuestRewardItems(quest: IQuest, status: QuestStatus): IItem[];
+    getQuestRewardItems(quest: IQuest, status: QuestStatus, gameVersion: string): IItem[];
     /**
      * Look up quest in db by accepted quest id and construct a profile-ready object ready to store in profile
      * @param pmcData Player profile
@@ -281,6 +282,13 @@ export declare class QuestHelper {
      */
     protected findAndAddHideoutProductionIdToProfile(pmcData: IPmcData, craftUnlockReward: IQuestReward, questDetails: IQuest, sessionID: string, response: IItemEventRouterResponse): void;
     /**
+     * Find hideout craft for the specified quest reward
+     * @param craftUnlockReward Reward item from quest with craft unlock details
+     * @param questDetails Quest with craft unlock reward
+     * @returns Hideout craft
+     */
+    getRewardProductionMatch(craftUnlockReward: IQuestReward, questDetails: IQuest): IHideoutProduction[];
+    /**
      * Get players money reward bonus from profile
      * @param pmcData player profile
      * @returns bonus as a percent
@@ -322,9 +330,17 @@ export declare class QuestHelper {
      */
     getClientQuests(sessionID: string): IQuest[];
     /**
+     * Create a clone of the given quest array with the rewards updated to reflect the
+     * given game version
+     * @param quests List of quests to check
+     * @param gameVersion Game version of the profile
+     * @returns Array of IQuest objects with the rewards filtered correctly for the game version
+     */
+    protected updateQuestsForGameEdition(quests: IQuest[], gameVersion: string): IQuest[];
+    /**
      * Return a list of quests that would fail when supplied quest is completed
-     * @param completedQuestId quest completed id
-     * @returns array of IQuest objects
+     * @param completedQuestId Quest completed id
+     * @returns Array of IQuest objects
      */
     protected getQuestsFromProfileFailedByCompletingQuest(completedQuestId: string, pmcProfile: IPmcData): IQuest[];
     /**

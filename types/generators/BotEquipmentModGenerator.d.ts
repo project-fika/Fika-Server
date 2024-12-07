@@ -114,9 +114,10 @@ export declare class BotEquipmentModGenerator {
     /**
      * Sort mod slots into an ordering that maximises chance of a successful weapon generation
      * @param unsortedSlotKeys Array of mod slot strings to sort
+     * @param itemTplWithKeysToSort The Tpl of the item with mod keys being sorted
      * @returns Sorted array
      */
-    protected sortModKeys(unsortedSlotKeys: string[]): string[];
+    protected sortModKeys(unsortedSlotKeys: string[], itemTplWithKeysToSort: string): string[];
     /**
      * Get a Slot property for an item (chamber/cartridge/slot)
      * @param modSlot e.g patron_in_weapon

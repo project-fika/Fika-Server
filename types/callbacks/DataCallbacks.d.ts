@@ -8,7 +8,6 @@ import { IHandbookBase } from "@spt/models/eft/common/tables/IHandbookBase";
 import { IGetItemPricesResponse } from "@spt/models/eft/game/IGetItemPricesResponse";
 import { IHideoutArea } from "@spt/models/eft/hideout/IHideoutArea";
 import { IHideoutProductionData } from "@spt/models/eft/hideout/IHideoutProduction";
-import { IHideoutScavCase } from "@spt/models/eft/hideout/IHideoutScavCase";
 import { IHideoutSettingsBase } from "@spt/models/eft/hideout/IHideoutSettingsBase";
 import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
 import { ISettingsBase } from "@spt/models/spt/server/ISettingsBase";
@@ -63,7 +62,6 @@ export declare class DataCallbacks {
     getHideoutSettings(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IHideoutSettingsBase>;
     getHideoutAreas(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IHideoutArea[]>;
     getHideoutProduction(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IHideoutProductionData>;
-    getHideoutScavcase(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IHideoutScavCase[]>;
     /**
      * Handle client/languages
      */
