@@ -186,3 +186,13 @@ export declare class CircleOfCultistService {
      */
     protected getItemRequirements(requirements: IRequirementBase[]): (IStageRequirement | IRequirement)[];
 }
+export declare enum CircleRewardType {
+    RANDOM = 0,
+    HIDEOUT_TASK = 1
+}
+export interface ICraftDetails {
+    time: number;
+    rewardType: CircleRewardType;
+    rewardAmountRoubles: number;
+    rewardDetails?: ICraftTimeThreshhold;
+}
