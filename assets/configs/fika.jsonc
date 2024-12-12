@@ -14,7 +14,8 @@
         },
         "useInertia": true,
         "sharedQuestProgression": false,
-        "canEditRaidSettings": true
+        "canEditRaidSettings": true,
+        "enableTransits": true
     },
     "server": {
         "giftedItemsLoseFIR": true,

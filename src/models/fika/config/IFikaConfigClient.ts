@@ -14,4 +14,5 @@ export interface IFikaConfigClient {
     useInertia: boolean;
     sharedQuestProgression: boolean;
     canEditRaidSettings: boolean;
+    enableTransits: boolean;
 }
