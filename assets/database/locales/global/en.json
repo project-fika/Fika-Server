@@ -232,5 +232,12 @@
     "F_BepInEx_SmoothingRate_T": "Smoothing Rate",
     "F_BepInEx_SmoothingRate_D": "Local simulation is behind by (Send Rate * Smoothing Rate). This guarantees that we always have enough snapshots in the buffer to mitigate lags & jitter during interpolation.\n\nLow = 1.5\nMedium = 2\nHigh = 2.5\n\nSet this to 'High' if movement isn't smooth. Cannot be changed during a raid.",
     "F_BepInEx_DisableBotMetabolism_T": "Disable Bot Metabolism",
-    "F_BepInEx_DisableBotMetabolism_D": "Disables metabolism on bots, preventing them from dying from loss of energy/hydration during long raids."
+    "F_BepInEx_DisableBotMetabolism_D": "Disables metabolism on bots, preventing them from dying from loss of energy/hydration during long raids.",
+    "F_MMUI_OnlinePlayers": "ONLINE PLAYERS: {0}",
+    "F_MMUI_InMenu": "In Menu",
+    "F_MMUI_InRaid": "In Raid",
+    "F_MMUI_InStash": "In Stash",
+    "F_MMUI_InHideout": "In Hideout",
+    "F_MMUI_InFlea": "In Flea",
+    "F_MMUI_RaidDetails": "Playing as a {0} on {1}\nTime: {2}"
 }
