@@ -148,13 +148,25 @@ export declare class RepeatableQuestController {
      */
     changeRepeatableQuest(pmcData: IPmcData, changeRequest: IRepeatableQuestChangeRequest, sessionID: string): IItemEventRouterResponse;
     /**
+     * Remove the provided quest from pmc and scav character profiles
+     * @param fullProfile Profile to remove quest from
+     * @param questToReplaceId Quest id to remove from profile
+     */
+    protected removeQuestFromProfile(fullProfile: ISptProfile, questToReplaceId: string): void;
+    /**
+     * Clean up the repeatables `changeRequirement` dictionary of expired data
+     * @param repeatablesOfTypeInProfile The repeatables that have the replaced and new quest
+     * @param replacedQuestId Id of the replaced quest
+     */
+    protected cleanUpRepeatableChangeRequirements(repeatablesOfTypeInProfile: IPmcDataRepeatableQuest, replacedQuestId: string): void;
+    /**
      * Find a repeatable (daily/weekly/scav) from a players profile by its id
      * @param questId Id of quest to find
      * @param pmcData Profile that contains quests to look through
      * @returns IGetRepeatableByIdResult
      */
     protected getRepeatableById(questId: string, pmcData: IPmcData): IGetRepeatableByIdResult;
-    protected attemptToGenerateRepeatableQuest(pmcData: IPmcData, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
+    protected attemptToGenerateRepeatableQuest(sessionId: string, pmcData: IPmcData, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
     /**
      * Some accounts have access to free repeatable quest refreshes
      * Track the usage of them inside players profile

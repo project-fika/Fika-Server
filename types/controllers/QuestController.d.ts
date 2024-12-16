@@ -72,6 +72,7 @@ export declare class QuestController {
      */
     protected addTaskConditionCountersToProfile(questConditions: IQuestCondition[], pmcData: IPmcData, questId: string): void;
     /**
+     * TODO - Move this code into RepeatableQuestController
      * Handle the client accepting a repeatable quest and starting it
      * Send starting rewards if any to player and
      * Send start notification if any to player
@@ -81,7 +82,6 @@ export declare class QuestController {
      * @returns IItemEventRouterResponse
      */
     acceptRepeatableQuest(pmcData: IPmcData, acceptedQuest: IAcceptQuestRequestData, sessionID: string): IItemEventRouterResponse;
-    protected createAcceptedQuestClientResponse(sessionID: string, pmcData: IPmcData, repeatableQuestProfile: IRepeatableQuest): IItemEventRouterResponse;
     /**
      * Look for an accepted quest inside player profile, return matching
      * @param pmcData Profile to search through

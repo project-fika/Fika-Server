@@ -37,6 +37,11 @@ export declare class ItemFilterService {
      */
     getItemRewardBlacklist(): string[];
     /**
+     * Get an array of item types that should never be given as a reward to player
+     * @returns string array of item base ids
+     */
+    getItemRewardBaseTypeBlacklist(): string[];
+    /**
      * Return every template id blacklisted in config/item.json
      * @returns string array of blacklisted tempalte ids
      */

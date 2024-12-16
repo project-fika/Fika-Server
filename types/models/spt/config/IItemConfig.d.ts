@@ -7,6 +7,8 @@ export interface IItemConfig extends IBaseConfig {
     lootableItemBlacklist: string[];
     /** items that should not be given as rewards */
     rewardItemBlacklist: string[];
+    /** Item base types that should not be given as rewards */
+    rewardItemTypeBlacklist: string[];
     /** Items that can only be found on bosses */
     bossItems: string[];
     handbookPriceOverride: Record<string, IHandbookPriceOverride>;

@@ -1,5 +1,8 @@
 import { IDialogueChatBot } from "@spt/helpers/Dialogue/IDialogueChatBot";
 import { DialogueHelper } from "@spt/helpers/DialogueHelper";
+import { NotificationSendHelper } from "@spt/helpers/NotificationSendHelper";
+import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { IDeleteFriendRequest } from "@spt/models/eft/dialog/IDeleteFriendRequest";
 import { IFriendRequestData } from "@spt/models/eft/dialog/IFriendRequestData";
 import { IFriendRequestSendResponse } from "@spt/models/eft/dialog/IFriendRequestSendResponse";
 import { IGetAllAttachmentsResponse } from "@spt/models/eft/dialog/IGetAllAttachmentsResponse";
@@ -20,11 +23,13 @@ export declare class DialogueController {
     protected saveServer: SaveServer;
     protected timeUtil: TimeUtil;
     protected dialogueHelper: DialogueHelper;
+    protected notificationSendHelper: NotificationSendHelper;
+    protected profileHelper: ProfileHelper;
     protected mailSendService: MailSendService;
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
     protected dialogueChatBots: IDialogueChatBot[];
-    constructor(logger: ILogger, saveServer: SaveServer, timeUtil: TimeUtil, dialogueHelper: DialogueHelper, mailSendService: MailSendService, localisationService: LocalisationService, configServer: ConfigServer, dialogueChatBots: IDialogueChatBot[]);
+    constructor(logger: ILogger, saveServer: SaveServer, timeUtil: TimeUtil, dialogueHelper: DialogueHelper, notificationSendHelper: NotificationSendHelper, profileHelper: ProfileHelper, mailSendService: MailSendService, localisationService: LocalisationService, configServer: ConfigServer, dialogueChatBots: IDialogueChatBot[]);
     registerChatBot(chatBot: IDialogueChatBot): void;
     /** Handle onUpdate spt event */
     update(): void;
@@ -151,4 +156,6 @@ export declare class DialogueController {
     protected messageHasExpired(message: IMessage): boolean;
     /** Handle client/friend/request/send  */
     sendFriendRequest(sessionID: string, request: IFriendRequestData): IFriendRequestSendResponse;
+    /** Handle client/friend/delete */
+    deleteFriend(sessionID: string, request: IDeleteFriendRequest): void;
 }

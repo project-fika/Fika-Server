@@ -33,13 +33,14 @@ export declare class RepeatableQuestGenerator {
     /**
      * This method is called by /GetClientRepeatableQuests/ and creates one element of quest type format (see assets/database/templates/repeatableQuests.json).
      * It randomly draws a quest type (currently Elimination, Completion or Exploration) as well as a trader who is providing the quest
+     * @param sessionId Session id
      * @param pmcLevel Player's level for requested items and reward generation
      * @param pmcTraderInfo Players traper standing/rep levels
      * @param questTypePool Possible quest types pool
      * @param repeatableConfig Repeatable quest config
      * @returns IRepeatableQuest
      */
-    generateRepeatableQuest(pmcLevel: number, pmcTraderInfo: Record<string, ITraderInfo>, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
+    generateRepeatableQuest(sessionId: string, pmcLevel: number, pmcTraderInfo: Record<string, ITraderInfo>, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
     /**
      * Generate a randomised Elimination quest
      * @param pmcLevel Player's level for requested items and reward generation
@@ -48,7 +49,7 @@ export declare class RepeatableQuestGenerator {
      * @param repeatableConfig The configuration for the repeatably kind (daily, weekly) as configured in QuestConfig for the requestd quest
      * @returns Object of quest type format for "Elimination" (see assets/database/templates/repeatableQuests.json)
      */
-    protected generateEliminationQuest(pmcLevel: number, traderId: string, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
+    protected generateEliminationQuest(sessionid: string, pmcLevel: number, traderId: string, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
     /**
      * Get a number of kills neded to complete elimination quest
      * @param targetKey Target type desired e.g. anyPmc/bossBully/Savage
@@ -83,7 +84,7 @@ export declare class RepeatableQuestGenerator {
      * @param   {object}    repeatableConfig    The configuration for the repeatably kind (daily, weekly) as configured in QuestConfig for the requestd quest
      * @returns {object}                        object of quest type format for "Completion" (see assets/database/templates/repeatableQuests.json)
      */
-    protected generateCompletionQuest(pmcLevel: number, traderId: string, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
+    protected generateCompletionQuest(sessionId: string, pmcLevel: number, traderId: string, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
     /**
      * A repeatable quest, besides some more or less static components, exists of reward and condition (see assets/database/templates/repeatableQuests.json)
      * This is a helper method for GenerateCompletionQuest to create a completion condition (of which a completion quest theoretically can have many)
@@ -102,7 +103,7 @@ export declare class RepeatableQuestGenerator {
      * @param   {object}    repeatableConfig    The configuration for the repeatably kind (daily, weekly) as configured in QuestConfig for the requestd quest
      * @returns {object}                        object of quest type format for "Exploration" (see assets/database/templates/repeatableQuests.json)
      */
-    protected generateExplorationQuest(pmcLevel: number, traderId: string, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
+    protected generateExplorationQuest(sessionId: string, pmcLevel: number, traderId: string, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
     /**
      * Filter a maps exits to just those for the desired side
      * @param locationKey Map id (e.g. factory4_day)
@@ -110,7 +111,7 @@ export declare class RepeatableQuestGenerator {
      * @returns Array of Exit objects
      */
     protected getLocationExitsForSide(locationKey: string, playerSide: string): IExit[];
-    protected generatePickupQuest(pmcLevel: number, traderId: string, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
+    protected generatePickupQuest(sessionId: string, pmcLevel: number, traderId: string, questTypePool: IQuestTypePool, repeatableConfig: IRepeatableQuestConfig): IRepeatableQuest;
     /**
      * Convert a location into an quest code can read (e.g. factory4_day into 55f2d3fd4bdc2d5f408b4567)
      * @param locationKey e.g factory4_day
@@ -135,5 +136,5 @@ export declare class RepeatableQuestGenerator {
      * @returns {object}                    Object which contains the base elements for repeatable quests of the requests type
      *                                      (needs to be filled with reward and conditions by called to make a valid quest)
      */
-    protected generateRepeatableTemplate(type: string, traderId: string, side: string): IRepeatableQuest;
+    protected generateRepeatableTemplate(type: string, traderId: string, side: string, sessionId: string): IRepeatableQuest;
 }

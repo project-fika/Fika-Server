@@ -107,6 +107,11 @@ export declare class RandomUtil {
     protected logger: ILogger;
     constructor(cloner: ICloner, logger: ILogger);
     /**
+     * The IEEE-754 standard for double-precision floating-point numbers limits the number of digits (including both
+     * integer + fractional parts) to about 15–17 significant digits. 15 is a safe upper bound, so we'll use that.
+     */
+    private static readonly MAX_SIGNIFICANT_DIGITS;
+    /**
      * Generates a secure random number between 0 (inclusive) and 1 (exclusive).
      *
      * This method uses the `crypto` module to generate a 48-bit random integer,
@@ -116,6 +121,16 @@ export declare class RandomUtil {
      * @returns A secure random number between 0 (inclusive) and 1 (exclusive).
      */
     private getSecureRandomNumber;
+    /**
+     * Determines the number of decimal places in a number.
+     *
+     * @param num - The number to analyze.
+     * @returns The number of decimal places, or 0 if none exist.
+     * @remarks There is a mathematical way to determine this, but it's not as simple as it seams due to floating point
+     *          precision issues. This method is a simple workaround that converts the number to a string and splits it.
+     *          It's not the most efficient but it *is* the most reliable and easy to understand. Come at me.
+     */
+    private getNumberPrecision;
     /**
      * Generates a random integer between the specified minimum and maximum values, inclusive.
      *
@@ -173,7 +188,7 @@ export declare class RandomUtil {
     /**
      * Returns a random string from the provided array of strings.
      *
-     * This method is separate from getArrayValue so we can use a generic inferance with getArrayValue.
+     * This method is separate from getArrayValue so we can use a generic inference with getArrayValue.
      *
      * @param arr - The array of strings to select a random value from.
      * @returns A randomly selected string from the array.
@@ -225,12 +240,27 @@ export declare class RandomUtil {
     getNormallyDistributedRandomNumber(mean: number, sigma: number, attempt?: number): number;
     /**
      * Generates a random integer between the specified range.
+     * Low and high parameters are floored to integers.
+     *
+     * TODO: v3.11 - This method should not accept non-integer numbers.
      *
      * @param low - The lower bound of the range (inclusive).
      * @param high - The upper bound of the range (exclusive). If not provided, the range will be from 0 to `low`.
      * @returns A random integer within the specified range.
      */
     randInt(low: number, high?: number): number;
+    /**
+     * Generates a random number between two given values with optional precision.
+     *
+     * @param value1 - The first value to determine the range.
+     * @param value2 - The second value to determine the range. If not provided, 0 is used.
+     * @param precision - The number of decimal places to round the result to. Must be a positive integer between 0
+     *                    and MAX_PRECISION, inclusive. If not provided, precision is determined by the input values.
+     * @returns A random floating-point number between `value1` and `value2` (inclusive) with the specified precision.
+     * @throws Will throw an error if `precision` is not a positive integer, if `value1` or `value2` are not finite
+     *         numbers, or if the precision exceeds the maximum allowed for the given values.
+     */
+    randNum(value1: number, value2?: number, precision?: number | null): number;
     /**
      * Draws a specified number of random elements from a given list.
      *

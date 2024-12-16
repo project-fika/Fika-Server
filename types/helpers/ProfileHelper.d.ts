@@ -2,6 +2,7 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { Common, ICounterKeyValue, IStats } from "@spt/models/eft/common/tables/IBotBase";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { IValidateNicknameRequestData } from "@spt/models/eft/profile/IValidateNicknameRequestData";
 import { BonusType } from "@spt/models/enums/BonusType";
@@ -90,6 +91,24 @@ export declare class ProfileHelper {
      * @returns ISptProfile object
      */
     getFullProfile(sessionID: string): ISptProfile | undefined;
+    /**
+     * Get full representation of a players profile JSON by the account ID, or undefined if not found
+     * @param accountId Account ID to find
+     * @returns
+     */
+    getFullProfileByAccountId(accountID: string): ISptProfile | undefined;
+    /**
+     * Retrieve a ChatRoomMember formatted profile for the given session ID
+     * @param sessionID The session ID to return the profile for
+     * @returns
+     */
+    getChatRoomMemberFromSessionId(sessionID: string): ISearchFriendResponse | undefined;
+    /**
+     * Retrieve a ChatRoomMember formatted profile for the given PMC profile data
+     * @param pmcProfile The PMC profile data to format into a ChatRoomMember structure
+     * @returns
+     */
+    getChatRoomMemberFromPmcProfile(pmcProfile: IPmcData): ISearchFriendResponse;
     /**
      * Get a PMC profile by its session id
      * @param sessionID Profile id to return

@@ -19,6 +19,8 @@ export interface ISptProfile {
     traderPurchases?: Record<string, Record<string, ITraderPurchaseData>>;
     /** Achievements earned by player */
     achievements: Record<string, number>;
+    /** List of friend profile IDs */
+    friends: string[];
 }
 export declare class ITraderPurchaseData {
     count: number;

@@ -1,5 +1,6 @@
 export declare enum ConfigTypes {
     AIRDROP = "spt-airdrop",
+    BACKUP = "spt-backup",
     BOT = "spt-bot",
     PMC = "spt-pmc",
     CORE = "spt-core",

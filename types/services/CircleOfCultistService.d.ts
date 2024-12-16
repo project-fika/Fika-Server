@@ -55,6 +55,16 @@ export declare class CircleOfCultistService {
      */
     startSacrifice(sessionId: string, pmcData: IPmcData, request: IHideoutCircleOfCultistProductionStartRequestData): IItemEventRouterResponse;
     /**
+     * Attempt to add all rewards to cultist circle, if they dont fit remove one and try again until they fit
+     * @param sessionId Session id
+     * @param pmcData Player profile
+     * @param rewards Rewards to send to player
+     * @param containerGrid Cultist grid to add rewards to
+     * @param cultistCircleStashId Stash id
+     * @param output Client output
+     */
+    protected addRewardsToCircleContainer(sessionId: string, pmcData: IPmcData, rewards: IItem[][], containerGrid: number[][], cultistCircleStashId: string, output: IItemEventRouterResponse): void;
+    /**
      * Create a map of the possible direct rewards, keyed by the items needed to be sacrificed
      * @param directRewards Direct rewards array from hideout config
      * @returns Map
@@ -156,7 +166,7 @@ export declare class CircleOfCultistService {
      * @param itemRewardBlacklist Items not to add to pool
      * @param rewardPool Pool to add items to
      */
-    protected addTaskItemRequirementsToRewardPool(pmcData: IPmcData, itemRewardBlacklist: string[], rewardPool: Set<string>): void;
+    protected addTaskItemRequirementsToRewardPool(pmcData: IPmcData, itemRewardBlacklist: Set<string>, rewardPool: Set<string>): void;
     /**
      * Adds items the player needs to complete hideout crafts/upgrades to the reward pool
      * @param hideoutDbData Hideout area data
@@ -164,7 +174,7 @@ export declare class CircleOfCultistService {
      * @param itemRewardBlacklist Items not to add to pool
      * @param rewardPool Pool to add items to
      */
-    protected addHideoutUpgradeRequirementsToRewardPool(hideoutDbData: IHideout, pmcData: IPmcData, itemRewardBlacklist: string[], rewardPool: Set<string>): void;
+    protected addHideoutUpgradeRequirementsToRewardPool(hideoutDbData: IHideout, pmcData: IPmcData, itemRewardBlacklist: Set<string>, rewardPool: Set<string>): void;
     /**
      * Get all active hideout areas
      * @param areas Hideout areas to iterate over
@@ -174,25 +184,15 @@ export declare class CircleOfCultistService {
     /**
      * Get array of random reward items
      * @param rewardPool Reward pool to add to
-     * @param itemRewardBlacklist Reward Blacklist
+     * @param itemRewardBlacklist Item tpls to ignore
      * @param itemsShouldBeHighValue Should these items meet the valuable threshold
-     * @returns rewardPool
+     * @returns Set of item tpls
      */
-    protected generateRandomisedItemsAndAddToRewardPool(rewardPool: Set<string>, itemRewardBlacklist: string[], itemsShouldBeHighValue: boolean): Set<string>;
+    protected generateRandomisedItemsAndAddToRewardPool(rewardPool: Set<string>, itemRewardBlacklist: Set<string>, itemsShouldBeHighValue: boolean): Set<string>;
     /**
      * Iterate over passed in hideout requirements and return the Item
      * @param requirements Requirements to iterate over
      * @returns Array of item requirements
      */
     protected getItemRequirements(requirements: IRequirementBase[]): (IStageRequirement | IRequirement)[];
-}
-export declare enum CircleRewardType {
-    RANDOM = 0,
-    HIDEOUT_TASK = 1
-}
-export interface ICraftDetails {
-    time: number;
-    rewardType: CircleRewardType;
-    rewardAmountRoubles: number;
-    rewardDetails?: ICraftTimeThreshhold;
 }

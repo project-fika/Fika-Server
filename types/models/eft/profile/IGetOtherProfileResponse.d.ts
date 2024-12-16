@@ -8,7 +8,7 @@ export interface IGetOtherProfileResponse {
     skills: ISkills;
     equipment: IOtherProfileEquipment;
     achievements: Record<string, number>;
-    favoriteItems: string[];
+    favoriteItems: IItem[];
     pmcStats: IOtherProfileStats;
     scavStats: IOtherProfileStats;
 }
