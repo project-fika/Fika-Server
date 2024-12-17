@@ -99,6 +99,7 @@
     "F_Notification_ItemReceived": "You received a {0} from {1}",
     "F_Notification_RaidSettingsDisabled": "Editing of RaidSettings is disabled by the server host",
     "F_UI_ExtractMessage": "Press {0} to extract",
+    "F_UI_DownloadProfile": "DOWNLOAD PROFILE",
     "F_BepInEx_H_Advanced": "Advanced",
     "F_BepInEx_H_Coop": "Coop",
     "F_BepInEx_H_Coop_NamePlates": "Coop | Name Plates",
