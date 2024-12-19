@@ -196,7 +196,6 @@ export class FikaMatchService {
             port: null,
             hostUsername: data.hostUsername,
             timestamp: data.timestamp,
-            expectedNumberOfPlayers: data.expectedNumberOfPlayers,
             raidConfig: data.settings,
             locationData: locationData,
             status: EFikaMatchStatus.LOADING,
@@ -209,7 +208,7 @@ export class FikaMatchService {
             raidCode: data.raidCode,
             natPunch: false,
             isDedicated: false,
-            raids: 0
+            raids: 0,
         });
 
         this.addTimeoutInterval(data.serverId);
