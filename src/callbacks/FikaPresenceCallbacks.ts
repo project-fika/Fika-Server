@@ -3,9 +3,10 @@ import { inject, injectable } from "tsyringe";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
 import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
-import { FikaPresenceService } from "../services/FikaPresenceService";
+import { EFikaPlayerPresences } from "../models/enums/EFikaPlayerPresences";
 import { IFikaPlayerPresence } from "../models/fika/presence/IFikaPlayerPresence";
 import { IFikaSetPresence } from "../models/fika/presence/IFikaSetPresence";
+import { FikaPresenceService } from "../services/FikaPresenceService";
 
 @injectable()
 export class FikaPresenceCallbacks {
@@ -23,6 +24,8 @@ export class FikaPresenceCallbacks {
 
     /** Handle /fika/presence/set */
     public handleSetPresence(_url: string, data: IFikaSetPresence, sessionID: string): INullResponseData {
+        data.activity = this.setActivityValue(data.activity);
+
         this.fikaPresenceService.updatePlayerPresence(sessionID, data);
 
         return this.httpResponseUtil.nullResponse();
@@ -30,8 +33,18 @@ export class FikaPresenceCallbacks {
 
     /** Handle /fika/presence/setget */
     public handleSetGetPresence(_url: string, data: IFikaSetPresence, sessionID: string): IFikaPlayerPresence {
+        data.activity = this.setActivityValue(data.activity);
+
         this.fikaPresenceService.updatePlayerPresence(sessionID, data);
 
         return this.httpResponseUtil.noBody(this.fikaPresenceService.getAllPlayersPresence());
+    }
+
+    protected setActivityValue(presence: EFikaPlayerPresences): EFikaPlayerPresences {
+        if (Object.keys(EFikaPlayerPresences).includes(presence.toString())) {
+            presence = EFikaPlayerPresences[presence.toString()];
+        }
+
+        return presence;
     }
 }
