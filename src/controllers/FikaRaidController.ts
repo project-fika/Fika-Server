@@ -73,7 +73,6 @@ export class FikaRaidController {
         return {
             serverId: request.serverId,
             timestamp: match.timestamp,
-            expectedNumberOfPlayers: match.expectedNumberOfPlayers,
             gameVersion: match.gameVersion,
             fikaVersion: match.fikaVersion,
             raidCode: match.raidCode,

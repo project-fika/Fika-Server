@@ -11,7 +11,6 @@ export interface IFikaMatch {
     port: number;
     hostUsername: string;
     timestamp: string;
-    expectedNumberOfPlayers: number;
     fikaVersion: string;
     gameVersion: string;
     raidConfig: IGetRaidConfigurationRequestData;

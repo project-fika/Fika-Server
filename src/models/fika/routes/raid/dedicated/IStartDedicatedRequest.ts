@@ -4,7 +4,6 @@ import { PlayersSpawnPlace } from "@spt/models/enums/PlayersSpawnPlace";
 import { SideType } from "@spt/models/enums/SideType";
 
 export interface IStartDedicatedRequest {
-    expectedNumberOfPlayers: number;
     time: DateTime;
     locationId: string;
     spawnPlace: PlayersSpawnPlace;
