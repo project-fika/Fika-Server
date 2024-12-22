@@ -8,7 +8,6 @@ export interface IFikaRaidCreateRequestData {
     hostUsername: string;
     timestamp: string;
     settings: IGetRaidConfigurationRequestData;
-    expectedNumberOfPlayers: number;
     gameVersion: string;
     fikaVersion: string;
     side: EFikaSide;
