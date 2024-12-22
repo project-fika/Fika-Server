@@ -33,7 +33,7 @@ export class FikaClientController {
         }
 
         this.requiredMods = new Set([...sanitizedRequiredMods, "com.fika.core", "com.SPT.custom", "com.SPT.singleplayer", "com.SPT.core", "com.SPT.debugging"]);
-        this.allowedMods = new Set([...this.requiredMods, ...sanitizedOptionalMods, "com.bepis.bepinex.configurationmanager"]);
+        this.allowedMods = new Set([...this.requiredMods, ...sanitizedOptionalMods, "com.bepis.bepinex.configurationmanager", "com.fika.dedicated"]);
     }
 
     protected filterEmptyMods(array: string[]): string[] {
