@@ -37,6 +37,7 @@
     "F_MMUI_HostRaidButton": "레이드 호스트하기",
     "F_MMUI_JoinButton": "참가",
     "F_MMUI_SelectAmountHeader": "양을 선택하십시오.",
+    "F_MMUI_SessionSettingsHeader": "SESSION SETTINGS",
     "F_MMUI_SelectAmountDescription": "당신을 포함하여 몇 명의 플레이어가 참가합니까?",
     "F_MMUI_UseDedicatedHost": "전담 호스트를 사용하여 주십시오",
     "F_MMUI_StartButton": "시작",

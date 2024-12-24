@@ -37,6 +37,7 @@
     "F_MMUI_HostRaidButton": "ALBERGAR INCURSIÓN",
     "F_MMUI_JoinButton": "UNIRSE",
     "F_MMUI_SelectAmountHeader": "SELECCIONA CANTIDAD",
+    "F_MMUI_SessionSettingsHeader": "SESSION SETTINGS",
     "F_MMUI_SelectAmountDescription": "¿Cuántas personas (incluyéndote) van a jugar?",
     "F_MMUI_UseDedicatedHost": "Usar Anfitrión Remoto",
     "F_MMUI_StartButton": "COMENZAR",

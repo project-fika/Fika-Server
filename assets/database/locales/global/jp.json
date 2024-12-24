@@ -37,6 +37,7 @@
     "F_MMUI_HostRaidButton": "レイドをホスト",
     "F_MMUI_JoinButton": "参加",
     "F_MMUI_SelectAmountHeader": "数を選択",
+    "F_MMUI_SessionSettingsHeader": "SESSION SETTINGS",
     "F_MMUI_SelectAmountDescription": "何人がプレイしますか？ (あなたを含めて)",
     "F_MMUI_UseDedicatedHost": "専用ホストを使用",
     "F_MMUI_StartButton": "開始",

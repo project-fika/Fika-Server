@@ -37,6 +37,7 @@
     "F_MMUI_HostRaidButton": "RAID HOST",
     "F_MMUI_JoinButton": "UNIRSE",
     "F_MMUI_SelectAmountHeader": "SELECCIONAR CANTIDAD",
+    "F_MMUI_SessionSettingsHeader": "SESSION SETTINGS",
     "F_MMUI_SelectAmountDescription": "¿Cuántas personas (incluyéndote a ti) jugarán?",
     "F_MMUI_UseDedicatedHost": "Utilice un host dedicado",
     "F_MMUI_StartButton": "INICIAR",

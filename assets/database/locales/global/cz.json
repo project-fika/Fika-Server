@@ -37,6 +37,7 @@
     "F_MMUI_HostRaidButton": "Založit RAID",
     "F_MMUI_JoinButton": "PŘIPOJIT",
     "F_MMUI_SelectAmountHeader": "VYBERTE POČET",
+    "F_MMUI_SessionSettingsHeader": "SESSION SETTINGS",
     "F_MMUI_SelectAmountDescription": "Kolik lidí (včetně vás) bude hrát?",
     "F_MMUI_UseDedicatedHost": "Použít Dedikovaného Hosta",
     "F_MMUI_StartButton": "SPUSTIT",

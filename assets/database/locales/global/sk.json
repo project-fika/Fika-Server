@@ -37,6 +37,7 @@
     "F_MMUI_HostRaidButton": "VYTVORIŤ RAID",
     "F_MMUI_JoinButton": "PRIPOJIŤ SA",
     "F_MMUI_SelectAmountHeader": "ZVOLIŤ MNOŽSTVO",
+    "F_MMUI_SessionSettingsHeader": "SESSION SETTINGS",
     "F_MMUI_SelectAmountDescription": "Koľko ľudí (vrátane teba) bude hrať?",
     "F_MMUI_UseDedicatedHost": "Použiť dedikovaný server",
     "F_MMUI_StartButton": "ZAČAŤ",

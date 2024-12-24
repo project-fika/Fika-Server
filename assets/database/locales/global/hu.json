@@ -37,6 +37,7 @@
     "F_MMUI_HostRaidButton": "RAID LÉTREHOZÁSA",
     "F_MMUI_JoinButton": "CSATLAKOZÁS",
     "F_MMUI_SelectAmountHeader": "ÖSSZEG KIVÁLASZTÁSA",
+    "F_MMUI_SessionSettingsHeader": "SESSION SETTINGS",
     "F_MMUI_SelectAmountDescription": "Hány ember fog játszani (beleértve téged is)?",
     "F_MMUI_UseDedicatedHost": "Dedicated Host használata",
     "F_MMUI_StartButton": "INDITÁS",

@@ -37,6 +37,7 @@
     "F_MMUI_HostRaidButton": "HÉBERGER UN RAID",
     "F_MMUI_JoinButton": "REJOINDRE",
     "F_MMUI_SelectAmountHeader": "SÉLECTIONNER LE MONTANT",
+    "F_MMUI_SessionSettingsHeader": "SESSION SETTINGS",
     "F_MMUI_SelectAmountDescription": "Combien de joueurs (vous inclus) vont participer ?",
     "F_MMUI_UseDedicatedHost": "Utiliser un hôte dédié",
     "F_MMUI_StartButton": "DÉMARRER",

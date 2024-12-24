@@ -37,6 +37,7 @@
     "F_MMUI_HostRaidButton": "HOSTA RAID",
     "F_MMUI_JoinButton": "UNISCITI",
     "F_MMUI_SelectAmountHeader": "SELEZIONA QUANTITÀ",
+    "F_MMUI_SessionSettingsHeader": "SESSION SETTINGS",
     "F_MMUI_SelectAmountDescription": "Quante persone (incluso te) giocheranno?",
     "F_MMUI_UseDedicatedHost": "Usa Host Dedicato",
     "F_MMUI_StartButton": "AVVIA",
