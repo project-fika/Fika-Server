@@ -243,5 +243,7 @@
     "F_MMUI_InStash": "Dans la réserve",
     "F_MMUI_InHideout": "Dans la Planque",
     "F_MMUI_InFlea": "Dans le commerce",
-    "F_MMUI_RaidDetails": "Jouer en tant que {0} sur {1}\nTemps : {2}"
+    "F_MMUI_RaidDetails": "Jouer en tant que {0} sur {1}\nTemps : {2}",
+    "F_UI_LocaleError_H": "LOCALES ERROR",
+    "F_UI_LocaleError_D": "There were errors when loading the Fika locales. Translation is now using fallbacks for the failed headers. Please report this to the developers!\n\nFailed keys: {0}"
 }

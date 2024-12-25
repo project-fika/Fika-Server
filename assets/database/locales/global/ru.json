@@ -243,5 +243,7 @@
     "F_MMUI_InStash": "В Схроне",
     "F_MMUI_InHideout": "В Убежище",
     "F_MMUI_InFlea": "На Барахолке",
-    "F_MMUI_RaidDetails": "Играет за {0} на {1}\nВремя: {2}"
+    "F_MMUI_RaidDetails": "Играет за {0} на {1}\nВремя: {2}",
+    "F_UI_LocaleError_H": "LOCALES ERROR",
+    "F_UI_LocaleError_D": "There were errors when loading the Fika locales. Translation is now using fallbacks for the failed headers. Please report this to the developers!\n\nFailed keys: {0}"
 }

@@ -243,5 +243,7 @@
     "F_MMUI_InStash": "在仓库中",
     "F_MMUI_InHideout": "在藏身处中",
     "F_MMUI_InFlea": "在跳蚤市场中",
-    "F_MMUI_RaidDetails": "作为 {0} 在 {1} 上游玩\n时间：{2}"
+    "F_MMUI_RaidDetails": "作为 {0} 在 {1} 上游玩\n时间：{2}",
+    "F_UI_LocaleError_H": "LOCALES ERROR",
+    "F_UI_LocaleError_D": "There were errors when loading the Fika locales. Translation is now using fallbacks for the failed headers. Please report this to the developers!\n\nFailed keys: {0}"
 }

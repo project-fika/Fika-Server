@@ -243,5 +243,7 @@
     "F_MMUI_InStash": "Przegląda Schowek",
     "F_MMUI_InHideout": "W Kryjówce",
     "F_MMUI_InFlea": "Przegląda Rynek",
-    "F_MMUI_RaidDetails": "Gra jako {0} na obszarze {1}\nCzas: {2}"
+    "F_MMUI_RaidDetails": "Gra jako {0} na obszarze {1}\nCzas: {2}",
+    "F_UI_LocaleError_H": "LOCALES ERROR",
+    "F_UI_LocaleError_D": "There were errors when loading the Fika locales. Translation is now using fallbacks for the failed headers. Please report this to the developers!\n\nFailed keys: {0}"
 }
