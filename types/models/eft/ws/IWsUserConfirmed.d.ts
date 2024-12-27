@@ -1,4 +1,4 @@
-import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
+import type { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
 import { ProfileStatus } from "@spt/models/enums/ProfileStatus";
 import { RaidMode } from "@spt/models/enums/RaidMode";
 export interface IWsUserConfirmed extends IWsNotificationEvent {

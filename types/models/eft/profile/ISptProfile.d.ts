@@ -1,9 +1,9 @@
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
 import { EquipmentBuildType } from "@spt/models/enums/EquipmentBuildType";
 import { MemberCategory } from "@spt/models/enums/MemberCategory";
 import { MessageType } from "@spt/models/enums/MessageType";
-import { IProfileChangeEvent } from "@spt/models/spt/dialog/ISendMessageDetails";
+import type { IProfileChangeEvent } from "@spt/models/spt/dialog/ISendMessageDetails";
 export interface ISptProfile {
     info: Info;
     characters: ICharacters;

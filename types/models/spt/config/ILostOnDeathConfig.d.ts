@@ -1,4 +1,4 @@
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface ILostOnDeathConfig extends IBaseConfig {
     kind: "spt-lostondeath";
     /** What equipment in each slot should be lost on death */

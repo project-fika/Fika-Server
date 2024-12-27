@@ -1,4 +1,4 @@
-import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import type { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 export declare class HttpServerHelper {
     protected configServer: ConfigServer;

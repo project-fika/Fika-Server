@@ -1,6 +1,6 @@
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
 import { NotifierHelper } from "@spt/helpers/NotifierHelper";
-import { INotifierChannel } from "@spt/models/eft/notifier/INotifier";
+import type { INotifierChannel } from "@spt/models/eft/notifier/INotifier";
 import { NotificationService } from "@spt/services/NotificationService";
 export declare class NotifierController {
     protected notifierHelper: NotifierHelper;

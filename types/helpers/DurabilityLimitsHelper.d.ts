@@ -1,6 +1,6 @@
 import { BotHelper } from "@spt/helpers/BotHelper";
-import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import type { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 export declare class DurabilityLimitsHelper {

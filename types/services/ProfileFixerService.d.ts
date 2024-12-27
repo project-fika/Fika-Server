@@ -1,20 +1,20 @@
 import { HideoutHelper } from "@spt/helpers/HideoutHelper";
-import { InventoryHelper } from "@spt/helpers/InventoryHelper";
-import { ItemHelper } from "@spt/helpers/ItemHelper";
+import type { InventoryHelper } from "@spt/helpers/InventoryHelper";
+import type { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { QuestHelper } from "@spt/helpers/QuestHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IBonus, IHideoutSlot } from "@spt/models/eft/common/tables/IBotBase";
-import { IQuest, IQuestReward } from "@spt/models/eft/common/tables/IQuest";
-import { IPmcDataRepeatableQuest, IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
-import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import { IStageBonus } from "@spt/models/eft/hideout/IHideoutArea";
-import { IEquipmentBuild, IMagazineBuild, ISptProfile, IWeaponBuild } from "@spt/models/eft/profile/ISptProfile";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IBonus, IHideoutSlot } from "@spt/models/eft/common/tables/IBotBase";
+import type { IQuest, IQuestReward } from "@spt/models/eft/common/tables/IQuest";
+import type { IPmcDataRepeatableQuest, IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
+import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import type { IStageBonus } from "@spt/models/eft/hideout/IHideoutArea";
+import type { IEquipmentBuild, IMagazineBuild, ISptProfile, IWeaponBuild } from "@spt/models/eft/profile/ISptProfile";
 import { HideoutAreas } from "@spt/models/enums/HideoutAreas";
-import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
-import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import type { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
@@ -22,7 +22,7 @@ import { HashUtil } from "@spt/utils/HashUtil";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 import { Watermark } from "@spt/utils/Watermark";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class ProfileFixerService {
     protected logger: ILogger;
     protected watermark: Watermark;
@@ -47,6 +47,12 @@ export declare class ProfileFixerService {
      * @param pmcProfile profile to check and fix
      */
     checkForAndFixPmcProfileIssues(pmcProfile: IPmcData): void;
+    /**
+     * Resolve any dialogue attachments that were accidentally created using the player's equipment ID as
+     * the stash root object ID
+     * @param fullProfile
+     */
+    checkForAndFixDialogueAttachments(fullProfile: ISptProfile): void;
     /**
      * Find issues in the scav profile data that may cause issues
      * @param scavProfile profile to check and fix

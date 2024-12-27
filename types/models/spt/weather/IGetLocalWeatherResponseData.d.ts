@@ -1,4 +1,4 @@
-import { IWeather } from "@spt/models/eft/weather/IWeatherData";
+import type { IWeather } from "@spt/models/eft/weather/IWeatherData";
 export interface IGetLocalWeatherResponseData {
     season: number;
     weather: IWeather[];

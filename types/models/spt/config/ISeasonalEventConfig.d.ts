@@ -1,11 +1,13 @@
-import { IAdditionalHostilitySettings, IBossLocationSpawn, IWave } from "@spt/models/eft/common/ILocationBase";
+import type { IAdditionalHostilitySettings, IBossLocationSpawn, IWave } from "@spt/models/eft/common/ILocationBase";
 import { SeasonalEventType } from "@spt/models/enums/SeasonalEventType";
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface ISeasonalEventConfig extends IBaseConfig {
     kind: "spt-seasonalevents";
     enableSeasonalEventDetection: boolean;
     /** event / botType / equipSlot / itemid */
     eventGear: Record<string, Record<string, Record<string, Record<string, number>>>>;
+    /** event / bot type / equipSlot / itemid */
+    eventLoot: Record<string, Record<string, Record<string, Record<string, number>>>>;
     events: ISeasonalEvent[];
     eventBotMapping: Record<string, string>;
     eventBossSpawns: Record<string, Record<string, IBossLocationSpawn[]>>;

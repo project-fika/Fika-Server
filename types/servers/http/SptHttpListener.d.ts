@@ -1,8 +1,8 @@
-import { IncomingMessage, ServerResponse } from "node:http";
+import type { IncomingMessage, ServerResponse } from "node:http";
 import { Serializer } from "@spt/di/Serializer";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { HttpRouter } from "@spt/routers/HttpRouter";
-import { IHttpListener } from "@spt/servers/http/IHttpListener";
+import type { IHttpListener } from "@spt/servers/http/IHttpListener";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { JsonUtil } from "@spt/utils/JsonUtil";

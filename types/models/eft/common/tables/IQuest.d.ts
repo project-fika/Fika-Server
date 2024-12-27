@@ -1,4 +1,4 @@
-import { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
 import { QuestRewardType } from "@spt/models/enums/QuestRewardType";
 import { QuestStatus } from "@spt/models/enums/QuestStatus";
 import { QuestTypeEnum } from "@spt/models/enums/QuestTypeEnum";
@@ -146,6 +146,8 @@ export interface IQuestRewards {
 export interface IQuestReward {
     value?: string | number;
     id?: string;
+    illustrationConfig?: any;
+    isHidden?: boolean;
     type: QuestRewardType;
     index: number;
     target?: string;

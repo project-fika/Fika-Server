@@ -1,4 +1,4 @@
-import { IBaseInteractionRequestData } from "@spt/models/eft/common/request/IBaseInteractionRequestData";
+import type { IBaseInteractionRequestData } from "@spt/models/eft/common/request/IBaseInteractionRequestData";
 export interface IOffraidHealRequestData extends IBaseInteractionRequestData {
     Action: "Heal";
     item: string;

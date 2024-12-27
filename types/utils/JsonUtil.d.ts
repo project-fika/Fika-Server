@@ -1,7 +1,7 @@
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { VFS } from "@spt/utils/VFS";
-import { IParseOptions, IStringifyOptions, Reviver } from "jsonc/lib/interfaces";
+import type { IParseOptions, IStringifyOptions, Reviver } from "jsonc/lib/interfaces";
 export declare class JsonUtil {
     protected vfs: VFS;
     protected hashUtil: HashUtil;

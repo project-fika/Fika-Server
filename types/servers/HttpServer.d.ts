@@ -1,11 +1,11 @@
 import { IncomingMessage, ServerResponse } from "node:http";
 import { ApplicationContext } from "@spt/context/ApplicationContext";
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
-import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { WebSocketServer } from "@spt/servers/WebSocketServer";
-import { IHttpListener } from "@spt/servers/http/IHttpListener";
+import type { IHttpListener } from "@spt/servers/http/IHttpListener";
 import { LocalisationService } from "@spt/services/LocalisationService";
 export declare class HttpServer {
     protected logger: ILogger;

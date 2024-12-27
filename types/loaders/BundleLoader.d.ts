@@ -2,7 +2,7 @@ import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
 import { BundleHashCacheService } from "@spt/services/cache/BundleHashCacheService";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 import { VFS } from "@spt/utils/VFS";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class BundleInfo {
     modpath: string;
     filename: string;

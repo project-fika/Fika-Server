@@ -1,8 +1,8 @@
-import { IChatCommand } from "@spt/helpers/Dialogue/Commando/IChatCommand";
-import { IDialogueChatBot } from "@spt/helpers/Dialogue/IDialogueChatBot";
-import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IChatCommand } from "@spt/helpers/Dialogue/Commando/IChatCommand";
+import type { IDialogueChatBot } from "@spt/helpers/Dialogue/IDialogueChatBot";
+import type { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
+import type { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { MailSendService } from "@spt/services/MailSendService";
 export declare abstract class AbstractDialogueChatBot implements IDialogueChatBot {
     protected logger: ILogger;

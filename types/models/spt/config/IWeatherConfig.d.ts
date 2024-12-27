@@ -1,7 +1,7 @@
 import { MinMax } from "@spt/models/common/MinMax";
 import { Season } from "@spt/models/enums/Season";
 import { WindDirection } from "@spt/models/enums/WindDirection";
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IWeatherConfig extends IBaseConfig {
     kind: "spt-weather";
     acceleration: number;

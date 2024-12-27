@@ -1,5 +1,5 @@
-import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { IBarterScheme } from "@spt/models/eft/common/tables/ITrader";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { IBarterScheme } from "@spt/models/eft/common/tables/ITrader";
 export interface ICreateFenceAssortsResult {
     sptItems: IItem[][];
     barter_scheme: Record<string, IBarterScheme[][]>;

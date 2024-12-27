@@ -1,8 +1,8 @@
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { GiftSentResult } from "@spt/models/enums/GiftSentResult";
 import { MessageType } from "@spt/models/enums/MessageType";
-import { IGift, IGiftsConfig } from "@spt/models/spt/config/IGiftsConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IGift, IGiftsConfig } from "@spt/models/spt/config/IGiftsConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { MailSendService } from "@spt/services/MailSendService";

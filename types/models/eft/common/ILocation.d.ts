@@ -1,7 +1,7 @@
-import { IExit, ILocationBase } from "@spt/models/eft/common/ILocationBase";
-import { IGroupPostion, ILooseLoot } from "@spt/models/eft/common/ILooseLoot";
-import { Ixyz } from "@spt/models/eft/common/Ixyz";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { IExit, ILocationBase } from "@spt/models/eft/common/ILocationBase";
+import type { IGroupPostion, ILooseLoot } from "@spt/models/eft/common/ILooseLoot";
+import type { Ixyz } from "@spt/models/eft/common/Ixyz";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
 export interface ILocation {
     /** Map meta-data */
     base: ILocationBase;

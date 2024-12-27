@@ -1,5 +1,5 @@
-import { MinMax } from "@spt/models/common/MinMax";
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { MinMax } from "@spt/models/common/MinMax";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IInventoryConfig extends IBaseConfig {
     kind: "spt-inventory";
     /** Should new items purchased by flagged as found in raid */
@@ -10,6 +10,8 @@ export interface IInventoryConfig extends IBaseConfig {
     customMoneyTpls: string[];
     /** Multipliers for skill gain when inside menus, NOT in-game */
     skillGainMultiplers: Record<string, number>;
+    /** Container Tpls that shoud be deprioritised when choosing where to take money from for payments */
+    deprioritisedMoneyContainers: string[];
 }
 export interface IRewardDetails {
     rewardCount: number;

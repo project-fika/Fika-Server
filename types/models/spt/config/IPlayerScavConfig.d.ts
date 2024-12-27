@@ -1,5 +1,5 @@
-import { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IPlayerScavConfig extends IBaseConfig {
     kind: "spt-playerscav";
     karmaLevel: Record<string, IKarmaLevel>;

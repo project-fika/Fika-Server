@@ -3,12 +3,14 @@ import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PaymentHelper } from "@spt/helpers/PaymentHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { IProcessBuyTradeRequestData } from "@spt/models/eft/trade/IProcessBuyTradeRequestData";
-import { IProcessSellTradeRequestData } from "@spt/models/eft/trade/IProcessSellTradeRequestData";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import type { IProcessBuyTradeRequestData } from "@spt/models/eft/trade/IProcessBuyTradeRequestData";
+import type { IProcessSellTradeRequestData } from "@spt/models/eft/trade/IProcessSellTradeRequestData";
+import type { IInventoryConfig } from "@spt/models/spt/config/IInventoryConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HashUtil } from "@spt/utils/HashUtil";
@@ -24,7 +26,9 @@ export declare class PaymentService {
     protected inventoryHelper: InventoryHelper;
     protected localisationService: LocalisationService;
     protected paymentHelper: PaymentHelper;
-    constructor(logger: ILogger, hashUtil: HashUtil, httpResponse: HttpResponseUtil, databaseService: DatabaseService, handbookHelper: HandbookHelper, traderHelper: TraderHelper, itemHelper: ItemHelper, inventoryHelper: InventoryHelper, localisationService: LocalisationService, paymentHelper: PaymentHelper);
+    protected configServer: ConfigServer;
+    protected inventoryConfig: IInventoryConfig;
+    constructor(logger: ILogger, hashUtil: HashUtil, httpResponse: HttpResponseUtil, databaseService: DatabaseService, handbookHelper: HandbookHelper, traderHelper: TraderHelper, itemHelper: ItemHelper, inventoryHelper: InventoryHelper, localisationService: LocalisationService, paymentHelper: PaymentHelper, configServer: ConfigServer);
     /**
      * Take money and insert items into return to server request
      * @param pmcData Pmc profile

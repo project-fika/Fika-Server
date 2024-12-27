@@ -1,4 +1,4 @@
-import { IContainer, IInventoryBaseActionRequestData } from "@spt/models/eft/inventory/IInventoryBaseActionRequestData";
+import type { IContainer, IInventoryBaseActionRequestData } from "@spt/models/eft/inventory/IInventoryBaseActionRequestData";
 export interface IInventorySplitRequestData extends IInventoryBaseActionRequestData {
     Action: "Split";
     /** Id of item to split */

@@ -1,4 +1,4 @@
-import { IBotBase, IEftStats } from "@spt/models/eft/common/tables/IBotBase";
+import type { IBotBase, IEftStats } from "@spt/models/eft/common/tables/IBotBase";
 export interface IPmcData extends IBotBase {
 }
 export interface IPostRaidPmcData extends IBotBase {

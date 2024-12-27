@@ -1,18 +1,18 @@
 import { HealthHelper } from "@spt/helpers/HealthHelper";
-import { InventoryHelper } from "@spt/helpers/InventoryHelper";
-import { ItemHelper } from "@spt/helpers/ItemHelper";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IHealthTreatmentRequestData } from "@spt/models/eft/health/IHealthTreatmentRequestData";
-import { IOffraidEatRequestData } from "@spt/models/eft/health/IOffraidEatRequestData";
-import { IOffraidHealRequestData } from "@spt/models/eft/health/IOffraidHealRequestData";
-import { IWorkoutData } from "@spt/models/eft/health/IWorkoutData";
-import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { InventoryHelper } from "@spt/helpers/InventoryHelper";
+import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IHealthTreatmentRequestData } from "@spt/models/eft/health/IHealthTreatmentRequestData";
+import type { IOffraidEatRequestData } from "@spt/models/eft/health/IOffraidEatRequestData";
+import type { IOffraidHealRequestData } from "@spt/models/eft/health/IOffraidHealRequestData";
+import type { IWorkoutData } from "@spt/models/eft/health/IWorkoutData";
+import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { PaymentService } from "@spt/services/PaymentService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class HealthController {
     protected logger: ILogger;
     protected eventOutputHolder: EventOutputHolder;

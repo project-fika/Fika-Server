@@ -1,10 +1,10 @@
 import { TraderController } from "@spt/controllers/TraderController";
-import { OnLoad } from "@spt/di/OnLoad";
-import { OnUpdate } from "@spt/di/OnUpdate";
-import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
-import { ITraderAssort, ITraderBase } from "@spt/models/eft/common/tables/ITrader";
-import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
-import { IModdedTraders } from "@spt/models/spt/config/ITraderConfig";
+import type { OnLoad } from "@spt/di/OnLoad";
+import type { OnUpdate } from "@spt/di/OnUpdate";
+import type { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import type { ITraderAssort, ITraderBase } from "@spt/models/eft/common/tables/ITrader";
+import type { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import type { IModdedTraders } from "@spt/models/spt/config/ITraderConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 export declare class TraderCallbacks implements OnLoad, OnUpdate {

@@ -1,8 +1,8 @@
-import { ItemHelper } from "@spt/helpers/ItemHelper";
-import { IMods } from "@spt/models/eft/common/tables/IBotType";
-import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import type { IMods } from "@spt/models/eft/common/tables/IBotType";
+import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import type { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";

@@ -1,4 +1,4 @@
-import { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
+import type { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
 export declare class TraderAssortService {
     protected pristineTraderAssorts: Record<string, ITraderAssort>;
     getPristineTraderAssort(traderId: string): ITraderAssort;

@@ -1,5 +1,5 @@
 import { BotHelper } from "@spt/helpers/BotHelper";
-import { ItemHelper } from "@spt/helpers/ItemHelper";
+import type { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PaymentHelper } from "@spt/helpers/PaymentHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
@@ -8,17 +8,17 @@ import { RagfairHelper } from "@spt/helpers/RagfairHelper";
 import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
 import { RagfairSortHelper } from "@spt/helpers/RagfairSortHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
-import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
-import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
-import { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
-import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
-import { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
-import { IRagfairConfig, ITieredFlea } from "@spt/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
+import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import type { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import type { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { type ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
+import type { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import type { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
+import type { IRagfairConfig, ITieredFlea } from "@spt/models/spt/config/IRagfairConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -91,6 +91,12 @@ export declare class RagfairOfferHelper {
      * @returns IRagfairOffer array
      */
     getOffersForBuild(searchRequest: ISearchRequestData, itemsToAdd: string[], traderAssorts: Record<string, ITraderAssort>, pmcData: IPmcData): IRagfairOffer[];
+    /**
+     * Get offers that have not exceeded buy limits
+     * @param possibleOffers offers to process
+     * @returns Offers
+     */
+    protected getOffersInsideBuyRestrictionLimits(possibleOffers: IRagfairOffer[]): IRagfairOffer[];
     /**
      * Check if offer is from trader standing the player does not have
      * @param offer Offer to check
@@ -209,4 +215,10 @@ export declare class RagfairOfferHelper {
      * @returns True if in range
      */
     protected itemQualityInRange(item: IItem, min: number, max: number): boolean;
+    /**
+     * Does this offer come from a trader
+     * @param offer Offer to check
+     * @returns True = from trader
+     */
+    offerIsFromTrader(offer: IRagfairOffer): boolean;
 }

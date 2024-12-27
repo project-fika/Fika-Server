@@ -1,4 +1,4 @@
-import { IItem, IItemLocation } from "@spt/models/eft/common/tables/IItem";
+import type { IItem, IItemLocation } from "@spt/models/eft/common/tables/IItem";
 export interface IAddItemTempObject {
     itemRef: IItem;
     count: number;

@@ -1,5 +1,5 @@
-import { IDialogue, IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
-import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
+import type { IDialogue, IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import type { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";

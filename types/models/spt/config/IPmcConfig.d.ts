@@ -1,7 +1,7 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import { IChancedEnemy } from "@spt/models/eft/common/ILocationBase";
+import type { IChancedEnemy } from "@spt/models/eft/common/ILocationBase";
 import { MemberCategory } from "@spt/models/enums/MemberCategory";
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IPmcConfig extends IBaseConfig {
     kind: "spt-pmc";
     /** What game version should the PMC have */
@@ -66,7 +66,9 @@ export interface IPmcTypes {
     bear: string;
 }
 export interface ISlotLootSettings {
+    /** Item Type whitelist */
     whitelist: string[];
+    /** item tpl blacklist */
     blacklist: string[];
 }
 export interface IMinMaxLootValue extends MinMax {

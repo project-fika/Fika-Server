@@ -1,4 +1,4 @@
-import { IMessage, IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import type { IMessage, IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
 export interface IGetMailDialogViewResponseData {
     messages: IMessage[];
     profiles: IUserDialogInfo[];

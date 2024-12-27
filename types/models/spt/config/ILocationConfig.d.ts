@@ -1,6 +1,6 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import { IBossLocationSpawn, IWave } from "@spt/models/eft/common/ILocationBase";
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { IBossLocationSpawn, IWave } from "@spt/models/eft/common/ILocationBase";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface ILocationConfig extends IBaseConfig {
     kind: "spt-location";
     /** Rogues are classified as bosses and spawn immediatly, this can result in no scavs spawning, delay rogues spawning to allow scavs to spawn first */

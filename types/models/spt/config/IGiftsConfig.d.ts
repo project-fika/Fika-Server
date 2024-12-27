@@ -1,10 +1,10 @@
-import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
 import { GiftSenderType } from "@spt/models/enums/GiftSenderType";
 import { SeasonalEventType } from "@spt/models/enums/SeasonalEventType";
 import { Traders } from "@spt/models/enums/Traders";
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
-import { IProfileChangeEvent } from "@spt/models/spt/dialog/ISendMessageDetails";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { IProfileChangeEvent } from "@spt/models/spt/dialog/ISendMessageDetails";
 export interface IGiftsConfig extends IBaseConfig {
     kind: "spt-gifts";
     gifts: Record<string, IGift>;

@@ -1,10 +1,10 @@
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IHideoutImprovement, IMoneyTransferLimits, IProductive, ITraderInfo } from "@spt/models/eft/common/tables/IBotBase";
-import { ITraderData } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
-import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IHideoutImprovement, IMoneyTransferLimits, IProductive, ITraderInfo } from "@spt/models/eft/common/tables/IBotBase";
+import type { ITraderData } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
+import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class EventOutputHolder {
     protected profileHelper: ProfileHelper;
     protected timeUtil: TimeUtil;

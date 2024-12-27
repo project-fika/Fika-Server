@@ -1,5 +1,5 @@
 import { PresetHelper } from "@spt/helpers/PresetHelper";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 export declare class PresetController {
     protected logger: ILogger;

@@ -1,5 +1,5 @@
-import { IOverallCounters, ISkills } from "@spt/models/eft/common/tables/IBotBase";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { IOverallCounters, ISkills } from "@spt/models/eft/common/tables/IBotBase";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
 export interface IGetOtherProfileResponse {
     id: string;
     aid: number;
@@ -26,6 +26,7 @@ export interface IOtherProfileCustomization {
     body: string;
     feet: string;
     hands: string;
+    dogtag: string;
 }
 export interface IOtherProfileEquipment {
     Id: string;

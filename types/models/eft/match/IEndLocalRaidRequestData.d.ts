@@ -1,6 +1,6 @@
 import { ExitStatus } from "@spt/models/enums/ExitStatis";
-import { IPmcData } from "../common/IPmcData";
-import { IItem } from "../common/tables/IItem";
+import type { IPmcData } from "../common/IPmcData";
+import type { IItem } from "../common/tables/IItem";
 export interface IEndLocalRaidRequestData {
     /** ID of server player just left */
     serverId: string;
@@ -36,6 +36,8 @@ export interface ILocationTransit {
     dayTime: string;
     /** The location player last visited */
     sptLastVisitedLocation: string;
+    /** Name of exit taken */
+    sptExitName?: string;
 }
 export interface ITransitProfile {
     _id: string;

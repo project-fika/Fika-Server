@@ -1,5 +1,5 @@
-import { IPackageJsonData } from "@spt/models/spt/mod/IPackageJsonData";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IPackageJsonData } from "@spt/models/spt/mod/IPackageJsonData";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { LocalisationService } from "@spt/services/LocalisationService";
 export declare class ModLoadOrder {
     protected logger: ILogger;

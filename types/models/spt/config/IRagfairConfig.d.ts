@@ -1,5 +1,5 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import { IBaseConfig, IRunIntervalValues } from "@spt/models/spt/config/IBaseConfig";
+import type { IBaseConfig, IRunIntervalValues } from "@spt/models/spt/config/IBaseConfig";
 export interface IRagfairConfig extends IBaseConfig {
     kind: "spt-ragfair";
     /** How many seconds should pass before expired offers and procesed + player offers checked if sold */
@@ -75,6 +75,8 @@ export interface IDynamic {
     blacklist: IRagfairBlacklist;
     /** Dict of price limits keyed by item type */
     unreasonableModPrices: Record<string, IUnreasonableModPrices>;
+    /** Custom rouble prices for items to override values from prices.json */
+    itemPriceOverrideRouble: Record<string, number>;
 }
 export interface IPriceRanges {
     default: MinMax;

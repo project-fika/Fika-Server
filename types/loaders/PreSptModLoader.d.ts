@@ -1,16 +1,16 @@
 import { ModLoadOrder } from "@spt/loaders/ModLoadOrder";
 import { ModTypeCheck } from "@spt/loaders/ModTypeCheck";
-import { IModDetails } from "@spt/models/eft/profile/ISptProfile";
-import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
-import { IModLoader } from "@spt/models/spt/mod/IModLoader";
-import { IPackageJsonData } from "@spt/models/spt/mod/IPackageJsonData";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IModDetails } from "@spt/models/eft/profile/ISptProfile";
+import type { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import type { IModLoader } from "@spt/models/spt/mod/IModLoader";
+import type { IPackageJsonData } from "@spt/models/spt/mod/IPackageJsonData";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { ModCompilerService } from "@spt/services/ModCompilerService";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 import { VFS } from "@spt/utils/VFS";
-import { DependencyContainer } from "tsyringe";
+import type { DependencyContainer } from "tsyringe";
 export declare class PreSptModLoader implements IModLoader {
     protected logger: ILogger;
     protected vfs: VFS;

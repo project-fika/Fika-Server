@@ -1,12 +1,12 @@
 import { HealthController } from "@spt/controllers/HealthController";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IHealthTreatmentRequestData } from "@spt/models/eft/health/IHealthTreatmentRequestData";
-import { IOffraidEatRequestData } from "@spt/models/eft/health/IOffraidEatRequestData";
-import { IOffraidHealRequestData } from "@spt/models/eft/health/IOffraidHealRequestData";
-import { IWorkoutData } from "@spt/models/eft/health/IWorkoutData";
-import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
-import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IHealthTreatmentRequestData } from "@spt/models/eft/health/IHealthTreatmentRequestData";
+import type { IOffraidEatRequestData } from "@spt/models/eft/health/IOffraidEatRequestData";
+import type { IOffraidHealRequestData } from "@spt/models/eft/health/IOffraidHealRequestData";
+import type { IWorkoutData } from "@spt/models/eft/health/IWorkoutData";
+import type { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 export declare class HealthCallbacks {
     protected httpResponse: HttpResponseUtil;

@@ -1,13 +1,13 @@
-import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
-import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { IAddOfferRequestData } from "@spt/models/eft/ragfair/IAddOfferRequestData";
-import { IExtendOfferRequestData } from "@spt/models/eft/ragfair/IExtendOfferRequestData";
-import { IGetItemPriceResult } from "@spt/models/eft/ragfair/IGetItemPriceResult";
-import { IGetMarketPriceRequestData } from "@spt/models/eft/ragfair/IGetMarketPriceRequestData";
-import { IRemoveOfferRequestData } from "@spt/models/eft/ragfair/IRemoveOfferRequestData";
-import { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
+import type { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import type { IAddOfferRequestData } from "@spt/models/eft/ragfair/IAddOfferRequestData";
+import type { IExtendOfferRequestData } from "@spt/models/eft/ragfair/IExtendOfferRequestData";
+import type { IGetItemPriceResult } from "@spt/models/eft/ragfair/IGetItemPriceResult";
+import type { IGetMarketPriceRequestData } from "@spt/models/eft/ragfair/IGetMarketPriceRequestData";
+import type { IRemoveOfferRequestData } from "@spt/models/eft/ragfair/IRemoveOfferRequestData";
+import type { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
 export interface IRagfairCallbacks {
     load(): void;
     search(url: string, info: ISearchRequestData, sessionID: string): IGetBodyResponseData<any>;

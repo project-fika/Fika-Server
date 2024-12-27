@@ -1,9 +1,9 @@
 import { WeatherGenerator } from "@spt/generators/WeatherGenerator";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
-import { IWeather } from "@spt/models/eft/weather/IWeatherData";
+import type { IWeather } from "@spt/models/eft/weather/IWeatherData";
 import { Season } from "@spt/models/enums/Season";
-import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";

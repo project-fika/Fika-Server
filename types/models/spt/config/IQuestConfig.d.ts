@@ -1,7 +1,7 @@
 import { MinMax } from "@spt/models/common/MinMax";
 import { ELocationName } from "@spt/models/enums/ELocationName";
 import { SeasonalEventType } from "@spt/models/enums/SeasonalEventType";
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IQuestConfig extends IBaseConfig {
     kind: "spt-quest";
     mailRedeemTimeHours: Record<string, number>;

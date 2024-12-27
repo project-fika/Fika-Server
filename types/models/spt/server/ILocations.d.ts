@@ -1,5 +1,5 @@
-import { ILocation } from "@spt/models/eft/common/ILocation";
-import { ILocationsBase } from "@spt/models/eft/common/tables/ILocationsBase";
+import type { ILocation } from "@spt/models/eft/common/ILocation";
+import type { ILocationsBase } from "@spt/models/eft/common/tables/ILocationsBase";
 export interface ILocations {
     bigmap?: ILocation;
     develop?: ILocation;

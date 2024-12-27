@@ -1,13 +1,13 @@
-import { ItemHelper } from "@spt/helpers/ItemHelper";
+import type { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import { IStorePlayerOfferTaxAmountRequestData } from "@spt/models/eft/ragfair/IStorePlayerOfferTaxAmountRequestData";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import type { IStorePlayerOfferTaxAmountRequestData } from "@spt/models/eft/ragfair/IStorePlayerOfferTaxAmountRequestData";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { RagfairPriceService } from "@spt/services/RagfairPriceService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class RagfairTaxService {
     protected logger: ILogger;
     protected databaseService: DatabaseService;

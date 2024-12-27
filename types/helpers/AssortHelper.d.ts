@@ -1,9 +1,9 @@
-import { ItemHelper } from "@spt/helpers/ItemHelper";
+import type { ItemHelper } from "@spt/helpers/ItemHelper";
 import { QuestHelper } from "@spt/helpers/QuestHelper";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
 import { QuestStatus } from "@spt/models/enums/QuestStatus";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { LocalisationService } from "@spt/services/LocalisationService";
 export declare class AssortHelper {

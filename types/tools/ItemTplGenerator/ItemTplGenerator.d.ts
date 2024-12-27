@@ -22,9 +22,9 @@
  * - The parent item type prefix is grouped more than the base item list, see "getParentName" for the rules around this
  * - Finalized enum names are created as a combination of the parent name, prefix, item name, and suffix
  */
-import { OnLoad } from "@spt/di/OnLoad";
-import { ItemHelper } from "@spt/helpers/ItemHelper";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { OnLoad } from "@spt/di/OnLoad";
+import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { LocaleService } from "@spt/services/LocaleService";
 export declare class ItemTplGenerator {

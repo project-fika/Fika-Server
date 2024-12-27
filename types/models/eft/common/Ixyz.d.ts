@@ -3,3 +3,7 @@ export interface Ixyz {
     y: number;
     z: number;
 }
+export interface Ixy {
+    x: number;
+    y: number;
+}

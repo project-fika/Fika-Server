@@ -1,4 +1,4 @@
-import { IQuestCondition } from "@spt/models/eft/common/tables/IQuest";
+import type { IQuestCondition } from "@spt/models/eft/common/tables/IQuest";
 export declare class QuestConditionHelper {
     getQuestConditions(q: IQuestCondition[], furtherFilter?: (a: IQuestCondition) => IQuestCondition[]): IQuestCondition[];
     getLevelConditions(q: IQuestCondition[], furtherFilter?: (a: IQuestCondition) => IQuestCondition[]): IQuestCondition[];

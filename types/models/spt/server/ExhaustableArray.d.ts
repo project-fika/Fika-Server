@@ -1,5 +1,5 @@
 import { RandomUtil } from "@spt/utils/RandomUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class ExhaustableArray<T> implements IExhaustableArray<T> {
     private itemPool;
     private randomUtil;

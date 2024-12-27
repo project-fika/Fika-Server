@@ -1,5 +1,5 @@
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 import { VFS } from "@spt/utils/VFS";
 export declare class ConfigServer {

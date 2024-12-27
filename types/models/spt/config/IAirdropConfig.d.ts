@@ -1,6 +1,6 @@
 import { MinMax } from "@spt/models/common/MinMax";
 import { AirdropTypeEnum, SptAirdropTypeEnum } from "@spt/models/enums/AirdropType";
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IAirdropConfig extends IBaseConfig {
     kind: "spt-airdrop";
     airdropTypeWeightings: Record<SptAirdropTypeEnum, number>;

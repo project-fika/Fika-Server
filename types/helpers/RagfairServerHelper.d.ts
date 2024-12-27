@@ -1,20 +1,20 @@
-import { ItemHelper } from "@spt/helpers/ItemHelper";
+import type { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
-import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import type { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
+import type { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
-import { ItemFilterService } from "@spt/services/ItemFilterService";
+import type { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { MailSendService } from "@spt/services/MailSendService";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 /**
  * Helper class for common ragfair server actions
  */

@@ -1,8 +1,8 @@
-import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
-import { Warning } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
-import { IItemEventRouterRequest } from "@spt/models/eft/itemEvent/IItemEventRouterRequest";
-import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { ItemEventRouter } from "@spt/routers/ItemEventRouter";
+import type { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import type { Warning } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
+import type { IItemEventRouterRequest } from "@spt/models/eft/itemEvent/IItemEventRouterRequest";
+import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import type { ItemEventRouter } from "@spt/routers/ItemEventRouter";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 export declare class ItemEventCallbacks {
     protected httpResponse: HttpResponseUtil;

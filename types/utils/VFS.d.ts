@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import fs from "node:fs";
-import { IAsyncQueue } from "@spt/models/spt/utils/IAsyncQueue";
+import type { IAsyncQueue } from "@spt/models/spt/utils/IAsyncQueue";
 export declare class VFS {
     protected asyncQueue: IAsyncQueue;
     accessFilePromisify: (path: fs.PathLike, mode?: number) => Promise<void>;

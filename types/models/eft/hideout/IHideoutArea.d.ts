@@ -1,4 +1,4 @@
-import { IRequirementBase } from "@spt/models/eft/hideout/IHideoutProduction";
+import type { IRequirementBase } from "@spt/models/eft/hideout/IHideoutProduction";
 import { BonusSkillType } from "@spt/models/enums/BonusSkillType";
 import { BonusType } from "@spt/models/enums/BonusType";
 export interface IHideoutArea {
@@ -26,6 +26,7 @@ export interface IStage {
     /** Containers inventory tpl */
     container?: string;
     description: string;
+    globalCounterId?: string;
     displayInterface: boolean;
     improvements: IStageImprovement[];
     requirements: IStageRequirement[];
@@ -62,6 +63,7 @@ export interface IStageRequirement extends IRequirementBase {
     loyaltyLevel?: number;
     skillName?: string;
     skillLevel?: number;
+    isSpawnedInSession?: boolean;
 }
 export interface IStageBonus {
     value: number;

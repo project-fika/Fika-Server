@@ -1,5 +1,5 @@
-import { ISurveyResponseData } from "@spt/models/eft/game/ISurveyResponseData";
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { ISurveyResponseData } from "@spt/models/eft/game/ISurveyResponseData";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface ICoreConfig extends IBaseConfig {
     kind: "spt-core";
     sptVersion: string;

@@ -1,4 +1,4 @@
-import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
+import type { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
 export interface IGetOffersResult {
     categories?: Record<string, number>;
     offers: IRagfairOffer[];

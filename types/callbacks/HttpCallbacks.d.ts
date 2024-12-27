@@ -1,4 +1,4 @@
-import { OnLoad } from "@spt/di/OnLoad";
+import type { OnLoad } from "@spt/di/OnLoad";
 import { HttpServer } from "@spt/servers/HttpServer";
 export declare class HttpCallbacks implements OnLoad {
     protected httpServer: HttpServer;

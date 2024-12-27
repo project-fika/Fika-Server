@@ -1,4 +1,4 @@
-import { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import type { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 export declare abstract class NewItemDetailsBase {
     /** Price of the item on flea market */
     fleaPriceRoubles: number;

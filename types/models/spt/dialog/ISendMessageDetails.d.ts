@@ -1,5 +1,5 @@
-import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { IMessageContentRagfair, ISystemData, IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { IMessageContentRagfair, ISystemData, IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { Traders } from "@spt/models/enums/Traders";
 export interface ISendMessageDetails {

@@ -1,5 +1,5 @@
-import { Ixyz } from "@spt/models/eft/common/Ixyz";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { Ixy, Ixyz } from "@spt/models/eft/common/Ixyz";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
 export interface IGlobals {
     time: number;
     config: IConfig;
@@ -7,8 +7,31 @@ export interface IGlobals {
     bot_presets: IBotPreset[];
     AudioSettings: IAudioSettings;
     EnvironmentSettings: IEnvironmentSettings;
+    PlayerSettings: IPlayerSettings;
+    RadioBroadcastSettings: IRadioBroadcastSettings;
     BotWeaponScatterings: IBotWeaponScattering[];
     ItemPresets: Record<string, IPreset>;
+}
+export interface IPlayerSettings {
+    BaseMaxMovementRolloff: number;
+    EnabledOcclusionDynamicRolloff: boolean;
+    IndoorRolloffMult: number;
+    MinStepSoundRolloffMult: number;
+    MinStepSoundVolumeMult: number;
+    MovementRolloffMultipliers: IMovementRolloffMultiplier[];
+    OutdoorRolloffMult: number;
+}
+export interface IMovementRolloffMultiplier {
+    MovementState: string;
+    RolloffMultiplier: number;
+}
+export interface IRadioBroadcastSettings {
+    EnabledBroadcast: boolean;
+    RadioStations: IRadioStation[];
+}
+export interface IRadioStation {
+    Enabled: boolean;
+    Station: string;
 }
 export interface ILocationInfection {
     Interchange: number;
@@ -107,6 +130,7 @@ export interface IConfig {
     SessionsToShowHotKeys: number;
     MaxBotsAliveOnMap: number;
     MaxBotsAliveOnMapPvE: number;
+    RunddansSettings: IRunddansSettings;
     SavagePlayCooldown: number;
     SavagePlayCooldownNdaFree: number;
     SeasonActivity: ISeasonActivity;
@@ -116,6 +140,7 @@ export interface IConfig {
     Mastering: IMastering[];
     GlobalItemPriceModifier: number;
     TradingUnlimitedItems: boolean;
+    TradingUnsetPersonalLimitItems: boolean;
     TransitSettings: ITransitSettings;
     TripwiresSettings: ITripwiresSettings;
     MaxLoyaltyLevelForAll: boolean;
@@ -195,6 +220,26 @@ export interface IConfig {
     Inertia: IInertia;
     Ballistic: IBallistic;
     RepairSettings: IRepairSettings;
+}
+export interface IRunddansSettings {
+    accessKeys: string[];
+    active: boolean;
+    activePVE: boolean;
+    applyFrozenEverySec: number;
+    consumables: string[];
+    drunkImmunitySec: number;
+    durability: Ixy;
+    fireDistanceToHeat: number;
+    grenadeDistanceToBreak: number;
+    interactionDistance: number;
+    knifeCritChanceToBreak: number;
+    locations: string[];
+    multitoolRepairSec: number;
+    nonExitsLocations: string[];
+    rainForFrozen: number;
+    repairSec: number;
+    secToBreak: Ixy;
+    sleighLocations: string[];
 }
 export interface ISeasonActivity {
     InfectionHalloween: ISeasonActivityHalloween;
@@ -571,6 +616,7 @@ export interface IBodyParts {
     Hands: string;
 }
 export interface IAirdropGlobalSettings {
+    AirdropViewType: string;
     ParachuteEndOpenHeight: number;
     ParachuteStartOpenHeight: number;
     PlaneAdditionalDistance: number;
@@ -1749,6 +1795,7 @@ export interface IAudioGroupPreset {
     Name: string;
     OcclusionEnabled: boolean;
     OcclusionIntensity: number;
+    OcclusionRolloffScale: number;
     OverallVolume: number;
 }
 export interface IEnvironmentSettings {

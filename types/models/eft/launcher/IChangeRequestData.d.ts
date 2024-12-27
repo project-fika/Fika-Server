@@ -1,4 +1,4 @@
-import { ILoginRequestData } from "@spt/models/eft/launcher/ILoginRequestData";
+import type { ILoginRequestData } from "@spt/models/eft/launcher/ILoginRequestData";
 export interface IChangeRequestData extends ILoginRequestData {
     change: string;
 }

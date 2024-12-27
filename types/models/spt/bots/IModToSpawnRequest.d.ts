@@ -1,8 +1,8 @@
-import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ModSpawn } from "@spt/models/enums/ModSpawn";
-import { IBotData, IWeaponStats } from "@spt/models/spt/bots/IGenerateWeaponRequest";
-import { IEquipmentFilterDetails, IRandomisationDetails } from "@spt/models/spt/config/IBotConfig";
+import type { IBotData, IWeaponStats } from "@spt/models/spt/bots/IGenerateWeaponRequest";
+import type { IEquipmentFilterDetails, IRandomisationDetails } from "@spt/models/spt/config/IBotConfig";
 export interface IModToSpawnRequest {
     /** Slot mod will fit into */
     modSlot: string;

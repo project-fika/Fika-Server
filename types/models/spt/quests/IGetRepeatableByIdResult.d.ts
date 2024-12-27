@@ -1,4 +1,4 @@
-import { IPmcDataRepeatableQuest, IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
+import type { IPmcDataRepeatableQuest, IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
 export interface IGetRepeatableByIdResult {
     quest: IRepeatableQuest;
     repeatableType: IPmcDataRepeatableQuest;

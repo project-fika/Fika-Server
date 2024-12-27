@@ -1,9 +1,9 @@
-import { IDialogueChatBot } from "@spt/helpers/Dialogue/IDialogueChatBot";
+import type { IDialogueChatBot } from "@spt/helpers/Dialogue/IDialogueChatBot";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
-import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
-import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
+import type { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
+import type { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import type { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import type { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { GiftService } from "@spt/services/GiftService";
 import { LocalisationService } from "@spt/services/LocalisationService";

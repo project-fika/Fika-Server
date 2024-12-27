@@ -1,13 +1,13 @@
-import { IGlobals } from "@spt/models/eft/common/IGlobals";
-import { IMatch } from "@spt/models/eft/common/tables/IMatch";
-import { ITrader } from "@spt/models/eft/common/tables/ITrader";
-import { IBots } from "@spt/models/spt/bots/IBots";
-import { IHideout } from "@spt/models/spt/hideout/IHideout";
-import { ILocaleBase } from "@spt/models/spt/server/ILocaleBase";
-import { ILocations } from "@spt/models/spt/server/ILocations";
-import { IServerBase } from "@spt/models/spt/server/IServerBase";
-import { ISettingsBase } from "@spt/models/spt/server/ISettingsBase";
-import { ITemplates } from "@spt/models/spt/templates/ITemplates";
+import type { IGlobals } from "@spt/models/eft/common/IGlobals";
+import type { IMatch } from "@spt/models/eft/common/tables/IMatch";
+import type { ITrader } from "@spt/models/eft/common/tables/ITrader";
+import type { IBots } from "@spt/models/spt/bots/IBots";
+import type { IHideout } from "@spt/models/spt/hideout/IHideout";
+import type { ILocaleBase } from "@spt/models/spt/server/ILocaleBase";
+import type { ILocations } from "@spt/models/spt/server/ILocations";
+import type { IServerBase } from "@spt/models/spt/server/IServerBase";
+import type { ISettingsBase } from "@spt/models/spt/server/ISettingsBase";
+import type { ITemplates } from "@spt/models/spt/templates/ITemplates";
 export interface IDatabaseTables {
     bots?: IBots;
     hideout?: IHideout;

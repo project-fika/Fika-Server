@@ -1,6 +1,6 @@
-import { MinMax } from "@spt/models/common/MinMax";
-import { Ixyz } from "@spt/models/eft/common/Ixyz";
-import { ISpawnpointTemplate } from "./ILooseLoot";
+import type { MinMax } from "@spt/models/common/MinMax";
+import type { Ixyz } from "@spt/models/eft/common/Ixyz";
+import type { ISpawnpointTemplate } from "./ILooseLoot";
 export interface ILocationBase {
     AccessKeys: string[];
     AccessKeysPvE: string[];
@@ -109,6 +109,14 @@ export interface ILocationBase {
     users_spawn_seconds_n2: number;
     users_summon_seconds: number;
     waves: IWave[];
+    secretExits: ISecretExit[];
+}
+export interface ISecretExit {
+    EligibleForPMC: boolean;
+    EligibleForScav: boolean;
+    ExfiltrationTime: number;
+    Id: string;
+    Name: string;
 }
 export interface ITransit {
     activateAfterSec: string;
@@ -116,6 +124,7 @@ export interface ITransit {
     name: string;
     conditions: string;
     description: string;
+    events: boolean;
     id: number;
     location: string;
     target: string;
@@ -294,6 +303,10 @@ export interface IWave {
 }
 export interface ILocationEvents {
     Halloween2024: IHalloween2024;
+    Khorovod: IKhorovod;
+}
+export interface IKhorovod {
+    Chance: number;
 }
 export interface IHalloween2024 {
     CrowdAttackBlockRadius: number;

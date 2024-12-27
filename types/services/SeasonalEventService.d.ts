@@ -1,16 +1,16 @@
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { IConfig } from "@spt/models/eft/common/IGlobals";
-import { IAdditionalHostilitySettings } from "@spt/models/eft/common/ILocationBase";
-import { IInventory } from "@spt/models/eft/common/tables/IBotType";
+import type { IConfig } from "@spt/models/eft/common/IGlobals";
+import type { IAdditionalHostilitySettings } from "@spt/models/eft/common/ILocationBase";
+import type { IInventory } from "@spt/models/eft/common/tables/IBotType";
 import { Season } from "@spt/models/enums/Season";
 import { SeasonalEventType } from "@spt/models/enums/SeasonalEventType";
-import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
-import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
-import { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
-import { ISeasonalEvent, ISeasonalEventConfig, IZombieSettings } from "@spt/models/spt/config/ISeasonalEventConfig";
-import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import type { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
+import type { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
+import type { ISeasonalEvent, ISeasonalEventConfig, IZombieSettings } from "@spt/models/spt/config/ISeasonalEventConfig";
+import type { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { GiftService } from "@spt/services/GiftService";
@@ -89,6 +89,12 @@ export declare class SeasonalEventService {
      */
     protected getEventBotGear(eventType: SeasonalEventType): Record<string, Record<string, Record<string, number>>>;
     /**
+     * Get a dictionary of loot changes to apply to bots for a specific event e.g. Christmas/Halloween
+     * @param eventName Name of event to get gear changes for
+     * @returns bots with loot changes
+     */
+    protected getEventBotLoot(eventType: SeasonalEventType): Record<string, Record<string, Record<string, number>>>;
+    /**
      * Get the dates each seasonal event starts and ends at
      * @returns Record with event name + start/end date
      */
@@ -108,7 +114,7 @@ export declare class SeasonalEventService {
     /**
      * Store active events inside class array property `currentlyActiveEvents` + set class properties: christmasEventActive/halloweenEventActive
      */
-    protected cacheActiveEvents(): void;
+    cacheActiveEvents(): void;
     /**
      * Get the currently active weather season e.g. SUMMER/AUTUMN/WINTER
      * @returns Season enum value
@@ -171,6 +177,11 @@ export declare class SeasonalEventService {
      * @param eventName Name of the event to read equipment in from config
      */
     protected addEventGearToBots(eventType: SeasonalEventType): void;
+    /**
+     * Read in data from seasonalEvents.json and add found loot items to bots
+     * @param eventName Name of the event to read loot in from config
+     */
+    protected addEventLootToBots(eventType: SeasonalEventType): void;
     /**
      * Add pumpkin loot boxes to scavs
      */

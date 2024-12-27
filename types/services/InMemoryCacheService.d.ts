@@ -1,4 +1,4 @@
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class InMemoryCacheService {
     protected cloner: ICloner;
     protected cacheData: Record<string, any>;

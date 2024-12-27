@@ -1,5 +1,5 @@
 import { BundleLoader } from "@spt/loaders/BundleLoader";
-import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import type { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 export declare class BundleCallbacks {

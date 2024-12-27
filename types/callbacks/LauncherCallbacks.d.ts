@@ -1,9 +1,9 @@
 import { LauncherController } from "@spt/controllers/LauncherController";
-import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
-import { IChangeRequestData } from "@spt/models/eft/launcher/IChangeRequestData";
-import { ILoginRequestData } from "@spt/models/eft/launcher/ILoginRequestData";
-import { IRegisterData } from "@spt/models/eft/launcher/IRegisterData";
-import { IRemoveProfileData } from "@spt/models/eft/launcher/IRemoveProfileData";
+import type { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import type { IChangeRequestData } from "@spt/models/eft/launcher/IChangeRequestData";
+import type { ILoginRequestData } from "@spt/models/eft/launcher/ILoginRequestData";
+import type { IRegisterData } from "@spt/models/eft/launcher/IRegisterData";
+import type { IRemoveProfileData } from "@spt/models/eft/launcher/IRemoveProfileData";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { Watermark } from "@spt/utils/Watermark";

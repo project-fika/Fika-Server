@@ -1,4 +1,4 @@
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IInRaidConfig extends IBaseConfig {
     kind: "spt-inraid";
     /** Overrides to apply to the pre-raid settings screen */

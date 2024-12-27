@@ -1,16 +1,16 @@
 import { HandbookHelper } from "@spt/helpers/HandbookHelper";
-import { ItemHelper } from "@spt/helpers/ItemHelper";
+import type { ItemHelper } from "@spt/helpers/ItemHelper";
 import { TraderAssortHelper } from "@spt/helpers/TraderAssortHelper";
 import { UtilityHelper } from "@spt/helpers/UtilityHelper";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
-import { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
-import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
+import type { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
+import type { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { RagfairLinkedItemService } from "@spt/services/RagfairLinkedItemService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class RagfairHelper {
     protected logger: ILogger;
     protected traderAssortHelper: TraderAssortHelper;

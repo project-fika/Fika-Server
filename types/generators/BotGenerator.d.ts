@@ -4,13 +4,14 @@ import { BotGeneratorHelper } from "@spt/helpers/BotGeneratorHelper";
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
-import { MinMax } from "@spt/models/common/MinMax";
-import { IBaseJsonSkills, IBaseSkill, IBotBase, IInfo, IHealth as PmcHealth, ISkills as botSkills } from "@spt/models/eft/common/tables/IBotBase";
-import { IAppearance, IBodyPart, IBotType, IHealth, IInventory } from "@spt/models/eft/common/tables/IBotType";
-import { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
-import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
-import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { MinMax } from "@spt/models/common/MinMax";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IBaseJsonSkills, IBaseSkill, IBotBase, IInfo, IHealth as PmcHealth, ISkills as botSkills } from "@spt/models/eft/common/tables/IBotBase";
+import type { IAppearance, IBodyPart, IBotType, IHealth, IInventory } from "@spt/models/eft/common/tables/IBotType";
+import type { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
+import type { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import type { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { BotEquipmentFilterService } from "@spt/services/BotEquipmentFilterService";
 import { BotNameService } from "@spt/services/BotNameService";
@@ -20,7 +21,7 @@ import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class BotGenerator {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -47,9 +48,10 @@ export declare class BotGenerator {
      * @param role e.g. assault / pmcbot
      * @param difficulty easy/normal/hard/impossible
      * @param botTemplate base bot template to use  (e.g. assault/pmcbot)
-     * @returns
+     * profile PMC profile of player generating pscav
+     * @returns IBotBase
      */
-    generatePlayerScav(sessionId: string, role: string, difficulty: string, botTemplate: IBotType): IBotBase;
+    generatePlayerScav(sessionId: string, role: string, difficulty: string, botTemplate: IBotType, profile: IPmcData): IBotBase;
     /**
      * Create 1 bot of the type/side/difficulty defined in botGenerationDetails
      * @param sessionId Session id
@@ -79,6 +81,12 @@ export declare class BotGenerator {
      * @returns IBotBase object
      */
     protected generateBot(sessionId: string, bot: IBotBase, botJsonTemplate: IBotType, botGenerationDetails: IBotGenerationDetails): IBotBase;
+    /**
+     * Should this bot have a name like "name (Pmc Name)" and be alterd by client patch to be hostile to player
+     * @param botRole Role bot has
+     * @returns True if name should be simulated pscav
+     */
+    protected shouldSimulatePlayerScav(botRole: string): boolean;
     /**
      * Get exp for kill by bot difficulty
      * @param experience Dict of difficulties and experience

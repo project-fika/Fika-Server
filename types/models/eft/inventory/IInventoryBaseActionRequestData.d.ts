@@ -1,5 +1,5 @@
-import { IBaseInteractionRequestData } from "@spt/models/eft/common/request/IBaseInteractionRequestData";
-import { IItemLocation } from "@spt/models/eft/common/tables/IItem";
+import type { IBaseInteractionRequestData } from "@spt/models/eft/common/request/IBaseInteractionRequestData";
+import type { IItemLocation } from "@spt/models/eft/common/tables/IItem";
 export interface IInventoryBaseActionRequestData extends IBaseInteractionRequestData {
 }
 export interface ITo {

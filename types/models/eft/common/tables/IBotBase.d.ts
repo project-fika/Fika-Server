@@ -1,6 +1,6 @@
-import { IItem, IUpd } from "@spt/models/eft/common/tables/IItem";
-import { IPmcDataRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
-import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
+import type { IItem, IUpd } from "@spt/models/eft/common/tables/IItem";
+import type { IPmcDataRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
+import type { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
 import { BonusSkillType } from "@spt/models/enums/BonusSkillType";
 import { BonusType } from "@spt/models/enums/BonusType";
 import { HideoutAreas } from "@spt/models/enums/HideoutAreas";
@@ -60,6 +60,7 @@ export interface IUnlockedInfo {
 export interface IInfo {
     EntryPoint: string;
     Nickname: string;
+    MainProfileNickname?: string;
     LowerNickname: string;
     Side: string;
     SquadInviteRestriction: boolean;
@@ -80,12 +81,14 @@ export interface IInfo {
     NicknameChangeDate: number;
     NeedWipeOptions: any[];
     lastCompletedWipe: ILastCompleted;
+    lastWipeTimestamp: number;
     Bans: IBan[];
     BannedState: boolean;
     BannedUntil: number;
     IsStreamerModeAvailable: boolean;
     lastCompletedEvent?: ILastCompleted;
     isMigratedSkills: boolean;
+    PrestigeLevel: number;
 }
 export interface IBotInfoSettings {
     Role: string;
@@ -113,6 +116,7 @@ export interface ICustomization {
     Body: string;
     Feet: string;
     Hands: string;
+    DogTag: string;
 }
 export interface IHealth {
     Hydration: ICurrentMax;
@@ -154,6 +158,7 @@ export interface IInventory {
     hideoutAreaStashes: Record<string, string>;
     fastPanel: Record<string, string>;
     favoriteItems: string[];
+    hideoutCustomizationStashId: string;
 }
 export interface IBaseJsonSkills {
     Common: Record<string, Common>;
@@ -306,6 +311,7 @@ export interface IHideout {
     Improvements: Record<string, IHideoutImprovement>;
     HideoutCounters: IHideoutCounters;
     Seed: number;
+    Customization: Record<string, string>;
     MannequinPoses: string[];
     sptUpdateLastRunTimestamp: number;
 }

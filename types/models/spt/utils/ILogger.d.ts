@@ -1,4 +1,4 @@
-import { IDaum } from "@spt/models/eft/itemEvent/IItemEventRouterRequest";
+import type { IDaum } from "@spt/models/eft/itemEvent/IItemEventRouterRequest";
 import { LogBackgroundColor } from "@spt/models/spt/logging/LogBackgroundColor";
 import { LogTextColor } from "@spt/models/spt/logging/LogTextColor";
 export interface ILogger {

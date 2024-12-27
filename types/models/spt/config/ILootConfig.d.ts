@@ -1,5 +1,5 @@
-import { ISpawnpoint } from "@spt/models/eft/common/ILooseLoot";
-import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import type { ISpawnpoint } from "@spt/models/eft/common/ILooseLoot";
+import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface ILootConfig extends IBaseConfig {
     kind: "spt-loot";
     /** Spawn positions to add into a map, key=mapid */

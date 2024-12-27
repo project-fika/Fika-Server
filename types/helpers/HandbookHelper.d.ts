@@ -1,9 +1,9 @@
-import { IHandbookCategory } from "@spt/models/eft/common/tables/IHandbookBase";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { IItemConfig } from "@spt/models/spt/config/IItemConfig";
+import type { IHandbookCategory } from "@spt/models/eft/common/tables/IHandbookBase";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { IItemConfig } from "@spt/models/spt/config/IItemConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 declare class LookupItem<T, I> {
     readonly byId: Map<string, T>;
     readonly byParent: Map<string, I[]>;

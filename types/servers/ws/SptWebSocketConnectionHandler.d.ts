@@ -1,11 +1,11 @@
-import { IncomingMessage } from "node:http";
+import type { IncomingMessage } from "node:http";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
-import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
+import type { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
-import { ISptWebSocketMessageHandler } from "@spt/servers/ws/message/ISptWebSocketMessageHandler";
+import type { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
+import type { ISptWebSocketMessageHandler } from "@spt/servers/ws/message/ISptWebSocketMessageHandler";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 import { WebSocket } from "ws";

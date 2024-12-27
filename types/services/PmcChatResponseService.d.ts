@@ -1,11 +1,11 @@
 import { NotificationSendHelper } from "@spt/helpers/NotificationSendHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IAggressor, IVictim } from "@spt/models/eft/common/tables/IBotBase";
-import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
-import { IGiftsConfig } from "@spt/models/spt/config/IGiftsConfig";
-import { IPmcChatResponse } from "@spt/models/spt/config/IPmChatResponse";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IAggressor, IVictim } from "@spt/models/eft/common/tables/IBotBase";
+import type { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import type { IGiftsConfig } from "@spt/models/spt/config/IGiftsConfig";
+import type { IPmcChatResponse } from "@spt/models/spt/config/IPmChatResponse";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { GiftService } from "@spt/services/GiftService";
 import { LocaleService } from "@spt/services/LocaleService";

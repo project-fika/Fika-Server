@@ -1,7 +1,7 @@
-import { IInventory as PmcInventory } from "@spt/models/eft/common/tables/IBotBase";
-import { IChances, IMods } from "@spt/models/eft/common/tables/IBotType";
+import type { IInventory as PmcInventory } from "@spt/models/eft/common/tables/IBotBase";
+import type { IChances, IMods } from "@spt/models/eft/common/tables/IBotType";
 import { EquipmentFilters, IRandomisationDetails } from "@spt/models/spt/config/IBotConfig";
-import { IBotData } from "./IGenerateWeaponRequest";
+import type { IBotData } from "./IGenerateWeaponRequest";
 export interface IGenerateEquipmentProperties {
     /** Root Slot being generated */
     rootEquipmentSlot: string;

@@ -1,4 +1,4 @@
-import { IAsyncQueue } from "@spt/models/spt/utils/IAsyncQueue";
+import type { IAsyncQueue } from "@spt/models/spt/utils/IAsyncQueue";
 import { AbstractWinstonLogger } from "@spt/utils/logging/AbstractWinstonLogger";
 export declare class WinstonRequestLogger extends AbstractWinstonLogger {
     protected asyncQueue: IAsyncQueue;

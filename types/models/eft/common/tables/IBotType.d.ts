@@ -1,5 +1,5 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import { ISkills } from "@spt/models/eft/common/tables/IBotBase";
+import type { ISkills } from "@spt/models/eft/common/tables/IBotBase";
 export interface IBotType {
     appearance: IAppearance;
     chances: IChances;

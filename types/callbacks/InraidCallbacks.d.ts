@@ -1,8 +1,8 @@
-import { InraidController } from "@spt/controllers/InraidController";
-import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
-import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
-import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
-import { IScavSaveRequestData } from "@spt/models/eft/inRaid/IScavSaveRequestData";
+import type { InraidController } from "@spt/controllers/InraidController";
+import type { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import type { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import type { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
+import type { IScavSaveRequestData } from "@spt/models/eft/inRaid/IScavSaveRequestData";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 /**
  * Handle client requests

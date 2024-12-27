@@ -1,4 +1,4 @@
-import { Ixyz } from "@spt/models/eft/common/Ixyz";
+import type { Ixyz } from "@spt/models/eft/common/Ixyz";
 export interface ICustomizationItem {
     _id: string;
     _name: string;
@@ -19,6 +19,7 @@ export interface IProps {
     Hands: string;
     Feet: string;
     Prefab: IPrefab;
+    ProfileVersions: string[];
     WatchPrefab: IPrefab;
     IntegratedArmorVest: boolean;
     WatchPosition: Ixyz;

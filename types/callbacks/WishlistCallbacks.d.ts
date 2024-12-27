@@ -1,9 +1,9 @@
 import { WishlistController } from "@spt/controllers/WishlistController";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { IAddToWishlistRequest } from "@spt/models/eft/wishlist/IAddToWishlistRequest";
-import { IChangeWishlistItemCategoryRequest } from "@spt/models/eft/wishlist/IChangeWishlistItemCategoryRequest";
-import { IRemoveFromWishlistRequest } from "@spt/models/eft/wishlist/IRemoveFromWishlistRequest";
+import type { IPmcData } from "@spt/models/eft/common/IPmcData";
+import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import type { IAddToWishlistRequest } from "@spt/models/eft/wishlist/IAddToWishlistRequest";
+import type { IChangeWishlistItemCategoryRequest } from "@spt/models/eft/wishlist/IChangeWishlistItemCategoryRequest";
+import type { IRemoveFromWishlistRequest } from "@spt/models/eft/wishlist/IRemoveFromWishlistRequest";
 export declare class WishlistCallbacks {
     protected wishlistController: WishlistController;
     constructor(wishlistController: WishlistController);

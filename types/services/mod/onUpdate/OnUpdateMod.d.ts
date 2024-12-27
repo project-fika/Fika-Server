@@ -1,4 +1,4 @@
-import { OnUpdate } from "@spt/di/OnUpdate";
+import type { OnUpdate } from "@spt/di/OnUpdate";
 export declare class OnUpdateMod implements OnUpdate {
     private onUpdateOverride;
     private getRouteOverride;

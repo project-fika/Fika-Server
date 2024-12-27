@@ -1,4 +1,4 @@
-import { ISkills } from "@spt/models/eft/common/tables/IBotBase";
+import type { ISkills } from "@spt/models/eft/common/tables/IBotBase";
 export interface IPlayerIncrementSkillLevelRequestData {
     _id: string;
     experience: number;

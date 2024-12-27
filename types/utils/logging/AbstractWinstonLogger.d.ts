@@ -1,10 +1,10 @@
 import fs from "node:fs";
-import { IDaum } from "@spt/models/eft/itemEvent/IItemEventRouterRequest";
+import type { IDaum } from "@spt/models/eft/itemEvent/IItemEventRouterRequest";
 import { LogBackgroundColor } from "@spt/models/spt/logging/LogBackgroundColor";
 import { LogTextColor } from "@spt/models/spt/logging/LogTextColor";
-import { SptLogger } from "@spt/models/spt/logging/SptLogger";
-import { IAsyncQueue } from "@spt/models/spt/utils/IAsyncQueue";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { SptLogger } from "@spt/models/spt/logging/SptLogger";
+import type { IAsyncQueue } from "@spt/models/spt/utils/IAsyncQueue";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import winston from "winston";
 export declare abstract class AbstractWinstonLogger implements ILogger {
     protected asyncQueue: IAsyncQueue;

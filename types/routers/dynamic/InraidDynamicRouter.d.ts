@@ -1,4 +1,4 @@
-import { InraidCallbacks } from "@spt/callbacks/InraidCallbacks";
+import type { InraidCallbacks } from "@spt/callbacks/InraidCallbacks";
 import { DynamicRouter } from "@spt/di/Router";
 export declare class InraidDynamicRouter extends DynamicRouter {
     protected inraidCallbacks: InraidCallbacks;
