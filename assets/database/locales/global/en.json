@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "ERROR BINDING",
     "F_UI_ErrorBindIP": "'{0}' is not a valid IP address to bind to! Check your 'Force Bind IP' setting.",
     "F_UI_NoDedicatedClients": "No dedicated clients are available.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "Waiting for host to finish raid initialization...",
     "F_UI_WaitForOtherPlayers": "Waiting for other players to finish loading...",
     "F_UI_RetrieveSpawnInfo": "Retrieving spawn info from server...",
