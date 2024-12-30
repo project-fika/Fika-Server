@@ -10,15 +10,15 @@
         "buildinfo": "node ./build.mjs --verbose"
     },
     "devDependencies": {
-        "@biomejs/biome": "^1.7.1",
-        "@types/node": "~20.11",
-        "@types/ws": "^8.5.10",
+        "@biomejs/biome": "^1.8.3",
+        "@types/node": "22.10.2",
+        "@types/ws": "~8.5",
         "archiver": "^6.0",
         "fs-extra": "~11.2",
         "ignore": "^5.2",
-        "tsyringe": "4.8.0",
-        "typescript": "5.4",
-        "winston": "3.12"
+        "tsyringe": "~4.8",
+        "typescript": "~5.5",
+        "winston": "~3.13"
     },
     "author": "Fika",
     "license": "CC-BY-NC-SA-4.0"
