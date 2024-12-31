@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "KÖTÉSI HIBA",
     "F_UI_ErrorBindIP": "A '{0}' nem érvényes IP-cím a kötéshez! Ellenőrizze a „Force Bind IP” beállítást.",
     "F_UI_NoDedicatedClients": "Nincsenek dedikált kliensek.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "Várakozás, hogy a host befejezze a raid inicializálását...",
     "F_UI_WaitForOtherPlayers": "Várakozás, amíg a többi játékos befejezi a betöltést...",
     "F_UI_RetrieveSpawnInfo": "Spawn információk lekérése a szerverről...",

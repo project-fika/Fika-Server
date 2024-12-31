@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "ERROR DE UNIÓN",
     "F_UI_ErrorBindIP": "'{0}' no es una IP válida a la que forzar la unión! Comprueba tus ajustes de 'Forzar Unión de IP'.",
     "F_UI_NoDedicatedClients": "No hay clientes dedicados disponibles.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "Esperando a que el anfitrión inicialice la partida...",
     "F_UI_WaitForOtherPlayers": "Esperando a que otros jugadores terminen de cargar...",
     "F_UI_RetrieveSpawnInfo": "Recuperando información de reaparición del servidor...",

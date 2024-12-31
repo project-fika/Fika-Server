@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "BŁĄD POWIĄZANIA",
     "F_UI_ErrorBindIP": "'{0}' nie jest prawidłowym adresem IP do powiązania! Sprawdź ustawienie 'Wymuś powiązanie IP'.",
     "F_UI_NoDedicatedClients": "Brak dostępnych dedykowanych klientów.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "Oczekiwanie na zakończenie inicjalizacji raidu przez gospodarza...",
     "F_UI_WaitForOtherPlayers": "Oczekiwanie na zakończenie ładowania pozostałych graczy...",
     "F_UI_RetrieveSpawnInfo": "Pobieranie informacji o spawnie z serwera...",

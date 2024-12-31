@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "ERROR ENLAZANDO",
     "F_UI_ErrorBindIP": "'{0}' no es una dirección IP válida para enlazar! Compruebe su configuración de 'Forzar enlace IP'.",
     "F_UI_NoDedicatedClients": "No hay clientes dedicados disponibles.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "Esperando por el anfitrión para inicializar de la incursión...",
     "F_UI_WaitForOtherPlayers": "Esperando por otros jugadores para terminar la carga...",
     "F_UI_RetrieveSpawnInfo": "Recuperando información de aparición del servidor...",

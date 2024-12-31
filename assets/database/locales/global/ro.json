@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "EROAREDE DE LEGARE",
     "F_UI_ErrorBindIP": "„{0}” nu este o adresă IP validă la care să vă legați! Verificați setarea „Forțare legare IP”.",
     "F_UI_NoDedicatedClients": "Nu sunt disponibili clienți dedicați.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "Se așteaptă ca gazda să termine inițializarea raidului...",
     "F_UI_WaitForOtherPlayers": "Se așteaptă ca alți jucători să termine încărcarea...",
     "F_UI_RetrieveSpawnInfo": "Se preiau informații despre punctele de apariție de pe server...",

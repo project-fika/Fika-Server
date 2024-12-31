@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "バインドエラー",
     "F_UI_ErrorBindIP": "'{0}' はバインドするための有効なIPアドレスではありません！ 'Force Bind IP' 設定を確認してください。",
     "F_UI_NoDedicatedClients": "専用クライアントは利用できません。",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "ホストがレイドの初期化を終えるのを待っています…",
     "F_UI_WaitForOtherPlayers": "他のプレイヤーが読み込みを終えるのを待っています…",
     "F_UI_RetrieveSpawnInfo": "サーバーからスポーン情報を取得しています…",
