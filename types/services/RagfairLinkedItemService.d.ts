@@ -1,5 +1,5 @@
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
-import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 export declare class RagfairLinkedItemService {

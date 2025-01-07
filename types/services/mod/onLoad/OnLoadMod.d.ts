@@ -1,4 +1,4 @@
-import type { OnLoad } from "@spt/di/OnLoad";
+import { OnLoad } from "@spt/di/OnLoad";
 export declare class OnLoadMod implements OnLoad {
     private onLoadOverride;
     private getRouteOverride;

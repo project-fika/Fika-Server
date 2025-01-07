@@ -1,4 +1,4 @@
-import type { CompilerOptions } from "typescript";
+import { CompilerOptions } from "typescript";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ModHashCacheService } from "@spt/services/cache/ModHashCacheService";
 import { VFS } from "@spt/utils/VFS";

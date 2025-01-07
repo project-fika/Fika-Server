@@ -1,6 +1,6 @@
-import type { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
-import type { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
-import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { BackendErrorCodes } from "@spt/models/enums/BackendErrorCodes";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { JsonUtil } from "@spt/utils/JsonUtil";

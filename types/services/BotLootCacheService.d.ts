@@ -1,9 +1,8 @@
 import { PMCLootGenerator } from "@spt/generators/PMCLootGenerator";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
-import type { IBotType } from "@spt/models/eft/common/tables/IBotType";
-import type { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import { LootCacheType } from "@spt/models/spt/bots/IBotLootCache";
-import type { IBotLootCache } from "@spt/models/spt/bots/IBotLootCache";
+import { IBotType } from "@spt/models/eft/common/tables/IBotType";
+import { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IBotLootCache, LootCacheType } from "@spt/models/spt/bots/IBotLootCache";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { LocalisationService } from "@spt/services/LocalisationService";

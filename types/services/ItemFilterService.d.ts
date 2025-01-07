@@ -1,4 +1,4 @@
-import type { IItemConfig } from "@spt/models/spt/config/IItemConfig";
+import { IItemConfig } from "@spt/models/spt/config/IItemConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";

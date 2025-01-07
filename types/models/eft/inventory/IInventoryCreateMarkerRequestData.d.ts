@@ -1,4 +1,4 @@
-import type { IInventoryBaseActionRequestData } from "@spt/models/eft/inventory/IInventoryBaseActionRequestData";
+import { IInventoryBaseActionRequestData } from "@spt/models/eft/inventory/IInventoryBaseActionRequestData";
 export interface IInventoryCreateMarkerRequestData extends IInventoryBaseActionRequestData {
     Action: "CreateMapMarker";
     item: string;

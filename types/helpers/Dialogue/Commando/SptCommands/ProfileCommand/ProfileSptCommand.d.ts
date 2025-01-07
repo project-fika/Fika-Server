@@ -1,11 +1,11 @@
 import { SavedCommand } from "@spt/helpers/Dialogue/Commando/SptCommands/GiveCommand/SavedCommand";
-import type { ISptCommand } from "@spt/helpers/Dialogue/Commando/SptCommands/ISptCommand";
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ISptCommand } from "@spt/helpers/Dialogue/Commando/SptCommands/ISptCommand";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import type { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import type { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
-import type { IProfileChangeEvent } from "@spt/models/spt/dialog/ISendMessageDetails";
+import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
+import { IUserDialogInfo } from "@spt/models/eft/profile/IUserDialogInfo";
+import { IProfileChangeEvent } from "@spt/models/spt/dialog/ISendMessageDetails";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { LocaleService } from "@spt/services/LocaleService";

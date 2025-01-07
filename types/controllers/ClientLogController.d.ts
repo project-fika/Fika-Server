@@ -1,4 +1,4 @@
-import type { IClientLogRequest } from "@spt/models/spt/logging/IClientLogRequest";
+import { IClientLogRequest } from "@spt/models/spt/logging/IClientLogRequest";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 export declare class ClientLogController {
     protected logger: ILogger;

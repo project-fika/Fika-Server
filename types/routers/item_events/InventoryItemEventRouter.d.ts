@@ -1,8 +1,8 @@
 import { HideoutCallbacks } from "@spt/callbacks/HideoutCallbacks";
-import type { InventoryCallbacks } from "@spt/callbacks/InventoryCallbacks";
+import { InventoryCallbacks } from "@spt/callbacks/InventoryCallbacks";
 import { HandledRoute, ItemEventRouterDefinition } from "@spt/di/Router";
-import type { IPmcData } from "@spt/models/eft/common/IPmcData";
-import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 export declare class InventoryItemEventRouter extends ItemEventRouterDefinition {
     protected inventoryCallbacks: InventoryCallbacks;
     protected hideoutCallbacks: HideoutCallbacks;

@@ -1,4 +1,4 @@
-import type { IncomingMessage, ServerResponse } from "node:http";
+import { IncomingMessage, ServerResponse } from "node:http";
 import { NotifierController } from "@spt/controllers/NotifierController";
 import { Serializer } from "@spt/di/Serializer";
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";

@@ -1,10 +1,10 @@
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import type { IBotBase } from "@spt/models/eft/common/tables/IBotBase";
-import type { IBotType } from "@spt/models/eft/common/tables/IBotType";
-import type { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
-import type { IBotConfig } from "@spt/models/spt/config/IBotConfig";
-import type { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
+import { IBotBase } from "@spt/models/eft/common/tables/IBotBase";
+import { IBotType } from "@spt/models/eft/common/tables/IBotType";
+import { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
+import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { RandomUtil } from "@spt/utils/RandomUtil";

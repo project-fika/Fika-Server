@@ -1,5 +1,5 @@
 import { BotHelper } from "@spt/helpers/BotHelper";
-import type { IBotBase } from "@spt/models/eft/common/tables/IBotBase";
+import { IBotBase } from "@spt/models/eft/common/tables/IBotBase";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { RandomUtil } from "@spt/utils/RandomUtil";

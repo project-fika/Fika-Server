@@ -1,8 +1,8 @@
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
-import type { IPreset } from "@spt/models/eft/common/IGlobals";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
-import type { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { IPreset } from "@spt/models/eft/common/IGlobals";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";

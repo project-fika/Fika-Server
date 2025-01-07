@@ -1,5 +1,5 @@
-import type { IncomingMessage, ServerResponse } from "node:http";
-import type { ImageRouteService } from "@spt/services/mod/image/ImageRouteService";
+import { IncomingMessage, ServerResponse } from "node:http";
+import { ImageRouteService } from "@spt/services/mod/image/ImageRouteService";
 import { HttpFileUtil } from "@spt/utils/HttpFileUtil";
 import { VFS } from "@spt/utils/VFS";
 export declare class ImageRouter {

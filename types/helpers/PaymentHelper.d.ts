@@ -1,4 +1,4 @@
-import type { IInventoryConfig } from "@spt/models/spt/config/IInventoryConfig";
+import { IInventoryConfig } from "@spt/models/spt/config/IInventoryConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 export declare class PaymentHelper {
     protected configServer: ConfigServer;

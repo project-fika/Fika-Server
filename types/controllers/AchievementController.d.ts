@@ -1,5 +1,5 @@
-import type { ICompletedAchievementsResponse } from "@spt/models/eft/profile/ICompletedAchievementsResponse";
-import type { IGetAchievementsResponse } from "@spt/models/eft/profile/IGetAchievementsResponse";
+import { ICompletedAchievementsResponse } from "@spt/models/eft/profile/ICompletedAchievementsResponse";
+import { IGetAchievementsResponse } from "@spt/models/eft/profile/IGetAchievementsResponse";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 /**

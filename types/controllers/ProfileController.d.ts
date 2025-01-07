@@ -1,23 +1,23 @@
 import { PlayerScavGenerator } from "@spt/generators/PlayerScavGenerator";
 import { DialogueHelper } from "@spt/helpers/DialogueHelper";
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { QuestHelper } from "@spt/helpers/QuestHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
-import type { IPmcData } from "@spt/models/eft/common/IPmcData";
-import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import type { IMiniProfile } from "@spt/models/eft/launcher/IMiniProfile";
-import type { IGetProfileStatusResponseData } from "@spt/models/eft/profile/GetProfileStatusResponseData";
-import type { IGetOtherProfileRequest } from "@spt/models/eft/profile/IGetOtherProfileRequest";
-import type { IGetOtherProfileResponse } from "@spt/models/eft/profile/IGetOtherProfileResponse";
-import type { IGetProfileSettingsRequest } from "@spt/models/eft/profile/IGetProfileSettingsRequest";
-import type { IProfileChangeNicknameRequestData } from "@spt/models/eft/profile/IProfileChangeNicknameRequestData";
-import type { IProfileChangeVoiceRequestData } from "@spt/models/eft/profile/IProfileChangeVoiceRequestData";
-import type { IProfileCreateRequestData } from "@spt/models/eft/profile/IProfileCreateRequestData";
-import type { ISearchFriendRequestData } from "@spt/models/eft/profile/ISearchFriendRequestData";
-import type { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
-import type { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
-import type { IValidateNicknameRequestData } from "@spt/models/eft/profile/IValidateNicknameRequestData";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { IMiniProfile } from "@spt/models/eft/launcher/IMiniProfile";
+import { IGetProfileStatusResponseData } from "@spt/models/eft/profile/GetProfileStatusResponseData";
+import { IGetOtherProfileRequest } from "@spt/models/eft/profile/IGetOtherProfileRequest";
+import { IGetOtherProfileResponse } from "@spt/models/eft/profile/IGetOtherProfileResponse";
+import { IGetProfileSettingsRequest } from "@spt/models/eft/profile/IGetProfileSettingsRequest";
+import { IProfileChangeNicknameRequestData } from "@spt/models/eft/profile/IProfileChangeNicknameRequestData";
+import { IProfileChangeVoiceRequestData } from "@spt/models/eft/profile/IProfileChangeVoiceRequestData";
+import { IProfileCreateRequestData } from "@spt/models/eft/profile/IProfileCreateRequestData";
+import { ISearchFriendRequestData } from "@spt/models/eft/profile/ISearchFriendRequestData";
+import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { IValidateNicknameRequestData } from "@spt/models/eft/profile/IValidateNicknameRequestData";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -72,6 +72,12 @@ export declare class ProfileController {
      * @param pmcData Profile to update
      */
     protected updateInventoryEquipmentId(pmcData: IPmcData): void;
+    /**
+     * Ensure a profile has the necessary internal containers e.g. questRaidItems / sortingTable
+     * DOES NOT check that stash exists
+     * @param pmcData Profile to check
+     */
+    protected addMissingInternalContainersToProfile(pmcData: IPmcData): void;
     /**
      * Delete a profile
      * @param sessionID Id of profile to delete

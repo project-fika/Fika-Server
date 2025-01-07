@@ -1,9 +1,9 @@
 import { ModTypeCheck } from "@spt/loaders/ModTypeCheck";
 import { PreSptModLoader } from "@spt/loaders/PreSptModLoader";
-import type { IModLoader } from "@spt/models/spt/mod/IModLoader";
+import { IModLoader } from "@spt/models/spt/mod/IModLoader";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { LocalisationService } from "@spt/services/LocalisationService";
-import type { DependencyContainer } from "tsyringe";
+import { DependencyContainer } from "tsyringe";
 export declare class PostSptModLoader implements IModLoader {
     protected logger: ILogger;
     protected preSptModLoader: PreSptModLoader;

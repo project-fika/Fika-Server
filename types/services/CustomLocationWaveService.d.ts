@@ -1,5 +1,5 @@
-import type { IBossLocationSpawn, IWave } from "@spt/models/eft/common/ILocationBase";
-import type { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
+import { IBossLocationSpawn, IWave } from "@spt/models/eft/common/ILocationBase";
+import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";

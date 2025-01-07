@@ -1,15 +1,16 @@
-import type { IBotConfig } from "@spt/models/spt/config/IBotConfig";
-import type { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
-import type { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
-import type { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
-import type { ILootConfig } from "@spt/models/spt/config/ILootConfig";
-import type { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
-import type { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
+import { IItemConfig } from "@spt/models/spt/config/IItemConfig";
+import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
+import { ILootConfig } from "@spt/models/spt/config/ILootConfig";
+import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
+import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { CustomLocationWaveService } from "@spt/services/CustomLocationWaveService";
 import { DatabaseService } from "@spt/services/DatabaseService";
-import type { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
+import { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { OpenZoneService } from "@spt/services/OpenZoneService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
@@ -31,6 +32,7 @@ export declare class PostDbLoadService {
     protected pmcConfig: IPmcConfig;
     protected lootConfig: ILootConfig;
     protected botConfig: IBotConfig;
+    protected itemConfig: IItemConfig;
     constructor(logger: ILogger, databaseService: DatabaseService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, configServer: ConfigServer, cloner: ICloner);
     performPostDbLoadActions(): void;
     protected adjustMinReserveRaiderSpawnChance(): void;
@@ -42,10 +44,6 @@ export declare class PostDbLoadService {
     /** Apply custom limits on bot types as defined in configs/location.json/botTypeLimits */
     protected adjustMapBotLimits(): void;
     protected adjustLooseLootSpawnProbabilities(): void;
-    /**
-     * Out of date/incorrectly made trader mods forget this data
-     */
-    protected checkTraderRepairValuesExist(): void;
     protected adjustLocationBotValues(): void;
     /**
      * Make Rogues spawn later to allow for scavs to spawn first instead of rogues filling up all spawn positions
@@ -76,4 +74,5 @@ export declare class PostDbLoadService {
     protected setAllDbItemsAsSellableOnFlea(): void;
     protected addMissingTraderBuyRestrictionMaxValue(): void;
     protected applyFleaPriceOverrides(): void;
+    protected addCustomItemPresetsToGlobals(): void;
 }

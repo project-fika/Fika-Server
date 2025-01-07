@@ -1,10 +1,10 @@
 import { BotGeneratorHelper } from "@spt/helpers/BotGeneratorHelper";
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
-import type { IInventory } from "@spt/models/eft/common/tables/IBotBase";
-import type { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
-import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IInventory } from "@spt/models/eft/common/tables/IBotBase";
+import { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { EquipmentSlots } from "@spt/models/enums/EquipmentSlots";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";

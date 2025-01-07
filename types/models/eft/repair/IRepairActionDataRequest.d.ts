@@ -1,4 +1,4 @@
-import type { IBaseRepairActionDataRequest } from "@spt/models/eft/repair/IBaseRepairActionDataRequest";
+import { IBaseRepairActionDataRequest } from "@spt/models/eft/repair/IBaseRepairActionDataRequest";
 export interface IRepairActionDataRequest extends IBaseRepairActionDataRequest {
     Action: "Repair";
     repairKitsInfo: IRepairKitsInfo[];

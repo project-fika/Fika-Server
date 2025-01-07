@@ -1,5 +1,5 @@
-import type { Ixyz } from "@spt/models/eft/common/Ixyz";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import { Ixyz } from "@spt/models/eft/common/Ixyz";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 export interface ILooseLoot {
     spawnpointCount: ISpawnpointCount;
     spawnpointsForced: ISpawnpointsForced[];

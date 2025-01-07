@@ -1,4 +1,4 @@
-import type { IBaseInteractionRequestData } from "@spt/models/eft/common/request/IBaseInteractionRequestData";
+import { IBaseInteractionRequestData } from "@spt/models/eft/common/request/IBaseInteractionRequestData";
 export interface INoteActionData extends IBaseInteractionRequestData {
     Action: string;
     index: number;

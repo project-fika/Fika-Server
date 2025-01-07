@@ -1,4 +1,4 @@
-import type { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
 import { RagfairSort } from "@spt/models/enums/RagfairSort";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { LocaleService } from "@spt/services/LocaleService";

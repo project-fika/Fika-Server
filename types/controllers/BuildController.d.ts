@@ -1,9 +1,9 @@
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import type { ISetMagazineRequest } from "@spt/models/eft/builds/ISetMagazineRequest";
-import type { IPresetBuildActionRequestData } from "@spt/models/eft/presetBuild/IPresetBuildActionRequestData";
-import type { IRemoveBuildRequestData } from "@spt/models/eft/presetBuild/IRemoveBuildRequestData";
-import type { IUserBuilds } from "@spt/models/eft/profile/ISptProfile";
+import { ISetMagazineRequest } from "@spt/models/eft/builds/ISetMagazineRequest";
+import { IPresetBuildActionRequestData } from "@spt/models/eft/presetBuild/IPresetBuildActionRequestData";
+import { IRemoveBuildRequestData } from "@spt/models/eft/presetBuild/IRemoveBuildRequestData";
+import { IUserBuilds } from "@spt/models/eft/profile/ISptProfile";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { SaveServer } from "@spt/servers/SaveServer";

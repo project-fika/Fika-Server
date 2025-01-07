@@ -1,10 +1,11 @@
 import { FenceBaseAssortGenerator } from "@spt/generators/FenceBaseAssortGenerator";
+import { PaymentHelper } from "@spt/helpers/PaymentHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderAssortHelper } from "@spt/helpers/TraderAssortHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
-import type { ITraderAssort, ITraderBase } from "@spt/models/eft/common/tables/ITrader";
-import type { IGetItemPricesResponse } from "@spt/models/eft/game/IGetItemPricesResponse";
-import type { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
+import { ITraderAssort, ITraderBase } from "@spt/models/eft/common/tables/ITrader";
+import { IGetItemPricesResponse } from "@spt/models/eft/game/IGetItemPricesResponse";
+import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -21,6 +22,7 @@ export declare class TraderController {
     protected traderAssortHelper: TraderAssortHelper;
     protected profileHelper: ProfileHelper;
     protected traderHelper: TraderHelper;
+    protected paymentHelper: PaymentHelper;
     protected traderAssortService: TraderAssortService;
     protected ragfairPriceService: RagfairPriceService;
     protected traderPurchasePersisterService: TraderPurchasePersisterService;
@@ -29,7 +31,7 @@ export declare class TraderController {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected traderConfig: ITraderConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, databaseService: DatabaseService, traderAssortHelper: TraderAssortHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, traderAssortService: TraderAssortService, ragfairPriceService: RagfairPriceService, traderPurchasePersisterService: TraderPurchasePersisterService, fenceService: FenceService, fenceBaseAssortGenerator: FenceBaseAssortGenerator, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, timeUtil: TimeUtil, databaseService: DatabaseService, traderAssortHelper: TraderAssortHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, paymentHelper: PaymentHelper, traderAssortService: TraderAssortService, ragfairPriceService: RagfairPriceService, traderPurchasePersisterService: TraderPurchasePersisterService, fenceService: FenceService, fenceBaseAssortGenerator: FenceBaseAssortGenerator, configServer: ConfigServer, cloner: ICloner);
     /**
      * Runs when onLoad event is fired
      * Iterate over traders, ensure a pristine copy of their assorts is stored in traderAssortService

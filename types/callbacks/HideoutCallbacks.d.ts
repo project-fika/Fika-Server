@@ -18,7 +18,7 @@ import type { IHideoutUpgradeCompleteRequestData } from "@spt/models/eft/hideout
 import type { IHideoutUpgradeRequestData } from "@spt/models/eft/hideout/IHideoutUpgradeRequestData";
 import type { IRecordShootingRangePoints } from "@spt/models/eft/hideout/IRecordShootingRangePoints";
 import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import type { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
+import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 export declare class HideoutCallbacks implements OnUpdate {
     protected hideoutController: HideoutController;

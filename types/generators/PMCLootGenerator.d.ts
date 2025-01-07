@@ -1,10 +1,10 @@
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
-import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import type { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
-import type { ItemFilterService } from "@spt/services/ItemFilterService";
+import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { RagfairPriceService } from "@spt/services/RagfairPriceService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 /**

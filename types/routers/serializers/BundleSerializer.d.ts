@@ -1,4 +1,4 @@
-import type { IncomingMessage, ServerResponse } from "node:http";
+import { IncomingMessage, ServerResponse } from "node:http";
 import { Serializer } from "@spt/di/Serializer";
 import { BundleLoader } from "@spt/loaders/BundleLoader";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";

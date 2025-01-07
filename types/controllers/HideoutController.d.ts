@@ -1,7 +1,7 @@
 import { ScavCaseRewardGenerator } from "@spt/generators/ScavCaseRewardGenerator";
 import { HideoutHelper } from "@spt/helpers/HideoutHelper";
-import type { InventoryHelper } from "@spt/helpers/InventoryHelper";
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { InventoryHelper } from "@spt/helpers/InventoryHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PaymentHelper } from "@spt/helpers/PaymentHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
@@ -28,7 +28,7 @@ import type { IQteData, IQteResult } from "@spt/models/eft/hideout/IQteData";
 import type { IRecordShootingRangePoints } from "@spt/models/eft/hideout/IRecordShootingRangePoints";
 import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { HideoutAreas } from "@spt/models/enums/HideoutAreas";
-import type { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
+import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";

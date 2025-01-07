@@ -1,8 +1,8 @@
 import { IHealth, IHideoutImprovement, IMoneyTransferLimits, IProductive, IQuestStatus, ISkills } from "@spt/models/eft/common/tables/IBotBase";
-import type { IItem, IItemLocation, IUpd } from "@spt/models/eft/common/tables/IItem";
-import type { IQuest } from "@spt/models/eft/common/tables/IQuest";
-import type { IPmcDataRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
-import type { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { IItem, IItemLocation, IUpd } from "@spt/models/eft/common/tables/IItem";
+import { IQuest } from "@spt/models/eft/common/tables/IQuest";
+import { IPmcDataRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
+import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
 import { EquipmentBuildType } from "@spt/models/enums/EquipmentBuildType";
 export interface IItemEventRouterBase {
     warnings: Warning[];

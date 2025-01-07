@@ -1,6 +1,6 @@
-import type { IItem, IUpd } from "@spt/models/eft/common/tables/IItem";
-import type { IPmcDataRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
-import type { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { IItem, IUpd } from "@spt/models/eft/common/tables/IItem";
+import { IPmcDataRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
+import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
 import { BonusSkillType } from "@spt/models/enums/BonusSkillType";
 import { BonusType } from "@spt/models/enums/BonusType";
 import { HideoutAreas } from "@spt/models/enums/HideoutAreas";

@@ -1,10 +1,10 @@
 import { NotifierController } from "@spt/controllers/NotifierController";
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
-import type { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
-import type { IUIDRequestData } from "@spt/models/eft/common/request/IUIDRequestData";
-import type { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
-import type { INotifierChannel } from "@spt/models/eft/notifier/INotifier";
-import type { ISelectProfileResponse } from "@spt/models/eft/notifier/ISelectProfileResponse";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { IUIDRequestData } from "@spt/models/eft/common/request/IUIDRequestData";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import { INotifierChannel } from "@spt/models/eft/notifier/INotifier";
+import { ISelectProfileResponse } from "@spt/models/eft/notifier/ISelectProfileResponse";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 export declare class NotifierCallbacks {

@@ -1,7 +1,7 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import type { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
-import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
-import type { IBotDurability } from "@spt/models/spt/config/IBotDurability";
+import { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import { IBotDurability } from "@spt/models/spt/config/IBotDurability";
 export interface IBotConfig extends IBaseConfig {
     kind: "spt-bot";
     /** How many variants of each bot should be generated on raid start */

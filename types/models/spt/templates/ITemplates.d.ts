@@ -11,7 +11,7 @@ import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem"
 import type { IDefaultEquipmentPreset } from "@spt/models/eft/profile/ISptProfile";
 export interface ITemplates {
     character: string[];
-    customisationStoage: ICustomisationStorage[];
+    customisationStorage: ICustomisationStorage[];
     items: Record<string, ITemplateItem>;
     prestige: IPrestige;
     quests: Record<string, IQuest>;

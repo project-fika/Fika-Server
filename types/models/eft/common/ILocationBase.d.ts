@@ -1,5 +1,5 @@
 import type { MinMax } from "@spt/models/common/MinMax";
-import type { Ixyz } from "@spt/models/eft/common/Ixyz";
+import type { Ixy, Ixyz } from "@spt/models/eft/common/Ixyz";
 import type { ISpawnpointTemplate } from "./ILooseLoot";
 export interface ILocationBase {
     AccessKeys: string[];
@@ -86,6 +86,7 @@ export interface ILocationBase {
     SpawnPointParams: ISpawnPointParam[];
     UnixDateTime: number;
     _Id: string;
+    areas: Record<string, IAreaLocationSpawn>;
     doors: any[];
     EscapeTimeLimit: number;
     EscapeTimeLimitCoop: number;
@@ -110,6 +111,14 @@ export interface ILocationBase {
     users_summon_seconds: number;
     waves: IWave[];
     secretExits: ISecretExit[];
+}
+export interface IAreaLocationSpawn {
+    center: Ixy;
+    infiltrationZone: string;
+    orientation: number;
+    position: Ixy;
+    sides: string[];
+    size: Ixy;
 }
 export interface ISecretExit {
     EligibleForPMC: boolean;

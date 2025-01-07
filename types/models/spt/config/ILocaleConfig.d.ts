@@ -1,4 +1,4 @@
-import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface ILocaleConfig extends IBaseConfig {
     kind: "spt-locale";
     /** e.g. ru/en/cn/fr etc, or 'system', will take computer locale setting */

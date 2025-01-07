@@ -1,9 +1,9 @@
 import { LocationController } from "@spt/controllers/LocationController";
-import type { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
-import type { ILocationsGenerateAllResponse } from "@spt/models/eft/common/ILocationsSourceDestinationBase";
-import type { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
-import type { IGetAirdropLootRequest } from "@spt/models/eft/location/IGetAirdropLootRequest";
-import type { IGetAirdropLootResponse } from "@spt/models/eft/location/IGetAirdropLootResponse";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { ILocationsGenerateAllResponse } from "@spt/models/eft/common/ILocationsSourceDestinationBase";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import { IGetAirdropLootRequest } from "@spt/models/eft/location/IGetAirdropLootRequest";
+import { IGetAirdropLootResponse } from "@spt/models/eft/location/IGetAirdropLootResponse";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 export declare class LocationCallbacks {
     protected httpResponse: HttpResponseUtil;

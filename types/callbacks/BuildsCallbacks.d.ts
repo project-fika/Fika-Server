@@ -1,11 +1,11 @@
 import { BuildController } from "@spt/controllers/BuildController";
-import type { ISetMagazineRequest } from "@spt/models/eft/builds/ISetMagazineRequest";
-import type { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
-import type { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
-import type { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
-import type { IPresetBuildActionRequestData } from "@spt/models/eft/presetBuild/IPresetBuildActionRequestData";
-import type { IRemoveBuildRequestData } from "@spt/models/eft/presetBuild/IRemoveBuildRequestData";
-import type { IUserBuilds } from "@spt/models/eft/profile/ISptProfile";
+import { ISetMagazineRequest } from "@spt/models/eft/builds/ISetMagazineRequest";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { IPresetBuildActionRequestData } from "@spt/models/eft/presetBuild/IPresetBuildActionRequestData";
+import { IRemoveBuildRequestData } from "@spt/models/eft/presetBuild/IRemoveBuildRequestData";
+import { IUserBuilds } from "@spt/models/eft/profile/ISptProfile";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 export declare class BuildsCallbacks {
     protected httpResponse: HttpResponseUtil;

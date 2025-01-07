@@ -1,6 +1,6 @@
-import type { OnLoad } from "@spt/di/OnLoad";
+import { OnLoad } from "@spt/di/OnLoad";
 import { PostSptModLoader } from "@spt/loaders/PostSptModLoader";
-import type { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { LocalisationService } from "@spt/services/LocalisationService";

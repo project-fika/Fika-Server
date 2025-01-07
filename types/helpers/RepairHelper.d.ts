@@ -1,6 +1,6 @@
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
-import type { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import type { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";

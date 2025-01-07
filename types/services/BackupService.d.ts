@@ -1,5 +1,5 @@
 import { PreSptModLoader } from "@spt/loaders/PreSptModLoader";
-import type { IBackupConfig } from "@spt/models/spt/config/IBackupConfig";
+import { IBackupConfig } from "@spt/models/spt/config/IBackupConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 export declare class BackupService {

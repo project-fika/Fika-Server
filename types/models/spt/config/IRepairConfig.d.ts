@@ -1,5 +1,5 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IRepairConfig extends IBaseConfig {
     kind: "spt-repair";
     priceMultiplier: number;

@@ -1,7 +1,7 @@
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
-import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
-import type { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 export declare class BotModLimits {

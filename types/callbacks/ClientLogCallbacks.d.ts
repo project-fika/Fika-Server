@@ -1,7 +1,7 @@
 import { ClientLogController } from "@spt/controllers/ClientLogController";
 import { ModLoadOrder } from "@spt/loaders/ModLoadOrder";
-import type { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
-import type { IClientLogRequest } from "@spt/models/spt/logging/IClientLogRequest";
+import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { IClientLogRequest } from "@spt/models/spt/logging/IClientLogRequest";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";

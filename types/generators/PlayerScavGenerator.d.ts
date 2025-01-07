@@ -1,12 +1,12 @@
 import { BotGenerator } from "@spt/generators/BotGenerator";
 import { BotGeneratorHelper } from "@spt/helpers/BotGeneratorHelper";
 import { BotHelper } from "@spt/helpers/BotHelper";
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import type { IPmcData } from "@spt/models/eft/common/IPmcData";
-import type { IBotBase, ISkills, IStats } from "@spt/models/eft/common/tables/IBotBase";
-import type { IBotType } from "@spt/models/eft/common/tables/IBotType";
-import type { IKarmaLevel, IPlayerScavConfig } from "@spt/models/spt/config/IPlayerScavConfig";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IBotBase, ISkills, IStats } from "@spt/models/eft/common/tables/IBotBase";
+import { IBotType } from "@spt/models/eft/common/tables/IBotType";
+import { IKarmaLevel, IPlayerScavConfig } from "@spt/models/spt/config/IPlayerScavConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";

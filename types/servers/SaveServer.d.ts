@@ -1,5 +1,5 @@
 import { SaveLoadRouter } from "@spt/di/Router";
-import type { ISptProfile, Info } from "@spt/models/eft/profile/ISptProfile";
+import { ISptProfile, Info } from "@spt/models/eft/profile/ISptProfile";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { LocalisationService } from "@spt/services/LocalisationService";

@@ -1,5 +1,5 @@
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 export interface IOwnerInventoryItems {
     from: IItem[];
     to: IItem[];

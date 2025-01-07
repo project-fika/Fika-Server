@@ -1,6 +1,6 @@
-import type { OnLoad } from "@spt/di/OnLoad";
-import type { OnUpdate } from "@spt/di/OnUpdate";
-import type { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import { OnLoad } from "@spt/di/OnLoad";
+import { OnUpdate } from "@spt/di/OnUpdate";
+import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { HttpServer } from "@spt/servers/HttpServer";

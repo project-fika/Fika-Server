@@ -1,5 +1,5 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import type { IBaseConfig, IRunIntervalValues } from "@spt/models/spt/config/IBaseConfig";
+import { IBaseConfig, IRunIntervalValues } from "@spt/models/spt/config/IBaseConfig";
 export interface IHideoutConfig extends IBaseConfig {
     kind: "spt-hideout";
     /** How many seconds should pass before hideout crafts / fuel usage is checked and procesed */

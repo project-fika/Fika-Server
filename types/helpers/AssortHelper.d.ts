@@ -1,7 +1,7 @@
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { QuestHelper } from "@spt/helpers/QuestHelper";
-import type { IPmcData } from "@spt/models/eft/common/IPmcData";
-import type { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
 import { QuestStatus } from "@spt/models/enums/QuestStatus";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";

@@ -1,9 +1,9 @@
 import { SavedCommand } from "@spt/helpers/Dialogue/Commando/SptCommands/GiveCommand/SavedCommand";
-import type { ISptCommand } from "@spt/helpers/Dialogue/Commando/SptCommands/ISptCommand";
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ISptCommand } from "@spt/helpers/Dialogue/Commando/SptCommands/ISptCommand";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
-import type { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import type { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
+import { IUserDialogInfo } from "@spt/models/eft/profile/IUserDialogInfo";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocaleService } from "@spt/services/LocaleService";

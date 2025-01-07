@@ -1,5 +1,5 @@
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
-import type { IPreset } from "@spt/models/eft/common/IGlobals";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { IPreset } from "@spt/models/eft/common/IGlobals";
 import { BaseClasses } from "@spt/models/enums/BaseClasses";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import type { ICloner } from "@spt/utils/cloners/ICloner";

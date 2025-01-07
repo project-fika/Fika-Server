@@ -1,8 +1,8 @@
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import type { EquipmentChances, IBotType, IGeneration, IGenerationData, IModsChances } from "@spt/models/eft/common/tables/IBotType";
-import type { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
-import type { EquipmentFilters, IAdjustmentDetails, IBotConfig, IEquipmentFilterDetails, IWeightingAdjustmentDetails } from "@spt/models/spt/config/IBotConfig";
+import { EquipmentChances, IBotType, IGeneration, IGenerationData, IModsChances } from "@spt/models/eft/common/tables/IBotType";
+import { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
+import { EquipmentFilters, IAdjustmentDetails, IBotConfig, IEquipmentFilterDetails, IWeightingAdjustmentDetails } from "@spt/models/spt/config/IBotConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 export declare class BotEquipmentFilterService {

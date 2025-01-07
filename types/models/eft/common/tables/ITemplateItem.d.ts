@@ -1,4 +1,4 @@
-import type { Ixyz } from "@spt/models/eft/common/Ixyz";
+import { Ixyz } from "@spt/models/eft/common/Ixyz";
 export interface ITemplateItem {
     _id: string;
     _name: string;

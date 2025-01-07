@@ -1,5 +1,5 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import type { IBaseConfig, IRunIntervalValues } from "@spt/models/spt/config/IBaseConfig";
+import { IBaseConfig, IRunIntervalValues } from "@spt/models/spt/config/IBaseConfig";
 export interface IRagfairConfig extends IBaseConfig {
     kind: "spt-ragfair";
     /** How many seconds should pass before expired offers and procesed + player offers checked if sold */

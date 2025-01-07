@@ -1,6 +1,6 @@
-import type { IMods, IModsChances } from "@spt/models/eft/common/tables/IBotType";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
-import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IMods, IModsChances } from "@spt/models/eft/common/tables/IBotType";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { BotModLimits } from "@spt/services/BotWeaponModLimitService";
 export interface IGenerateWeaponRequest {
     /** Weapon to add mods to / result that is returned */

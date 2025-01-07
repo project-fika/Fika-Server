@@ -1,7 +1,7 @@
-import type { MinMax } from "@spt/models/common/MinMax";
-import type { IBotType, IDifficultyCategories } from "@spt/models/eft/common/tables/IBotType";
-import type { EquipmentFilters, IBotConfig, IRandomisationDetails } from "@spt/models/spt/config/IBotConfig";
-import type { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
+import { MinMax } from "@spt/models/common/MinMax";
+import { IBotType, IDifficultyCategories } from "@spt/models/eft/common/tables/IBotType";
+import { EquipmentFilters, IBotConfig, IRandomisationDetails } from "@spt/models/spt/config/IBotConfig";
+import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";

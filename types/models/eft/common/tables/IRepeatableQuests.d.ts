@@ -1,4 +1,4 @@
-import type { IQuest, IQuestConditionTypes, IQuestRewards } from "@spt/models/eft/common/tables/IQuest";
+import { IQuest, IQuestConditionTypes, IQuestRewards } from "@spt/models/eft/common/tables/IQuest";
 export interface IRepeatableQuest extends IQuest {
     changeCost: IChangeCost[];
     changeStandingCost: number;

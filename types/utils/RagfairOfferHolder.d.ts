@@ -1,6 +1,6 @@
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
-import type { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
 export declare class RagfairOfferHolder {
     protected maxOffersPerTemplate: number;
     protected ragfairServerHelper: RagfairServerHelper;

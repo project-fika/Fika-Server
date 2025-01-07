@@ -1,5 +1,5 @@
 import { DateTime } from "@spt/models/enums/DateTime";
-import type { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
+import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { TimeUtil } from "@spt/utils/TimeUtil";

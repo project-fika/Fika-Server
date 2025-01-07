@@ -1,11 +1,11 @@
 import { HandbookHelper } from "@spt/helpers/HandbookHelper";
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { TraderAssortHelper } from "@spt/helpers/TraderAssortHelper";
 import { UtilityHelper } from "@spt/helpers/UtilityHelper";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
-import type { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
-import type { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
-import type { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
+import { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
+import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";

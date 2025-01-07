@@ -1,4 +1,4 @@
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { DogtagExchangeSide } from "@spt/models/enums/DogtagExchangeSide";
 import { MemberCategory } from "@spt/models/enums/MemberCategory";
 export interface IRagfairOffer {

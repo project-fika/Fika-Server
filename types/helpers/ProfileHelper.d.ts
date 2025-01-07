@@ -1,13 +1,13 @@
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
-import type { IPmcData } from "@spt/models/eft/common/IPmcData";
-import type { Common, ICounterKeyValue, IStats } from "@spt/models/eft/common/tables/IBotBase";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
-import type { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
-import type { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
-import type { IValidateNicknameRequestData } from "@spt/models/eft/profile/IValidateNicknameRequestData";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { Common, ICounterKeyValue, IStats } from "@spt/models/eft/common/tables/IBotBase";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
+import { ISpt, ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { IValidateNicknameRequestData } from "@spt/models/eft/profile/IValidateNicknameRequestData";
 import { BonusType } from "@spt/models/enums/BonusType";
 import { SkillTypes } from "@spt/models/enums/SkillTypes";
-import type { IInventoryConfig } from "@spt/models/spt/config/IInventoryConfig";
+import { IInventoryConfig } from "@spt/models/spt/config/IInventoryConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -84,7 +84,7 @@ export declare class ProfileHelper {
      * @returns Max level
      */
     getMaxLevel(): number;
-    getDefaultSptDataObject(): any;
+    getDefaultSptDataObject(): ISpt;
     /**
      * Get full representation of a players profile json
      * @param sessionID Profile id to get

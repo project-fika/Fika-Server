@@ -1,4 +1,4 @@
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 export interface IPresetBuildActionRequestData {
     Action: string;
     Id: string;

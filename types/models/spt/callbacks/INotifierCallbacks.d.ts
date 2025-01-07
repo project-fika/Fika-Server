@@ -1,7 +1,7 @@
-import type { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
-import type { IUIDRequestData } from "@spt/models/eft/common/request/IUIDRequestData";
-import type { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
-import type { INotifierChannel } from "@spt/models/eft/notifier/INotifier";
+import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
+import { IUIDRequestData } from "@spt/models/eft/common/request/IUIDRequestData";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
+import { INotifierChannel } from "@spt/models/eft/notifier/INotifier";
 export interface INotifierCallbacks {
     /**
      * If we don't have anything to send, it's ok to not send anything back

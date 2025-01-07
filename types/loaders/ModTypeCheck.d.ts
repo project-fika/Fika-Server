@@ -1,9 +1,9 @@
-import type { IPostDBLoadMod } from "@spt/models/external/IPostDBLoadMod";
-import type { IPostDBLoadModAsync } from "@spt/models/external/IPostDBLoadModAsync";
-import type { IPostSptLoadMod } from "@spt/models/external/IPostSptLoadMod";
-import type { IPostSptLoadModAsync } from "@spt/models/external/IPostSptLoadModAsync";
-import type { IPreSptLoadMod } from "@spt/models/external/IPreSptLoadMod";
-import type { IPreSptLoadModAsync } from "@spt/models/external/IPreSptLoadModAsync";
+import { IPostDBLoadMod } from "@spt/models/external/IPostDBLoadMod";
+import { IPostDBLoadModAsync } from "@spt/models/external/IPostDBLoadModAsync";
+import { IPostSptLoadMod } from "@spt/models/external/IPostSptLoadMod";
+import { IPostSptLoadModAsync } from "@spt/models/external/IPostSptLoadModAsync";
+import { IPreSptLoadMod } from "@spt/models/external/IPreSptLoadMod";
+import { IPreSptLoadModAsync } from "@spt/models/external/IPreSptLoadModAsync";
 export declare class ModTypeCheck {
     /**
      * Use defined safe guard to check if the mod is a IPreSptLoadMod

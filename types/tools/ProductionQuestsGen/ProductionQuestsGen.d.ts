@@ -1,4 +1,4 @@
-import type { OnLoad } from "@spt/di/OnLoad";
+import { OnLoad } from "@spt/di/OnLoad";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 export declare class ProductionQuestsGen {

@@ -1,15 +1,16 @@
 import { ContainerHelper } from "@spt/helpers/ContainerHelper";
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
-import type { IContainerMinMax, IStaticAmmoDetails, IStaticContainer, IStaticContainerData, IStaticForcedProps, IStaticLootDetails } from "@spt/models/eft/common/ILocation";
-import type { ILocationBase } from "@spt/models/eft/common/ILocationBase";
-import type { ILooseLoot, ISpawnpointTemplate, ISpawnpointsForced } from "@spt/models/eft/common/ILooseLoot";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
-import type { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
+import { IContainerMinMax, IStaticAmmoDetails, IStaticContainer, IStaticContainerData, IStaticForcedProps, IStaticLootDetails } from "@spt/models/eft/common/ILocation";
+import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
+import { ILooseLoot, ISpawnpointTemplate, ISpawnpointsForced } from "@spt/models/eft/common/ILooseLoot";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
+import { ISeasonalEventConfig } from "@spt/models/spt/config/ISeasonalEventConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
-import type { ItemFilterService } from "@spt/services/ItemFilterService";
+import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 import { MathUtil } from "@spt/utils/MathUtil";
@@ -42,6 +43,7 @@ export declare class LocationLootGenerator {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected locationConfig: ILocationConfig;
+    protected seasonalEventConfig: ISeasonalEventConfig;
     constructor(logger: ILogger, databaseService: DatabaseService, objectId: ObjectId, randomUtil: RandomUtil, itemHelper: ItemHelper, mathUtil: MathUtil, seasonalEventService: SeasonalEventService, containerHelper: ContainerHelper, presetHelper: PresetHelper, localisationService: LocalisationService, itemFilterService: ItemFilterService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Create an array of container objects with randomised loot

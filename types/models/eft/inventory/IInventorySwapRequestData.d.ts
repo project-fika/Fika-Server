@@ -1,5 +1,5 @@
 import { OwnerInfo } from "@spt/models/eft/common/request/IBaseInteractionRequestData";
-import type { IInventoryBaseActionRequestData, ITo } from "@spt/models/eft/inventory/IInventoryBaseActionRequestData";
+import { IInventoryBaseActionRequestData, ITo } from "@spt/models/eft/inventory/IInventoryBaseActionRequestData";
 export interface IInventorySwapRequestData extends IInventoryBaseActionRequestData {
     Action: "Swap";
     item: string;

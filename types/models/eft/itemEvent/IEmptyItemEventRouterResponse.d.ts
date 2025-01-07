@@ -1,4 +1,4 @@
-import type { IItemEventRouterBase } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
+import { IItemEventRouterBase } from "@spt/models/eft/itemEvent/IItemEventRouterBase";
 export interface IEmptyItemEventRouterResponse extends IItemEventRouterBase {
     profileChanges: "";
 }

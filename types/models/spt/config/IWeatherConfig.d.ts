@@ -1,7 +1,7 @@
 import { MinMax } from "@spt/models/common/MinMax";
 import { Season } from "@spt/models/enums/Season";
 import { WindDirection } from "@spt/models/enums/WindDirection";
-import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IWeatherConfig extends IBaseConfig {
     kind: "spt-weather";
     acceleration: number;
@@ -18,8 +18,13 @@ export interface ISeasonDateTimes {
     endMonth: number;
 }
 export interface IWeatherValues {
+    seasonValues: Record<string, ISeasonalValues>;
     /** How many hours to generate weather data into the future */
     generateWeatherAmountHours: number;
+    /** Length of each weather period */
+    timePeriod: WeatherSettings<number>;
+}
+export interface ISeasonalValues {
     clouds: WeatherSettings<string>;
     windSpeed: WeatherSettings<number>;
     windDirection: WeatherSettings<WindDirection>;
@@ -27,10 +32,8 @@ export interface IWeatherValues {
     rain: WeatherSettings<number>;
     rainIntensity: MinMax;
     fog: WeatherSettings<string>;
-    temp: Record<Season, ITempDayNight>;
+    temp: ITempDayNight;
     pressure: MinMax;
-    /** Length of each weather period */
-    timePeriod: WeatherSettings<number>;
 }
 export interface ITempDayNight {
     day: MinMax;

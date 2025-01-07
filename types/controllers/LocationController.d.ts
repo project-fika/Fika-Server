@@ -1,7 +1,7 @@
-import type { ILocationsGenerateAllResponse } from "@spt/models/eft/common/ILocationsSourceDestinationBase";
-import type { IGetAirdropLootRequest } from "@spt/models/eft/location/IGetAirdropLootRequest";
-import type { IGetAirdropLootResponse } from "@spt/models/eft/location/IGetAirdropLootResponse";
-import type { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
+import { ILocationsGenerateAllResponse } from "@spt/models/eft/common/ILocationsSourceDestinationBase";
+import { IGetAirdropLootRequest } from "@spt/models/eft/location/IGetAirdropLootRequest";
+import { IGetAirdropLootResponse } from "@spt/models/eft/location/IGetAirdropLootResponse";
+import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { AirdropService } from "@spt/services/AirdropService";

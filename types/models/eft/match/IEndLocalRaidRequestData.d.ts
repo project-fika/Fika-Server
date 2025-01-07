@@ -1,6 +1,6 @@
 import { ExitStatus } from "@spt/models/enums/ExitStatis";
-import type { IPmcData } from "../common/IPmcData";
-import type { IItem } from "../common/tables/IItem";
+import { IPmcData } from "../common/IPmcData";
+import { IItem } from "../common/tables/IItem";
 export interface IEndLocalRaidRequestData {
     /** ID of server player just left */
     serverId: string;

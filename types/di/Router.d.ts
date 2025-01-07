@@ -1,6 +1,6 @@
-import type { IPmcData } from "@spt/models/eft/common/IPmcData";
-import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import type { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 export declare class Router {
     protected handledRoutes: HandledRoute[];
     getTopLevelRoute(): string;

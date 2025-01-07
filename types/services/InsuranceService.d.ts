@@ -1,11 +1,11 @@
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
-import type { IPmcData } from "@spt/models/eft/common/IPmcData";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
-import type { ITraderBase } from "@spt/models/eft/common/tables/ITrader";
-import type { IInsuranceConfig } from "@spt/models/spt/config/IInsuranceConfig";
-import type { IInsuranceEquipmentPkg } from "@spt/models/spt/services/IInsuranceEquipmentPkg";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { ITraderBase } from "@spt/models/eft/common/tables/ITrader";
+import { IInsuranceConfig } from "@spt/models/spt/config/IInsuranceConfig";
+import { IInsuranceEquipmentPkg } from "@spt/models/spt/services/IInsuranceEquipmentPkg";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";

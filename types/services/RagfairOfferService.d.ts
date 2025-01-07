@@ -1,9 +1,9 @@
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
-import type { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
-import type { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
+import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";

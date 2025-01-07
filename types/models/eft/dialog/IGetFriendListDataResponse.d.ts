@@ -1,4 +1,4 @@
-import type { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import { IUserDialogInfo } from "../profile/IUserDialogInfo";
 export interface IGetFriendListDataResponse {
     Friends: IUserDialogInfo[];
     Ignore: string[];

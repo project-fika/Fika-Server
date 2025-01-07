@@ -1,4 +1,4 @@
-import type { DependencyContainer } from "tsyringe";
+import { DependencyContainer } from "tsyringe";
 /**
  * Handle the registration of classes to be used by the Dependency Injection code
  */

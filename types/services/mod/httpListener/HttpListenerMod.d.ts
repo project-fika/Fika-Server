@@ -1,5 +1,5 @@
-import type { IncomingMessage, ServerResponse } from "node:http";
-import type { IHttpListener } from "@spt/servers/http/IHttpListener";
+import { IncomingMessage, ServerResponse } from "node:http";
+import { IHttpListener } from "@spt/servers/http/IHttpListener";
 export declare class HttpListenerMod implements IHttpListener {
     private canHandleOverride;
     private handleOverride;

@@ -1,6 +1,6 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
-import type { ILootRequest } from "@spt/models/spt/services/ILootRequest";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import { ILootRequest } from "@spt/models/spt/services/ILootRequest";
 export interface ITraderConfig extends IBaseConfig {
     kind: "spt-trader";
     updateTime: IUpdateTime[];

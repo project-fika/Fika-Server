@@ -1,5 +1,5 @@
-import type { IInventoryMagGen } from "@spt/generators/weapongen/IInventoryMagGen";
-import type { InventoryMagGen } from "@spt/generators/weapongen/InventoryMagGen";
+import { IInventoryMagGen } from "@spt/generators/weapongen/IInventoryMagGen";
+import { InventoryMagGen } from "@spt/generators/weapongen/InventoryMagGen";
 import { BotWeaponGeneratorHelper } from "@spt/helpers/BotWeaponGeneratorHelper";
 export declare class UbglExternalMagGen implements IInventoryMagGen {
     protected botWeaponGeneratorHelper: BotWeaponGeneratorHelper;

@@ -1,4 +1,4 @@
-import type { ILocaleConfig } from "@spt/models/spt/config/ILocaleConfig";
+import { ILocaleConfig } from "@spt/models/spt/config/ILocaleConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";

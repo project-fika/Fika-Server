@@ -1,6 +1,6 @@
-import type { IInventory } from "@spt/models/eft/common/tables/IBotBase";
-import type { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
-import type { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IInventory } from "@spt/models/eft/common/tables/IBotBase";
+import { IGenerationData } from "@spt/models/eft/common/tables/IBotType";
+import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 export declare class InventoryMagGen {
     private magCounts;
     private magazineTemplate;

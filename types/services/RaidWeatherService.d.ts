@@ -1,8 +1,8 @@
 import { WeatherGenerator } from "@spt/generators/WeatherGenerator";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
-import type { IWeather } from "@spt/models/eft/weather/IWeatherData";
+import { IWeather } from "@spt/models/eft/weather/IWeatherData";
 import { Season } from "@spt/models/enums/Season";
-import type { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
+import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -31,7 +31,7 @@ export declare class RaidWeatherService {
     /**
      * Find the first matching weather object that applies to the current time
      */
-    getCurrentWeather(): IWeather;
+    getCurrentWeather(): IWeather | undefined;
     /**
      * Find the first matching weather object that applies to the current time + all following weather data generated
      */

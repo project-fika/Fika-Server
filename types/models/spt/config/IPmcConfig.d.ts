@@ -1,7 +1,7 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import type { IChancedEnemy } from "@spt/models/eft/common/ILocationBase";
+import { IChancedEnemy } from "@spt/models/eft/common/ILocationBase";
 import { MemberCategory } from "@spt/models/enums/MemberCategory";
-import type { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
+import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IPmcConfig extends IBaseConfig {
     kind: "spt-pmc";
     /** What game version should the PMC have */
@@ -14,6 +14,7 @@ export interface IPmcConfig extends IBaseConfig {
     pocketLoot: ISlotLootSettings;
     /** Global whitelist/blacklist of backpack loot for PMCs */
     backpackLoot: ISlotLootSettings;
+    globalLootBlacklist: string[];
     /** Use difficulty defined in config/bot.json/difficulty instead of chosen difficulty dropdown value */
     useDifficultyOverride: boolean;
     /** Difficulty override e.g. "AsOnline/Hard" */

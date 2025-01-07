@@ -1,15 +1,15 @@
 import { BotHelper } from "@spt/helpers/BotHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import type { IConfig } from "@spt/models/eft/common/IGlobals";
-import type { IAdditionalHostilitySettings } from "@spt/models/eft/common/ILocationBase";
-import type { IInventory } from "@spt/models/eft/common/tables/IBotType";
+import { IConfig } from "@spt/models/eft/common/IGlobals";
+import { IAdditionalHostilitySettings } from "@spt/models/eft/common/ILocationBase";
+import { IInventory } from "@spt/models/eft/common/tables/IBotType";
 import { Season } from "@spt/models/enums/Season";
 import { SeasonalEventType } from "@spt/models/enums/SeasonalEventType";
-import type { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
-import type { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
-import type { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
-import type { ISeasonalEvent, ISeasonalEventConfig, IZombieSettings } from "@spt/models/spt/config/ISeasonalEventConfig";
-import type { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
+import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
+import { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
+import { ISeasonalEvent, ISeasonalEventConfig, IZombieSettings } from "@spt/models/spt/config/ISeasonalEventConfig";
+import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -55,6 +55,11 @@ export declare class SeasonalEventService {
      * @returns
      */
     itemIsSeasonalRelated(itemTpl: string): boolean;
+    /**
+     * Get active seasonal events
+     * @returns Array of active events
+     */
+    getActiveEvents(): ISeasonalEvent[];
     /**
      * Get an array of seasonal items that should not appear
      * e.g. if halloween is active, only return christmas items
@@ -110,6 +115,11 @@ export declare class SeasonalEventService {
      * Handle activating seasonal events
      */
     enableSeasonalEvents(): void;
+    /**
+     * Force a seasonal event to be active
+     * @param eventType Event to force active
+     * @returns True if event was successfully force enabled
+     */
     forceSeasonalEvent(eventType: SeasonalEventType): boolean;
     /**
      * Store active events inside class array property `currentlyActiveEvents` + set class properties: christmasEventActive/halloweenEventActive
@@ -120,6 +130,18 @@ export declare class SeasonalEventService {
      * @returns Season enum value
      */
     getActiveWeatherSeason(): Season;
+    /**
+     * Does the provided date fit between the two defined dates?
+     * Excludes year
+     * Inclusive of end date upto 23 hours 59 minutes
+     * @param dateToCheck Date to check is between 2 dates
+     * @param startMonth Lower bound for month
+     * @param startDay Lower bound for day
+     * @param endMonth Upper bound for month
+     * @param endDay Upper bound for day
+     * @returns True when inside date range
+     */
+    protected dateIsBetweenTwoDates(dateToCheck: Date, startMonth: number, startDay: number, endMonth: number, endDay: number): boolean;
     /**
      * Iterate through bots inventory and loot to find and remove christmas items (as defined in SeasonalEventService)
      * @param botInventory Bots inventory to iterate over
@@ -132,6 +154,10 @@ export declare class SeasonalEventService {
      * @param eventName Name of the event to enable. e.g. Christmas
      */
     protected updateGlobalEvents(globalConfig: IConfig, event: ISeasonalEvent): void;
+    protected applyHalloweenEvent(event: ISeasonalEvent, globalConfig: IConfig): void;
+    protected applyChristmasEvent(event: ISeasonalEvent, globalConfig: IConfig): void;
+    protected applyNewYearsEvent(event: ISeasonalEvent, globalConfig: IConfig): void;
+    protected adjustBotAppearanceValues(season: SeasonalEventType): void;
     protected replaceBotHostility(hostilitySettings: Record<string, IAdditionalHostilitySettings[]>): void;
     protected removeEntryRequirement(locationIds: string[]): void;
     givePlayerSeasonalGifts(sessionId: string): void;
@@ -195,7 +221,7 @@ export declare class SeasonalEventService {
      * Add santa to maps
      */
     protected addGifterBotToMaps(): void;
-    protected handleModEvent(event: ISeasonalEvent): void;
+    protected handleModEvent(event: ISeasonalEvent, globalConfig: IConfig): void;
     /**
      * Send gift to player if they'e not already received it
      * @param playerId Player to send gift to

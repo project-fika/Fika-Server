@@ -1,10 +1,10 @@
 import { QuestController } from "@spt/controllers/QuestController";
-import type { InventoryHelper } from "@spt/helpers/InventoryHelper";
-import type { ItemHelper } from "@spt/helpers/ItemHelper";
-import type { IPmcData } from "@spt/models/eft/common/IPmcData";
-import type { IItem } from "@spt/models/eft/common/tables/IItem";
-import type { IInRaidConfig } from "@spt/models/spt/config/IInRaidConfig";
-import type { ILostOnDeathConfig } from "@spt/models/spt/config/ILostOnDeathConfig";
+import { InventoryHelper } from "@spt/helpers/InventoryHelper";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { IInRaidConfig } from "@spt/models/spt/config/IInRaidConfig";
+import { ILostOnDeathConfig } from "@spt/models/spt/config/ILostOnDeathConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";

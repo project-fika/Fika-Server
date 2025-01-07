@@ -1,4 +1,4 @@
-import type { ISpt } from "../profile/ISptProfile";
+import { ISpt } from "../profile/ISptProfile";
 export interface IMiniProfile {
     username: string;
     nickname: string;
