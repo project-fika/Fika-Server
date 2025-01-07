@@ -5,10 +5,11 @@ import { SaveServer } from "@spt/servers/SaveServer";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { IncomingMessage } from "http";
 import { WebSocket } from "ws";
+import { SPTWebSocket } from "@spt/servers/ws/SPTWebsocket";
 
 @injectable()
 export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
-    public clientWebSockets: Record<string, WebSocket>;
+    public clientWebSockets: Record<string, SPTWebSocket>;
 
     constructor(
         @inject("SaveServer") protected saveServer: SaveServer,
@@ -17,8 +18,8 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
         this.clientWebSockets = {};
 
         // Keep websocket connections alive
-        setInterval(() => {
-            this.keepWebSocketAlive();
+        setInterval(async () => {
+            await this.keepWebSocketAlive();
         }, 30000);
     }
 
@@ -30,7 +31,7 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
         return "/fika/dedicatedraidservice/";
     }
 
-    public onConnection(ws: WebSocket, req: IncomingMessage): void {
+    public async onConnection(ws: SPTWebSocket, req: IncomingMessage): Promise<void> {
         if (req.headers.authorization === undefined) {
             ws.close();
             return;
@@ -58,7 +59,7 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
     }
 
     // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
-    public onClose(ws: WebSocket, sessionID: string, code: number, reason: Buffer): void {
+    public onClose(ws: SPTWebSocket, sessionID: string, code: number, reason: Buffer): void {
         const clientWebSocket = this.clientWebSockets[sessionID];
 
         if (clientWebSocket === ws) {
@@ -68,7 +69,7 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
         }
     }
 
-    private keepWebSocketAlive(): void {
+    private async keepWebSocketAlive(): Promise<void> {
         for (const sessionId in this.clientWebSockets) {
             const clientWebSocket = this.clientWebSockets[sessionId];
 
@@ -78,7 +79,7 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
             }
 
             // Send a keep alive message to the dedicated client
-            clientWebSocket.send(
+            await clientWebSocket.sendAsync(
                 JSON.stringify({
                     type: "fikaDedicatedKeepAlive",
                 }),

@@ -9,10 +9,11 @@ import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectio
 import { EFikaNotifications } from "../models/enums/EFikaNotifications";
 import { IFikaNotificationBase } from "../models/fika/websocket/IFikaNotificationBase";
 import { FikaPresenceService } from "../services/FikaPresenceService";
+import { SPTWebSocket } from "@spt/servers/ws/SPTWebsocket";
 
 @injectable()
 export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
-    private clientWebSockets: Record<string, WebSocket>;
+    private clientWebSockets: Record<string, SPTWebSocket>;
 
     constructor(
         @inject("SaveServer") protected saveServer: SaveServer,
@@ -22,7 +23,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         this.clientWebSockets = {};
 
         // Keep websocket connections alive
-        setInterval(() => {
+        setInterval(async () => {
             this.keepWebSocketAlive();
         }, 30000);
     }
@@ -35,7 +36,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         return "/fika/notification/";
     }
 
-    public onConnection(ws: WebSocket, req: IncomingMessage): void {
+    public async onConnection(ws: SPTWebSocket, req: IncomingMessage): Promise<void> {
         if (req.headers.authorization === undefined) {
             ws.close();
             return;
@@ -94,19 +95,36 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         client.send(JSON.stringify(message));
     }
 
+    // Send functionality for sending to a single client.
+    public async sendAsync(sessionID: string, message: IFikaNotificationBase): Promise<void> {
+        const client = this.clientWebSockets[sessionID];
+
+        // Client is not online or not currently connected to the websocket.
+        if (!client) {
+            return;
+        }
+
+        // Client was formerly connected to the websocket, but may have connection issues as it didn't run onClose
+        if (client.readyState === WebSocket.CLOSED) {
+            return;
+        }
+
+        await client.sendAsync(JSON.stringify(message));
+    }
+
     public broadcast(message: IFikaNotificationBase): void {
         for (const sessionID in this.clientWebSockets) {
             this.send(sessionID, message);
         }
     }
 
-    private keepWebSocketAlive(): void {
+    private async keepWebSocketAlive(): Promise<void> {
         for (const sessionID in this.clientWebSockets) {
             let message: IFikaNotificationBase = {
                 type: EFikaNotifications.KeepAlive,
             };
 
-            this.send(sessionID, message);
+            await this.sendAsync(sessionID, message);
         }
     }
 }
