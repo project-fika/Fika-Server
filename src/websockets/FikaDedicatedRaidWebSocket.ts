@@ -4,7 +4,6 @@ import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { IncomingMessage } from "http";
-import { WebSocket } from "ws";
 import { SPTWebSocket } from "@spt/servers/ws/SPTWebsocket";
 
 @injectable()

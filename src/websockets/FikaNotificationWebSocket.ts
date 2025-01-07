@@ -1,6 +1,5 @@
 import { IncomingMessage } from "http";
 import { inject, injectable } from "tsyringe";
-import { WebSocket } from "ws";
 
 import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -24,7 +23,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
 
         // Keep websocket connections alive
         setInterval(async () => {
-            this.keepWebSocketAlive();
+            await this.keepWebSocketAlive();
         }, 30000);
     }
 
@@ -66,7 +65,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
     }
 
     // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
-    public onClose(ws: WebSocket, sessionID: string, code: number, reason: Buffer): void {
+    public onClose(ws: SPTWebSocket, sessionID: string, code: number, reason: Buffer): void {
         const clientWebSocket = this.clientWebSockets[sessionID];
 
         if (clientWebSocket === ws) {
