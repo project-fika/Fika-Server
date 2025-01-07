@@ -90,7 +90,7 @@ export class FikaPlayerRelationsHelper {
         this.logger.info(`removeFriend: ${fromProfileId}->${toProfileId}`);
 
         const profile = this.saveServer.getProfile(fromProfileId);
-        this.webSocketHandler.sendMessage(toProfileId, {
+        this.webSocketHandler.sendMessageAsync(toProfileId, {
             type: "youAreRemovedFromFriendList",
             eventId: "youAreRemovedFromFriendList",
             profile: {
@@ -125,7 +125,7 @@ export class FikaPlayerRelationsHelper {
         this.fikaPlayerRelationsCacheService.storeValue(fromProfileId, playerRelations);
 
         let profile: ISptProfile = this.saveServer.getProfile(fromProfileId);
-        this.webSocketHandler.sendMessage(toProfileId, {
+        this.webSocketHandler.sendMessageAsync(toProfileId, {
             type: "youAreAddToIgnoreList",
             eventId: "youAreAddToIgnoreList",
             _id: fromProfileId,
@@ -161,7 +161,7 @@ export class FikaPlayerRelationsHelper {
         this.fikaPlayerRelationsCacheService.storeValue(fromProfileId, playerRelations);
 
         let profile: ISptProfile = this.saveServer.getProfile(fromProfileId);
-        this.webSocketHandler.sendMessage(toProfileId, {
+        this.webSocketHandler.sendMessageAsync(toProfileId, {
             type: "youAreRemoveFromIgnoreList",
             eventId: "youAreRemoveFromIgnoreList",
             _id: fromProfileId,

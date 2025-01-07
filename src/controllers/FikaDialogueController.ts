@@ -178,7 +178,7 @@ export class FikaDialogueController {
         senderDialog.messages.push(message);
         receiverDialog.messages.push(message);
 
-        this.webSocketHandler.sendMessage(receiverProfile.info.id, {
+        this.webSocketHandler.sendMessageAsync(receiverProfile.info.id, {
             type: "new_message",
             eventId: "new_message",
             EventId: "new_message",

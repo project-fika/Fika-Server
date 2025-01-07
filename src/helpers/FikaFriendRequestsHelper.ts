@@ -69,7 +69,7 @@ export class FikaFriendRequestsHelper {
         if (profile) {
             this.logger.logWithColor(`Sending WebSocket message to ${toProfileId}`, LogTextColor.GREEN);
 
-            this.webSocketHandler.sendMessage(toProfileId, {
+            this.webSocketHandler.sendMessageAsync(toProfileId, {
                 type: "friendListNewRequest",
                 eventId: "friendListNewRequest",
                 _id: fromProfileId,
@@ -109,7 +109,7 @@ export class FikaFriendRequestsHelper {
         switch (reason) {
             case "accept": {
                 const profile = this.saveServer.getProfile(toProfileId);
-                this.webSocketHandler.sendMessage(fromProfileId, {
+                this.webSocketHandler.sendMessageAsync(fromProfileId, {
                     type: "friendListRequestAccept",
                     eventId: "friendListRequestAccept",
                     profile: {
@@ -131,7 +131,7 @@ export class FikaFriendRequestsHelper {
             }
             case "cancel": {
                 const profile = this.saveServer.getProfile(fromProfileId);
-                this.webSocketHandler.sendMessage(toProfileId, {
+                this.webSocketHandler.sendMessageAsync(toProfileId, {
                     type: "friendListRequestCancel",
                     eventId: "friendListRequestCancel",
                     profile: {
@@ -153,7 +153,7 @@ export class FikaFriendRequestsHelper {
             }
             case "decline": {
                 const profile = this.saveServer.getProfile(toProfileId);
-                this.webSocketHandler.sendMessage(fromProfileId, {
+                this.webSocketHandler.sendMessageAsync(fromProfileId, {
                     type: "friendListRequestDecline",
                     eventId: "friendListRequestDecline",
                     profile: {
