@@ -14,6 +14,9 @@ import { FikaPlayerRelationsCacheService } from "./services/cache/FikaPlayerRela
 import { FikaDedicatedProfileService } from "./services/dedicated/FikaDedicatedProfileService";
 import { FikaConfig } from "./utils/FikaConfig";
 import { FikaServerTools } from "./utils/FikaServerTools";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
+import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
 
 @injectable()
 export class Fika {
@@ -24,6 +27,7 @@ export class Fika {
 
     constructor(
         @inject("DatabaseServer") protected databaseServer: DatabaseServer,
+        @inject("ConfigServer") protected configServer: ConfigServer,
         @inject("Overrider") protected overrider: Overrider,
         @inject("FikaServerTools") protected fikaServerTools: FikaServerTools,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
@@ -52,6 +56,7 @@ export class Fika {
         }
 
         this.addFikaClientLocales();
+        this.blacklistSpecialProfiles();
         this.fikaPlayerRelationCacheServce.postInit();
 
         if (this.backgroundConfig.enable) {
@@ -72,6 +77,21 @@ export class Fika {
                     const localeData = locales.global[localeKey];
                     database.locales.global[localeKey] = { ...database.locales.global[localeKey], ...localeData };
                 }
+            }
+        }
+    }
+
+    private async blacklistSpecialProfiles() {
+        const coreConfig: ICoreConfig = this.configServer.getConfig(ConfigTypes.CORE);
+        const profileBlacklist = coreConfig.features.createNewProfileTypesBlacklist;
+
+        if (!this.fikaConfig.getConfig().server.showDevProfile) {
+            profileBlacklist.push("SPT Developer");
+        }
+
+        if (!this.fikaConfig.getConfig().server.showNonStandardProfile) {
+            for (const id of ["Tournament", "SPT Easy start", "SPT Zero to hero"]) {
+                profileBlacklist.push(id);
             }
         }
     }
