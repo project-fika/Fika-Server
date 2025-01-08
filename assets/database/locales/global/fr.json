@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "ERREUR AFFECTATION IP",
     "F_UI_ErrorBindIP": "'{0}' n'est pas une adresse IP valide ! Vérifiez le paramètre 'Force Bind IP'.",
     "F_UI_NoDedicatedClients": "Aucun client dédié n'est disponible.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "En attente de la fin de l'initialisation du raid par l'hôte...",
     "F_UI_WaitForOtherPlayers": "En attente du chargement des autres joueurs...",
     "F_UI_RetrieveSpawnInfo": "Récupération des informations d'apparitions depuis le serveur...",

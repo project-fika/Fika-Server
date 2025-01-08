@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "HATA BAĞLANTISI",
     "F_UI_ErrorBindIP": "'{0}' bağlanmak için geçerli bir IP adresi değil! 'IP'yi Bağlamaya Zorla' ayarınızı kontrol edin.",
     "F_UI_NoDedicatedClients": "Özel istemci bulunmamaktadır.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "Ana bilgisayarın raid başlatmayı bitirmesi bekleniyor...",
     "F_UI_WaitForOtherPlayers": "Diğer oyuncuların yüklemeyi bitirmesini bekleniliyor...",
     "F_UI_RetrieveSpawnInfo": "Sunucudan spawn bilgisi alınıyor...",
