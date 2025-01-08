@@ -86,7 +86,6 @@ export class Fika {
         const profileBlacklist = coreConfig.features.createNewProfileTypesBlacklist;
 
         if (!this.fikaConfig.getConfig().server.showDevProfile) {
-            // biome-ignore lint/performance/noDelete: Only ran once.
             profileBlacklist.push("SPT Developer");
         }
 
