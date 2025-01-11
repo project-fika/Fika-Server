@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "ОШИБКА ЗАПИСИ",
     "F_UI_ErrorBindIP": "'{0}' не является допустимым IP-адресом для привязки! Проверьте параметр 'Принудительная привязка к IP'.",
     "F_UI_NoDedicatedClients": "Нет выделенных клиентов.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "Ожидание завершения инициализации рейда...",
     "F_UI_WaitForOtherPlayers": "Ожидание загрузки других игроков...",
     "F_UI_RetrieveSpawnInfo": "Получение информации о спавне с сервера...",

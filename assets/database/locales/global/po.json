@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "ERRO DE VINCULAÇÃO",
     "F_UI_ErrorBindIP": "'{0}' não é um endereço IP válido para vincular! Verifique sua configuração 'Forçar vinculação de IP'.",
     "F_UI_NoDedicatedClients": "Não há clientes dedicados disponíveis.",
+    "F_UI_WaitForHostStartRaid": "Esperando o anfitrião iniciar a incursão...",
     "F_UI_WaitForHostFinishInit": "Esperando o host terminar a inicialização da incursão...",
     "F_UI_WaitForOtherPlayers": "Esperando que outros jogadores terminem de carregar...",
     "F_UI_RetrieveSpawnInfo": "Recuperando informações de spawn do servidor...",
@@ -244,6 +245,6 @@
     "F_MMUI_InHideout": "No esconderijo",
     "F_MMUI_InFlea": "Na pulga",
     "F_MMUI_RaidDetails": "Jogando como {0} em {1}\nHora: {2}",
-    "F_UI_LocaleError_H": "LOCALES ERROR",
-    "F_UI_LocaleError_D": "There were errors when loading the Fika locales. Translation is now using fallbacks for the failed headers. Please report this to the developers!\n\nFailed keys: {0}"
+    "F_UI_LocaleError_H": "ERRO NAS LOCALIZAÇÕES",
+    "F_UI_LocaleError_D": "Houve erros ao carregar as localizações do Fika. A tradução agora está usando os originais para os cabeçalhos que falharam. Por favor, reporte isso para os desenvolvedores!\n\nChaves falhas: {0}"
 }

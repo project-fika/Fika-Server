@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "ERRORE BINDING",
     "F_UI_ErrorBindIP": "'{0}' non è un indirizzo IP valido per il binding! Controlla l'impostazione 'Forza Bind IP'.",
     "F_UI_NoDedicatedClients": "Nessun client dedicato è disponibile.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "In attesa che l'host concluda l'inizializzazione del raid...",
     "F_UI_WaitForOtherPlayers": "In attesa che gli altri giocatori finiscano di caricare...",
     "F_UI_RetrieveSpawnInfo": "Recupero informazioni di generazione dal server...",

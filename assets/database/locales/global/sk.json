@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "CHYBA PRIRADZOVANIA",
     "F_UI_ErrorBindIP": "'{0}' nie je validna IP adresa pre priradenie! Prosím skontroluj 'Force IP' nastavenie.",
     "F_UI_NoDedicatedClients": "Žiadny dedikovaný klienti nie sú dostupný.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "Čakám na hosta kým inicializuje raid...",
     "F_UI_WaitForOtherPlayers": "Čakám na načítanie ostatných hráčov...",
     "F_UI_RetrieveSpawnInfo": "Získavam dáta o spawne zo serveru...",

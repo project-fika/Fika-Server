@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "바인딩 에러",
     "F_UI_ErrorBindIP": "{0} 은 바인드하기 유효한 IP주소가 아닙니다. IP 강제 바인드 설정을 확인해주십시오.",
     "F_UI_NoDedicatedClients": "사용가능한 전담 클라이언트가 없습니다.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "호스트의 레이드 초기화 대기중",
     "F_UI_WaitForOtherPlayers": "다른 플레이어들의 로딩 대기중",
     "F_UI_RetrieveSpawnInfo": "서버에서 스폰 정보 받아오는중",

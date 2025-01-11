@@ -65,6 +65,7 @@
     "F_UI_ErrorBindIPHeader": "CHYBA BINDOVÁNÍ",
     "F_UI_ErrorBindIP": "{0} není platná IP adresa pro připojení! Zkontrolujte nastavení 'Vynutit Bindování IP'.",
     "F_UI_NoDedicatedClients": "Dedikovaný klient není k dispozici.",
+    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
     "F_UI_WaitForHostFinishInit": "Čekáme na zakladatele hry aby dokončil raid inicializaci...",
     "F_UI_WaitForOtherPlayers": "Čekání na ostatní hráče co se načítají...",
     "F_UI_RetrieveSpawnInfo": "Obdržuji informace o spawnu ze serveru...",
