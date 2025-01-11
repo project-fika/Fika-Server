@@ -99,6 +99,9 @@ async function main() {
         const projectName = createProjectName(packageJson);
         logger.log("success", `Project name created: ${projectName}`);
 
+        // Get version name
+        const versionName = createVersionName(packageJson);
+
         // Remove the old distribution directory and create a fresh one.
         const distDir = await removeOldDistDirectory(currentDir);
         logger.log("info", "Distribution directory successfully cleaned.");
@@ -115,13 +118,13 @@ async function main() {
 
         // Create a zip archive of the project files.
         logger.log("info", "Beginning folder compression...");
-        const zipFilePath = path.join(path.dirname(projectDir), `${projectName}.zip`);
+        const zipFilePath = path.join(path.dirname(projectDir), `${projectName} ${versionName}.zip`);
         await createZipFile(projectDir, zipFilePath, "user/mods/" + projectName);
         logger.log("success", "Archive successfully created.");
         logger.log("info", zipFilePath);
 
         // Move the zip file inside of the project directory, within the temporary working directory.
-        const zipFileInProjectDir = path.join(projectDir, `${projectName}.zip`);
+        const zipFileInProjectDir = path.join(projectDir, `${projectName} ${versionName}.zip`);
         await fs.move(zipFilePath, zipFileInProjectDir);
         logger.log("success", "Archive successfully moved.");
         logger.log("info", zipFileInProjectDir);
@@ -134,7 +137,7 @@ async function main() {
         logger.log("success", "------------------------------------");
         logger.log("success", "Build script completed successfully!");
         logger.log("success", "Your mod package has been created in the 'dist' directory:");
-        logger.log("success", `/${path.relative(process.cwd(), path.join(distDir, `${projectName}.zip`))}`);
+        logger.log("success", `\\${path.relative(process.cwd(), path.join(distDir, `${projectName}.zip`))}`);
         logger.log("success", "------------------------------------");
         if (!verbose) {
             logger.log("success", "To see a detailed build log, use `npm run buildinfo`.");
@@ -227,6 +230,15 @@ function createProjectName(packageJson) {
 
     // Ensure the name is lowercase, as per the package.json specification.
     return `${author}-${name}`.toLowerCase();
+}
+
+/**
+ * Gets the version name from package.json in string format
+ * @param {Object} packageJson - A JSON object containing the contents of the `package.json` file.
+ * @returns {string} A string representing the project version
+ */
+function createVersionName(packageJson) {
+    return packageJson.version;
 }
 
 /**
