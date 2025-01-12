@@ -2,8 +2,8 @@ import { inject, injectable } from "tsyringe";
 
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { FileSystemSync } from "@spt/utils/FileSystemSync";
 import { JsonUtil } from "@spt/utils/JsonUtil";
-import { VFS } from "@spt/utils/VFS";
 
 import { IFikaPlayerRelations } from "../../models/fika/IFikaPlayerRelations";
 import { FikaConfig } from "../../utils/FikaConfig";
@@ -18,16 +18,16 @@ export class FikaPlayerRelationsCacheService {
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("JsonUtil") protected jsonUtil: JsonUtil,
-        @inject("VFS") protected vfs: VFS,
+        @inject("FileSystemSync") protected fileSystemSync: FileSystemSync,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
     ) {
         this.playerRelationsFullPath = `./${this.fikaConfig.getModPath()}${this.playerRelationsPath}`;
 
-        if (!this.vfs.exists(this.playerRelationsFullPath)) {
-            this.vfs.writeFile(this.playerRelationsFullPath, "{}");
+        if (!this.fileSystemSync.exists(this.playerRelationsFullPath)) {
+            this.fileSystemSync.write(this.playerRelationsFullPath, "{}");
         }
 
-        this.playerRelations = this.jsonUtil.deserialize(this.vfs.readFile(this.playerRelationsFullPath), this.playerRelationsFullPath);
+        this.playerRelations = this.jsonUtil.deserialize(this.fileSystemSync.read(this.playerRelationsFullPath), this.playerRelationsFullPath);
     }
 
     public postInit() {
@@ -73,7 +73,7 @@ export class FikaPlayerRelationsCacheService {
         }
 
         if (shouldSave) {
-            this.vfs.writeFile(this.playerRelationsFullPath, this.jsonUtil.serialize(this.playerRelations));
+            this.fileSystemSync.write(this.playerRelationsFullPath, this.jsonUtil.serialize(this.playerRelations));
         }
     }
 
@@ -95,6 +95,6 @@ export class FikaPlayerRelationsCacheService {
     public storeValue(key: string, value: IFikaPlayerRelations): void {
         this.playerRelations[key] = value;
 
-        this.vfs.writeFile(this.playerRelationsFullPath, this.jsonUtil.serialize(this.playerRelations));
+        this.fileSystemSync.write(this.playerRelationsFullPath, this.jsonUtil.serialize(this.playerRelations));
     }
 }

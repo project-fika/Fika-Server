@@ -2,8 +2,8 @@ import path from "node:path";
 import { inject, injectable } from "tsyringe";
 
 import { PreSptModLoader } from "@spt/loaders/PreSptModLoader";
+import { FileSystemSync } from "@spt/utils/FileSystemSync";
 import { JsonUtil } from "@spt/utils/JsonUtil";
-import { VFS } from "@spt/utils/VFS";
 
 import { IFikaConfig } from "../models/fika/config/IFikaConfig";
 
@@ -18,14 +18,14 @@ export class FikaConfig {
 
     constructor(
         @inject("PreSptModLoader") protected preSptModLoader: PreSptModLoader,
-        @inject("VFS") protected vfs: VFS,
+        @inject("FileSystemSync") protected fileSystemSync: FileSystemSync,
         @inject("JsonUtil") protected jsonUtil: JsonUtil,
     ) {
         this.modAuthor = packageJson.author.replace(/\W/g, "").toLowerCase();
         this.modName = packageJson.name.replace(/\W/g, "").toLowerCase();
         this.modPath = this.preSptModLoader.getModPath(this.getModFolderName());
 
-        this.fikaConfig = this.jsonUtil.deserializeJsonC(this.vfs.readFile(path.join(this.modPath, "assets/configs/fika.jsonc")));
+        this.fikaConfig = this.jsonUtil.deserializeJsonC(this.fileSystemSync.read(path.join(this.modPath, "assets/configs/fika.jsonc")));
     }
 
     public getConfig(): IFikaConfig {
