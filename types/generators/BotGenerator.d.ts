@@ -58,7 +58,7 @@ export declare class BotGenerator {
      * @param botGenerationDetails details on how to generate bots
      * @returns constructed bot
      */
-    prepareAndGenerateBot(sessionId: string, botGenerationDetails: IBotGenerationDetails): IBotBase;
+    prepareAndGenerateBot(sessionId: string, botGenerationDetails: IBotGenerationDetails): Promise<IBotBase>;
     /**
      * Get a clone of the default bot base object and adjust its role/side/difficulty values
      * @param botRole Role bot should have

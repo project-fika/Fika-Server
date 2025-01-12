@@ -15,14 +15,14 @@ export declare class LauncherCallbacks {
     constructor(httpResponse: HttpResponseUtil, launcherController: LauncherController, saveServer: SaveServer, watermark: Watermark);
     connect(): string;
     login(url: string, info: ILoginRequestData, sessionID: string): string;
-    register(url: string, info: IRegisterData, sessionID: string): "FAILED" | "OK";
+    register(url: string, info: IRegisterData, sessionID: string): Promise<"FAILED" | "OK">;
     get(url: string, info: ILoginRequestData, sessionID: string): string;
     changeUsername(url: string, info: IChangeRequestData, sessionID: string): "FAILED" | "OK";
     changePassword(url: string, info: IChangeRequestData, sessionID: string): "FAILED" | "OK";
     wipe(url: string, info: IRegisterData, sessionID: string): "FAILED" | "OK";
     getServerVersion(): string;
     ping(url: string, info: IEmptyRequestData, sessionID: string): string;
-    removeProfile(url: string, info: IRemoveProfileData, sessionID: string): string;
+    removeProfile(url: string, info: IRemoveProfileData, sessionID: string): Promise<string>;
     getCompatibleTarkovVersion(): string;
     getLoadedServerMods(): string;
     getServerModsProfileUsed(url: string, info: IEmptyRequestData, sessionId: string): string;

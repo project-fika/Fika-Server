@@ -63,7 +63,6 @@ export interface IGameFixes {
     fixProfileBreakingInventoryItemIssues: boolean;
 }
 export interface IServerFeatures {
-    autoInstallModDependencies: boolean;
     compressProfile: boolean;
     chatbotFeatures: IChatbotFeatures;
     /** Keyed to profile type e.g. "Standard" or "SPT Developer" */

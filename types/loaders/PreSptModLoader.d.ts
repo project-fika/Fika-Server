@@ -86,7 +86,6 @@ export declare class PreSptModLoader implements IModLoader {
      * @returns
      */
     protected shouldSkipMod(pkg: IPackageJsonData): boolean;
-    protected autoInstallDependencies(modPath: string, pkg: IPackageJsonData): void;
     protected areModDependenciesFulfilled(pkg: IPackageJsonData, loadedMods: Map<string, IPackageJsonData>): boolean;
     protected isModCompatible(mod: IPackageJsonData, loadedMods: Map<string, IPackageJsonData>): boolean;
     /**

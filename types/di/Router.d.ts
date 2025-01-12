@@ -24,7 +24,7 @@ export declare class ItemEventRouterDefinition extends Router {
     handleItemEvent(url: string, pmcData: IPmcData, body: any, sessionID: string, output: IItemEventRouterResponse): Promise<any>;
 }
 export declare class SaveLoadRouter extends Router {
-    handleLoad(profile: ISptProfile): ISptProfile;
+    handleLoad(profile: ISptProfile): Promise<ISptProfile>;
 }
 export declare class HandledRoute {
     route: string;

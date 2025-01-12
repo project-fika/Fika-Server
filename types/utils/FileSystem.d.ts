@@ -106,10 +106,10 @@ export declare class FileSystem {
      *
      * @param file The file path to write to.
      * @param jsonObject The object to write to the file.
-     * @param indentationSpaces The number of spaces to use for indentation.
+     * @param spacing The number of spaces or string used for spacing of the JSON file.
      * @returns A promise that resolves when the write operation is complete.
      */
-    writeJson(file: string, jsonObject: object, indentationSpaces?: 4): Promise<void>;
+    writeJson(file: string, jsonObject: object, spacing?: string | number): Promise<void>;
     /**
      * Appends a string to the bottom of a file. If the file does not exist, it is created.
      *

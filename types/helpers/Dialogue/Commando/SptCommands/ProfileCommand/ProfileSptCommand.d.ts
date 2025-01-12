@@ -26,6 +26,7 @@ export declare class ProfileSptCommand implements ISptCommand {
      * spt profile skill metabolism 10
      */
     private static commandRegex;
+    private static examineRegex;
     protected savedCommand: SavedCommand;
     constructor(logger: ILogger, itemHelper: ItemHelper, hashUtil: HashUtil, presetHelper: PresetHelper, mailSendService: MailSendService, localeService: LocaleService, databaseServer: DatabaseServer, profileHelper: ProfileHelper);
     getCommand(): string;
@@ -33,4 +34,5 @@ export declare class ProfileSptCommand implements ISptCommand {
     performAction(commandHandler: IUserDialogInfo, sessionId: string, request: ISendMessageRequest): string;
     protected handleSkillCommand(skill: string, level: number): IProfileChangeEvent;
     protected handleLevelCommand(level: number): IProfileChangeEvent;
+    protected handleExamineCommand(): IProfileChangeEvent;
 }

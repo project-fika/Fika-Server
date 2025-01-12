@@ -38,8 +38,8 @@ export declare class LauncherController {
     protected getProfileDescriptions(): Record<string, string>;
     find(sessionId: string): Info;
     login(info: ILoginRequestData): string;
-    register(info: IRegisterData): string;
-    protected createAccount(info: IRegisterData): string;
+    register(info: IRegisterData): Promise<string>;
+    protected createAccount(info: IRegisterData): Promise<string>;
     protected generateProfileId(): string;
     protected formatID(timeStamp: number, counter: number): string;
     changeUsername(info: IChangeRequestData): string;

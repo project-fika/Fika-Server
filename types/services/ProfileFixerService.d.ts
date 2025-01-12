@@ -6,7 +6,8 @@ import { QuestRewardHelper } from "@spt/helpers/QuestRewardHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IBonus, IHideoutSlot } from "@spt/models/eft/common/tables/IBotBase";
-import { IQuest, IQuestReward } from "@spt/models/eft/common/tables/IQuest";
+import { IQuest } from "@spt/models/eft/common/tables/IQuest";
+import { IReward } from "@spt/models/eft/common/tables/IReward";
 import { IPmcDataRepeatableQuest, IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IStageBonus } from "@spt/models/eft/hideout/IHideoutArea";
@@ -92,7 +93,7 @@ export declare class ProfileFixerService {
      * @param questDetails The quest the reward belongs to
      * @returns
      */
-    protected verifyQuestProductionUnlock(pmcProfile: IPmcData, productionUnlockReward: IQuestReward, questDetails: IQuest): void;
+    protected verifyQuestProductionUnlock(pmcProfile: IPmcData, productionUnlockReward: IReward, questDetails: IQuest): void;
     /**
      * Initial release of SPT 3.10 used an incorrect favorites structure, reformat
      * the structure to the correct MongoID array structure

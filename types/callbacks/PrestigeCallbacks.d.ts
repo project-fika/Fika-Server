@@ -14,5 +14,5 @@ export declare class PrestigeCallbacks {
     /** Handle client/prestige/list */
     getPrestige(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IPrestige>;
     /** Handle client/prestige/obtain */
-    obtainPrestige(url: string, info: IObtainPrestigeRequest, sessionID: string): INullResponseData;
+    obtainPrestige(url: string, info: IObtainPrestigeRequest[], sessionID: string): INullResponseData;
 }

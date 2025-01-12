@@ -13,6 +13,6 @@ export declare class ModHashCacheService {
     getStoredValue(key: string): string;
     storeValue(key: string, value: string): void;
     matchWithStoredHash(modName: string, hash: string): boolean;
-    calculateAndCompareHash(modName: string, modContent: string): boolean;
-    calculateAndStoreHash(modName: string, modContent: string): void;
+    calculateAndCompareHash(modName: string, modContent: string): Promise<boolean>;
+    calculateAndStoreHash(modName: string, modContent: string): Promise<void>;
 }

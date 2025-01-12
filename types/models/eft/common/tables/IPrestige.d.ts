@@ -1,11 +1,12 @@
-import type { IQuestCondition, IQuestReward } from "./IQuest";
+import type { IQuestCondition } from "@spt/models/eft/common/tables/IQuest";
+import type { IReward } from "@spt/models/eft/common/tables/IReward";
 export interface IPrestige {
-    elements: IPretigeElement;
+    elements: IPretigeElement[];
 }
 export interface IPretigeElement {
     id: string;
     conditions: IQuestCondition[];
-    rewards: IQuestReward[];
+    rewards: IReward[];
     transferConfigs: ITransferConfigs;
     image: string;
     bigImage: string;

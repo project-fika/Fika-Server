@@ -19,7 +19,7 @@ export interface ISearchRequestData {
     handbookId: string;
     linkedSearchId: string;
     neededSearchId: string;
-    buildItems: BuildItems;
+    buildItems: Record<string, number>;
     buildCount: number;
     tm: number;
     reload: number;
@@ -29,4 +29,3 @@ export declare enum OfferOwnerType {
     TRADEROWNERTYPE = 1,
     PLAYEROWNERTYPE = 2
 }
-export type BuildItems = {};

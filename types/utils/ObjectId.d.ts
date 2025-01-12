@@ -2,7 +2,7 @@ import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class ObjectId {
     protected timeUtil: TimeUtil;
     constructor(timeUtil: TimeUtil);
-    protected randomBytes: Buffer;
+    protected randomBytes: Buffer<ArrayBufferLike>;
     protected constglobalCounter: number;
     protected consttime: number;
     protected globalCounter: number;

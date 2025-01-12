@@ -28,7 +28,7 @@ export declare class ProfileCallbacks {
     /**
      * Handle client/game/profile/create
      */
-    createProfile(url: string, info: IProfileCreateRequestData, sessionID: string): IGetBodyResponseData<ICreateProfileResponse>;
+    createProfile(url: string, info: IProfileCreateRequestData, sessionID: string): Promise<IGetBodyResponseData<ICreateProfileResponse>>;
     /**
      * Handle client/game/profile/list
      * Get the complete player profile (scav + pmc character)

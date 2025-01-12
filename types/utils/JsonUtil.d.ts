@@ -51,27 +51,27 @@ export declare class JsonUtil {
     deserializeJsonC<T>(jsonString: string, filename?: string, options?: IParseOptions): T | undefined;
     deserializeJson5<T>(jsonString: string, filename?: string): T | undefined;
     /**
-     * Take json from file and convert into object asynchronously
+     * Take json from file and convert into object
      * Perform valadation on json during process if json file has not been processed before
      * @param jsonString String to turn into object
      * @param filePath Path to json file being processed
      * @returns A promise that resolves with the object if successful, if not returns undefined
      */
-    deserializeWithCacheCheckAsync<T>(jsonString: string, filePath: string, writeHashes?: boolean): Promise<T | undefined>;
+    deserializeWithCacheCheck<T>(jsonString: string, filePath: string, writeHashes?: boolean): Promise<T | undefined>;
     /**
-     * Writes the file hashes to the cache path, to be used manually if writeHashes was set to false on deserializeWithCacheCheckAsync
+     * Writes the file hashes to the cache path, to be used manually if writeHashes was set to false on deserializeWithCacheCheck
      */
-    writeCacheAsync(): Promise<void>;
+    writeCache(): Promise<void>;
     /**
      * Create file if nothing found asynchronously
      * @param jsonCachePath path to cache
      */
-    protected ensureJsonCacheExistsAsync(jsonCachePath: string): Promise<void>;
+    protected ensureJsonCacheExists(jsonCachePath: string): Promise<void>;
     /**
-     * Read contents of json cache and add to class field asynchronously
+     * Read contents of json cache and add to class field
      * @param jsonCachePath Path to cache
      */
-    protected hydrateJsonCacheAsync(jsonCachePath: string): Promise<void>;
+    protected hydrateJsonCache(jsonCachePath: string): Promise<void>;
     /**
      * Convert into string and back into object to clone object
      * @param objectToClone Item to clone

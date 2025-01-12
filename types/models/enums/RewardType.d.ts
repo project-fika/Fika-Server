@@ -1,4 +1,4 @@
-export declare enum QuestRewardType {
+export declare enum RewardType {
     SKILL = "Skill",
     EXPERIENCE = "Experience",
     TRADER_STANDING = "TraderStanding",
@@ -11,5 +11,7 @@ export declare enum QuestRewardType {
     STASH_ROWS = "StashRows",
     ACHIEVEMENT = "Achievement",
     POCKETS = "Pockets",
-    CUSTOMIZATION_DIRECT = "CustomizationDirect"
+    CUSTOMIZATION_DIRECT = "CustomizationDirect",
+    CUSTOMIZATION_OFFER = "CustomizationOffer",
+    EXTRA_DAILY_QUEST = "ExtraDailyQuest"
 }
