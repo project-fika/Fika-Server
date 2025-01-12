@@ -5,10 +5,10 @@ import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 
+import { SPTWebSocket } from "@spt/servers/ws/SPTWebsocket";
 import { EFikaNotifications } from "../models/enums/EFikaNotifications";
 import { IFikaNotificationBase } from "../models/fika/websocket/IFikaNotificationBase";
 import { FikaPresenceService } from "../services/FikaPresenceService";
-import { SPTWebSocket } from "@spt/servers/ws/SPTWebsocket";
 
 @injectable()
 export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
@@ -78,23 +78,6 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
     }
 
     // Send functionality for sending to a single client.
-    public send(sessionID: string, message: IFikaNotificationBase): void {
-        const client = this.clientWebSockets[sessionID];
-
-        // Client is not online or not currently connected to the websocket.
-        if (!client) {
-            return;
-        }
-
-        // Client was formerly connected to the websocket, but may have connection issues as it didn't run onClose
-        if (client.readyState === WebSocket.CLOSED) {
-            return;
-        }
-
-        client.send(JSON.stringify(message));
-    }
-
-    // Send functionality for sending to a single client.
     public async sendAsync(sessionID: string, message: IFikaNotificationBase): Promise<void> {
         const client = this.clientWebSockets[sessionID];
 
@@ -111,9 +94,9 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         await client.sendAsync(JSON.stringify(message));
     }
 
-    public broadcast(message: IFikaNotificationBase): void {
+    public async broadcast(message: IFikaNotificationBase): Promise<void> {
         for (const sessionID in this.clientWebSockets) {
-            this.send(sessionID, message);
+            await this.sendAsync(sessionID, message);
         }
     }
 

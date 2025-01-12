@@ -17,8 +17,8 @@ export class FikaSendItemCallbacks {
         // empty
     }
 
-    public handleSendItem(pmcData: IPmcData, body: IFikaSendItemRequestData, sessionID: string): IItemEventRouterResponse {
-        return this.fikaSendItemController.sendItem(pmcData, body, sessionID);
+    public async handleSendItem(pmcData: IPmcData, body: IFikaSendItemRequestData, sessionID: string): Promise<IItemEventRouterResponse> {
+        return await this.fikaSendItemController.sendItem(pmcData, body, sessionID);
     }
 
     /** Handle /fika/senditem/availablereceivers */

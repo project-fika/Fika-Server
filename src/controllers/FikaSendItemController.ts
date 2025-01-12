@@ -37,7 +37,7 @@ export class FikaSendItemController {
         // empty
     }
 
-    public sendItem(_pmcData: IPmcData, body: IFikaSendItemRequestData, sessionID: string): IItemEventRouterResponse {
+    public async sendItem(_pmcData: IPmcData, body: IFikaSendItemRequestData, sessionID: string): Promise<IItemEventRouterResponse> {
         const fikaConfig = this.fikaConfig.getConfig();
         const output = this.eventOutputHolder.getOutput(sessionID);
 
@@ -80,12 +80,7 @@ export class FikaSendItemController {
             }
         }
 
-        this.mailSendService.sendSystemMessageToPlayer(
-            body.target,
-            `You have received a gift from ${senderProfile?.characters?.pmc?.Info?.Nickname ?? "unknown"}`,
-            itemsToSend,
-            604800
-        );
+        this.mailSendService.sendSystemMessageToPlayer(body.target, `You have received a gift from ${senderProfile?.characters?.pmc?.Info?.Nickname ?? "unknown"}`, itemsToSend, 604800);
 
         this.inventoryHelper.removeItem(senderProfile.characters.pmc, body.id, sessionID, output);
 
@@ -96,7 +91,7 @@ export class FikaSendItemController {
             itemName: `${itemsToSend[0]._tpl} ShortName`,
         };
 
-        this.fikaNotificationWebSocket.send(body.target, notification);
+        await this.fikaNotificationWebSocket.sendAsync(body.target, notification);
 
         return output;
     }
