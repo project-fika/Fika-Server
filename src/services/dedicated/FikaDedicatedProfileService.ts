@@ -109,7 +109,7 @@ export class FikaDedicatedProfileService {
         // Using a password allows us to know which profiles are dedicated client profiles.
         const password = "fika-dedicated";
         // Random edition. Doesn't matter
-        const edition = "Edge Of Darkness";
+        const edition = "Standard";
 
         // Create mini profile
         const profileId = this.createMiniProfile(username, password, edition);
