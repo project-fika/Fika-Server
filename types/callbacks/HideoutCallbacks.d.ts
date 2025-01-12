@@ -6,6 +6,7 @@ import type { IHideoutCancelProductionRequestData } from "@spt/models/eft/hideou
 import type { IHideoutCircleOfCultistProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutCircleOfCultistProductionStartRequestData";
 import type { IHideoutContinuousProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutContinuousProductionStartRequestData";
 import type { IHideoutCustomizationApplyRequestData } from "@spt/models/eft/hideout/IHideoutCustomizationApplyRequestData";
+import { IHideoutCustomizationSetMannequinPoseRequest } from "@spt/models/eft/hideout/IHideoutCustomizationSetMannequinPoseRequest";
 import type { IHideoutDeleteProductionRequestData } from "@spt/models/eft/hideout/IHideoutDeleteProductionRequestData";
 import type { IHideoutImproveAreaRequestData } from "@spt/models/eft/hideout/IHideoutImproveAreaRequestData";
 import type { IHideoutPutItemInRequestData } from "@spt/models/eft/hideout/IHideoutPutItemInRequestData";
@@ -90,6 +91,10 @@ export declare class HideoutCallbacks implements OnUpdate {
      * Handle client/game/profile/items/moving - HideoutCustomizationApply
      */
     hideoutCustomizationApplyCommand(pmcData: IPmcData, request: IHideoutCustomizationApplyRequestData, sessionId: string): IItemEventRouterResponse;
+    /**
+     * Handle client/game/profile/items/moving - hideoutCustomizationSetMannequinPose
+     */
+    hideoutCustomizationSetMannequinPose(pmcData: IPmcData, request: IHideoutCustomizationSetMannequinPoseRequest, sessionId: string): IItemEventRouterResponse;
     onUpdate(timeSinceLastRun: number): Promise<boolean>;
     getRoute(): string;
 }

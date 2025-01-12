@@ -13,6 +13,7 @@ import type { IHideoutCancelProductionRequestData } from "@spt/models/eft/hideou
 import type { IHideoutCircleOfCultistProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutCircleOfCultistProductionStartRequestData";
 import type { IHideoutContinuousProductionStartRequestData } from "@spt/models/eft/hideout/IHideoutContinuousProductionStartRequestData";
 import type { IHideoutCustomizationApplyRequestData } from "@spt/models/eft/hideout/IHideoutCustomizationApplyRequestData";
+import { IHideoutCustomizationSetMannequinPoseRequest } from "@spt/models/eft/hideout/IHideoutCustomizationSetMannequinPoseRequest";
 import type { IHideoutDeleteProductionRequestData } from "@spt/models/eft/hideout/IHideoutDeleteProductionRequestData";
 import type { IHideoutImproveAreaRequestData } from "@spt/models/eft/hideout/IHideoutImproveAreaRequestData";
 import type { IHideoutProduction } from "@spt/models/eft/hideout/IHideoutProduction";
@@ -304,6 +305,14 @@ export declare class HideoutController {
      * @param request Client request data
      */
     hideoutCustomizationApply(sessionId: string, pmcData: IPmcData, request: IHideoutCustomizationApplyRequestData): IItemEventRouterResponse;
+    /**
+     * Handle HideoutCustomizationSetMannequinPose event
+     * @param sessionId Session id
+     * @param pmcData Player profile
+     * @param request Client request data
+     * @returns Client response
+     */
+    hideoutCustomizationSetMannequinPose(sessionId: string, pmcData: IPmcData, request: IHideoutCustomizationSetMannequinPoseRequest): IItemEventRouterResponse;
     protected getHideoutCustomisationType(type: string): string;
     /**
      * Function called every `hideoutConfig.runIntervalSeconds` seconds as part of onUpdate event

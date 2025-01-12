@@ -312,7 +312,7 @@ export interface IHideout {
     HideoutCounters: IHideoutCounters;
     Seed: number;
     Customization: Record<string, string>;
-    MannequinPoses: string[];
+    MannequinPoses: Record<string, string>;
     sptUpdateLastRunTimestamp: number;
 }
 export interface IHideoutCounters {

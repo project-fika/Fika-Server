@@ -5,6 +5,7 @@ import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { QuestHelper } from "@spt/helpers/QuestHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPrestige } from "@spt/models/eft/common/tables/IPrestige";
+import { IObtainPrestigeRequest } from "@spt/models/eft/prestige/IObtainPrestigeRequest";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -43,5 +44,5 @@ export declare class PrestigeController {
     /**
      * Handle /client/prestige/obtain
      */
-    obtainPrestige(sessionID: string, info: IEmptyRequestData): any;
+    obtainPrestige(sessionID: string, request: IObtainPrestigeRequest): void;
 }

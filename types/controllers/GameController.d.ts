@@ -11,6 +11,7 @@ import { ICurrentGroupResponse } from "@spt/models/eft/game/ICurrentGroupRespons
 import { IGameConfigResponse } from "@spt/models/eft/game/IGameConfigResponse";
 import { IGameKeepAliveResponse } from "@spt/models/eft/game/IGameKeepAliveResponse";
 import { IGameModeRequestData } from "@spt/models/eft/game/IGameModeRequestData";
+import { IGameModeResponse } from "@spt/models/eft/game/IGameModeResponse";
 import { IGetRaidTimeRequest } from "@spt/models/eft/game/IGetRaidTimeRequest";
 import { IGetRaidTimeResponse } from "@spt/models/eft/game/IGetRaidTimeResponse";
 import { IServerDetails } from "@spt/models/eft/game/IServerDetails";
@@ -81,7 +82,7 @@ export declare class GameController {
     /**
      * Handle client/game/mode
      */
-    getGameMode(sessionID: string, info: IGameModeRequestData): any;
+    getGameMode(sessionID: string, info: IGameModeRequestData): IGameModeResponse;
     /**
      * Handle client/server/list
      */

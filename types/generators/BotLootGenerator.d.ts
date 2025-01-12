@@ -12,7 +12,7 @@ import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { EquipmentSlots } from "@spt/models/enums/EquipmentSlots";
 import { IItemSpawnLimitSettings } from "@spt/models/spt/bots/IItemSpawnLimitSettings";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
-import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
+import { IMinMaxLootItemValue, IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { BotLootCacheService } from "@spt/services/BotLootCacheService";
@@ -59,6 +59,7 @@ export declare class BotLootGenerator {
      * @returns number
      */
     protected getBackpackRoubleTotalByLevel(botLevel: number, isPmc: boolean): number;
+    protected getSingleItemLootPriceLimits(botLevel: number, isPmc: boolean): IMinMaxLootItemValue | undefined;
     /**
      * Get an array of the containers a bot has on them (pockets/backpack/vest)
      * @param botInventory Bot to check

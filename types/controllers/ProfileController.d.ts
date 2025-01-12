@@ -3,6 +3,7 @@ import { DialogueHelper } from "@spt/helpers/DialogueHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { QuestHelper } from "@spt/helpers/QuestHelper";
+import { QuestRewardHelper } from "@spt/helpers/QuestRewardHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
@@ -46,8 +47,9 @@ export declare class ProfileController {
     protected traderHelper: TraderHelper;
     protected dialogueHelper: DialogueHelper;
     protected questHelper: QuestHelper;
+    protected questRewardHelper: QuestRewardHelper;
     protected profileHelper: ProfileHelper;
-    constructor(logger: ILogger, hashUtil: HashUtil, cloner: ICloner, timeUtil: TimeUtil, saveServer: SaveServer, databaseService: DatabaseService, itemHelper: ItemHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, seasonalEventService: SeasonalEventService, mailSendService: MailSendService, playerScavGenerator: PlayerScavGenerator, eventOutputHolder: EventOutputHolder, traderHelper: TraderHelper, dialogueHelper: DialogueHelper, questHelper: QuestHelper, profileHelper: ProfileHelper);
+    constructor(logger: ILogger, hashUtil: HashUtil, cloner: ICloner, timeUtil: TimeUtil, saveServer: SaveServer, databaseService: DatabaseService, itemHelper: ItemHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, seasonalEventService: SeasonalEventService, mailSendService: MailSendService, playerScavGenerator: PlayerScavGenerator, eventOutputHolder: EventOutputHolder, traderHelper: TraderHelper, dialogueHelper: DialogueHelper, questHelper: QuestHelper, questRewardHelper: QuestRewardHelper, profileHelper: ProfileHelper);
     /**
      * Handle /launcher/profiles
      */
@@ -67,6 +69,8 @@ export declare class ProfileController {
      * @returns Profiles _id value
      */
     createProfile(info: IProfileCreateRequestData, sessionID: string): string;
+    protected addCustomisationUnlocksToProfile(fullProfile: ISptProfile): void;
+    protected getGameEdition(profile: ISptProfile): string;
     /**
      * make profiles pmcData.Inventory.equipment unique
      * @param pmcData Profile to update

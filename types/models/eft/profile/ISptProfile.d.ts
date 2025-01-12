@@ -1,4 +1,5 @@
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { ICustomisationStorage } from "@spt/models/eft/common/tables/ICustomisationStorage";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { EquipmentBuildType } from "@spt/models/enums/EquipmentBuildType";
 import { MemberCategory } from "@spt/models/enums/MemberCategory";
@@ -23,6 +24,7 @@ export interface ISptProfile {
     achievements: Record<string, number>;
     /** List of friend profile IDs */
     friends: string[];
+    customisationUnlocks: ICustomisationStorage[];
 }
 export declare class ITraderPurchaseData {
     count: number;

@@ -8,12 +8,12 @@ import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { ModCompilerService } from "@spt/services/ModCompilerService";
+import { FileSystemSync } from "@spt/utils/FileSystemSync";
 import { JsonUtil } from "@spt/utils/JsonUtil";
-import { VFS } from "@spt/utils/VFS";
 import { DependencyContainer } from "tsyringe";
 export declare class PreSptModLoader implements IModLoader {
     protected logger: ILogger;
-    protected vfs: VFS;
+    protected fileSystemSync: FileSystemSync;
     protected jsonUtil: JsonUtil;
     protected modCompilerService: ModCompilerService;
     protected localisationService: LocalisationService;
@@ -28,7 +28,7 @@ export declare class PreSptModLoader implements IModLoader {
     protected sptConfig: ICoreConfig;
     protected serverDependencies: Record<string, string>;
     protected skippedMods: Set<string>;
-    constructor(logger: ILogger, vfs: VFS, jsonUtil: JsonUtil, modCompilerService: ModCompilerService, localisationService: LocalisationService, configServer: ConfigServer, modLoadOrder: ModLoadOrder, modTypeCheck: ModTypeCheck);
+    constructor(logger: ILogger, fileSystemSync: FileSystemSync, jsonUtil: JsonUtil, modCompilerService: ModCompilerService, localisationService: LocalisationService, configServer: ConfigServer, modLoadOrder: ModLoadOrder, modTypeCheck: ModTypeCheck);
     load(container: DependencyContainer): Promise<void>;
     /**
      * Returns a list of mods with preserved load order

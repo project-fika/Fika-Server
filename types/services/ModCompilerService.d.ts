@@ -1,13 +1,15 @@
-import { CompilerOptions } from "typescript";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ModHashCacheService } from "@spt/services/cache/ModHashCacheService";
-import { VFS } from "@spt/utils/VFS";
+import { FileSystem } from "@spt/utils/FileSystem";
+import { FileSystemSync } from "@spt/utils/FileSystemSync";
+import { CompilerOptions } from "typescript";
 export declare class ModCompilerService {
     protected logger: ILogger;
     protected modHashCacheService: ModHashCacheService;
-    protected vfs: VFS;
+    protected fileSystem: FileSystem;
+    protected fileSystemSync: FileSystemSync;
     protected serverDependencies: string[];
-    constructor(logger: ILogger, modHashCacheService: ModHashCacheService, vfs: VFS);
+    constructor(logger: ILogger, modHashCacheService: ModHashCacheService, fileSystem: FileSystem, fileSystemSync: FileSystemSync);
     /**
      * Convert a mods TS into JS
      * @param modName Name of mod
@@ -27,7 +29,7 @@ export declare class ModCompilerService {
      * @param fileNames
      * @returns
      */
-    protected areFilesReady(fileNames: string[]): boolean;
+    protected areFilesReady(fileNames: string[]): Promise<boolean>;
     /**
      * Wait the provided number of milliseconds
      * @param ms Milliseconds

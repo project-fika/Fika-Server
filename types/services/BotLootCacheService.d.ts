@@ -1,5 +1,6 @@
 import { PMCLootGenerator } from "@spt/generators/PMCLootGenerator";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { MinMax } from "@spt/models/common/MinMax";
 import { IBotType } from "@spt/models/eft/common/tables/IBotType";
 import { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBotLootCache, LootCacheType } from "@spt/models/spt/bots/IBotLootCache";
@@ -28,9 +29,10 @@ export declare class BotLootCacheService {
      * @param isPmc is the bot a pmc
      * @param lootType what type of loot is needed (backpack/pocket/stim/vest etc)
      * @param botJsonTemplate Base json db file for the bot having its loot generated
+     * @param itemPriceMinMax OPTIONAL - min max limit of loot item price
      * @returns ITemplateItem array
      */
-    getLootFromCache(botRole: string, isPmc: boolean, lootType: LootCacheType, botJsonTemplate: IBotType): Record<string, number>;
+    getLootFromCache(botRole: string, isPmc: boolean, lootType: LootCacheType, botJsonTemplate: IBotType, itemPriceMinMax?: MinMax): Record<string, number>;
     /**
      * Generate loot for a bot and store inside a private class property
      * @param botRole bots role (assault / pmcBot etc)

@@ -3,11 +3,11 @@ import { ISptProfile, Info } from "@spt/models/eft/profile/ISptProfile";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { LocalisationService } from "@spt/services/LocalisationService";
+import { FileSystemSync } from "@spt/utils/FileSystemSync";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { JsonUtil } from "@spt/utils/JsonUtil";
-import { VFS } from "@spt/utils/VFS";
 export declare class SaveServer {
-    protected vfs: VFS;
+    protected fileSystemSync: FileSystemSync;
     protected saveLoadRouters: SaveLoadRouter[];
     protected jsonUtil: JsonUtil;
     protected hashUtil: HashUtil;
@@ -18,7 +18,7 @@ export declare class SaveServer {
     protected profiles: {};
     protected onBeforeSaveCallbacks: {};
     protected saveMd5: {};
-    constructor(vfs: VFS, saveLoadRouters: SaveLoadRouter[], jsonUtil: JsonUtil, hashUtil: HashUtil, localisationService: LocalisationService, logger: ILogger, configServer: ConfigServer);
+    constructor(fileSystemSync: FileSystemSync, saveLoadRouters: SaveLoadRouter[], jsonUtil: JsonUtil, hashUtil: HashUtil, localisationService: LocalisationService, logger: ILogger, configServer: ConfigServer);
     /**
      * Add callback to occur prior to saving profile changes
      * @param id Id for save callback

@@ -15,7 +15,6 @@ import { CompareUtil } from "@spt/utils/CompareUtil";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 import { MathUtil } from "@spt/utils/MathUtil";
-import { ObjectId } from "@spt/utils/ObjectId";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class ItemHelper {
@@ -23,7 +22,6 @@ export declare class ItemHelper {
     protected hashUtil: HashUtil;
     protected jsonUtil: JsonUtil;
     protected randomUtil: RandomUtil;
-    protected objectId: ObjectId;
     protected mathUtil: MathUtil;
     protected databaseService: DatabaseService;
     protected handbookHelper: HandbookHelper;
@@ -34,7 +32,7 @@ export declare class ItemHelper {
     protected compareUtil: CompareUtil;
     protected cloner: ICloner;
     protected readonly defaultInvalidBaseTypes: string[];
-    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, randomUtil: RandomUtil, objectId: ObjectId, mathUtil: MathUtil, databaseService: DatabaseService, handbookHelper: HandbookHelper, itemBaseClassService: ItemBaseClassService, itemFilterService: ItemFilterService, localisationService: LocalisationService, localeService: LocaleService, compareUtil: CompareUtil, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, randomUtil: RandomUtil, mathUtil: MathUtil, databaseService: DatabaseService, handbookHelper: HandbookHelper, itemBaseClassService: ItemBaseClassService, itemFilterService: ItemFilterService, localisationService: LocalisationService, localeService: LocaleService, compareUtil: CompareUtil, cloner: ICloner);
     /**
      * Does the provided pool of items contain the desired item
      * @param itemPool Item collection to check

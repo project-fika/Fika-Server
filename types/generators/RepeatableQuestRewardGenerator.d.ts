@@ -14,7 +14,6 @@ import { LocalisationService } from "@spt/services/LocalisationService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { MathUtil } from "@spt/utils/MathUtil";
-import { ObjectId } from "@spt/utils/ObjectId";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class RepeatableQuestRewardGenerator {
@@ -27,13 +26,12 @@ export declare class RepeatableQuestRewardGenerator {
     protected presetHelper: PresetHelper;
     protected handbookHelper: HandbookHelper;
     protected localisationService: LocalisationService;
-    protected objectId: ObjectId;
     protected itemFilterService: ItemFilterService;
     protected seasonalEventService: SeasonalEventService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, randomUtil: RandomUtil, hashUtil: HashUtil, mathUtil: MathUtil, databaseService: DatabaseService, itemHelper: ItemHelper, presetHelper: PresetHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, objectId: ObjectId, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, randomUtil: RandomUtil, hashUtil: HashUtil, mathUtil: MathUtil, databaseService: DatabaseService, itemHelper: ItemHelper, presetHelper: PresetHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Generate the reward for a mission. A reward can consist of:
      * - Experience

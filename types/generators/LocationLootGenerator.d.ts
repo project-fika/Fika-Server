@@ -13,8 +13,8 @@ import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
+import { HashUtil } from "@spt/utils/HashUtil";
 import { MathUtil } from "@spt/utils/MathUtil";
-import { ObjectId } from "@spt/utils/ObjectId";
 import { ProbabilityObjectArray, RandomUtil } from "@spt/utils/RandomUtil";
 import type { ICloner } from "@spt/utils/cloners/ICloner";
 export interface IContainerItem {
@@ -30,8 +30,8 @@ export interface IContainerGroupCount {
 }
 export declare class LocationLootGenerator {
     protected logger: ILogger;
+    protected hashUtil: HashUtil;
     protected databaseService: DatabaseService;
-    protected objectId: ObjectId;
     protected randomUtil: RandomUtil;
     protected itemHelper: ItemHelper;
     protected mathUtil: MathUtil;
@@ -44,7 +44,7 @@ export declare class LocationLootGenerator {
     protected cloner: ICloner;
     protected locationConfig: ILocationConfig;
     protected seasonalEventConfig: ISeasonalEventConfig;
-    constructor(logger: ILogger, databaseService: DatabaseService, objectId: ObjectId, randomUtil: RandomUtil, itemHelper: ItemHelper, mathUtil: MathUtil, seasonalEventService: SeasonalEventService, containerHelper: ContainerHelper, presetHelper: PresetHelper, localisationService: LocalisationService, itemFilterService: ItemFilterService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseService: DatabaseService, randomUtil: RandomUtil, itemHelper: ItemHelper, mathUtil: MathUtil, seasonalEventService: SeasonalEventService, containerHelper: ContainerHelper, presetHelper: PresetHelper, localisationService: LocalisationService, itemFilterService: ItemFilterService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Create an array of container objects with randomised loot
      * @param locationBase Map base to generate containers for

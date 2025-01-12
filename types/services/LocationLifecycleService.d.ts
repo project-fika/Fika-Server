@@ -14,6 +14,7 @@ import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IEndLocalRaidRequestData, IEndRaidResult } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 import { IStartLocalRaidRequestData } from "@spt/models/eft/match/IStartLocalRaidRequestData";
 import { IStartLocalRaidResponseData } from "@spt/models/eft/match/IStartLocalRaidResponseData";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import { IInRaidConfig } from "@spt/models/spt/config/IInRaidConfig";
 import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
@@ -133,14 +134,20 @@ export declare class LocationLifecycleService {
     /**
      *
      * @param sessionId Player id
-     * @param pmcProfile Pmc profile
+     * @param fullProfile Full player profile
      * @param scavProfile Scav profile
      * @param isDead Player died/got left behind in raid
      * @param isSurvived Not same as opposite of `isDead`, specific status
-     * @param request
-     * @param locationName
+     * @param request Client request
+     * @param locationName name of location exited
      */
-    protected handlePostRaidPmc(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, isDead: boolean, isSurvived: boolean, isTransfer: boolean, request: IEndLocalRaidRequestData, locationName: string): void;
+    protected handlePostRaidPmc(sessionId: string, fullProfile: ISptProfile, scavProfile: IPmcData, isDead: boolean, isSurvived: boolean, isTransfer: boolean, request: IEndLocalRaidRequestData, locationName: string): void;
+    /**
+     * Check for and add any customisations found via the gained achievements this raid
+     * @param fullProfile Profile to add customisations to
+     * @param postRaidAchievements Achievements gained this raid
+     */
+    protected processAchievementCustomisationRewards(fullProfile: ISptProfile, postRaidAchievements: Record<string, number>): void;
     /**
      * On death Quest items are lost, the client does not clean up completed conditions for picking up those quest items,
      * If the completed conditions remain in the profile the player is unable to pick the item up again
@@ -217,4 +224,16 @@ export declare class LocationLifecycleService {
      * @param secondary Secondary dictionary
      */
     protected mergePmcAndScavEncyclopedias(primary: IPmcData, secondary: IPmcData): void;
+    /**
+     * Does provided profile contain any condition counters
+     * @param profile Profile to check for condition counters
+     * @returns Profile has condition counters
+     */
+    protected profileHasConditionCounters(profile: IPmcData): boolean;
+    /**
+     * Scav quest progress isnt transferred automatically from scav to pmc, we do this manually
+     * @param scavProfile Scav profile with quest progress post-raid
+     * @param pmcProfile Server pmc profile to copy scav quest progress into
+     */
+    protected migrateScavQuestProgressToPmcProfile(scavProfile: IPmcData, pmcProfile: IPmcData): void;
 }

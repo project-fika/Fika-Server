@@ -7,7 +7,6 @@ import type { IBuyClothingRequestData, IPaymentItemForClothing } from "@spt/mode
 import type { CustomizationSetOption, ICustomizationSetRequest } from "@spt/models/eft/customization/ICustomizationSetRequest";
 import type { IHideoutCustomisation } from "@spt/models/eft/hideout/IHideoutCustomisation";
 import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -72,7 +71,6 @@ export declare class CustomizationController {
     getHideoutCustomisation(sessionID: string, info: IEmptyRequestData): IHideoutCustomisation;
     /** Handle client/customization/storage */
     getCustomisationStorage(sessionID: string, info: IEmptyRequestData): ICustomisationStorage[];
-    protected getGameEdition(profile: ISptProfile): string;
     /** Handle CustomizationSet event */
     setClothing(sessionId: string, request: ICustomizationSetRequest, pmcData: IPmcData): IItemEventRouterResponse;
     /**
