@@ -22,7 +22,9 @@ export class FikaClientController {
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("WinstonLogger") protected logger: ILogger,
-    ) {
+    ) {}
+
+    public async preInit(): Promise<void> {
         const config = this.fikaConfig.getConfig();
 
         const sanitizedRequiredMods = this.filterEmptyMods(config.client.mods.required);

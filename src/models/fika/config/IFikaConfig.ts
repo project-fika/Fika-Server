@@ -1,13 +1,13 @@
-import { IFikaConfigClient } from "./IFikaConfigClient";
-import { IFikaConfigServer } from "./IFikaConfigServer";
-import { IFikaConfigNatPunchServer } from "./IFikaConfigNatPunchServer";
-import { IFikaConfigDedicated } from "./IFikaConfigDedicated";
 import { IFikaConfigBackground } from "./IFikaConfigBackground";
+import { IFikaConfigClient } from "./IFikaConfigClient";
+import { IFikaConfigDedicated } from "./IFikaConfigDedicated";
+import { IFikaConfigNatPunchServer } from "./IFikaConfigNatPunchServer";
+import { IFikaConfigServer } from "./IFikaConfigServer";
 
 export interface IFikaConfig {
     client: IFikaConfigClient;
     server: IFikaConfigServer;
     natPunchServer: IFikaConfigNatPunchServer;
     dedicated: IFikaConfigDedicated;
-    background: IFikaConfigBackground
+    background: IFikaConfigBackground;
 }

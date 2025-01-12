@@ -6,6 +6,10 @@ import { ImageRouter } from "@spt/routers/ImageRouter";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { ImporterUtil } from "@spt/utils/ImporterUtil";
 
+import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
+import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { FikaClientController } from "./controllers/FikaClientController";
 import { IFikaConfigBackground } from "./models/fika/config/IFikaConfigBackground";
 import { IFikaConfigDedicated } from "./models/fika/config/IFikaConfigDedicated";
 import { IFikaConfigNatPunchServer } from "./models/fika/config/IFikaConfigNatPunchServer";
@@ -14,9 +18,6 @@ import { FikaPlayerRelationsCacheService } from "./services/cache/FikaPlayerRela
 import { FikaDedicatedProfileService } from "./services/dedicated/FikaDedicatedProfileService";
 import { FikaConfig } from "./utils/FikaConfig";
 import { FikaServerTools } from "./utils/FikaServerTools";
-import { ConfigServer } from "@spt/servers/ConfigServer";
-import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
-import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
 
 @injectable()
 export class Fika {
@@ -31,18 +32,23 @@ export class Fika {
         @inject("Overrider") protected overrider: Overrider,
         @inject("FikaServerTools") protected fikaServerTools: FikaServerTools,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
+        @inject("FikaClientController") protected fikaClientController: FikaClientController,
         @inject("FikaDedicatedProfileService") protected fikaDedicatedProfileService: FikaDedicatedProfileService,
         @inject("ImageRouter") protected imageRouter: ImageRouter,
         @inject("ImporterUtil") protected importerUtil: ImporterUtil,
-        @inject("FikaPlayerRelationsCacheService") protected fikaPlayerRelationCacheServce: FikaPlayerRelationsCacheService
+        @inject("FikaPlayerRelationsCacheService") protected fikaPlayerRelationCacheServce: FikaPlayerRelationsCacheService,
     ) {
         this.modPath = fikaConfig.getModPath();
-        this.natPunchServerConfig = fikaConfig.getConfig().natPunchServer;
-        this.dedicatedConfig = fikaConfig.getConfig().dedicated;
-        this.backgroundConfig = fikaConfig.getConfig().background;
     }
 
     public async preSptLoad(container: DependencyContainer): Promise<void> {
+        await this.fikaConfig.preInit();
+
+        this.natPunchServerConfig = this.fikaConfig.getConfig().natPunchServer;
+        this.dedicatedConfig = this.fikaConfig.getConfig().dedicated;
+        this.backgroundConfig = this.fikaConfig.getConfig().background;
+
+        await this.fikaClientController.preInit();
         await this.overrider.override(container);
     }
 

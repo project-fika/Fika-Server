@@ -1,20 +1,20 @@
-import { inject, injectable } from "tsyringe";
+import fs from "fs";
+import path from "path";
 import { LauncherController } from "@spt/controllers/LauncherController";
-import { SaveServer } from "@spt/servers/SaveServer";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { TimeUtil } from "@spt/utils/TimeUtil";
-import { RandomUtil } from "@spt/utils/RandomUtil";
-import { HashUtil } from "@spt/utils/HashUtil";
-import { Info, ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { ProfileController } from "@spt/controllers/ProfileController";
 import { IProfileCreateRequestData } from "@spt/models/eft/profile/IProfileCreateRequestData";
-import { IFikaConfigDedicated } from "../../models/fika/config/IFikaConfigDedicated";
-import { FikaConfig } from "../../utils/FikaConfig";
-import path from "path";
-import fs from "fs";
-import { ConfigServer } from "@spt/servers/ConfigServer";
+import { ISptProfile, Info } from "@spt/models/eft/profile/ISptProfile";
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
 import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { SaveServer } from "@spt/servers/SaveServer";
+import { HashUtil } from "@spt/utils/HashUtil";
+import { RandomUtil } from "@spt/utils/RandomUtil";
+import { TimeUtil } from "@spt/utils/TimeUtil";
+import { inject, injectable } from "tsyringe";
+import { IFikaConfigDedicated } from "../../models/fika/config/IFikaConfigDedicated";
+import { FikaConfig } from "../../utils/FikaConfig";
 
 @injectable()
 export class FikaDedicatedProfileService {
@@ -23,7 +23,6 @@ export class FikaDedicatedProfileService {
     readonly VOICE_USEC_4 = "6284d6a28e4092597733b7a6"; // _parent: 5fc100cf95572123ae738483
 
     protected httpConfig: IHttpConfig;
-    protected dedicatedConfig: IFikaConfigDedicated;
     public dedicatedProfiles: ISptProfile[] = [];
 
     constructor(
@@ -37,27 +36,28 @@ export class FikaDedicatedProfileService {
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("ConfigServer") protected configServer: ConfigServer,
     ) {
-        this.dedicatedConfig = fikaConfig.getConfig().dedicated;
         this.httpConfig = this.configServer.getConfig(ConfigTypes.HTTP);
     }
 
     public init() {
+        const dedicatedConfig = this.fikaConfig.getConfig().dedicated;
+
         this.dedicatedProfiles = this.loadDedicatedProfiles();
 
         this.logger.info(`Found ${this.dedicatedProfiles.length} dedicated client profiles.`);
 
-        const profileAmount = this.dedicatedConfig.profiles.amount;
+        const profileAmount = dedicatedConfig.profiles.amount;
 
         if (this.dedicatedProfiles.length < profileAmount) {
             const createdProfiles = this.createDedicatedProfiles(profileAmount);
 
             this.logger.success(`Created ${createdProfiles.length} dedicated client profiles!`);
 
-            if (this.dedicatedConfig.scripts.generate) {
+            if (dedicatedConfig.scripts.generate) {
                 let ip = this.httpConfig.ip;
                 const port = this.httpConfig.port;
 
-                const forceIp = this.dedicatedConfig.scripts.forceIp;
+                const forceIp = dedicatedConfig.scripts.forceIp;
 
                 if (forceIp != "") {
                     ip = forceIp;

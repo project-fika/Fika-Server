@@ -1,20 +1,19 @@
-import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { inject, injectable } from "tsyringe";
-import { FikaConfig } from "./FikaConfig";
-import { IFikaConfigNatPunchServer } from "../models/fika/config/IFikaConfigNatPunchServer";
-import { ConfigServer } from "@spt/servers/ConfigServer";
+import { ChildProcessWithoutNullStreams, spawn } from "child_process";
+import fs from "fs";
+import path from "node:path";
+import os from "os";
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
 import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
-import { ChildProcessWithoutNullStreams, spawn } from "child_process";
-import path from "node:path";
-import fs from "fs";
-import os from "os";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
+import { inject, injectable } from "tsyringe";
+import { IFikaConfigNatPunchServer } from "../models/fika/config/IFikaConfigNatPunchServer";
+import { FikaConfig } from "./FikaConfig";
 
 @injectable()
 export class FikaServerTools {
     protected readonly name: string = "FikaServerTools";
     protected exePath: string;
-    protected natPunchServerConfig: IFikaConfigNatPunchServer;
     protected httpConfig: IHttpConfig;
 
     protected processes: Record<string, ChildProcessWithoutNullStreams> = {};
@@ -34,18 +33,19 @@ export class FikaServerTools {
                 break;
             }
         }
-        this.natPunchServerConfig = fikaConfig.getConfig().natPunchServer;
         this.httpConfig = this.configServer.getConfig(ConfigTypes.HTTP);
     }
 
     public startService(serviceName: string): void {
         var exeArgs: string[];
 
+        const natPunchServerConfig = this.fikaConfig.getConfig().natPunchServer;
+
         switch (serviceName) {
             case "NatPunchServer":
                 const ip = this.httpConfig.ip;
-                const port = this.natPunchServerConfig.port;
-                const natIntroduceAmount = this.natPunchServerConfig.natIntroduceAmount;
+                const port = natPunchServerConfig.port;
+                const natIntroduceAmount = natPunchServerConfig.natIntroduceAmount;
                 exeArgs = `-NatPunchServer -IP ${ip} -Port ${port} -NatIntroduceAmount ${natIntroduceAmount}`.split(" ");
                 break;
             default:
