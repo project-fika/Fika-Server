@@ -13,8 +13,8 @@ import { FikaConfig } from "../utils/FikaConfig";
 
 @injectable()
 export class FikaClientController {
-    protected requiredMods: Set<string>;
-    protected allowedMods: Set<string>;
+    protected requiredMods: string[] = [];
+    protected allowedMods: string[] = [];
     protected hasRequiredOrOptionalMods: boolean = true;
 
     constructor(
@@ -34,8 +34,8 @@ export class FikaClientController {
             this.hasRequiredOrOptionalMods = false;
         }
 
-        this.requiredMods = new Set([...sanitizedRequiredMods, "com.fika.core", "com.SPT.custom", "com.SPT.singleplayer", "com.SPT.core", "com.SPT.debugging"]);
-        this.allowedMods = new Set([...this.requiredMods, ...sanitizedOptionalMods, "com.bepis.bepinex.configurationmanager", "com.fika.dedicated"]);
+        this.requiredMods = [...sanitizedRequiredMods, "com.fika.core", "com.SPT.custom", "com.SPT.singleplayer", "com.SPT.core", "com.SPT.debugging"];
+        this.allowedMods = [...this.requiredMods, ...sanitizedOptionalMods, "com.bepis.bepinex.configurationmanager", "com.fika.dedicated"];
     }
 
     protected filterEmptyMods(array: string[]): string[] {
@@ -85,7 +85,7 @@ export class FikaClientController {
 
         for (const [pluginId, hash] of Object.entries(request)) {
             // check if the mod isn't allowed
-            if (!this.allowedMods.has(pluginId)) {
+            if (!this.allowedMods.includes(pluginId)) {
                 mismatchedMods.forbidden.push(pluginId);
                 continue;
             }
