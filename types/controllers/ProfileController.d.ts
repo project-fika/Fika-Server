@@ -1,4 +1,5 @@
 import { PlayerScavGenerator } from "@spt/generators/PlayerScavGenerator";
+import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IMiniProfile } from "@spt/models/eft/launcher/IMiniProfile";
@@ -25,7 +26,8 @@ export declare class ProfileController {
     protected createProfileService: CreateProfileService;
     protected playerScavGenerator: PlayerScavGenerator;
     protected profileHelper: ProfileHelper;
-    constructor(logger: ILogger, cloner: ICloner, saveServer: SaveServer, databaseService: DatabaseService, createProfileService: CreateProfileService, playerScavGenerator: PlayerScavGenerator, profileHelper: ProfileHelper);
+    protected itemHelper: ItemHelper;
+    constructor(logger: ILogger, cloner: ICloner, saveServer: SaveServer, databaseService: DatabaseService, createProfileService: CreateProfileService, playerScavGenerator: PlayerScavGenerator, profileHelper: ProfileHelper, itemHelper: ItemHelper);
     /**
      * Handle /launcher/profiles
      */

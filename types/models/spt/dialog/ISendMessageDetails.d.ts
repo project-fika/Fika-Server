@@ -29,6 +29,8 @@ export interface ISendMessageDetails {
     ragfairDetails?: IMessageContentRagfair;
     /** OPTIONAL - allows modification of profile settings via mail */
     profileChangeEvents?: IProfileChangeEvent[];
+    /** Optional - the MongoID to reply to */
+    replyTo?: string;
 }
 export interface IProfileChangeEvent {
     _id: string;

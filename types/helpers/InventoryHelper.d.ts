@@ -257,7 +257,7 @@ export declare class InventoryHelper {
      * @returns True if item exists inside stash
      */
     isItemInStash(pmcData: IPmcData, itemToCheck: IItem): boolean;
-    validateInventoryUsesMonogoIds(itemsToValidate: IItem[]): void;
+    validateInventoryUsesMongoIds(itemsToValidate: IItem[]): void;
     /**
      * Does the provided item have a root item with the provided id
      * @param pmcData Profile with items

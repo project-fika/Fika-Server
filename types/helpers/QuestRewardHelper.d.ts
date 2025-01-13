@@ -11,7 +11,6 @@ import { IHideoutProduction } from "@spt/models/eft/hideout/IHideoutProduction";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { QuestStatus } from "@spt/models/enums/QuestStatus";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
-import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HashUtil } from "@spt/utils/HashUtil";
@@ -21,14 +20,13 @@ export declare class QuestRewardHelper {
     protected hashUtil: HashUtil;
     protected itemHelper: ItemHelper;
     protected databaseService: DatabaseService;
-    protected eventOutputHolder: EventOutputHolder;
     protected profileHelper: ProfileHelper;
     protected paymentHelper: PaymentHelper;
     protected localisationService: LocalisationService;
     protected traderHelper: TraderHelper;
     protected presetHelper: PresetHelper;
     protected cloner: ICloner;
-    constructor(logger: ILogger, hashUtil: HashUtil, itemHelper: ItemHelper, databaseService: DatabaseService, eventOutputHolder: EventOutputHolder, profileHelper: ProfileHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, traderHelper: TraderHelper, presetHelper: PresetHelper, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, itemHelper: ItemHelper, databaseService: DatabaseService, profileHelper: ProfileHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, traderHelper: TraderHelper, presetHelper: PresetHelper, cloner: ICloner);
     /**
      * Give player quest rewards - Skills/exp/trader standing/items/assort unlocks - Returns reward items player earned
      * @param profileData Player profile (scav or pmc)
