@@ -61,7 +61,7 @@ export class Fika {
             this.fikaDedicatedProfileService.init();
         }
 
-        this.addFikaClientLocales();
+        await this.addFikaClientLocales();
         this.blacklistSpecialProfiles();
         this.fikaPlayerRelationCacheServce.postInit();
 
@@ -73,7 +73,7 @@ export class Fika {
 
     private async addFikaClientLocales() {
         const database = this.databaseServer.getTables();
-        const databasePath = path.join(this.fikaConfig.getModPath(), "assets/database/");
+        const databasePath = path.join(this.fikaConfig.getModPath(), "assets/database/").replace(/\\/g, "/");
 
         const locales = await this.importerUtil.loadAsync<ILocaleBase>(path.join(databasePath, "locales/"), databasePath);
 
