@@ -11,7 +11,7 @@ import { ConfigServer } from "@spt/servers/ConfigServer";
 
 import { DialogueController } from "@spt/controllers/DialogueController";
 import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import { IMessage } from "@spt/models/eft/profile/ISptProfile";
+import { IMessage, IReplyTo } from "@spt/models/eft/profile/ISptProfile";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";
@@ -178,22 +178,9 @@ export class FikaDialogueController {
         };
 
         if (request.replyTo) {
-            const dialogsInProfile = Object.values(this.dialogueHelper.getDialogsForProfile(receiverProfile.info.id)).find(x => x._id === sessionID);
-            if (!dialogsInProfile) {
-                this.logger.warning(`Could not find dialog ${sessionID} when fetching replyTo`);
-            }
-            else {
-                for (const currentMessage of dialogsInProfile.messages) {
-                    if (currentMessage._id === request.replyTo) {
-                        message.replyTo = {
-                            _id: currentMessage._id,
-                            dt: currentMessage.dt,
-                            type: currentMessage.type,
-                            uid: currentMessage.uid,
-                            text: currentMessage.text
-                        }
-                    }
-                }
+            const replyMessage = this.getMessageToReplyTo(request.dialogId, request.replyTo, sessionID);
+            if (replyMessage) {
+                message.replyTo = replyMessage;
             }
         }
 
@@ -209,6 +196,37 @@ export class FikaDialogueController {
         } as any);
 
         return message._id;
+    }
+
+    /**
+     * @param recipientId The id of the recipient
+     * @param replyToId The id of the message to reply to
+     * @param dialogueId The id of the dialogue (traderId or profileId)
+     * @returns A new instance with data from the found message, otherwise undefined
+     */
+    private getMessageToReplyTo(recipientId: string, replyToId: string, dialogueId: string): IReplyTo | undefined {
+        let message: IReplyTo | undefined = undefined;
+        const currentDialogue = this.dialogueHelper.getDialogFromProfile(recipientId, dialogueId);
+
+        if (!currentDialogue) {
+            this.logger.warning(`Could not find dialogue ${dialogueId} from sender`);
+            return message;
+        }
+
+        for (const dialogueMessage of currentDialogue.messages) {
+            if (dialogueMessage._id === replyToId) {
+                message = {
+                    _id: dialogueMessage._id,
+                    dt: dialogueMessage.dt,
+                    type: dialogueMessage.type,
+                    uid: dialogueMessage.uid,
+                    text: dialogueMessage.text
+                };
+                break;
+            }
+        }
+
+        return message;
     }
 
     public listOutbox(sessionID: string): IFriendRequestListResponse[] {

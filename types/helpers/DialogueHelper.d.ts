@@ -38,4 +38,10 @@ export declare class DialogueHelper {
      * @returns Dialog dictionary
      */
     getDialogsForProfile(sessionId: string): Record<string, IDialogue>;
+    /**
+     * @param profileId ProfileId to retrieve from
+     * @param dialogueId The id of the dialogue to find
+     * @returns Dialogue if found, otherwise undefined
+     */
+    getDialogFromProfile(profileId: string, dialogueId: string): IDialogue | undefined;
 }
