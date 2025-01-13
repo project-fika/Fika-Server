@@ -1,12 +1,12 @@
-import { inject, injectAll, injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 import { IDialogueChatBot } from "@spt/helpers/Dialogue/IDialogueChatBot";
+import { DialogueHelper } from "@spt/helpers/DialogueHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IFriendRequestSendResponse } from "@spt/models/eft/dialog/IFriendRequestSendResponse";
 import { IGetFriendListDataResponse } from "@spt/models/eft/dialog/IGetFriendListDataResponse";
 import { BackendErrorCodes } from "@spt/models/enums/BackendErrorCodes";
-import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
-import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 
 import { DialogueController } from "@spt/controllers/DialogueController";
@@ -25,6 +25,7 @@ import { IFriendRequestListResponse } from "../models/eft/dialog/IFriendRequestL
 export class FikaDialogueController {
     constructor(
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
+        @inject("DialogueHelper") protected dialogueHelper: DialogueHelper,
         @inject("ConfigServer") protected configServer: ConfigServer,
         @inject("FikaFriendRequestsHelper") protected fikaFriendRequestsHelper: FikaFriendRequestsHelper,
         @inject("FikaPlayerRelationsHelper") protected fikaPlayerRelationsHelper: FikaPlayerRelationsHelper,
@@ -33,6 +34,7 @@ export class FikaDialogueController {
         @inject("HashUtil") protected hashUtil: HashUtil,
         @inject("TimeUtil") protected timeUtil: TimeUtil,
         @inject("SptWebSocketConnectionHandler") protected webSocketHandler: SptWebSocketConnectionHandler,
+        @inject("WinstonLogger") protected logger: ILogger,
     ) {
         // empty
     }
@@ -174,6 +176,26 @@ export class FikaDialogueController {
             text: request.text,
             rewardCollected: false,
         };
+
+        if (request.replyTo) {
+            const dialogsInProfile = Object.values(this.dialogueHelper.getDialogsForProfile(receiverProfile.info.id)).find(x => x._id === sessionID);
+            if (!dialogsInProfile) {
+                this.logger.warning(`Could not find dialog ${sessionID} when fetching replyTo`);
+            }
+            else {
+                for (const currentMessage of dialogsInProfile.messages) {
+                    if (currentMessage._id === request.replyTo) {
+                        message.replyTo = {
+                            _id: currentMessage._id,
+                            dt: currentMessage.dt,
+                            type: currentMessage.type,
+                            uid: currentMessage.uid,
+                            text: currentMessage.text
+                        }
+                    }
+                }
+            }
+        }
 
         senderDialog.messages.push(message);
         receiverDialog.messages.push(message);
