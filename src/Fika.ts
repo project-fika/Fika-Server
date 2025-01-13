@@ -75,7 +75,7 @@ export class Fika {
         const database = this.databaseServer.getTables();
         const databasePath = path.join(this.fikaConfig.getModPath(), "assets/database/").replace(/\\/g, "/");
 
-        const locales = await this.importerUtil.loadAsync<ILocaleBase>(path.join(databasePath, "locales/"), databasePath);
+        const locales = await this.importerUtil.loadAsync<ILocaleBase>(`${databasePath}locales/`, databasePath);
 
         for (const folderName in locales) {
             if (folderName === "global") {
