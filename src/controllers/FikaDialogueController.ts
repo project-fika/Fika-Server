@@ -206,7 +206,7 @@ export class FikaDialogueController {
      */
     private getMessageToReplyTo(recipientId: string, replyToId: string, dialogueId: string): IReplyTo | undefined {
         let message: IReplyTo | undefined = undefined;
-        const currentDialogue = this.dialogueHelper.getDialogFromProfile(recipientId, dialogueId);
+        const currentDialogue = this.dialogueHelper.getDialogueFromProfile(recipientId, dialogueId);
 
         if (!currentDialogue) {
             this.logger.warning(`Could not find dialogue ${dialogueId} from sender`);
