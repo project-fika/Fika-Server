@@ -8,5 +8,13 @@ export interface IFikaConfigServer {
 }
 
 export interface IFikaSPTServerConfig {
+    http: IFikaSPTHttpServerConfig;
     disableSPTChatBots: boolean;
+}
+
+export interface IFikaSPTHttpServerConfig {
+    ip: string;
+    port: number;
+    backendIp: string;
+    backendPort: number;
 }

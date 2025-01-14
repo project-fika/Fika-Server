@@ -6,8 +6,14 @@ import { JsonUtil } from "@spt/utils/JsonUtil";
 
 import { IFikaConfig } from "../models/fika/config/IFikaConfig";
 
+import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
+import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ConfigServer } from "@spt/servers/ConfigServer";
 import { FileSystem } from "@spt/utils/FileSystem";
 import packageJson from "../../package.json";
+import { IFikaSPTServerConfig } from "../models/fika/config/IFikaConfigServer";
 
 @injectable()
 export class FikaConfig {
@@ -36,6 +42,12 @@ export class FikaConfig {
         },
         server: {
             SPT: {
+                http: {
+                    ip: "0.0.0.0",
+                    port: 6969,
+                    backendIp: "127.0.0.1", // Keep this 127.0.0.1, it's better for the client as it parses this and could potentially cause issues down the line.
+                    backendPort: 6969,
+                },
                 disableSPTChatBots: true,
             },
             giftedItemsLoseFIR: true,
@@ -68,6 +80,8 @@ export class FikaConfig {
         @inject("PreSptModLoader") protected preSptModLoader: PreSptModLoader,
         @inject("FileSystem") protected fileSystem: FileSystem,
         @inject("JsonUtil") protected jsonUtil: JsonUtil,
+        @inject("ConfigServer") protected configServer: ConfigServer,
+        @inject("WinstonLogger") protected logger: ILogger,
     ) {
         this.modAuthor = packageJson.author.replace(/\W/g, "").toLowerCase();
         this.modName = packageJson.name.replace(/\W/g, "").toLowerCase();
@@ -87,6 +101,8 @@ export class FikaConfig {
             this.fikaConfig = this.sortProperties(this.defaultFikaConfig, this.fikaConfig);
             await this.fileSystem.writeJson(configPath, this.fikaConfig, "\t");
         }
+
+        await this.applySPTConfig(this.fikaConfig.server.SPT);
     }
 
     protected async checkAndAddMissingConfigProperties(source: IFikaConfig, target: IFikaConfig): Promise<boolean> {
@@ -112,6 +128,7 @@ export class FikaConfig {
         }
         return modified;
     }
+
     protected sortProperties(source: IFikaConfig, target: IFikaConfig): IFikaConfig {
         // Cast as IFikaConfig as this is empty before sorting.
         const sortedTarget: IFikaConfig = {} as IFikaConfig;
@@ -126,6 +143,21 @@ export class FikaConfig {
         }
 
         return sortedTarget;
+    }
+
+    protected async applySPTConfig(config: IFikaSPTServerConfig): Promise<void> {
+        this.logger.info("[Fika Server] Overriding SPT configuration");
+
+        const coreConfig = this.configServer.getConfig(ConfigTypes.CORE) as ICoreConfig;
+        const httpConfig = this.configServer.getConfig(ConfigTypes.HTTP) as IHttpConfig;
+
+        coreConfig.features.chatbotFeatures.commandoEnabled = !config.disableSPTChatBots;
+        coreConfig.features.chatbotFeatures.sptFriendEnabled = !config.disableSPTChatBots;
+
+        httpConfig.ip = config.http.ip;
+        httpConfig.port = config.http.port;
+        httpConfig.backendIp = config.http.backendIp;
+        httpConfig.backendPort = config.http.backendPort;
     }
 
     public getConfig(): IFikaConfig {
