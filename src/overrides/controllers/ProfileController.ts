@@ -96,6 +96,7 @@ export class ProfileControllerOverride extends Override {
                             body: playerPmc.Customization.Body,
                             feet: playerPmc.Customization.Feet,
                             hands: playerPmc.Customization.Hands,
+                            dogtag: playerPmc.Customization.DogTag,
                         },
                         skills: playerPmc.Skills,
                         equipment: {
