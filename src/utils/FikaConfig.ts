@@ -35,12 +35,14 @@ export class FikaConfig {
             enableTransits: true,
         },
         server: {
+            SPT: {
+                disableSPTChatBots: true,
+            },
             giftedItemsLoseFIR: true,
             launcherListAllProfiles: false,
             sessionTimeout: 5,
             showDevProfile: false,
             showNonStandardProfile: false,
-            disableSPTChatBots: true,
         },
         natPunchServer: {
             enable: false,
