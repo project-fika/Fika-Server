@@ -104,7 +104,8 @@ export class ProfileControllerOverride extends Override {
                             Items: playerPmc.Inventory.items,
                         },
                         achievements: playerPmc.Achievements,
-                        favoriteItems: playerPmc.Inventory.favoriteItems ?? [],
+                        favoriteItems: [], //todo: this type needs updating on SPT? See below as it was before
+                        //favoriteItems: playerPmc.Inventory.favoriteItems ?? [],
                         pmcStats: {
                             eft: {
                                 totalInGameTime: playerPmc.Stats.Eft.TotalInGameTime,
