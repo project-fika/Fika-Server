@@ -4,20 +4,20 @@ import { FikaConfig } from "../utils/FikaConfig";
 
 import { Overrider } from "../overrides/Overrider";
 import { DialogueCallbacksOverride } from "../overrides/callbacks/DialogueCallbacks";
-import { LocationLifecycleServiceOverride } from "../overrides/services/LocationLifecycleService";
 import { AchievementControllerOverride } from "../overrides/controllers/AchievementController";
 import { DialogueControllerOverride } from "../overrides/controllers/DialogueController";
+import { MatchControllerOverride } from "../overrides/controllers/MatchController";
 import { ProfileControllerOverride } from "../overrides/controllers/ProfileController";
 // import { LocalesOverride } from "../overrides/other/Locales";
 import { HttpRouterOverride } from "../overrides/routers/HttpRouter";
-import { MatchControllerOverride } from "../overrides/controllers/MatchController";
+import { LocationLifecycleServiceOverride } from "../overrides/services/LocationLifecycleService";
 
+import { FikaInsuranceService } from "../services/FikaInsuranceService";
 import { FikaMatchService } from "../services/FikaMatchService";
+import { FikaPresenceService } from "../services/FikaPresenceService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
 import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
-import { FikaInsuranceService } from "../services/FikaInsuranceService";
-import { FikaPresenceService } from "../services/FikaPresenceService";
 
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
@@ -33,27 +33,28 @@ import { FikaUpdateController } from "../controllers/FikaUpdateController";
 
 import { FikaClientCallbacks } from "../callbacks/FikaClientCallbacks";
 import { FikaLocationCallbacks } from "../callbacks/FikaLocationCallbacks";
+import { FikaPresenceCallbacks } from "../callbacks/FikaPresenceCallbacks";
 import { FikaRaidCallbacks } from "../callbacks/FikaRaidCallbacks";
 import { FikaSendItemCallbacks } from "../callbacks/FikaSendItemCallbacks";
 import { FikaUpdateCallbacks } from "../callbacks/FikaUpdateCallbacks";
-import { FikaPresenceCallbacks } from "../callbacks/FikaPresenceCallbacks";
 
 import { FikaItemEventRouter } from "../routers/item_events/FikaItemEventRouter";
 import { FikaClientStaticRouter } from "../routers/static/FikaClientStaticRouter";
 import { FikaLocationStaticRouter } from "../routers/static/FikaLocationStaticRouter";
+import { FikaPresenceStaticRouter } from "../routers/static/FikaPresenceStaticRouter";
 import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
-import { FikaPresenceStaticRouter } from "../routers/static/FikaPresenceStaticRouter";
 
 import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
 
 import { Fika } from "../Fika";
+import { FikaNotificationCallbacks } from "../callbacks/FikaNotificationCallbacks";
+import { FikaNotificationStaticRouter } from "../routers/static/FikaNotificationStaticRouter";
+import { FikaClientService } from "../services/FikaClientService";
 import { FikaDedicatedProfileService } from "../services/dedicated/FikaDedicatedProfileService";
 import { FikaServerTools } from "../utils/FikaServerTools";
-import { FikaNotificationStaticRouter } from "../routers/static/FikaNotificationStaticRouter";
-import { FikaNotificationCallbacks } from "../callbacks/FikaNotificationCallbacks";
 
 export class Container {
     public static register(container: DependencyContainer): void {
@@ -120,6 +121,7 @@ export class Container {
     }
 
     private static registerServices(container: DependencyContainer): void {
+        container.register<FikaClientService>("FikaClientService", FikaClientService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaMatchService>("FikaMatchService", FikaMatchService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaFriendRequestsCacheService>("FikaFriendRequestsCacheService", FikaFriendRequestsCacheService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaPlayerRelationsCacheService>("FikaPlayerRelationsCacheService", FikaPlayerRelationsCacheService, { lifecycle: Lifecycle.Singleton });

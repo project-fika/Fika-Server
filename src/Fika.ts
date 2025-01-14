@@ -14,6 +14,7 @@ import { IFikaConfigBackground } from "./models/fika/config/IFikaConfigBackgroun
 import { IFikaConfigDedicated } from "./models/fika/config/IFikaConfigDedicated";
 import { IFikaConfigNatPunchServer } from "./models/fika/config/IFikaConfigNatPunchServer";
 import { Overrider } from "./overrides/Overrider";
+import { FikaClientService } from "./services/FikaClientService";
 import { FikaPlayerRelationsCacheService } from "./services/cache/FikaPlayerRelationsCacheService";
 import { FikaDedicatedProfileService } from "./services/dedicated/FikaDedicatedProfileService";
 import { FikaConfig } from "./utils/FikaConfig";
@@ -32,7 +33,7 @@ export class Fika {
         @inject("Overrider") protected overrider: Overrider,
         @inject("FikaServerTools") protected fikaServerTools: FikaServerTools,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
-        @inject("FikaClientController") protected fikaClientController: FikaClientController,
+        @inject("FikaClientService") protected fikaClientService: FikaClientService,
         @inject("FikaDedicatedProfileService") protected fikaDedicatedProfileService: FikaDedicatedProfileService,
         @inject("ImageRouter") protected imageRouter: ImageRouter,
         @inject("ImporterUtil") protected importerUtil: ImporterUtil,
@@ -48,7 +49,7 @@ export class Fika {
         this.dedicatedConfig = this.fikaConfig.getConfig().dedicated;
         this.backgroundConfig = this.fikaConfig.getConfig().background;
 
-        await this.fikaClientController.preInit();
+        await this.fikaClientService.preInit();
         await this.overrider.override(container);
     }
 
