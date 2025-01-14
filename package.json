@@ -6,18 +6,19 @@
     "scripts": {
         "setup": "npm i",
         "lint": "npx @biomejs/biome lint ./",
+        "check-types": "npx tsc -noEmit -p tsconfig.types.json",
         "build": "node ./build.mjs",
         "buildinfo": "node ./build.mjs --verbose"
     },
     "devDependencies": {
-        "@biomejs/biome": "^1.8.3",
-        "@types/node": "22.10.2",
+        "@biomejs/biome": "^1.9.4",
+        "@types/node": "22.10.5",
         "@types/ws": "~8.5",
         "archiver": "^6.0",
         "fs-extra": "~11.2",
         "ignore": "^5.2",
         "tsyringe": "~4.8",
-        "typescript": "~5.5",
+        "typescript": "5.7.3",
         "winston": "~3.13"
     },
     "author": "Fika",
