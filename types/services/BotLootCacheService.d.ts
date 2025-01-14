@@ -5,20 +5,18 @@ import { IBotType } from "@spt/models/eft/common/tables/IBotType";
 import { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBotLootCache, LootCacheType } from "@spt/models/spt/bots/IBotLootCache";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { RagfairPriceService } from "@spt/services/RagfairPriceService";
 import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class BotLootCacheService {
     protected logger: ILogger;
     protected itemHelper: ItemHelper;
-    protected databaseServer: DatabaseServer;
     protected pmcLootGenerator: PMCLootGenerator;
     protected localisationService: LocalisationService;
     protected ragfairPriceService: RagfairPriceService;
     protected cloner: ICloner;
     protected lootCache: Record<string, IBotLootCache>;
-    constructor(logger: ILogger, itemHelper: ItemHelper, databaseServer: DatabaseServer, pmcLootGenerator: PMCLootGenerator, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, cloner: ICloner);
+    constructor(logger: ILogger, itemHelper: ItemHelper, pmcLootGenerator: PMCLootGenerator, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, cloner: ICloner);
     /**
      * Remove cached bot loot data
      */

@@ -43,5 +43,5 @@ export declare class DialogueHelper {
      * @param dialogueId The id of the dialogue to find
      * @returns Dialogue if found, otherwise undefined
      */
-    getDialogFromProfile(profileId: string, dialogueId: string): IDialogue | undefined;
+    getDialogueFromProfile(profileId: string, dialogueId: string): IDialogue | undefined;
 }

@@ -1,7 +1,7 @@
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
 import type { IPmcData } from "@spt/models/eft/common/IPmcData";
-import type { ICustomisationStorage } from "@spt/models/eft/common/tables/ICustomisationStorage";
+import { type ICustomisationStorage } from "@spt/models/eft/common/tables/ICustomisationStorage";
 import type { ISuit } from "@spt/models/eft/common/tables/ITrader";
 import type { IBuyClothingRequestData, IPaymentItemForClothing } from "@spt/models/eft/customization/IBuyClothingRequestData";
 import type { CustomizationSetOption, ICustomizationSetRequest } from "@spt/models/eft/customization/ICustomizationSetRequest";

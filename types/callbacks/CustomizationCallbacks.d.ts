@@ -5,7 +5,6 @@ import type { ICustomisationStorage } from "@spt/models/eft/common/tables/ICusto
 import type { ISuit } from "@spt/models/eft/common/tables/ITrader";
 import type { IBuyClothingRequestData } from "@spt/models/eft/customization/IBuyClothingRequestData";
 import type { ICustomizationSetRequest } from "@spt/models/eft/customization/ICustomizationSetRequest";
-import type { IGetSuitsResponse } from "@spt/models/eft/customization/IGetSuitsResponse";
 import type { IHideoutCustomisation } from "@spt/models/eft/hideout/IHideoutCustomisation";
 import type { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
 import type { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
@@ -20,7 +19,7 @@ export declare class CustomizationCallbacks {
      * Handle client/trading/customization/storage
      * @returns IGetSuitsResponse
      */
-    getSuits(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IGetSuitsResponse>;
+    getCustomisationUnlocks(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<ICustomisationStorage[]>;
     /**
      * Handle client/trading/customization
      * @returns ISuit[]
