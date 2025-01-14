@@ -52,6 +52,7 @@ export class ProfileControllerOverride extends Override {
                                         Side: profile.characters.pmc.Info.Side,
                                         Level: profile.characters.pmc.Info.Level,
                                         MemberCategory: profile.characters.pmc.Info.MemberCategory,
+                                        SelectedMemberCategory: profile.characters.pmc.Info.SelectedMemberCategory,
                                     },
                                 });
                             }
