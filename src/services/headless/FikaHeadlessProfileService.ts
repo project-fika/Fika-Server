@@ -165,7 +165,7 @@ if NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" (
     echo Could not find 'Fika.Headless.dll', please install the Headless plugin before starting the client.
     pause
 ) else (
-    start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={"BackendUrl":"${backendUrl}","Version":"live"} -batchmode -nographics --enable-console true & exit
+    start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={'BackendUrl':'${backendUrl}','Version':'live'} -batchmode -nographics --enable-console true & exit
 )`;
 
         try {
