@@ -3,8 +3,6 @@ import { DependencyContainer, inject, injectable } from "tsyringe";
 import { ProfileController } from "@spt/controllers/ProfileController";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IMiniProfile } from "@spt/models/eft/launcher/IMiniProfile";
-import { IGetOtherProfileRequest } from "@spt/models/eft/profile/IGetOtherProfileRequest";
-import { IGetOtherProfileResponse } from "@spt/models/eft/profile/IGetOtherProfileResponse";
 import { ISearchFriendRequestData } from "@spt/models/eft/profile/ISearchFriendRequestData";
 import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
 
@@ -60,66 +58,6 @@ export class ProfileControllerOverride extends Override {
                     }
 
                     return matches;
-                };
-
-                result.getOtherProfile = (sessionId: string, request: IGetOtherProfileRequest): IGetOtherProfileResponse => {
-                    const profiles = this.profileHelper.getProfiles();
-
-                    // default to player profile
-                    let profileId = sessionId;
-
-                    for (const profile of Object.values(profiles)) {
-                        if (profile.characters.pmc.aid === Number(request.accountId)) {
-                            profileId = profile.characters.pmc._id;
-                            break;
-                        }
-                    }
-
-                    const player = this.profileHelper.getFullProfile(profileId);
-                    const playerPmc = player.characters.pmc;
-                    const playerScav = player.characters.scav;
-
-                    return {
-                        id: playerPmc._id,
-                        aid: playerPmc.aid,
-                        info: {
-                            nickname: playerPmc.Info.Nickname,
-                            side: playerPmc.Info.Side,
-                            experience: playerPmc.Info.Experience,
-                            memberCategory: playerPmc.Info.MemberCategory,
-                            bannedState: playerPmc.Info.BannedState,
-                            bannedUntil: playerPmc.Info.BannedUntil,
-                            registrationDate: playerPmc.Info.RegistrationDate,
-                        },
-                        customization: {
-                            head: playerPmc.Customization.Head,
-                            body: playerPmc.Customization.Body,
-                            feet: playerPmc.Customization.Feet,
-                            hands: playerPmc.Customization.Hands,
-                            dogtag: playerPmc.Customization.DogTag,
-                        },
-                        skills: playerPmc.Skills,
-                        equipment: {
-                            Id: playerPmc.Inventory.equipment,
-                            Items: playerPmc.Inventory.items,
-                        },
-                        achievements: playerPmc.Achievements,
-                        favoriteItems: [], //todo: this type needs updating on SPT? See below as it was before
-                        //favoriteItems: playerPmc.Inventory.favoriteItems ?? [],
-                        pmcStats: {
-                            eft: {
-                                totalInGameTime: playerPmc.Stats.Eft.TotalInGameTime,
-                                overAllCounters: playerPmc.Stats.Eft.OverallCounters,
-                            },
-                        },
-                        scavStats: {
-                            eft: {
-                                totalInGameTime: playerScav.Stats.Eft.TotalInGameTime,
-                                overAllCounters: playerScav.Stats.Eft.OverallCounters,
-                            },
-                        },
-                        //Todo: we're casting as IGetOtherProfileResponse, check if we're missing any other properties here as we shouldn't be casting this
-                    } as IGetOtherProfileResponse;
                 };
             },
             { frequency: "Always" },
