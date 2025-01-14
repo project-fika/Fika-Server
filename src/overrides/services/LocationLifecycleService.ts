@@ -71,12 +71,12 @@ export class LocationLifecycleServiceOverride extends Override {
                         profile: { insuredItems: playerProfile.InsuredItems },
                         locationLoot: locationLoot,
                         transition: {
-                            isLocationTransition: false,
+                            transitionType: TransitionType.Common,
                             transitionRaidId: "66f5750951530ca5ae09876d",
                             transitionCount: 0,
                             visitedLocations: [],
                         },
-                    };
+                    } as IStartLocalRaidResponseData;
 
                     // Only has value when transitioning into map from previous one
                     if (request.transition) {
@@ -84,11 +84,8 @@ export class LocationLifecycleServiceOverride extends Override {
                     }
 
                     // Get data stored at end of previous raid (if any)
-                    const transitionData = this.applicationContext
-                        .getLatestValue(ContextVariableType.TRANSIT_INFO)
-                        ?.getValue<ILocationTransit>();
+                    const transitionData = this.applicationContext.getLatestValue(ContextVariableType.TRANSIT_INFO)?.getValue<ILocationTransit>();
                     if (transitionData) {
-                        result.transition.isLocationTransition = true;
                         result.transition.transitionRaidId = transitionData.transitionRaidId;
                         result.transition.transitionCount += 1;
                         result.transition.visitedLocations.push(transitionData.sptLastVisitedLocation);
