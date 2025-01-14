@@ -36,7 +36,7 @@ export class FikaRaidController {
         @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("FikaHeadlessRaidService") protected fikaHeadlessRaidService: FikaHeadlessRaidService,
-        @inject("fikaHeadlessRaidWebSocket") protected fikaHeadlessRaidWebSocket: FikaHeadlessRaidWebSocket,
+        @inject("FikaHeadlessRaidWebSocket") protected fikaHeadlessRaidWebSocket: FikaHeadlessRaidWebSocket,
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("InraidController") protected inraidController: InraidController,
