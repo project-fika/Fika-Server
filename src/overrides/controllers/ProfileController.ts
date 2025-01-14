@@ -118,7 +118,8 @@ export class ProfileControllerOverride extends Override {
                                 overAllCounters: playerScav.Stats.Eft.OverallCounters,
                             },
                         },
-                    };
+                        //Todo: we're casting as IGetOtherProfileResponse, check if we're missing any other properties here as we shouldn't be casting this
+                    } as IGetOtherProfileResponse;
                 };
             },
             { frequency: "Always" },
