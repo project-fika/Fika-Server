@@ -1,6 +1,6 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "skipLibCheck": true
+        "skipLibCheck": true // Needs to be passed put here because otherwise tsc ends up checking SPT's types too
     }
 }
