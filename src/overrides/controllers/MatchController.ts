@@ -1,10 +1,10 @@
-import { DependencyContainer, inject, injectable } from "tsyringe";
 import { MatchController } from "@spt/controllers/MatchController";
+import { IEndLocalRaidRequestData } from "@spt/models/eft/match/IEndLocalRaidRequestData";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
+import { DependencyContainer, inject, injectable } from "tsyringe";
 import { Override } from "../../di/Override";
 import { FikaInsuranceService } from "../../services/FikaInsuranceService";
 import { FikaMatchService } from "../../services/FikaMatchService";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { IEndLocalRaidRequestData } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 
 @injectable()
 export class MatchControllerOverride extends Override {

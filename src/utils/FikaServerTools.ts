@@ -4,7 +4,7 @@ import path from "node:path";
 import os from "os";
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
 import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { inject, injectable } from "tsyringe";
 import { IFikaConfigNatPunchServer } from "../models/fika/config/IFikaConfigNatPunchServer";

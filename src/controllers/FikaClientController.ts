@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 
 import { IFikaConfigClient } from "../models/fika/config/IFikaConfigClient";
 
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";

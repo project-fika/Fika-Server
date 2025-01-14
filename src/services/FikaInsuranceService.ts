@@ -1,5 +1,5 @@
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { inject, injectable } from "tsyringe";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
 
 import { MatchController } from "@spt/controllers/MatchController";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
@@ -42,7 +42,7 @@ export class FikaInsuranceService {
             endedRaid: false,
             lostItems: [],
             foundItems: [],
-            inventory: [],  
+            inventory: [],
         };
 
         this.matchInsuranceInfo[matchId].push(player);

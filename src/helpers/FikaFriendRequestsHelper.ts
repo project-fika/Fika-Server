@@ -2,13 +2,13 @@ import { inject, injectable } from "tsyringe";
 
 import { HashUtil } from "@spt/utils/HashUtil";
 
-import { IFikaFriendRequests } from "../models/fika/IFikaFriendRequests";
-import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { LogTextColor } from "@spt/models/spt/logging/LogTextColor";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { LogTextColor } from "@spt/models/spt/logging/LogTextColor";
+import { IFikaFriendRequests } from "../models/fika/IFikaFriendRequests";
+import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 
 @injectable()
 export class FikaFriendRequestsHelper {

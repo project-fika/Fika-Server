@@ -1,9 +1,9 @@
 import { inject, injectable } from "tsyringe";
 
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { IncomingMessage } from "http";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
-import { IncomingMessage } from "http";
 import { SPTWebSocket } from "@spt/servers/ws/SPTWebsocket";
 
 @injectable()

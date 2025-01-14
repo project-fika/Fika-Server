@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { FileSystemSync } from "@spt/utils/FileSystemSync";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 

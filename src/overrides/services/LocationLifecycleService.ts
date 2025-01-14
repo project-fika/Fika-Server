@@ -8,7 +8,7 @@ import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IEndLocalRaidRequestData, ILocationTransit } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 import { IStartLocalRaidRequestData } from "@spt/models/eft/match/IStartLocalRaidRequestData";
 import { IStartLocalRaidResponseData } from "@spt/models/eft/match/IStartLocalRaidResponseData";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheService";
 import { BotLootCacheService } from "@spt/services/BotLootCacheService";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -16,6 +16,7 @@ import { LocationLifecycleService } from "@spt/services/LocationLifecycleService
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 
+import { TransitionType } from "@spt/models/enums/TransitionType";
 import { Override } from "../../di/Override";
 import { FikaMatchService } from "../../services/FikaMatchService";
 

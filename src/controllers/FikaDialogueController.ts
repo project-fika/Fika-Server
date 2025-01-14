@@ -6,7 +6,7 @@ import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IFriendRequestSendResponse } from "@spt/models/eft/dialog/IFriendRequestSendResponse";
 import { IGetFriendListDataResponse } from "@spt/models/eft/dialog/IGetFriendListDataResponse";
 import { BackendErrorCodes } from "@spt/models/enums/BackendErrorCodes";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 
 import { DialogueController } from "@spt/controllers/DialogueController";
@@ -220,7 +220,7 @@ export class FikaDialogueController {
                     dt: dialogueMessage.dt,
                     type: dialogueMessage.type,
                     uid: dialogueMessage.uid,
-                    text: dialogueMessage.text
+                    text: dialogueMessage.text,
                 };
                 break;
             }

@@ -1,15 +1,15 @@
 import { inject, injectable } from "tsyringe";
 
-import { TimeUtil } from "@spt/utils/TimeUtil";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { TimeUtil } from "@spt/utils/TimeUtil";
 
 import { EFikaPlayerPresences } from "../models/enums/EFikaPlayerPresences";
+import { EFikaSide } from "../models/enums/EFikaSide";
+import { EFikaTime } from "../models/enums/EFikaTime";
 import { IFikaPlayerPresence } from "../models/fika/presence/IFikaPlayerPresence";
 import { IFikaRaidPresence } from "../models/fika/presence/IFikaRaidPresence";
 import { IFikaSetPresence } from "../models/fika/presence/IFikaSetPresence";
-import { EFikaSide } from "../models/enums/EFikaSide";
-import { EFikaTime } from "../models/enums/EFikaTime";
 
 @injectable()
 export class FikaPresenceService {
