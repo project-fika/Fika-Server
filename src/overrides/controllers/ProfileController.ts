@@ -38,7 +38,7 @@ export class ProfileControllerOverride extends Override {
                     const matches: ISearchFriendResponse[] = [];
 
                     for (const profile of Object.values(profiles)) {
-                        if (profile.info?.password === "fika-dedicated") continue;
+                        if (profile.info?.password === "fika-headless") continue;
 
                         if (profile.characters?.pmc?.Info) {
                             if (profile.characters.pmc.Info.Nickname.toLowerCase().startsWith(searchNicknameLowerCase)) {

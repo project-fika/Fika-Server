@@ -114,7 +114,7 @@ export class FikaSendItemController {
             //Uninitialized profiles can cause this to error out, skip these.
             if (!profile.characters?.pmc?.Info) continue;
 
-            if (profile.info.password === "fika-dedicated") continue;
+            if (profile.info.password === "fika-headless") continue;
 
             const nickname = profile.characters.pmc.Info.Nickname;
             if (!(nickname in result) && nickname !== sender.characters.pmc.Info.Nickname) {

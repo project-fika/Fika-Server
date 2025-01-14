@@ -22,6 +22,6 @@ export interface IFikaMatch {
     time: EFikaTime;
     raidCode: string;
     natPunch: boolean;
-    isDedicated: boolean;
+    isHeadless: boolean;
     raids: number;
 }

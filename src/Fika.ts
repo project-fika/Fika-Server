@@ -9,14 +9,13 @@ import { ImporterUtil } from "@spt/utils/ImporterUtil";
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
 import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";
-import { FikaClientController } from "./controllers/FikaClientController";
 import { IFikaConfigBackground } from "./models/fika/config/IFikaConfigBackground";
-import { IFikaConfigDedicated } from "./models/fika/config/IFikaConfigDedicated";
+import { IFikaConfigHeadless } from "./models/fika/config/IFikaConfigHeadless";
 import { IFikaConfigNatPunchServer } from "./models/fika/config/IFikaConfigNatPunchServer";
 import { Overrider } from "./overrides/Overrider";
 import { FikaClientService } from "./services/FikaClientService";
 import { FikaPlayerRelationsCacheService } from "./services/cache/FikaPlayerRelationsCacheService";
-import { FikaDedicatedProfileService } from "./services/dedicated/FikaDedicatedProfileService";
+import { FikaHeadlessProfileService } from "./services/headless/FikaHeadlessProfileService";
 import { FikaConfig } from "./utils/FikaConfig";
 import { FikaServerTools } from "./utils/FikaServerTools";
 
@@ -24,7 +23,7 @@ import { FikaServerTools } from "./utils/FikaServerTools";
 export class Fika {
     protected modPath: string;
     protected natPunchServerConfig: IFikaConfigNatPunchServer;
-    protected dedicatedConfig: IFikaConfigDedicated;
+    protected headlessConfig: IFikaConfigHeadless;
     protected backgroundConfig: IFikaConfigBackground;
 
     constructor(
@@ -34,7 +33,7 @@ export class Fika {
         @inject("FikaServerTools") protected fikaServerTools: FikaServerTools,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("FikaClientService") protected fikaClientService: FikaClientService,
-        @inject("FikaDedicatedProfileService") protected fikaDedicatedProfileService: FikaDedicatedProfileService,
+        @inject("FikaHeadlessProfileService") protected fikaHeadlessProfileService: FikaHeadlessProfileService,
         @inject("ImageRouter") protected imageRouter: ImageRouter,
         @inject("ImporterUtil") protected importerUtil: ImporterUtil,
         @inject("FikaPlayerRelationsCacheService") protected fikaPlayerRelationCacheServce: FikaPlayerRelationsCacheService,
@@ -46,7 +45,7 @@ export class Fika {
         await this.fikaConfig.preInit();
 
         this.natPunchServerConfig = this.fikaConfig.getConfig().natPunchServer;
-        this.dedicatedConfig = this.fikaConfig.getConfig().dedicated;
+        this.headlessConfig = this.fikaConfig.getConfig().headless;
         this.backgroundConfig = this.fikaConfig.getConfig().background;
 
         await this.fikaClientService.preInit();
@@ -58,8 +57,8 @@ export class Fika {
             this.fikaServerTools.startService("NatPunchServer");
         }
 
-        if (this.dedicatedConfig.profiles.amount > 0) {
-            this.fikaDedicatedProfileService.init();
+        if (this.headlessConfig.profiles.amount > 0) {
+            this.fikaHeadlessProfileService.init();
         }
 
         await this.addFikaClientLocales();

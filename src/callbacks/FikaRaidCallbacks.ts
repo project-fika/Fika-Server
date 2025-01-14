@@ -7,8 +7,8 @@ import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { FikaRaidController } from "../controllers/FikaRaidController";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
-import { IStartDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStartDedicatedRequest";
-import { IStatusDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStatusDedicatedRequest";
+import { IStartHeadlessRequest } from "../models/fika/routes/raid/headless/IStartHeadlessRequest";
+import { IStatusHeadlessRequest } from "../models/fika/routes/raid/headless/IStatusHeadlessRequest";
 import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 
@@ -48,22 +48,22 @@ export class FikaRaidCallbacks {
         return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidGetSettings(info));
     }
 
-    /** Handle /fika/raid/dedicated/start */
-    public handleRaidStartDedicated(_url: string, info: IStartDedicatedRequest, sessionID: string): string {
-        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidStartDedicated(sessionID, info));
+    /** Handle /fika/raid/headless/start */
+    public handleRaidStartHeadless(_url: string, info: IStartHeadlessRequest, sessionID: string): string {
+        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidStartHeadless(sessionID, info));
     }
 
-    /** Handle /fika/raid/dedicated/status */
-    public handleRaidStatusDedicated(_url: string, info: IStatusDedicatedRequest, sessionID: string): string {
-        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidStatusDedicated(sessionID, info));
+    /** Handle /fika/raid/headless/status */
+    public handleRaidStatusHeadless(_url: string, info: IStatusHeadlessRequest, sessionID: string): string {
+        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidStatusHeadless(sessionID, info));
     }
 
-    /** Handle /fika/raid/dedicated/getstatus */
-    public handleRaidGetStatusDedicated(_url: string, _info: any, _sessionID: string): string {
-        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidGetStatusDedicated());
+    /** Handle /fika/raid/headless/getstatus */
+    public handleRaidGetStatusHeadless(_url: string, _info: any, _sessionID: string): string {
+        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidGetStatusHeadless());
     }
 
-    /** Handle /fika/raid/dedicated/registerPlayer */
+    /** Handle /fika/raid/registerPlayer */
     public handleRaidRegisterPlayer(_url: string, info: IRegisterPlayerRequestData, sessionID: string): INullResponseData {
         this.fikaRaidController.handleRaidRegisterPlayer(sessionID, info);
 

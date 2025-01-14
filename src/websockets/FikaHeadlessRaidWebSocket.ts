@@ -7,7 +7,7 @@ import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectio
 import { SPTWebSocket } from "@spt/servers/ws/SPTWebsocket";
 
 @injectable()
-export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
+export class FikaHeadlessRaidWebSocket implements IWebSocketConnectionHandler {
     public clientWebSockets: Record<string, SPTWebSocket>;
 
     constructor(
@@ -23,11 +23,11 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
     }
 
     public getSocketId(): string {
-        return "Fika Dedicated Raid Service";
+        return "Fika Headless Raid Service";
     }
 
     public getHookUrl(): string {
-        return "/fika/dedicatedraidservice/";
+        return "/fika/headlessraidservice/";
     }
 
     public async onConnection(ws: SPTWebSocket, req: IncomingMessage): Promise<void> {
@@ -77,10 +77,10 @@ export class FikaDedicatedRaidWebSocket implements IWebSocketConnectionHandler {
                 return;
             }
 
-            // Send a keep alive message to the dedicated client
+            // Send a keep alive message to the headless client
             await clientWebSocket.sendAsync(
                 JSON.stringify({
-                    type: "fikaDedicatedKeepAlive",
+                    type: "fikaHeadlessKeepAlive",
                 }),
             );
         }

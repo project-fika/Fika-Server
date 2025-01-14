@@ -17,7 +17,7 @@ import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaPresenceService } from "../services/FikaPresenceService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
-import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
+import { FikaHeadlessRaidService } from "../services/headless/FikaHeadlessRaidService";
 
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
@@ -46,14 +46,14 @@ import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
 
-import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
+import { FikaHeadlessRaidWebSocket } from "../websockets/FikaHeadlessRaidWebSocket";
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
 
 import { Fika } from "../Fika";
 import { FikaNotificationCallbacks } from "../callbacks/FikaNotificationCallbacks";
 import { FikaNotificationStaticRouter } from "../routers/static/FikaNotificationStaticRouter";
 import { FikaClientService } from "../services/FikaClientService";
-import { FikaDedicatedProfileService } from "../services/dedicated/FikaDedicatedProfileService";
+import { FikaHeadlessProfileService } from "../services/headless/FikaHeadlessProfileService";
 import { FikaServerTools } from "../utils/FikaServerTools";
 
 export class Container {
@@ -99,7 +99,7 @@ export class Container {
 
         container.registerType("IERouters", "FikaItemEventRouter");
 
-        container.registerType("WebSocketConnectionHandler", "FikaDedicatedRaidWebSocket");
+        container.registerType("WebSocketConnectionHandler", "FikaHeadlessRaidWebSocket");
         container.registerType("WebSocketConnectionHandler", "FikaNotificationWebSocket");
     }
 
@@ -125,8 +125,8 @@ export class Container {
         container.register<FikaMatchService>("FikaMatchService", FikaMatchService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaFriendRequestsCacheService>("FikaFriendRequestsCacheService", FikaFriendRequestsCacheService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaPlayerRelationsCacheService>("FikaPlayerRelationsCacheService", FikaPlayerRelationsCacheService, { lifecycle: Lifecycle.Singleton });
-        container.register<FikaDedicatedRaidService>("FikaDedicatedRaidService", FikaDedicatedRaidService, { lifecycle: Lifecycle.Singleton });
-        container.register<FikaDedicatedProfileService>("FikaDedicatedProfileService", FikaDedicatedProfileService, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaHeadlessRaidService>("FikaHeadlessRaidService", FikaHeadlessRaidService, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaHeadlessProfileService>("FikaHeadlessProfileService", FikaHeadlessProfileService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaInsuranceService>("FikaInsuranceService", FikaInsuranceService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaPresenceService>("FikaPresenceService", FikaPresenceService, { lifecycle: Lifecycle.Singleton });
     }
@@ -169,7 +169,7 @@ export class Container {
     }
 
     private static registerWebSockets(container: DependencyContainer): void {
-        container.register<FikaDedicatedRaidWebSocket>("FikaDedicatedRaidWebSocket", FikaDedicatedRaidWebSocket, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaHeadlessRaidWebSocket>("FikaHeadlessRaidWebSocket", FikaHeadlessRaidWebSocket, { lifecycle: Lifecycle.Singleton });
         container.register<FikaNotificationWebSocket>("FikaNotificationWebSocket", FikaNotificationWebSocket, { lifecycle: Lifecycle.Singleton });
     }
 }

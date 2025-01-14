@@ -8,26 +8,26 @@ import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlay
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 
-import { EDedicatedStatus } from "../models/enums/EDedicatedStatus";
 import { EFikaMatchEndSessionMessage } from "../models/enums/EFikaMatchEndSessionMessages";
 import { EFikaNotifications } from "../models/enums/EFikaNotifications";
+import { EHeadlessStatus } from "../models/enums/EHeadlessStatus";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 import { IFikaRaidCreateResponse } from "../models/fika/routes/raid/create/IFikaRaidCreateResponse";
-import { IGetStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IGetStatusDedicatedResponse";
-import { IStartDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStartDedicatedRequest";
-import { IStartDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStartDedicatedResponse";
-import { IStatusDedicatedRequest } from "../models/fika/routes/raid/dedicated/IStatusDedicatedRequest";
-import { IStatusDedicatedResponse } from "../models/fika/routes/raid/dedicated/IStatusDedicatedResponse";
 import { IFikaRaidGethostResponse } from "../models/fika/routes/raid/gethost/IFikaRaidGethostResponse";
 import { IFikaRaidSettingsResponse } from "../models/fika/routes/raid/getsettings/IFikaRaidSettingsResponse";
+import { IGetStatusHeadlessResponse } from "../models/fika/routes/raid/headless/IGetStatusHeadlessResponse";
+import { IStartHeadlessRequest } from "../models/fika/routes/raid/headless/IStartHeadlessRequest";
+import { IStartHeadlessResponse } from "../models/fika/routes/raid/headless/IStartHeadlessResponse";
+import { IStatusHeadlessRequest } from "../models/fika/routes/raid/headless/IStatusHeadlessRequest";
+import { IStatusHeadlessResponse } from "../models/fika/routes/raid/headless/IStatusHeadlessResponse";
 import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
 import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaidJoinResponse";
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 import { IStartRaidNotification } from "../models/fika/websocket/notifications/IStartRaidNotification";
 import { FikaMatchService } from "../services/FikaMatchService";
-import { FikaDedicatedRaidService } from "../services/dedicated/FikaDedicatedRaidService";
-import { FikaDedicatedRaidWebSocket } from "../websockets/FikaDedicatedRaidWebSocket";
+import { FikaHeadlessRaidService } from "../services/headless/FikaHeadlessRaidService";
+import { FikaHeadlessRaidWebSocket } from "../websockets/FikaHeadlessRaidWebSocket";
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
 
 @injectable()
@@ -35,8 +35,8 @@ export class FikaRaidController {
     constructor(
         @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
-        @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
-        @inject("FikaDedicatedRaidWebSocket") protected fikaDedicatedRaidWebSocket: FikaDedicatedRaidWebSocket,
+        @inject("FikaHeadlessRaidService") protected fikaHeadlessRaidService: FikaHeadlessRaidService,
+        @inject("fikaHeadlessRaidWebSocket") protected fikaHeadlessRaidWebSocket: FikaHeadlessRaidWebSocket,
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("InraidController") protected inraidController: InraidController,
@@ -106,7 +106,7 @@ export class FikaRaidController {
             ips: match.ips,
             port: match.port,
             natPunch: match.natPunch,
-            isDedicated: match.isDedicated,
+            isHeadless: match.isHeadless,
         };
     }
 
@@ -128,95 +128,95 @@ export class FikaRaidController {
         };
     }
 
-    /** Handle /fika/raid/dedicated/start */
-    handleRaidStartDedicated(sessionID: string, info: IStartDedicatedRequest): IStartDedicatedResponse {
-        if (!this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
+    /** Handle /fika/raid/headless/start */
+    public handleRaidStartHeadless(sessionID: string, info: IStartHeadlessRequest): IStartHeadlessResponse {
+        if (!this.fikaHeadlessRaidService.isHeadlessClientAvailable()) {
             return {
                 matchId: null,
-                error: "No dedicated clients available.",
+                error: "No headless clients available.",
             };
         }
 
-        if (sessionID in this.fikaDedicatedRaidService.dedicatedClients) {
+        if (sessionID in this.fikaHeadlessRaidService.headlessClients) {
             return {
                 matchId: null,
-                error: "You are trying to connect to a dedicated client while having Fika.Dedicated installed. Please remove Fika.Dedicated from your client and try again.",
+                error: "You are trying to connect to a headless client while having Fika.Headless installed. Please remove Fika.Headless from your client and try again.",
             };
         }
 
-        let dedicatedClient: string | undefined = undefined;
-        let dedicatedClientWs: WebSocket | undefined = undefined;
+        let HeadlessClient: string | undefined = undefined;
+        let HeadlessClientWs: WebSocket | undefined = undefined;
 
-        for (const dedicatedSessionId in this.fikaDedicatedRaidService.dedicatedClients) {
-            const dedicatedClientInfo = this.fikaDedicatedRaidService.dedicatedClients[dedicatedSessionId];
+        for (const headlessSessionId in this.fikaHeadlessRaidService.headlessClients) {
+            const headlessClientInfo = this.fikaHeadlessRaidService.headlessClients[headlessSessionId];
 
-            if (dedicatedClientInfo.state != EDedicatedStatus.READY) {
+            if (headlessClientInfo.state != EHeadlessStatus.READY) {
                 continue;
             }
 
-            dedicatedClientWs = this.fikaDedicatedRaidWebSocket.clientWebSockets[dedicatedSessionId];
+            HeadlessClientWs = this.fikaHeadlessRaidWebSocket.clientWebSockets[headlessSessionId];
 
-            if (!dedicatedClientWs || dedicatedClientWs.readyState == WebSocket.CLOSED) {
+            if (!HeadlessClientWs || HeadlessClientWs.readyState == WebSocket.CLOSED) {
                 continue;
             }
 
-            dedicatedClient = dedicatedSessionId;
+            HeadlessClient = headlessSessionId;
             break;
         }
 
-        if (!dedicatedClient) {
+        if (!HeadlessClient) {
             return {
                 matchId: null,
-                error: "No dedicated clients available at this time.",
+                error: "No headless client available at this time.",
             };
         }
 
-        const pmcDedicatedClientProfile: IPmcData = this.profileHelper.getPmcProfile(dedicatedClient);
+        const pmcHeadlessclientProfile: IPmcData = this.profileHelper.getPmcProfile(HeadlessClient);
         const requesterProfile: IPmcData = this.profileHelper.getPmcProfile(sessionID);
 
-        this.logger.debug(`Dedicated: ${pmcDedicatedClientProfile.Info.Nickname} ${pmcDedicatedClientProfile.Info.Level} - Requester: ${requesterProfile.Info.Nickname} ${requesterProfile.Info.Level}`);
+        this.logger.debug(`Headless: ${pmcHeadlessclientProfile.Info.Nickname} ${pmcHeadlessclientProfile.Info.Level} - Requester: ${requesterProfile.Info.Nickname} ${requesterProfile.Info.Level}`);
 
-        //Set level of the dedicated profile to the person that has requested the raid to be started.
-        pmcDedicatedClientProfile.Info.Level = requesterProfile.Info.Level;
-        pmcDedicatedClientProfile.Info.Experience = requesterProfile.Info.Experience;
+        //Set level of the headless client profile to the person that has requested the raid to be started.
+        pmcHeadlessclientProfile.Info.Level = requesterProfile.Info.Level;
+        pmcHeadlessclientProfile.Info.Experience = requesterProfile.Info.Experience;
 
-        this.fikaDedicatedRaidService.requestedSessions[dedicatedClient] = sessionID;
+        this.fikaHeadlessRaidService.requestedSessions[HeadlessClient] = sessionID;
 
-        dedicatedClientWs.send(
+        HeadlessClientWs.send(
             JSON.stringify({
-                type: "fikaDedicatedStartRaid",
+                type: "fikaHeadlessStartRaid",
                 ...info,
             }),
         );
 
-        this.logger.info(`Sent WS fikaDedicatedStartRaid to ${dedicatedClient}`);
+        this.logger.info(`Sent WS fikaHeadlessStartRaid to ${HeadlessClient}`);
 
         return {
             // This really isn't required, I just want to make sure on the client
-            matchId: dedicatedClient,
+            matchId: HeadlessClient,
             error: null,
         };
     }
 
-    /** Handle /fika/raid/dedicated/status */
-    public handleRaidStatusDedicated(sessionId: string, info: IStatusDedicatedRequest): IStatusDedicatedResponse {
+    /** Handle /fika/raid/headless/status */
+    public handleRaidStatusHeadless(sessionId: string, info: IStatusHeadlessRequest): IStatusHeadlessResponse {
         // Temp fix because the enum gets deserialized as a string instead of an integer
         switch (info.status.toString()) {
             case "READY":
-                info.status = EDedicatedStatus.READY;
+                info.status = EHeadlessStatus.READY;
                 break;
             case "IN_RAID":
-                info.status = EDedicatedStatus.IN_RAID;
+                info.status = EHeadlessStatus.IN_RAID;
                 break;
         }
 
-        if (info.status == EDedicatedStatus.READY && !this.fikaDedicatedRaidService.isDedicatedClientAvailable()) {
-            if (this.fikaDedicatedRaidService.onDedicatedClientAvailable) {
-                this.fikaDedicatedRaidService.onDedicatedClientAvailable();
+        if (info.status == EHeadlessStatus.READY && !this.fikaHeadlessRaidService.isHeadlessClientAvailable()) {
+            if (this.fikaHeadlessRaidService.onHeadlessClientAvailable) {
+                this.fikaHeadlessRaidService.onHeadlessClientAvailable();
             }
         }
 
-        this.fikaDedicatedRaidService.dedicatedClients[sessionId] = {
+        this.fikaHeadlessRaidService.headlessClients[sessionId] = {
             state: info.status,
             lastPing: Date.now(),
         };
@@ -227,14 +227,14 @@ export class FikaRaidController {
         };
     }
 
-    /** Handle /fika/raid/dedicated/getstatus */
-    public handleRaidGetStatusDedicated(): IGetStatusDedicatedResponse {
+    /** Handle /fika/raid/headless/getstatus */
+    public handleRaidGetStatusHeadless(): IGetStatusHeadlessResponse {
         return {
-            available: this.fikaDedicatedRaidService.isDedicatedClientAvailable(),
+            available: this.fikaHeadlessRaidService.isHeadlessClientAvailable(),
         };
     }
 
-    /** Handle /fika/raid/dedicated/registerPlayer */
+    /** Handle /fika/raid/registerPlayer */
     public handleRaidRegisterPlayer(sessionId: string, info: IRegisterPlayerRequestData): void {
         this.inraidController.addPlayer(sessionId, info);
     }

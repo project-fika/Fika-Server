@@ -35,7 +35,7 @@ export class FikaClientService {
         }
 
         this.requiredMods = [...sanitizedRequiredMods, "com.fika.core", "com.SPT.custom", "com.SPT.singleplayer", "com.SPT.core", "com.SPT.debugging"];
-        this.allowedMods = [...this.requiredMods, ...sanitizedOptionalMods, "com.bepis.bepinex.configurationmanager", "com.fika.dedicated"];
+        this.allowedMods = [...this.requiredMods, ...sanitizedOptionalMods, "com.bepis.bepinex.configurationmanager", "com.fika.headless"];
     }
 
     protected filterEmptyMods(array: string[]): string[] {

@@ -12,7 +12,7 @@ export class FikaAchievementController {
     ) {
         // empty
     }
-    getAchievementStatistics(_sessionID: string): ICompletedAchievementsResponse {
+    public getAchievementStatistics(_sessionID: string): ICompletedAchievementsResponse {
         const achievements = this.databaseService.getAchievements();
         const stats: Record<string, number> = {};
 
@@ -21,7 +21,7 @@ export class FikaAchievementController {
         for (const achievement of achievements) {
             let percentage = 0;
             for (const profile of profiles) {
-                if (profile.info?.password === "fika-dedicated") {
+                if (profile.info?.password === "fika-headless") {
                     continue;
                 }
 

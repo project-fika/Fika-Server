@@ -34,7 +34,7 @@ export class FikaUpdateController {
      * @param request
      */
     public handleSethost(request: IFikaUpdateSethostRequestData): void {
-        this.fikaMatchService.setMatchHost(request.serverId, request.ips, request.port, request.natPunch, request.isDedicated);
+        this.fikaMatchService.setMatchHost(request.serverId, request.ips, request.port, request.natPunch, request.isHeadless);
     }
 
     /**

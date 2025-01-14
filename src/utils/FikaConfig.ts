@@ -61,7 +61,7 @@ export class FikaConfig {
             port: 6790,
             natIntroduceAmount: 1,
         },
-        dedicated: {
+        headless: {
             profiles: {
                 amount: 0,
             },

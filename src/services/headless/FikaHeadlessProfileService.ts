@@ -13,17 +13,17 @@ import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 import { inject, injectable } from "tsyringe";
-import { IFikaConfigDedicated } from "../../models/fika/config/IFikaConfigDedicated";
+import { IFikaConfigHeadless } from "../../models/fika/config/IFikaConfigHeadless";
 import { FikaConfig } from "../../utils/FikaConfig";
 
 @injectable()
-export class FikaDedicatedProfileService {
+export class FikaHeadlessProfileService {
     readonly scriptsPath = path.join(__dirname, "../../../assets/scripts");
     readonly HEAD_USEC_4 = "5fdb4139e4ed5b5ea251e4ed"; // _parent: 5cc085e214c02e000c6bea67
     readonly VOICE_USEC_4 = "6284d6a28e4092597733b7a6"; // _parent: 5fc100cf95572123ae738483
 
     protected httpConfig: IHttpConfig;
-    public dedicatedProfiles: ISptProfile[] = [];
+    public headlessProfiles: ISptProfile[] = [];
 
     constructor(
         @inject("LauncherController") protected launcherController: LauncherController,
@@ -40,24 +40,24 @@ export class FikaDedicatedProfileService {
     }
 
     public init() {
-        const dedicatedConfig = this.fikaConfig.getConfig().dedicated;
+        const headlessConfig = this.fikaConfig.getConfig().headless;
 
-        this.dedicatedProfiles = this.loadDedicatedProfiles();
+        this.headlessProfiles = this.loadHeadlessProfiles();
 
-        this.logger.info(`Found ${this.dedicatedProfiles.length} dedicated client profiles.`);
+        this.logger.info(`Found ${this.headlessProfiles.length} headless client profiles.`);
 
-        const profileAmount = dedicatedConfig.profiles.amount;
+        const profileAmount = headlessConfig.profiles.amount;
 
-        if (this.dedicatedProfiles.length < profileAmount) {
-            const createdProfiles = this.createDedicatedProfiles(profileAmount);
+        if (this.headlessProfiles.length < profileAmount) {
+            const createdProfiles = this.createHeadlessProfiles(profileAmount);
 
-            this.logger.success(`Created ${createdProfiles.length} dedicated client profiles!`);
+            this.logger.success(`Created ${createdProfiles.length} headless client profiles!`);
 
-            if (dedicatedConfig.scripts.generate) {
+            if (headlessConfig.scripts.generate) {
                 let ip = this.httpConfig.ip;
                 const port = this.httpConfig.port;
 
-                const forceIp = dedicatedConfig.scripts.forceIp;
+                const forceIp = headlessConfig.scripts.forceIp;
 
                 if (forceIp != "") {
                     ip = forceIp;
@@ -76,13 +76,13 @@ export class FikaDedicatedProfileService {
         }
     }
 
-    public loadDedicatedProfiles(): ISptProfile[] {
+    public loadHeadlessProfiles(): ISptProfile[] {
         let profiles: ISptProfile[] = [];
 
         for (const profileId in this.saveServer.getProfiles()) {
             const profile = this.saveServer.getProfile(profileId);
 
-            if (profile.info.password == "fika-dedicated") {
+            if (profile.info.password == "fika-headless") {
                 profiles.push(profile);
             }
         }
@@ -90,24 +90,24 @@ export class FikaDedicatedProfileService {
         return profiles;
     }
 
-    public createDedicatedProfiles(profileAmount: number): ISptProfile[] {
-        let profileCount = this.dedicatedProfiles.length;
+    public createHeadlessProfiles(profileAmount: number): ISptProfile[] {
+        let profileCount = this.headlessProfiles.length;
         let profileAmountToCreate = profileAmount - profileCount;
         let createdProfiles: ISptProfile[] = [];
 
         for (let i = 0; i < profileAmountToCreate; i++) {
-            const profile = this.createDedicatedProfile();
+            const profile = this.createHeadlessProfile();
             createdProfiles.push(profile);
         }
 
         return createdProfiles;
     }
 
-    public createDedicatedProfile(): ISptProfile {
+    public createHeadlessProfile(): ISptProfile {
         // Generate a unique username
-        const username = `dedicated_${this.generateUniqueId()}`;
-        // Using a password allows us to know which profiles are dedicated client profiles.
-        const password = "fika-dedicated";
+        const username = `headless_${this.generateUniqueId()}`;
+        // Using a password allows us to know which profiles are headless client profiles.
+        const password = "fika-headless";
         // Random edition. Doesn't matter
         const edition = "Standard";
 
@@ -161,8 +161,8 @@ export class FikaDedicatedProfileService {
         const scriptName = `Start_${profile.info.username}.bat`;
         const scriptPath = path.join(targetFolderPath, scriptName);
         const scriptContent = `@echo off
-if NOT EXIST ".\\BepInEx\\plugins\\Fika.Dedicated.dll" (
-    echo Could not find 'Fika.Dedicated.dll', please install the dedicated plugin before starting the client.
+if NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" (
+    echo Could not find 'Fika.Headless.dll', please install the Headless plugin before starting the client.
     pause
 ) else (
     start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={"BackendUrl":"${backendUrl}","Version":"live"} -batchmode -nographics --enable-console true & exit
