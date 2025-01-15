@@ -151,8 +151,13 @@ export class FikaConfig {
         const coreConfig = this.configServer.getConfig(ConfigTypes.CORE) as ICoreConfig;
         const httpConfig = this.configServer.getConfig(ConfigTypes.HTTP) as IHttpConfig;
 
-        coreConfig.features.chatbotFeatures.commandoEnabled = !config.disableSPTChatBots;
-        coreConfig.features.chatbotFeatures.sptFriendEnabled = !config.disableSPTChatBots;
+        if (config.disableSPTChatBots) {
+            const commando = coreConfig.features.chatbotFeatures.ids.commando;
+            const sptFriend = coreConfig.features.chatbotFeatures.ids.spt;
+
+            coreConfig.features.chatbotFeatures.enabledBots[commando] = false;
+            coreConfig.features.chatbotFeatures.enabledBots[sptFriend] = false;
+        }
 
         httpConfig.ip = config.http.ip;
         httpConfig.port = config.http.port;

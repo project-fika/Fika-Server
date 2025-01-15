@@ -82,7 +82,7 @@ export declare class BotGenerator {
      */
     protected generateBot(sessionId: string, bot: IBotBase, botJsonTemplate: IBotType, botGenerationDetails: IBotGenerationDetails): IBotBase;
     /**
-     * Should this bot have a name like "name (Pmc Name)" and be alterd by client patch to be hostile to player
+     * Should this bot have a name like "name (Pmc Name)" and be altered by client patch to be hostile to player
      * @param botRole Role bot has
      * @returns True if name should be simulated pscav
      */

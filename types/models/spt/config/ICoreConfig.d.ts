@@ -69,12 +69,13 @@ export interface IServerFeatures {
     createNewProfileTypesBlacklist: string[];
 }
 export interface IChatbotFeatures {
-    sptFriendEnabled: boolean;
     sptFriendGiftsEnabled: boolean;
-    commandoEnabled: boolean;
     commandoFeatures: ICommandoFeatures;
     commandUseLimits: Record<string, number>;
+    /** Human readable id to guid for each bot */
     ids: Record<string, string>;
+    /** Bot Ids player is allowed to interact with */
+    enabledBots: Record<string, boolean>;
 }
 export interface ICommandoFeatures {
     giveCommandEnabled: boolean;
