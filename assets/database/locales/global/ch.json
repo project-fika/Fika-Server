@@ -65,7 +65,7 @@
     "F_UI_ErrorBindIPHeader": "错误绑定",
     "F_UI_ErrorBindIP": "{0} 不是一个有效的绑定IP地址！请检查“强制IP”设置",
     "F_UI_NoDedicatedClients": "现在没有可用的专用客户端。",
-    "F_UI_WaitForHostStartRaid": "Waiting for host to start the raid...",
+    "F_UI_WaitForHostStartRaid": "等待主机开始战局...",
     "F_UI_WaitForHostFinishInit": "正在等待主机完成战局初始化",
     "F_UI_WaitForOtherPlayers": "正在等待其他玩家完成加载",
     "F_UI_RetrieveSpawnInfo": "正在从服务器获取生成信息...",
