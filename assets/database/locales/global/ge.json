@@ -91,7 +91,7 @@
     "F_UI_WaitForPlayers": "Warte auf {0} Spieler",
     "F_UI_ToSLong": "Willkommen bei Fika! \n\nFika ist ein Coop-Mod für SPT, mit dem Du mit deinen Freunden spielen kannst. Fika ist und wird immer kostenlos sein, wenn Du dafür bezahlt hast, dann wurdest Du betrogen. Es ist Dir nicht gestattet, öffentliche Server mit Monetarisierung oder Spenden zu betreiben.\n\nWarte, bis diese Meldung ausgeblendet wird, um unsere Nutzungsbedingungen zu akzeptieren.\n\n Du kannst unserem Discord hier beitreten: https://discord.gg/project-fika",
     "F_UI_ToSShort": "Willkommen bei Fika! \n\nFika ist ein Coop-Mod für SPT, mit dem Du mit deinen Freunden spielen kannst. Fika ist und wird immer kostenlos sein, wenn Du dafür bezahlt hast, dann wurdest Du betrogen. Es ist Dir nicht gestattet, öffentliche Server mit Monetarisierung oder Spenden zu betreiben.\n\n Du kannst unserem Discord hier beitreten: https://discord.gg/project-fika",
-    "F_UI_RaidSettingsDescription": "In diesem Modus kannst du online co-op mit deinen Freunden spielen, ohne das Risiko auf andere zu treffen.\\nAlle Spielmechaniken im co-op Modus (Wetter, Bots, Bosse, etc.) sind identisch mit den online Mechaniken.\\nNur die Einstellungen des Hosts werden übernommen.",
+    "F_UI_RaidSettingsDescription": "In diesem Modus kannst du online co-op mit deinen Freunden spielen, ohne das Risiko auf andere zu treffen.\nAlle Spielmechaniken im co-op Modus (Wetter, Bots, Bosse, etc.) sind identisch mit den online Mechaniken.\nNur die Einstellungen des Hosts werden übernommen.",
     "F_UI_CoopGameMode": "Fika Co-op Spielmodus",
     "F_UI_CoopRaidSettings": "Fika Co-op Raid Einstellungen",
     "F_UI_FikaAlwaysCoop": "Fika ist immer im Co-op Modus",
