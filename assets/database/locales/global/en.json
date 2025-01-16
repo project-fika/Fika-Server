@@ -45,7 +45,7 @@
     "F_MMUI_LoadingScreenDescription": "Please wait while the raid is initializing... this might take some time.",
     "F_MMUI_JoinAsSpectator": "Join as spectator",
     "F_UI_StartRaid": "Start Raid",
-    "F_UI_StartRaidDescription": "Starts the raid\nNew players will not be able to join",
+    "F_UI_StartRaidDescription": "Starts the raid\nAfter clicking this additional players will not be able to join",
     "F_UI_CannotJoinRaidOtherMap": "Cannot join a raid that is on another map.\nRaid map: {0}",
     "F_UI_CannotJoinRaidOtherTime": "Cannot join a raid that is on another time.",
     "F_UI_CannotJoinRaidScavAsPMC": "You cannot join a scav raid as a PMC.",
