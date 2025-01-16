@@ -162,7 +162,7 @@ export class FikaHeadlessProfileService {
         const scriptPath = path.join(targetFolderPath, scriptName);
         const scriptContent = `@echo off
 if NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" (
-    echo Could not find 'Fika.Headless.dll', please install the Headless plugin before starting the client.
+    echo Could not find 'Fika.Headless.dll', please install the Headless plugin before starting the client and make sure the .bat file is in the Headless installation directory where 'EscapeFromTarkov.exe' is.
     pause
 ) else (
     start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={'BackendUrl':'${backendUrl}','Version':'live'} -batchmode -nographics --enable-console true & exit
