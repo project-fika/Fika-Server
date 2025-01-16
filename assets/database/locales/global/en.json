@@ -246,5 +246,7 @@
     "F_MMUI_InFlea": "In Flea",
     "F_MMUI_RaidDetails": "Playing as a {0} on {1}\nTime: {2}",
     "F_UI_LocaleError_H": "LOCALES ERROR",
-    "F_UI_LocaleError_D": "There were errors when loading the Fika locales. Translation is now using fallbacks for the failed headers. Please report this to the developers!\n\nFailed keys: {0}"
+    "F_UI_LocaleError_D": "There were errors when loading the Fika locales. Translation is now using fallbacks for the failed headers. Please report this to the developers!\n\nFailed keys: {0}",
+    "F_UI_EFTVersionError": "You are attempting to use a different version of EFT than what the raid host is running.\nClient: {0}\nHost: {1}",
+    "F_UI_FikaVersionError": "You are attempting to use a different version of Fika than what the raid host is running.\nClient: {0}\nHost: {1}"
 }
