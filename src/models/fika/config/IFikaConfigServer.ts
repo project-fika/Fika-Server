@@ -1,6 +1,6 @@
 export interface IFikaConfigServer {
     SPT: IFikaSPTServerConfig;
-    giftedItemsLoseFIR: boolean;
+    sentItemsLoseFIR: boolean;
     launcherListAllProfiles: boolean;
     sessionTimeout: number;
     showDevProfile: boolean;

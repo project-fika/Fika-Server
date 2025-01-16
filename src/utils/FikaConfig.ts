@@ -50,7 +50,7 @@ export class FikaConfig {
                 },
                 disableSPTChatBots: true,
             },
-            giftedItemsLoseFIR: true,
+            sentItemsLoseFIR: true,
             launcherListAllProfiles: false,
             sessionTimeout: 5,
             showDevProfile: false,
