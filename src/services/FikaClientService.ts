@@ -7,6 +7,7 @@ import { SaveServer } from "@spt/servers/SaveServer";
 
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
 import { IFikaConfigNatPunchServer } from "../models/fika/config/IFikaConfigNatPunchServer";
+import { IFikaConfigServer } from "../models/fika/config/IFikaConfigServer";
 import { IFikaCheckModRequestData } from "../models/fika/routes/client/check/IFikaCheckModRequestData";
 import { IFikaCheckModResponse, IVersionCheckResponse } from "../models/fika/routes/client/check/IFikaCheckModResponse";
 import { FikaConfig } from "../utils/FikaConfig";
@@ -44,6 +45,10 @@ export class FikaClientService {
 
     public getClientConfig(): IFikaConfigClient {
         return this.fikaConfig.getConfig().client;
+    }
+
+    public getIsItemSendingAllowed(): boolean {
+        return this.fikaConfig.getConfig().server.allowItemSending;
     }
 
     public getNatPunchServerConfig(): IFikaConfigNatPunchServer {

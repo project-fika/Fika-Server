@@ -29,7 +29,14 @@ export class FikaClientController {
      * Handle /fika/client/config
      */
     public handleClientConfig(): IFikaConfigClient {
-        return this.fikaClientService.getClientConfig();
+        const clientConfig = this.fikaClientService.getClientConfig();
+
+        //Here be dragons, this is technically not in the client config, or well it was.. But it was decided it was better for this configuration
+        //To be together with 'sentItemsLoseFIR' so users could find both options easier.
+        //Keep this here as this is really only supposed to be a 'client' config and it's really only used on the client.
+        (clientConfig as any).allowItemSending = this.fikaClientService.getIsItemSendingAllowed();
+
+        return clientConfig;
     }
 
     /**

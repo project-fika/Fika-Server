@@ -1,5 +1,6 @@
 export interface IFikaConfigServer {
     SPT: IFikaSPTServerConfig;
+    allowItemSending: boolean;
     sentItemsLoseFIR: boolean;
     launcherListAllProfiles: boolean;
     sessionTimeout: number;

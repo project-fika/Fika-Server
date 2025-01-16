@@ -4,8 +4,7 @@ export interface IFikaConfigClient {
     dynamicVExfils: boolean;
     allowFreeCam: boolean;
     allowSpectateFreeCam: boolean;
-    allowItemSending: boolean;
-    blacklistedItems: string[],
+    blacklistedItems: string[];
     forceSaveOnDeath: boolean;
     mods: {
         required: string[];
