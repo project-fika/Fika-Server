@@ -250,5 +250,6 @@
     "F_UI_EFTVersionError": "You are attempting to use a different version of EFT than what the raid host is running.\nClient: {0}\nHost: {1}",
     "F_UI_FikaVersionError": "You are attempting to use a different version of Fika than what the raid host is running.\nClient: {0}\nHost: {1}",
     "F_UI_PlayerConnected": "{0} has connected",
-    "F_UI_PlayerDisconnected": "{0} has disconnected"
+    "F_UI_PlayerDisconnected": "{0} has disconnected",
+    "F_UI_DisabledByServerHost": "Disabled by server host"
 }
