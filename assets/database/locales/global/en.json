@@ -114,6 +114,8 @@
     "F_BepInEx_H_Gameplay": "Gameplay",
     "F_BepInEx_OfficialVersion_T": "Official Version",
     "F_BepInEx_OfficialVersion_D": "Show official version instead of Fika version.",
+    "F_BepInEx_UseHeadless_T": "Auto Use Headless",
+    "F_BepInEx_UseHeadless_D": "Always tick the box to use the Headless Client if available",
     "F_BepInEx_ShowFeed_T": "Show Feed",
     "F_BepInEx_ShowFeed_D": "Enable custom notifications when a player dies, extracts, kills a boss, etc.",
     "F_BepInEx_AutoExtract_T": "Auto Extract",
