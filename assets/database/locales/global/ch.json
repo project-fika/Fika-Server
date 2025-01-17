@@ -1,5 +1,5 @@
 {
-    "Attention! This is a Beta version of Escape from Tarkov for testing purposes.": "欢迎使用 Fika, 供SPT的离线合作模组",
+    "Attention! This is a Beta version of Escape from Tarkov for testing purposes.": "欢迎使用Fika, 这是一个配合SPT使用的离线合作模组",
     "NDA free warning": "要创建/加入游戏，您必须选择一个地图，然后转到最后一个页面使用服务器浏览器。",
     "F_Client_ReceivedSharedQuestProgress": "从 {0} 接收到任务 {1} 的共享任务进度",
     "F_Client_ReceivedSharedItemPickup": "{0} 捡到了 {1}",
@@ -114,6 +114,8 @@
     "F_BepInEx_H_Gameplay": "游戏模式",
     "F_BepInEx_OfficialVersion_T": "官方版本",
     "F_BepInEx_OfficialVersion_D": "显示官方版本而不是Fika版本。",
+    "F_BepInEx_UseHeadless_T": "自动使用无头模式",
+    "F_BepInEx_UseHeadless_D": "如果可用，始终使用无头模式客户端",
     "F_BepInEx_ShowFeed_T": "显示战局信息",
     "F_BepInEx_ShowFeed_D": "启用玩家死亡、撤离、击杀BOSS时的自定义通知",
     "F_BepInEx_AutoExtract_T": "自动撤离",
@@ -246,5 +248,10 @@
     "F_MMUI_InFlea": "在跳蚤市场中",
     "F_MMUI_RaidDetails": "作为 {0} 在 {1} 上游玩\n时间：{2}",
     "F_UI_LocaleError_H": "语言文件错误",
-    "F_UI_LocaleError_D": "加载Fika语言时发生错误。现在正在为失效的翻译条目切换为后备模式。 请将此报告给开发者!\n\n失效的文本键值: {0}"
+    "F_UI_LocaleError_D": "加载Fika语言时发生错误。现在正在为失效的翻译条目切换为后备模式。 请将此报告给开发者!\n\n失效的文本键值: {0}",
+    "F_UI_EFTVersionError": "您使用的客户端版本与战局主机运行的版本不同。\n您的客户端版本: {0}\n主机客户端版本: {1}",
+    "F_UI_FikaVersionError": "您使用的Fika版本与战局主机运行的版本不同。\n您的Fika版本: {0}\n主机Fika版本: {1}",
+    "F_UI_PlayerConnected": "{0} 已链接",
+    "F_UI_PlayerDisconnected": "{0} 已断开链接",
+    "F_UI_DisabledByServerHost": "被服务器主机禁用"
 }
