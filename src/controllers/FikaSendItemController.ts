@@ -72,7 +72,7 @@ export class FikaSendItemController {
             return this.httpResponse.appendErrorToOutput(output, "Item not found in inventory");
         }
 
-        if (fikaConfig.server.giftedItemsLoseFIR) {
+        if (fikaConfig.server.sentItemsLoseFIR) {
             for (const item of itemsToSend) {
                 item.upd ??= {};
 

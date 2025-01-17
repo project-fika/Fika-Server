@@ -28,7 +28,6 @@ export class FikaConfig {
             dynamicVExfils: false,
             allowFreeCam: false,
             allowSpectateFreeCam: false,
-            allowItemSending: true,
             blacklistedItems: [],
             forceSaveOnDeath: false,
             mods: {
@@ -50,7 +49,8 @@ export class FikaConfig {
                 },
                 disableSPTChatBots: true,
             },
-            giftedItemsLoseFIR: true,
+            allowItemSending: true,
+            sentItemsLoseFIR: true,
             launcherListAllProfiles: false,
             sessionTimeout: 5,
             showDevProfile: false,
