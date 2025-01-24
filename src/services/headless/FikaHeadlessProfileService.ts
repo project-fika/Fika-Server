@@ -1,8 +1,12 @@
 import fs from "fs";
 import path from "path";
+
 import { LauncherController } from "@spt/controllers/LauncherController";
 import { ProfileController } from "@spt/controllers/ProfileController";
+import { InRaidHelper } from "@spt/helpers/InRaidHelper";
 import { InventoryHelper } from "@spt/helpers/InventoryHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IProfileCreateRequestData } from "@spt/models/eft/profile/IProfileCreateRequestData";
 import { ISptProfile, Info } from "@spt/models/eft/profile/ISptProfile";
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
@@ -11,8 +15,9 @@ import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { HashUtil } from "@spt/utils/HashUtil";
-import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
+
+import { promises } from "dns";
 import { inject, injectable } from "tsyringe";
 import { FikaConfig } from "../../utils/FikaConfig";
 
@@ -30,12 +35,13 @@ export class FikaHeadlessProfileService {
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("TimeUtil") protected timeUtil: TimeUtil,
-        @inject("RandomUtil") protected randomUtil: RandomUtil,
         @inject("HashUtil") protected hashUtil: HashUtil,
-        @inject("InventoryHelper") protected inventoryHelper: InventoryHelper,
         @inject("ProfileController") protected profileController: ProfileController,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("ConfigServer") protected configServer: ConfigServer,
+        @inject("InRaidHelper") protected inRaidHelper: InRaidHelper,
+        @inject("InventoryHelper") protected inventoryHelper: InventoryHelper
+
     ) {
         this.httpConfig = this.configServer.getConfig(ConfigTypes.HTTP);
     }
@@ -51,6 +57,10 @@ export class FikaHeadlessProfileService {
 
         if (this.headlessProfiles.length < profileAmount) {
             const createdProfiles = await this.createHeadlessProfiles(profileAmount);
+
+            for (const profile of createdProfiles) {
+                this.clearHeadlessItems(profile.characters.pmc, profile.info.id);
+            }
 
             this.logger.success(`Created ${createdProfiles.length} headless client profiles!`);
 
@@ -106,7 +116,7 @@ export class FikaHeadlessProfileService {
 
     public async createHeadlessProfile(): Promise<ISptProfile> {
         // Generate a unique username
-        const username = `headless_${this.generateUniqueId()}`;
+        const username = `headless_${this.hashUtil.generate()}`;
         // Using a password allows us to know which profiles are headless client profiles.
         const password = "fika-headless";
         // Random edition. Doesn't matter
@@ -129,8 +139,8 @@ export class FikaHeadlessProfileService {
     }
 
     public createMiniProfile(username: string, password: string, edition: string): string {
-        const profileId = this.generateUniqueId();
-        const scavId = this.generateUniqueId();
+        const profileId = this.hashUtil.generate();
+        const scavId = this.hashUtil.generate();
 
         const newProfileDetails: Info = {
             id: profileId,
@@ -194,17 +204,21 @@ if NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" (
         }
     }
 
-    // generateProfileId
-    protected generateUniqueId(): string {
-        const timestamp = this.timeUtil.getTimestamp();
+    private clearHeadlessItems(pmcProfile: IPmcData, sessionId: string) {
+        const itemsToDelete = this.getHeadlessItems(pmcProfile).map((item) => item._id);
 
-        return this.formatID(timestamp, timestamp * this.randomUtil.getInt(1, 1000000));
+        for (const itemIdToDelete of itemsToDelete) {
+            this.inventoryHelper.removeItem(pmcProfile, itemIdToDelete, sessionId);
+        }
+
+        pmcProfile.Inventory.fastPanel = {};
     }
 
-    protected formatID(timeStamp: number, counter: number): string {
-        const timeStampStr = timeStamp.toString(16).padStart(8, "0");
-        const counterStr = counter.toString(16).padStart(16, "0");
+    private getHeadlessItems(pmcProfile: IPmcData): IItem[] {
+        const inventoryItems = pmcProfile.Inventory.items ?? [];
+        const equipmentRootId = pmcProfile?.Inventory?.equipment;
+        const stashRootId = pmcProfile?.Inventory.stash;
 
-        return timeStampStr.toLowerCase() + counterStr.toLowerCase();
+        return inventoryItems.filter(item => item.parentId == equipmentRootId || item.parentId == stashRootId);
     }
 }
