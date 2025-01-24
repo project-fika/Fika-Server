@@ -1,9 +1,7 @@
-import fs from "fs";
 import path from "path";
 
 import { LauncherController } from "@spt/controllers/LauncherController";
 import { ProfileController } from "@spt/controllers/ProfileController";
-import { InRaidHelper } from "@spt/helpers/InRaidHelper";
 import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
@@ -14,6 +12,7 @@ import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { FileSystem } from "@spt/utils/FileSystem";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 
@@ -38,9 +37,8 @@ export class FikaHeadlessProfileService {
         @inject("ProfileController") protected profileController: ProfileController,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("ConfigServer") protected configServer: ConfigServer,
-        @inject("InRaidHelper") protected inRaidHelper: InRaidHelper,
-        @inject("InventoryHelper") protected inventoryHelper: InventoryHelper
-
+        @inject("InventoryHelper") protected inventoryHelper: InventoryHelper,
+        @inject("FileSystem") protected fileSystem: FileSystem,
     ) {
         this.httpConfig = this.configServer.getConfig(ConfigTypes.HTTP);
     }
@@ -92,7 +90,7 @@ export class FikaHeadlessProfileService {
         for (const profileId in this.saveServer.getProfiles()) {
             const profile = this.saveServer.getProfile(profileId);
 
-            if (profile.info.password == "fika-headless") {
+            if (profile.info.password === "fika-headless") {
                 profiles.push(profile);
             }
         }
@@ -122,7 +120,7 @@ export class FikaHeadlessProfileService {
         const edition = "Standard";
 
         // Create mini profile
-        const profileId = this.createMiniProfile(username, password, edition);
+        const profileId = await this.createMiniProfile(username, password, edition);
 
         // Random character configs. Doesn't matter.
         const newProfileData: IProfileCreateRequestData = {
@@ -137,9 +135,9 @@ export class FikaHeadlessProfileService {
         return profile;
     }
 
-    public createMiniProfile(username: string, password: string, edition: string): string {
-        const profileId = this.hashUtil.generate();
-        const scavId = this.hashUtil.generate();
+    public async createMiniProfile(username: string, password: string, edition: string): Promise<string> {
+        const profileId = this.generateUniqueId();
+        const scavId = this.generateUniqueId();
 
         const newProfileDetails: Info = {
             id: profileId,
@@ -153,8 +151,8 @@ export class FikaHeadlessProfileService {
 
         this.saveServer.createProfile(newProfileDetails);
 
-        this.saveServer.loadProfile(profileId);
-        this.saveServer.saveProfile(profileId);
+        await this.saveServer.loadProfile(profileId);
+        await this.saveServer.saveProfile(profileId);
 
         return profileId;
     }
@@ -179,7 +177,7 @@ export class FikaHeadlessProfileService {
         return profile;
     }
 
-    public generateLaunchScript(profile: ISptProfile, backendUrl: string, targetFolderPath: string) {
+    public async generateLaunchScript(profile: ISptProfile, backendUrl: string, targetFolderPath: string): Promise<void> {
         const scriptName = `Start_${profile.info.username}.bat`;
         const scriptPath = path.join(targetFolderPath, scriptName);
         const scriptContent = `@echo off
@@ -191,11 +189,11 @@ if NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" (
 )`;
 
         try {
-            if (!fs.existsSync(targetFolderPath)) {
-                fs.mkdirSync(targetFolderPath);
+            if (!(await this.fileSystem.exists(targetFolderPath))) {
+                await this.fileSystem.ensureDir(targetFolderPath);
             }
 
-            fs.writeFileSync(scriptPath, scriptContent);
+            await this.fileSystem.write(scriptPath, scriptContent);
 
             this.logger.success(`Generated launch script: /fika-server/assets/scripts/${scriptName}`);
         } catch (error) {
@@ -218,6 +216,6 @@ if NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" (
         const equipmentRootId = pmcProfile?.Inventory?.equipment;
         const stashRootId = pmcProfile?.Inventory.stash;
 
-        return inventoryItems.filter(item => item.parentId == equipmentRootId || item.parentId == stashRootId);
+        return inventoryItems.filter((item) => item.parentId == equipmentRootId || item.parentId == stashRootId);
     }
 }
