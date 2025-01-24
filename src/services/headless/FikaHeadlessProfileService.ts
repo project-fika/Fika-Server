@@ -136,8 +136,8 @@ export class FikaHeadlessProfileService {
     }
 
     public async createMiniProfile(username: string, password: string, edition: string): Promise<string> {
-        const profileId = this.generateUniqueId();
-        const scavId = this.generateUniqueId();
+        const profileId = this.hashUtil.generate();
+        const scavId = this.hashUtil.generate();
 
         const newProfileDetails: Info = {
             id: profileId,
