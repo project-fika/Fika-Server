@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { LauncherController } from "@spt/controllers/LauncherController";
 import { ProfileController } from "@spt/controllers/ProfileController";
+import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { IProfileCreateRequestData } from "@spt/models/eft/profile/IProfileCreateRequestData";
 import { ISptProfile, Info } from "@spt/models/eft/profile/ISptProfile";
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
@@ -13,7 +14,6 @@ import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 import { inject, injectable } from "tsyringe";
-import { IFikaConfigHeadless } from "../../models/fika/config/IFikaConfigHeadless";
 import { FikaConfig } from "../../utils/FikaConfig";
 
 @injectable()
@@ -32,6 +32,7 @@ export class FikaHeadlessProfileService {
         @inject("TimeUtil") protected timeUtil: TimeUtil,
         @inject("RandomUtil") protected randomUtil: RandomUtil,
         @inject("HashUtil") protected hashUtil: HashUtil,
+        @inject("InventoryHelper") protected inventoryHelper: InventoryHelper,
         @inject("ProfileController") protected profileController: ProfileController,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("ConfigServer") protected configServer: ConfigServer,
@@ -39,7 +40,7 @@ export class FikaHeadlessProfileService {
         this.httpConfig = this.configServer.getConfig(ConfigTypes.HTTP);
     }
 
-    public init() {
+    public async init(): Promise<void> {
         const headlessConfig = this.fikaConfig.getConfig().headless;
 
         this.headlessProfiles = this.loadHeadlessProfiles();
@@ -49,7 +50,7 @@ export class FikaHeadlessProfileService {
         const profileAmount = headlessConfig.profiles.amount;
 
         if (this.headlessProfiles.length < profileAmount) {
-            const createdProfiles = this.createHeadlessProfiles(profileAmount);
+            const createdProfiles = await this.createHeadlessProfiles(profileAmount);
 
             this.logger.success(`Created ${createdProfiles.length} headless client profiles!`);
 
@@ -90,20 +91,20 @@ export class FikaHeadlessProfileService {
         return profiles;
     }
 
-    public createHeadlessProfiles(profileAmount: number): ISptProfile[] {
+    public async createHeadlessProfiles(profileAmount: number): Promise<ISptProfile[]> {
         let profileCount = this.headlessProfiles.length;
         let profileAmountToCreate = profileAmount - profileCount;
         let createdProfiles: ISptProfile[] = [];
 
         for (let i = 0; i < profileAmountToCreate; i++) {
-            const profile = this.createHeadlessProfile();
+            const profile = await this.createHeadlessProfile();
             createdProfiles.push(profile);
         }
 
         return createdProfiles;
     }
 
-    public createHeadlessProfile(): ISptProfile {
+    public async createHeadlessProfile(): Promise<ISptProfile> {
         // Generate a unique username
         const username = `headless_${this.generateUniqueId()}`;
         // Using a password allows us to know which profiles are headless client profiles.
@@ -122,7 +123,7 @@ export class FikaHeadlessProfileService {
             voiceId: this.VOICE_USEC_4,
         };
 
-        const profile = this.createFullProfile(newProfileData, profileId);
+        const profile = await this.createFullProfile(newProfileData, profileId);
 
         return profile;
     }
@@ -149,8 +150,8 @@ export class FikaHeadlessProfileService {
         return profileId;
     }
 
-    public createFullProfile(profileData: IProfileCreateRequestData, profileId: string) {
-        this.profileController.createProfile(profileData, profileId);
+    public async createFullProfile(profileData: IProfileCreateRequestData, profileId: string): Promise<ISptProfile> {
+        await this.profileController.createProfile(profileData, profileId);
 
         const profile = this.saveServer.getProfile(profileId);
 

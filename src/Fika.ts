@@ -58,7 +58,7 @@ export class Fika {
         }
 
         if (this.headlessConfig.profiles.amount > 0) {
-            this.fikaHeadlessProfileService.init();
+            await this.fikaHeadlessProfileService.init();
         }
 
         await this.addFikaClientLocales();
