@@ -155,6 +155,18 @@ export class FikaHeadlessProfileService {
 
         const profile = this.saveServer.getProfile(profileId);
 
+        const originalItemsArray = profile.characters.pmc.Inventory.items.slice();
+
+        for (const item of originalItemsArray) {
+            if (!item.slotId || item._id === profile.characters.pmc.Inventory.equipment || ["SecuredContainer", "Pockets", "Scabbard"].includes(item.slotId)) {
+                continue;
+            }
+
+            this.inventoryHelper.removeItem(profile.characters.pmc, item._id, profileId);
+        }
+
+        profile.characters.pmc.Inventory.fastPanel = {};
+
         return profile;
     }
 
