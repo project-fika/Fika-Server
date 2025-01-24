@@ -17,7 +17,6 @@ import { SaveServer } from "@spt/servers/SaveServer";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 
-import { promises } from "dns";
 import { inject, injectable } from "tsyringe";
 import { FikaConfig } from "../../utils/FikaConfig";
 
