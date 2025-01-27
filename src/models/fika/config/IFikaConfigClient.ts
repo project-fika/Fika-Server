@@ -14,4 +14,5 @@ export interface IFikaConfigClient {
     sharedQuestProgression: boolean;
     canEditRaidSettings: boolean;
     enableTransits: boolean;
+    anyoneCanStartRaid: boolean;
 }

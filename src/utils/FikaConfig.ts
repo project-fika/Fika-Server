@@ -38,6 +38,7 @@ export class FikaConfig {
             sharedQuestProgression: false,
             canEditRaidSettings: true,
             enableTransits: true,
+            anyoneCanStartRaid: false
         },
         server: {
             SPT: {
