@@ -37,13 +37,13 @@ export class FikaHeadlessService {
     public async startHeadlessRaid(requesterSessionID: string, info: IStartHeadlessRequest): Promise<string | null> {
         const headlessClientId = this.getAvailableHeadlessClient();
 
-        if (headlessClientId === null) {
+        if (!headlessClientId) {
             return null;
         }
 
         const headlessClient = this.headlessClients.get(headlessClientId);
 
-        if (headlessClient === null || headlessClient?.state != EHeadlessStatus.READY) {
+        if (!headlessClient || headlessClient?.state != EHeadlessStatus.READY) {
             return null;
         }
 
@@ -75,7 +75,7 @@ export class FikaHeadlessService {
     public async sendJoinMessageToRequester(headlessClientId: string): Promise<void> {
         const headlessClient = this.headlessClients.get(headlessClientId);
 
-        if (headlessClient === null || headlessClient?.state === EHeadlessStatus.READY) {
+        if (!headlessClient || headlessClient?.state === EHeadlessStatus.READY) {
             return null;
         }
 
@@ -92,7 +92,7 @@ export class FikaHeadlessService {
     public endHeadlessRaid(headlessClientId: string): void {
         const headlessClient = this.headlessClients.get(headlessClientId);
 
-        if (headlessClient === null) {
+        if (!headlessClient) {
             return;
         }
 
