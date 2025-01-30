@@ -26,7 +26,7 @@ export interface ISptProfile {
     friends: string[];
     customisationUnlocks: ICustomisationStorage[];
 }
-export declare class ITraderPurchaseData {
+export interface ITraderPurchaseData {
     count: number;
     purchaseTimestamp: number;
 }

@@ -1,6 +1,6 @@
 export interface IFilterPlateModsForSlotByLevelResult {
     result: Result;
-    plateModTpls: string[];
+    plateModTpls?: string[];
 }
 export declare enum Result {
     UNKNOWN_FAILURE = -1,

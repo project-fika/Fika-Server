@@ -24,6 +24,7 @@ import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
+import { CreateProfileService } from "@spt/services/CreateProfileService";
 import { CustomLocationWaveService } from "@spt/services/CustomLocationWaveService";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { GiftService } from "@spt/services/GiftService";
@@ -53,6 +54,7 @@ export declare class GameController {
     protected profileFixerService: ProfileFixerService;
     protected localisationService: LocalisationService;
     protected postDbLoadService: PostDbLoadService;
+    protected createProfileService: CreateProfileService;
     protected customLocationWaveService: CustomLocationWaveService;
     protected openZoneService: OpenZoneService;
     protected seasonalEventService: SeasonalEventService;
@@ -68,12 +70,13 @@ export declare class GameController {
     protected ragfairConfig: IRagfairConfig;
     protected hideoutConfig: IHideoutConfig;
     protected botConfig: IBotConfig;
-    constructor(logger: ILogger, databaseService: DatabaseService, timeUtil: TimeUtil, hashUtil: HashUtil, preSptModLoader: PreSptModLoader, httpServerHelper: HttpServerHelper, inventoryHelper: InventoryHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, postDbLoadService: PostDbLoadService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, profileActivityService: ProfileActivityService, applicationContext: ApplicationContext, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, databaseService: DatabaseService, timeUtil: TimeUtil, hashUtil: HashUtil, preSptModLoader: PreSptModLoader, httpServerHelper: HttpServerHelper, inventoryHelper: InventoryHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, postDbLoadService: PostDbLoadService, createProfileService: CreateProfileService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, profileActivityService: ProfileActivityService, applicationContext: ApplicationContext, configServer: ConfigServer, cloner: ICloner);
     load(): void;
     /**
      * Handle client/game/start
      */
     gameStart(_url: string, _info: IEmptyRequestData, sessionID: string, startTimeStampMS: number): void;
+    protected migrate310xProfile(fullProfile: ISptProfile): void;
     protected migrate39xProfile(fullProfile: ISptProfile): void;
     /**
      * Handle client/game/config
@@ -118,6 +121,11 @@ export declare class GameController {
      * @param pmcProfile Profile to add gifts to
      */
     protected sendPraporGiftsToNewProfiles(pmcProfile: IPmcData): void;
+    /**
+     * Mechanic sends players a measuring tape on profile start for some reason
+     * @param pmcProfile Player profile
+     */
+    protected sendMechanicGiftsToNewProfile(pmcProfile: IPmcData): void;
     /**
      * Get a list of installed mods and save their details to the profile being used
      * @param fullProfile Profile to add mod details to

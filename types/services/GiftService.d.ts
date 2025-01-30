@@ -60,4 +60,11 @@ export declare class GiftService {
      * @param day What day to give gift for
      */
     sendPraporStartingGift(sessionId: string, day: number): void;
+    /**
+     * Send player a gift with silent recieved check
+     * @param giftId Id of gift to send
+     * @param sessionId Session id of player to send to
+     * @param giftCount OPTIONAL How many to send
+     */
+    sendGiftWithSilentReceivedCheck(giftId: string, sessionId: string, giftCount?: number): void;
 }

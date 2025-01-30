@@ -35,7 +35,7 @@ export declare class RagfairServer {
      * @param offerId
      */
     hideOffer(offerId: string): void;
-    getOffer(offerID: string): IRagfairOffer;
+    getOffer(offerID: string): IRagfairOffer | undefined;
     getOffers(): IRagfairOffer[];
     removeOfferStack(offerID: string, amount: number): void;
     doesOfferExist(offerId: string): boolean;

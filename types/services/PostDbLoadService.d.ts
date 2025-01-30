@@ -14,9 +14,11 @@ import { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { OpenZoneService } from "@spt/services/OpenZoneService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
+import { HashUtil } from "@spt/utils/HashUtil";
 import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class PostDbLoadService {
     protected logger: ILogger;
+    protected hashUtil: HashUtil;
     protected databaseService: DatabaseService;
     protected localisationService: LocalisationService;
     protected customLocationWaveService: CustomLocationWaveService;
@@ -33,8 +35,10 @@ export declare class PostDbLoadService {
     protected lootConfig: ILootConfig;
     protected botConfig: IBotConfig;
     protected itemConfig: IItemConfig;
-    constructor(logger: ILogger, databaseService: DatabaseService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseService: DatabaseService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, configServer: ConfigServer, cloner: ICloner);
     performPostDbLoadActions(): void;
+    protected unlockHideoutLootCrateCrafts(): void;
+    protected cloneExistingCraftsAndAddNew(): void;
     protected adjustMinReserveRaiderSpawnChance(): void;
     protected addCustomLooseLootPositions(): void;
     /**

@@ -269,8 +269,8 @@ export declare class InventoryHelper {
 }
 declare namespace InventoryHelper {
     interface InventoryItemHash {
-        byItemId: Record<string, IItem>;
-        byParentId: Record<string, IItem[]>;
+        byItemId: Map<string, IItem>;
+        byParentId: Map<string, IItem[]>;
     }
 }
 export {};

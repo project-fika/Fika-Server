@@ -1,7 +1,7 @@
 import { ContainerHelper } from "@spt/helpers/ContainerHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
-import { IContainerMinMax, IStaticAmmoDetails, IStaticContainer, IStaticContainerData, IStaticForcedProps, IStaticLootDetails } from "@spt/models/eft/common/ILocation";
+import { IStaticAmmoDetails, IStaticContainer, IStaticContainerData, IStaticForcedProps, IStaticLootDetails } from "@spt/models/eft/common/ILocation";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { ILooseLoot, ISpawnpointTemplate, ISpawnpointsForced } from "@spt/models/eft/common/ILooseLoot";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
@@ -76,7 +76,7 @@ export declare class LocationLootGenerator {
      * @param containersGroups Container group values
      * @returns dictionary keyed by groupId
      */
-    protected getGroupIdToContainerMappings(staticContainerGroupData: IStaticContainer | Record<string, IContainerMinMax>, staticContainersOnMap: IStaticContainerData[]): Record<string, IContainerGroupCount>;
+    protected getGroupIdToContainerMappings(staticContainerGroupData: IStaticContainer, staticContainersOnMap: IStaticContainerData[]): Record<string, IContainerGroupCount>;
     /**
      * Choose loot to put into a static container based on weighting
      * Handle forced items + seasonal item removal when not in season

@@ -162,12 +162,12 @@ export declare class RagfairOfferHelper {
     protected deleteOfferById(sessionID: string, offerId: string): void;
     /**
      * Complete the selling of players' offer
-     * @param sessionID Session id
+     * @param offerOwnerSessionId Session id
      * @param offer Sold offer details
      * @param boughtAmount Amount item was purchased for
      * @returns IItemEventRouterResponse
      */
-    completeOffer(sessionID: string, offer: IRagfairOffer, boughtAmount: number): IItemEventRouterResponse;
+    completeOffer(offerOwnerSessionId: string, offer: IRagfairOffer, boughtAmount: number): IItemEventRouterResponse;
     /**
      * Get a localised message for when players offer has sold on flea
      * @param itemTpl Item sold

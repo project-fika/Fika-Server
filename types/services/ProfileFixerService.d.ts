@@ -2,7 +2,7 @@ import { HideoutHelper } from "@spt/helpers/HideoutHelper";
 import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { QuestRewardHelper } from "@spt/helpers/QuestRewardHelper";
+import { RewardHelper } from "@spt/helpers/RewardHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IBonus, IHideoutSlot } from "@spt/models/eft/common/tables/IBotBase";
@@ -39,10 +39,10 @@ export declare class ProfileFixerService {
     protected hashUtil: HashUtil;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
-    protected questRewardHelper: QuestRewardHelper;
+    protected rewardHelper: RewardHelper;
     protected coreConfig: ICoreConfig;
     protected ragfairConfig: IRagfairConfig;
-    constructor(logger: ILogger, watermark: Watermark, databaseService: DatabaseService, hideoutHelper: HideoutHelper, inventoryHelper: InventoryHelper, traderHelper: TraderHelper, profileHelper: ProfileHelper, itemHelper: ItemHelper, localisationService: LocalisationService, timeUtil: TimeUtil, jsonUtil: JsonUtil, hashUtil: HashUtil, configServer: ConfigServer, cloner: ICloner, questRewardHelper: QuestRewardHelper);
+    constructor(logger: ILogger, watermark: Watermark, databaseService: DatabaseService, hideoutHelper: HideoutHelper, inventoryHelper: InventoryHelper, traderHelper: TraderHelper, profileHelper: ProfileHelper, itemHelper: ItemHelper, localisationService: LocalisationService, timeUtil: TimeUtil, jsonUtil: JsonUtil, hashUtil: HashUtil, configServer: ConfigServer, cloner: ICloner, rewardHelper: RewardHelper);
     /**
      * Find issues in the pmc profile data that may cause issues and fix them
      * @param pmcProfile profile to check and fix

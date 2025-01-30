@@ -211,12 +211,6 @@ export declare class ProfileHelper {
      */
     getBonusValueFromProfile(pmcProfile: IPmcData, desiredBonus: BonusType): number;
     playerIsFleaBanned(pmcProfile: IPmcData): boolean;
-    /**
-     * Add an achievement to player profile + check for and add any hideout customisation unlocks to profile
-     * @param fullProfile Profile to add achievement to
-     * @param achievementId Id of achievement to add
-     */
-    addAchievementToProfile(fullProfile: ISptProfile, achievementId: string): void;
     hasAccessToRepeatableFreeRefreshSystem(pmcProfile: IPmcData): boolean;
     /**
      * Find a profiles "Pockets" item and replace its tpl with passed in value

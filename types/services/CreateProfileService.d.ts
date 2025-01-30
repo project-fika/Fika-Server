@@ -57,8 +57,8 @@ export declare class CreateProfileService {
      * DOES NOT check that stash exists
      * @param pmcData Profile to check
      */
-    protected addMissingInternalContainersToProfile(pmcData: IPmcData): void;
-    protected addCustomisationUnlocksToProfile(fullProfile: ISptProfile): void;
+    addMissingInternalContainersToProfile(pmcData: IPmcData): void;
+    addCustomisationUnlocksToProfile(fullProfile: ISptProfile): void;
     protected getGameEdition(profile: ISptProfile): string;
     /**
      * Iterate over all quests in player profile, inspect rewards for the quests current state (accepted/completed)

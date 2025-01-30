@@ -16,6 +16,7 @@ export declare class SaveServer {
     protected configServer: ConfigServer;
     protected profileFilepath: string;
     protected profiles: Map<string, ISptProfile>;
+    protected profilesBeingSaved: Set<string>;
     protected onBeforeSaveCallbacks: Map<string, (profile: ISptProfile) => Promise<ISptProfile>>;
     protected saveSHA1: {
         [key: string]: string;

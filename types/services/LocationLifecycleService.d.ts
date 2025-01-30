@@ -38,6 +38,7 @@ import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 import type { ICloner } from "@spt/utils/cloners/ICloner";
+import { RewardHelper } from "@spt/helpers/RewardHelper";
 export declare class LocationLifecycleService {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -49,6 +50,7 @@ export declare class LocationLifecycleService {
     protected inRaidHelper: InRaidHelper;
     protected healthHelper: HealthHelper;
     protected questHelper: QuestHelper;
+    protected rewardHelper: RewardHelper;
     protected matchBotDetailsCacheService: MatchBotDetailsCacheService;
     protected pmcChatResponseService: PmcChatResponseService;
     protected playerScavGenerator: PlayerScavGenerator;
@@ -71,7 +73,7 @@ export declare class LocationLifecycleService {
     protected hideoutConfig: IHideoutConfig;
     protected locationConfig: ILocationConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, saveServer: SaveServer, timeUtil: TimeUtil, randomUtil: RandomUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, inRaidHelper: InRaidHelper, healthHelper: HealthHelper, questHelper: QuestHelper, matchBotDetailsCacheService: MatchBotDetailsCacheService, pmcChatResponseService: PmcChatResponseService, playerScavGenerator: PlayerScavGenerator, traderHelper: TraderHelper, localisationService: LocalisationService, insuranceService: InsuranceService, botLootCacheService: BotLootCacheService, configServer: ConfigServer, botGenerationCacheService: BotGenerationCacheService, mailSendService: MailSendService, raidTimeAdjustmentService: RaidTimeAdjustmentService, botNameService: BotNameService, lootGenerator: LootGenerator, applicationContext: ApplicationContext, locationLootGenerator: LocationLootGenerator, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, saveServer: SaveServer, timeUtil: TimeUtil, randomUtil: RandomUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, inRaidHelper: InRaidHelper, healthHelper: HealthHelper, questHelper: QuestHelper, rewardHelper: RewardHelper, matchBotDetailsCacheService: MatchBotDetailsCacheService, pmcChatResponseService: PmcChatResponseService, playerScavGenerator: PlayerScavGenerator, traderHelper: TraderHelper, localisationService: LocalisationService, insuranceService: InsuranceService, botLootCacheService: BotLootCacheService, configServer: ConfigServer, botGenerationCacheService: BotGenerationCacheService, mailSendService: MailSendService, raidTimeAdjustmentService: RaidTimeAdjustmentService, botNameService: BotNameService, lootGenerator: LootGenerator, applicationContext: ApplicationContext, locationLootGenerator: LocationLootGenerator, cloner: ICloner);
     /** Handle client/match/local/start */
     startLocalRaid(sessionId: string, request: IStartLocalRaidRequestData): IStartLocalRaidResponseData;
     /**
@@ -143,11 +145,11 @@ export declare class LocationLifecycleService {
      */
     protected handlePostRaidPmc(sessionId: string, fullProfile: ISptProfile, scavProfile: IPmcData, isDead: boolean, isSurvived: boolean, isTransfer: boolean, request: IEndLocalRaidRequestData, locationName: string): void;
     /**
-     * Check for and add any customisations found via the gained achievements this raid
+     * Check for and add any rewards found via the gained achievements this raid
      * @param fullProfile Profile to add customisations to
-     * @param postRaidAchievements Achievements gained this raid
+     * @param postRaidAchievements All profile achievements at the end of the raid
      */
-    protected processAchievementCustomisationRewards(fullProfile: ISptProfile, postRaidAchievements: Record<string, number>): void;
+    protected processAchievementRewards(fullProfile: ISptProfile, postRaidAchievements: Record<string, number>): void;
     /**
      * On death Quest items are lost, the client does not clean up completed conditions for picking up those quest items,
      * If the completed conditions remain in the profile the player is unable to pick the item up again

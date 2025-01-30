@@ -28,11 +28,11 @@ export declare class CustomizationCallbacks {
     /**
      * Handle CustomizationBuy event
      */
-    buyClothing(pmcData: IPmcData, body: IBuyClothingRequestData, sessionID: string): IItemEventRouterResponse;
+    buyCustomisation(pmcData: IPmcData, body: IBuyClothingRequestData, sessionID: string): IItemEventRouterResponse;
     /** Handle client/hideout/customization/offer/list */
     getHideoutCustomisation(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IHideoutCustomisation>;
     /** Handle client/customization/storage */
     getStorage(url: string, request: IEmptyRequestData, sessionID: string): IGetBodyResponseData<ICustomisationStorage[]>;
     /** Handle CustomizationSet */
-    setClothing(pmcData: IPmcData, request: ICustomizationSetRequest, sessionID: string): IItemEventRouterResponse;
+    setCustomisation(pmcData: IPmcData, request: ICustomizationSetRequest, sessionID: string): IItemEventRouterResponse;
 }

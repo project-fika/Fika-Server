@@ -183,7 +183,7 @@ export declare class InventoryController {
      * @param request Response request
      * @returns tplId
      */
-    protected getExaminedItemTpl(request: IInventoryExamineRequestData): string;
+    protected getExaminedItemTpl(sessionId: string, request: IInventoryExamineRequestData): string | null;
     readEncyclopedia(pmcData: IPmcData, body: IInventoryReadEncyclopediaRequestData, sessionID: string): IItemEventRouterResponse;
     /**
      * Handle ApplyInventoryChanges

@@ -2,6 +2,7 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { QuestConditionHelper } from "@spt/helpers/QuestConditionHelper";
 import { QuestRewardHelper } from "@spt/helpers/QuestRewardHelper";
+import { RewardHelper } from "@spt/helpers/RewardHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { Common, IQuestStatus } from "@spt/models/eft/common/tables/IBotBase";
@@ -36,6 +37,7 @@ export declare class QuestHelper {
     protected localeService: LocaleService;
     protected profileHelper: ProfileHelper;
     protected questRewardHelper: QuestRewardHelper;
+    protected rewardHelper: RewardHelper;
     protected localisationService: LocalisationService;
     protected seasonalEventService: SeasonalEventService;
     protected traderHelper: TraderHelper;
@@ -44,7 +46,7 @@ export declare class QuestHelper {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, hashUtil: HashUtil, itemHelper: ItemHelper, databaseService: DatabaseService, questConditionHelper: QuestConditionHelper, eventOutputHolder: EventOutputHolder, localeService: LocaleService, profileHelper: ProfileHelper, questRewardHelper: QuestRewardHelper, localisationService: LocalisationService, seasonalEventService: SeasonalEventService, traderHelper: TraderHelper, mailSendService: MailSendService, playerService: PlayerService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, timeUtil: TimeUtil, hashUtil: HashUtil, itemHelper: ItemHelper, databaseService: DatabaseService, questConditionHelper: QuestConditionHelper, eventOutputHolder: EventOutputHolder, localeService: LocaleService, profileHelper: ProfileHelper, questRewardHelper: QuestRewardHelper, rewardHelper: RewardHelper, localisationService: LocalisationService, seasonalEventService: SeasonalEventService, traderHelper: TraderHelper, mailSendService: MailSendService, playerService: PlayerService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Get status of a quest in player profile by its id
      * @param pmcData Profile to search

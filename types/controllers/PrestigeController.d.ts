@@ -50,6 +50,6 @@ export declare class PrestigeController {
     /**
      * Handle /client/prestige/obtain
      */
-    obtainPrestige(sessionId: string, request: IObtainPrestigeRequest[]): void;
+    obtainPrestige(sessionId: string, request: IObtainPrestigeRequest[]): Promise<void>;
     protected addPrestigeRewardsToProfile(sessionId: string, newProfile: ISptProfile, rewards: IReward[]): void;
 }

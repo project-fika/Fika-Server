@@ -3,6 +3,6 @@ export interface IAddItemDirectRequest {
     /** Item and child mods to add to player inventory */
     itemWithModsToAdd: IItem[];
     foundInRaid: boolean;
-    callback: (buyCount: number) => void;
+    callback?: (buyCount: number) => void;
     useSortingTable: boolean;
 }

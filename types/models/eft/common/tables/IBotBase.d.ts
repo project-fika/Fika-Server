@@ -29,6 +29,7 @@ export interface IBotBase {
     RagfairInfo: IRagfairInfo;
     /** Achievement id and timestamp */
     Achievements: Record<string, number>;
+    Prestige: Record<string, number>;
     RepeatableQuests: IPmcDataRepeatableQuest[];
     Bonuses: IBonus[];
     Notes: INotes;
@@ -420,6 +421,8 @@ export interface ITraderInfo {
 export interface IRagfairInfo {
     rating: number;
     isRatingGrowing: boolean;
+    sellSum: number;
+    notSellSum: number;
     offers: IRagfairOffer[];
 }
 export interface IBonus {
