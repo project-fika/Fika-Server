@@ -200,7 +200,7 @@ export class FikaMatchService {
             locationData: locationData,
             status: EFikaMatchStatus.LOADING,
             timeout: 0,
-            players: new Map(),
+            players: new Map<string, IFikaPlayer>(),
             gameVersion: data.gameVersion,
             fikaVersion: data.fikaVersion,
             side: data.side,
@@ -315,6 +315,10 @@ export class FikaMatchService {
         match.players.set(playerId, data);
 
         this.fikaInsuranceService.addPlayerToMatchId(matchId, playerId);
+
+        if (this.fikaHeadlessService.isHeadlessClient(matchId)) {
+            this.fikaHeadlessService.addPlayerToHeadlessMatch(matchId, playerId);
+        }
 
         this.fikaPresenceService.updatePlayerPresence(playerId, this.fikaPresenceService.generateSetPresence(EFikaPlayerPresences.IN_RAID, this.fikaPresenceService.generateRaidPresence(match.locationData.Id, match.side, match.time)));
     }

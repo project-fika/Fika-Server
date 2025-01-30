@@ -38,7 +38,7 @@ export class FikaConfig {
             sharedQuestProgression: false,
             canEditRaidSettings: true,
             enableTransits: true,
-            anyoneCanStartRaid: false
+            anyoneCanStartRaid: false,
         },
         server: {
             SPT: {
@@ -70,6 +70,7 @@ export class FikaConfig {
                 generate: true,
                 forceIp: "",
             },
+            setLevelToAverageOfLobby: true,
         },
         background: {
             enable: true,
