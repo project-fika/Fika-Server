@@ -2,7 +2,6 @@ import { DependencyContainer, inject, injectable } from "tsyringe";
 
 import { ApplicationContext } from "@spt/context/ApplicationContext";
 import { ContextVariableType } from "@spt/context/ContextVariableType";
-import { LocationController } from "@spt/controllers/LocationController";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IEndLocalRaidRequestData, ILocationTransit } from "@spt/models/eft/match/IEndLocalRaidRequestData";
@@ -13,20 +12,19 @@ import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheServi
 import { BotLootCacheService } from "@spt/services/BotLootCacheService";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
-import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 
 import { TransitionType } from "@spt/models/enums/TransitionType";
 import { Override } from "../../di/Override";
+import { FikaInsuranceService } from "../../services/FikaInsuranceService";
 import { FikaMatchService } from "../../services/FikaMatchService";
 
 @injectable()
 export class LocationLifecycleServiceOverride extends Override {
     constructor(
+        @inject("FikaInsuranceService") protected fikaInsuranceService: FikaInsuranceService,
         @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
-        @inject("LocationController") protected locationController: LocationController,
-        @inject("HttpResponseUtil") protected httpResponseUtil: HttpResponseUtil,
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("LocationLifecycleService") protected locationLifecycleService: LocationLifecycleService,
         @inject("BotGenerationCacheService") protected botGenerationCacheService: BotGenerationCacheService,
@@ -42,6 +40,8 @@ export class LocationLifecycleServiceOverride extends Override {
         container.afterResolution(
             "LocationLifecycleService",
             (_t, result: LocationLifecycleService) => {
+                const originalEndLocalRaid = result.endLocalRaid;
+
                 result.startLocalRaid = (sessionId: string, request: IStartLocalRaidRequestData): IStartLocalRaidResponseData => {
                     let locationLoot: ILocationBase;
                     const matchId = this.fikaMatchService.getMatchIdByProfile(sessionId);
@@ -127,9 +127,11 @@ export class LocationLifecycleServiceOverride extends Override {
                         }
                     }
 
+                    this.fikaInsuranceService.onEndLocalRaidRequest(sessionId, this.fikaInsuranceService.getMatchId(sessionId), request);
+
                     // Execute the original method if not a spectator
                     if (!isSpectator) {
-                        LocationLifecycleService.prototype.endLocalRaid.call(result, sessionId, request);
+                        originalEndLocalRaid(sessionId, request);
                     }
                 };
             },

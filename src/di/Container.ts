@@ -6,7 +6,6 @@ import { Overrider } from "../overrides/Overrider";
 import { DialogueCallbacksOverride } from "../overrides/callbacks/DialogueCallbacks";
 import { AchievementControllerOverride } from "../overrides/controllers/AchievementController";
 import { DialogueControllerOverride } from "../overrides/controllers/DialogueController";
-import { MatchControllerOverride } from "../overrides/controllers/MatchController";
 import { ProfileControllerOverride } from "../overrides/controllers/ProfileController";
 // import { LocalesOverride } from "../overrides/other/Locales";
 import { LocationLifecycleServiceOverride } from "../overrides/services/LocationLifecycleService";
@@ -86,7 +85,6 @@ export class Container {
         // container.registerType("Overrides", "LocalesOverride");
         container.registerType("Overrides", "AchievementControllerOverride");
         container.registerType("Overrides", "LocationLifecycleServiceOverride");
-        container.registerType("Overrides", "MatchControllerOverride");
 
         container.registerType("StaticRoutes", "FikaClientStaticRouter");
         container.registerType("StaticRoutes", "FikaLocationStaticRouter");
@@ -116,7 +114,6 @@ export class Container {
         container.register<Overrider>("Overrider", Overrider, { lifecycle: Lifecycle.Singleton });
         container.register<AchievementControllerOverride>("AchievementControllerOverride", AchievementControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<LocationLifecycleServiceOverride>("LocationLifecycleServiceOverride", LocationLifecycleServiceOverride, { lifecycle: Lifecycle.Singleton });
-        container.register<MatchControllerOverride>("MatchControllerOverride", MatchControllerOverride, { lifecycle: Lifecycle.Singleton });
     }
 
     private static registerServices(container: DependencyContainer): void {
