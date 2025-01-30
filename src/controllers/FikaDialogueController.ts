@@ -29,7 +29,7 @@ export class FikaDialogueController {
         @inject("ConfigServer") protected configServer: ConfigServer,
         @inject("FikaFriendRequestsHelper") protected fikaFriendRequestsHelper: FikaFriendRequestsHelper,
         @inject("FikaPlayerRelationsHelper") protected fikaPlayerRelationsHelper: FikaPlayerRelationsHelper,
-        @inject("DialogueController") protected dialogController: DialogueController,
+        @inject("DialogueController") protected dialogueController: DialogueController,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("HashUtil") protected hashUtil: HashUtil,
         @inject("TimeUtil") protected timeUtil: TimeUtil,
@@ -40,9 +40,7 @@ export class FikaDialogueController {
     }
 
     public getFriendList(sessionID: string): IGetFriendListDataResponse {
-        // Cast to any to get rid of protected error
-        const dialogueChatBots: IDialogueChatBot[] = (this.dialogController as any).dialogueChatBots;
-        let botsAndFriends = dialogueChatBots.map((v) => v.getChatBot());
+        let botsAndFriends = (this.dialogueController as any).getActiveChatBots();
 
         const friendsIds = this.fikaPlayerRelationsHelper.getFriendsList(sessionID);
 
@@ -78,7 +76,7 @@ export class FikaDialogueController {
         const profiles = this.saveServer.getProfiles();
         if (!(sessionID in profiles) || !(request.dialogId in profiles)) {
             // if it's not to another player let SPT handle it
-            return DialogueController.prototype.sendMessage.call(this.dialogController, sessionID, request);
+            return DialogueController.prototype.sendMessage.call(this.dialogueController, sessionID, request);
         }
 
         const receiverProfile = profiles[request.dialogId];
