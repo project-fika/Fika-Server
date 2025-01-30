@@ -14,7 +14,7 @@ import { FikaHeadlessProfileService } from "./FikaHeadlessProfileService";
 
 @injectable()
 export class FikaHeadlessService {
-    private headlessClients: Record<string, IHeadlessClientInfo> = {};
+    private headlessClients: Map<string, IHeadlessClientInfo> = new Map();
 
     constructor(
         @inject("FikaHeadlessProfileService") protected fikaHeadlessProfileService: FikaHeadlessProfileService,
@@ -23,11 +23,11 @@ export class FikaHeadlessService {
     ) {}
 
     public addHeadlessClient(sessionID: string, webSocket: SPTWebSocket): void {
-        this.headlessClients[sessionID] = { webSocket: webSocket, state: EHeadlessStatus.READY };
+        this.headlessClients.set(sessionID, { webSocket: webSocket, state: EHeadlessStatus.READY });
     }
 
     public removeHeadlessClient(sessionID: string): void {
-        delete this.headlessClients[sessionID];
+        this.headlessClients.delete(sessionID);
     }
 
     /** Begin setting up a raid for a headless client
@@ -41,7 +41,7 @@ export class FikaHeadlessService {
             return null;
         }
 
-        const headlessClient = this.headlessClients[headlessClientId];
+        const headlessClient = this.headlessClients.get(headlessClientId);
 
         if (headlessClient === null || headlessClient?.state != EHeadlessStatus.READY) {
             return null;
@@ -73,7 +73,7 @@ export class FikaHeadlessService {
 
     /** Sends a join message to the requester of a headless client */
     public async sendJoinMessageToRequester(headlessClientId: string): Promise<void> {
-        const headlessClient = this.headlessClients[headlessClientId];
+        const headlessClient = this.headlessClients.get(headlessClientId);
 
         if (headlessClient === null || headlessClient?.state === EHeadlessStatus.READY) {
             return null;
@@ -90,7 +90,7 @@ export class FikaHeadlessService {
 
     /** End the raid for the specified headless client, sets the state back to READY so that he can be requested to host again. */
     public endHeadlessRaid(headlessClientId: string): void {
-        const headlessClient = this.headlessClients[headlessClientId];
+        const headlessClient = this.headlessClients.get(headlessClientId);
 
         if (headlessClient === null) {
             return;
@@ -111,7 +111,7 @@ export class FikaHeadlessService {
      * @returns Returns true if one is available, returns false if none are available.
      */
     public HeadlessClientsAvailable(): boolean {
-        return Object.values(this.headlessClients).some((client) => client.state === EHeadlessStatus.READY);
+        return Array.from(this.headlessClients.values()).some((client) => client.state === EHeadlessStatus.READY);
     }
 
     /**
@@ -120,8 +120,8 @@ export class FikaHeadlessService {
      * @returns Returns the SessionID of the headless client if one is available, if not returns null.
      */
     public getAvailableHeadlessClient(): string | null {
-        for (const key in this.headlessClients) {
-            if (this.headlessClients[key].state === EHeadlessStatus.READY) {
+        for (const [key, value] of this.headlessClients) {
+            if (value.state === EHeadlessStatus.READY) {
                 return key;
             }
         }
