@@ -1,16 +1,13 @@
 import { inject, injectable } from "tsyringe";
-import { WebSocket } from "ws";
 
 import { InraidController } from "@spt/controllers/InraidController";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlayerRequestData";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 
 import { EFikaMatchEndSessionMessage } from "../models/enums/EFikaMatchEndSessionMessages";
 import { EFikaNotifications } from "../models/enums/EFikaNotifications";
-import { EHeadlessStatus } from "../models/enums/EHeadlessStatus";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 import { IFikaRaidCreateResponse } from "../models/fika/routes/raid/create/IFikaRaidCreateResponse";

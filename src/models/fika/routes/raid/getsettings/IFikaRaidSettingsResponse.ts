@@ -5,5 +5,5 @@ export interface IFikaRaidSettingsResponse {
     metabolismDisabled: boolean;
     playersSpawnPlace: PlayersSpawnPlace;
     hourOfDay: number;
-    timeFlowType: TimeFlowType
+    timeFlowType: TimeFlowType;
 }

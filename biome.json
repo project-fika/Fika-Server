@@ -38,12 +38,6 @@
         }
     },
     "files": {
-        "ignore": [
-            "**/node_modules",
-            "dist",
-            "types",
-            "build.mjs",
-            "**/package-lock.json"
-        ]
+        "ignore": ["**/node_modules", "dist", "types", "build.mjs", "**/package-lock.json"]
     }
 }
