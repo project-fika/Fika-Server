@@ -16,7 +16,6 @@ import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaPresenceService } from "../services/FikaPresenceService";
 import { FikaFriendRequestsCacheService } from "../services/cache/FikaFriendRequestsCacheService";
 import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
-import { FikaHeadlessRaidService } from "../services/headless/FikaHeadlessRaidService";
 
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
 import { FikaFriendRequestsHelper } from "../helpers/FikaFriendRequestsHelper";
@@ -45,7 +44,6 @@ import { FikaRaidStaticRouter } from "../routers/static/FikaRaidStaticRouter";
 import { FikaSendItemStaticRouter } from "../routers/static/FikaSendItemStaticRouter";
 import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter";
 
-import { FikaHeadlessRaidWebSocket } from "../websockets/FikaHeadlessRaidWebSocket";
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
 
 import { Fika } from "../Fika";
@@ -53,7 +51,10 @@ import { FikaNotificationCallbacks } from "../callbacks/FikaNotificationCallback
 import { FikaNotificationStaticRouter } from "../routers/static/FikaNotificationStaticRouter";
 import { FikaClientService } from "../services/FikaClientService";
 import { FikaHeadlessProfileService } from "../services/headless/FikaHeadlessProfileService";
+import { FikaHeadlessService } from "../services/headless/FikaHeadlessService";
 import { FikaServerTools } from "../utils/FikaServerTools";
+import { FikaHeadlessClientWebSocket } from "../websockets/FikaHeadlessClientWebSocket";
+import { FikaHeadlessRequesterWebSocket } from "../websockets/FikaHeadlessRequesterWebSocket";
 
 export class Container {
     public static register(container: DependencyContainer): void {
@@ -97,8 +98,9 @@ export class Container {
 
         container.registerType("IERouters", "FikaItemEventRouter");
 
-        container.registerType("WebSocketConnectionHandler", "FikaHeadlessRaidWebSocket");
         container.registerType("WebSocketConnectionHandler", "FikaNotificationWebSocket");
+        container.registerType("WebSocketConnectionHandler", "FikaHeadlessClientWebSocket");
+        container.registerType("WebSocketConnectionHandler", "FikaHeadlessRequesterWebSocket");
     }
 
     private static registerUtils(container: DependencyContainer): void {
@@ -122,10 +124,10 @@ export class Container {
         container.register<FikaMatchService>("FikaMatchService", FikaMatchService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaFriendRequestsCacheService>("FikaFriendRequestsCacheService", FikaFriendRequestsCacheService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaPlayerRelationsCacheService>("FikaPlayerRelationsCacheService", FikaPlayerRelationsCacheService, { lifecycle: Lifecycle.Singleton });
-        container.register<FikaHeadlessRaidService>("FikaHeadlessRaidService", FikaHeadlessRaidService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaHeadlessProfileService>("FikaHeadlessProfileService", FikaHeadlessProfileService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaInsuranceService>("FikaInsuranceService", FikaInsuranceService, { lifecycle: Lifecycle.Singleton });
         container.register<FikaPresenceService>("FikaPresenceService", FikaPresenceService, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaHeadlessService>("FikaHeadlessService", FikaHeadlessService, { lifecycle: Lifecycle.Singleton });
     }
 
     private static registerHelpers(container: DependencyContainer): void {
@@ -166,7 +168,8 @@ export class Container {
     }
 
     private static registerWebSockets(container: DependencyContainer): void {
-        container.register<FikaHeadlessRaidWebSocket>("FikaHeadlessRaidWebSocket", FikaHeadlessRaidWebSocket, { lifecycle: Lifecycle.Singleton });
         container.register<FikaNotificationWebSocket>("FikaNotificationWebSocket", FikaNotificationWebSocket, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaHeadlessClientWebSocket>("FikaHeadlessClientWebSocket", FikaHeadlessClientWebSocket, { lifecycle: Lifecycle.Singleton });
+        container.register<FikaHeadlessRequesterWebSocket>("FikaHeadlessRequesterWebSocket", FikaHeadlessRequesterWebSocket, { lifecycle: Lifecycle.Singleton });
     }
 }

@@ -41,8 +41,8 @@ export class FikaUpdateController {
      * Handle /fika/update/setstatus
      * @param request
      */
-    public handleSetStatus(request: IFikaUpdateSetStatusRequestData): void {
-        this.fikaMatchService.setMatchStatus(request.serverId, request.status);
+    public async handleSetStatus(request: IFikaUpdateSetStatusRequestData): Promise<void> {
+        await this.fikaMatchService.setMatchStatus(request.serverId, request.status);
     }
 
     /**

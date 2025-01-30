@@ -8,7 +8,6 @@ import { FikaRaidCallbacks } from "../../callbacks/FikaRaidCallbacks";
 import { IFikaRaidServerIdRequestData } from "../../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 import { IFikaRaidCreateRequestData } from "../../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 import { IStartHeadlessRequest } from "../../models/fika/routes/raid/headless/IStartHeadlessRequest";
-import { IStatusHeadlessRequest } from "../../models/fika/routes/raid/headless/IStatusHeadlessRequest";
 import { IFikaRaidJoinRequestData } from "../../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
 import { IFikaRaidLeaveRequestData } from "../../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 
@@ -33,9 +32,6 @@ export class FikaRaidStaticRouter extends StaticRouter {
             }),
             new RouteAction("/fika/raid/headless/start", async (url: string, info: IStartHeadlessRequest, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaRaidCallbacks.handleRaidStartHeadless(url, info, sessionID);
-            }),
-            new RouteAction("/fika/raid/headless/status", async (url: string, info: IStatusHeadlessRequest, sessionID: string, _output: string): Promise<string> => {
-                return this.fikaRaidCallbacks.handleRaidStatusHeadless(url, info, sessionID);
             }),
             new RouteAction("/fika/raid/headless/getstatus", async (url: string, info: any, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaRaidCallbacks.handleRaidGetStatusHeadless(url, info, sessionID);

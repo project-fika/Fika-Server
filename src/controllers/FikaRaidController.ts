@@ -19,15 +19,12 @@ import { IFikaRaidSettingsResponse } from "../models/fika/routes/raid/getsetting
 import { IGetStatusHeadlessResponse } from "../models/fika/routes/raid/headless/IGetStatusHeadlessResponse";
 import { IStartHeadlessRequest } from "../models/fika/routes/raid/headless/IStartHeadlessRequest";
 import { IStartHeadlessResponse } from "../models/fika/routes/raid/headless/IStartHeadlessResponse";
-import { IStatusHeadlessRequest } from "../models/fika/routes/raid/headless/IStatusHeadlessRequest";
-import { IStatusHeadlessResponse } from "../models/fika/routes/raid/headless/IStatusHeadlessResponse";
 import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
 import { IFikaRaidJoinResponse } from "../models/fika/routes/raid/join/IFikaRaidJoinResponse";
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 import { IStartRaidNotification } from "../models/fika/websocket/notifications/IStartRaidNotification";
 import { FikaMatchService } from "../services/FikaMatchService";
-import { FikaHeadlessRaidService } from "../services/headless/FikaHeadlessRaidService";
-import { FikaHeadlessRaidWebSocket } from "../websockets/FikaHeadlessRaidWebSocket";
+import { FikaHeadlessService } from "../services/headless/FikaHeadlessService";
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
 
 @injectable()
@@ -35,8 +32,7 @@ export class FikaRaidController {
     constructor(
         @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
-        @inject("FikaHeadlessRaidService") protected fikaHeadlessRaidService: FikaHeadlessRaidService,
-        @inject("FikaHeadlessRaidWebSocket") protected fikaHeadlessRaidWebSocket: FikaHeadlessRaidWebSocket,
+        @inject("FikaHeadlessService") protected fikaHeadlessService: FikaHeadlessService,
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("InraidController") protected inraidController: InraidController,
@@ -129,108 +125,36 @@ export class FikaRaidController {
     }
 
     /** Handle /fika/raid/headless/start */
-    public handleRaidStartHeadless(sessionID: string, info: IStartHeadlessRequest): IStartHeadlessResponse {
-        if (!this.fikaHeadlessRaidService.isHeadlessClientAvailable()) {
+    public async handleRaidStartHeadless(sessionID: string, info: IStartHeadlessRequest): Promise<IStartHeadlessResponse> {
+        if (!this.fikaHeadlessService.HeadlessClientsAvailable()) {
             return {
                 matchId: null,
-                error: "No headless clients available.",
+                error: "No headless clients are available.",
             };
         }
 
-        if (sessionID in this.fikaHeadlessRaidService.headlessClients) {
+        if (this.fikaHeadlessService.isHeadlessClient(sessionID)) {
             return {
                 matchId: null,
                 error: "You are trying to connect to a headless client while having Fika.Headless installed. Please remove Fika.Headless from your client and try again.",
             };
         }
 
-        let HeadlessClient: string | undefined = undefined;
-        let HeadlessClientWs: WebSocket | undefined = undefined;
+        const headlessClientId = await this.fikaHeadlessService.startHeadlessRaid(sessionID, info);
 
-        for (const headlessSessionId in this.fikaHeadlessRaidService.headlessClients) {
-            const headlessClientInfo = this.fikaHeadlessRaidService.headlessClients[headlessSessionId];
-
-            if (headlessClientInfo.state != EHeadlessStatus.READY) {
-                continue;
-            }
-
-            HeadlessClientWs = this.fikaHeadlessRaidWebSocket.clientWebSockets[headlessSessionId];
-
-            if (!HeadlessClientWs || HeadlessClientWs.readyState == WebSocket.CLOSED) {
-                continue;
-            }
-
-            HeadlessClient = headlessSessionId;
-            break;
-        }
-
-        if (!HeadlessClient) {
-            return {
-                matchId: null,
-                error: "No headless client available at this time.",
-            };
-        }
-
-        const pmcHeadlessclientProfile: IPmcData = this.profileHelper.getPmcProfile(HeadlessClient);
-        const requesterProfile: IPmcData = this.profileHelper.getPmcProfile(sessionID);
-
-        this.logger.debug(`Headless: ${pmcHeadlessclientProfile.Info.Nickname} ${pmcHeadlessclientProfile.Info.Level} - Requester: ${requesterProfile.Info.Nickname} ${requesterProfile.Info.Level}`);
-
-        //Set level of the headless client profile to the person that has requested the raid to be started.
-        pmcHeadlessclientProfile.Info.Level = requesterProfile.Info.Level;
-        pmcHeadlessclientProfile.Info.Experience = requesterProfile.Info.Experience;
-
-        this.fikaHeadlessRaidService.requestedSessions[HeadlessClient] = sessionID;
-
-        HeadlessClientWs.send(
-            JSON.stringify({
-                type: "fikaHeadlessStartRaid",
-                ...info,
-            }),
-        );
-
-        this.logger.info(`Sent WS fikaHeadlessStartRaid to ${HeadlessClient}`);
+        this.logger.info(`Sent WS fikaHeadlessStartRaid to ${headlessClientId}`);
 
         return {
             // This really isn't required, I just want to make sure on the client
-            matchId: HeadlessClient,
+            matchId: headlessClientId,
             error: null,
-        };
-    }
-
-    /** Handle /fika/raid/headless/status */
-    public handleRaidStatusHeadless(sessionId: string, info: IStatusHeadlessRequest): IStatusHeadlessResponse {
-        // Temp fix because the enum gets deserialized as a string instead of an integer
-        switch (info.status.toString()) {
-            case "READY":
-                info.status = EHeadlessStatus.READY;
-                break;
-            case "IN_RAID":
-                info.status = EHeadlessStatus.IN_RAID;
-                break;
-        }
-
-        if (info.status == EHeadlessStatus.READY && !this.fikaHeadlessRaidService.isHeadlessClientAvailable()) {
-            if (this.fikaHeadlessRaidService.onHeadlessClientAvailable) {
-                this.fikaHeadlessRaidService.onHeadlessClientAvailable();
-            }
-        }
-
-        this.fikaHeadlessRaidService.headlessClients[sessionId] = {
-            state: info.status,
-            lastPing: Date.now(),
-        };
-
-        return {
-            sessionId: info.sessionId,
-            status: info.status,
         };
     }
 
     /** Handle /fika/raid/headless/getstatus */
     public handleRaidGetStatusHeadless(): IGetStatusHeadlessResponse {
         return {
-            available: this.fikaHeadlessRaidService.isHeadlessClientAvailable(),
+            available: this.fikaHeadlessService.HeadlessClientsAvailable(),
         };
     }
 

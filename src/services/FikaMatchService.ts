@@ -14,7 +14,7 @@ import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IF
 import { FikaConfig } from "../utils/FikaConfig";
 import { FikaInsuranceService } from "./FikaInsuranceService";
 import { FikaPresenceService } from "./FikaPresenceService";
-import { FikaHeadlessRaidService } from "./headless/FikaHeadlessRaidService";
+import { FikaHeadlessService } from "./headless/FikaHeadlessService";
 
 @injectable()
 export class FikaMatchService {
@@ -26,7 +26,7 @@ export class FikaMatchService {
         @inject("LocationLifecycleService") protected locationLifecycleService: LocationLifecycleService,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
-        @inject("FikaHeadlessRaidService") protected fikaHeadlessRaidService: FikaHeadlessRaidService,
+        @inject("FikaHeadlessService") protected fikaHeadlessService: FikaHeadlessService,
         @inject("FikaInsuranceService") protected fikaInsuranceService: FikaInsuranceService,
         @inject("FikaPresenceService") protected fikaPresenceService: FikaPresenceService,
     ) {
@@ -213,7 +213,11 @@ export class FikaMatchService {
 
         this.addTimeoutInterval(data.serverId);
 
-        this.addPlayerToMatch(data.serverId, data.serverId, { groupId: null, isDead: false, isSpectator: data.isSpectator });
+        this.addPlayerToMatch(data.serverId, data.serverId, {
+            groupId: null,
+            isDead: false,
+            isSpectator: data.isSpectator,
+        });
 
         return this.matches.has(data.serverId) && this.timeoutIntervals.has(data.serverId);
     }
@@ -240,8 +244,8 @@ export class FikaMatchService {
     public endMatch(matchId: string, reason: EFikaMatchEndSessionMessage): void {
         this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
 
-        if (this.fikaHeadlessRaidService.requestedSessions.hasOwnProperty(matchId)) {
-            delete this.fikaHeadlessRaidService.requestedSessions[matchId];
+        if (this.fikaHeadlessService.isHeadlessClient(matchId)) {
+            this.fikaHeadlessService.endHeadlessRaid(matchId);
         }
 
         this.fikaInsuranceService.onMatchEnd(matchId);
@@ -253,15 +257,15 @@ export class FikaMatchService {
      * @param matchId
      * @param status
      */
-    public setMatchStatus(matchId: string, status: EFikaMatchStatus): void {
+    public async setMatchStatus(matchId: string, status: EFikaMatchStatus): Promise<void> {
         if (!this.matches.has(matchId)) {
             return;
         }
 
         this.matches.get(matchId).status = status;
 
-        if (status.toString() == "COMPLETE") {
-            this.fikaHeadlessRaidService.handleRequestedSessions(matchId);
+        if (status === EFikaMatchStatus.COMPLETE) {
+            await this.fikaHeadlessService.sendJoinMessageToRequester(matchId);
         }
     }
 

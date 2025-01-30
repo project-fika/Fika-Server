@@ -8,7 +8,6 @@ import { FikaRaidController } from "../controllers/FikaRaidController";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 import { IStartHeadlessRequest } from "../models/fika/routes/raid/headless/IStartHeadlessRequest";
-import { IStatusHeadlessRequest } from "../models/fika/routes/raid/headless/IStatusHeadlessRequest";
 import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
 import { IFikaRaidLeaveRequestData } from "../models/fika/routes/raid/leave/IFikaRaidLeaveRequestData";
 
@@ -49,13 +48,8 @@ export class FikaRaidCallbacks {
     }
 
     /** Handle /fika/raid/headless/start */
-    public handleRaidStartHeadless(_url: string, info: IStartHeadlessRequest, sessionID: string): string {
-        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidStartHeadless(sessionID, info));
-    }
-
-    /** Handle /fika/raid/headless/status */
-    public handleRaidStatusHeadless(_url: string, info: IStatusHeadlessRequest, sessionID: string): string {
-        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidStatusHeadless(sessionID, info));
+    public async handleRaidStartHeadless(_url: string, info: IStartHeadlessRequest, sessionID: string): Promise<string> {
+        return this.httpResponseUtil.noBody(await this.fikaRaidController.handleRaidStartHeadless(sessionID, info));
     }
 
     /** Handle /fika/raid/headless/getstatus */

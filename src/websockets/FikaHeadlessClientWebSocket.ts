@@ -2,20 +2,22 @@ import { inject, injectable } from "tsyringe";
 
 import { IncomingMessage } from "http";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
-import { SaveServer } from "@spt/servers/SaveServer";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { SPTWebSocket } from "@spt/servers/ws/SPTWebsocket";
+import { EFikaHeadlessWSMessageTypes } from "../models/enums/EFikaHeadlessWSMessageTypes";
+import { IFikaHeadlessBase } from "../models/fika/websocket/IFikaHeadlessBase";
+import { FikaHeadlessProfileService } from "../services/headless/FikaHeadlessProfileService";
+import { FikaHeadlessService } from "../services/headless/FikaHeadlessService";
 
 @injectable()
-export class FikaHeadlessRaidWebSocket implements IWebSocketConnectionHandler {
-    public clientWebSockets: Record<string, SPTWebSocket>;
+export class FikaHeadlessClientWebSocket implements IWebSocketConnectionHandler {
+    private headlessWebSockets: Record<string, SPTWebSocket> = {};
 
     constructor(
-        @inject("SaveServer") protected saveServer: SaveServer,
+        @inject("FikaHeadlessProfileService") protected fikaHeadlessProfileService: FikaHeadlessProfileService,
+        @inject("FikaHeadlessService") protected fikaHeadlessService: FikaHeadlessService,
         @inject("WinstonLogger") protected logger: ILogger,
     ) {
-        this.clientWebSockets = {};
-
         // Keep websocket connections alive
         setInterval(async () => {
             await this.keepWebSocketAlive();
@@ -23,11 +25,11 @@ export class FikaHeadlessRaidWebSocket implements IWebSocketConnectionHandler {
     }
 
     public getSocketId(): string {
-        return "Fika Headless Raid Service";
+        return "Fika Headless Client";
     }
 
     public getHookUrl(): string {
-        return "/fika/headlessraidservice/";
+        return "/fika/headless/client";
     }
 
     public async onConnection(ws: SPTWebSocket, req: IncomingMessage): Promise<void> {
@@ -41,15 +43,17 @@ export class FikaHeadlessRaidWebSocket implements IWebSocketConnectionHandler {
 
         this.logger.debug(`[${this.getSocketId()}] User is ${UserSessionID}`);
 
-        if (!this.saveServer.getProfile(UserSessionID)) {
-            this.logger.warning(`[${this.getSocketId()}] Invalid user ${UserSessionID} tried to authenticate!`);
+        if (!this.fikaHeadlessProfileService.isHeadlessProfile(UserSessionID)) {
+            this.logger.warning(`[${this.getSocketId()}] Invalid headless client ${UserSessionID} tried to authenticate!`);
             return;
         }
 
-        this.clientWebSockets[UserSessionID] = ws;
+        this.headlessWebSockets[UserSessionID] = ws;
 
         ws.on("message", (msg) => this.onMessage(UserSessionID, msg.toString()));
         ws.on("close", (code, reason) => this.onClose(ws, UserSessionID, code, reason));
+
+        this.fikaHeadlessService.addHeadlessClient(UserSessionID, ws);
     }
 
     // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
@@ -59,30 +63,32 @@ export class FikaHeadlessRaidWebSocket implements IWebSocketConnectionHandler {
 
     // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
     public onClose(ws: SPTWebSocket, sessionID: string, code: number, reason: Buffer): void {
-        const clientWebSocket = this.clientWebSockets[sessionID];
+        const clientWebSocket = this.headlessWebSockets[sessionID];
 
         if (clientWebSocket === ws) {
             this.logger.debug(`[${this.getSocketId()}] Deleting client ${sessionID}`);
 
-            delete this.clientWebSockets[sessionID];
+            delete this.headlessWebSockets[sessionID];
+            this.fikaHeadlessService.removeHeadlessClient(sessionID);
         }
     }
 
     private async keepWebSocketAlive(): Promise<void> {
-        for (const sessionId in this.clientWebSockets) {
-            const clientWebSocket = this.clientWebSockets[sessionId];
+        for (const sessionId in this.headlessWebSockets) {
+            const clientWebSocket = this.headlessWebSockets[sessionId];
 
-            if (clientWebSocket.readyState == WebSocket.CLOSED) {
-                delete this.clientWebSockets[sessionId];
+            if (clientWebSocket.readyState === WebSocket.CLOSED) {
+                delete this.headlessWebSockets[sessionId];
+                this.fikaHeadlessService.removeHeadlessClient(sessionId);
                 return;
             }
 
+            let message: IFikaHeadlessBase = {
+                type: EFikaHeadlessWSMessageTypes.KeepAlive,
+            };
+
             // Send a keep alive message to the headless client
-            await clientWebSocket.sendAsync(
-                JSON.stringify({
-                    type: "fikaHeadlessKeepAlive",
-                }),
-            );
+            await clientWebSocket.sendAsync(JSON.stringify(message));
         }
     }
 }
