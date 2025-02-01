@@ -11,7 +11,7 @@ Server-side changes to make multiplayer work.
 
 ## Requirements
 
-- [Node 20.x](https://nodejs.org/en/download)
+- [Node 22.x](https://nodejs.org/en/download)
 
 ## Build
 
