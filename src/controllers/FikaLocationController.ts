@@ -4,10 +4,14 @@ import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaid
 
 import { IFikaRaidsResponse } from "../models/fika/routes/location/IFikaRaidsResponse";
 import { FikaMatchService } from "../services/FikaMatchService";
+import { FikaHeadlessService } from "../services/headless/FikaHeadlessService";
 
 @injectable()
 export class FikaLocationController {
-    constructor(@inject("FikaMatchService") protected fikaMatchService: FikaMatchService) {
+    constructor(
+        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
+        @inject("FikaHeadlessService") protected fikaHeadlessService: FikaHeadlessService,
+    ) {
         // empty
     }
 
@@ -34,6 +38,8 @@ export class FikaLocationController {
                 side: match.side,
                 time: match.time,
                 players: players,
+                isHeadless: match.isHeadless,
+                headlessRequesterNickname: this.fikaHeadlessService.getRequesterUsername(matchId) || "", //Set this to an empty string if there is no requester.
             });
         }
 
