@@ -51,10 +51,6 @@ export class FikaHeadlessProfileService {
         if (this.headlessProfiles.length < profileAmount) {
             const createdProfiles = await this.createHeadlessProfiles(profileAmount);
 
-            for (const profile of createdProfiles) {
-                this.clearHeadlessItems(profile.characters.pmc, profile.info.id);
-            }
-
             this.logger.success(`Created ${createdProfiles.length} headless client profiles!`);
 
             if (headlessConfig.scripts.generate) {
@@ -158,17 +154,7 @@ export class FikaHeadlessProfileService {
 
         const profile = this.saveServer.getProfile(profileId);
 
-        const originalItemsArray = profile.characters.pmc.Inventory.items.slice();
-
-        for (const item of originalItemsArray) {
-            if (!item.slotId || item._id === profile.characters.pmc.Inventory.equipment || ["SecuredContainer", "Pockets", "Scabbard"].includes(item.slotId)) {
-                continue;
-            }
-
-            this.inventoryHelper.removeItem(profile.characters.pmc, item._id, profileId);
-        }
-
-        profile.characters.pmc.Inventory.fastPanel = {};
+        this.clearHeadlessItems(profile.characters.pmc, profileId);
 
         return profile;
     }
