@@ -239,6 +239,8 @@
     "F_BepInEx_SendRate_D": "How often per second movement packets should be sent (lower = less bandwidth used, slight more delay during interpolation)\nThis only affects the host and will be synchronized to all clients.\nAmount is per second:\n\nVery Low = 10\nLow = 15\nMedium = 20\nHigh = 30\n\nRecommended to leave at no higher than Medium as the gains are insignificant after.",
     "F_BepInEx_SmoothingRate_T": "Smoothing Rate",
     "F_BepInEx_SmoothingRate_D": "Local simulation is behind by (Send Rate * Smoothing Rate). This guarantees that we always have enough snapshots in the buffer to mitigate lags & jitter during interpolation.\n\nLow = 1.5\nMedium = 2\nHigh = 2.5\n\nSet this to 'High' if movement isn't smooth. Cannot be changed during a raid.",
+    "F_BepInEx_NetMultiThread_T": "Use MultiThreading",
+    "F_BepInEx_NetMultiThread_D": "If the network component should use multi-threading. This can potentially alleviate problems when the game lags, allowing the network manager to still process and queue packets during low FPS.\nThis is an experimental feature and should only be enabled on high-end PCs.",
     "F_BepInEx_DisableBotMetabolism_T": "Disable Bot Metabolism",
     "F_BepInEx_DisableBotMetabolism_D": "Disables metabolism on bots, preventing them from dying from loss of energy/hydration during long raids.",
     "F_MMUI_OnlinePlayers": "ONLINE PLAYERS: {0}",
