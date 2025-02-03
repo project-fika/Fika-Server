@@ -173,6 +173,25 @@ export class FikaHeadlessService {
     }
 
     /**
+     * Gets the requester's username for a headless client if there is any.
+     *
+     * Returns the nickname if the headless has been requested by a user, returns null if not.
+     */
+    public getRequesterUsername(headlessClientId: string): string | null {
+        const headlessClient = this.headlessClients.get(headlessClientId);
+
+        if (!headlessClient) {
+            return null;
+        }
+
+        if (!headlessClient.requesterSessionID) {
+            return null;
+        }
+
+        return this.saveServer.getProfile(headlessClient.requesterSessionID).characters.pmc.Info.Nickname;
+    }
+
+    /**
      * Gets the first available headless client
      *
      * @returns Returns the SessionID of the headless client if one is available, if not returns null.
