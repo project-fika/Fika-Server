@@ -9,7 +9,6 @@ import { IStartLocalRaidRequestData } from "@spt/models/eft/match/IStartLocalRai
 import { IStartLocalRaidResponseData } from "@spt/models/eft/match/IStartLocalRaidResponseData";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheService";
-import { BotLootCacheService } from "@spt/services/BotLootCacheService";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
 import { TimeUtil } from "@spt/utils/TimeUtil";
@@ -30,7 +29,6 @@ export class LocationLifecycleServiceOverride extends Override {
         @inject("BotGenerationCacheService") protected botGenerationCacheService: BotGenerationCacheService,
         @inject("ApplicationContext") protected applicationContext: ApplicationContext,
         @inject("TimeUtil") protected timeUtil: TimeUtil,
-        @inject("BotLootCacheService") protected botLootCacheService: BotLootCacheService,
         @inject("PrimaryLogger") protected logger: ILogger,
     ) {
         super();
@@ -40,8 +38,6 @@ export class LocationLifecycleServiceOverride extends Override {
         container.afterResolution(
             "LocationLifecycleService",
             (_t, result: LocationLifecycleService) => {
-                const originalEndLocalRaid = result.endLocalRaid;
-
                 result.startLocalRaid = (sessionId: string, request: IStartLocalRaidRequestData): IStartLocalRaidResponseData => {
                     let locationLoot: ILocationBase;
                     const matchId = this.fikaMatchService.getMatchIdByProfile(sessionId);
@@ -113,11 +109,6 @@ export class LocationLifecycleServiceOverride extends Override {
                     // Get match id from player session id
                     const matchId = this.fikaMatchService.getMatchIdByPlayer(sessionId);
 
-                    if (sessionId == matchId) {
-                        // Clear bot loot cache only if host ended raid
-                        this.botLootCacheService.clearCache();
-                    }
-
                     // Find player that exited the raid
                     const player = this.fikaMatchService.getPlayerInMatch(matchId, sessionId);
 
@@ -131,7 +122,8 @@ export class LocationLifecycleServiceOverride extends Override {
 
                     // Execute the original method if not a spectator
                     if (!isSpectator) {
-                        originalEndLocalRaid(sessionId, request);
+                        //Prototype callback because apparently setting a original callback before overriding doesn't allow some stuff to work.
+                        LocationLifecycleService.prototype.endLocalRaid.call(result, sessionId, request);
                     }
                 };
             },
