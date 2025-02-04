@@ -213,6 +213,8 @@
     "F_BepInEx_DynamicAIRate_D": "How often DynamicAI should scan for the range from all players.",
     "F_BepInEx_DynamicAINoSnipers_T": "Ignore Snipers",
     "F_BepInEx_DynamicAINoSnipers_D": "Whether Dynamic AI should ignore sniper scavs.",
+    "F_BepInEx_FikaGC_T": "Use Fika GC",
+    "F_BepInEx_FikaGC_D": "If a custom garbage collector should be used to alleviate issues with memory usage.\nWARNING: Experimental, might have no effect at all on your sytem.",
     "F_BepInEx_EnforcedSpawnLimits_T": "Enforced Spawn Limits",
     "F_BepInEx_EnforcedSpawnLimits_D": "Enforces spawn limits when spawning bots, making sure to not go over the vanilla limits. This mainly takes affect when using spawn mods or anything that modifies the bot limits. Will not block spawns of special bots like bosses.",
     "F_BepInEx_DespawnFurthest_T": "Despawn Furthest",
