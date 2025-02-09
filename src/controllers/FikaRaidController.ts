@@ -49,6 +49,8 @@ export class FikaRaidController {
             type: EFikaNotifications.StartedRaid,
             nickname: request.hostUsername,
             location: request.settings.location,
+            isHeadlessRaid: this.fikaHeadlessHelper.isHeadlessClient(request.serverId),
+            headlessRequesterName: this.fikaHeadlessHelper.getRequesterUsername(request.serverId) || "",
         };
 
         this.fikaNotificationWebSocket.broadcast(notification);
