@@ -38,7 +38,8 @@
             "**/.DS_Store": true,
             "**/Thumbs.db": true,
             "**/*.map": true,
-            "**/*.js": true
+            "**/*.js": true,
+            "types/**": true
         }
     },
     "extensions": {
