@@ -4,9 +4,9 @@ import { IncomingMessage } from "http";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 import { SPTWebSocket } from "@spt/servers/ws/SPTWebsocket";
+import { FikaHeadlessHelper } from "../helpers/FikaHeadlessHelper";
 import { EFikaHeadlessWSMessageTypes } from "../models/enums/EFikaHeadlessWSMessageTypes";
 import { IFikaHeadlessBase } from "../models/fika/websocket/IFikaHeadlessBase";
-import { FikaHeadlessProfileService } from "../services/headless/FikaHeadlessProfileService";
 import { FikaHeadlessService } from "../services/headless/FikaHeadlessService";
 
 @injectable()
@@ -14,7 +14,7 @@ export class FikaHeadlessClientWebSocket implements IWebSocketConnectionHandler 
     private headlessWebSockets: Record<string, SPTWebSocket> = {};
 
     constructor(
-        @inject("FikaHeadlessProfileService") protected fikaHeadlessProfileService: FikaHeadlessProfileService,
+        @inject("FikaHeadlessHelper") protected fikaHeadlessHelper: FikaHeadlessHelper,
         @inject("FikaHeadlessService") protected fikaHeadlessService: FikaHeadlessService,
         @inject("WinstonLogger") protected logger: ILogger,
     ) {
@@ -43,7 +43,7 @@ export class FikaHeadlessClientWebSocket implements IWebSocketConnectionHandler 
 
         this.logger.debug(`[${this.getSocketId()}] User is ${UserSessionID}`);
 
-        if (!this.fikaHeadlessProfileService.isHeadlessProfile(UserSessionID)) {
+        if (!this.fikaHeadlessHelper.isHeadlessClient(UserSessionID)) {
             this.logger.warning(`[${this.getSocketId()}] Invalid headless client ${UserSessionID} tried to authenticate!`);
             return;
         }
