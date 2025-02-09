@@ -10,7 +10,7 @@ import { FikaMatchService } from "../services/FikaMatchService";
 export class FikaLocationController {
     constructor(
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
-        @inject("fikaHeadlessHelper") protected fikaHeadlessHelper: FikaHeadlessHelper,
+        @inject("FikaHeadlessHelper") protected fikaHeadlessHelper: FikaHeadlessHelper,
     ) {
         // empty
     }
