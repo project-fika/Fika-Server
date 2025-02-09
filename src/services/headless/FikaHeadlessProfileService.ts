@@ -1,9 +1,6 @@
 import path from "path";
 
 import { ProfileController } from "@spt/controllers/ProfileController";
-import { InventoryHelper } from "@spt/helpers/InventoryHelper";
-import { IPmcData } from "@spt/models/eft/common/IPmcData";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IProfileCreateRequestData } from "@spt/models/eft/profile/IProfileCreateRequestData";
 import { ISptProfile, Info } from "@spt/models/eft/profile/ISptProfile";
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
@@ -14,6 +11,9 @@ import { SaveServer } from "@spt/servers/SaveServer";
 import { FileSystem } from "@spt/utils/FileSystem";
 import { HashUtil } from "@spt/utils/HashUtil";
 
+import { InventoryHelper } from "@spt/helpers/InventoryHelper";
+import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { inject, injectable } from "tsyringe";
 import { FikaConfig } from "../../utils/FikaConfig";
 
@@ -37,6 +37,10 @@ export class FikaHeadlessProfileService {
         @inject("FileSystem") protected fileSystem: FileSystem,
     ) {
         this.httpConfig = this.configServer.getConfig(ConfigTypes.HTTP);
+    }
+
+    public getHeadlessProfiles(): ISptProfile[] {
+        return this.headlessProfiles;
     }
 
     public async init(): Promise<void> {
@@ -155,7 +159,7 @@ export class FikaHeadlessProfileService {
 
         const profile = this.saveServer.getProfile(profileId);
 
-        this.clearHeadlessItems(profile.characters.pmc, profileId);
+        this.clearUnecessaryHeadlessItems(profile.characters.pmc, profileId);
 
         return profile;
     }
@@ -184,8 +188,8 @@ if NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" (
         }
     }
 
-    private clearHeadlessItems(pmcProfile: IPmcData, sessionId: string): void {
-        const itemsToDelete = this.getHeadlessItems(pmcProfile).map((item) => item._id);
+    private clearUnecessaryHeadlessItems(pmcProfile: IPmcData, sessionId: string): void {
+        const itemsToDelete = this.getAllHeadlessItems(pmcProfile).map((item) => item._id);
 
         for (const itemIdToDelete of itemsToDelete) {
             this.inventoryHelper.removeItem(pmcProfile, itemIdToDelete, sessionId);
@@ -194,15 +198,11 @@ if NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" (
         pmcProfile.Inventory.fastPanel = {};
     }
 
-    private getHeadlessItems(pmcProfile: IPmcData): IItem[] {
+    private getAllHeadlessItems(pmcProfile: IPmcData): IItem[] {
         const inventoryItems = pmcProfile.Inventory.items ?? [];
         const equipmentRootId = pmcProfile?.Inventory?.equipment;
         const stashRootId = pmcProfile?.Inventory.stash;
 
         return inventoryItems.filter((item) => item.parentId == equipmentRootId || item.parentId == stashRootId);
-    }
-
-    public isHeadlessProfile(sessionId: string): boolean {
-        return this.headlessProfiles.some((profile) => profile.info.id === sessionId);
     }
 }

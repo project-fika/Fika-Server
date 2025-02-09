@@ -11,6 +11,7 @@ import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 
+import { FikaHeadlessHelper } from "../helpers/FikaHeadlessHelper";
 import { FikaConfig } from "../utils/FikaConfig";
 import { FikaInsuranceService } from "./FikaInsuranceService";
 import { FikaPresenceService } from "./FikaPresenceService";
@@ -26,6 +27,7 @@ export class FikaMatchService {
         @inject("LocationLifecycleService") protected locationLifecycleService: LocationLifecycleService,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
+        @inject("FikaHeadlessHelper") protected fikaHeadlessHelper: FikaHeadlessHelper,
         @inject("FikaHeadlessService") protected fikaHeadlessService: FikaHeadlessService,
         @inject("FikaInsuranceService") protected fikaInsuranceService: FikaInsuranceService,
         @inject("FikaPresenceService") protected fikaPresenceService: FikaPresenceService,
@@ -244,7 +246,7 @@ export class FikaMatchService {
     public endMatch(matchId: string, reason: EFikaMatchEndSessionMessage): void {
         this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
 
-        if (this.fikaHeadlessService.isHeadlessClient(matchId)) {
+        if (this.fikaHeadlessHelper.isHeadlessClient(matchId)) {
             this.fikaHeadlessService.endHeadlessRaid(matchId);
         }
 
@@ -316,7 +318,7 @@ export class FikaMatchService {
 
         this.fikaInsuranceService.addPlayerToMatchId(matchId, playerId);
 
-        if (this.fikaHeadlessService.isHeadlessClient(matchId)) {
+        if (this.fikaHeadlessHelper.isHeadlessClient(matchId)) {
             this.fikaHeadlessService.addPlayerToHeadlessMatch(matchId, playerId);
         }
 

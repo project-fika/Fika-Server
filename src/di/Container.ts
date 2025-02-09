@@ -47,6 +47,7 @@ import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSock
 
 import { Fika } from "../Fika";
 import { FikaNotificationCallbacks } from "../callbacks/FikaNotificationCallbacks";
+import { FikaHeadlessHelper } from "../helpers/FikaHeadlessHelper";
 import { FikaNotificationStaticRouter } from "../routers/static/FikaNotificationStaticRouter";
 import { FikaClientService } from "../services/FikaClientService";
 import { FikaHeadlessProfileService } from "../services/headless/FikaHeadlessProfileService";
@@ -131,6 +132,7 @@ export class Container {
         container.register<FikaClientModHashesHelper>("FikaClientModHashesHelper", FikaClientModHashesHelper, { lifecycle: Lifecycle.Singleton });
         container.register<FikaFriendRequestsHelper>("FikaFriendRequestsHelper", { useClass: FikaFriendRequestsHelper });
         container.register<FikaPlayerRelationsHelper>("FikaPlayerRelationsHelper", { useClass: FikaPlayerRelationsHelper });
+        container.register<FikaHeadlessHelper>("FikaHeadlessHelper", { useClass: FikaHeadlessHelper });
     }
 
     private static registerControllers(container: DependencyContainer): void {

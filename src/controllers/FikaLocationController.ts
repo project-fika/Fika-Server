@@ -2,15 +2,15 @@ import { inject, injectable } from "tsyringe";
 
 import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaidConfigurationRequestData";
 
+import { FikaHeadlessHelper } from "../helpers/FikaHeadlessHelper";
 import { IFikaRaidsResponse } from "../models/fika/routes/location/IFikaRaidsResponse";
 import { FikaMatchService } from "../services/FikaMatchService";
-import { FikaHeadlessService } from "../services/headless/FikaHeadlessService";
 
 @injectable()
 export class FikaLocationController {
     constructor(
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
-        @inject("FikaHeadlessService") protected fikaHeadlessService: FikaHeadlessService,
+        @inject("fikaHeadlessHelper") protected fikaHeadlessHelper: FikaHeadlessHelper,
     ) {
         // empty
     }
@@ -39,7 +39,7 @@ export class FikaLocationController {
                 time: match.time,
                 players: players,
                 isHeadless: match.isHeadless,
-                headlessRequesterNickname: this.fikaHeadlessService.getRequesterUsername(matchId) || "", //Set this to an empty string if there is no requester.
+                headlessRequesterNickname: this.fikaHeadlessHelper.getRequesterUsername(matchId) || "", //Set this to an empty string if there is no requester.
             });
         }
 

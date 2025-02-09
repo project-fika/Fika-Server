@@ -12,19 +12,21 @@ import { IHeadlessRequesterJoinRaid } from "../../models/fika/websocket/headless
 import { IStartHeadlessRaid } from "../../models/fika/websocket/headless/IHeadlessStartRaid";
 import { FikaConfig } from "../../utils/FikaConfig";
 import { FikaHeadlessRequesterWebSocket } from "../../websockets/FikaHeadlessRequesterWebSocket";
-import { FikaHeadlessProfileService } from "./FikaHeadlessProfileService";
 
 @injectable()
 export class FikaHeadlessService {
     private headlessClients: Map<string, IHeadlessClientInfo> = new Map();
 
     constructor(
-        @inject("FikaHeadlessProfileService") protected fikaHeadlessProfileService: FikaHeadlessProfileService,
         @inject("FikaHeadlessRequesterWebSocket") protected fikaHeadlessRequesterWebSocket: FikaHeadlessRequesterWebSocket,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
     ) {}
+
+    public getHeadlessClients(): Map<string, IHeadlessClientInfo> {
+        return this.headlessClients;
+    }
 
     public addHeadlessClient(sessionID: string, webSocket: SPTWebSocket): void {
         this.headlessClients.set(sessionID, { webSocket: webSocket, state: EHeadlessStatus.READY });
@@ -116,7 +118,7 @@ export class FikaHeadlessService {
         }
     }
 
-    public setHeadlessLevel(headlessClientId: string): void {
+    private setHeadlessLevel(headlessClientId: string): void {
         const headlessClient = this.headlessClients.get(headlessClientId);
 
         if (!headlessClient || headlessClient?.state != EHeadlessStatus.IN_RAID) {
@@ -159,44 +161,12 @@ export class FikaHeadlessService {
         headlessClient.hasNotifiedRequester = null;
     }
 
-    public isHeadlessClient(sessionID: string): boolean {
-        return this.fikaHeadlessProfileService.isHeadlessProfile(sessionID);
-    }
-
-    /**
-     * Allows for checking if there are any headless clients available
-     *
-     * @returns Returns true if one is available, returns false if none are available.
-     */
-    public HeadlessClientsAvailable(): boolean {
-        return Array.from(this.headlessClients.values()).some((client) => client.state === EHeadlessStatus.READY);
-    }
-
-    /**
-     * Gets the requester's username for a headless client if there is any.
-     *
-     * Returns the nickname if the headless has been requested by a user, returns null if not.
-     */
-    public getRequesterUsername(headlessClientId: string): string | null {
-        const headlessClient = this.headlessClients.get(headlessClientId);
-
-        if (!headlessClient) {
-            return null;
-        }
-
-        if (!headlessClient.requesterSessionID) {
-            return null;
-        }
-
-        return this.saveServer.getProfile(headlessClient.requesterSessionID).characters.pmc.Info.Nickname;
-    }
-
     /**
      * Gets the first available headless client
      *
      * @returns Returns the SessionID of the headless client if one is available, if not returns null.
      */
-    public getAvailableHeadlessClient(): string | null {
+    private getAvailableHeadlessClient(): string | null {
         for (const [key, value] of this.headlessClients) {
             if (value.state === EHeadlessStatus.READY) {
                 return key;

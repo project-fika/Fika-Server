@@ -6,6 +6,7 @@ import { IRegisterPlayerRequestData } from "@spt/models/eft/inRaid/IRegisterPlay
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 
+import { FikaHeadlessHelper } from "../helpers/FikaHeadlessHelper";
 import { EFikaMatchEndSessionMessage } from "../models/enums/EFikaMatchEndSessionMessages";
 import { EFikaNotifications } from "../models/enums/EFikaNotifications";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
@@ -29,6 +30,7 @@ export class FikaRaidController {
     constructor(
         @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
+        @inject("FikaHeadlessHelper") protected fikaHeadlessHelper: FikaHeadlessHelper,
         @inject("FikaHeadlessService") protected fikaHeadlessService: FikaHeadlessService,
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("WinstonLogger") protected logger: ILogger,
@@ -123,14 +125,14 @@ export class FikaRaidController {
 
     /** Handle /fika/raid/headless/start */
     public async handleRaidStartHeadless(sessionID: string, info: IStartHeadlessRequest): Promise<IStartHeadlessResponse> {
-        if (!this.fikaHeadlessService.HeadlessClientsAvailable()) {
+        if (!this.fikaHeadlessHelper.HeadlessClientsAvailable()) {
             return {
                 matchId: null,
                 error: "No headless clients are available.",
             };
         }
 
-        if (this.fikaHeadlessService.isHeadlessClient(sessionID)) {
+        if (this.fikaHeadlessHelper.isHeadlessClient(sessionID)) {
             return {
                 matchId: null,
                 error: "You are trying to connect to a headless client while having Fika.Headless installed. Please remove Fika.Headless from your client and try again.",
@@ -151,7 +153,7 @@ export class FikaRaidController {
     /** Handle /fika/raid/headless/getstatus */
     public handleRaidGetStatusHeadless(): IGetStatusHeadlessResponse {
         return {
-            available: this.fikaHeadlessService.HeadlessClientsAvailable(),
+            available: this.fikaHeadlessHelper.HeadlessClientsAvailable(),
         };
     }
 
