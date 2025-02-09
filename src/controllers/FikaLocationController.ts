@@ -29,9 +29,15 @@ export class FikaLocationController {
                 players[profileId] = player.isDead;
             }
 
+            let hostUsername = match.hostUsername;
+
+            if (match.isHeadless) {
+                hostUsername = this.fikaHeadlessHelper.getHeadlessNickname(matchId);
+            }
+
             matches.push({
                 serverId: matchId,
-                hostUsername: match.hostUsername,
+                hostUsername: hostUsername,
                 playerCount: match.players.size,
                 status: match.status,
                 location: match.raidConfig.location,

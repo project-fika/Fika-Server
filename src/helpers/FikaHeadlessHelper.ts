@@ -52,4 +52,19 @@ export class FikaHeadlessHelper {
 
         return this.saveServer.getProfile(headlessClient.requesterSessionID).characters.pmc.Info.Nickname;
     }
+
+    /***
+     * Gets the alias (If it has been given one) or nickname of the headless client
+     *
+     * @returns the alias, or nickname or the headless client.
+     */
+    public getHeadlessNickname(sessionId: string): string {
+        const AliasName = this.fikaConfig.getConfig().headless.profiles.aliases[sessionId];
+
+        if (!AliasName) {
+            return this.saveServer.getProfile(sessionId).characters.pmc.Info.Nickname;
+        }
+
+        return AliasName;
+    }
 }

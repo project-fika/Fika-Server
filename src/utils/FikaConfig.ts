@@ -65,6 +65,7 @@ export class FikaConfig {
         headless: {
             profiles: {
                 amount: 0,
+                aliases: {},
             },
             scripts: {
                 generate: true,

@@ -45,9 +45,15 @@ export class FikaRaidController {
      * @param request
      */
     public handleRaidCreate(request: IFikaRaidCreateRequestData): IFikaRaidCreateResponse {
+        let hostUsername = request.hostUsername;
+
+        if (this.fikaHeadlessHelper.isHeadlessClient(request.serverId)) {
+            hostUsername = this.fikaHeadlessHelper.getHeadlessNickname(request.serverId);
+        }
+
         const notification: IStartRaidNotification = {
             type: EFikaNotifications.StartedRaid,
-            nickname: request.hostUsername,
+            nickname: hostUsername,
             location: request.settings.location,
             isHeadlessRaid: this.fikaHeadlessHelper.isHeadlessClient(request.serverId),
             headlessRequesterName: this.fikaHeadlessHelper.getRequesterUsername(request.serverId) || "",

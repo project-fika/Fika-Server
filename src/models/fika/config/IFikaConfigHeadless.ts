@@ -1,6 +1,7 @@
 export interface IFikaConfigHeadless {
     profiles: {
         amount: number;
+        aliases: Record<string, string>;
     };
     scripts: {
         generate: boolean;
