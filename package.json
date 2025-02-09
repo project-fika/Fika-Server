@@ -7,6 +7,7 @@
         "setup": "npm i",
         "lint": "npx @biomejs/biome lint ./",
         "check-types": "npx tsc -noEmit -p tsconfig.types.json",
+        "check-circular": "madge --circular --ts-config tsconfig.json --extensions ts ./src/",
         "build": "node ./build.mjs",
         "buildinfo": "node ./build.mjs --verbose"
     },
@@ -19,7 +20,8 @@
         "ignore": "^5.2",
         "tsyringe": "~4.8",
         "typescript": "5.7.3",
-        "winston": "~3.13"
+        "winston": "~3.13",
+        "madge": "8.0.0"
     },
     "author": "Fika",
     "license": "CC-BY-NC-SA-4.0"

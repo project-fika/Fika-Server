@@ -1,4 +1,4 @@
-name: Run Type Check
+name: Check typing
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
       - '**/*.md'
 
 jobs:
-  test:
+  check-types:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,8 +21,20 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '22'
+        cache: "npm"
+        cache-dependency-path: "package.json"
 
+    - name: Check CI cache
+        id: check-cache
+        uses: actions/cache@v4
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('./package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ hashFiles('./package.json') }}
+    
     - name: Install dependencies
+      if: steps.check-cache.outputs.cache-hit != 'true'
       run: npm install
 
     - name: Type check
