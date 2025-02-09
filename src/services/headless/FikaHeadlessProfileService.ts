@@ -98,6 +98,7 @@ export class FikaHeadlessProfileService {
         for (let i = 0; i < profileAmountToCreate; i++) {
             const profile = await this.createHeadlessProfile();
             createdProfiles.push(profile);
+            this.headlessProfiles.push(profile);
         }
 
         return createdProfiles;
