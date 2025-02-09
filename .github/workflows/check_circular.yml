@@ -25,13 +25,13 @@ jobs:
         cache-dependency-path: "package.json"
 
     - name: Check CI cache
-        id: check-cache
-        uses: actions/cache@v4
-        with:
-          path: ./node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('./package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ hashFiles('./package.json') }}
+      id: cache-check
+      uses: actions/cache@v4
+      with:
+        path: ./node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('./package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-${{ hashFiles('./package.json') }}
     
     - name: Install dependencies
       if: steps.check-cache.outputs.cache-hit != 'true'
