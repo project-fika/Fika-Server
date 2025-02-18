@@ -1,7 +1,7 @@
 {
     "name": "server",
     "version": "2.4.0",
-    "sptVersion": "~4.0",
+    "sptVersion": "~3.11",
     "main": "src/mod.js",
     "scripts": {
         "setup": "npm i",
