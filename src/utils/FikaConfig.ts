@@ -168,6 +168,29 @@ export class FikaConfig {
         httpConfig.backendPort = config.http.backendPort;
     }
 
+    public updateFikaConfig(config: IFikaConfig): boolean {
+        if (config != this.fikaConfig) {
+            this.fikaConfig = config;
+
+            const coreConfig = this.configServer.getConfig(ConfigTypes.CORE) as ICoreConfig;
+            const commando = coreConfig.features.chatbotFeatures.ids.commando;
+            const sptFriend = coreConfig.features.chatbotFeatures.ids.spt;
+
+            // Re-handle chatbot settings
+            if (config.server.SPT.disableSPTChatBots) {
+                coreConfig.features.chatbotFeatures.enabledBots[commando] = false;
+                coreConfig.features.chatbotFeatures.enabledBots[sptFriend] = false;
+            } else {
+                coreConfig.features.chatbotFeatures.enabledBots[commando] = true;
+                coreConfig.features.chatbotFeatures.enabledBots[sptFriend] = true;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
     public getConfig(): IFikaConfig {
         return this.fikaConfig;
     }

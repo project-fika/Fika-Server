@@ -6,9 +6,14 @@ import { ImageRouter } from "@spt/routers/ImageRouter";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { ImporterUtil } from "@spt/utils/ImporterUtil";
 
+import { watch } from "node:fs";
 import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
 import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
+import { FileSystem } from "@spt/utils/FileSystem";
+import { JsonUtil } from "@spt/utils/JsonUtil";
+import { IFikaConfig } from "./models/fika/config/IFikaConfig";
 import { IFikaConfigBackground } from "./models/fika/config/IFikaConfigBackground";
 import { IFikaConfigHeadless } from "./models/fika/config/IFikaConfigHeadless";
 import { IFikaConfigNatPunchServer } from "./models/fika/config/IFikaConfigNatPunchServer";
@@ -27,6 +32,7 @@ export class Fika {
     protected backgroundConfig: IFikaConfigBackground;
 
     constructor(
+        @inject("WinstonLogger") protected logger: ILogger,
         @inject("DatabaseServer") protected databaseServer: DatabaseServer,
         @inject("ConfigServer") protected configServer: ConfigServer,
         @inject("Overrider") protected overrider: Overrider,
@@ -36,6 +42,8 @@ export class Fika {
         @inject("FikaHeadlessProfileService") protected fikaHeadlessProfileService: FikaHeadlessProfileService,
         @inject("ImageRouter") protected imageRouter: ImageRouter,
         @inject("ImporterUtil") protected importerUtil: ImporterUtil,
+        @inject("JsonUtil") protected jsonUtil: JsonUtil,
+        @inject("FileSystem") protected fileSystem: FileSystem,
         @inject("FikaPlayerRelationsCacheService") protected fikaPlayerRelationCacheServce: FikaPlayerRelationsCacheService,
     ) {
         this.modPath = fikaConfig.getModPath();
@@ -69,6 +77,8 @@ export class Fika {
             const image = this.backgroundConfig.easteregg ? "assets/images/launcher/bg-senko.png" : "assets/images/launcher/bg.png";
             this.imageRouter.addRoute("/files/launcher/bg", path.join(this.modPath, image));
         }
+
+        this.watchFikaConfig();
     }
 
     private async addFikaClientLocales() {
@@ -100,5 +110,45 @@ export class Fika {
                 profileBlacklist.push(id);
             }
         }
+    }
+
+    private watchFikaConfig(): void {
+        const configPath = path.join(this.modPath, "assets/configs/fika.jsonc");
+        let fileChangeTimeout = null;
+
+        // At the moment this doesn't reload:
+        // Nat punch server (Requires additional setup)
+        // SPT Http configuration (Can't be changed once initialized)
+        // Any client options if a client is already in-game, client will have to restart his game.
+        watch(configPath, async (eventType, _filename) => {
+            if (eventType === "change") {
+                if (fileChangeTimeout) {
+                    clearTimeout(fileChangeTimeout);
+                }
+
+                fileChangeTimeout = setTimeout(async () => {
+                    let config = this.jsonUtil.deserializeJsonC<IFikaConfig>(await this.fileSystem.read(configPath));
+
+                    if (!config) {
+                        this.logger.warning("[Fika Server] could not hot-reload config, is the syntax correct?");
+                        return;
+                    }
+
+                    const oldHeadlessAmount = this.fikaConfig.getConfig().headless.profiles.amount;
+
+                    if (this.fikaConfig.updateFikaConfig(config)) {
+                        // Re-initialize new headless profiles if the number changed.
+                        if (this.fikaConfig.getConfig().headless.profiles.amount > oldHeadlessAmount) {
+                            await this.fikaHeadlessProfileService.init();
+                        }
+
+                        // Re-initialize required & optional mods
+                        await this.fikaClientService.preInit();
+
+                        this.logger.info("[Fika Server] Config hot-reloaded successfully");
+                    }
+                }, 500);
+            }
+        });
     }
 }
