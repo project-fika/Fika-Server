@@ -60,12 +60,19 @@ export class FikaClientService {
         return { version };
     }
 
-    public getCheckModsResponse(request: IFikaCheckModRequestData): IFikaCheckModResponse {
+    public getCheckModsResponse(request: IFikaCheckModRequestData, sessionID: string): IFikaCheckModResponse {
         const mismatchedMods: IFikaCheckModResponse = {
             forbidden: [],
             missingRequired: [],
             hashMismatch: [],
         };
+
+        if (this.fikaConfig.getConfig().server.logClientModsInConsole) {
+            const username = this.saveServer.getProfile(sessionID).info.username;
+            const mods = Object.keys(request);
+
+            this.logger.info(`${username} (${sessionID}) connected with ${mods.length} client mods: ${mods.join(", ")}`);
+        }
 
         // if no configuration was made, allow all mods
         if (!this.hasRequiredOrOptionalMods) {

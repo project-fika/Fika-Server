@@ -56,6 +56,7 @@ export class FikaConfig {
             sessionTimeout: 5,
             showDevProfile: false,
             showNonStandardProfile: false,
+            logClientModsInConsole: false,
         },
         natPunchServer: {
             enable: false,

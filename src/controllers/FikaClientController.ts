@@ -49,8 +49,8 @@ export class FikaClientController {
     /**
      * Handle /fika/client/check/mods
      */
-    public handleCheckMods(request: IFikaCheckModRequestData): IFikaCheckModResponse {
-        return this.fikaClientService.getCheckModsResponse(request);
+    public handleCheckMods(request: IFikaCheckModRequestData, sessionID: string): IFikaCheckModResponse {
+        return this.fikaClientService.getCheckModsResponse(request, sessionID);
     }
 
     /**

@@ -6,6 +6,7 @@ export interface IFikaConfigServer {
     sessionTimeout: number;
     showDevProfile: boolean;
     showNonStandardProfile: boolean;
+    logClientModsInConsole: boolean;
 }
 
 export interface IFikaSPTServerConfig {
