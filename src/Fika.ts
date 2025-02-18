@@ -131,7 +131,7 @@ export class Fika {
                     let config = this.jsonUtil.deserializeJsonC<IFikaConfig>(await this.fileSystem.read(configPath));
 
                     if (!config) {
-                        this.logger.warning("[Fika Server] could not hot-reload config, is the syntax correct?");
+                        this.logger.error("[Fika Server] could not hot-reload configuration, is the syntax correct?");
                         return;
                     }
 
@@ -180,7 +180,7 @@ export class Fika {
                             }
                         }
 
-                        this.logger.info("[Fika Server] Config hot-reloaded successfully");
+                        this.logger.info("[Fika Server] Configuration hot-reloaded successfully");
                     }
                 }, 500);
             }
