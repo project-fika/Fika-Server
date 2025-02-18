@@ -126,6 +126,7 @@ export class Fika {
                     clearTimeout(fileChangeTimeout);
                 }
 
+                // Timeout is required here, sometimes Windows will send three events if a file has changed.
                 fileChangeTimeout = setTimeout(async () => {
                     let config = this.jsonUtil.deserializeJsonC<IFikaConfig>(await this.fileSystem.read(configPath));
 
@@ -144,6 +145,40 @@ export class Fika {
 
                         // Re-initialize required & optional mods
                         await this.fikaClientService.preInit();
+
+                        // Re-initialize background
+                        if (this.backgroundConfig.enable) {
+                            const image = this.backgroundConfig.easteregg ? "assets/images/launcher/bg-senko.png" : "assets/images/launcher/bg.png";
+                            this.imageRouter.addRoute("/files/launcher/bg", path.join(this.modPath, image));
+                        }
+
+                        // Re-initialize profile preset blacklist
+                        const coreConfig: ICoreConfig = this.configServer.getConfig(ConfigTypes.CORE);
+
+                        // Re-initialize showing of dev profile
+                        if (this.fikaConfig.getConfig().server.showDevProfile) {
+                            // Remove the blacklisted developer template
+                            coreConfig.features.createNewProfileTypesBlacklist = coreConfig.features.createNewProfileTypesBlacklist.filter((item) => item !== "SPT Developer");
+                        } else {
+                            // Re-add the blacklisted developer template
+                            if (!coreConfig.features.createNewProfileTypesBlacklist.includes("SPT Developer")) {
+                                coreConfig.features.createNewProfileTypesBlacklist.push("SPT Developer");
+                            }
+                        }
+
+                        if (this.fikaConfig.getConfig().server.showNonStandardProfile) {
+                            for (const id of ["Tournament", "SPT Easy start", "SPT Zero to hero"]) {
+                                // Remove each blacklisted template
+                                coreConfig.features.createNewProfileTypesBlacklist = coreConfig.features.createNewProfileTypesBlacklist.filter((item) => item !== id);
+                            }
+                        } else {
+                            for (const id of ["Tournament", "SPT Easy start", "SPT Zero to hero"]) {
+                                // Re-add the blacklisted templates
+                                if (!coreConfig.features.createNewProfileTypesBlacklist.includes(id)) {
+                                    coreConfig.features.createNewProfileTypesBlacklist.push(id);
+                                }
+                            }
+                        }
 
                         this.logger.info("[Fika Server] Config hot-reloaded successfully");
                     }
