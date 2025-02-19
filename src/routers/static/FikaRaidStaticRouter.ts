@@ -33,8 +33,8 @@ export class FikaRaidStaticRouter extends StaticRouter {
             new RouteAction("/fika/raid/headless/start", async (url: string, info: IStartHeadlessRequest, sessionID: string, _output: string): Promise<string> => {
                 return this.fikaRaidCallbacks.handleRaidStartHeadless(url, info, sessionID);
             }),
-            new RouteAction("/fika/raid/headless/getstatus", async (url: string, info: any, sessionID: string, _output: string): Promise<string> => {
-                return this.fikaRaidCallbacks.handleRaidGetStatusHeadless(url, info, sessionID);
+            new RouteAction("/fika/raid/headless/available", async (url: string, info: any, sessionID: string, _output: string): Promise<string> => {
+                return this.fikaRaidCallbacks.handleRaidGetAvailableHeadlesses(url, info, sessionID);
             }),
             new RouteAction("/fika/raid/registerPlayer", async (url: string, info: IRegisterPlayerRequestData, sessionID: string, _output: string): Promise<INullResponseData> => {
                 return this.fikaRaidCallbacks.handleRaidRegisterPlayer(url, info, sessionID);

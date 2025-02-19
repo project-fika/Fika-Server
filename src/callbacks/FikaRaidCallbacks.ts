@@ -52,9 +52,9 @@ export class FikaRaidCallbacks {
         return this.httpResponseUtil.noBody(await this.fikaRaidController.handleRaidStartHeadless(sessionID, info));
     }
 
-    /** Handle /fika/raid/headless/getstatus */
-    public handleRaidGetStatusHeadless(_url: string, _info: any, _sessionID: string): string {
-        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidGetStatusHeadless());
+    /** Handle /fika/raid/headless/available */
+    public handleRaidGetAvailableHeadlesses(_url: string, _info: any, _sessionID: string): string {
+        return this.httpResponseUtil.noBody(this.fikaRaidController.handleRaidGetAvailableHeadlesses());
     }
 
     /** Handle /fika/raid/registerPlayer */

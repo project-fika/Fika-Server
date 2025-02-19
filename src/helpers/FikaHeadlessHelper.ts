@@ -4,6 +4,7 @@ import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { EHeadlessStatus } from "../models/enums/EHeadlessStatus";
+import { IHeadlessAvailableClients } from "../models/fika/headless/IHeadlessAvailableClients";
 import { FikaHeadlessProfileService } from "../services/headless/FikaHeadlessProfileService";
 import { FikaHeadlessService } from "../services/headless/FikaHeadlessService";
 import { FikaConfig } from "../utils/FikaConfig";
@@ -26,12 +27,22 @@ export class FikaHeadlessHelper {
     }
 
     /**
-     * Allows for checking if there are any headless clients available
+     * Allows for checking if the given headless client is available
      *
-     * @returns Returns true if one is available, returns false if none are available.
+     * @returns Returns true if it's available, returns false if it isn't available.
      */
-    public HeadlessClientsAvailable(): boolean {
-        return Array.from(this.FikaHeadlessService.getHeadlessClients().values()).some((client) => client.state === EHeadlessStatus.READY);
+    public isHeadlessClientAvailable(headlessSessionID: string): boolean {
+        const headless = this.FikaHeadlessService.getHeadlessClients().get(headlessSessionID);
+
+        if (!headless) {
+            return false;
+        }
+
+        if (headless.state === EHeadlessStatus.READY) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -39,8 +50,8 @@ export class FikaHeadlessHelper {
      *
      * @returns The nickname if the headless has been requested by a user, returns null if not.
      */
-    public getRequesterUsername(headlessClientId: string): string | null {
-        const headlessClient = this.FikaHeadlessService.getHeadlessClients().get(headlessClientId);
+    public getRequesterUsername(headlessSessionID: string): string | null {
+        const headlessClient = this.FikaHeadlessService.getHeadlessClients().get(headlessSessionID);
 
         if (!headlessClient) {
             return null;
@@ -58,13 +69,35 @@ export class FikaHeadlessHelper {
      *
      * @returns the alias, or nickname or the headless client.
      */
-    public getHeadlessNickname(sessionId: string): string {
-        const AliasName = this.fikaConfig.getConfig().headless.profiles.aliases[sessionId];
+    public getHeadlessNickname(headlessSessionID: string): string {
+        const AliasName = this.fikaConfig.getConfig().headless.profiles.aliases[headlessSessionID];
 
         if (!AliasName) {
-            return this.saveServer.getProfile(sessionId).characters.pmc.Info.Nickname;
+            return this.saveServer.getProfile(headlessSessionID).characters.pmc.Info.Nickname;
         }
 
         return AliasName;
+    }
+
+    /**
+     * Gets all available headless clients
+     *
+     * @returns Returns an array of available headless clients
+     */
+    public getAvailableHeadlessClients(): IHeadlessAvailableClients[] {
+        const headlessClients: IHeadlessAvailableClients[] = [];
+
+        for (const [headlessSessionID, headless] of this.FikaHeadlessService.getHeadlessClients()) {
+            if (headless.state === EHeadlessStatus.READY) {
+                const availableHeadlessClient: IHeadlessAvailableClients = {
+                    headlessSessionID: headlessSessionID,
+                    alias: this.getHeadlessNickname(headlessSessionID),
+                };
+
+                headlessClients.push(availableHeadlessClient);
+            }
+
+            return headlessClients;
+        }
     }
 }

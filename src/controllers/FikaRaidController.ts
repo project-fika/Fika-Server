@@ -9,12 +9,12 @@ import { DatabaseService } from "@spt/services/DatabaseService";
 import { FikaHeadlessHelper } from "../helpers/FikaHeadlessHelper";
 import { EFikaMatchEndSessionMessage } from "../models/enums/EFikaMatchEndSessionMessages";
 import { EFikaNotifications } from "../models/enums/EFikaNotifications";
+import { IHeadlessAvailableClients } from "../models/fika/headless/IHeadlessAvailableClients";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 import { IFikaRaidCreateResponse } from "../models/fika/routes/raid/create/IFikaRaidCreateResponse";
 import { IFikaRaidGethostResponse } from "../models/fika/routes/raid/gethost/IFikaRaidGethostResponse";
 import { IFikaRaidSettingsResponse } from "../models/fika/routes/raid/getsettings/IFikaRaidSettingsResponse";
-import { IGetStatusHeadlessResponse } from "../models/fika/routes/raid/headless/IGetStatusHeadlessResponse";
 import { IStartHeadlessRequest } from "../models/fika/routes/raid/headless/IStartHeadlessRequest";
 import { IStartHeadlessResponse } from "../models/fika/routes/raid/headless/IStartHeadlessResponse";
 import { IFikaRaidJoinRequestData } from "../models/fika/routes/raid/join/IFikaRaidJoinRequestData";
@@ -133,10 +133,10 @@ export class FikaRaidController {
 
     /** Handle /fika/raid/headless/start */
     public async handleRaidStartHeadless(sessionID: string, info: IStartHeadlessRequest): Promise<IStartHeadlessResponse> {
-        if (!this.fikaHeadlessHelper.HeadlessClientsAvailable()) {
+        if (!this.fikaHeadlessHelper.isHeadlessClientAvailable(info.headlessSessionID)) {
             return {
                 matchId: null,
-                error: "No headless clients are available.",
+                error: "This headless client is not available.",
             };
         }
 
@@ -147,7 +147,7 @@ export class FikaRaidController {
             };
         }
 
-        const headlessClientId = await this.fikaHeadlessService.startHeadlessRaid(sessionID, info);
+        const headlessClientId = await this.fikaHeadlessService.startHeadlessRaid(info.headlessSessionID, sessionID, info);
 
         this.logger.info(`Sent WS fikaHeadlessStartRaid to ${headlessClientId}`);
 
@@ -158,11 +158,9 @@ export class FikaRaidController {
         };
     }
 
-    /** Handle /fika/raid/headless/getstatus */
-    public handleRaidGetStatusHeadless(): IGetStatusHeadlessResponse {
-        return {
-            available: this.fikaHeadlessHelper.HeadlessClientsAvailable(),
-        };
+    /** Handle /fika/raid/headless/available */
+    public handleRaidGetAvailableHeadlesses(): IHeadlessAvailableClients[] {
+        return this.fikaHeadlessHelper.getAvailableHeadlessClients();
     }
 
     /** Handle /fika/raid/registerPlayer */

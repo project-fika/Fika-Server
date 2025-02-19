@@ -4,6 +4,7 @@ import { PlayersSpawnPlace } from "@spt/models/enums/PlayersSpawnPlace";
 import { SideType } from "@spt/models/enums/SideType";
 
 export interface IStartHeadlessRequest {
+    headlessSessionID: string;
     time: DateTime;
     locationId: string;
     spawnPlace: PlayersSpawnPlace;

@@ -38,16 +38,10 @@ export class FikaHeadlessService {
 
     /** Begin setting up a raid for a headless client
      *
-     * @returns returns a SessionID of the headless client that is starting this raid, returns null if no client could be found or there was an error.
+     * @returns returns the SessionID of the headless client that is starting this raid, returns null if no client could be found or there was an error.
      */
-    public async startHeadlessRaid(requesterSessionID: string, info: IStartHeadlessRequest): Promise<string | null> {
-        const headlessClientId = this.getAvailableHeadlessClient();
-
-        if (!headlessClientId) {
-            return null;
-        }
-
-        const headlessClient = this.headlessClients.get(headlessClientId);
+    public async startHeadlessRaid(headlessSessionID: string, requesterSessionID: string, info: IStartHeadlessRequest): Promise<string | null> {
+        const headlessClient = this.headlessClients.get(headlessSessionID);
 
         if (!headlessClient || headlessClient?.state != EHeadlessStatus.READY) {
             return null;
@@ -75,7 +69,7 @@ export class FikaHeadlessService {
 
         await headlessClientWS.sendAsync(JSON.stringify(startRequest));
 
-        return headlessClientId;
+        return headlessSessionID;
     }
 
     /** Sends a join message to the requester of a headless client */
