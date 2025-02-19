@@ -71,7 +71,7 @@ export class FikaHeadlessProfileService {
                     ip = "127.0.0.1";
                 }
 
-                const backendUrl = `http://${ip}:${port}`;
+                const backendUrl = `https://${ip}:${port}`;
 
                 for (const profile of createdProfiles) {
                     await this.generateLaunchScript(profile, backendUrl, this.scriptsPath);
