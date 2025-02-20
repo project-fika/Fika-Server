@@ -96,8 +96,8 @@ export class FikaHeadlessHelper {
 
                 headlessClients.push(availableHeadlessClient);
             }
-
-            return headlessClients;
         }
+
+        return headlessClients;
     }
 }
