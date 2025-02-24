@@ -73,7 +73,7 @@ export class FikaConfig {
                 forceIp: "",
             },
             setLevelToAverageOfLobby: true,
-            restartAfterAmountOfRaids: 3,
+            restartAfterAmountOfRaids: 0,
         },
         background: {
             enable: true,
