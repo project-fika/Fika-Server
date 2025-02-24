@@ -189,7 +189,6 @@ export class FikaHeadlessProfileService {
 
         scriptContent = scriptContent.replace("${profileId}", profileId).replace("${backendUrl}", backendUrl);
 
-        this.logger.info(scriptContent);
         return scriptContent;
     }
 
