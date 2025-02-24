@@ -74,7 +74,7 @@ export class FikaHeadlessProfileService {
                 const backendUrl = `https://${ip}:${port}`;
 
                 for (const profile of createdProfiles) {
-                    await this.generateLaunchScript(profile, backendUrl, this.scriptsPath);
+                    await this.generateLaunchScript(profile.info.id, backendUrl, this.scriptsPath);
                 }
             }
         }
@@ -164,16 +164,18 @@ export class FikaHeadlessProfileService {
         return profile;
     }
 
-    private async generateLaunchScript(profile: ISptProfile, backendUrl: string, scriptsFolderPath: string): Promise<void> {
+    private async generateLaunchScript(profileId: string, backendUrl: string, scriptsFolderPath: string): Promise<void> {
         try {
             if (!(await this.fileSystem.exists(scriptsFolderPath))) {
                 await this.fileSystem.ensureDir(scriptsFolderPath);
             }
 
             const templatePath = path.join(scriptsFolderPath, "_TEMPLATE.bat");
-            const scriptContent = await this.generateLaunchScriptContent(profile.info.id, backendUrl, templatePath);
+            const templateContent = await this.fileSystem.read(templatePath);
 
-            const scriptName = `Start_${profile.info.id}.bat`;
+            const scriptContent = templateContent.replace("${profileId}", profileId).replace("${backendUrl}", backendUrl);
+
+            const scriptName = `Start_${profileId}.bat`;
             const scriptPath = path.join(scriptsFolderPath, scriptName);
 
             await this.fileSystem.write(scriptPath, scriptContent);
@@ -182,14 +184,6 @@ export class FikaHeadlessProfileService {
         } catch (error) {
             this.logger.error(`Failed to generate launch script: ${error}`);
         }
-    }
-
-    private async generateLaunchScriptContent(profileId: string, backendUrl: string, templatePath: string): Promise<string> {
-        let scriptContent = await this.fileSystem.read(templatePath);
-
-        scriptContent = scriptContent.replace("${profileId}", profileId).replace("${backendUrl}", backendUrl);
-
-        return scriptContent;
     }
 
     private clearUnecessaryHeadlessItems(pmcProfile: IPmcData, sessionId: string): void {
