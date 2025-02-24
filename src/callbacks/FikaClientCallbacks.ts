@@ -24,6 +24,10 @@ export class FikaClientCallbacks {
     public handleNatPunchServerConfig(_url: string, _info: IFikaRaidServerIdRequestData, _sessionID: string): string {
         return this.httpResponseUtil.noBody(this.fikaClientController.handleNatPunchServerConfig());
     }
+    /** Handle /fika/headless/config */
+    public handleHeadlessConfig(_url: string, _info: IFikaRaidServerIdRequestData, _sessionID: string): string {
+        return this.httpResponseUtil.noBody(this.fikaClientController.handleHeadlessConfig());
+    }
 
     /** Handle /fika/client/check/mods */
     public handleCheckMods(_url: string, info: IFikaCheckModRequestData, sessionID: string): string {

@@ -164,21 +164,17 @@ export class FikaHeadlessProfileService {
         return profile;
     }
 
-    private async generateLaunchScript(profile: ISptProfile, backendUrl: string, targetFolderPath: string): Promise<void> {
-        const scriptName = `Start_${profile.info.username}.bat`;
-        const scriptPath = path.join(targetFolderPath, scriptName);
-        const scriptContent = `@echo off
-if NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" (
-    echo Could not find 'Fika.Headless.dll', please install the Headless plugin before starting the client and make sure the .bat file is in the Headless installation directory where 'EscapeFromTarkov.exe' is.
-    pause
-) else (
-    start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={'BackendUrl':'${backendUrl}','Version':'live'} -batchmode -nographics --enable-console true & exit
-)`;
-
+    private async generateLaunchScript(profile: ISptProfile, backendUrl: string, scriptsFolderPath: string): Promise<void> {
         try {
-            if (!(await this.fileSystem.exists(targetFolderPath))) {
-                await this.fileSystem.ensureDir(targetFolderPath);
+            if (!(await this.fileSystem.exists(scriptsFolderPath))) {
+                await this.fileSystem.ensureDir(scriptsFolderPath);
             }
+
+            const templatePath = path.join(scriptsFolderPath, "_TEMPLATE.bat");
+            const scriptContent = await this.generateLaunchScriptContent(profile.info.id, backendUrl, templatePath);
+
+            const scriptName = `Start_${profile.info.id}.bat`;
+            const scriptPath = path.join(scriptsFolderPath, scriptName);
 
             await this.fileSystem.write(scriptPath, scriptContent);
 
@@ -186,6 +182,15 @@ if NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" (
         } catch (error) {
             this.logger.error(`Failed to generate launch script: ${error}`);
         }
+    }
+
+    private async generateLaunchScriptContent(profileId: string, backendUrl: string, templatePath: string): Promise<string> {
+        let scriptContent = await this.fileSystem.read(templatePath);
+
+        scriptContent = scriptContent.replace("${profileId}", profileId).replace("${backendUrl}", backendUrl);
+
+        this.logger.info(scriptContent);
+        return scriptContent;
     }
 
     private clearUnecessaryHeadlessItems(pmcProfile: IPmcData, sessionId: string): void {

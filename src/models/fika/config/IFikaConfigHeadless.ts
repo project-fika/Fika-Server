@@ -9,4 +9,5 @@ export interface IFikaConfigHeadless {
     };
     /** If this is true, sets the headless's average level to that of the entire lobby, if set to false it will take the level of the requester. */
     setLevelToAverageOfLobby: boolean;
+    restartAfterAmountOfRaids: number;
 }
