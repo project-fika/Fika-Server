@@ -6,6 +6,7 @@ import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
+import { IFikaConfigHeadless } from "../models/fika/config/IFikaConfigHeadless";
 import { IFikaConfigNatPunchServer } from "../models/fika/config/IFikaConfigNatPunchServer";
 import { IFikaConfigServer } from "../models/fika/config/IFikaConfigServer";
 import { IFikaCheckModRequestData } from "../models/fika/routes/client/check/IFikaCheckModRequestData";
@@ -53,6 +54,10 @@ export class FikaClientService {
 
     public getNatPunchServerConfig(): IFikaConfigNatPunchServer {
         return this.fikaConfig.getConfig().natPunchServer;
+    }
+
+    public getHeadlessConfig(): IFikaConfigHeadless {
+        return this.fikaConfig.getConfig().headless;
     }
 
     public getVersion(): IVersionCheckResponse {

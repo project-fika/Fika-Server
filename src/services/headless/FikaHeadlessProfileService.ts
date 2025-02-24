@@ -74,7 +74,7 @@ export class FikaHeadlessProfileService {
                 const backendUrl = `https://${ip}:${port}`;
 
                 for (const profile of createdProfiles) {
-                    await this.generateLaunchScript(profile, backendUrl, this.scriptsPath);
+                    await this.generateLaunchScript(profile.info.id, backendUrl, this.scriptsPath);
                 }
             }
         }
@@ -164,21 +164,18 @@ export class FikaHeadlessProfileService {
         return profile;
     }
 
-    private async generateLaunchScript(profile: ISptProfile, backendUrl: string, targetFolderPath: string): Promise<void> {
-        const scriptName = `Start_${profile.info.username}.bat`;
-        const scriptPath = path.join(targetFolderPath, scriptName);
-        const scriptContent = `@echo off
-if NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" (
-    echo Could not find 'Fika.Headless.dll', please install the Headless plugin before starting the client and make sure the .bat file is in the Headless installation directory where 'EscapeFromTarkov.exe' is.
-    pause
-) else (
-    start "" EscapeFromTarkov.exe -token=${profile.info.id} -config={'BackendUrl':'${backendUrl}','Version':'live'} -batchmode -nographics --enable-console true & exit
-)`;
-
+    private async generateLaunchScript(profileId: string, backendUrl: string, scriptsFolderPath: string): Promise<void> {
         try {
-            if (!(await this.fileSystem.exists(targetFolderPath))) {
-                await this.fileSystem.ensureDir(targetFolderPath);
+            if (!(await this.fileSystem.exists(scriptsFolderPath))) {
+                await this.fileSystem.ensureDir(scriptsFolderPath);
             }
+
+            const scriptName = `Start_${profileId}.bat`;
+            const scriptPath = path.join(scriptsFolderPath, scriptName);
+
+            const templatePath = path.join(scriptsFolderPath, "_TEMPLATE.bat");
+            const templateContent = await this.fileSystem.read(templatePath);
+            const scriptContent = templateContent.replace("${profileId}", profileId).replace("${backendUrl}", backendUrl);
 
             await this.fileSystem.write(scriptPath, scriptContent);
 
