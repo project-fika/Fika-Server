@@ -170,11 +170,11 @@ export class FikaHeadlessProfileService {
                 await this.fileSystem.ensureDir(scriptsFolderPath);
             }
 
-            const scriptName = `Start_headless_${profileId}.bat`;
-            const scriptPath = path.join(scriptsFolderPath, scriptName);
-
             const templatePath = path.join(scriptsFolderPath, "_TEMPLATE.bat");
             const templateContent = await this.fileSystem.read(templatePath);
+
+            const scriptName = `Start_headless_${profileId}.bat`;
+            const scriptPath = path.join(scriptsFolderPath, scriptName);
             const scriptContent = templateContent.replace("${profileId}", profileId).replace("${backendUrl}", backendUrl);
 
             await this.fileSystem.write(scriptPath, scriptContent);
