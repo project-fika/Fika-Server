@@ -93,6 +93,7 @@ export class Container {
         container.registerType("Overrides", "LocationLifecycleServiceOverride");
 
         container.registerType("StaticRoutes", "FikaClientStaticRouter");
+        container.registerType("StaticRoutes", "FikaHeadlessStaticRouter");
         container.registerType("StaticRoutes", "FikaLocationStaticRouter");
         container.registerType("StaticRoutes", "FikaRaidStaticRouter");
         container.registerType("StaticRoutes", "FikaSendItemStaticRouter");
