@@ -6,8 +6,10 @@ import { HttpRouter } from "@spt/routers/HttpRouter";
 
 import { Override } from "../../di/Override";
 
-// Thanks to DrakiaXYZ for this implementation
-
+/**
+ * This override is essential for setups where the backendIp or NAT port mapping differs from the SPT server’s backend port.
+ * Without it, SPT constructs an incorrect backend URL, causing connection issues (e.g., using 0.0.0.0 instead of the correct address).
+ */
 @injectable()
 export class HttpRouterOverride extends Override {
     constructor(@inject("HttpServerHelper") protected httpServerHelper: HttpServerHelper) {
