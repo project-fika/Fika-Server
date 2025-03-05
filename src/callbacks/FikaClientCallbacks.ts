@@ -20,13 +20,9 @@ export class FikaClientCallbacks {
         return this.httpResponseUtil.noBody(this.fikaClientController.handleClientConfig());
     }
 
-    /** Handle /fika/client/config */
+    /** Handle /fika/natpunchserver/config */
     public handleNatPunchServerConfig(_url: string, _info: IFikaRaidServerIdRequestData, _sessionID: string): string {
         return this.httpResponseUtil.noBody(this.fikaClientController.handleNatPunchServerConfig());
-    }
-    /** Handle /fika/headless/config */
-    public handleHeadlessConfig(_url: string, _info: IFikaRaidServerIdRequestData, _sessionID: string): string {
-        return this.httpResponseUtil.noBody(this.fikaClientController.handleHeadlessConfig());
     }
 
     /** Handle /fika/client/check/mods */

@@ -158,11 +158,6 @@ export class FikaRaidController {
         };
     }
 
-    /** Handle /fika/raid/headless/available */
-    public handleRaidGetAvailableHeadlesses(): IHeadlessAvailableClients[] {
-        return this.fikaHeadlessHelper.getAvailableHeadlessClients();
-    }
-
     /** Handle /fika/raid/registerPlayer */
     public handleRaidRegisterPlayer(sessionId: string, info: IRegisterPlayerRequestData): void {
         this.inraidController.addPlayer(sessionId, info);

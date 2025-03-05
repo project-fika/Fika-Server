@@ -5,6 +5,7 @@ import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { EHeadlessStatus } from "../models/enums/EHeadlessStatus";
 import { IHeadlessAvailableClients } from "../models/fika/headless/IHeadlessAvailableClients";
+import { IHeadlessClientInfo } from "../models/fika/headless/IHeadlessClientInfo";
 import { FikaHeadlessProfileService } from "../services/headless/FikaHeadlessProfileService";
 import { FikaHeadlessService } from "../services/headless/FikaHeadlessService";
 import { FikaConfig } from "../utils/FikaConfig";
@@ -22,6 +23,21 @@ export class FikaHeadlessHelper {
         // empty
     }
 
+    /**
+     * Gets all currently logged in headlesses
+     *
+     * @returns A map where the key is the sessionID and the value is an IHeadlessClientInfo object
+     */
+    public getHeadlessClients(): Map<string, IHeadlessClientInfo> {
+        return this.FikaHeadlessService.getHeadlessClients();
+    }
+
+    /**
+     * Allows for checking if a SessionID is a headless client
+     *
+     * @param sessionId The sessionID to check
+     * @returns Returns true if the passed sessionID is a headless, returns false if not.
+     */
     public isHeadlessClient(sessionId: string): boolean {
         return this.fikaHeadlessProfileService.getHeadlessProfiles().some((profile) => profile.info.id === sessionId);
     }
@@ -87,7 +103,7 @@ export class FikaHeadlessHelper {
     public getAvailableHeadlessClients(): IHeadlessAvailableClients[] {
         const headlessClients: IHeadlessAvailableClients[] = [];
 
-        for (const [headlessSessionID, headless] of this.FikaHeadlessService.getHeadlessClients()) {
+        for (const [headlessSessionID, headless] of this.getHeadlessClients()) {
             if (headless.state === EHeadlessStatus.READY) {
                 const availableHeadlessClient: IHeadlessAvailableClients = {
                     headlessSessionID: headlessSessionID,

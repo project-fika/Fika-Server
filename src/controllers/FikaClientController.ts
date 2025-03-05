@@ -48,13 +48,6 @@ export class FikaClientController {
     }
 
     /**
-     * Handle /fika/headless/config
-     */
-    public handleHeadlessConfig(): IFikaConfigHeadless {
-        return this.fikaClientService.getHeadlessConfig();
-    }
-
-    /**
      * Handle /fika/client/check/mods
      */
     public handleCheckMods(request: IFikaCheckModRequestData, sessionID: string): IFikaCheckModResponse {

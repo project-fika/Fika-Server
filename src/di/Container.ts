@@ -47,8 +47,11 @@ import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
 
 import { Fika } from "../Fika";
+import { FikaHeadlessCallbacks } from "../callbacks/FikaHeadlessCallbacks";
 import { FikaNotificationCallbacks } from "../callbacks/FikaNotificationCallbacks";
+import { FikaHeadlessController } from "../controllers/FikaHeadlessController";
 import { FikaHeadlessHelper } from "../helpers/FikaHeadlessHelper";
+import { FikaHeadlessStaticRouter } from "../routers/static/FikaHeadlessStaticRouter";
 import { FikaNotificationStaticRouter } from "../routers/static/FikaNotificationStaticRouter";
 import { FikaClientService } from "../services/FikaClientService";
 import { FikaHeadlessProfileService } from "../services/headless/FikaHeadlessProfileService";
@@ -140,6 +143,7 @@ export class Container {
 
     private static registerControllers(container: DependencyContainer): void {
         container.register<FikaClientController>("FikaClientController", { useClass: FikaClientController });
+        container.register<FikaHeadlessController>("FikaHeadlessController", { useClass: FikaHeadlessController });
         container.register<FikaDialogueController>("FikaDialogueController", { useClass: FikaDialogueController });
         container.register<FikaLocationController>("FikaLocationController", { useClass: FikaLocationController });
         container.register<FikaRaidController>("FikaRaidController", { useClass: FikaRaidController });
@@ -150,6 +154,7 @@ export class Container {
 
     private static registerCallbacks(container: DependencyContainer): void {
         container.register<FikaClientCallbacks>("FikaClientCallbacks", { useClass: FikaClientCallbacks });
+        container.register<FikaHeadlessCallbacks>("FikaHeadlessCallbacks", { useClass: FikaHeadlessCallbacks });
         container.register<FikaLocationCallbacks>("FikaLocationCallbacks", { useClass: FikaLocationCallbacks });
         container.register<FikaRaidCallbacks>("FikaRaidCallbacks", { useClass: FikaRaidCallbacks });
         container.register<FikaSendItemCallbacks>("FikaSendItemCallbacks", { useClass: FikaSendItemCallbacks });
@@ -160,6 +165,7 @@ export class Container {
 
     private static registerRouters(container: DependencyContainer): void {
         container.register<FikaClientStaticRouter>("FikaClientStaticRouter", { useClass: FikaClientStaticRouter });
+        container.register<FikaHeadlessStaticRouter>("FikaHeadlessStaticRouter", { useClass: FikaHeadlessStaticRouter });
         container.register<FikaLocationStaticRouter>("FikaLocationStaticRouter", { useClass: FikaLocationStaticRouter });
         container.register<FikaRaidStaticRouter>("FikaRaidStaticRouter", { useClass: FikaRaidStaticRouter });
         container.register<FikaSendItemStaticRouter>("FikaSendItemStaticRouter", { useClass: FikaSendItemStaticRouter });
