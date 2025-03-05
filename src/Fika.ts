@@ -119,6 +119,7 @@ export class Fika {
         // At the moment this doesn't reload:
         // Nat punch server (Requires additional setup)
         // SPT Http configuration (Can't be changed once initialized)
+        // Backgrounds on the launcher (cached?)
         // Any client options if a client is already in-game, client will have to restart his game.
         watch(configPath, async (eventType, _filename) => {
             if (eventType === "change") {
@@ -182,7 +183,7 @@ export class Fika {
 
                         this.logger.info("[Fika Server] Configuration hot-reloaded successfully");
                     }
-                }, 500);
+                }, 750);
             }
         });
     }
