@@ -99,14 +99,6 @@ export class FikaMatchService {
     }
 
     /**
-     * Returns all match ids
-     * @returns
-     */
-    public getAllMatchIds(): string[] {
-        return Array.from(this.matches.keys());
-    }
-
-    /**
      * Returns the player with the given id in the given match, undefined if either match or player does not exist
      * @param matchId
      * @param playerId
@@ -122,22 +114,6 @@ export class FikaMatchService {
         }
 
         return this.matches.get(matchId).players.get(playerId);
-    }
-
-    /**
-     * Returns an array with all playerIds in the given match, undefined if match does not exist
-     *
-     * Note:
-     * - host player is the one where playerId is equal to matchId
-     * @param matchId
-     * @returns
-     */
-    public getPlayersIdsByMatch(matchId: string): string[] {
-        if (!this.matches.has(matchId)) {
-            return;
-        }
-
-        return Array.from(this.matches.get(matchId).players.keys());
     }
 
     /**
