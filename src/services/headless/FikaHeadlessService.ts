@@ -154,19 +154,4 @@ export class FikaHeadlessService {
         headlessClient.requesterSessionID = null;
         headlessClient.hasNotifiedRequester = null;
     }
-
-    /**
-     * Gets the first available headless client
-     *
-     * @returns Returns the SessionID of the headless client if one is available, if not returns null.
-     */
-    private getAvailableHeadlessClient(): string | null {
-        for (const [key, value] of this.headlessClients) {
-            if (value.state === EHeadlessStatus.READY) {
-                return key;
-            }
-        }
-
-        return null;
-    }
 }

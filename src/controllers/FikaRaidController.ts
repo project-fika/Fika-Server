@@ -28,11 +28,9 @@ import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSock
 @injectable()
 export class FikaRaidController {
     constructor(
-        @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("FikaHeadlessHelper") protected fikaHeadlessHelper: FikaHeadlessHelper,
         @inject("FikaHeadlessService") protected fikaHeadlessService: FikaHeadlessService,
-        @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("InraidController") protected inraidController: InraidController,
         @inject("FikaNotificationWebSocket") protected fikaNotificationWebSocket: FikaNotificationWebSocket,

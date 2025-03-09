@@ -15,10 +15,8 @@ export class FikaHeadlessHelper {
     constructor(
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
         @inject("SaveServer") protected saveServer: SaveServer,
-        @inject("ConfigServer") protected configServer: ConfigServer,
         @inject("FikaHeadlessService") protected FikaHeadlessService: FikaHeadlessService,
         @inject("FikaHeadlessProfileService") protected fikaHeadlessProfileService: FikaHeadlessProfileService,
-        @inject("WinstonLogger") protected logger: ILogger,
     ) {
         // empty
     }

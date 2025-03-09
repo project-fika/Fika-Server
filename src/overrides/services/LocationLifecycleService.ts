@@ -26,10 +26,8 @@ export class LocationLifecycleServiceOverride extends Override {
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("LocationLifecycleService") protected locationLifecycleService: LocationLifecycleService,
-        @inject("BotGenerationCacheService") protected botGenerationCacheService: BotGenerationCacheService,
         @inject("ApplicationContext") protected applicationContext: ApplicationContext,
         @inject("TimeUtil") protected timeUtil: TimeUtil,
-        @inject("PrimaryLogger") protected logger: ILogger,
     ) {
         super();
     }

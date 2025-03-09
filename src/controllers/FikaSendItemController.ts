@@ -25,7 +25,6 @@ export class FikaSendItemController {
     constructor(
         @inject("WinstonLogger") protected logger: ILogger,
         @inject("EventOutputHolder") protected eventOutputHolder: EventOutputHolder,
-        @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("MailSendService") protected mailSendService: MailSendService,
         @inject("InventoryHelper") protected inventoryHelper: InventoryHelper,
         @inject("SaveServer") protected saveServer: SaveServer,

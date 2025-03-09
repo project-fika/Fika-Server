@@ -26,7 +26,6 @@ export class FikaDialogueController {
     constructor(
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
         @inject("DialogueHelper") protected dialogueHelper: DialogueHelper,
-        @inject("ConfigServer") protected configServer: ConfigServer,
         @inject("FikaFriendRequestsHelper") protected fikaFriendRequestsHelper: FikaFriendRequestsHelper,
         @inject("FikaPlayerRelationsHelper") protected fikaPlayerRelationsHelper: FikaPlayerRelationsHelper,
         @inject("DialogueController") protected dialogueController: DialogueController,

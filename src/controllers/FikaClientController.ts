@@ -19,13 +19,7 @@ export class FikaClientController {
     protected allowedMods: string[] = [];
     protected hasRequiredOrOptionalMods: boolean = true;
 
-    constructor(
-        @inject("FikaClientService") protected fikaClientService: FikaClientService,
-        @inject("FikaClientModHashesHelper") protected fikaClientModHashesHelper: FikaClientModHashesHelper,
-        @inject("FikaConfig") protected fikaConfig: FikaConfig,
-        @inject("SaveServer") protected saveServer: SaveServer,
-        @inject("WinstonLogger") protected logger: ILogger,
-    ) {}
+    constructor(@inject("FikaClientService") protected fikaClientService: FikaClientService) {}
     /**
      * Handle /fika/client/config
      */
