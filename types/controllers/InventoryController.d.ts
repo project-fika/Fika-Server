@@ -149,7 +149,7 @@ export declare class InventoryController {
      * Bind an inventory item to the quick access menu at bottom of player screen
      * Handle bind event
      * @param pmcData Player profile
-     * @param bindRequest Reqeust object
+     * @param bindRequest Request object
      * @param sessionID Session id
      * @returns IItemEventRouterResponse
      */

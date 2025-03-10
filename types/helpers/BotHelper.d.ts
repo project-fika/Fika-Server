@@ -41,7 +41,6 @@ export declare class BotHelper {
      */
     addBotToRevengeList(difficultySettings: IDifficultyCategories, typesToAdd: string[]): void;
     rollChanceToBePmc(botConvertMinMax: MinMax): boolean;
-    protected getPmcConversionValuesForLocation(location: string): Record<string, MinMax>;
     /**
      * is the provided role a PMC, case-agnostic
      * @param botRole Role to check

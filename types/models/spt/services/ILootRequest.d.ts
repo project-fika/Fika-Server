@@ -26,6 +26,8 @@ export interface ILootRequest {
     useForcedLoot?: boolean;
     /** Item tpls + count of items to force include */
     forcedLoot?: Record<string, MinMax>;
+    /** Should seasonal items appear when its not the season for them */
+    blockSeasonalItemsOutOfSeason: boolean;
 }
 export interface IAirdropLootRequest extends ILootRequest {
     /** Airdrop icon used by client to show crate type */

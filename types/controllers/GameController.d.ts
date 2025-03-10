@@ -3,6 +3,7 @@ import { HideoutHelper } from "@spt/helpers/HideoutHelper";
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
 import { InventoryHelper } from "@spt/helpers/InventoryHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
+import { RewardHelper } from "@spt/helpers/RewardHelper";
 import { PreSptModLoader } from "@spt/loaders/PreSptModLoader";
 import { IEmptyRequestData } from "@spt/models/eft/common/IEmptyRequestData";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
@@ -48,6 +49,7 @@ export declare class GameController {
     protected preSptModLoader: PreSptModLoader;
     protected httpServerHelper: HttpServerHelper;
     protected inventoryHelper: InventoryHelper;
+    protected rewardHelper: RewardHelper;
     protected randomUtil: RandomUtil;
     protected hideoutHelper: HideoutHelper;
     protected profileHelper: ProfileHelper;
@@ -70,7 +72,7 @@ export declare class GameController {
     protected ragfairConfig: IRagfairConfig;
     protected hideoutConfig: IHideoutConfig;
     protected botConfig: IBotConfig;
-    constructor(logger: ILogger, databaseService: DatabaseService, timeUtil: TimeUtil, hashUtil: HashUtil, preSptModLoader: PreSptModLoader, httpServerHelper: HttpServerHelper, inventoryHelper: InventoryHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, postDbLoadService: PostDbLoadService, createProfileService: CreateProfileService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, profileActivityService: ProfileActivityService, applicationContext: ApplicationContext, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, databaseService: DatabaseService, timeUtil: TimeUtil, hashUtil: HashUtil, preSptModLoader: PreSptModLoader, httpServerHelper: HttpServerHelper, inventoryHelper: InventoryHelper, rewardHelper: RewardHelper, randomUtil: RandomUtil, hideoutHelper: HideoutHelper, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, postDbLoadService: PostDbLoadService, createProfileService: CreateProfileService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, giftService: GiftService, raidTimeAdjustmentService: RaidTimeAdjustmentService, profileActivityService: ProfileActivityService, applicationContext: ApplicationContext, configServer: ConfigServer, cloner: ICloner);
     load(): void;
     /**
      * Handle client/game/start

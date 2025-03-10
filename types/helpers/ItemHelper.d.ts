@@ -294,12 +294,13 @@ export declare class ItemHelper {
      * Mark the passed in array of items as found in raid.
      * Modifies passed in items
      * @param items The list of items to mark as FiR
+     * @param excludeCurrency Should currency be excluded from becoming FiR (default true)
      */
-    setFoundInRaid(items: IItem[]): void;
+    setFoundInRaid(items: IItem[], excludeCurrency?: boolean): void;
     /**
      * WARNING, SLOW. Recursively loop down through an items hierarchy to see if any of the ids match the supplied list, return true if any do
-     * @param {string} tpl Items tpl to check parents of
-     * @param {Array} tplsToCheck Tpl values to check if parents of item match
+     * @param tpl Items tpl to check parents of
+     * @param tplsToCheck Tpl values to check if parents of item match
      * @returns boolean Match found
      */
     doesItemOrParentsIdMatch(tpl: string, tplsToCheck: string[]): boolean;

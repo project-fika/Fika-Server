@@ -6,6 +6,7 @@ import { LocalisationService } from "@spt/services/LocalisationService";
 import { FileSystem } from "@spt/utils/FileSystem";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { JsonUtil } from "@spt/utils/JsonUtil";
+import { MutexInterface } from "async-mutex";
 export declare class SaveServer {
     protected fileSystem: FileSystem;
     protected saveLoadRouters: SaveLoadRouter[];
@@ -16,7 +17,7 @@ export declare class SaveServer {
     protected configServer: ConfigServer;
     protected profileFilepath: string;
     protected profiles: Map<string, ISptProfile>;
-    protected profilesBeingSaved: Set<string>;
+    protected profilesBeingSavedMutex: Map<string, MutexInterface>;
     protected onBeforeSaveCallbacks: Map<string, (profile: ISptProfile) => Promise<ISptProfile>>;
     protected saveSHA1: {
         [key: string]: string;

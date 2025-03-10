@@ -101,6 +101,12 @@ export declare class ProfileFixerService {
      */
     protected fixFavorites(pmcProfile: IPmcData): void;
     /**
+     * Remove any entries from `pmcProfile.InsuredItems` that do not have a corresponding
+     * `pmcProfile.Inventory.items` entry
+     * @param pmcProfile
+     */
+    protected fixOrphanedInsurance(pmcProfile: IPmcData): void;
+    /**
      * If the profile has elite Hideout Managment skill, add the additional slots from globals
      * NOTE: This seems redundant, but we will leave it here just incase.
      * @param pmcProfile profile to add slots to

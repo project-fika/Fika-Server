@@ -2,7 +2,7 @@ import { PMCLootGenerator } from "@spt/generators/PMCLootGenerator";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { MinMax } from "@spt/models/common/MinMax";
 import { IBotType } from "@spt/models/eft/common/tables/IBotType";
-import { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IProps } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBotLootCache, LootCacheType } from "@spt/models/spt/bots/IBotLootCache";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { LocalisationService } from "@spt/services/LocalisationService";
@@ -38,12 +38,6 @@ export declare class BotLootCacheService {
      * @param botJsonTemplate db template for bot having its loot generated
      */
     protected addLootToCache(botRole: string, isPmc: boolean, botJsonTemplate: IBotType): void;
-    /**
-     * Add unique items into combined pool
-     * @param poolToAddTo Pool of items to add to
-     * @param itemsToAdd items to add to combined pool if unique
-     */
-    protected addUniqueItemsToPool(poolToAddTo: ITemplateItem[], itemsToAdd: ITemplateItem[]): void;
     protected addItemsToPool(poolToAddTo: Record<string, number>, poolOfItemsToAdd: Record<string, number>): void;
     /**
      * Ammo/grenades have this property

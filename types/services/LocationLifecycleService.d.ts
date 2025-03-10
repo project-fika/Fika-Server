@@ -2,10 +2,12 @@ import { ApplicationContext } from "@spt/context/ApplicationContext";
 import { LocationLootGenerator } from "@spt/generators/LocationLootGenerator";
 import { LootGenerator } from "@spt/generators/LootGenerator";
 import { PlayerScavGenerator } from "@spt/generators/PlayerScavGenerator";
+import { PmcWaveGenerator } from "@spt/generators/PmcWaveGenerator";
 import { HealthHelper } from "@spt/helpers/HealthHelper";
 import { InRaidHelper } from "@spt/helpers/InRaidHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { QuestHelper } from "@spt/helpers/QuestHelper";
+import { RewardHelper } from "@spt/helpers/RewardHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
@@ -38,7 +40,6 @@ import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 import type { ICloner } from "@spt/utils/cloners/ICloner";
-import { RewardHelper } from "@spt/helpers/RewardHelper";
 export declare class LocationLifecycleService {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -66,6 +67,7 @@ export declare class LocationLifecycleService {
     protected lootGenerator: LootGenerator;
     protected applicationContext: ApplicationContext;
     protected locationLootGenerator: LocationLootGenerator;
+    protected pmcWaveGenerator: PmcWaveGenerator;
     protected cloner: ICloner;
     protected inRaidConfig: IInRaidConfig;
     protected traderConfig: ITraderConfig;
@@ -73,7 +75,7 @@ export declare class LocationLifecycleService {
     protected hideoutConfig: IHideoutConfig;
     protected locationConfig: ILocationConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, saveServer: SaveServer, timeUtil: TimeUtil, randomUtil: RandomUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, inRaidHelper: InRaidHelper, healthHelper: HealthHelper, questHelper: QuestHelper, rewardHelper: RewardHelper, matchBotDetailsCacheService: MatchBotDetailsCacheService, pmcChatResponseService: PmcChatResponseService, playerScavGenerator: PlayerScavGenerator, traderHelper: TraderHelper, localisationService: LocalisationService, insuranceService: InsuranceService, botLootCacheService: BotLootCacheService, configServer: ConfigServer, botGenerationCacheService: BotGenerationCacheService, mailSendService: MailSendService, raidTimeAdjustmentService: RaidTimeAdjustmentService, botNameService: BotNameService, lootGenerator: LootGenerator, applicationContext: ApplicationContext, locationLootGenerator: LocationLootGenerator, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, saveServer: SaveServer, timeUtil: TimeUtil, randomUtil: RandomUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, inRaidHelper: InRaidHelper, healthHelper: HealthHelper, questHelper: QuestHelper, rewardHelper: RewardHelper, matchBotDetailsCacheService: MatchBotDetailsCacheService, pmcChatResponseService: PmcChatResponseService, playerScavGenerator: PlayerScavGenerator, traderHelper: TraderHelper, localisationService: LocalisationService, insuranceService: InsuranceService, botLootCacheService: BotLootCacheService, configServer: ConfigServer, botGenerationCacheService: BotGenerationCacheService, mailSendService: MailSendService, raidTimeAdjustmentService: RaidTimeAdjustmentService, botNameService: BotNameService, lootGenerator: LootGenerator, applicationContext: ApplicationContext, locationLootGenerator: LocationLootGenerator, pmcWaveGenerator: PmcWaveGenerator, cloner: ICloner);
     /** Handle client/match/local/start */
     startLocalRaid(sessionId: string, request: IStartLocalRaidRequestData): IStartLocalRaidResponseData;
     /**

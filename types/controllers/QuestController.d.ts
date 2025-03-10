@@ -138,7 +138,7 @@ export declare class QuestController {
     /**
      * Handle /client/game/profile/items/moving - QuestFail
      * @param pmcData Pmc profile
-     * @param request Fail qeust request
+     * @param request Fail quest request
      * @param sessionID Session id
      * @returns IItemEventRouterResponse
      */

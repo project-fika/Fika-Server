@@ -14,6 +14,7 @@ export interface IGameConfigResponse {
     twitchEventMember: boolean;
     sessionMode: string;
     purchasedGames: IPurchasedGames;
+    isGameSynced: boolean;
 }
 export interface IPurchasedGames {
     eft: boolean;

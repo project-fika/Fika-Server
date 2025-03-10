@@ -1,4 +1,5 @@
-import http, { IncomingMessage } from "node:http";
+import { IncomingMessage } from "node:http";
+import https from "node:https";
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
@@ -17,7 +18,7 @@ export declare class WebSocketServer {
     protected webSocketServer: Server | undefined;
     constructor(logger: ILogger, randomUtil: RandomUtil, jsonUtil: JsonUtil, localisationService: LocalisationService, httpServerHelper: HttpServerHelper, webSocketConnectionHandlers: IWebSocketConnectionHandler[]);
     getWebSocketServer(): Server | undefined;
-    setupWebSocket(httpServer: http.Server): void;
+    setupWebSocket(httpServer: https.Server): void;
     protected getRandomisedMessage(): string;
     protected wsOnConnection(ws: SPTWebSocket, req: IncomingMessage): Promise<void>;
 }

@@ -152,6 +152,12 @@ export declare class BotWeaponGenerator {
      */
     protected getCompatibleCartridgesFromWeaponTemplate(weaponTemplate: ITemplateItem): string[];
     /**
+     * Get the cartridge ids from a weapon's magazine template that work with the weapon
+     * @param weaponTemplate Weapon db template to get magazine cartridges for
+     * @returns Array of cartridge tpls
+     */
+    protected getCompatibleCartridgesFromMagazineTemplate(weaponTemplate: ITemplateItem): string[];
+    /**
      * Get a weapons compatible cartridge caliber
      * @param weaponTemplate Weapon to look up caliber of
      * @returns caliber as string

@@ -17,6 +17,7 @@ export interface IHideoutConfig extends IBaseConfig {
     hideoutCraftsToAdd: IHideoutCraftToAdd[];
 }
 export interface IHideoutCraftToAdd {
+    newId: string;
     requirements: IRequirement[];
     craftIdToCopy: string;
     craftOutputTpl: string;

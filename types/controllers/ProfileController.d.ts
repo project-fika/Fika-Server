@@ -42,7 +42,7 @@ export declare class ProfileController {
     getCompleteProfile(sessionID: string): IPmcData[];
     /**
      * Handle client/game/profile/create
-     * @param info Client reqeust object
+     * @param info Client request object
      * @param sessionID Player id
      * @returns Profiles _id value
      */

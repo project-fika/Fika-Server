@@ -1701,9 +1701,15 @@ export interface IBotPreset {
 export interface IAudioSettings {
     AudioGroupPresets: IAudioGroupPreset[];
     EnvironmentSettings: IEnvironmentSettings;
+    HeadphonesSettings: IHeadphonesSettings;
     MetaXRAudioPluginSettings: IMetaXRAudioPluginSettings;
     PlayerSettings: IPlayerSettings;
     RadioBroadcastSettings: IRadioBroadcastSettings;
+}
+export interface IHeadphonesSettings {
+    FadeDuration: number;
+    FadeIn: string;
+    FadeOut: string;
 }
 export interface IAudioGroupPreset {
     AngleToAllowBinaural: number;

@@ -74,7 +74,7 @@ export declare class RagfairOfferService {
      * @param offerId Offer to adjust stack size of
      * @param amount How much to deduct from offers stack size
      */
-    removeOfferStack(offerId: string, amount: number): void;
+    reduceOfferQuantity(offerId: string, amount: number): void;
     removeAllOffersByTrader(traderId: string): void;
     /**
      * Do the trader offers on flea need to be refreshed

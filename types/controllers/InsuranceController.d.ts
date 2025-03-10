@@ -152,6 +152,11 @@ export declare class InsuranceController {
      */
     protected processAttachmentByParent(attachments: IItem[], traderId: string, toDelete: Set<string>): void;
     protected logAttachmentsBeingRemoved(attachmentIdsToRemove: string[], attachments: IItem[], attachmentPrices: Record<string, number>): void;
+    /**
+     * Get dictionary of items with their corresponding price
+     * @param attachments
+     * @returns
+     */
     protected weightAttachmentsByPrice(attachments: IItem[]): Record<string, number>;
     /**
      * Get count of items to remove from weapon (take into account trader + price of attachment)

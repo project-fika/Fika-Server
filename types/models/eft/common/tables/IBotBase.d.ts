@@ -311,7 +311,7 @@ export interface IHideout {
     Areas: IBotHideoutArea[];
     Improvements: Record<string, IHideoutImprovement>;
     HideoutCounters: IHideoutCounters;
-    Seed: number;
+    Seed: string;
     Customization: Record<string, string>;
     MannequinPoses: Record<string, string>;
     sptUpdateLastRunTimestamp: number;

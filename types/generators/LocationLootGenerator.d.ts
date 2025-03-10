@@ -142,5 +142,5 @@ export declare class LocationLootGenerator {
      * @returns Item object
      */
     protected getItemInArray(items: IItem[], chosenTpl: string): IItem | undefined;
-    protected createStaticLootItem(chosenTpl: string, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, parentId?: string): IContainerItem;
+    protected createStaticLootItem(chosenTpl: string, staticAmmoDist: Record<string, IStaticAmmoDetails[]>, parentId?: string): IContainerItem | undefined;
 }

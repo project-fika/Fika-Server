@@ -69,7 +69,7 @@ export declare class BotInventoryGenerator {
      * @param botLevel Level of bot
      * @param chosenGameVersion Game version for bot, only really applies for PMCs
      */
-    protected generateAndAddEquipmentToBot(sessionId: string, templateInventory: IInventory, wornItemChances: IChances, botRole: string, botInventory: PmcInventory, botLevel: number, chosenGameVersion: string, raidConfig: IGetRaidConfigurationRequestData): void;
+    protected generateAndAddEquipmentToBot(sessionId: string, templateInventory: IInventory, wornItemChances: IChances, botRole: string, botInventory: PmcInventory, botLevel: number, chosenGameVersion: string, isPmc: boolean, raidConfig: IGetRaidConfigurationRequestData): void;
     /**
      * Remove non-armored rigs from parameter data
      * @param templateEquipment Equpiment to filter TacticalVest of

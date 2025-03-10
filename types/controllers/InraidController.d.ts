@@ -41,5 +41,5 @@ export declare class InraidController {
      */
     getInraidConfig(): IInRaidConfig;
     getTraitorScavHostileChance(url: string, sessionID: string): number;
-    getBossConvertSettings(url: string, sessionId: string): string[];
+    getBossTypes(url: string, sessionId: string): string[];
 }

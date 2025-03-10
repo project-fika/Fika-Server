@@ -1,3 +1,4 @@
+import { PmcWaveGenerator } from "@spt/generators/PmcWaveGenerator";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
 import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
@@ -25,6 +26,7 @@ export declare class PostDbLoadService {
     protected openZoneService: OpenZoneService;
     protected seasonalEventService: SeasonalEventService;
     protected itemBaseClassService: ItemBaseClassService;
+    protected pmcWaveGenerator: PmcWaveGenerator;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected coreConfig: ICoreConfig;
@@ -35,8 +37,10 @@ export declare class PostDbLoadService {
     protected lootConfig: ILootConfig;
     protected botConfig: IBotConfig;
     protected itemConfig: IItemConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, databaseService: DatabaseService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseService: DatabaseService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, pmcWaveGenerator: PmcWaveGenerator, configServer: ConfigServer, cloner: ICloner);
     performPostDbLoadActions(): void;
+    protected removeExistingPmcWaves(): void;
+    protected removeNewBeginningRequirementFromPrestige(): void;
     protected unlockHideoutLootCrateCrafts(): void;
     protected cloneExistingCraftsAndAddNew(): void;
     protected adjustMinReserveRaiderSpawnChance(): void;

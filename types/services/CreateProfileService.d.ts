@@ -1,8 +1,10 @@
 import { PlayerScavGenerator } from "@spt/generators/PlayerScavGenerator";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { PrestigeHelper } from "@spt/helpers/PrestigeHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { QuestHelper } from "@spt/helpers/QuestHelper";
 import { QuestRewardHelper } from "@spt/helpers/QuestRewardHelper";
+import { RewardHelper } from "@spt/helpers/RewardHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
@@ -31,11 +33,13 @@ export declare class CreateProfileService {
     protected traderHelper: TraderHelper;
     protected localisationService: LocalisationService;
     protected mailSendService: MailSendService;
+    protected prestigeHelper: PrestigeHelper;
     protected playerScavGenerator: PlayerScavGenerator;
     protected questRewardHelper: QuestRewardHelper;
+    protected rewardHelper: RewardHelper;
     protected cloner: ICloner;
     protected eventOutputHolder: EventOutputHolder;
-    constructor(logger: ILogger, hashUtil: HashUtil, timeUtil: TimeUtil, saveServer: SaveServer, databaseService: DatabaseService, profileFixerService: ProfileFixerService, itemHelper: ItemHelper, questHelper: QuestHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, localisationService: LocalisationService, mailSendService: MailSendService, playerScavGenerator: PlayerScavGenerator, questRewardHelper: QuestRewardHelper, cloner: ICloner, eventOutputHolder: EventOutputHolder);
+    constructor(logger: ILogger, hashUtil: HashUtil, timeUtil: TimeUtil, saveServer: SaveServer, databaseService: DatabaseService, profileFixerService: ProfileFixerService, itemHelper: ItemHelper, questHelper: QuestHelper, profileHelper: ProfileHelper, traderHelper: TraderHelper, localisationService: LocalisationService, mailSendService: MailSendService, prestigeHelper: PrestigeHelper, playerScavGenerator: PlayerScavGenerator, questRewardHelper: QuestRewardHelper, rewardHelper: RewardHelper, cloner: ICloner, eventOutputHolder: EventOutputHolder);
     createProfile(sessionID: string, info: IProfileCreateRequestData): Promise<string>;
     /**
      * Delete a profile
