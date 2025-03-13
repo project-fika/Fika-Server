@@ -243,7 +243,7 @@
     "F_BepInEx_SmoothingRate_T": "Smoothing Rate",
     "F_BepInEx_SmoothingRate_D": "Local simulation is behind by (Send Rate * Smoothing Rate). This guarantees that we always have enough snapshots in the buffer to mitigate lags & jitter during interpolation.\n\nLow = 1.5\nMedium = 2\nHigh = 2.5\n\nSet this to 'High' if movement isn't smooth. Cannot be changed during a raid.",
     "F_BepInEx_NetMultiThread_T": "Use MultiThreading",
-    "F_BepInEx_NetMultiThread_D": "If the network component should use multi-threading. This can potentially alleviate problems when the game lags, allowing the network manager to still process and queue packets during low FPS.\nThis is an experimental feature and should only be enabled on high-end PCs.",
+    "F_BepInEx_NetMultiThread_D": "If the network component should use multi-threading. This can potentially alleviate problems when the game lags, allowing the network manager to still process and queue packets during low FPS.\nThis is an experimental feature and should only be enabled on high-end PCs and will only be enabled on a headless client.",
     "F_BepInEx_VOIP_T": "Allow VOIP",
     "F_BepInEx_VOIP_D": "If VOIP will be enabled when you are hosting.",
     "F_BepInEx_DisableBotMetabolism_T": "Disable Bot Metabolism",
