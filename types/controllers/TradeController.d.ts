@@ -14,7 +14,7 @@ import { ISellScavItemsToFenceRequestData } from "@spt/models/eft/trade/ISellSca
 import { Traders } from "@spt/models/enums/Traders";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { RagfairServer } from "@spt/servers/RagfairServer";

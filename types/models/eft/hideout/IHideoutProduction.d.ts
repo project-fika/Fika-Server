@@ -24,6 +24,7 @@ export interface IRequirement extends IRequirementBase {
     count?: number;
     isEncoded?: boolean;
     isFunctional?: boolean;
+    isSpawnedInSession?: boolean;
     areaType?: number;
     requiredLevel?: number;
     resource?: number;

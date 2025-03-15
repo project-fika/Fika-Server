@@ -20,7 +20,7 @@ export interface IInRaidConfig extends IBaseConfig {
     /** On death should items in your secure keep their Find in raid status regardless of how you finished the raid */
     keepFiRSecureContainerOnDeath: boolean;
     /** If enabled always keep found in raid status on items */
-    alwaysKeepFoundInRaidonRaidEnd: boolean;
+    alwaysKeepFoundInRaidOnRaidEnd: boolean;
     /** Percentage chance a player scav hot is hostile to the player when scavving */
     playerScavHostileChancePercent: number;
 }

@@ -1,7 +1,7 @@
 import { IncomingMessage } from "node:http";
-import { WebSocket } from "ws";
+import { SPTWebSocket } from "./SPTWebsocket";
 export interface IWebSocketConnectionHandler {
     getSocketId(): string;
     getHookUrl(): string;
-    onConnection(ws: WebSocket, req: IncomingMessage): void;
+    onConnection(ws: SPTWebSocket, req: IncomingMessage): Promise<void>;
 }

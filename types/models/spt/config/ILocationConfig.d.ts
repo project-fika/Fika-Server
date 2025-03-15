@@ -44,6 +44,8 @@ export interface ILocationConfig extends IBaseConfig {
     equipmentLootSettings: IEquipmentLootSettings;
     /** min percentage to set raider spawns at, -1 makes no changes */
     reserveRaiderSpawnChanceOverrides: IReserveRaiderSpawnChanceOverrides;
+    /** Containers to remove all children from when generating static/loose loot */
+    tplsToStripChildItemsFrom: string[];
     /** Map ids players cannot visit */
     nonMaps: string[];
 }

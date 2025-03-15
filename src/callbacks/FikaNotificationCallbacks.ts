@@ -2,11 +2,11 @@ import { inject, injectable } from "tsyringe";
 
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
+import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { EEFTNotificationIconType } from "../models/enums/EEFTNotificationIconType";
+import { EFikaNotifications } from "../models/enums/EFikaNotifications";
 import { IPushNotification } from "../models/fika/websocket/notifications/IPushNotification";
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
-import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
-import { EFikaNotifications } from "../models/enums/EFikaNotifications";
-import { EEFTNotificationIconType } from "../models/enums/EEFTNotificationIconType";
 
 @injectable()
 export class FikaNotificationCallbacks {
@@ -18,7 +18,7 @@ export class FikaNotificationCallbacks {
     }
 
     /** Handle /fika/notification/push */
-    public handlePushNotification(_url: string, info: IPushNotification, _sessionID: string): INullResponseData {
+    public async handlePushNotification(_url: string, info: IPushNotification, _sessionID: string): Promise<INullResponseData> {
         // Yes, technically this needs a controller to fit into this format. But I cant be bothered setting up a whole controller for a few checks.
         if (!info.notification) {
             return this.httpResponseUtil.nullResponse();
@@ -36,7 +36,7 @@ export class FikaNotificationCallbacks {
             info.notificationIcon = EEFTNotificationIconType.Default;
         }
 
-        this.fikaNotificationWebSocket.broadcast(info);
+        await this.fikaNotificationWebSocket.broadcast(info);
 
         return this.httpResponseUtil.nullResponse();
     }

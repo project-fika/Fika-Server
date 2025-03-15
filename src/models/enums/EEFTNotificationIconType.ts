@@ -13,5 +13,5 @@ export enum EEFTNotificationIconType {
     WishlistHideout = 11,
     WishlistTrading = 12,
     WishlistEquipment = 13,
-    WishlistOther = 14
+    WishlistOther = 14,
 }

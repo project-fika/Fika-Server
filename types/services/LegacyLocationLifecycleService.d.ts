@@ -14,7 +14,7 @@ import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
 import { IMatchConfig } from "@spt/models/spt/config/IMatchConfig";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheService";
@@ -29,7 +29,7 @@ import { RaidTimeAdjustmentService } from "@spt/services/RaidTimeAdjustmentServi
 import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class LegacyLocationLifecycleService {
     protected logger: ILogger;
     protected hashUtil: HashUtil;

@@ -1,9 +1,13 @@
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
+import { ICustomisationStorage } from "@spt/models/eft/common/tables/ICustomisationStorage";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { EquipmentBuildType } from "@spt/models/enums/EquipmentBuildType";
 import { MemberCategory } from "@spt/models/enums/MemberCategory";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { IProfileChangeEvent } from "@spt/models/spt/dialog/ISendMessageDetails";
+import { IObtainPrestigeRequest } from "../prestige/IObtainPrestigeRequest";
+import { ISystemData } from "./ISystemData";
+import { IUserDialogInfo } from "./IUserDialogInfo";
 export interface ISptProfile {
     info: Info;
     characters: ICharacters;
@@ -17,12 +21,11 @@ export interface ISptProfile {
     insurance: IInsurance[];
     /** Assort purchases made by player since last trader refresh */
     traderPurchases?: Record<string, Record<string, ITraderPurchaseData>>;
-    /** Achievements earned by player */
-    achievements: Record<string, number>;
     /** List of friend profile IDs */
     friends: string[];
+    customisationUnlocks: ICustomisationStorage[];
 }
-export declare class ITraderPurchaseData {
+export interface ITraderPurchaseData {
     count: number;
     purchaseTimestamp: number;
 }
@@ -85,18 +88,6 @@ export interface IDialogue {
     messages: IMessage[];
     _id: string;
 }
-export interface IUserDialogInfo {
-    _id: string;
-    aid: number;
-    Info?: IUserDialogDetails;
-}
-export interface IUserDialogDetails {
-    Nickname: string;
-    Side: string;
-    Level: number;
-    MemberCategory: MemberCategory;
-    SelectedMemberCategory: MemberCategory;
-}
 export interface IDialogueInfo {
     attachmentsNew: number;
     new: number;
@@ -142,14 +133,6 @@ export interface IMessageItems {
     stash?: string;
     data?: IItem[];
 }
-export interface ISystemData {
-    date?: string;
-    time?: string;
-    location?: string;
-    buyerNickname?: string;
-    soldItem?: string;
-    itemCount?: number;
-}
 export interface IUpdatableChatMember {
     Nickname: string;
     Side: string;
@@ -173,6 +156,11 @@ export interface ISpt {
     migrations?: Record<string, number>;
     /** Cultist circle rewards received that are one time use, key (md5) is a combination of sacrificed + reward items */
     cultistRewards?: Map<string, IAcceptedCultistReward>;
+    pendingPrestige?: IPendingPrestige;
+}
+export interface IPendingPrestige {
+    prestigeLevel: number;
+    items?: IObtainPrestigeRequest[];
 }
 export interface IAcceptedCultistReward {
     timestamp: number;
@@ -243,9 +231,4 @@ export interface IInsurance {
     messageType: MessageType;
     messageTemplateId: string;
     items: IItem[];
-}
-export interface IMessageContentRagfair {
-    offerId: string;
-    count: number;
-    handbookId: string;
 }

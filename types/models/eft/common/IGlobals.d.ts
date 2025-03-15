@@ -1,14 +1,36 @@
-import { Ixyz } from "@spt/models/eft/common/Ixyz";
-import { IItem } from "@spt/models/eft/common/tables/IItem";
+import type { Ixy, Ixyz } from "@spt/models/eft/common/Ixyz";
+import type { IItem } from "@spt/models/eft/common/tables/IItem";
 export interface IGlobals {
-    time: number;
     config: IConfig;
     LocationInfection: ILocationInfection;
     bot_presets: IBotPreset[];
-    AudioSettings: IAudioSettings;
-    EnvironmentSettings: IEnvironmentSettings;
     BotWeaponScatterings: IBotWeaponScattering[];
     ItemPresets: Record<string, IPreset>;
+}
+export interface IPlayerSettings {
+    BaseMaxMovementRolloff: number;
+    EnabledOcclusionDynamicRolloff: boolean;
+    IndoorRolloffMult: number;
+    MinStepSoundRolloffMult: number;
+    MinStepSoundVolumeMult: number;
+    MovementRolloffMultipliers: IMovementRolloffMultiplier[];
+    OutdoorRolloffMult: number;
+}
+export interface IMetaXRAudioPluginSettings {
+    EnabledPluginErrorChecker: boolean;
+    OutputVolumeCheckCooldown: number;
+}
+export interface IMovementRolloffMultiplier {
+    MovementState: string;
+    RolloffMultiplier: number;
+}
+export interface IRadioBroadcastSettings {
+    EnabledBroadcast: boolean;
+    RadioStations: IRadioStation[];
+}
+export interface IRadioStation {
+    Enabled: boolean;
+    Station: string;
 }
 export interface ILocationInfection {
     Interchange: number;
@@ -95,6 +117,7 @@ export interface IProjectileExplosionParams {
     DeadlyDistance: number;
 }
 export interface IConfig {
+    AudioSettings: IAudioSettings;
     ArtilleryShelling: IArtilleryShelling;
     content: IContent;
     AimPunchMagnitude: number;
@@ -107,6 +130,7 @@ export interface IConfig {
     SessionsToShowHotKeys: number;
     MaxBotsAliveOnMap: number;
     MaxBotsAliveOnMapPvE: number;
+    RunddansSettings: IRunddansSettings;
     SavagePlayCooldown: number;
     SavagePlayCooldownNdaFree: number;
     SeasonActivity: ISeasonActivity;
@@ -116,6 +140,7 @@ export interface IConfig {
     Mastering: IMastering[];
     GlobalItemPriceModifier: number;
     TradingUnlimitedItems: boolean;
+    TradingUnsetPersonalLimitItems: boolean;
     TransitSettings: ITransitSettings;
     TripwiresSettings: ITripwiresSettings;
     MaxLoyaltyLevelForAll: boolean;
@@ -195,6 +220,26 @@ export interface IConfig {
     Inertia: IInertia;
     Ballistic: IBallistic;
     RepairSettings: IRepairSettings;
+}
+export interface IRunddansSettings {
+    accessKeys: string[];
+    active: boolean;
+    activePVE: boolean;
+    applyFrozenEverySec: number;
+    consumables: string[];
+    drunkImmunitySec: number;
+    durability: Ixy;
+    fireDistanceToHeat: number;
+    grenadeDistanceToBreak: number;
+    interactionDistance: number;
+    knifeCritChanceToBreak: number;
+    locations: string[];
+    multitoolRepairSec: number;
+    nonExitsLocations: string[];
+    rainForFrozen: number;
+    repairSec: number;
+    secToBreak: Ixy;
+    sleighLocations: string[];
 }
 export interface ISeasonActivity {
     InfectionHalloween: ISeasonActivityHalloween;
@@ -451,108 +496,21 @@ export interface IMastering {
     Level3: number;
 }
 export interface ICustomization {
-    SavageHead: ISavageHead;
-    SavageBody: ISavageBody;
-    SavageFeet: ISavageFeet;
+    SavageHead: Record<string, IWildHead>;
+    SavageBody: Record<string, IWildBody>;
+    SavageFeet: Record<string, IWildFeet>;
     CustomizationVoice: ICustomizationVoice[];
     BodyParts: IBodyParts;
-}
-export interface ISavageHead {
-    wild_head_1: IWildHead;
-    wild_head_2: IWildHead;
-    wild_head_3: IWildHead;
-    Wild_Dealmaker_head: IWildHead;
-    Wild_Killa_head: IWildHead;
-    bear_head: IWildHead;
-    bear_head_1: IWildHead;
-    usec_head_1: IWildHead;
-    Head_BOSS_Glukhar: IWildHead;
-    Wild_Head_nonMesh: IWildHead;
-    Head_BOSS_Sanitar: IWildHead;
-    wild_head_drozd: IWildHead;
-    wild_head_misha: IWildHead;
-    head_cultist_01: IWildHead;
-    head_cultist_02: IWildHead;
-    head_cultist_03: IWildHead;
-    DefaultUsecHead: IWildHead;
-    usec_head_3: IWildHead;
-    usec_head_4: IWildHead;
-    usec_head_5: IWildHead;
 }
 export interface IWildHead {
     head: string;
     isNotRandom: boolean;
     NotRandom: boolean;
 }
-export interface ISavageBody {
-    wild_body: IWildBody;
-    wild_body_1: IWildBody;
-    wild_body_2: IWildBody;
-    wild_body_3: IWildBody;
-    Wild_Dealmaker_body: IWildBody;
-    wild_security_body_1: IWildBody;
-    wild_security_body_2: IWildBody;
-    wild_Killa_body: IWildBody;
-    wild_pmcBot_body: IWildBody;
-    wild_Shturman_body: IWildBody;
-    wild_Gluhar_body: IWildBody;
-    Tshirt_security_TshirtTatu_01: IWildBody;
-    Tshirt_security_TshirtTatu_02: IWildBody;
-    Top_security_Husky: IWildBody;
-    Top_security_Gorka4: IWildBody;
-    scav_kit_upper_meteor: IWildBody;
-    wild_body_russia1: IWildBody;
-    Top_BOSS_Sanitar: IWildBody;
-    wild_body_motocross: IWildBody;
-    top_cultist_01: IWildBody;
-    top_cultist_02: IWildBody;
-    wild_body_rainparka: IWildBody;
-    wild_body_underarmour: IWildBody;
-    top_boss_tagilla: IWildBody;
-    DefaultUsecBody: IWildBody;
-    usec_upper_acu: IWildBody;
-    usec_upper_commando: IWildBody;
-    usec_upper_aggressor: IWildBody;
-    usec_upper_hoody: IWildBody;
-    usec_upper_pcuironsight: IWildBody;
-    usec_top_beltstaff: IWildBody;
-    usec_upper_flexion: IWildBody;
-    usec_upper_tier3: IWildBody;
-    usec_upper_pcsmulticam: IWildBody;
-    usec_upper_tier_2: IWildBody;
-    usec_upper_infiltrator: IWildBody;
-    user_upper_NightPatrol: IWildBody;
-    wild_body_bomber: IWildBody;
-    wild_top_yellowcoat: IWildBody;
-}
 export interface IWildBody {
     body: string;
     hands: string;
     isNotRandom: boolean;
-}
-export interface ISavageFeet {
-    wild_feet: IWildFeet;
-    wild_feet_1: IWildFeet;
-    wild_feet_2: IWildFeet;
-    Wild_Dealmaker_feet: IWildFeet;
-    wild_security_feet_1: IWildFeet;
-    Wild_Killa_feet: IWildFeet;
-    wild_pmcBot_feet: IWildFeet;
-    Pants_BOSS_Glukhar: IWildFeet;
-    Pants_BOSS_Shturman: IWildFeet;
-    Pants_security_Gorka4: IWildFeet;
-    Pants_security_Flora: IWildFeet;
-    scav_kit_lower_sklon: IWildFeet;
-    Pants_BOSS_Sanitar: IWildFeet;
-    wild_feet_sweatpants: IWildFeet;
-    wild_feet_wasatch: IWildFeet;
-    wild_feet_slimPants: IWildFeet;
-    pants_cultist_01: IWildFeet;
-    pants_cultist_02: IWildFeet;
-    wild_feet_scavelite_taclite: IWildFeet;
-    pants_boss_tagilla: IWildFeet;
-    wild_feet_bomber: IWildFeet;
-    wild_pants_yellowcoat: IWildFeet;
 }
 export interface IWildFeet {
     feet: string;
@@ -571,6 +529,7 @@ export interface IBodyParts {
     Hands: string;
 }
 export interface IAirdropGlobalSettings {
+    AirdropViewType: string;
     ParachuteEndOpenHeight: number;
     ParachuteStartOpenHeight: number;
     PlaneAdditionalDistance: number;
@@ -1010,6 +969,7 @@ export interface IRagFair {
     delaySinceOfferAdd: number;
     uniqueBuyerTimeoutInDays: number;
     userRatingChangeFrequencyMultiplayer: number;
+    RagfairTurnOnTimestamp: number;
     ratingSumForIncrease: number;
     ratingIncreaseCount: number;
     ratingSumForDecrease: number;
@@ -1220,6 +1180,7 @@ export interface IPathConfig {
     once: boolean;
     circle: boolean;
     circleCount: number;
+    skinType: string[];
 }
 export interface ISquadSettings {
     CountOfRequestsToOnePlayer: number;
@@ -1739,6 +1700,16 @@ export interface IBotPreset {
 }
 export interface IAudioSettings {
     AudioGroupPresets: IAudioGroupPreset[];
+    EnvironmentSettings: IEnvironmentSettings;
+    HeadphonesSettings: IHeadphonesSettings;
+    MetaXRAudioPluginSettings: IMetaXRAudioPluginSettings;
+    PlayerSettings: IPlayerSettings;
+    RadioBroadcastSettings: IRadioBroadcastSettings;
+}
+export interface IHeadphonesSettings {
+    FadeDuration: number;
+    FadeIn: string;
+    FadeOut: string;
 }
 export interface IAudioGroupPreset {
     AngleToAllowBinaural: number;
@@ -1749,6 +1720,7 @@ export interface IAudioGroupPreset {
     Name: string;
     OcclusionEnabled: boolean;
     OcclusionIntensity: number;
+    OcclusionRolloffScale: number;
     OverallVolume: number;
 }
 export interface IEnvironmentSettings {

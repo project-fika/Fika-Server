@@ -7,13 +7,13 @@ import { IGetAirdropLootResponse } from "@spt/models/eft/location/IGetAirdropLoo
 import { AirdropTypeEnum, SptAirdropTypeEnum } from "@spt/models/enums/AirdropType";
 import { IAirdropConfig } from "@spt/models/spt/config/IAirdropConfig";
 import { IAirdropLootRequest } from "@spt/models/spt/services/ILootRequest";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HashUtil } from "@spt/utils/HashUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class AirdropService {
     protected logger: ILogger;
     protected hashUtil: HashUtil;

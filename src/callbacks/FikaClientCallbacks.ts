@@ -20,14 +20,14 @@ export class FikaClientCallbacks {
         return this.httpResponseUtil.noBody(this.fikaClientController.handleClientConfig());
     }
 
-    /** Handle /fika/client/config */
+    /** Handle /fika/natpunchserver/config */
     public handleNatPunchServerConfig(_url: string, _info: IFikaRaidServerIdRequestData, _sessionID: string): string {
         return this.httpResponseUtil.noBody(this.fikaClientController.handleNatPunchServerConfig());
     }
 
     /** Handle /fika/client/check/mods */
-    public handleCheckMods(_url: string, info: IFikaCheckModRequestData, _sessionID: string): string {
-        return this.httpResponseUtil.noBody(this.fikaClientController.handleCheckMods(info));
+    public handleCheckMods(_url: string, info: IFikaCheckModRequestData, sessionID: string): string {
+        return this.httpResponseUtil.noBody(this.fikaClientController.handleCheckMods(info, sessionID));
     }
 
     /** Handle /fika/profile/download */

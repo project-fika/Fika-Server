@@ -26,7 +26,7 @@ import { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
 import { IProcessBuyTradeRequestData } from "@spt/models/eft/trade/IProcessBuyTradeRequestData";
 import { FleaOfferType } from "@spt/models/enums/FleaOfferType";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { RagfairServer } from "@spt/servers/RagfairServer";
@@ -86,7 +86,7 @@ export declare class RagfairController {
      * @param request Request data
      * @returns IRagfairOffer
      */
-    getOfferById(sessionId: string, request: IGetRagfairOfferByIdRequest): IRagfairOffer;
+    getOfferById(sessionId: string, request: IGetRagfairOfferByIdRequest): IRagfairOffer | undefined;
     /**
      * Get offers for the client based on type of search being performed
      * @param searchRequest Client search request data
@@ -151,7 +151,7 @@ export declare class RagfairController {
      */
     addPlayerOffer(pmcData: IPmcData, offerRequest: IAddOfferRequestData, sessionID: string): IItemEventRouterResponse;
     /**
-     * Create a flea offer for a single item - uncludes an item with > 1 sized stack
+     * Create a flea offer for a single item - includes an item with > 1 sized stack
      * e.g. 1 ammo stack of 30 cartridges
      * @param sessionID Session id
      * @param offerRequest Offer request from client

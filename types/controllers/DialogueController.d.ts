@@ -10,9 +10,11 @@ import { IGetFriendListDataResponse } from "@spt/models/eft/dialog/IGetFriendLis
 import { IGetMailDialogViewRequestData } from "@spt/models/eft/dialog/IGetMailDialogViewRequestData";
 import { IGetMailDialogViewResponseData } from "@spt/models/eft/dialog/IGetMailDialogViewResponseData";
 import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import { IDialogue, IDialogueInfo, IMessage, ISptProfile, IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import { IDialogue, IDialogueInfo, IMessage, ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { IUserDialogInfo } from "@spt/models/eft/profile/IUserDialogInfo";
 import { MessageType } from "@spt/models/enums/MessageType";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { LocalisationService } from "@spt/services/LocalisationService";
@@ -29,6 +31,7 @@ export declare class DialogueController {
     protected localisationService: LocalisationService;
     protected configServer: ConfigServer;
     protected dialogueChatBots: IDialogueChatBot[];
+    protected coreConfig: ICoreConfig;
     constructor(logger: ILogger, saveServer: SaveServer, timeUtil: TimeUtil, dialogueHelper: DialogueHelper, notificationSendHelper: NotificationSendHelper, profileHelper: ProfileHelper, mailSendService: MailSendService, localisationService: LocalisationService, configServer: ConfigServer, dialogueChatBots: IDialogueChatBot[]);
     registerChatBot(chatBot: IDialogueChatBot): void;
     /** Handle onUpdate spt event */
@@ -38,6 +41,7 @@ export declare class DialogueController {
      * @returns IGetFriendListDataResponse
      */
     getFriendList(sessionID: string): IGetFriendListDataResponse;
+    protected getActiveChatBots(): IUserDialogInfo[];
     /**
      * Handle client/mail/dialog/list
      * Create array holding trader dialogs and mail interactions with player

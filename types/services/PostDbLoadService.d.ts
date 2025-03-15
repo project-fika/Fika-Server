@@ -1,11 +1,13 @@
+import { PmcWaveGenerator } from "@spt/generators/PmcWaveGenerator";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
 import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
+import { IItemConfig } from "@spt/models/spt/config/IItemConfig";
 import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
 import { ILootConfig } from "@spt/models/spt/config/ILootConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { CustomLocationWaveService } from "@spt/services/CustomLocationWaveService";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -13,15 +15,18 @@ import { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { OpenZoneService } from "@spt/services/OpenZoneService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import { HashUtil } from "@spt/utils/HashUtil";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class PostDbLoadService {
     protected logger: ILogger;
+    protected hashUtil: HashUtil;
     protected databaseService: DatabaseService;
     protected localisationService: LocalisationService;
     protected customLocationWaveService: CustomLocationWaveService;
     protected openZoneService: OpenZoneService;
     protected seasonalEventService: SeasonalEventService;
     protected itemBaseClassService: ItemBaseClassService;
+    protected pmcWaveGenerator: PmcWaveGenerator;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected coreConfig: ICoreConfig;
@@ -31,8 +36,13 @@ export declare class PostDbLoadService {
     protected pmcConfig: IPmcConfig;
     protected lootConfig: ILootConfig;
     protected botConfig: IBotConfig;
-    constructor(logger: ILogger, databaseService: DatabaseService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, configServer: ConfigServer, cloner: ICloner);
+    protected itemConfig: IItemConfig;
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseService: DatabaseService, localisationService: LocalisationService, customLocationWaveService: CustomLocationWaveService, openZoneService: OpenZoneService, seasonalEventService: SeasonalEventService, itemBaseClassService: ItemBaseClassService, pmcWaveGenerator: PmcWaveGenerator, configServer: ConfigServer, cloner: ICloner);
     performPostDbLoadActions(): void;
+    protected removeExistingPmcWaves(): void;
+    protected removeNewBeginningRequirementFromPrestige(): void;
+    protected unlockHideoutLootCrateCrafts(): void;
+    protected cloneExistingCraftsAndAddNew(): void;
     protected adjustMinReserveRaiderSpawnChance(): void;
     protected addCustomLooseLootPositions(): void;
     /**
@@ -42,10 +52,6 @@ export declare class PostDbLoadService {
     /** Apply custom limits on bot types as defined in configs/location.json/botTypeLimits */
     protected adjustMapBotLimits(): void;
     protected adjustLooseLootSpawnProbabilities(): void;
-    /**
-     * Out of date/incorrectly made trader mods forget this data
-     */
-    protected checkTraderRepairValuesExist(): void;
     protected adjustLocationBotValues(): void;
     /**
      * Make Rogues spawn later to allow for scavs to spawn first instead of rogues filling up all spawn positions
@@ -74,4 +80,7 @@ export declare class PostDbLoadService {
      */
     protected validateQuestAssortUnlocksExist(): void;
     protected setAllDbItemsAsSellableOnFlea(): void;
+    protected addMissingTraderBuyRestrictionMaxValue(): void;
+    protected applyFleaPriceOverrides(): void;
+    protected addCustomItemPresetsToGlobals(): void;
 }

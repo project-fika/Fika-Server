@@ -1,6 +1,6 @@
 import { DateTime } from "@spt/models/enums/DateTime";
 import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 export declare class WeatherHelper {

@@ -2,7 +2,7 @@ import { IEliminationConfig, IQuestConfig, IRepeatableQuestConfig } from "@spt/m
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { MathUtil } from "@spt/utils/MathUtil";
 import { ProbabilityObject, ProbabilityObjectArray } from "@spt/utils/RandomUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class RepeatableQuestHelper {
     protected mathUtil: MathUtil;
     protected configServer: ConfigServer;

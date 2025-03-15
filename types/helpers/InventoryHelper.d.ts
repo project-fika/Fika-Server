@@ -18,14 +18,14 @@ import { IInventoryTransferRequestData } from "@spt/models/eft/inventory/IInvent
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { IInventoryConfig, IRewardDetails } from "@spt/models/spt/config/IInventoryConfig";
 import { IOwnerInventoryItems } from "@spt/models/spt/inventory/IOwnerInventoryItems";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { FenceService } from "@spt/services/FenceService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class InventoryHelper {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -257,7 +257,7 @@ export declare class InventoryHelper {
      * @returns True if item exists inside stash
      */
     isItemInStash(pmcData: IPmcData, itemToCheck: IItem): boolean;
-    validateInventoryUsesMonogoIds(itemsToValidate: IItem[]): void;
+    validateInventoryUsesMongoIds(itemsToValidate: IItem[]): void;
     /**
      * Does the provided item have a root item with the provided id
      * @param pmcData Profile with items

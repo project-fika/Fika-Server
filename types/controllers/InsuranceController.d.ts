@@ -11,7 +11,7 @@ import { IInsureRequestData } from "@spt/models/eft/insurance/IInsureRequestData
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { IInsurance } from "@spt/models/eft/profile/ISptProfile";
 import { IInsuranceConfig } from "@spt/models/spt/config/IInsuranceConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -25,7 +25,7 @@ import { HashUtil } from "@spt/utils/HashUtil";
 import { MathUtil } from "@spt/utils/MathUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class InsuranceController {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
@@ -152,6 +152,11 @@ export declare class InsuranceController {
      */
     protected processAttachmentByParent(attachments: IItem[], traderId: string, toDelete: Set<string>): void;
     protected logAttachmentsBeingRemoved(attachmentIdsToRemove: string[], attachments: IItem[], attachmentPrices: Record<string, number>): void;
+    /**
+     * Get dictionary of items with their corresponding price
+     * @param attachments
+     * @returns
+     */
     protected weightAttachmentsByPrice(attachments: IItem[]): Record<string, number>;
     /**
      * Get count of items to remove from weapon (take into account trader + price of attachment)

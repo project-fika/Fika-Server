@@ -1,5 +1,6 @@
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
-import { IMessage, IMessageContentRagfair } from "@spt/models/eft/profile/ISptProfile";
+import { IMessageContentRagfair } from "@spt/models/eft/profile/IMessageContentRagfair";
+import { IMessage } from "@spt/models/eft/profile/ISptProfile";
 import { IWsChatMessageReceived } from "@spt/models/eft/ws/IWsChatMessageReceived";
 import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
 import { IWsRagfairOfferSold } from "@spt/models/eft/ws/IWsRagfairOfferSold";

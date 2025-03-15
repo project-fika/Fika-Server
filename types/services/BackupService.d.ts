@@ -1,15 +1,17 @@
 import { PreSptModLoader } from "@spt/loaders/PreSptModLoader";
 import { IBackupConfig } from "@spt/models/spt/config/IBackupConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
+import { FileSystem } from "@spt/utils/FileSystem";
 export declare class BackupService {
     protected logger: ILogger;
     protected preSptModLoader: PreSptModLoader;
     protected configServer: ConfigServer;
+    protected fileSystem: FileSystem;
     protected backupConfig: IBackupConfig;
     protected readonly activeServerMods: string[];
     protected readonly profileDir = "./user/profiles";
-    constructor(logger: ILogger, preSptModLoader: PreSptModLoader, configServer: ConfigServer);
+    constructor(logger: ILogger, preSptModLoader: PreSptModLoader, configServer: ConfigServer, fileSystem: FileSystem);
     /**
      * Initializes the backup process.
      *
@@ -19,15 +21,6 @@ export declare class BackupService {
      * @returns A promise that resolves when the backup process is complete.
      */
     init(): Promise<void>;
-    /**
-     * Fetches the names of all JSON files in the profile directory.
-     *
-     * This method normalizes the profile directory path and reads all files within it. It then filters the files to
-     * include only those with a `.json` extension and returns their names.
-     *
-     * @returns A promise that resolves to an array of JSON file names.
-     */
-    protected fetchProfileFiles(): Promise<string[]>;
     /**
      * Check to see if the backup service is enabled via the config.
      *

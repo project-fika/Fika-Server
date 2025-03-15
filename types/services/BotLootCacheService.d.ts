@@ -1,23 +1,22 @@
 import { PMCLootGenerator } from "@spt/generators/PMCLootGenerator";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
+import { MinMax } from "@spt/models/common/MinMax";
 import { IBotType } from "@spt/models/eft/common/tables/IBotType";
-import { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
+import { IProps } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBotLootCache, LootCacheType } from "@spt/models/spt/bots/IBotLootCache";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { DatabaseServer } from "@spt/servers/DatabaseServer";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { RagfairPriceService } from "@spt/services/RagfairPriceService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class BotLootCacheService {
     protected logger: ILogger;
     protected itemHelper: ItemHelper;
-    protected databaseServer: DatabaseServer;
     protected pmcLootGenerator: PMCLootGenerator;
     protected localisationService: LocalisationService;
     protected ragfairPriceService: RagfairPriceService;
     protected cloner: ICloner;
     protected lootCache: Record<string, IBotLootCache>;
-    constructor(logger: ILogger, itemHelper: ItemHelper, databaseServer: DatabaseServer, pmcLootGenerator: PMCLootGenerator, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, cloner: ICloner);
+    constructor(logger: ILogger, itemHelper: ItemHelper, pmcLootGenerator: PMCLootGenerator, localisationService: LocalisationService, ragfairPriceService: RagfairPriceService, cloner: ICloner);
     /**
      * Remove cached bot loot data
      */
@@ -28,9 +27,10 @@ export declare class BotLootCacheService {
      * @param isPmc is the bot a pmc
      * @param lootType what type of loot is needed (backpack/pocket/stim/vest etc)
      * @param botJsonTemplate Base json db file for the bot having its loot generated
+     * @param itemPriceMinMax OPTIONAL - min max limit of loot item price
      * @returns ITemplateItem array
      */
-    getLootFromCache(botRole: string, isPmc: boolean, lootType: LootCacheType, botJsonTemplate: IBotType): Record<string, number>;
+    getLootFromCache(botRole: string, isPmc: boolean, lootType: LootCacheType, botJsonTemplate: IBotType, itemPriceMinMax?: MinMax): Record<string, number>;
     /**
      * Generate loot for a bot and store inside a private class property
      * @param botRole bots role (assault / pmcBot etc)
@@ -38,12 +38,6 @@ export declare class BotLootCacheService {
      * @param botJsonTemplate db template for bot having its loot generated
      */
     protected addLootToCache(botRole: string, isPmc: boolean, botJsonTemplate: IBotType): void;
-    /**
-     * Add unique items into combined pool
-     * @param poolToAddTo Pool of items to add to
-     * @param itemsToAdd items to add to combined pool if unique
-     */
-    protected addUniqueItemsToPool(poolToAddTo: ITemplateItem[], itemsToAdd: ITemplateItem[]): void;
     protected addItemsToPool(poolToAddTo: Record<string, number>, poolOfItemsToAdd: Record<string, number>): void;
     /**
      * Ammo/grenades have this property

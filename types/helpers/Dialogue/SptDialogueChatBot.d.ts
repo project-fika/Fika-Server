@@ -1,7 +1,7 @@
 import { IDialogueChatBot } from "@spt/helpers/Dialogue/IDialogueChatBot";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import { IUserDialogInfo } from "@spt/models/eft/profile/IUserDialogInfo";
 import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
 import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
 import { ConfigServer } from "@spt/servers/ConfigServer";

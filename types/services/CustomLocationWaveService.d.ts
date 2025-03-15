@@ -1,6 +1,6 @@
 import { IBossLocationSpawn, IWave } from "@spt/models/eft/common/ILocationBase";
 import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { RandomUtil } from "@spt/utils/RandomUtil";

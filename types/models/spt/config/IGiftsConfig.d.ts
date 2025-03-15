@@ -1,5 +1,5 @@
 import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import { IUserDialogInfo } from "@spt/models/eft/profile/IUserDialogInfo";
 import { GiftSenderType } from "@spt/models/enums/GiftSenderType";
 import { SeasonalEventType } from "@spt/models/enums/SeasonalEventType";
 import { Traders } from "@spt/models/enums/Traders";

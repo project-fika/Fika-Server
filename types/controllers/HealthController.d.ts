@@ -7,12 +7,12 @@ import { IOffraidEatRequestData } from "@spt/models/eft/health/IOffraidEatReques
 import { IOffraidHealRequestData } from "@spt/models/eft/health/IOffraidHealRequestData";
 import { IWorkoutData } from "@spt/models/eft/health/IWorkoutData";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { PaymentService } from "@spt/services/PaymentService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class HealthController {
     protected logger: ILogger;
     protected eventOutputHolder: EventOutputHolder;

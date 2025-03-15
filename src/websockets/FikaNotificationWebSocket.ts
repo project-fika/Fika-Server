@@ -1,18 +1,18 @@
 import { IncomingMessage } from "http";
 import { inject, injectable } from "tsyringe";
-import { WebSocket } from "ws";
 
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { IWebSocketConnectionHandler } from "@spt/servers/ws/IWebSocketConnectionHandler";
 
+import { SPTWebSocket } from "@spt/servers/ws/SPTWebsocket";
 import { EFikaNotifications } from "../models/enums/EFikaNotifications";
 import { IFikaNotificationBase } from "../models/fika/websocket/IFikaNotificationBase";
 import { FikaPresenceService } from "../services/FikaPresenceService";
 
 @injectable()
 export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
-    private clientWebSockets: Record<string, WebSocket>;
+    private clientWebSockets: Record<string, SPTWebSocket>;
 
     constructor(
         @inject("SaveServer") protected saveServer: SaveServer,
@@ -22,8 +22,8 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         this.clientWebSockets = {};
 
         // Keep websocket connections alive
-        setInterval(() => {
-            this.keepWebSocketAlive();
+        setInterval(async () => {
+            await this.keepWebSocketAlive();
         }, 30000);
     }
 
@@ -35,7 +35,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
         return "/fika/notification/";
     }
 
-    public onConnection(ws: WebSocket, req: IncomingMessage): void {
+    public async onConnection(ws: SPTWebSocket, req: IncomingMessage): Promise<void> {
         if (req.headers.authorization === undefined) {
             ws.close();
             return;
@@ -65,7 +65,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
     }
 
     // biome-ignore lint/correctness/noUnusedVariables: Currently unused, but might be implemented in the future.
-    public onClose(ws: WebSocket, sessionID: string, code: number, reason: Buffer): void {
+    public onClose(ws: SPTWebSocket, sessionID: string, code: number, reason: Buffer): void {
         const clientWebSocket = this.clientWebSockets[sessionID];
 
         if (clientWebSocket === ws) {
@@ -78,7 +78,7 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
     }
 
     // Send functionality for sending to a single client.
-    public send(sessionID: string, message: IFikaNotificationBase): void {
+    public async sendAsync(sessionID: string, message: IFikaNotificationBase): Promise<void> {
         const client = this.clientWebSockets[sessionID];
 
         // Client is not online or not currently connected to the websocket.
@@ -91,22 +91,22 @@ export class FikaNotificationWebSocket implements IWebSocketConnectionHandler {
             return;
         }
 
-        client.send(JSON.stringify(message));
+        await client.sendAsync(JSON.stringify(message));
     }
 
-    public broadcast(message: IFikaNotificationBase): void {
+    public async broadcast(message: IFikaNotificationBase): Promise<void> {
         for (const sessionID in this.clientWebSockets) {
-            this.send(sessionID, message);
+            await this.sendAsync(sessionID, message);
         }
     }
 
-    private keepWebSocketAlive(): void {
+    private async keepWebSocketAlive(): Promise<void> {
         for (const sessionID in this.clientWebSockets) {
             let message: IFikaNotificationBase = {
                 type: EFikaNotifications.KeepAlive,
             };
 
-            this.send(sessionID, message);
+            await this.sendAsync(sessionID, message);
         }
     }
 }

@@ -7,7 +7,7 @@ import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITrader, ITraderAssort } from "@spt/models/eft/common/tables/ITrader";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { FenceService } from "@spt/services/FenceService";
@@ -16,7 +16,7 @@ import { TraderAssortService } from "@spt/services/TraderAssortService";
 import { TraderPurchasePersisterService } from "@spt/services/TraderPurchasePersisterService";
 import { MathUtil } from "@spt/utils/MathUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class TraderAssortHelper {
     protected logger: ILogger;
     protected mathUtil: MathUtil;

@@ -2,10 +2,12 @@ import { ApplicationContext } from "@spt/context/ApplicationContext";
 import { LocationLootGenerator } from "@spt/generators/LocationLootGenerator";
 import { LootGenerator } from "@spt/generators/LootGenerator";
 import { PlayerScavGenerator } from "@spt/generators/PlayerScavGenerator";
+import { PmcWaveGenerator } from "@spt/generators/PmcWaveGenerator";
 import { HealthHelper } from "@spt/helpers/HealthHelper";
 import { InRaidHelper } from "@spt/helpers/InRaidHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { QuestHelper } from "@spt/helpers/QuestHelper";
+import { RewardHelper } from "@spt/helpers/RewardHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
@@ -14,13 +16,14 @@ import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IEndLocalRaidRequestData, IEndRaidResult } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 import { IStartLocalRaidRequestData } from "@spt/models/eft/match/IStartLocalRaidRequestData";
 import { IStartLocalRaidResponseData } from "@spt/models/eft/match/IStartLocalRaidResponseData";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import { IInRaidConfig } from "@spt/models/spt/config/IInRaidConfig";
 import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheService";
@@ -36,7 +39,7 @@ import { RaidTimeAdjustmentService } from "@spt/services/RaidTimeAdjustmentServi
 import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class LocationLifecycleService {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -48,6 +51,7 @@ export declare class LocationLifecycleService {
     protected inRaidHelper: InRaidHelper;
     protected healthHelper: HealthHelper;
     protected questHelper: QuestHelper;
+    protected rewardHelper: RewardHelper;
     protected matchBotDetailsCacheService: MatchBotDetailsCacheService;
     protected pmcChatResponseService: PmcChatResponseService;
     protected playerScavGenerator: PlayerScavGenerator;
@@ -63,6 +67,7 @@ export declare class LocationLifecycleService {
     protected lootGenerator: LootGenerator;
     protected applicationContext: ApplicationContext;
     protected locationLootGenerator: LocationLootGenerator;
+    protected pmcWaveGenerator: PmcWaveGenerator;
     protected cloner: ICloner;
     protected inRaidConfig: IInRaidConfig;
     protected traderConfig: ITraderConfig;
@@ -70,7 +75,7 @@ export declare class LocationLifecycleService {
     protected hideoutConfig: IHideoutConfig;
     protected locationConfig: ILocationConfig;
     protected pmcConfig: IPmcConfig;
-    constructor(logger: ILogger, hashUtil: HashUtil, saveServer: SaveServer, timeUtil: TimeUtil, randomUtil: RandomUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, inRaidHelper: InRaidHelper, healthHelper: HealthHelper, questHelper: QuestHelper, matchBotDetailsCacheService: MatchBotDetailsCacheService, pmcChatResponseService: PmcChatResponseService, playerScavGenerator: PlayerScavGenerator, traderHelper: TraderHelper, localisationService: LocalisationService, insuranceService: InsuranceService, botLootCacheService: BotLootCacheService, configServer: ConfigServer, botGenerationCacheService: BotGenerationCacheService, mailSendService: MailSendService, raidTimeAdjustmentService: RaidTimeAdjustmentService, botNameService: BotNameService, lootGenerator: LootGenerator, applicationContext: ApplicationContext, locationLootGenerator: LocationLootGenerator, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, saveServer: SaveServer, timeUtil: TimeUtil, randomUtil: RandomUtil, profileHelper: ProfileHelper, databaseService: DatabaseService, inRaidHelper: InRaidHelper, healthHelper: HealthHelper, questHelper: QuestHelper, rewardHelper: RewardHelper, matchBotDetailsCacheService: MatchBotDetailsCacheService, pmcChatResponseService: PmcChatResponseService, playerScavGenerator: PlayerScavGenerator, traderHelper: TraderHelper, localisationService: LocalisationService, insuranceService: InsuranceService, botLootCacheService: BotLootCacheService, configServer: ConfigServer, botGenerationCacheService: BotGenerationCacheService, mailSendService: MailSendService, raidTimeAdjustmentService: RaidTimeAdjustmentService, botNameService: BotNameService, lootGenerator: LootGenerator, applicationContext: ApplicationContext, locationLootGenerator: LocationLootGenerator, pmcWaveGenerator: PmcWaveGenerator, cloner: ICloner);
     /** Handle client/match/local/start */
     startLocalRaid(sessionId: string, request: IStartLocalRaidRequestData): IStartLocalRaidResponseData;
     /**
@@ -133,14 +138,20 @@ export declare class LocationLifecycleService {
     /**
      *
      * @param sessionId Player id
-     * @param pmcProfile Pmc profile
+     * @param fullProfile Full player profile
      * @param scavProfile Scav profile
      * @param isDead Player died/got left behind in raid
      * @param isSurvived Not same as opposite of `isDead`, specific status
-     * @param request
-     * @param locationName
+     * @param request Client request
+     * @param locationName name of location exited
      */
-    protected handlePostRaidPmc(sessionId: string, pmcProfile: IPmcData, scavProfile: IPmcData, isDead: boolean, isSurvived: boolean, isTransfer: boolean, request: IEndLocalRaidRequestData, locationName: string): void;
+    protected handlePostRaidPmc(sessionId: string, fullProfile: ISptProfile, scavProfile: IPmcData, isDead: boolean, isSurvived: boolean, isTransfer: boolean, request: IEndLocalRaidRequestData, locationName: string): void;
+    /**
+     * Check for and add any rewards found via the gained achievements this raid
+     * @param fullProfile Profile to add customisations to
+     * @param postRaidAchievements All profile achievements at the end of the raid
+     */
+    protected processAchievementRewards(fullProfile: ISptProfile, postRaidAchievements: Record<string, number>): void;
     /**
      * On death Quest items are lost, the client does not clean up completed conditions for picking up those quest items,
      * If the completed conditions remain in the profile the player is unable to pick the item up again
@@ -217,4 +228,16 @@ export declare class LocationLifecycleService {
      * @param secondary Secondary dictionary
      */
     protected mergePmcAndScavEncyclopedias(primary: IPmcData, secondary: IPmcData): void;
+    /**
+     * Does provided profile contain any condition counters
+     * @param profile Profile to check for condition counters
+     * @returns Profile has condition counters
+     */
+    protected profileHasConditionCounters(profile: IPmcData): boolean;
+    /**
+     * Scav quest progress isnt transferred automatically from scav to pmc, we do this manually
+     * @param scavProfile Scav profile with quest progress post-raid
+     * @param pmcProfile Server pmc profile to copy scav quest progress into
+     */
+    protected migrateScavQuestProgressToPmcProfile(scavProfile: IPmcData, pmcProfile: IPmcData): void;
 }

@@ -18,7 +18,7 @@ import { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
 import { IRagfairConfig, ITieredFlea } from "@spt/models/spt/config/IRagfairConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
@@ -92,6 +92,12 @@ export declare class RagfairOfferHelper {
      */
     getOffersForBuild(searchRequest: ISearchRequestData, itemsToAdd: string[], traderAssorts: Record<string, ITraderAssort>, pmcData: IPmcData): IRagfairOffer[];
     /**
+     * Get offers that have not exceeded buy limits
+     * @param possibleOffers offers to process
+     * @returns Offers
+     */
+    protected getOffersInsideBuyRestrictionLimits(possibleOffers: IRagfairOffer[]): IRagfairOffer[];
+    /**
      * Check if offer is from trader standing the player does not have
      * @param offer Offer to check
      * @param pmcProfile Player profile
@@ -156,12 +162,12 @@ export declare class RagfairOfferHelper {
     protected deleteOfferById(sessionID: string, offerId: string): void;
     /**
      * Complete the selling of players' offer
-     * @param sessionID Session id
+     * @param offerOwnerSessionId Session id
      * @param offer Sold offer details
      * @param boughtAmount Amount item was purchased for
      * @returns IItemEventRouterResponse
      */
-    completeOffer(sessionID: string, offer: IRagfairOffer, boughtAmount: number): IItemEventRouterResponse;
+    completeOffer(offerOwnerSessionId: string, offer: IRagfairOffer, boughtAmount: number): IItemEventRouterResponse;
     /**
      * Get a localised message for when players offer has sold on flea
      * @param itemTpl Item sold
@@ -209,4 +215,10 @@ export declare class RagfairOfferHelper {
      * @returns True if in range
      */
     protected itemQualityInRange(item: IItem, min: number, max: number): boolean;
+    /**
+     * Does this offer come from a trader
+     * @param offer Offer to check
+     * @returns True = from trader
+     */
+    offerIsFromTrader(offer: IRagfairOffer): boolean;
 }

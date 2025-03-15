@@ -1,5 +1,4 @@
-import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { QuestRewardType } from "@spt/models/enums/QuestRewardType";
+import { IReward } from "@spt/models/eft/common/tables/IReward";
 import { QuestStatus } from "@spt/models/enums/QuestStatus";
 import { QuestTypeEnum } from "@spt/models/enums/QuestTypeEnum";
 export interface IQuest {
@@ -135,30 +134,11 @@ export interface IVisibilityCondition {
     conditionType: string;
 }
 export interface IQuestRewards {
-    AvailableForStart?: IQuestReward[];
-    AvailableForFinish?: IQuestReward[];
-    Started?: IQuestReward[];
-    Success?: IQuestReward[];
-    Fail?: IQuestReward[];
-    FailRestartable?: IQuestReward[];
-    Expired?: IQuestReward[];
-}
-export interface IQuestReward {
-    value?: string | number;
-    id?: string;
-    type: QuestRewardType;
-    index: number;
-    target?: string;
-    items?: IItem[];
-    loyaltyLevel?: number;
-    /** Hideout area id */
-    traderId?: string;
-    isEncoded?: boolean;
-    unknown?: boolean;
-    findInRaid?: boolean;
-    gameMode?: string[];
-    /** Game editions whitelisted to get reward */
-    availableInGameEditions?: string[];
-    /** Game editions blacklisted from getting reward */
-    notAvailableInGameEditions?: string[];
+    AvailableForStart?: IReward[];
+    AvailableForFinish?: IReward[];
+    Started?: IReward[];
+    Success?: IReward[];
+    Fail?: IReward[];
+    FailRestartable?: IReward[];
+    Expired?: IReward[];
 }

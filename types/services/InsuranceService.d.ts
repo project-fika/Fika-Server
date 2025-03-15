@@ -6,7 +6,7 @@ import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITraderBase } from "@spt/models/eft/common/tables/ITrader";
 import { IInsuranceConfig } from "@spt/models/spt/config/IInsuranceConfig";
 import { IInsuranceEquipmentPkg } from "@spt/models/spt/services/IInsuranceEquipmentPkg";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -15,7 +15,7 @@ import { MailSendService } from "@spt/services/MailSendService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class InsuranceService {
     protected logger: ILogger;
     protected databaseService: DatabaseService;
@@ -62,14 +62,6 @@ export declare class InsuranceService {
      * @returns Timestamp to return items to player in seconds
      */
     protected getInsuranceReturnTimestamp(pmcData: IPmcData, trader: ITraderBase): number;
-    /**
-     * Take the insurance item packages within a profile session and ensure that each of the items in that package are
-     * not orphaned from their parent ID.
-     *
-     * @param sessionID The session ID to update insurance equipment packages in.
-     * @returns void
-     */
-    protected adoptOrphanedInsEquipment(sessionID: string): void;
     protected getMaxInsuranceStorageTime(traderBase: ITraderBase): number;
     /**
      * Store lost gear post-raid inside profile, ready for later code to pick it up and mail it
@@ -127,10 +119,4 @@ export declare class InsuranceService {
      * @returns price in roubles
      */
     getRoublePriceToInsureItemWithTrader(pmcData: IPmcData, inventoryItem: IItem, traderId: string): number;
-    /**
-     * Returns the ID that should be used for a root-level Item's parentId property value within in the context of insurance.
-     * @param sessionID Players id
-     * @returns The root item Id.
-     */
-    getRootItemParentID(sessionID: string): string;
 }

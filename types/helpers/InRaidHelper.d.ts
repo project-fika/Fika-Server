@@ -5,10 +5,10 @@ import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IInRaidConfig } from "@spt/models/spt/config/IInRaidConfig";
 import { ILostOnDeathConfig } from "@spt/models/spt/config/ILostOnDeathConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 import { ProfileHelper } from "./ProfileHelper";
 import { QuestHelper } from "./QuestHelper";
 export declare class InRaidHelper {

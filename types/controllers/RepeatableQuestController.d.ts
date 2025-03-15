@@ -11,20 +11,21 @@ import { ELocationName } from "@spt/models/enums/ELocationName";
 import { IQuestConfig, IRepeatableQuestConfig } from "@spt/models/spt/config/IQuestConfig";
 import { IGetRepeatableByIdResult } from "@spt/models/spt/quests/IGetRepeatableByIdResult";
 import { IQuestTypePool } from "@spt/models/spt/repeatable/IQuestTypePool";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { PaymentService } from "@spt/services/PaymentService";
 import { ProfileFixerService } from "@spt/services/ProfileFixerService";
+import { HashUtil } from "@spt/utils/HashUtil";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
-import { ObjectId } from "@spt/utils/ObjectId";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class RepeatableQuestController {
     protected logger: ILogger;
+    protected hashUtil: HashUtil;
     protected databaseService: DatabaseService;
     protected timeUtil: TimeUtil;
     protected randomUtil: RandomUtil;
@@ -34,14 +35,13 @@ export declare class RepeatableQuestController {
     protected localisationService: LocalisationService;
     protected eventOutputHolder: EventOutputHolder;
     protected paymentService: PaymentService;
-    protected objectId: ObjectId;
     protected repeatableQuestGenerator: RepeatableQuestGenerator;
     protected repeatableQuestHelper: RepeatableQuestHelper;
     protected questHelper: QuestHelper;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, databaseService: DatabaseService, timeUtil: TimeUtil, randomUtil: RandomUtil, httpResponse: HttpResponseUtil, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, eventOutputHolder: EventOutputHolder, paymentService: PaymentService, objectId: ObjectId, repeatableQuestGenerator: RepeatableQuestGenerator, repeatableQuestHelper: RepeatableQuestHelper, questHelper: QuestHelper, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseService: DatabaseService, timeUtil: TimeUtil, randomUtil: RandomUtil, httpResponse: HttpResponseUtil, profileHelper: ProfileHelper, profileFixerService: ProfileFixerService, localisationService: LocalisationService, eventOutputHolder: EventOutputHolder, paymentService: PaymentService, repeatableQuestGenerator: RepeatableQuestGenerator, repeatableQuestHelper: RepeatableQuestHelper, questHelper: QuestHelper, configServer: ConfigServer, cloner: ICloner);
     /**
      * Handle client/repeatalbeQuests/activityPeriods
      * Returns an array of objects in the format of repeatable quests to the client.

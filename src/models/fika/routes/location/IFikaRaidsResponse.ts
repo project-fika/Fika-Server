@@ -11,6 +11,8 @@ export interface IFikaRaidResponse {
     side: EFikaSide;
     time: EFikaTime;
     players: Record<string, boolean>;
+    isHeadless: boolean;
+    headlessRequesterNickname: string;
 }
 
 export type IFikaRaidsResponse = IFikaRaidResponse[];

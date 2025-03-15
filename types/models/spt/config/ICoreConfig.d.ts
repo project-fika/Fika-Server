@@ -63,19 +63,19 @@ export interface IGameFixes {
     fixProfileBreakingInventoryItemIssues: boolean;
 }
 export interface IServerFeatures {
-    autoInstallModDependencies: boolean;
     compressProfile: boolean;
     chatbotFeatures: IChatbotFeatures;
     /** Keyed to profile type e.g. "Standard" or "SPT Developer" */
     createNewProfileTypesBlacklist: string[];
 }
 export interface IChatbotFeatures {
-    sptFriendEnabled: boolean;
     sptFriendGiftsEnabled: boolean;
-    commandoEnabled: boolean;
     commandoFeatures: ICommandoFeatures;
     commandUseLimits: Record<string, number>;
+    /** Human readable id to guid for each bot */
     ids: Record<string, string>;
+    /** Bot Ids player is allowed to interact with */
+    enabledBots: Record<string, boolean>;
 }
 export interface ICommandoFeatures {
     giveCommandEnabled: boolean;

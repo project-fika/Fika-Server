@@ -2,7 +2,7 @@ import { MinMax } from "@spt/models/common/MinMax";
 import { IBotType, IDifficultyCategories } from "@spt/models/eft/common/tables/IBotType";
 import { EquipmentFilters, IBotConfig, IRandomisationDetails } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { RandomUtil } from "@spt/utils/RandomUtil";
@@ -41,7 +41,6 @@ export declare class BotHelper {
      */
     addBotToRevengeList(difficultySettings: IDifficultyCategories, typesToAdd: string[]): void;
     rollChanceToBePmc(botConvertMinMax: MinMax): boolean;
-    protected getPmcConversionValuesForLocation(location: string): Record<string, MinMax>;
     /**
      * is the provided role a PMC, case-agnostic
      * @param botRole Role to check

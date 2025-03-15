@@ -1,6 +1,6 @@
 import { ICompletedAchievementsResponse } from "@spt/models/eft/profile/ICompletedAchievementsResponse";
 import { IGetAchievementsResponse } from "@spt/models/eft/profile/IGetAchievementsResponse";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 /**
  * Logic for handling In Raid callbacks

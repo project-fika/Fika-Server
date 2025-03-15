@@ -4,14 +4,14 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { IUserDialogInfo } from "@spt/models/eft/profile/IUserDialogInfo";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocaleService } from "@spt/services/LocaleService";
 import { MailSendService } from "@spt/services/MailSendService";
 import { HashUtil } from "@spt/utils/HashUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class GiveSptCommand implements ISptCommand {
     protected logger: ILogger;
     protected itemHelper: ItemHelper;

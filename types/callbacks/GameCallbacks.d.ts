@@ -45,7 +45,7 @@ export declare class GameCallbacks implements OnLoad {
      * Save profiles on game close
      * @returns IGameLogoutResponseData
      */
-    gameLogout(url: string, info: IEmptyRequestData, sessionID: string): IGetBodyResponseData<IGameLogoutResponseData>;
+    gameLogout(url: string, info: IEmptyRequestData, sessionID: string): Promise<IGetBodyResponseData<IGameLogoutResponseData>>;
     /**
      * Handle client/game/config
      * @returns IGameConfigResponse

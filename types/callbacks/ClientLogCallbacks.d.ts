@@ -1,6 +1,9 @@
 import { ClientLogController } from "@spt/controllers/ClientLogController";
 import { ModLoadOrder } from "@spt/loaders/ModLoadOrder";
 import { INullResponseData } from "@spt/models/eft/httpResponse/INullResponseData";
+import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
+import { IInsuranceConfig } from "@spt/models/spt/config/IInsuranceConfig";
+import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { IClientLogRequest } from "@spt/models/spt/logging/IClientLogRequest";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { LocalisationService } from "@spt/services/LocalisationService";
@@ -12,6 +15,9 @@ export declare class ClientLogCallbacks {
     protected configServer: ConfigServer;
     protected localisationService: LocalisationService;
     protected modLoadOrder: ModLoadOrder;
+    protected botConfig: IBotConfig;
+    protected pmcConfig: IPmcConfig;
+    protected insuranceConfig: IInsuranceConfig;
     constructor(httpResponse: HttpResponseUtil, clientLogController: ClientLogController, configServer: ConfigServer, localisationService: LocalisationService, modLoadOrder: ModLoadOrder);
     /**
      * Handle /singleplayer/log
@@ -25,4 +31,5 @@ export declare class ClientLogCallbacks {
      * Handle /singleplayer/enableBSGlogging
      */
     bsgLogging(): string;
+    private handleClientLog;
 }

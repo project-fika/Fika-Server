@@ -3,19 +3,21 @@ import { IBodyPartsHealth, IHealth } from "@spt/models/eft/common/tables/IBotBas
 import { ISyncHealthRequestData } from "@spt/models/eft/health/ISyncHealthRequestData";
 import { IEffects, ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { IHealthConfig } from "@spt/models/spt/config/IHealthConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class HealthHelper {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;
     protected saveServer: SaveServer;
+    protected databaseService: DatabaseService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected healthConfig: IHealthConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, saveServer: SaveServer, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, timeUtil: TimeUtil, saveServer: SaveServer, databaseService: DatabaseService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Resets the profiles vitality/health and vitality/effects properties to their defaults
      * @param sessionID Session Id

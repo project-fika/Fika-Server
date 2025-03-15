@@ -1,23 +1,20 @@
-import { DialogueHelper } from "@spt/helpers/DialogueHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
-import { PaymentHelper } from "@spt/helpers/PaymentHelper";
-import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { QuestConditionHelper } from "@spt/helpers/QuestConditionHelper";
-import { RagfairServerHelper } from "@spt/helpers/RagfairServerHelper";
+import { QuestRewardHelper } from "@spt/helpers/QuestRewardHelper";
+import { RewardHelper } from "@spt/helpers/RewardHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { Common, IQuestStatus } from "@spt/models/eft/common/tables/IBotBase";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { IQuest, IQuestCondition, IQuestReward } from "@spt/models/eft/common/tables/IQuest";
-import { IHideoutProduction } from "@spt/models/eft/hideout/IHideoutProduction";
+import { IQuest, IQuestCondition } from "@spt/models/eft/common/tables/IQuest";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { IAcceptQuestRequestData } from "@spt/models/eft/quests/IAcceptQuestRequestData";
 import { ICompleteQuestRequestData } from "@spt/models/eft/quests/ICompleteQuestRequestData";
 import { IFailQuestRequestData } from "@spt/models/eft/quests/IFailQuestRequestData";
 import { QuestStatus } from "@spt/models/enums/QuestStatus";
 import { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -28,7 +25,7 @@ import { PlayerService } from "@spt/services/PlayerService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class QuestHelper {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;
@@ -38,20 +35,18 @@ export declare class QuestHelper {
     protected questConditionHelper: QuestConditionHelper;
     protected eventOutputHolder: EventOutputHolder;
     protected localeService: LocaleService;
-    protected ragfairServerHelper: RagfairServerHelper;
-    protected dialogueHelper: DialogueHelper;
     protected profileHelper: ProfileHelper;
-    protected paymentHelper: PaymentHelper;
+    protected questRewardHelper: QuestRewardHelper;
+    protected rewardHelper: RewardHelper;
     protected localisationService: LocalisationService;
     protected seasonalEventService: SeasonalEventService;
     protected traderHelper: TraderHelper;
-    protected presetHelper: PresetHelper;
     protected mailSendService: MailSendService;
     protected playerService: PlayerService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, hashUtil: HashUtil, itemHelper: ItemHelper, databaseService: DatabaseService, questConditionHelper: QuestConditionHelper, eventOutputHolder: EventOutputHolder, localeService: LocaleService, ragfairServerHelper: RagfairServerHelper, dialogueHelper: DialogueHelper, profileHelper: ProfileHelper, paymentHelper: PaymentHelper, localisationService: LocalisationService, seasonalEventService: SeasonalEventService, traderHelper: TraderHelper, presetHelper: PresetHelper, mailSendService: MailSendService, playerService: PlayerService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, timeUtil: TimeUtil, hashUtil: HashUtil, itemHelper: ItemHelper, databaseService: DatabaseService, questConditionHelper: QuestConditionHelper, eventOutputHolder: EventOutputHolder, localeService: LocaleService, profileHelper: ProfileHelper, questRewardHelper: QuestRewardHelper, rewardHelper: RewardHelper, localisationService: LocalisationService, seasonalEventService: SeasonalEventService, traderHelper: TraderHelper, mailSendService: MailSendService, playerService: PlayerService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Get status of a quest in player profile by its id
      * @param pmcData Profile to search
@@ -102,25 +97,6 @@ export declare class QuestHelper {
     traderStandingRequirementCheck(questProperties: IQuestCondition, profile: IPmcData): boolean;
     protected compareAvailableForValues(current: number, required: number, compareMethod: string): boolean;
     /**
-     * Take reward item from quest and set FiR status + fix stack sizes + fix mod Ids
-     * @param questReward Reward item to fix
-     * @returns Fixed rewards
-     */
-    protected processReward(questReward: IQuestReward): IItem[];
-    /**
-     * Add missing mod items to a quest armor reward
-     * @param originalRewardRootItem Original armor reward item from IQuestReward.items object
-     * @param questReward Armor reward from quest
-     */
-    protected generateArmorRewardChildSlots(originalRewardRootItem: IItem, questReward: IQuestReward): void;
-    /**
-     * Gets a flat list of reward items for the given quest at a specific state for the specified game version (e.g. Fail/Success)
-     * @param quest quest to get rewards for
-     * @param status Quest status that holds the items (Started, Success, Fail)
-     * @returns array of items with the correct maxStack
-     */
-    getQuestRewardItems(quest: IQuest, status: QuestStatus, gameVersion: string): IItem[];
-    /**
      * Look up quest in db by accepted quest id and construct a profile-ready object ready to store in profile
      * @param pmcData Player profile
      * @param newState State the new quest should be in when returned
@@ -169,14 +145,6 @@ export declare class QuestHelper {
      * @returns IQuest array
      */
     failedUnlocked(failedQuestId: string, sessionId: string): IQuest[];
-    /**
-     * Adjust quest money rewards by passed in multiplier
-     * @param quest Quest to multiple money rewards
-     * @param bonusPercent Pecent to adjust money rewards by
-     * @param questStatus Status of quest to apply money boost to rewards of
-     * @returns Updated quest
-     */
-    applyMoneyBoost(quest: IQuest, bonusPercent: number, questStatus: QuestStatus): IQuest;
     /**
      * Sets the item stack to new value, or delete the item if value <= 0
      * // TODO maybe merge this function and the one from customization
@@ -254,46 +222,6 @@ export declare class QuestHelper {
      * @param questId Id of the quest to alter the status of
      */
     resetQuestState(pmcData: IPmcData, newQuestState: QuestStatus, questId: string): void;
-    /**
-     * Give player quest rewards - Skills/exp/trader standing/items/assort unlocks - Returns reward items player earned
-     * @param profileData Player profile (scav or pmc)
-     * @param questId questId of quest to get rewards for
-     * @param state State of the quest to get rewards for
-     * @param sessionId Session id
-     * @param questResponse Response to send back to client
-     * @returns Array of reward objects
-     */
-    applyQuestReward(profileData: IPmcData, questId: string, state: QuestStatus, sessionId: string, questResponse: IItemEventRouterResponse): IItem[];
-    /**
-     * Does the provided quest reward have a game version requirement to be given and does it match
-     * @param reward Reward to check
-     * @param gameVersion Version of game to check reward against
-     * @returns True if it has requirement, false if it doesnt pass check
-     */
-    protected questRewardIsForGameEdition(reward: IQuestReward, gameVersion: string): boolean;
-    /**
-     * WIP - Find hideout craft id and add to unlockedProductionRecipe array in player profile
-     * also update client response recipeUnlocked array with craft id
-     * @param pmcData Player profile
-     * @param craftUnlockReward Reward item from quest with craft unlock details
-     * @param questDetails Quest with craft unlock reward
-     * @param sessionID Session id
-     * @param response Response to send back to client
-     */
-    protected findAndAddHideoutProductionIdToProfile(pmcData: IPmcData, craftUnlockReward: IQuestReward, questDetails: IQuest, sessionID: string, response: IItemEventRouterResponse): void;
-    /**
-     * Find hideout craft for the specified quest reward
-     * @param craftUnlockReward Reward item from quest with craft unlock details
-     * @param questDetails Quest with craft unlock reward
-     * @returns Hideout craft
-     */
-    getRewardProductionMatch(craftUnlockReward: IQuestReward, questDetails: IQuest): IHideoutProduction[];
-    /**
-     * Get players money reward bonus from profile
-     * @param pmcData player profile
-     * @returns bonus as a percent
-     */
-    protected getQuestMoneyRewardBonusMultiplier(pmcData: IPmcData): number;
     /**
      * Find quest with 'findItem' condition that needs the item tpl be handed in
      * @param itemTpl item tpl to look for

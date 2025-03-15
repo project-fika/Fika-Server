@@ -1,11 +1,11 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { IProps, ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { CreateItemResult, LocaleDetails, NewItemDetails, NewItemFromCloneDetails } from "@spt/models/spt/mod/NewItemDetails";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
 import { HashUtil } from "@spt/utils/HashUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class CustomItemService {
     protected logger: ILogger;
     protected hashUtil: HashUtil;

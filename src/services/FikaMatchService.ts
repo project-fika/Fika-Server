@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
 
@@ -11,10 +11,11 @@ import { IFikaMatch } from "../models/fika/IFikaMatch";
 import { IFikaPlayer } from "../models/fika/IFikaPlayer";
 import { IFikaRaidCreateRequestData } from "../models/fika/routes/raid/create/IFikaRaidCreateRequestData";
 
+import { FikaHeadlessHelper } from "../helpers/FikaHeadlessHelper";
 import { FikaConfig } from "../utils/FikaConfig";
 import { FikaInsuranceService } from "./FikaInsuranceService";
 import { FikaPresenceService } from "./FikaPresenceService";
-import { FikaDedicatedRaidService } from "./dedicated/FikaDedicatedRaidService";
+import { FikaHeadlessService } from "./headless/FikaHeadlessService";
 
 @injectable()
 export class FikaMatchService {
@@ -26,7 +27,8 @@ export class FikaMatchService {
         @inject("LocationLifecycleService") protected locationLifecycleService: LocationLifecycleService,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
-        @inject("FikaDedicatedRaidService") protected fikaDedicatedRaidService: FikaDedicatedRaidService,
+        @inject("FikaHeadlessHelper") protected fikaHeadlessHelper: FikaHeadlessHelper,
+        @inject("FikaHeadlessService") protected fikaHeadlessService: FikaHeadlessService,
         @inject("FikaInsuranceService") protected fikaInsuranceService: FikaInsuranceService,
         @inject("FikaPresenceService") protected fikaPresenceService: FikaPresenceService,
     ) {
@@ -97,14 +99,6 @@ export class FikaMatchService {
     }
 
     /**
-     * Returns all match ids
-     * @returns
-     */
-    public getAllMatchIds(): string[] {
-        return Array.from(this.matches.keys());
-    }
-
-    /**
      * Returns the player with the given id in the given match, undefined if either match or player does not exist
      * @param matchId
      * @param playerId
@@ -120,22 +114,6 @@ export class FikaMatchService {
         }
 
         return this.matches.get(matchId).players.get(playerId);
-    }
-
-    /**
-     * Returns an array with all playerIds in the given match, undefined if match does not exist
-     *
-     * Note:
-     * - host player is the one where playerId is equal to matchId
-     * @param matchId
-     * @returns
-     */
-    public getPlayersIdsByMatch(matchId: string): string[] {
-        if (!this.matches.has(matchId)) {
-            return;
-        }
-
-        return Array.from(this.matches.get(matchId).players.keys());
     }
 
     /**
@@ -200,20 +178,24 @@ export class FikaMatchService {
             locationData: locationData,
             status: EFikaMatchStatus.LOADING,
             timeout: 0,
-            players: new Map(),
+            players: new Map<string, IFikaPlayer>(),
             gameVersion: data.gameVersion,
             fikaVersion: data.fikaVersion,
             side: data.side,
             time: data.time,
             raidCode: data.raidCode,
             natPunch: false,
-            isDedicated: false,
+            isHeadless: false,
             raids: 0,
         });
 
         this.addTimeoutInterval(data.serverId);
 
-        this.addPlayerToMatch(data.serverId, data.serverId, { groupId: null, isDead: false, isSpectator: data.isSpectator });
+        this.addPlayerToMatch(data.serverId, data.serverId, {
+            groupId: null,
+            isDead: false,
+            isSpectator: data.isSpectator,
+        });
 
         return this.matches.has(data.serverId) && this.timeoutIntervals.has(data.serverId);
     }
@@ -240,8 +222,8 @@ export class FikaMatchService {
     public endMatch(matchId: string, reason: EFikaMatchEndSessionMessage): void {
         this.logger.info(`Coop session ${matchId} has ended: ${reason}`);
 
-        if (this.fikaDedicatedRaidService.requestedSessions.hasOwnProperty(matchId)) {
-            delete this.fikaDedicatedRaidService.requestedSessions[matchId];
+        if (this.fikaHeadlessHelper.isHeadlessClient(matchId)) {
+            this.fikaHeadlessService.endHeadlessRaid(matchId);
         }
 
         this.fikaInsuranceService.onMatchEnd(matchId);
@@ -253,15 +235,15 @@ export class FikaMatchService {
      * @param matchId
      * @param status
      */
-    public setMatchStatus(matchId: string, status: EFikaMatchStatus): void {
+    public async setMatchStatus(matchId: string, status: EFikaMatchStatus): Promise<void> {
         if (!this.matches.has(matchId)) {
             return;
         }
 
         this.matches.get(matchId).status = status;
 
-        if (status.toString() == "COMPLETE") {
-            this.fikaDedicatedRaidService.handleRequestedSessions(matchId);
+        if (status === EFikaMatchStatus.COMPLETE) {
+            await this.fikaHeadlessService.sendJoinMessageToRequester(matchId);
         }
     }
 
@@ -271,7 +253,7 @@ export class FikaMatchService {
      * @param ips
      * @param port
      */
-    public setMatchHost(matchId: string, ips: string[], port: number, natPunch: boolean, isDedicated: boolean): void {
+    public setMatchHost(matchId: string, ips: string[], port: number, natPunch: boolean, isHeadless: boolean): void {
         if (!this.matches.has(matchId)) {
             return;
         }
@@ -281,7 +263,7 @@ export class FikaMatchService {
         match.ips = ips;
         match.port = port;
         match.natPunch = natPunch;
-        match.isDedicated = isDedicated;
+        match.isHeadless = isHeadless;
     }
 
     /**
@@ -312,9 +294,11 @@ export class FikaMatchService {
 
         this.fikaInsuranceService.addPlayerToMatchId(matchId, playerId);
 
-        this.fikaPresenceService.updatePlayerPresence(playerId, this.fikaPresenceService.generateSetPresence(
-            EFikaPlayerPresences.IN_RAID,
-            this.fikaPresenceService.generateRaidPresence(match.locationData.Id, match.side, match.time)));
+        if (this.fikaHeadlessHelper.isHeadlessClient(matchId)) {
+            this.fikaHeadlessService.addPlayerToHeadlessMatch(matchId, playerId);
+        }
+
+        this.fikaPresenceService.updatePlayerPresence(playerId, this.fikaPresenceService.generateSetPresence(EFikaPlayerPresences.IN_RAID, this.fikaPresenceService.generateRaidPresence(match.locationData.Id, match.side, match.time)));
     }
 
     /**

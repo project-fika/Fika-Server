@@ -2,15 +2,13 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { IMods } from "@spt/models/eft/common/tables/IBotType";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
-import { VFS } from "@spt/utils/VFS";
 /** Store a mapping between weapons, their slots and the items that fit those slots */
 export declare class BotEquipmentModPoolService {
     protected logger: ILogger;
-    protected vfs: VFS;
     protected itemHelper: ItemHelper;
     protected databaseService: DatabaseService;
     protected localisationService: LocalisationService;
@@ -20,7 +18,7 @@ export declare class BotEquipmentModPoolService {
     protected gearModPool: IMods;
     protected weaponPoolGenerated: boolean;
     protected armorPoolGenerated: boolean;
-    constructor(logger: ILogger, vfs: VFS, itemHelper: ItemHelper, databaseService: DatabaseService, localisationService: LocalisationService, configServer: ConfigServer);
+    constructor(logger: ILogger, itemHelper: ItemHelper, databaseService: DatabaseService, localisationService: LocalisationService, configServer: ConfigServer);
     /**
      * Store dictionary of mods for each item passed in
      * @param items items to find related mods and store in modPool

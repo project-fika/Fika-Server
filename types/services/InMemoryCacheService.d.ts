@@ -1,4 +1,4 @@
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class InMemoryCacheService {
     protected cloner: ICloner;
     protected cacheData: Record<string, any>;
@@ -10,13 +10,13 @@ export declare class InMemoryCacheService {
      */
     storeByKey(key: string, dataToCache: any): void;
     /**
-     * Retreve data stored by a key
+     * Retrieve data stored by a key
      * @param key key
      * @returns Stored data
      */
     getDataByKey<T>(key: string): any | undefined;
     /**
-     * Does data exists against the provided key
+     * Does data exist against the provided key
      * @param key Key to check for data against
      * @returns true if exists
      */

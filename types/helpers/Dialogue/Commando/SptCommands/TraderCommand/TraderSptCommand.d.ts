@@ -3,8 +3,8 @@ import { ISptCommand } from "@spt/helpers/Dialogue/Commando/SptCommands/ISptComm
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { IUserDialogInfo } from "@spt/models/eft/profile/IUserDialogInfo";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocaleService } from "@spt/services/LocaleService";
 import { MailSendService } from "@spt/services/MailSendService";

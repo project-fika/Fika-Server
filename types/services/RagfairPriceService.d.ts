@@ -10,7 +10,7 @@ import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { IBarterScheme } from "@spt/models/eft/common/tables/ITrader";
 import { IRagfairConfig, IUnreasonableModPrices } from "@spt/models/spt/config/IRagfairConfig";
 import { IRagfairServerPrices } from "@spt/models/spt/ragfair/IRagfairServerPrices";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";

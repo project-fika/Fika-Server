@@ -14,7 +14,7 @@ import { IGetRaidConfigurationRequestData } from "@spt/models/eft/match/IGetRaid
 import { EquipmentSlots } from "@spt/models/enums/EquipmentSlots";
 import { IGenerateEquipmentProperties } from "@spt/models/spt/bots/IGenerateEquipmentProperties";
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { BotEquipmentFilterService } from "@spt/services/BotEquipmentFilterService";
 import { BotEquipmentModPoolService } from "@spt/services/BotEquipmentModPoolService";
@@ -69,7 +69,7 @@ export declare class BotInventoryGenerator {
      * @param botLevel Level of bot
      * @param chosenGameVersion Game version for bot, only really applies for PMCs
      */
-    protected generateAndAddEquipmentToBot(sessionId: string, templateInventory: IInventory, wornItemChances: IChances, botRole: string, botInventory: PmcInventory, botLevel: number, chosenGameVersion: string, raidConfig: IGetRaidConfigurationRequestData): void;
+    protected generateAndAddEquipmentToBot(sessionId: string, templateInventory: IInventory, wornItemChances: IChances, botRole: string, botInventory: PmcInventory, botLevel: number, chosenGameVersion: string, isPmc: boolean, raidConfig: IGetRaidConfigurationRequestData): void;
     /**
      * Remove non-armored rigs from parameter data
      * @param templateEquipment Equpiment to filter TacticalVest of

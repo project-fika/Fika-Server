@@ -2,7 +2,7 @@ import { MinMax } from "@spt/models/common/MinMax";
 import { IRandomisedBotLevelResult } from "@spt/models/eft/bot/IRandomisedBotLevelResult";
 import { IBotBase } from "@spt/models/eft/common/tables/IBotBase";
 import { IBotGenerationDetails } from "@spt/models/spt/bots/BotGenerationDetails";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { MathUtil } from "@spt/utils/MathUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";

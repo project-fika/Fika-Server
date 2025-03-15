@@ -1,10 +1,10 @@
 import { inject, injectable } from "tsyringe";
 
-import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
+import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
-import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { FikaPlayerRelationsCacheService } from "../services/cache/FikaPlayerRelationsCacheService";
 
 @injectable()
 export class FikaPlayerRelationsHelper {
@@ -90,7 +90,7 @@ export class FikaPlayerRelationsHelper {
         this.logger.info(`removeFriend: ${fromProfileId}->${toProfileId}`);
 
         const profile = this.saveServer.getProfile(fromProfileId);
-        this.webSocketHandler.sendMessage(toProfileId, {
+        this.webSocketHandler.sendMessageAsync(toProfileId, {
             type: "youAreRemovedFromFriendList",
             eventId: "youAreRemovedFromFriendList",
             profile: {
@@ -125,7 +125,7 @@ export class FikaPlayerRelationsHelper {
         this.fikaPlayerRelationsCacheService.storeValue(fromProfileId, playerRelations);
 
         let profile: ISptProfile = this.saveServer.getProfile(fromProfileId);
-        this.webSocketHandler.sendMessage(toProfileId, {
+        this.webSocketHandler.sendMessageAsync(toProfileId, {
             type: "youAreAddToIgnoreList",
             eventId: "youAreAddToIgnoreList",
             _id: fromProfileId,
@@ -161,7 +161,7 @@ export class FikaPlayerRelationsHelper {
         this.fikaPlayerRelationsCacheService.storeValue(fromProfileId, playerRelations);
 
         let profile: ISptProfile = this.saveServer.getProfile(fromProfileId);
-        this.webSocketHandler.sendMessage(toProfileId, {
+        this.webSocketHandler.sendMessageAsync(toProfileId, {
             type: "youAreRemoveFromIgnoreList",
             eventId: "youAreRemoveFromIgnoreList",
             _id: fromProfileId,

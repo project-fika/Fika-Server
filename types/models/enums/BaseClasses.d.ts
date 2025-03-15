@@ -107,6 +107,6 @@ export declare enum BaseClasses {
     RECEIVER = "55818a304bdc2db5418b457d",
     BARREL = "555ef6e44bdc2de9068b457e",
     CHARGING_HANDLE = "55818a6f4bdc2db9688b456b",
-    COMB_MUZZLE_DEVICE = "550aa4dd4bdc2dc9348b4569 ",
+    COMB_MUZZLE_DEVICE = "550aa4dd4bdc2dc9348b4569",
     HIDEOUT_AREA_CONTAINER = "63da6da4784a55176c018dba"
 }

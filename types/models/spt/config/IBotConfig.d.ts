@@ -43,16 +43,10 @@ export interface IBotConfig extends IBaseConfig {
     lowProfileGasBlockTpls: string[];
     /** What bottypes should be excluded from having loot generated on them (backpack/pocket/vest) does not disable food/drink/special/ */
     disableLootOnBotTypes: string[];
-    assaultToBossConversion: IAssaultToBossConversion;
     /** Max length a bots name can be */
     botNameLengthLimit: number;
     /** Bot roles that must have a unique name when generated vs other bots in raid */
     botRolesThatMustHaveUniqueName: string[];
-}
-export interface IAssaultToBossConversion {
-    bossConvertEnabled: boolean;
-    bossesToConvertToWeights: Record<string, number>;
-    bossConvertMinMax: Record<string, MinMax>;
 }
 /** Number of bots to generate and store in cache on raid start per bot type */
 export interface IPresetBatch {

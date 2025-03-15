@@ -4,8 +4,7 @@ export interface IFikaConfigClient {
     dynamicVExfils: boolean;
     allowFreeCam: boolean;
     allowSpectateFreeCam: boolean;
-    allowItemSending: boolean;
-    blacklistedItems: string[],
+    blacklistedItems: string[];
     forceSaveOnDeath: boolean;
     mods: {
         required: string[];
@@ -15,4 +14,5 @@ export interface IFikaConfigClient {
     sharedQuestProgression: boolean;
     canEditRaidSettings: boolean;
     enableTransits: boolean;
+    anyoneCanStartRaid: boolean;
 }

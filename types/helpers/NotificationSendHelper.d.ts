@@ -1,4 +1,5 @@
-import { IDialogue, IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import { IDialogue } from "@spt/models/eft/profile/ISptProfile";
+import { IUserDialogInfo } from "@spt/models/eft/profile/IUserDialogInfo";
 import { IWsNotificationEvent } from "@spt/models/eft/ws/IWsNotificationEvent";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { SaveServer } from "@spt/servers/SaveServer";

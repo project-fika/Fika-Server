@@ -18,7 +18,7 @@ import { ILocations } from "@spt/models/spt/server/ILocations";
 import { IServerBase } from "@spt/models/spt/server/IServerBase";
 import { ISettingsBase } from "@spt/models/spt/server/ISettingsBase";
 import { ITemplates } from "@spt/models/spt/templates/ITemplates";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HashUtil } from "@spt/utils/HashUtil";
@@ -85,7 +85,7 @@ export declare class DatabaseService {
      */
     getCustomization(): Record<string, ICustomizationItem>;
     /**
-     * @returns assets/database/templates/items.json
+     * @returns assets/database/templates/handbook.json
      */
     getHandbook(): IHandbookBase;
     /**
@@ -101,7 +101,7 @@ export declare class DatabaseService {
      */
     getProfiles(): IProfileTemplates;
     /**
-     * @returns assets/database/templates/items.json
+     * @returns assets/database/templates/quests.json
      */
     getQuests(): Record<string, IQuest>;
     /**

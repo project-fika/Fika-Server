@@ -4,11 +4,14 @@ import { NotificationSendHelper } from "@spt/helpers/NotificationSendHelper";
 import { NotifierHelper } from "@spt/helpers/NotifierHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { IDialogue, IMessage, IMessageContentRagfair, IMessageItems, ISystemData, IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import { IMessageContentRagfair } from "@spt/models/eft/profile/IMessageContentRagfair";
+import { IDialogue, IMessage, IMessageItems } from "@spt/models/eft/profile/ISptProfile";
+import { ISystemData } from "@spt/models/eft/profile/ISystemData";
+import { IUserDialogInfo } from "@spt/models/eft/profile/IUserDialogInfo";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { Traders } from "@spt/models/enums/Traders";
 import { IProfileChangeEvent, ISendMessageDetails } from "@spt/models/spt/dialog/ISendMessageDetails";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
@@ -93,6 +96,13 @@ export declare class MailSendService {
      * @returns Message
      */
     protected createDialogMessage(dialogId: string, messageDetails: ISendMessageDetails): IMessage;
+    /**
+     * @param recipientId The id of the recipient
+     * @param replyToId The id of the message to reply to
+     * @param dialogueId The id of the dialogue (traderId or profileId)
+     * @returns A new instance with data from the found message, otherwise undefined
+     */
+    private getMessageToReplyTo;
     /**
      * Add items to message and adjust various properties to reflect the items being added
      * @param message Message to add items to

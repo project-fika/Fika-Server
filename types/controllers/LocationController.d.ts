@@ -2,11 +2,11 @@ import { ILocationsGenerateAllResponse } from "@spt/models/eft/common/ILocations
 import { IGetAirdropLootRequest } from "@spt/models/eft/location/IGetAirdropLootRequest";
 import { IGetAirdropLootResponse } from "@spt/models/eft/location/IGetAirdropLootResponse";
 import { ILocationConfig } from "@spt/models/spt/config/ILocationConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { AirdropService } from "@spt/services/AirdropService";
 import { DatabaseService } from "@spt/services/DatabaseService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class LocationController {
     protected logger: ILogger;
     protected databaseService: DatabaseService;

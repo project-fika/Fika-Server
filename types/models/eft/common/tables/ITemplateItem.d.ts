@@ -38,6 +38,7 @@ export interface IProps {
     IsUngivable?: boolean;
     IsUnremovable?: boolean;
     IsLockedafterEquip?: boolean;
+    IsSecretExitRequirement?: boolean;
     IsRagfairCurrency?: boolean;
     IsSpecialSlotOnly?: boolean;
     IsStationaryWeapon?: boolean;
@@ -56,6 +57,7 @@ export interface IProps {
     ExtraSizeDown?: number;
     ExtraSizeForceAdd?: boolean;
     MergesWithChildren?: boolean;
+    MetascoreGroup?: string;
     CanSellOnRagfair?: boolean;
     CanRequireOnRagfair?: boolean;
     ConflictingItems?: string[];
@@ -86,6 +88,7 @@ export interface IProps {
     EffectiveDistance?: number;
     Ergonomics?: number;
     Velocity?: number;
+    WeaponRecoilSettings: IWeaponRecoilSettings;
     WithAnimatorAiming?: boolean;
     RaidModdable?: boolean;
     ToolModdable?: boolean;
@@ -203,6 +206,7 @@ export interface IProps {
     RecoilForceBack?: number;
     RecoilAngle?: number;
     RecoilCamera?: number;
+    RecoilCategoryMultiplierHandRotation?: number;
     weapFireType?: string[];
     RecolDispersion?: number;
     SingleFireRate?: number;
@@ -422,7 +426,6 @@ export interface IProps {
     LinkedWeapon?: string;
     UseAmmoWithoutShell?: boolean;
     RandomLootSettings?: IRandomLootSettings;
-    RecoilCategoryMultiplierHandRotation?: number;
     RecoilDampingHandRotation?: number;
     LeanWeaponAgainstBody?: boolean;
     RemoveShellAfterFire?: boolean;
@@ -437,6 +440,31 @@ export interface IProps {
     ScavKillStandingPenaltyPVE?: number;
     TradersDiscount?: number;
     TradersDiscountPVE?: number;
+}
+export interface IWeaponRecoilSettings {
+    Enable: boolean;
+    values: IWeaponRecoilSettingValues[];
+}
+export interface IWeaponRecoilSettingValues {
+    Enable: boolean;
+    Process: IWeaponRecoilProcess;
+    Target: string;
+}
+export interface IWeaponRecoilProcess {
+    ComponentType: string;
+    CurveAimingValueMultiply: number;
+    CurveTimeMultiply: number;
+    CurveValueMultiply: number;
+    TransformationCurve: IWeaponRecoilTransformationCurve;
+}
+export interface IWeaponRecoilTransformationCurve {
+    Keys: IWeaponRecoilTransformationCurveKey[];
+}
+export interface IWeaponRecoilTransformationCurveKey {
+    inTangent: number;
+    outTangent: number;
+    time: number;
+    value: number;
 }
 export interface IHealthEffect {
     type: string;

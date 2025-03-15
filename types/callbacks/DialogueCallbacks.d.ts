@@ -21,7 +21,6 @@ import { IGetMailDialogViewRequestData } from "@spt/models/eft/dialog/IGetMailDi
 import { IGetMailDialogViewResponseData } from "@spt/models/eft/dialog/IGetMailDialogViewResponseData";
 import { IPinDialogRequestData } from "@spt/models/eft/dialog/IPinDialogRequestData";
 import { IRemoveDialogRequestData } from "@spt/models/eft/dialog/IRemoveDialogRequestData";
-import { IRemoveMailMessageRequest } from "@spt/models/eft/dialog/IRemoveMailMessageRequest";
 import { IRemoveUserGroupMailRequest } from "@spt/models/eft/dialog/IRemoveUserGroupMailRequest";
 import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
 import { ISetDialogReadRequestData } from "@spt/models/eft/dialog/ISetDialogReadRequestData";
@@ -101,7 +100,6 @@ export declare class DialogueCallbacks implements OnUpdate {
     /** Handle client/friend/ignore/remove */
     unIgnoreFriend(url: string, request: IUIDRequestData, sessionID: string): INullResponseData;
     clearMail(url: string, request: IClearMailMessageRequest, sessionID: string): IGetBodyResponseData<any[]>;
-    removeMail(url: string, request: IRemoveMailMessageRequest, sessionID: string): IGetBodyResponseData<any[]>;
     createGroupMail(url: string, info: ICreateGroupMailRequest, sessionID: string): IGetBodyResponseData<any[]>;
     changeMailGroupOwner(url: string, info: IChangeGroupMailOwnerRequest, sessionID: string): IGetBodyResponseData<any[]>;
     addUserToMail(url: string, info: IAddUserGroupMailRequest, sessionID: string): IGetBodyResponseData<any[]>;

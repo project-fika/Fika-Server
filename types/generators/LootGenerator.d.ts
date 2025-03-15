@@ -8,11 +8,12 @@ import { IItem } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IRewardDetails, ISealedAirdropContainerSettings } from "@spt/models/spt/config/IInventoryConfig";
 import { ILootRequest } from "@spt/models/spt/services/ILootRequest";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { RagfairLinkedItemService } from "@spt/services/RagfairLinkedItemService";
+import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
 type ItemLimit = {
@@ -29,9 +30,10 @@ export declare class LootGenerator {
     protected inventoryHelper: InventoryHelper;
     protected weightedRandomHelper: WeightedRandomHelper;
     protected localisationService: LocalisationService;
+    protected seasonalEventService: SeasonalEventService;
     protected ragfairLinkedItemService: RagfairLinkedItemService;
     protected itemFilterService: ItemFilterService;
-    constructor(logger: ILogger, hashUtil: HashUtil, databaseService: DatabaseService, randomUtil: RandomUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, inventoryHelper: InventoryHelper, weightedRandomHelper: WeightedRandomHelper, localisationService: LocalisationService, ragfairLinkedItemService: RagfairLinkedItemService, itemFilterService: ItemFilterService);
+    constructor(logger: ILogger, hashUtil: HashUtil, databaseService: DatabaseService, randomUtil: RandomUtil, itemHelper: ItemHelper, presetHelper: PresetHelper, inventoryHelper: InventoryHelper, weightedRandomHelper: WeightedRandomHelper, localisationService: LocalisationService, seasonalEventService: SeasonalEventService, ragfairLinkedItemService: RagfairLinkedItemService, itemFilterService: ItemFilterService);
     /**
      * Generate a list of items based on configuration options parameter
      * @param options parameters to adjust how loot is generated
@@ -51,9 +53,10 @@ export declare class LootGenerator {
      * @param itemTypeWhitelist Only allow these items
      * @param useRewardItemBlacklist Should item.json reward item config be used
      * @param allowBossItems Should boss items be allowed in result
+     * @param blockSeasonalItemsOutOfSeason Prevent seasonal items appearing outside their defined season
      * @returns results of filtering + blacklist used
      */
-    protected getItemRewardPool(itemTplBlacklist: string[], itemTypeWhitelist: string[], useRewardItemBlacklist: boolean, allowBossItems: boolean): {
+    protected getItemRewardPool(itemTplBlacklist: string[], itemTypeWhitelist: string[], useRewardItemBlacklist: boolean, allowBossItems: boolean, blockSeasonalItemsOutOfSeason: boolean): {
         itemPool: [string, ITemplateItem][];
         blacklist: Set<string>;
     };

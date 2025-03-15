@@ -1,14 +1,16 @@
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { Common, ICounterKeyValue, IStats } from "@spt/models/eft/common/tables/IBotBase";
+import { CustomisationSource } from "@spt/models/eft/common/tables/ICustomisationStorage";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
+import { IReward } from "@spt/models/eft/common/tables/IReward";
 import { ISearchFriendResponse } from "@spt/models/eft/profile/ISearchFriendResponse";
-import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
+import { ISpt, ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { IValidateNicknameRequestData } from "@spt/models/eft/profile/IValidateNicknameRequestData";
 import { BonusType } from "@spt/models/enums/BonusType";
 import { SkillTypes } from "@spt/models/enums/SkillTypes";
 import { IInventoryConfig } from "@spt/models/spt/config/IInventoryConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -16,7 +18,7 @@ import { LocalisationService } from "@spt/services/LocalisationService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 import { Watermark } from "@spt/utils/Watermark";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class ProfileHelper {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -84,7 +86,7 @@ export declare class ProfileHelper {
      * @returns Max level
      */
     getMaxLevel(): number;
-    getDefaultSptDataObject(): any;
+    getDefaultSptDataObject(): ISpt;
     /**
      * Get full representation of a players profile json
      * @param sessionID Profile id to get
@@ -209,12 +211,6 @@ export declare class ProfileHelper {
      */
     getBonusValueFromProfile(pmcProfile: IPmcData, desiredBonus: BonusType): number;
     playerIsFleaBanned(pmcProfile: IPmcData): boolean;
-    /**
-     * Add an achievement to player profile
-     * @param pmcProfile Profile to add achievement to
-     * @param achievementId Id of achievement to add
-     */
-    addAchievementToProfile(pmcProfile: IPmcData, achievementId: string): void;
     hasAccessToRepeatableFreeRefreshSystem(pmcProfile: IPmcData): boolean;
     /**
      * Find a profiles "Pockets" item and replace its tpl with passed in value
@@ -234,4 +230,11 @@ export declare class ProfileHelper {
      * @returns An array of IItem objects representing the favorited data
      */
     getOtherProfileFavorites(profile: IPmcData): IItem[];
+    /**
+     * Store a hideout customisation unlock inside a profile
+     * @param fullProfile Profile to add unlock to
+     * @param reward reward given to player with customisation data
+     * @param source Source of reward, e.g. "unlockedInGame" for quests and "achievement" for achievements
+     */
+    addHideoutCustomisationUnlock(fullProfile: ISptProfile, reward: IReward, source: CustomisationSource): void;
 }

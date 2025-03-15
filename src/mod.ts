@@ -1,7 +1,7 @@
 import { DependencyContainer } from "tsyringe";
 
-import { IPreSptLoadModAsync } from "@spt/models/external/IPreSptLoadModAsync";
 import { IPostSptLoadModAsync } from "@spt/models/external/IPostSptLoadModAsync";
+import { IPreSptLoadModAsync } from "@spt/models/external/IPreSptLoadModAsync";
 
 import { Fika } from "./Fika";
 import { Container } from "./di/Container";

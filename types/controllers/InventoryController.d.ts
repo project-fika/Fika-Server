@@ -30,7 +30,7 @@ import { IRedeemProfileRequestData } from "@spt/models/eft/inventory/IRedeemProf
 import { ISetFavoriteItems } from "@spt/models/eft/inventory/ISetFavoriteItems";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { FenceService } from "@spt/services/FenceService";
@@ -41,7 +41,7 @@ import { RagfairOfferService } from "@spt/services/RagfairOfferService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class InventoryController {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -149,7 +149,7 @@ export declare class InventoryController {
      * Bind an inventory item to the quick access menu at bottom of player screen
      * Handle bind event
      * @param pmcData Player profile
-     * @param bindRequest Reqeust object
+     * @param bindRequest Request object
      * @param sessionID Session id
      * @returns IItemEventRouterResponse
      */
@@ -183,7 +183,7 @@ export declare class InventoryController {
      * @param request Response request
      * @returns tplId
      */
-    protected getExaminedItemTpl(request: IInventoryExamineRequestData): string;
+    protected getExaminedItemTpl(sessionId: string, request: IInventoryExamineRequestData): string | null;
     readEncyclopedia(pmcData: IPmcData, body: IInventoryReadEncyclopediaRequestData, sessionID: string): IItemEventRouterResponse;
     /**
      * Handle ApplyInventoryChanges

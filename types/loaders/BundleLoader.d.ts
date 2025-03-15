@@ -1,8 +1,8 @@
 import { HttpServerHelper } from "@spt/helpers/HttpServerHelper";
 import { BundleHashCacheService } from "@spt/services/cache/BundleHashCacheService";
+import { FileSystemSync } from "@spt/utils/FileSystemSync";
 import { JsonUtil } from "@spt/utils/JsonUtil";
-import { VFS } from "@spt/utils/VFS";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class BundleInfo {
     modpath: string;
     filename: string;
@@ -12,12 +12,12 @@ export declare class BundleInfo {
 }
 export declare class BundleLoader {
     protected httpServerHelper: HttpServerHelper;
-    protected vfs: VFS;
+    protected fileSystemSync: FileSystemSync;
     protected jsonUtil: JsonUtil;
     protected bundleHashCacheService: BundleHashCacheService;
     protected cloner: ICloner;
     protected bundles: Record<string, BundleInfo>;
-    constructor(httpServerHelper: HttpServerHelper, vfs: VFS, jsonUtil: JsonUtil, bundleHashCacheService: BundleHashCacheService, cloner: ICloner);
+    constructor(httpServerHelper: HttpServerHelper, fileSystemSync: FileSystemSync, jsonUtil: JsonUtil, bundleHashCacheService: BundleHashCacheService, cloner: ICloner);
     /**
      * Handle singleplayer/bundles
      */

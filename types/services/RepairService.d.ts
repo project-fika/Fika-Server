@@ -12,7 +12,7 @@ import { IRepairItem } from "@spt/models/eft/repair/ITraderRepairActionDataReque
 import { BonusType } from "@spt/models/enums/BonusType";
 import { SkillTypes } from "@spt/models/enums/SkillTypes";
 import { IBonusSettings, IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";

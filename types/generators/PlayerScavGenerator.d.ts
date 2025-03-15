@@ -7,7 +7,7 @@ import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IBotBase, ISkills, IStats } from "@spt/models/eft/common/tables/IBotBase";
 import { IBotType } from "@spt/models/eft/common/tables/IBotType";
 import { IKarmaLevel, IPlayerScavConfig } from "@spt/models/spt/config/IPlayerScavConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { BotLootCacheService } from "@spt/services/BotLootCacheService";
@@ -16,7 +16,7 @@ import { FenceService } from "@spt/services/FenceService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class PlayerScavGenerator {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;

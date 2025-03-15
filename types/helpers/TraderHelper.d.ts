@@ -8,7 +8,7 @@ import { ITraderAssort, ITraderBase, ITraderLoyaltyLevel } from "@spt/models/eft
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
 import { Traders } from "@spt/models/enums/Traders";
 import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { FenceService } from "@spt/services/FenceService";

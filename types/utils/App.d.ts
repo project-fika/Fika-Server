@@ -1,13 +1,13 @@
 import { OnLoad } from "@spt/di/OnLoad";
 import { OnUpdate } from "@spt/di/OnUpdate";
 import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { HttpServer } from "@spt/servers/HttpServer";
+import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { EncodingUtil } from "@spt/utils/EncodingUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { DatabaseService } from "@spt/services/DatabaseService";
 export declare class App {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;

@@ -24,20 +24,22 @@
  */
 import { OnLoad } from "@spt/di/OnLoad";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { LocaleService } from "@spt/services/LocaleService";
+import { FileSystemSync } from "@spt/utils/FileSystemSync";
 export declare class ItemTplGenerator {
     protected databaseServer: DatabaseServer;
     protected localeService: LocaleService;
     protected logger: ILogger;
     protected itemHelper: ItemHelper;
+    protected fileSystemSync: FileSystemSync;
     protected onLoadComponents: OnLoad[];
     private enumDir;
     private items;
     private itemOverrides;
     private collidedEnumKeys;
-    constructor(databaseServer: DatabaseServer, localeService: LocaleService, logger: ILogger, itemHelper: ItemHelper, onLoadComponents: OnLoad[]);
+    constructor(databaseServer: DatabaseServer, localeService: LocaleService, logger: ILogger, itemHelper: ItemHelper, fileSystemSync: FileSystemSync, onLoadComponents: OnLoad[]);
     run(): Promise<void>;
     /**
      * Return an object containing all items in the game with a generated name

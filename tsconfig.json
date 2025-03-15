@@ -9,6 +9,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "resolveJsonModule": true,
+        "isolatedModules": true,
         "outDir": "tmp",
         "paths": {
             "@spt/*": ["./types/*"]

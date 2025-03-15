@@ -75,6 +75,8 @@ export interface IDynamic {
     blacklist: IRagfairBlacklist;
     /** Dict of price limits keyed by item type */
     unreasonableModPrices: Record<string, IUnreasonableModPrices>;
+    /** Custom rouble prices for items to override values from prices.json */
+    itemPriceOverrideRouble: Record<string, number>;
 }
 export interface IPriceRanges {
     default: MinMax;

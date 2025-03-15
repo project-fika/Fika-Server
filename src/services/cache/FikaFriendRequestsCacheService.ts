@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
+import { FileSystemSync } from "@spt/utils/FileSystemSync";
 import { JsonUtil } from "@spt/utils/JsonUtil";
-import { VFS } from "@spt/utils/VFS";
 
 import { IFikaFriendRequests } from "../../models/fika/IFikaFriendRequests";
 import { FikaConfig } from "../../utils/FikaConfig";
@@ -14,16 +14,16 @@ export class FikaFriendRequestsCacheService {
 
     constructor(
         @inject("JsonUtil") protected jsonUtil: JsonUtil,
-        @inject("VFS") protected vfs: VFS,
+        @inject("FileSystemSync") protected fileSystemSync: FileSystemSync,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
     ) {
         this.friendRequestsFullPath = `./${this.fikaConfig.getModPath()}${this.friendRequestsPath}`;
 
-        if (!this.vfs.exists(this.friendRequestsFullPath)) {
-            this.vfs.writeFile(this.friendRequestsFullPath, "[]");
+        if (!this.fileSystemSync.exists(this.friendRequestsFullPath)) {
+            this.fileSystemSync.write(this.friendRequestsFullPath, "[]");
         }
 
-        this.friendRequests = this.jsonUtil.deserialize(this.vfs.readFile(this.friendRequestsFullPath), this.friendRequestsFullPath);
+        this.friendRequests = this.jsonUtil.deserialize(this.fileSystemSync.read(this.friendRequestsFullPath), this.friendRequestsFullPath);
     }
 
     public getAllFriendRequests(): IFikaFriendRequests[] {
@@ -50,12 +50,12 @@ export class FikaFriendRequestsCacheService {
 
         this.friendRequests.splice(index, 1);
 
-        this.vfs.writeFile(this.friendRequestsFullPath, this.jsonUtil.serialize(this.friendRequests));
+        this.fileSystemSync.write(this.friendRequestsFullPath, this.jsonUtil.serialize(this.friendRequests));
     }
 
     public storeFriendRequest(value: IFikaFriendRequests): void {
         this.friendRequests.push(value);
 
-        this.vfs.writeFile(this.friendRequestsFullPath, this.jsonUtil.serialize(this.friendRequests));
+        this.fileSystemSync.write(this.friendRequestsFullPath, this.jsonUtil.serialize(this.friendRequests));
     }
 }

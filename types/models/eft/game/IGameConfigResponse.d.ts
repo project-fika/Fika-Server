@@ -12,6 +12,13 @@ export interface IGameConfigResponse {
     totalInGame: number;
     reportAvailable: boolean;
     twitchEventMember: boolean;
+    sessionMode: string;
+    purchasedGames: IPurchasedGames;
+    isGameSynced: boolean;
+}
+export interface IPurchasedGames {
+    eft: boolean;
+    arena: boolean;
 }
 export interface IBackend {
     Lobby: string;

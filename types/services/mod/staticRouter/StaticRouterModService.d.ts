@@ -1,5 +1,5 @@
 import { RouteAction } from "@spt/di/Router";
-import { DependencyContainer } from "tsyringe";
+import { type DependencyContainer } from "tsyringe";
 export declare class StaticRouterModService {
     protected container: DependencyContainer;
     constructor(container: DependencyContainer);

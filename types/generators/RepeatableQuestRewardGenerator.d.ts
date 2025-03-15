@@ -2,11 +2,12 @@ import { HandbookHelper } from "@spt/helpers/HandbookHelper";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
-import { IQuestReward, IQuestRewards } from "@spt/models/eft/common/tables/IQuest";
+import { IQuestRewards } from "@spt/models/eft/common/tables/IQuest";
+import { IReward } from "@spt/models/eft/common/tables/IReward";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IBaseQuestConfig, IQuestConfig, IRepeatableQuestConfig, IRewardScaling } from "@spt/models/spt/config/IQuestConfig";
 import { IQuestRewardValues } from "@spt/models/spt/repeatable/IQuestRewardValues";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
@@ -14,9 +15,8 @@ import { LocalisationService } from "@spt/services/LocalisationService";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { MathUtil } from "@spt/utils/MathUtil";
-import { ObjectId } from "@spt/utils/ObjectId";
 import { RandomUtil } from "@spt/utils/RandomUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class RepeatableQuestRewardGenerator {
     protected logger: ILogger;
     protected randomUtil: RandomUtil;
@@ -27,13 +27,12 @@ export declare class RepeatableQuestRewardGenerator {
     protected presetHelper: PresetHelper;
     protected handbookHelper: HandbookHelper;
     protected localisationService: LocalisationService;
-    protected objectId: ObjectId;
     protected itemFilterService: ItemFilterService;
     protected seasonalEventService: SeasonalEventService;
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, randomUtil: RandomUtil, hashUtil: HashUtil, mathUtil: MathUtil, databaseService: DatabaseService, itemHelper: ItemHelper, presetHelper: PresetHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, objectId: ObjectId, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, randomUtil: RandomUtil, hashUtil: HashUtil, mathUtil: MathUtil, databaseService: DatabaseService, itemHelper: ItemHelper, presetHelper: PresetHelper, handbookHelper: HandbookHelper, localisationService: LocalisationService, itemFilterService: ItemFilterService, seasonalEventService: SeasonalEventService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Generate the reward for a mission. A reward can consist of:
      * - Experience
@@ -76,10 +75,10 @@ export declare class RepeatableQuestRewardGenerator {
      * Choose a random Weapon preset that fits inside of a rouble amount limit
      * @param roublesBudget
      * @param rewardIndex
-     * @returns IQuestReward
+     * @returns IReward
      */
     protected getRandomWeaponPresetWithinBudget(roublesBudget: number, rewardIndex: number): {
-        weapon: IQuestReward;
+        weapon: IReward;
         price: number;
     } | undefined;
     /**
@@ -129,7 +128,7 @@ export declare class RepeatableQuestRewardGenerator {
      * @param preset Optional array of preset items
      * @returns {object}                    Object of "Reward"-item-type
      */
-    protected generateItemReward(tpl: string, count: number, index: number, foundInRaid?: boolean): IQuestReward;
+    protected generateItemReward(tpl: string, count: number, index: number, foundInRaid?: boolean): IReward;
     /**
      * Helper to create a reward item structured as required by the client
      *
@@ -139,7 +138,7 @@ export declare class RepeatableQuestRewardGenerator {
      * @param preset Optional array of preset items
      * @returns {object}                    Object of "Reward"-item-type
      */
-    protected generatePresetReward(tpl: string, count: number, index: number, preset?: IItem[], foundInRaid?: boolean): IQuestReward;
+    protected generatePresetReward(tpl: string, count: number, index: number, preset?: IItem[], foundInRaid?: boolean): IReward;
     /**
      * Picks rewardable items from items.json
      * This means they must:
@@ -158,5 +157,5 @@ export declare class RepeatableQuestRewardGenerator {
      * @returns True if item is valid reward
      */
     protected isValidRewardItem(tpl: string, repeatableQuestConfig: IRepeatableQuestConfig, itemBaseWhitelist: string[]): boolean;
-    protected getMoneyReward(traderId: string, rewardRoubles: number, rewardIndex: number): IQuestReward;
+    protected getMoneyReward(traderId: string, rewardRoubles: number, rewardIndex: number): IReward;
 }

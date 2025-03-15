@@ -4,8 +4,8 @@ import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
 import { IWeather, IWeatherData } from "@spt/models/eft/weather/IWeatherData";
 import { Season } from "@spt/models/enums/Season";
 import { WindDirection } from "@spt/models/enums/WindDirection";
-import { IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import { ISeasonalValues, IWeatherConfig } from "@spt/models/spt/config/IWeatherConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SeasonalEventService } from "@spt/services/SeasonalEventService";
 import { RandomUtil } from "@spt/utils/RandomUtil";
@@ -48,23 +48,24 @@ export declare class WeatherGenerator {
      * @returns Randomised weather data
      */
     generateWeather(currentSeason: Season, timestamp?: number): IWeather;
+    protected getWeatherValuesBySeason(currentSeason: Season): ISeasonalValues;
     /**
-     * Choose a temprature for the raid based on time of day and current season
+     * Choose a temprature for the raid based on time of day
      * @param currentSeason What season tarkov is currently in
      * @param inRaidTimestamp What time is the raid running at
      * @returns Timestamp
      */
-    protected getRaidTemperature(currentSeason: Season, inRaidTimestamp: number): number;
+    protected getRaidTemperature(weather: ISeasonalValues, inRaidTimestamp: number): number;
     /**
      * Set IWeather date/time/timestamp values to now
      * @param weather Object to update
      * @param timestamp OPTIONAL, define timestamp used
      */
     protected setCurrentDateTime(weather: IWeather, timestamp?: number): void;
-    protected getWeightedWindDirection(): WindDirection;
-    protected getWeightedClouds(): number;
-    protected getWeightedWindSpeed(): number;
-    protected getWeightedFog(): number;
-    protected getWeightedRain(): number;
-    protected getRandomFloat(node: string, precision?: number): number;
+    protected getWeightedWindDirection(weather: ISeasonalValues): WindDirection;
+    protected getWeightedClouds(weather: ISeasonalValues): number;
+    protected getWeightedWindSpeed(weather: ISeasonalValues): number;
+    protected getWeightedFog(weather: ISeasonalValues): number;
+    protected getWeightedRain(weather: ISeasonalValues): number;
+    protected getRandomFloat(min: number, max: number, precision?: number): number;
 }

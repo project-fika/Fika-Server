@@ -5,7 +5,7 @@ import { IInsuredItem } from "@spt/models/eft/common/tables/IBotBase";
 import { IItem, IUpd, IUpdRepairable } from "@spt/models/eft/common/tables/IItem";
 import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { ItemTpl } from "@spt/models/enums/ItemTpl";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemBaseClassService } from "@spt/services/ItemBaseClassService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
@@ -15,15 +15,13 @@ import { CompareUtil } from "@spt/utils/CompareUtil";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 import { MathUtil } from "@spt/utils/MathUtil";
-import { ObjectId } from "@spt/utils/ObjectId";
 import { RandomUtil } from "@spt/utils/RandomUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class ItemHelper {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
     protected jsonUtil: JsonUtil;
     protected randomUtil: RandomUtil;
-    protected objectId: ObjectId;
     protected mathUtil: MathUtil;
     protected databaseService: DatabaseService;
     protected handbookHelper: HandbookHelper;
@@ -34,7 +32,7 @@ export declare class ItemHelper {
     protected compareUtil: CompareUtil;
     protected cloner: ICloner;
     protected readonly defaultInvalidBaseTypes: string[];
-    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, randomUtil: RandomUtil, objectId: ObjectId, mathUtil: MathUtil, databaseService: DatabaseService, handbookHelper: HandbookHelper, itemBaseClassService: ItemBaseClassService, itemFilterService: ItemFilterService, localisationService: LocalisationService, localeService: LocaleService, compareUtil: CompareUtil, cloner: ICloner);
+    constructor(logger: ILogger, hashUtil: HashUtil, jsonUtil: JsonUtil, randomUtil: RandomUtil, mathUtil: MathUtil, databaseService: DatabaseService, handbookHelper: HandbookHelper, itemBaseClassService: ItemBaseClassService, itemFilterService: ItemFilterService, localisationService: LocalisationService, localeService: LocaleService, compareUtil: CompareUtil, cloner: ICloner);
     /**
      * Does the provided pool of items contain the desired item
      * @param itemPool Item collection to check
@@ -296,12 +294,13 @@ export declare class ItemHelper {
      * Mark the passed in array of items as found in raid.
      * Modifies passed in items
      * @param items The list of items to mark as FiR
+     * @param excludeCurrency Should currency be excluded from becoming FiR (default true)
      */
-    setFoundInRaid(items: IItem[]): void;
+    setFoundInRaid(items: IItem[], excludeCurrency?: boolean): void;
     /**
      * WARNING, SLOW. Recursively loop down through an items hierarchy to see if any of the ids match the supplied list, return true if any do
-     * @param {string} tpl Items tpl to check parents of
-     * @param {Array} tplsToCheck Tpl values to check if parents of item match
+     * @param tpl Items tpl to check parents of
+     * @param tplsToCheck Tpl values to check if parents of item match
      * @returns boolean Match found
      */
     doesItemOrParentsIdMatch(tpl: string, tplsToCheck: string[]): boolean;

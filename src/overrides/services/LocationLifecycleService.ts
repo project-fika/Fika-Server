@@ -2,37 +2,32 @@ import { DependencyContainer, inject, injectable } from "tsyringe";
 
 import { ApplicationContext } from "@spt/context/ApplicationContext";
 import { ContextVariableType } from "@spt/context/ContextVariableType";
-import { LocationController } from "@spt/controllers/LocationController";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { ILocationBase } from "@spt/models/eft/common/ILocationBase";
 import { IEndLocalRaidRequestData, ILocationTransit } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 import { IStartLocalRaidRequestData } from "@spt/models/eft/match/IStartLocalRaidRequestData";
 import { IStartLocalRaidResponseData } from "@spt/models/eft/match/IStartLocalRaidResponseData";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { BotGenerationCacheService } from "@spt/services/BotGenerationCacheService";
-import { BotLootCacheService } from "@spt/services/BotLootCacheService";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { LocationLifecycleService } from "@spt/services/LocationLifecycleService";
-import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
 
+import { TransitionType } from "@spt/models/enums/TransitionType";
 import { Override } from "../../di/Override";
+import { FikaInsuranceService } from "../../services/FikaInsuranceService";
 import { FikaMatchService } from "../../services/FikaMatchService";
 
 @injectable()
 export class LocationLifecycleServiceOverride extends Override {
     constructor(
+        @inject("FikaInsuranceService") protected fikaInsuranceService: FikaInsuranceService,
         @inject("DatabaseService") protected databaseService: DatabaseService,
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
-        @inject("LocationController") protected locationController: LocationController,
-        @inject("HttpResponseUtil") protected httpResponseUtil: HttpResponseUtil,
         @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("LocationLifecycleService") protected locationLifecycleService: LocationLifecycleService,
-        @inject("BotGenerationCacheService") protected botGenerationCacheService: BotGenerationCacheService,
         @inject("ApplicationContext") protected applicationContext: ApplicationContext,
         @inject("TimeUtil") protected timeUtil: TimeUtil,
-        @inject("BotLootCacheService") protected botLootCacheService: BotLootCacheService,
-        @inject("PrimaryLogger") protected logger: ILogger,
     ) {
         super();
     }
@@ -70,12 +65,12 @@ export class LocationLifecycleServiceOverride extends Override {
                         profile: { insuredItems: playerProfile.InsuredItems },
                         locationLoot: locationLoot,
                         transition: {
-                            isLocationTransition: false,
+                            transitionType: TransitionType.Common,
                             transitionRaidId: "66f5750951530ca5ae09876d",
                             transitionCount: 0,
                             visitedLocations: [],
                         },
-                    };
+                    } as IStartLocalRaidResponseData;
 
                     // Only has value when transitioning into map from previous one
                     if (request.transition) {
@@ -83,11 +78,8 @@ export class LocationLifecycleServiceOverride extends Override {
                     }
 
                     // Get data stored at end of previous raid (if any)
-                    const transitionData = this.applicationContext
-                        .getLatestValue(ContextVariableType.TRANSIT_INFO)
-                        ?.getValue<ILocationTransit>();
+                    const transitionData = this.applicationContext.getLatestValue(ContextVariableType.TRANSIT_INFO)?.getValue<ILocationTransit>();
                     if (transitionData) {
-                        result.transition.isLocationTransition = true;
                         result.transition.transitionRaidId = transitionData.transitionRaidId;
                         result.transition.transitionCount += 1;
                         result.transition.visitedLocations.push(transitionData.sptLastVisitedLocation);
@@ -115,11 +107,6 @@ export class LocationLifecycleServiceOverride extends Override {
                     // Get match id from player session id
                     const matchId = this.fikaMatchService.getMatchIdByPlayer(sessionId);
 
-                    if (sessionId == matchId) {
-                        // Clear bot loot cache only if host ended raid
-                        this.botLootCacheService.clearCache();
-                    }
-
                     // Find player that exited the raid
                     const player = this.fikaMatchService.getPlayerInMatch(matchId, sessionId);
 
@@ -129,8 +116,11 @@ export class LocationLifecycleServiceOverride extends Override {
                         }
                     }
 
+                    this.fikaInsuranceService.onEndLocalRaidRequest(sessionId, this.fikaInsuranceService.getMatchId(sessionId), request);
+
                     // Execute the original method if not a spectator
                     if (!isSpectator) {
+                        //Prototype callback because apparently setting a original callback before overriding doesn't allow some stuff to work.
                         LocationLifecycleService.prototype.endLocalRaid.call(result, sessionId, request);
                     }
                 };

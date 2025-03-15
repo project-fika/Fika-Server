@@ -1,7 +1,7 @@
 import { IChatCommand } from "@spt/helpers/Dialogue/Commando/IChatCommand";
 import { ISptCommand } from "@spt/helpers/Dialogue/Commando/SptCommands/ISptCommand";
 import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import { IUserDialogInfo } from "@spt/models/eft/profile/ISptProfile";
+import { IUserDialogInfo } from "@spt/models/eft/profile/IUserDialogInfo";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { LocalisationService } from "@spt/services/LocalisationService";
 export declare class SptCommandoCommands implements IChatCommand {

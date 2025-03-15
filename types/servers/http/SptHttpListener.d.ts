@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from "node:http";
 import { Serializer } from "@spt/di/Serializer";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { HttpRouter } from "@spt/routers/HttpRouter";
 import { IHttpListener } from "@spt/servers/http/IHttpListener";
 import { LocalisationService } from "@spt/services/LocalisationService";
@@ -26,7 +26,7 @@ export declare class SptHttpListener implements IHttpListener {
      * @param body Buffer
      * @param output Server generated response data
      */
-    sendResponse(sessionID: string, req: IncomingMessage, resp: ServerResponse, body: Buffer, output: string): Promise<void>;
+    sendResponse(sessionID: string, req: IncomingMessage, resp: ServerResponse, body: Buffer | undefined, output: string): Promise<void>;
     /**
      * Is request flagged as debug enabled
      * @param req Incoming request
@@ -39,8 +39,8 @@ export declare class SptHttpListener implements IHttpListener {
      * @param output Output string
      */
     protected logRequest(req: IncomingMessage, output: string): void;
-    getResponse(sessionID: string, req: IncomingMessage, body: Buffer): Promise<string>;
-    protected getBodyInfo(body: Buffer, requestUrl?: any): any;
+    getResponse(sessionID: string, req: IncomingMessage, body: Buffer | undefined): Promise<string>;
+    protected getBodyInfo(body: Buffer | undefined, requestUrl?: any): any;
     sendJson(resp: ServerResponse, output: string, sessionID: string): void;
     sendZlibJson(resp: ServerResponse, output: string, sessionID: string): Promise<void>;
 }

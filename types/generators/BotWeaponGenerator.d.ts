@@ -12,7 +12,7 @@ import { IGenerateWeaponResult } from "@spt/models/spt/bots/IGenerateWeaponResul
 import { IBotConfig } from "@spt/models/spt/config/IBotConfig";
 import { IPmcConfig } from "@spt/models/spt/config/IPmcConfig";
 import { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { BotWeaponModLimitService } from "@spt/services/BotWeaponModLimitService";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -20,7 +20,7 @@ import { LocalisationService } from "@spt/services/LocalisationService";
 import { RepairService } from "@spt/services/RepairService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class BotWeaponGenerator {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -151,6 +151,12 @@ export declare class BotWeaponGenerator {
      * @returns Array of cartridge tpls
      */
     protected getCompatibleCartridgesFromWeaponTemplate(weaponTemplate: ITemplateItem): string[];
+    /**
+     * Get the cartridge ids from a weapon's magazine template that work with the weapon
+     * @param weaponTemplate Weapon db template to get magazine cartridges for
+     * @returns Array of cartridge tpls
+     */
+    protected getCompatibleCartridgesFromMagazineTemplate(weaponTemplate: ITemplateItem): string[];
     /**
      * Get a weapons compatible cartridge caliber
      * @param weaponTemplate Weapon to look up caliber of

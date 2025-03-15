@@ -19,6 +19,7 @@ export interface IProps {
     Hands: string;
     Feet: string;
     Prefab: IPrefab;
+    ProfileVersions: string[];
     WatchPrefab: IPrefab;
     IntegratedArmorVest: boolean;
     WatchPosition: Ixyz;

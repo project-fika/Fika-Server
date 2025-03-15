@@ -6,6 +6,7 @@ import { PresetHelper } from "@spt/helpers/PresetHelper";
 import { ProbabilityHelper } from "@spt/helpers/ProbabilityHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { WeightedRandomHelper } from "@spt/helpers/WeightedRandomHelper";
+import { MinMax } from "@spt/models/common/MinMax";
 import { IPreset } from "@spt/models/eft/common/IGlobals";
 import { IMods, IModsChances } from "@spt/models/eft/common/tables/IBotType";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
@@ -18,7 +19,7 @@ import { IGenerateWeaponRequest } from "@spt/models/spt/bots/IGenerateWeaponRequ
 import { IModToSpawnRequest } from "@spt/models/spt/bots/IModToSpawnRequest";
 import { EquipmentFilters, IBotConfig, IEquipmentFilterDetails } from "@spt/models/spt/config/IBotConfig";
 import { ExhaustableArray } from "@spt/models/spt/server/ExhaustableArray";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { BotEquipmentFilterService } from "@spt/services/BotEquipmentFilterService";
 import { BotEquipmentModPoolService } from "@spt/services/BotEquipmentModPoolService";
@@ -28,7 +29,7 @@ import { ItemFilterService } from "@spt/services/ItemFilterService";
 import { LocalisationService } from "@spt/services/LocalisationService";
 import { HashUtil } from "@spt/utils/HashUtil";
 import { RandomUtil } from "@spt/utils/RandomUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class BotEquipmentModGenerator {
     protected logger: ILogger;
     protected hashUtil: HashUtil;
@@ -66,11 +67,31 @@ export declare class BotEquipmentModGenerator {
      * Filter a bots plate pool based on its current level
      * @param settings Bot equipment generation settings
      * @param modSlot Armor slot being filtered
-     * @param existingPlateTplPool Plates tpls to choose from
+     * @param compatiblePlateTplPool Compatible plate tpl pool to choose from
      * @param armorItem The armor items db template
      * @returns Array of plate tpls to choose from
      */
-    protected filterPlateModsForSlotByLevel(settings: IGenerateEquipmentProperties, modSlot: string, existingPlateTplPool: string[], armorItem: ITemplateItem): IFilterPlateModsForSlotByLevelResult;
+    protected filterPlateModsForSlotByLevel(settings: IGenerateEquipmentProperties, modSlot: string, compatiblePlateTplPool: string[], armorItem: ITemplateItem): IFilterPlateModsForSlotByLevelResult;
+    /**
+     * Get the default plate an armor has in its db item
+     * @param armorItem Item to look up default plate
+     * @param modSlot front/back
+     * @returns Tpl of plate
+     */
+    protected getDefaultPlateTpl(armorItem: ITemplateItem, modSlot: string): string | undefined;
+    /**
+     * Get the matching armor slot from the default preset matching passed in armor tpl
+     * @param presetItemId Id of preset
+     * @param modSlot front/back
+     * @returns Armor IItem
+     */
+    protected getDefaultPresetArmorSlot(armorItemTpl: string, modSlot: string): IItem | undefined;
+    /**
+     * Gets the minimum and maximum plate class levels from an array of plates
+     * @param platePool Pool of plates to sort by armorClass to get min and max
+     * @returns MinMax of armorClass from plate pool
+     */
+    protected getMinMaxArmorPlateClass(platePool: ITemplateItem[]): MinMax;
     /**
      * Add mods to a weapon using the provided mod pool
      * @param sessionId Session id
@@ -186,7 +207,7 @@ export declare class BotEquipmentModGenerator {
      */
     protected getModPoolForSlot(request: IModToSpawnRequest, weaponTemplate: ITemplateItem): string[];
     protected getModPoolForDefaultSlot(request: IModToSpawnRequest, weaponTemplate: ITemplateItem): string[];
-    protected getMatchingModFromPreset(request: IModToSpawnRequest, weaponTemplate: ITemplateItem): IItem;
+    protected getMatchingModFromPreset(request: IModToSpawnRequest, weaponTemplate: ITemplateItem): IItem | undefined;
     /**
      * Get default preset for weapon OR get specific weapon presets for edge cases (mp5/silenced dvl)
      * @param weaponTemplate Weapons db template

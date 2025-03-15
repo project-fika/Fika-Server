@@ -1,7 +1,6 @@
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { inject, injectable } from "tsyringe";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
 
-import { MatchController } from "@spt/controllers/MatchController";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { IEndLocalRaidRequestData } from "@spt/models/eft/match/IEndLocalRaidRequestData";
 import { BaseClasses } from "@spt/models/enums/BaseClasses";
@@ -16,7 +15,6 @@ export class FikaInsuranceService {
     constructor(
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("ItemHelper") protected itemHelper: ItemHelper,
-        @inject("MatchController") protected matchController: MatchController,
         @inject("WinstonLogger") protected logger: ILogger,
     ) {
         this.matchInsuranceInfo = {};
@@ -42,7 +40,7 @@ export class FikaInsuranceService {
             endedRaid: false,
             lostItems: [],
             foundItems: [],
-            inventory: [],  
+            inventory: [],
         };
 
         this.matchInsuranceInfo[matchId].push(player);
@@ -51,9 +49,6 @@ export class FikaInsuranceService {
     public onEndLocalRaidRequest(sessionID: string, matchId: string, endLocalRaidRequest: IEndLocalRaidRequestData): void {
         if (!(matchId in this.matchInsuranceInfo)) {
             this.logger.error("[Fika Insurance] onEndLocalRaidRequest: matchId not found!");
-
-            // Pass back to SPT so that the player can save.
-            MatchController.prototype.endLocalRaid.call(this.matchController, sessionID, endLocalRaidRequest);
             return;
         }
 
@@ -69,9 +64,6 @@ export class FikaInsuranceService {
             player.inventory = endLocalRaidRequest.results.profile.Inventory.items.map((i) => i._id);
             player.endedRaid = true;
         }
-
-        // Pass back to SPT so that the player can save.
-        MatchController.prototype.endLocalRaid.call(this.matchController, sessionID, endLocalRaidRequest);
     }
 
     public onMatchEnd(matchId: string): void {

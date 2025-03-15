@@ -34,5 +34,5 @@ export declare class InraidCallbacks {
      */
     getRaidMenuSettings(): string;
     getTraitorScavHostileChance(url: string, info: IEmptyRequestData, sessionId: string): string;
-    getBossConvertSettings(url: string, info: IEmptyRequestData, sessionId: string): string;
+    getBossTypes(url: string, info: IEmptyRequestData, sessionId: string): string;
 }

@@ -3,5 +3,5 @@ export interface IFikaUpdateSethostRequestData {
     ips: string[];
     port: number;
     natPunch: boolean;
-    isDedicated: boolean;
+    isHeadless: boolean;
 }

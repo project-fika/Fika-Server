@@ -3,4 +3,5 @@ export interface IProfileCreateRequestData {
     nickname: string;
     headId: string;
     voiceId: string;
+    sptForcePrestigeLevel?: number;
 }

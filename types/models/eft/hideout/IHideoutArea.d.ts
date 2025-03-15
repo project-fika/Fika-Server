@@ -26,6 +26,7 @@ export interface IStage {
     /** Containers inventory tpl */
     container?: string;
     description: string;
+    globalCounterId?: string;
     displayInterface: boolean;
     improvements: IStageImprovement[];
     requirements: IStageRequirement[];
@@ -62,6 +63,7 @@ export interface IStageRequirement extends IRequirementBase {
     loyaltyLevel?: number;
     skillName?: string;
     skillLevel?: number;
+    isSpawnedInSession?: boolean;
 }
 export interface IStageBonus {
     value: number;

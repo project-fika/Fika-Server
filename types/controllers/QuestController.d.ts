@@ -3,6 +3,7 @@ import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { QuestConditionHelper } from "@spt/helpers/QuestConditionHelper";
 import { QuestHelper } from "@spt/helpers/QuestHelper";
+import { QuestRewardHelper } from "@spt/helpers/QuestRewardHelper";
 import { TraderHelper } from "@spt/helpers/TraderHelper";
 import { IPmcData } from "@spt/models/eft/common/IPmcData";
 import { IItem } from "@spt/models/eft/common/tables/IItem";
@@ -14,7 +15,7 @@ import { ICompleteQuestRequestData } from "@spt/models/eft/quests/ICompleteQuest
 import { IFailQuestRequestData } from "@spt/models/eft/quests/IFailQuestRequestData";
 import { IHandoverQuestRequestData } from "@spt/models/eft/quests/IHandoverQuestRequestData";
 import { IQuestConfig } from "@spt/models/spt/config/IQuestConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
@@ -24,7 +25,7 @@ import { MailSendService } from "@spt/services/MailSendService";
 import { PlayerService } from "@spt/services/PlayerService";
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 import { TimeUtil } from "@spt/utils/TimeUtil";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class QuestController {
     protected logger: ILogger;
     protected timeUtil: TimeUtil;
@@ -37,6 +38,7 @@ export declare class QuestController {
     protected profileHelper: ProfileHelper;
     protected traderHelper: TraderHelper;
     protected questHelper: QuestHelper;
+    protected questRewardHelper: QuestRewardHelper;
     protected questConditionHelper: QuestConditionHelper;
     protected playerService: PlayerService;
     protected localeService: LocaleService;
@@ -44,7 +46,7 @@ export declare class QuestController {
     protected configServer: ConfigServer;
     protected cloner: ICloner;
     protected questConfig: IQuestConfig;
-    constructor(logger: ILogger, timeUtil: TimeUtil, httpResponseUtil: HttpResponseUtil, eventOutputHolder: EventOutputHolder, databaseService: DatabaseService, itemHelper: ItemHelper, dialogueHelper: DialogueHelper, mailSendService: MailSendService, profileHelper: ProfileHelper, traderHelper: TraderHelper, questHelper: QuestHelper, questConditionHelper: QuestConditionHelper, playerService: PlayerService, localeService: LocaleService, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
+    constructor(logger: ILogger, timeUtil: TimeUtil, httpResponseUtil: HttpResponseUtil, eventOutputHolder: EventOutputHolder, databaseService: DatabaseService, itemHelper: ItemHelper, dialogueHelper: DialogueHelper, mailSendService: MailSendService, profileHelper: ProfileHelper, traderHelper: TraderHelper, questHelper: QuestHelper, questRewardHelper: QuestRewardHelper, questConditionHelper: QuestConditionHelper, playerService: PlayerService, localeService: LocaleService, localisationService: LocalisationService, configServer: ConfigServer, cloner: ICloner);
     /**
      * Handle client/quest/list
      * Get all quests visible to player
@@ -136,7 +138,7 @@ export declare class QuestController {
     /**
      * Handle /client/game/profile/items/moving - QuestFail
      * @param pmcData Pmc profile
-     * @param request Fail qeust request
+     * @param request Fail quest request
      * @param sessionID Session id
      * @returns IItemEventRouterResponse
      */

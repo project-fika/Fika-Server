@@ -5,4 +5,18 @@ export interface IRaidChanges {
     staticLootPercent: number;
     /** How many seconds into the raid is the player simulated to spawn in at */
     simulatedRaidStartSeconds: number;
+    /** How many minutes are in the raid total */
+    raidTimeMinutes: number;
+    /** The new number of seconds required to avoid a run through */
+    newSurviveTimeSeconds?: number;
+    /** The original number of seconds required to avoid a run through */
+    originalSurvivalTimeSeconds: number;
+    /** Any changes required to the extract list */
+    exitChanges: ExtractChange[];
+}
+export interface ExtractChange {
+    Name: string;
+    MinTime?: number;
+    MaxTime?: number;
+    Chance?: number;
 }

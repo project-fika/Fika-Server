@@ -1,5 +1,5 @@
 import { RouteAction } from "@spt/di/Router";
-import { DependencyContainer } from "tsyringe";
+import { type DependencyContainer } from "tsyringe";
 export declare class DynamicRouterModService {
     private container;
     constructor(container: DependencyContainer);

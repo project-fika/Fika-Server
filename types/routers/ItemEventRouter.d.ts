@@ -2,10 +2,10 @@ import { ItemEventRouterDefinition } from "@spt/di/Router";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IItemEventRouterRequest } from "@spt/models/eft/itemEvent/IItemEventRouterRequest";
 import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRouterResponse";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { LocalisationService } from "@spt/services/LocalisationService";
-import { ICloner } from "@spt/utils/cloners/ICloner";
+import type { ICloner } from "@spt/utils/cloners/ICloner";
 export declare class ItemEventRouter {
     protected logger: ILogger;
     protected profileHelper: ProfileHelper;

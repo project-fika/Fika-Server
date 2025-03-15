@@ -1,15 +1,15 @@
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
+import { FileSystem } from "@spt/utils/FileSystem";
 import { HashUtil } from "@spt/utils/HashUtil";
-import { VFS } from "@spt/utils/VFS";
 import { IParseOptions, IStringifyOptions, Reviver } from "jsonc/lib/interfaces";
 export declare class JsonUtil {
-    protected vfs: VFS;
+    protected fileSystem: FileSystem;
     protected hashUtil: HashUtil;
     protected logger: ILogger;
     protected fileHashes?: Map<string, string>;
     protected jsonCacheExists: boolean;
     protected jsonCachePath: string;
-    constructor(vfs: VFS, hashUtil: HashUtil, logger: ILogger);
+    constructor(fileSystem: FileSystem, hashUtil: HashUtil, logger: ILogger);
     /**
      * From object to string
      * @param data object to turn into JSON
@@ -50,25 +50,28 @@ export declare class JsonUtil {
      */
     deserializeJsonC<T>(jsonString: string, filename?: string, options?: IParseOptions): T | undefined;
     deserializeJson5<T>(jsonString: string, filename?: string): T | undefined;
-    deserializeWithCacheCheckAsync<T>(jsonString: string, filePath: string): Promise<T | undefined>;
     /**
      * Take json from file and convert into object
      * Perform valadation on json during process if json file has not been processed before
      * @param jsonString String to turn into object
      * @param filePath Path to json file being processed
-     * @returns Object
+     * @returns A promise that resolves with the object if successful, if not returns undefined
      */
-    deserializeWithCacheCheck<T>(jsonString: string, filePath: string): T | undefined;
+    deserializeWithCacheCheck<T>(jsonString: string, filePath: string, writeHashes?: boolean): Promise<T | undefined>;
     /**
-     * Create file if nothing found
+     * Writes the file hashes to the cache path, to be used manually if writeHashes was set to false on deserializeWithCacheCheck
+     */
+    writeCache(): Promise<void>;
+    /**
+     * Create file if nothing found asynchronously
      * @param jsonCachePath path to cache
      */
-    protected ensureJsonCacheExists(jsonCachePath: string): void;
+    protected ensureJsonCacheExists(jsonCachePath: string): Promise<void>;
     /**
      * Read contents of json cache and add to class field
      * @param jsonCachePath Path to cache
      */
-    protected hydrateJsonCache(jsonCachePath: string): void;
+    protected hydrateJsonCache(jsonCachePath: string): Promise<void>;
     /**
      * Convert into string and back into object to clone object
      * @param objectToClone Item to clone

@@ -7,7 +7,7 @@ import { IItemEventRouterResponse } from "@spt/models/eft/itemEvent/IItemEventRo
 import { IRepairActionDataRequest } from "@spt/models/eft/repair/IRepairActionDataRequest";
 import { ITraderRepairActionDataRequest } from "@spt/models/eft/repair/ITraderRepairActionDataRequest";
 import { IRepairConfig } from "@spt/models/spt/config/IRepairConfig";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { EventOutputHolder } from "@spt/routers/EventOutputHolder";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { PaymentService } from "@spt/services/PaymentService";

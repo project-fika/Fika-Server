@@ -1,7 +1,7 @@
-import { IFikaNotificationBase } from "../IFikaNotificationBase";
 import { EEFTNotificationIconType } from "../../../enums/EEFTNotificationIconType";
+import { IFikaNotificationBase } from "../IFikaNotificationBase";
 
 export interface IPushNotification extends IFikaNotificationBase {
-    notificationIcon : EEFTNotificationIconType;
+    notificationIcon: EEFTNotificationIconType;
     notification: string;
 }

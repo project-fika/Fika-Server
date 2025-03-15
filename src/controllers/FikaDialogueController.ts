@@ -1,17 +1,17 @@
-import { inject, injectAll, injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 import { IDialogueChatBot } from "@spt/helpers/Dialogue/IDialogueChatBot";
+import { DialogueHelper } from "@spt/helpers/DialogueHelper";
 import { ProfileHelper } from "@spt/helpers/ProfileHelper";
 import { IFriendRequestSendResponse } from "@spt/models/eft/dialog/IFriendRequestSendResponse";
 import { IGetFriendListDataResponse } from "@spt/models/eft/dialog/IGetFriendListDataResponse";
 import { BackendErrorCodes } from "@spt/models/enums/BackendErrorCodes";
-import { ConfigTypes } from "@spt/models/enums/ConfigTypes";
-import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 
 import { DialogueController } from "@spt/controllers/DialogueController";
 import { ISendMessageRequest } from "@spt/models/eft/dialog/ISendMessageRequest";
-import { IMessage } from "@spt/models/eft/profile/ISptProfile";
+import { IMessage, IReplyTo } from "@spt/models/eft/profile/ISptProfile";
 import { MessageType } from "@spt/models/enums/MessageType";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { SptWebSocketConnectionHandler } from "@spt/servers/ws/SptWebSocketConnectionHandler";
@@ -25,22 +25,21 @@ import { IFriendRequestListResponse } from "../models/eft/dialog/IFriendRequestL
 export class FikaDialogueController {
     constructor(
         @inject("ProfileHelper") protected profileHelper: ProfileHelper,
-        @inject("ConfigServer") protected configServer: ConfigServer,
+        @inject("DialogueHelper") protected dialogueHelper: DialogueHelper,
         @inject("FikaFriendRequestsHelper") protected fikaFriendRequestsHelper: FikaFriendRequestsHelper,
         @inject("FikaPlayerRelationsHelper") protected fikaPlayerRelationsHelper: FikaPlayerRelationsHelper,
-        @inject("DialogueController") protected dialogController: DialogueController,
+        @inject("DialogueController") protected dialogueController: DialogueController,
         @inject("SaveServer") protected saveServer: SaveServer,
         @inject("HashUtil") protected hashUtil: HashUtil,
         @inject("TimeUtil") protected timeUtil: TimeUtil,
         @inject("SptWebSocketConnectionHandler") protected webSocketHandler: SptWebSocketConnectionHandler,
+        @inject("WinstonLogger") protected logger: ILogger,
     ) {
         // empty
     }
 
     public getFriendList(sessionID: string): IGetFriendListDataResponse {
-        // Cast to any to get rid of protected error
-        const dialogueChatBots: IDialogueChatBot[] = (this.dialogController as any).dialogueChatBots;
-        let botsAndFriends = dialogueChatBots.map((v) => v.getChatBot());
+        let botsAndFriends = (this.dialogueController as any).getActiveChatBots();
 
         const friendsIds = this.fikaPlayerRelationsHelper.getFriendsList(sessionID);
 
@@ -76,7 +75,7 @@ export class FikaDialogueController {
         const profiles = this.saveServer.getProfiles();
         if (!(sessionID in profiles) || !(request.dialogId in profiles)) {
             // if it's not to another player let SPT handle it
-            return DialogueController.prototype.sendMessage.call(this.dialogController, sessionID, request);
+            return DialogueController.prototype.sendMessage.call(this.dialogueController, sessionID, request);
         }
 
         const receiverProfile = profiles[request.dialogId];
@@ -175,10 +174,17 @@ export class FikaDialogueController {
             rewardCollected: false,
         };
 
+        if (request.replyTo) {
+            const replyMessage = this.getMessageToReplyTo(request.dialogId, request.replyTo, sessionID);
+            if (replyMessage) {
+                message.replyTo = replyMessage;
+            }
+        }
+
         senderDialog.messages.push(message);
         receiverDialog.messages.push(message);
 
-        this.webSocketHandler.sendMessage(receiverProfile.info.id, {
+        this.webSocketHandler.sendMessageAsync(receiverProfile.info.id, {
             type: "new_message",
             eventId: "new_message",
             EventId: "new_message",
@@ -187,6 +193,37 @@ export class FikaDialogueController {
         } as any);
 
         return message._id;
+    }
+
+    /**
+     * @param recipientId The id of the recipient
+     * @param replyToId The id of the message to reply to
+     * @param dialogueId The id of the dialogue (traderId or profileId)
+     * @returns A new instance with data from the found message, otherwise undefined
+     */
+    private getMessageToReplyTo(recipientId: string, replyToId: string, dialogueId: string): IReplyTo | undefined {
+        let message: IReplyTo | undefined = undefined;
+        const currentDialogue = this.dialogueHelper.getDialogueFromProfile(recipientId, dialogueId);
+
+        if (!currentDialogue) {
+            this.logger.warning(`Could not find dialogue ${dialogueId} from sender`);
+            return message;
+        }
+
+        for (const dialogueMessage of currentDialogue.messages) {
+            if (dialogueMessage._id === replyToId) {
+                message = {
+                    _id: dialogueMessage._id,
+                    dt: dialogueMessage.dt,
+                    type: dialogueMessage.type,
+                    uid: dialogueMessage.uid,
+                    text: dialogueMessage.text,
+                };
+                break;
+            }
+        }
+
+        return message;
     }
 
     public listOutbox(sessionID: string): IFriendRequestListResponse[] {

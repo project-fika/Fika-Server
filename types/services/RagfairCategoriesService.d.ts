@@ -1,7 +1,7 @@
 import { PaymentHelper } from "@spt/helpers/PaymentHelper";
 import { IRagfairOffer } from "@spt/models/eft/ragfair/IRagfairOffer";
 import { ISearchRequestData } from "@spt/models/eft/ragfair/ISearchRequestData";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 export declare class RagfairCategoriesService {
     protected logger: ILogger;
     protected paymentHelper: PaymentHelper;

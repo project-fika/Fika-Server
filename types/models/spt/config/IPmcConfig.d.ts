@@ -1,5 +1,5 @@
 import { MinMax } from "@spt/models/common/MinMax";
-import { IChancedEnemy } from "@spt/models/eft/common/ILocationBase";
+import { IBossLocationSpawn, IChancedEnemy } from "@spt/models/eft/common/ILocationBase";
 import { MemberCategory } from "@spt/models/enums/MemberCategory";
 import { IBaseConfig } from "@spt/models/spt/config/IBaseConfig";
 export interface IPmcConfig extends IBaseConfig {
@@ -14,6 +14,7 @@ export interface IPmcConfig extends IBaseConfig {
     pocketLoot: ISlotLootSettings;
     /** Global whitelist/blacklist of backpack loot for PMCs */
     backpackLoot: ISlotLootSettings;
+    globalLootBlacklist: string[];
     /** Use difficulty defined in config/bot.json/difficulty instead of chosen difficulty dropdown value */
     useDifficultyOverride: boolean;
     /** Difficulty override e.g. "AsOnline/Hard" */
@@ -33,10 +34,9 @@ export interface IPmcConfig extends IBaseConfig {
     /** What 'brain' does a PMC use, keyed by map and side (USEC/BEAR) key: map location, value: type for usec/bear */
     pmcType: Record<string, Record<string, Record<string, number>>>;
     maxBackpackLootTotalRub: IMinMaxLootValue[];
+    lootItemLimitsRub: IMinMaxLootItemValue[];
     maxPocketLootTotalRub: number;
     maxVestLootTotalRub: number;
-    /** Percentage chance a bot from a wave is converted into a PMC, first key = map, second key = bot wildspawn type (assault/exusec), value: min+max chance to be converted */
-    convertIntoPmcChance: Record<string, Record<string, MinMax>>;
     /** How many levels above player level can a PMC be */
     botRelativeLevelDeltaMax: number;
     /** How many levels below player level can a PMC be */
@@ -48,6 +48,9 @@ export interface IPmcConfig extends IBaseConfig {
     locationSpecificPmcLevelOverride: Record<string, MinMax>;
     /** Should secure container loot from usec.json/bear.json be added to pmc bots secure */
     addSecureContainerLootFromBotConfig: boolean;
+    /** key = mapid */
+    removeExistingPmcWaves: boolean;
+    customPmcWaves: Record<string, IBossLocationSpawn[]>;
 }
 export interface IHostilitySettings {
     /** Bot roles that are 100% an enemy */
@@ -66,9 +69,16 @@ export interface IPmcTypes {
     bear: string;
 }
 export interface ISlotLootSettings {
+    /** Item Type whitelist */
     whitelist: string[];
+    /** item tpl blacklist */
     blacklist: string[];
 }
 export interface IMinMaxLootValue extends MinMax {
     value: number;
+}
+export interface IMinMaxLootItemValue extends MinMax {
+    backpack: MinMax;
+    pocket: MinMax;
+    vest: MinMax;
 }

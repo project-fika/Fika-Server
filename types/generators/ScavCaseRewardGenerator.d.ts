@@ -5,7 +5,7 @@ import { ITemplateItem } from "@spt/models/eft/common/tables/ITemplateItem";
 import { IScavRecipe } from "@spt/models/eft/hideout/IHideoutProduction";
 import { IScavCaseConfig } from "@spt/models/spt/config/IScavCaseConfig";
 import { IRewardCountAndPriceDetails, IScavCaseRewardCountsAndPrices } from "@spt/models/spt/hideout/ScavCaseRewardCountsAndPrices";
-import { ILogger } from "@spt/models/spt/utils/ILogger";
+import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { DatabaseService } from "@spt/services/DatabaseService";
 import { ItemFilterService } from "@spt/services/ItemFilterService";
