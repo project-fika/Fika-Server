@@ -45,7 +45,7 @@ export class FikaConfig {
                 http: {
                     ip: "0.0.0.0",
                     port: 6969,
-                    backendIp: "127.0.0.1", // Keep this 127.0.0.1, it's better for the client as it parses this and could potentially cause issues down the line.
+                    backendIp: "0.0.0.0",
                     backendPort: 6969,
                 },
                 disableSPTChatBots: true,
