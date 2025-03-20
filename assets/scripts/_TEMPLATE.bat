@@ -3,7 +3,7 @@ TITLE Fika Headless Launcher
 IF NOT EXIST ".\\BepInEx\\plugins\\Fika.Headless.dll" GOTO DLL_NOT_EXIST
 
 :START_HEADLESS
-ECHO Starting Headless client...
+ECHO Starting Headless client... Do not close this window!
 EscapeFromTarkov.exe -token=${profileId} -config={'BackendUrl':'${backendUrl}','Version':'live'} -batchmode -nographics --enable-console true && EXIT 0 || EXIT 1
 GOTO START_HEADLESS
 
