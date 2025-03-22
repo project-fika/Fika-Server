@@ -1,6 +1,6 @@
 $profileId = "${profileId}"
 $backendUrl = "${backendUrl}"
-$graphicsMode = $False
+$graphicsMode = $false
 $version = "1.0"
 
 Write-Host "Fika Headless Watcher v$version"
@@ -11,7 +11,7 @@ Write-Host
 if (!(Test-Path "$PSScriptRoot\BepInEx\plugins\Fika.Headless.dll")) {
     Write-Host "Could not find 'Fika.Headless.dll'. Please install the Headless plugin before starting the client and make sure the .bat file is in the Headless installation directory where 'EscapeFromTarkov.exe' is."
     Read-Host
-    Exit
+    exit
 }
 
 for ($i = 0; $i -lt 3; $i++) {
