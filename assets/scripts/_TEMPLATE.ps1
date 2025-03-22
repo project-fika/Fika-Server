@@ -10,7 +10,7 @@ Write-Host "Backend Url: $BackendUrl"
 Write-Host
 
 if (!(Test-Path "$PSScriptRoot\BepInEx\plugins\Fika.Headless.dll")) {
-    Write-Host "Could not find 'Fika.Headless.dll'. Please install the Headless plugin before starting the client and make sure the .ps1 file is in the Headless installation directory where 'EscapeFromTarkov.exe' is."
+    Write-Host "Could not find 'Fika.Headless.dll'. Please install the Headless plugin before starting the client and make sure the .ps1 file is in the Headless installation directory where 'EscapeFromTarkov.exe' is." -ForegroundColor Red
     Read-Host
     exit
 }
