@@ -55,6 +55,7 @@ export class FikaRaidController {
             location: request.settings.location,
             isHeadlessRaid: this.fikaHeadlessHelper.isHeadlessClient(request.serverId),
             headlessRequesterName: this.fikaHeadlessHelper.getRequesterUsername(request.serverId) || "",
+            raidTime: request.time
         };
 
         this.fikaNotificationWebSocket.broadcast(notification);

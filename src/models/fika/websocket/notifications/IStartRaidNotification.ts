@@ -5,4 +5,5 @@ export interface IStartRaidNotification extends IFikaNotificationBase {
     location: string;
     isHeadlessRaid: boolean;
     headlessRequesterName: string;
+    raidTime: number;
 }
