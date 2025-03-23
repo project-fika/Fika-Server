@@ -26,7 +26,7 @@ for ($i = 0; $i -lt $WaitTime; $i++) {
 	if ([Console]::KeyAvailable) {
         $key = [Console]::ReadKey($true).Key
 
-	if ($key -eq "G") {
+        if ($key -eq "G") {
             $graphicsMode = $true
             break
         }
