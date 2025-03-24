@@ -23,7 +23,7 @@ for ($i = 0; $i -lt $WaitTime; $i++) {
     Write-Progress -Activity "Starting headless in $countDown... press G to start the headless in graphics mode." -PercentComplete ((100/$WaitTime)*($i+1))
     Start-Sleep -Seconds 1
 
-	if ([Console]::KeyAvailable) {
+    if ([Console]::KeyAvailable) {
         $key = [Console]::ReadKey($true).Key
 
         if ($key -eq "G") {
