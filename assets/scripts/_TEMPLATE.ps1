@@ -19,7 +19,7 @@ if (!(Test-Path "$PSScriptRoot\EscapeFromTarkov.exe")) {
 }
 
 if (!(Test-Path "$PSScriptRoot\BepInEx\plugins\Fika.Headless.dll")) {
-    Write-Host "Could not find 'Fika.Headless.dll'. Please install the Headless plugin before starting launching this script." -ForegroundColor Red
+    Write-Host "Could not find 'Fika.Headless.dll'. Please install the Headless plugin before launching this script." -ForegroundColor Red
     Write-Host "Press [ENTER] or close this window to exit..."
     Read-Host
     exit
