@@ -9,7 +9,7 @@ export interface IFikaRaidCreateRequestData {
     timestamp: string;
     settings: IGetRaidConfigurationRequestData;
     gameVersion: string;
-    fikaVersion: string;
+    crc32: number;
     side: EFikaSide;
     time: EFikaTime;
     isSpectator: boolean;
