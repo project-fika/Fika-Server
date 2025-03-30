@@ -2,6 +2,6 @@ export interface IFikaRaidJoinResponse {
     serverId: string;
     timestamp: string;
     gameVersion: string;
-    fikaVersion: string;
+    crc32: number;
     raidCode: string;
 }

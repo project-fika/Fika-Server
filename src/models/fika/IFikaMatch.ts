@@ -11,7 +11,7 @@ export interface IFikaMatch {
     port: number;
     hostUsername: string;
     timestamp: string;
-    fikaVersion: string;
+    crc32: number;
     gameVersion: string;
     raidConfig: IGetRaidConfigurationRequestData;
     locationData: ILocationBase;

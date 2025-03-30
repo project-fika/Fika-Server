@@ -76,7 +76,7 @@ export class FikaRaidController {
             serverId: request.serverId,
             timestamp: match.timestamp,
             gameVersion: match.gameVersion,
-            fikaVersion: match.fikaVersion,
+            crc32: match.crc32,
             raidCode: match.raidCode,
         };
     }

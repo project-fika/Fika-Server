@@ -180,7 +180,7 @@ export class FikaMatchService {
             timeout: 0,
             players: new Map<string, IFikaPlayer>(),
             gameVersion: data.gameVersion,
-            fikaVersion: data.fikaVersion,
+            crc32: data.crc32,
             side: data.side,
             time: data.time,
             raidCode: data.raidCode,
