@@ -46,11 +46,13 @@ import { FikaUpdateStaticRouter } from "../routers/static/FikaUpdateStaticRouter
 
 import { FikaNotificationWebSocket } from "../websockets/FikaNotificationWebSocket";
 
+import { ClientLogCallbacks } from "@spt/callbacks/ClientLogCallbacks";
 import { Fika } from "../Fika";
 import { FikaHeadlessCallbacks } from "../callbacks/FikaHeadlessCallbacks";
 import { FikaNotificationCallbacks } from "../callbacks/FikaNotificationCallbacks";
 import { FikaHeadlessController } from "../controllers/FikaHeadlessController";
 import { FikaHeadlessHelper } from "../helpers/FikaHeadlessHelper";
+import { ClientLogCallbacksOverride } from "../overrides/callbacks/ClientLogCallbacks";
 import { FikaHeadlessStaticRouter } from "../routers/static/FikaHeadlessStaticRouter";
 import { FikaNotificationStaticRouter } from "../routers/static/FikaNotificationStaticRouter";
 import { FikaClientService } from "../services/FikaClientService";
@@ -115,6 +117,7 @@ export class Container {
 
     private static registerOverrides(container: DependencyContainer): void {
         container.register<DialogueCallbacksOverride>("DialogueCallbacksOverride", DialogueCallbacksOverride, { lifecycle: Lifecycle.Singleton });
+        container.register<ClientLogCallbacksOverride>("ClientLogCallbacksOverride", ClientLogCallbacksOverride, { lifecycle: Lifecycle.Singleton });
         container.register<DialogueControllerOverride>("DialogueControllerOverride", DialogueControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<ProfileControllerOverride>("ProfileControllerOverride", ProfileControllerOverride, { lifecycle: Lifecycle.Singleton });
         container.register<HttpRouterOverride>("HttpRouterOverride", HttpRouterOverride, { lifecycle: Lifecycle.Singleton });
