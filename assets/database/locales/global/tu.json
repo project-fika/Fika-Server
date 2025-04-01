@@ -215,7 +215,7 @@
     "F_BepInEx_DynamicAINoSnipers_T": "Keskin Nişancıları Görmezden Gel",
     "F_BepInEx_DynamicAINoSnipers_D": "Dinamik Yapay Zekanın keskin nişancı görmezden gelip gelmeyeceği.",
     "F_BepInEx_FikaGC_T": "Use Fika GC",
-    "F_BepInEx_FikaGC_D": "If a custom garbage collector should be used to alleviate issues with memory usage.\nWARNING: Experimental, might have no effect at all on your sytem.",
+    "F_BepInEx_FikaGC_D": "If a custom garbage collector should be used to alleviate issues with memory usage.\nWARNING: Experimental, might have no effect at all on your system.",
     "F_BepInEx_EnforcedSpawnLimits_T": "Zorunlu Spawn Limiti",
     "F_BepInEx_EnforcedSpawnLimits_D": "Botlar ortaya çıkarken ortaya çıkma sınırlarını zorlar, vanilya sınırlarını aşmadığından emin olur. Bu, esas olarak spawn modları veya bot sınırlarını değiştiren herhangi bir şey kullanıldığında etkili olur. Bosslar gibi özel botların ortaya çıkmasını engellemez.",
     "F_BepInEx_DespawnFurthest_T": "En Uzakta Despawn",
@@ -258,7 +258,7 @@
     "F_UI_LocaleError_H": "LOCALES ERROR",
     "F_UI_LocaleError_D": "There were errors when loading the Fika locales. Translation is now using fallbacks for the failed headers. Please report this to the developers!\n\nFailed keys: {0}",
     "F_UI_EFTVersionError": "You are attempting to use a different version of EFT than what the raid host is running.\nClient: {0}\nHost: {1}",
-    "F_UI_FikaVersionError": "You are attempting to use a different version of Fika than what the raid host is running.\nClient: {0}\nHost: {1}",
+    "F_UI_FikaVersionError": "You are attempting to use a different version of Fika than what the raid host is running.\nClient crc: {0}\nHost crc: {1}",
     "F_UI_PlayerConnected": "{0} has connected",
     "F_UI_PlayerDisconnected": "{0} has disconnected",
     "F_UI_DisabledByServerHost": "Disabled by server host"

@@ -215,7 +215,7 @@
     "F_BepInEx_DynamicAINoSnipers_T": "스나이퍼 무시",
     "F_BepInEx_DynamicAINoSnipers_D": "다이나믹 AI 적용 시 스나이퍼 스캐브는 건너뛸지 여부",
     "F_BepInEx_FikaGC_T": "Use Fika GC",
-    "F_BepInEx_FikaGC_D": "If a custom garbage collector should be used to alleviate issues with memory usage.\nWARNING: Experimental, might have no effect at all on your sytem.",
+    "F_BepInEx_FikaGC_D": "If a custom garbage collector should be used to alleviate issues with memory usage.\nWARNING: Experimental, might have no effect at all on your system.",
     "F_BepInEx_EnforcedSpawnLimits_T": "스폰 제한 강제",
     "F_BepInEx_EnforcedSpawnLimits_D": "봇 스폰 시에 최대 스폰 수 제한 적용, 바닐라 제한 넘지 않도록 주의. 봇 스폰 관련 모드를 사용하게되면 이 제한에 영항을 받게 됩니다. 보스같은 특수 봇 타입은 영향을 받지 않습니다.",
     "F_BepInEx_DespawnFurthest_T": "최대거리 봇 디스폰",
@@ -258,7 +258,7 @@
     "F_UI_LocaleError_H": "언어설정 오류",
     "F_UI_LocaleError_D": "피카 언어 DB를 불러오던 중에 오류가 발생하였습니다. 불러오기 실패한 부분은 대체언어를 사용하겠습니다.\n실패한 키들: {0}",
     "F_UI_EFTVersionError": "You are attempting to use a different version of EFT than what the raid host is running.\nClient: {0}\nHost: {1}",
-    "F_UI_FikaVersionError": "You are attempting to use a different version of Fika than what the raid host is running.\nClient: {0}\nHost: {1}",
+    "F_UI_FikaVersionError": "You are attempting to use a different version of Fika than what the raid host is running.\nClient crc: {0}\nHost crc: {1}",
     "F_UI_PlayerConnected": "{0} has connected",
     "F_UI_PlayerDisconnected": "{0} has disconnected",
     "F_UI_DisabledByServerHost": "Disabled by server host"
