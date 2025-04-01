@@ -81,6 +81,10 @@ export declare class DatabaseService {
      */
     getAchievements(): IAchievement[];
     /**
+     * @returns assets/database/templates/customAchievements.json
+     */
+    getCustomAchievements(): IAchievement[];
+    /**
      * @returns assets/database/templates/customisation.json
      */
     getCustomization(): Record<string, ICustomizationItem>;

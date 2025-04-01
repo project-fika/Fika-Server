@@ -14,7 +14,6 @@ import { IGameKeepAliveResponse } from "@spt/models/eft/game/IGameKeepAliveRespo
 import { IGameModeRequestData } from "@spt/models/eft/game/IGameModeRequestData";
 import { IGameModeResponse } from "@spt/models/eft/game/IGameModeResponse";
 import { IGetRaidTimeRequest } from "@spt/models/eft/game/IGetRaidTimeRequest";
-import { IGetRaidTimeResponse } from "@spt/models/eft/game/IGetRaidTimeResponse";
 import { IServerDetails } from "@spt/models/eft/game/IServerDetails";
 import { ISurveyResponseData } from "@spt/models/eft/game/ISurveyResponseData";
 import { ISptProfile } from "@spt/models/eft/profile/ISptProfile";
@@ -23,6 +22,7 @@ import { ICoreConfig } from "@spt/models/spt/config/ICoreConfig";
 import { IHideoutConfig } from "@spt/models/spt/config/IHideoutConfig";
 import { IHttpConfig } from "@spt/models/spt/config/IHttpConfig";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
+import { IRaidChanges } from "@spt/models/spt/location/IRaidChanges";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
 import { CreateProfileService } from "@spt/services/CreateProfileService";
@@ -107,7 +107,7 @@ export declare class GameController {
     /**
      * Handle singleplayer/settings/getRaidTime
      */
-    getRaidTime(sessionId: string, request: IGetRaidTimeRequest): IGetRaidTimeResponse;
+    getRaidTime(sessionId: string, request: IGetRaidTimeRequest): IRaidChanges;
     /**
      * Players set botReload to a high value and don't expect the crazy fast reload speeds, give them a warn about it
      * @param pmcProfile Player profile

@@ -100,7 +100,7 @@ export declare class RepeatableQuestController {
      * @param pmcData Player profile
      * @returns Quest count
      */
-    protected getQuestCount(repeatableConfig: IRepeatableQuestConfig, pmcData: IPmcData): number;
+    protected getQuestCount(repeatableConfig: IRepeatableQuestConfig, fullProfile: ISptProfile): number;
     /**
      * Get repeatable quest data from profile from name (daily/weekly), creates base repeatable quest object if none exists
      * @param repeatableConfig daily/weekly config

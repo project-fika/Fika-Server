@@ -11,8 +11,11 @@ import { IUserDialogInfo } from "./IUserDialogInfo";
 export interface ISptProfile {
     info: Info;
     characters: ICharacters;
-    /** Clothing purchases */
-    suits: string[];
+    /**
+     * @deprecated
+     * Removed in 3.11 - clothing now stored in customisationUnlocks
+     */
+    suits?: string[];
     userbuilds: IUserBuilds;
     dialogues: Record<string, IDialogue>;
     spt: ISpt;
@@ -23,6 +26,7 @@ export interface ISptProfile {
     traderPurchases?: Record<string, Record<string, ITraderPurchaseData>>;
     /** List of friend profile IDs */
     friends: string[];
+    /** Stores profile-related customisation, e.g. clothing / hideout walls / floors */
     customisationUnlocks: ICustomisationStorage[];
 }
 export interface ITraderPurchaseData {
@@ -157,6 +161,8 @@ export interface ISpt {
     /** Cultist circle rewards received that are one time use, key (md5) is a combination of sacrificed + reward items */
     cultistRewards?: Map<string, IAcceptedCultistReward>;
     pendingPrestige?: IPendingPrestige;
+    /** Track the number of extra repeatable quests available */
+    extraRepeatableQuests?: Record<string, number>;
 }
 export interface IPendingPrestige {
     prestigeLevel: number;

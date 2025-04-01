@@ -68,11 +68,11 @@ export declare class TraderHelper {
      */
     protected getStartingStanding(traderId: string, rawProfileTemplate: IProfileTraderTemplate): number;
     /**
-     * Add an array of suit ids to a profiles suit array, no duplicates
+     * Add an array of clothing ids to a profile, prevents dupes
      * @param fullProfile Profile to add to
-     * @param suitIds Suit Ids to add
+     * @param suitIds Clothing Ids to add
      */
-    protected addSuitsToProfile(fullProfile: ISptProfile, suitIds: string[]): void;
+    addSuitsToProfile(fullProfile: ISptProfile, suitIds: string[]): void;
     /**
      * Alter a traders unlocked status
      * @param traderId Trader to alter

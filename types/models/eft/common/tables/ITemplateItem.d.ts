@@ -88,7 +88,7 @@ export interface IProps {
     EffectiveDistance?: number;
     Ergonomics?: number;
     Velocity?: number;
-    WeaponRecoilSettings: IWeaponRecoilSettings;
+    WeaponRecoilSettings?: IWeaponRecoilSettings;
     WithAnimatorAiming?: boolean;
     RaidModdable?: boolean;
     ToolModdable?: boolean;

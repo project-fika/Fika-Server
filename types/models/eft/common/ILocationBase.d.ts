@@ -190,7 +190,7 @@ export interface IBossLocationSpawn {
     IgnoreMaxBots?: boolean;
     Supports?: IBossSupport[];
     sptId?: string;
-    spawnMode: string[];
+    SpawnMode: string[];
 }
 export interface IBossSupport {
     BossEscortAmount: string;

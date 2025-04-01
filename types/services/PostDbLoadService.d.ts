@@ -45,6 +45,8 @@ export declare class PostDbLoadService {
     protected cloneExistingCraftsAndAddNew(): void;
     protected adjustMinReserveRaiderSpawnChance(): void;
     protected addCustomLooseLootPositions(): void;
+    /** Merge custom achievemetns into achievement db table */
+    protected mergeCustomAchievements(): void;
     /**
      * BSG have two values for shotgun dispersion, we make sure both have the same value
      */
@@ -53,6 +55,7 @@ export declare class PostDbLoadService {
     protected adjustMapBotLimits(): void;
     protected adjustLooseLootSpawnProbabilities(): void;
     protected adjustLocationBotValues(): void;
+    protected addChristmasTreeAreaIfMissing(): void;
     /**
      * Make Rogues spawn later to allow for scavs to spawn first instead of rogues filling up all spawn positions
      */

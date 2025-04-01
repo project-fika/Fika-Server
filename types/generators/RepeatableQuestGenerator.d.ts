@@ -5,7 +5,7 @@ import { IExit } from "@spt/models/eft/common/ILocationBase";
 import { ITraderInfo } from "@spt/models/eft/common/tables/IBotBase";
 import { IQuestCondition, IQuestConditionCounterCondition } from "@spt/models/eft/common/tables/IQuest";
 import { IRepeatableQuest } from "@spt/models/eft/common/tables/IRepeatableQuests";
-import { IBossInfo, IEliminationConfig, IQuestConfig, IRepeatableQuestConfig } from "@spt/models/spt/config/IQuestConfig";
+import { IBossInfo, ICompletion, IEliminationConfig, IQuestConfig, IRepeatableQuestConfig } from "@spt/models/spt/config/IQuestConfig";
 import { IQuestTypePool } from "@spt/models/spt/repeatable/IQuestTypePool";
 import type { ILogger } from "@spt/models/spt/utils/ILogger";
 import { ConfigServer } from "@spt/servers/ConfigServer";
@@ -88,12 +88,12 @@ export declare class RepeatableQuestGenerator {
     /**
      * A repeatable quest, besides some more or less static components, exists of reward and condition (see assets/database/templates/repeatableQuests.json)
      * This is a helper method for GenerateCompletionQuest to create a completion condition (of which a completion quest theoretically can have many)
-     *
-     * @param   {string}    itemTpl    id of the item to request
-     * @param   {integer}   value           amount of items of this specific type to request
-     * @returns {object}                    object of "Completion"-condition
+     * @param itemTpl Tpl of item to add create condition around
+     * @param value Number of items to add to condition
+     * @param completionConfig completion config from quest.json
+     * @returns Quest condition object
      */
-    protected generateCompletionAvailableForFinish(itemTpl: string, value: number): IQuestCondition;
+    protected generateCompletionAvailableForFinish(itemTpl: string, value: number, completionConfig: ICompletion): IQuestCondition;
     /**
      * Generates a valid Exploration quest
      *

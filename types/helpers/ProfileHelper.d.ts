@@ -231,6 +231,13 @@ export declare class ProfileHelper {
      */
     getOtherProfileFavorites(profile: IPmcData): IItem[];
     /**
+     * Add the given number of extra repeatable quests for the given type of repeatable to the users profile
+     * @param fullProfile Profile to add the extra repeatable to
+     * @param repeatableId The ID of the type of repeatable to increase
+     * @param value The number of extra repeatables to add
+     */
+    addExtraRepeatableQuest(fullProfile: ISptProfile, repeatableId: string, value: number): void;
+    /**
      * Store a hideout customisation unlock inside a profile
      * @param fullProfile Profile to add unlock to
      * @param reward reward given to player with customisation data
