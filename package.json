@@ -1,6 +1,6 @@
 {
     "name": "server",
-    "version": "2.4.3",
+    "version": "2.4.4",
     "sptVersion": "~3.11",
     "main": "src/mod.js",
     "scripts": {
