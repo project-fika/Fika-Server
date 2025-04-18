@@ -55,7 +55,7 @@ export class FikaHeadlessRequesterWebSocket implements IWebSocketConnectionHandl
         const clientWebSocket = this.requesterWebSockets[sessionID];
 
         if (clientWebSocket === ws) {
-            this.logger.debug(`[${this.getSocketId()}] Deleting client ${sessionID}`);
+            this.logger.debug(`[${this.getSocketId()}] Deleting requester ${sessionID}`);
 
             delete this.requesterWebSockets[sessionID];
         }
@@ -66,11 +66,13 @@ export class FikaHeadlessRequesterWebSocket implements IWebSocketConnectionHandl
 
         // Client is not online or not currently connected to the websocket.
         if (!client) {
+            this.logger.debug(`[${this.getSocketId()}] Requester (${sessionID}) is not connected yet?`);
             return;
         }
 
         // Client was formerly connected to the websocket, but may have connection issues as it didn't run onClose
         if (client.readyState === WebSocket.CLOSED) {
+            this.logger.debug(`[${this.getSocketId()}] Requester (${sessionID})'s websocket is closed?`);
             return;
         }
 
