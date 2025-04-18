@@ -1,7 +1,5 @@
 import { inject, injectable } from "tsyringe";
 
-import type { ILogger } from "@spt/models/spt/utils/ILogger";
-import { ConfigServer } from "@spt/servers/ConfigServer";
 import { SaveServer } from "@spt/servers/SaveServer";
 import { EHeadlessStatus } from "../models/enums/EHeadlessStatus";
 import { IHeadlessAvailableClients } from "../models/fika/headless/IHeadlessAvailableClients";
@@ -26,7 +24,7 @@ export class FikaHeadlessHelper {
      *
      * @returns A map where the key is the sessionID and the value is an IHeadlessClientInfo object
      */
-    public getHeadlessClients(): Map<string, IHeadlessClientInfo> {
+    public getHeadlessClients(): [string, IHeadlessClientInfo][] {
         return this.FikaHeadlessService.getHeadlessClients();
     }
 
