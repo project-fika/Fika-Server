@@ -24,7 +24,7 @@ export class FikaHeadlessHelper {
      *
      * @returns A map where the key is the sessionID and the value is an IHeadlessClientInfo object
      */
-    public getHeadlessClients(): [string, IHeadlessClientInfo][] {
+    public getHeadlessClients(): Map<string, IHeadlessClientInfo> {
         return this.FikaHeadlessService.getHeadlessClients();
     }
 
