@@ -20,7 +20,7 @@ export class FikaHeadlessStaticRouter extends StaticRouter {
                 return this.fikaHeadlessCallbacks.handleRestartAfterRaidAmount(url, info, sessionID);
             }),
             new RouteAction("/fika/headless/questtemplates", async (url: string, info: any, sessionID: string, _output: string): Promise<IGetBodyResponseData<IQuest[]>> => {
-                return this.fikaHeadlessCallbacks.getAllQuestTemplates(url, info, sessionID);
+                return this.fikaHeadlessCallbacks.handleGetAllQuestTemplates(url, info, sessionID);
             }),
         ]);
     }
