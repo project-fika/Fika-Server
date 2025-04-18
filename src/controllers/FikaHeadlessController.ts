@@ -22,8 +22,17 @@ export class FikaHeadlessController {
      */
     public handleGetHeadlesses(): IHeadlessClients {
         const data: IHeadlessClients = {
-            headlesses: Array.from(this.fikaHeadlessHelper.getHeadlessClients().entries()),
+            headlesses: {},
         };
+
+        for (const [headlessSessionID, headless] of this.fikaHeadlessHelper.getHeadlessClients()) {
+            data.headlesses[headlessSessionID] = {
+                state: headless.state,
+                players: headless.players,
+                requesterSessionID: headless.requesterSessionID,
+                hasNotifiedRequester: headless.hasNotifiedRequester,
+            };
+        }
 
         return data;
     }
