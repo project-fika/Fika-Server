@@ -1,5 +1,8 @@
 import { inject, injectable } from "tsyringe";
 
+import { QuestHelper } from "@spt/helpers/QuestHelper";
+import { IQuest } from "@spt/models/eft/common/tables/IQuest";
+import { QuestStatus } from "@spt/models/enums/QuestStatus";
 import { FikaHeadlessHelper } from "../helpers/FikaHeadlessHelper";
 import { IHeadlessAvailableClients } from "../models/fika/headless/IHeadlessAvailableClients";
 import { IHeadlessClients } from "../models/fika/headless/IHeadlessClients";
@@ -11,6 +14,7 @@ export class FikaHeadlessController {
     constructor(
         @inject("FikaHeadlessHelper") protected fikaHeadlessHelper: FikaHeadlessHelper,
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
+        @inject("QuestHelper") protected questHelper: QuestHelper,
     ) {}
 
     /**
@@ -40,5 +44,18 @@ export class FikaHeadlessController {
         };
 
         return data;
+    }
+
+    /**
+     * Handle /fika/headless/questtemplates
+     */
+    public handleGetAllQuestTemplates(): IQuest[] {
+        const quests = this.questHelper.getQuestsFromDb();
+
+        for (const quest of quests) {
+            quest.sptStatus = QuestStatus.AvailableForStart;
+        }
+
+        return quests;
     }
 }

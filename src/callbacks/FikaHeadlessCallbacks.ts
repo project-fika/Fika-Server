@@ -2,8 +2,6 @@ import { inject, injectable } from "tsyringe";
 
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
-import { QuestHelper } from "@spt/helpers/QuestHelper";
-import { QuestStatus } from "@spt/models/enums/QuestStatus";
 import { IQuest } from "../../types/models/eft/common/tables/IQuest";
 import { IGetBodyResponseData } from "../../types/models/eft/httpResponse/IGetBodyResponseData";
 import { FikaHeadlessController } from "../controllers/FikaHeadlessController";
@@ -14,7 +12,6 @@ export class FikaHeadlessCallbacks {
     constructor(
         @inject("HttpResponseUtil") protected httpResponseUtil: HttpResponseUtil,
         @inject("FikaHeadlessController") protected fikaHeadlessController: FikaHeadlessController,
-        @inject("QuestHelper") protected questHelper: QuestHelper,
     ) {
         // empty
     }
@@ -35,11 +32,7 @@ export class FikaHeadlessCallbacks {
     }
 
     /** Handle /fika/headless/questtemplates */
-    public getAllQuestTemplates(_url: string, _info: any, _sessionID: string): IGetBodyResponseData<IQuest[]> {
-        const quests = this.questHelper.getQuestsFromDb();
-        for (const quest of quests) {
-            quest.sptStatus = QuestStatus.AvailableForStart;
-        }
-        return this.httpResponseUtil.getBody(quests);
+    public handleGetAllQuestTemplates(_url: string, _info: any, _sessionID: string): IGetBodyResponseData<IQuest[]> {
+        return this.httpResponseUtil.getBody(this.fikaHeadlessController.handleGetAllQuestTemplates());
     }
 }
