@@ -22,7 +22,7 @@ export class FikaHeadlessController {
      */
     public handleGetHeadlesses(): IHeadlessClients {
         const data: IHeadlessClients = {
-            headlesses: this.fikaHeadlessHelper.getHeadlessClients(),
+            headlesses: Array.from(this.fikaHeadlessHelper.getHeadlessClients().entries()),
         };
 
         return data;
