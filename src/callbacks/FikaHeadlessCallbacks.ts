@@ -2,8 +2,8 @@ import { inject, injectable } from "tsyringe";
 
 import { HttpResponseUtil } from "@spt/utils/HttpResponseUtil";
 
-import { IQuest } from "../../types/models/eft/common/tables/IQuest";
-import { IGetBodyResponseData } from "../../types/models/eft/httpResponse/IGetBodyResponseData";
+import { IQuest } from "@spt/models/eft/common/tables/IQuest";
+import { IGetBodyResponseData } from "@spt/models/eft/httpResponse/IGetBodyResponseData";
 import { FikaHeadlessController } from "../controllers/FikaHeadlessController";
 import { IFikaRaidServerIdRequestData } from "../models/fika/routes/raid/IFikaRaidServerIdRequestData";
 
