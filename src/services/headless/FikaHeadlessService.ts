@@ -24,8 +24,8 @@ export class FikaHeadlessService {
         @inject("FikaConfig") protected fikaConfig: FikaConfig,
     ) {}
 
-    public getHeadlessClients(): Map<string, IHeadlessClientInfo> {
-        return this.headlessClients;
+    public getHeadlessClients(): [string, IHeadlessClientInfo][] {
+        return Array.from(this.headlessClients.entries());
     }
 
     public addHeadlessClient(sessionID: string, webSocket: SPTWebSocket): void {
