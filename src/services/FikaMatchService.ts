@@ -99,7 +99,7 @@ export class FikaMatchService {
     }
 
     /**
-     * Returns the player with the given id in the given match, undefined if either match or player does not exist
+     * Returns the player with the given id in the given match, returns undefined if either match or player does not exist
      * @param matchId
      * @param playerId
      * @returns
@@ -117,12 +117,12 @@ export class FikaMatchService {
     }
 
     /**
-     * Returns the match id that has a player with the given player id, undefined if the player isn't in a match
+     * Returns the match id that has a player with the given player id, returns undefined if the player isn't in a match
      *
      * @param playerId
      * @returns
      */
-    public getMatchIdByPlayer(playerId: string): string {
+    public getMatchIdByPlayer(playerId: string): string | undefined {
         for (const [key, value] of this.matches.entries()) {
             if (value.players.has(playerId)) {
                 return key;
@@ -133,14 +133,14 @@ export class FikaMatchService {
     }
 
     /**
-     * Returns the match id that has a player with the given session id, undefined if the player isn't in a match
+     * Returns the match id that has a player with the given session id, returns undefined if the player isn't in a match
      *
      * Note:
      * - First tries to find pmc, then scav
      * @param sessionId
      * @returns
      */
-    public getMatchIdByProfile(sessionId: string): string {
+    public getMatchIdByProfile(sessionId: string): string | undefined {
         const profile = this.saveServer.getProfile(sessionId);
 
         // check if pmc is in match
