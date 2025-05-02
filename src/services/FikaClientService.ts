@@ -8,7 +8,6 @@ import { SaveServer } from "@spt/servers/SaveServer";
 import { FikaClientModHashesHelper } from "../helpers/FikaClientModHashesHelper";
 import { IFikaConfigHeadless } from "../models/fika/config/IFikaConfigHeadless";
 import { IFikaConfigNatPunchServer } from "../models/fika/config/IFikaConfigNatPunchServer";
-import { IFikaConfigServer } from "../models/fika/config/IFikaConfigServer";
 import { IFikaCheckModRequestData } from "../models/fika/routes/client/check/IFikaCheckModRequestData";
 import { IFikaCheckModResponse, IVersionCheckResponse } from "../models/fika/routes/client/check/IFikaCheckModResponse";
 import { FikaConfig } from "../utils/FikaConfig";

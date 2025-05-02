@@ -7,6 +7,7 @@ import { SPTWebSocket } from "@spt/servers/ws/SPTWebsocket";
 import { FikaHeadlessHelper } from "../helpers/FikaHeadlessHelper";
 import { EFikaHeadlessWSMessageTypes } from "../models/enums/EFikaHeadlessWSMessageTypes";
 import { IFikaHeadlessBase } from "../models/fika/websocket/IFikaHeadlessBase";
+import { FikaMatchService } from "../services/FikaMatchService";
 import { FikaHeadlessService } from "../services/headless/FikaHeadlessService";
 
 @injectable()
@@ -16,6 +17,7 @@ export class FikaHeadlessClientWebSocket implements IWebSocketConnectionHandler 
     constructor(
         @inject("FikaHeadlessHelper") protected fikaHeadlessHelper: FikaHeadlessHelper,
         @inject("FikaHeadlessService") protected fikaHeadlessService: FikaHeadlessService,
+        @inject("FikaMatchService") protected fikaMatchService: FikaMatchService,
         @inject("WinstonLogger") protected logger: ILogger,
     ) {
         // Keep websocket connections alive
@@ -52,6 +54,11 @@ export class FikaHeadlessClientWebSocket implements IWebSocketConnectionHandler 
 
         ws.on("message", (msg) => this.onMessage(UserSessionID, msg.toString()));
         ws.on("close", (code, reason) => this.onClose(ws, UserSessionID, code, reason));
+
+        // Cleanup match if headless has crashed before re-adding it as an available client
+        if (this.fikaMatchService.getMatchIdByProfile(UserSessionID)) {
+            this.fikaMatchService.deleteMatch(UserSessionID);
+        }
 
         this.fikaHeadlessService.addHeadlessClient(UserSessionID, ws);
     }
